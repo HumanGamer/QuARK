@@ -1,4 +1,4 @@
-; QuArK installer x.x.x
+; QuArK installer script for NSIS
 ; HomePage: http://quark.sourceforge.net/
 ; Author:  Fredrick Vamstad, DanielPharos & cdunde
 ; Date:     18 Aug. 2005 & 5 January 2007
@@ -7,16 +7,16 @@
 
 ; Setup and Use to create QuArK NSIS installer:
 ; ============================================
-; 1) Change "INSTALLER_EXENAME" (line 31) below to the name of the installer executable file.
-; 2) Change "PRODUCT_VERSION" (line 33) below to match the new version number.
-; 3) Change "InstallDir" (line 44) below to the new Program Files location.
+; 1) Change "INSTALLER_EXENAME" (line 27) below to the name of the installer executable file.
+; 2) Change "PRODUCT_VERSION" (line 30) below to match the new version number.
+; 3) Change "InstallDir" (line 41) below to the new Program Files location.
 ; 4) Create a folder named " QuArK_installer_files " in your C:\ directory.
 ; 5) Place the QuArK.exe, all runtime files and the help folder in the above folder.
 ; 6) Create a folder named " QuArK_installer_splash_image " in your C:\ directory.
 ; 7) Copy the install_header.bmp and install_splash.bmp files from utils\nsis-dist-tools folder to the above folder.
 ; 8) Click on NSIS.exe to start program, select "MakeNSISW (compiler interface)".
 ; 9) Drag this file, QuArK.nsi, into the compiler window, or use the "File > Load Script" method to open this file.
-; 10) The finished QuArK installer will be place in the same location as this file, ready for distrubution!
+; 10) The finished QuArK installer will be place in the same location as this file, ready for distribution!
 
 ; Modern UI 2 ------
 !include "MUI2.nsh"
@@ -181,6 +181,8 @@ Section "$(TEXT_SEC01_TITLE)" SEC01
   File "${BUILDDIR}\addons\6DX\*.*"
   SetOutPath "$INSTDIR\addons\Alice"
   File "${BUILDDIR}\addons\Alice\*.*"
+  SetOutPath "$INSTDIR\addons\Alice\maps"
+  File "${BUILDDIR}\addons\Alice\maps\*.*"
   SetOutPath "$INSTDIR\addons\CoD1"
   File "${BUILDDIR}\addons\CoD1\*.*"
   SetOutPath "$INSTDIR\addons\CoD2"
@@ -330,6 +332,7 @@ Section Uninstall
   Delete "$INSTDIR\addons\Crystal_Space\*.*"
   Delete "$INSTDIR\addons\CoD2\*.*"
   Delete "$INSTDIR\addons\CoD1\*.*"
+  Delete "$INSTDIR\addons\Alice\maps\*.*"
   Delete "$INSTDIR\addons\Alice\*.*"
   Delete "$INSTDIR\addons\6DX\*.*"
   Delete "$INSTDIR\addons\*.*"
