@@ -3069,7 +3069,6 @@ procedure SaveAsMapTextTPolygon(ObjectToSave: QObject; MapSaveSettings: TMapSave
 var
  J: Integer;
  Q: QObject;
- S:String;
  { BrushPrim, Valve220Map : Boolean }
  MapFormat: TMapFormatTypes;
 begin
@@ -3105,14 +3104,7 @@ begin
      Brush.Add('   side'#13#10'   {');
    SaveAsMapTextTFace(PSurface(Faces[J])^.F, MapSaveSettings, Brush, OriginBrush, Flags2);
    if MapFormat=HL2Type then
-   begin
-     S:=PSurface(Faces[J])^.F.Specifics.values['lightmapscale'];
-     if S<>'' then
-       Brush.Add('    "lightmapscale" "'+S+'"')
-     else
-       Brush.Add('    "lightmapscale" "16"');
      Brush.Add('   }');
-   end
   end
  else
   for J:=0 to SubElements.Count-1 do
@@ -3796,7 +3788,7 @@ begin
    {texture name}
    TextureName:=NomTex;
    if MapSaveSettings.MapFormat=HL2Type then
-     S:= S+#13#10'    "material" "';
+     S:=S+#13#10'    "material" "';
 
    if MapSaveSettings.MapVersion>1 then
      TextureName:='"'+ConcatPaths([GameTexturesPath, TextureName])+'"';
@@ -4023,6 +4015,14 @@ begin
 
   if (MapSaveSettings.MapFormat=QetpType) then
     S:=S+TxField[(MapSaveSettings.GameCode>='A') and (MapSaveSettings.GameCode<='Z'), EtpMirror];
+
+  if (MapSaveSettings.MapFormat=HL2Type) then
+  begin
+    if F.Specifics.values['lightmapscale']<>'' then
+      S:=S+#13#10'    "lightmapscale" "'+F.Specifics.values['lightmapscale']+'"'
+    else
+      S:=S+#13#10'    "lightmapscale" "16"';
+  end;
 
   Brush.Add(S);
 
