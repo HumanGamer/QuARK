@@ -3793,6 +3793,16 @@ QQRKSRC1
         txt = "&"
         hint = "Min occluder area"
       }
+//      maxoccludeearea_x360: =
+//      {
+//        txt = "&"
+//        hint = "Max occludee area (Xbox 360)"
+//      }
+//      minoccluderarea_x360: =
+//      {
+//        txt = "&"
+//        hint = "Min occluder area (Xbox 360)"
+//      }
       maxpropscreenwidth: =
       {
         txt = "&"
@@ -3802,6 +3812,21 @@ QQRKSRC1
       {
         txt = "&"
         hint = "End Fade Pixels"
+      }
+      detailvbsp: =
+      {
+        txt = "&"
+        hint = "Detail.vbsp file"
+      }
+      detailmaterial: =
+      {
+        txt = "&"
+        hint = "Detail material file"
+      }
+      coldworld: =
+      {
+        txt = "&"
+        hint = "World is cold"
       }
     }
     worldspawn:form =
