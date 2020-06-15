@@ -54,11 +54,7 @@ QQRKSRC1
     {
       maxpropscreenwidth = "-1"
       skyname = "sky_wasteland02"
-      newunit = "0"
-      gametitle = "0"
-      startdark = "0"
       message = ""
-      chaptertitle = ""
       border walls:g =
       {
         East wall:p =
