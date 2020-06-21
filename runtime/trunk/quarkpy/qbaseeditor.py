@@ -56,8 +56,7 @@ class BaseEditor:
         self.lastscale = 0
         self.setupchanged(None)
         self.ReopenRoot(form)
-        self.setupchanged1 = (self.setupchanged,)
-        apply(SetupRoutines.append, self.setupchanged1)
+        SetupRoutines.append(self.setupchanged)
 
    # def __del__(self):
    #     debug("MapEditor closes")
@@ -630,9 +629,8 @@ class BaseEditor:
 
     def onclose(self, form):
         "Called when the map/model editor is closed."
-        if self.setupchanged1[0] in SetupRoutines:
-            apply(SetupRoutines.remove, self.setupchanged1)
-        self.setupchanged1 = (None, )
+        if self.setupchanged in SetupRoutines:
+            SetupRoutines.remove(self.setupchanged)
         if self.layout is not None:
             quarkx.setupsubset(self.MODE, "Layouts")["_layout"] = self.layout.shortname
         self.setlayout(form, None)

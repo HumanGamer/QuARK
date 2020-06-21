@@ -65,8 +65,7 @@ def mdlmgr_setupchanged(level):
         treeviewselchanged = 0
 
 # This registers the 'magic' function above, so it's called whenever the setup is changed
-setupchanged1 = (mdlmgr_setupchanged,)
-apply(SetupRoutines.append, setupchanged1)
+qutils.SetupRoutines.append(mdlmgr_setupchanged)
 
 class ModelLayout(BaseLayout):
     "An abstract base class for Model Editor screen layouts."

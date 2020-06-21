@@ -15,6 +15,7 @@ import mdlhandles
 import dlgclasses
 from qeditor import ico_dict # Get the dictionary list of all icon image files available.
 import qtoolbar              # Get the toolbar functions to make buttons with.
+import qutils
 
 
 #
@@ -248,8 +249,7 @@ def menu_setupchanged(level):
         editor.initmenu(editor.form)
 
 # This registers the 'magic' function above, so it's called whenever the setup is changed
-setupchanged1 = (menu_setupchanged,)
-apply(SetupRoutines.append, setupchanged1)
+qutils.SetupRoutines.append(menu_setupchanged)
 
 
 ###############################
