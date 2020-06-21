@@ -3572,8 +3572,9 @@ begin
  else
    TextureSizesFree:=False;
  try
- 
+
  F:=TFace(ObjectToSave);
+
  if MapSaveSettings.BrushDefVersion < 2 then
   begin
    if not F.GetThreePoints(P[1], P[3], P[2]) or not F.LoadData then
@@ -4022,6 +4023,10 @@ begin
       S:=S+#13#10'    "lightmapscale" "'+F.Specifics.values['lightmapscale']+'"'
     else
       S:=S+#13#10'    "lightmapscale" "16"';
+    if F.Specifics.values['smoothing_groups']<>'' then
+      S:=S+#13#10'    "smoothing_groups" "'+F.Specifics.values['smoothing_groups']+'"'
+    else
+      S:=S+#13#10'    "smoothing_groups" "0"';
   end;
 
   Brush.Add(S);
