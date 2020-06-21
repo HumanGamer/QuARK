@@ -3087,6 +3087,10 @@ begin
 
  Brush.Add(' {');
 
+ if MapFormat=HL2Type then
+  if Specifics.Values['id']<>'' then
+   Brush.Add('   "id" "'+Specifics.Values['id']+'"');
+
  if MapFormat=BPType then
  begin
   case MapSaveSettings.BrushDefVersion of
@@ -3718,7 +3722,11 @@ begin
  {start writing out a face}
  S:='  ';
  if MapSaveSettings.MapFormat=HL2Type then
-   S:= S+ '  "plane" "';
+ begin
+   if F.Specifics.values['id']<>'' then
+     S:=S+'  "id" "'+F.Specifics.values['id']+'"'#13#10'  ';
+   S:=S+'  "plane" "';
+ end;
 
  if MapSaveSettings.BrushDefVersion < 2 then
   begin
@@ -3788,8 +3796,6 @@ begin
 
    {texture name}
    TextureName:=NomTex;
-   if MapSaveSettings.MapFormat=HL2Type then
-     S:=S+#13#10'    "material" "';
 
    if MapSaveSettings.MapVersion>1 then
      TextureName:='"'+ConcatPaths([GameTexturesPath, TextureName])+'"';
@@ -3799,10 +3805,10 @@ begin
    if not (SetupGameSet.Specifics.Values['TextureNameDontReverseSlashes']<>'') then
      TextureName:=ReverseSlashes(TextureName);
 
-   S:=S+TextureName;
-
    if MapSaveSettings.MapFormat=HL2Type then
-     S:= S+'"';
+     S:=S+#13#10'    "material" "'+TextureName+'"'
+   else
+     S:=S+TextureName;
 
    {texture coordinates}
    case MapSaveSettings.MapFormat of

@@ -290,14 +290,15 @@ expected one.
    t_txarray = array [1..5] of double;
  var
    V : t_vectarray ;
-   u_txdata,v_txdata :  t_txarray;
+   u_txdata,v_txdata : t_txarray;
+   side_id:string;
    aryn: array of double;
    aryd: array of double;
    row:integer;
    nrows:integer;
 
   //"(-512 0 64) (0 0 64) (0 -512 64)"
-  function readface(s:string): t_vectarray;
+  function ReadFace(const s:string): t_vectarray;
   var
     i,p,q: Integer;
 
@@ -335,9 +336,6 @@ expected one.
 
 
  begin
-
-
-
   ReadSymbol(sStringToken); // solid
   ReadSymbol(sCurlyBracketLeft);
   Inc(BrushNum);
@@ -350,7 +348,7 @@ expected one.
   begin
     S1:=S;
     ReadSymbol(sStringQuotedToken);
-    S1:=S;
+    P.Specifics.Add(S1+'='+S);
     ReadSymbol(sStringQuotedToken);
   end;
 
@@ -370,6 +368,7 @@ expected one.
   while (SymbolType=sStringToken) and (CompareText(S,'side')=0) do
   begin
     Inc(FaceNum);
+    side_id:='';
 
     ReadSymbol(sStringToken); // side
     ReadSymbol(sCurlyBracketLeft);
@@ -379,7 +378,12 @@ expected one.
     begin
       S1:=S;
       ReadSymbol(sStringQuotedToken);
-      if (S1='plane') then
+      if (S1='id') then
+      begin
+        // read id
+        side_id:=S;
+      end
+      else if (S1='plane') then
       begin
         // read plane
         v:=ReadFace(s);
@@ -390,41 +394,41 @@ expected one.
           ShowMessage('LoadData failure');
 
       end
-      else
-        if (S1='material') then
-        begin
-          // read material
-          Surface.NomTex:=S;
-        end
-        else
-          if (S1='uaxis') then
-          begin
-           // read uaxis
-           u_txdata:=readtxdata(s);
+      else if (S1='material') then
+      begin
+        // read material
+        Surface.NomTex:=S;
+      end
+      else if (S1='uaxis') then
+      begin
+       // read uaxis
+       u_txdata:=readtxdata(s);
 
-           UAxis.x:= u_txdata[1];
-           UAxis.y:= u_txdata[2];
-           UAxis.z:= u_txdata[3];
-           UShift:=  u_txdata[4];
-           Params[4]:=u_txdata[5];
-          end
-          else
-            if (S1='vaxis') then
-            begin
-              // read vaxis
-              v_txdata:=readtxdata(s);
-              VAxis.x:= v_txdata[1];
-              VAxis.y:= v_txdata[2];
-              VAxis.z:= v_txdata[3];
-              VShift:=  v_txdata[4];
-              Params[5]:=v_txdata[5];
-            end;
+       UAxis.x:= u_txdata[1];
+       UAxis.y:= u_txdata[2];
+       UAxis.z:= u_txdata[3];
+       UShift:=  u_txdata[4];
+       Params[4]:=u_txdata[5];
+      end
+      else if (S1='vaxis') then
+      begin
+        // read vaxis
+        v_txdata:=readtxdata(s);
+        VAxis.x:= v_txdata[1];
+        VAxis.y:= v_txdata[2];
+        VAxis.z:= v_txdata[3];
+        VShift:=  v_txdata[4];
+        Params[5]:=v_txdata[5];
+      end;
 
       ReadSymbol(sStringQuotedToken);
     end; // side attributes
 
     if not WC22Params(Surface, Params, UAxis, VAxis, UShift, VShift) then
       g_MapError.AddText('Problem with texture scale of face '+IntToStr(FaceNum)+ ' in brush '+IntToStr(BrushNum)); //FIXME: Move to dict!
+
+    if side_id<>'' then
+      Surface.Specifics.Values['id']:=side_id;
 
     if (SymbolType=sStringToken) and (CompareText(S,'dispinfo')=0) then
     begin
@@ -552,7 +556,7 @@ expected one.
      begin
        S1:=S;
        ReadSymbol(sStringQuotedToken);
-       if (S1='classname')  then
+       if (S1='classname') then
           classname:=S
        else
          SpecificList.Add(S1+'='+S);
