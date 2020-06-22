@@ -49,10 +49,12 @@ def createusedtextures(ToolBox, editor=None):
 
     UsedTexturesList = quarkx.texturesof([editor.Root])
     for UsedTextureName in UsedTexturesList:
+        texture = quarkx.loadtexture(UsedTextureName)
+        if texture is None:
+            continue
         UsedTexture = quarkx.newobj(UsedTextureName + ".wl")
 
         #Based on QkTextures.pas:
-        texture = quarkx.loadtexture(UsedTextureName)
         if (texture.type == '.wl') and texture["w"]: #Quake2
             UsedTexture["w"] = quarkx.getbasedir()
             if texture["PakFile"]:
