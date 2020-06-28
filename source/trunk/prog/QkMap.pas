@@ -2936,7 +2936,7 @@ begin
    S:=Specifics[J];
 
    // process untyped specifics
-   hashpos:=Pos('#', S);
+   hashpos:=Pos('#', Specifics.Names[J]);
    if (MapSaveSettings.MapFormat<>HL2Type) or ((hashpos=0) or (hashpos=1)) then
    begin
      if (S<>'') and (S[1]<>';') and not IsFloatSpec(S) then //FIXME: IsIntSpec?
