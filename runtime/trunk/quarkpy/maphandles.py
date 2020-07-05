@@ -391,7 +391,7 @@ class PolyHandle(CenterHandle):
 def getotherfixed(v, vtxes, axis):
     for v2 in vtxes:
         if not (v-v2):
-            continue;
+            continue
         perp = perptonormthru(v2,v,axis.normalized)
         if abs(perp)<.05:
             return v2
@@ -791,7 +791,7 @@ class VertexHandle(qhandles.GenericHandle):
                     if abs(self.pos*f.normal-f.dist) < epsilon:
 
                         #
-                        # collect a list of verticies on the face along
+                        # collect a list of vertices on the face along
                         # with the distances from the destination point.
                         # also, count the number of vertices.  NOTE:
                         # this loop uses the actual distance between the
@@ -809,20 +809,20 @@ class VertexHandle(qhandles.GenericHandle):
                                 d = 1
                             if d < epsilon:
                                 foundcount = foundcount + 1
-                                mvlist .append (v)
+                                mvlist.append(v)
                             else:
-                                d = v - self .pos
-                                vlist.append((abs (d), v))
+                                d = v - self.pos
+                                vlist.append((abs(d), v))
 
                         #
-                        # sort the list of vertecies, this places the
+                        # sort the list of vertices, this places the
                         # most distant point at the end
                         #
-                        vlist.sort ()
-                        vmax = vlist [-1][1]
+                        vlist.sort()
+                        vmax = vlist[-1][1]
 
                         #
-                        # if we are draging two vertecies
+                        # if we are draging two vertices
                         #
                         if dragtwo:
 
@@ -838,8 +838,8 @@ class VertexHandle(qhandles.GenericHandle):
                             # points being drug.  the reference point is
                             # the most distant point
                             #
-                            rotationaxis = mvlist [0] - mvlist [1]
-                            otherfixed =getotherfixed(vmax, mvlist, rotationaxis)
+                            rotationaxis = mvlist[0] - mvlist[1]
+                            otherfixed = getotherfixed(vmax, mvlist, rotationaxis)
                             fixedpoints = vmax, otherfixed
 
                         #
@@ -849,7 +849,7 @@ class VertexHandle(qhandles.GenericHandle):
 
                             #
                             # if this face does not have any of the selected
-                            # vertecies, then skip
+                            # vertices, then skip
                             #
                             if foundcount == 0:
                                 continue
@@ -867,7 +867,7 @@ class VertexHandle(qhandles.GenericHandle):
                             # as the axis of rotation
                             #
                             if not (flags&MB_SHIFT):
-                                rotationaxis = (vmax - vlist [-2] [1])
+                                rotationaxis = (vmax - vlist[-2][1])
                                 fixedpoints = vmax, vlist[-2][1]
 
                             #
@@ -877,7 +877,7 @@ class VertexHandle(qhandles.GenericHandle):
                             #
                             else:
                                 rotationaxis = (vmax - self .pos) ^ f .normal
-                                otherfixed =getotherfixed(vmax, vlist, rotationaxis)
+                                otherfixed = getotherfixed(vmax, mvlist, rotationaxis)
                                 fixedpoints = vmax, otherfixed
 
                         #
