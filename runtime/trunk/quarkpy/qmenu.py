@@ -13,7 +13,7 @@ from qdictionnary import Strings
 from qutils import *
 
 
-# menu state
+# menu state (needs to match PyMenus.pas)
 normal     = 0
 checked    = 2
 radiocheck = 3
