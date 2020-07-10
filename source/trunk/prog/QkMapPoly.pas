@@ -203,8 +203,7 @@ type
                property FaceOfPoly: PSurface read GetFaceOfPoly;
                procedure LinkSurface(S: PSurface);
                procedure UnlinkSurface(S: PSurface);
-               function Retourner : Boolean;
-               function Retourner_leavetex : Boolean;
+               function Retourner(LeaveTex: Boolean) : Boolean;
                procedure AddTo3DScene(Scene: TObject); override;
                procedure AnalyseClic(Liste: PyObject); override;
                function PyGetAttr(attr: PChar) : PyObject; override;
@@ -662,7 +661,7 @@ begin
             Moitie1.AjouteFace(S, True);
            S:=TFace(S.Clone(Moitie2, False));
            S.AddRef(+1); try
-           if S.Retourner then
+           if S.Retourner(False) then
             Moitie2.AjouteFace(S, False);
            finally S.AddRef(-1); end;
            try
@@ -3958,28 +3957,21 @@ begin
  TFace(Result).FFaceOfPoly:=FFaceOfPoly;
 end;
 
-function TFace.Retourner : Boolean;
+function TFace.Retourner(LeaveTex: Boolean) : Boolean;
 var
  V1, V2, V3, T1, T2, T3: TVect;
 begin
  Result:=GetThreePoints(V1, V2, V3);
  if Result then
   begin
-   GetThreePointsT(T1, T2, T3);
+   if not LeaveTex then
+    GetThreePointsT(T1, T2, T3);
    SetThreePoints(V1, V3, V2);
-{   TextureMirror:=not TextureMirror; }
-   SetThreePointsT(T1, T2, T3);
-  end;
-end;
-
-function TFace.Retourner_leavetex : Boolean;
-var
- V1, V2, V3 : TVect;
-begin
- Result:=GetThreePoints(V1, V2, V3);
- if Result then
-  begin
-   SetThreePoints(V1, V3, V2);
+   if not LeaveTex then
+    begin
+{     TextureMirror:=not TextureMirror; }
+     SetThreePointsT(T1, T2, T3);
+    end;
   end;
 end;
 
@@ -4488,7 +4480,7 @@ begin
   with QkObjFromPyObj(self) as TFace do
    begin
     Acces;
-    Retourner;
+    Retourner(False); //FIXME: Check return?
    end;
   Result:=PyNoResult;
  except
@@ -4505,7 +4497,7 @@ begin
   with QkObjFromPyObj(self) as TFace do
    begin
     Acces;
-    Retourner_leavetex;
+    Retourner(True); //FIXME: Check return?
    end;
   Result:=PyNoResult;
  except

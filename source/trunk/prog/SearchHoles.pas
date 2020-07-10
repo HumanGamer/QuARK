@@ -432,7 +432,7 @@ var
        begin
         nFace:=TFace(F1.F.Clone(Nouveau, False));
         nFace.AddRef(+1); try
-        if nFace.Retourner then
+        if nFace.Retourner(False) then
          Nouveau.AjouteFace(nFace, False)
         else
          {$IFDEF Debug}Abort{$ENDIF};
