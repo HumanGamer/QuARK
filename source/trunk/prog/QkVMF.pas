@@ -519,7 +519,7 @@ expected one.
    classname: String;
 
 
-   procedure AddConnection(var List: TSpecificsList; outputname, value: string);
+   procedure AddConnection(var List: TSpecificsList; const outputname, value: string);
    var
      i,num{,lastfound} : integer;
 
@@ -528,7 +528,7 @@ expected one.
      //lastfound:=0;
      for i:=0 to list.count-1 do
      begin
-       // count occurances
+       // count occurences
        if pos(outputname,list[i])<>0 then
        begin
          num:=num+1;

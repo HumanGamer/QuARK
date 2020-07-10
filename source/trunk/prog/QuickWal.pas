@@ -900,7 +900,7 @@ begin
  end;
 end;
 
-procedure GetShaderList(Base : String; var List: TStringList);
+procedure GetShaderList(const Base : String; var List: TStringList);
 var
   F : TextFile;
   P : Integer;
