@@ -37,9 +37,11 @@ const
 type
  TThreePoints = array[1..3] of TVect;
 
+ TTextureRenderMode = (trmNormal, trmColor, trmTexture, {trmGlow,} trmSolid, trmAdditive);
+
  TTexOpacityInfo = record
                     Value: Byte; { 0..1 (like 0..255 in Half-Life) }
-                    Mode: Integer; { Rendermode (0=Normal, 1=Color, 2=Texture, 4=Solid, 5=Additive }
+                    Mode: TTextureRenderMode;
                     Color: Array[0..2] of Byte; { for rendermode=color }
                    end;
 
@@ -240,7 +242,8 @@ procedure GetAxisBase(const Normal0: TVect; var texS, texT: TVect);
 implementation
 
 uses QkFileObjects, Undo, PyMapView, QkMap, QkPixelSet, Dialogs, EdSceneObject,
-     Quarkx, QkExceptions, PyObjects, QkSin, QkQuakeCtx, QkObjectClassList, Math;
+     Quarkx, QkExceptions, PyObjects, QkSin, QkQuakeCtx, QkObjectClassList,
+     Logging, Math;
 
 const
  TmpFaceSpec = '!~tmp~!this is a bug';
@@ -4192,7 +4195,7 @@ var
 begin
  Result.Value := Default;
  Integer(Addr(Result.Color)^) := Integer(0);
- Result.Mode := 0;
+ Result.Mode := trmNormal;
 {DECKER 2003.03.12}
  if (CharModeJeu=mjHalfLife) or (CharModeJeu=mjHL2) then
  begin
@@ -4219,11 +4222,20 @@ begin
      S:=Parent^.Specifics.Values['rendermode'];
      if S<>'' then
      begin
-       Result.Mode:=StrToIntDef(S,0);
-       if Result.Mode=3 then Result.Mode:=2; // If someone selected 'GLOW' switch to 'TEXTURE'
-       if (Result.Mode=1) or (Result.Mode=2) or (Result.Mode=4) or (Result.Mode=5) then
+       case StrToInt(S) of
+       0: Result.Mode:=trmNormal;
+       1: Result.Mode:=trmColor;
+       2: Result.Mode:=trmTexture;
+       3: Result.Mode:=trmTexture; // If someone selected 'GLOW' switch to 'TEXTURE'
+       4: Result.Mode:=trmSolid;
+       5: Result.Mode:=trmAdditive;
+       else
+         Log(LOG_WARNING, 'Invalid texture render mode; defaulting to normal.'); //FIXME: Move to dict!
+         Result.Mode:=trmNormal;
+       end;
+       if (Result.Mode=trmColor) or (Result.Mode=trmTexture) or (Result.Mode=trmSolid) or (Result.Mode=trmAdditive) then
        begin
-         if Result.Mode=1 then
+         if Result.Mode=trmColor then
          begin
            S:=Parent^.Specifics.Values['rendercolor'];
            ReadDoubleArray(S, C);
@@ -4232,11 +4244,11 @@ begin
          S:=Parent^.Specifics.Values['renderamt'];
          if S<>'' then
            Result.Value:=StrToIntDef(S,255); // If conversion to integer fails, make sure "no transparency" is the default (100% opaque = 255)
-         if (result.Mode=4) and (result.Value<>0) then
+         if (result.Mode=trmSolid) and (result.Value<>0) then
            result.Value:=255
          else
          begin
-           if (result.Mode=5) and (result.Value=255) then
+           if (result.Mode=trmAdditive) and (result.Value=255) then
              result.Value:=254; //<- dirty hack... a value of 255 is always drawn 'solid' :/
          end;
          exit;
@@ -4249,7 +4261,7 @@ begin
  if S<>'' then
  begin
    Result.Value:=OpacityFromFlags(StrToIntDef(S,0));
-   Result.Mode:=2;
+   Result.Mode:=trmTexture;
  end;
 end;
 

@@ -1794,7 +1794,7 @@ begin
        GetMem(Model, SizeOf(TModel3DInfo)+Count*SizeOf(vec3_t));
        try
          Model^.VertexCount:=Count;
-         Model^.ModelRendermode:=0;
+         Model^.ModelRendermode:=trmNormal;
          PChar(VDest):=PChar(Model)+SizeOf(TModel3DInfo);
          Model^.Vertices:=VDest;
          if not AnglesDefined then
@@ -1827,14 +1827,21 @@ begin
 
          { find mode }
          S:=Q.Specifics.Values['mdlrendermode'];
-         try
-           if S<>'' then
-             Model^.ModelRenderMode:=StrToInt(S);
-         finally;
-         end;
+         if S<>'' then
+           case StrToInt(S) of
+           0: Model^.ModelRenderMode:=trmNormal;
+           1: Model^.ModelRenderMode:=trmColor;
+           2: Model^.ModelRenderMode:=trmTexture;
+           3: Model^.ModelRenderMode:=trmTexture; // If someone selected 'GLOW' switch to 'TEXTURE'
+           4: Model^.ModelRenderMode:=trmSolid;
+           5: Model^.ModelRenderMode:=trmAdditive;
+           else
+             Log(LOG_WARNING, 'Invalid texture render mode; defaulting to normal.'); //FIXME: Move to dict!
+             Model^.ModelRenderMode:=trmNormal;
+           end;
 
 // tbd this is bogus because mdlopacity is read from ONLY from config file and
-// binary speficics are not possible there
+// binary specifics are not possible there
 //         Model^.ModelAlpha:=Round(255*Q.GetFloatSpec('mdlopacity', 1));
        except
          FreeMem(Model);

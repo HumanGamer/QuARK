@@ -2202,13 +2202,13 @@ begin
       if Transparency and TransparentFaces then
       begin
         Case TextureMode of
-        //0, 4:
+        //trmNormal, trmSolid:
           //glBlendFunc(GL_ONE, GL_ZERO);
-        1,2,3:
+        trmColor,trmTexture{,trmGlow}:
           glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-        5:
+        trmAdditive:
           glBlendFunc(GL_ONE, GL_ONE);
-        else //= 0, 4
+        else //= trmNormal, trmSolid
           glBlendFunc(GL_ONE, GL_ZERO);
         end;
         CheckOpenGLError('RenderPList: glBlendFunc');
@@ -2227,19 +2227,19 @@ begin
           Inc(PV);
           If Byte(Ptr(LongWord(@AlphaColor)+3)^)<>0 then
             Case TextureMode of
-            0:
+            trmNormal:
               if Lighting and (LightingQuality<>2) then
                 RenderQuad(PVBase, PV2, PV3, PV, Currentf, Lights, Normale, Dist, LightParams, GLLightingQuality)
               else
                 RenderQuad(PVBase, PV2, PV3, PV, Currentf, nil, Normale, Dist, FullBright, 0);
-            4:
+            trmSolid:
               if Lighting and (LightingQuality<>2) then
                 RenderQuad(PVBase, PV2, PV3, PV, Currentf, Lights, Normale, Dist, LightParams, GLLightingQuality)
               else
                 RenderQuad(PVBase, PV2, PV3, PV, Currentf, nil, Normale, Dist, FullBright, 0);
             else
             begin
-              if TextureMode=5 then
+              if TextureMode=trmAdditive then
               begin
                 Currentf[0]:=Byte(Ptr(LongWord(@AlphaColor)+3)^)/255;
                 Currentf[1]:=Currentf[0];

@@ -50,7 +50,7 @@ type
  TModel3DInfo = record
                   Base: QComponent;
                   ModelAlpha: Byte;
-                  ModelRendermode: Byte;
+                  ModelRendermode: TTextureRenderMode;
                   StaticSkin: Boolean;
                   VertexCount: Integer;
                   Vertices: vec3_p;
@@ -75,7 +75,7 @@ type
                Direct3DLightList: PDWORD;
                VertexCount: Integer;    { < 0 for a Bezier's GL_TRI_STRIP (OpenGL only) }
                AlphaColor: TColorRef;
-               TextureMode: Integer;
+               TextureMode: TTextureRenderMode;
                TransparentDrawn: Boolean;
               end;
 
@@ -444,7 +444,7 @@ var
  nRadius2, Radius2: FxFloat;
  FirstPoint: TVect;
  CurrentColor, ObjectColor: TColorRef;
- NewRenderMode: Integer;
+ NewRenderMode: TTextureRenderMode;
  TextureManager: TTextureManager;
  Mode: TBuildMode;
  NeedVertexList2: Boolean;
@@ -863,11 +863,11 @@ begin
            Direct3DLightList := nil;
 
            AlphaColor:=CurrentColor or ($FF000000);
-           TextureMode:=0;
+           TextureMode:=trmNormal;
            // if the texture has alpha channel its probably transparent
            if Assigned(PList^.Texture^.SourceTexture) then
            begin
-             TextureMode:=2;
+             TextureMode:=trmTexture;
              case PList^.Texture^.AlphaBits of
              psaDefault: PList^.Transparent:=False;
              psaNoAlpha: PList^.Transparent:=False;
@@ -1097,7 +1097,7 @@ begin
                // if the texture has alpha channel its probably transparent
                if Assigned(PList^.Texture^.SourceTexture) then
                begin
-                 TextureMode:=2;
+                 TextureMode:=trmTexture;
                  case PList^.Texture^.AlphaBits of
                  psaDefault: PList^.Transparent:=False;
                  psaNoAlpha: PList^.Transparent:=False;
@@ -1214,7 +1214,7 @@ begin
                // if the texture has alpha channel its probably transparent
                if Assigned(PList^.Texture^.SourceTexture) then
                begin
-                 TextureMode:=2;
+                 TextureMode:=trmTexture;
                  case PList^.Texture^.AlphaBits of
                  psaDefault: PList^.Transparent:=False;
                  psaNoAlpha: PList^.Transparent:=False;
@@ -1321,7 +1321,7 @@ begin
                  // if the texture has alpha channel its probably transparent
                  if Assigned(PList^.Texture^.SourceTexture) then
                  begin
-                   TextureMode:=2;
+                   TextureMode:=trmTexture;
                    case PList^.Texture^.AlphaBits of
                    psaDefault: PList^.Transparent:=False;
                    psaNoAlpha: PList^.Transparent:=False;

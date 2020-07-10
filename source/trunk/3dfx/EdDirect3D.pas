@@ -1445,6 +1445,8 @@ begin
   l_Material.dvPower     := 100.0;
   D3DDevice.SetMaterial(l_Material);   }
 
+        //FIXME: Handle TextureMode!
+
         l_Res:=D3DDevice.SetMaterial(material);
         if (l_Res <> D3D_OK) then
           raise EErrorFmt(6403, ['SetMaterial', DXGetErrorString9(l_Res)]);
