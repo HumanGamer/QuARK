@@ -4440,7 +4440,7 @@ var
   I: Integer;
   Ok: Boolean;
   P, T: array[1..3] of TVect;
-  v: array[1..3] of PyVect;
+  //v: array[1..3] of PyVect;
   AltTexSrc: PyObject;
   Orig, TexS, TexT : TVect;
   vS, vT: PyVect;
@@ -4458,15 +4458,15 @@ begin
         for I:=1 to 3 do
         begin
           T[I]:=CoordShift(P[I], Orig, TexS, TexT);
-          v[I]:=MakePyVect(T[I]);
+          //v[I]:=MakePyVect(T[I]);
         end;
         vS:=MakePyVect(TexS);
         vT:=MakePyVect(TexT);
         try
          Result:=Py_BuildValueX('OO', [vS, vT]);
         finally
-         for I:=2 downto 1 do
-           Py_DECREF(v[I]);
+         //for I:=3 downto 1 do
+         //  Py_DECREF(v[I]);
          Py_DECREF(vS);
          Py_DECREF(vT);
         end;
