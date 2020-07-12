@@ -267,7 +267,7 @@ QQRKSRC1
                 info_group:e                    = { origin="0 0 0" ;desc = "Entity Group" }
                 multi_alias:e                   = { origin="0 0 0" ;desc = "Multi-target alias" }
                 multi_manager:e                 = { origin="0 0 0" ;desc = "Multi-target manager" }
-                watcher:                        = { origin="0 0 0" ;desc = "State Watcher" }
+                watcher:e                       = { origin="0 0 0" ;desc = "State Watcher" }
                 multi_watcher:e                 = { origin="0 0 0" ;desc = "Multi-target State Watcher" }
                 trigger_changealias:e           = { origin="0 0 0" ;desc = "Trigger Change Alias" }
                 trigger_lightstyle:e            = { origin="0 0 0" ;desc = "Trigger Change Lightstyle" }
