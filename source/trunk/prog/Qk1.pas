@@ -175,7 +175,7 @@ type
     procedure CheckUpdate1Click(Sender: TObject);
     procedure Viewconsole1Click(Sender: TObject);
     procedure HelpMenuItemClick(Sender: TObject);
-    procedure Registering1Click(Sender: TObject);
+    {procedure Registering1Click(Sender: TObject);}
   private
     IdleJobs: PIdleJob;
     {DefaultTbCount,} OpenFilterIndex: Integer;
@@ -2411,10 +2411,10 @@ begin
  end;
 end;
 
-procedure TForm1.Registering1Click(Sender: TObject);
+{procedure TForm1.Registering1Click(Sender: TObject);
 begin
  HTMLDoc('register.html');
-end;
+end;}
 
 procedure TForm1.MdlImportFrom1Item1Click(Sender: TObject);
 var
