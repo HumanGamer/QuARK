@@ -22,7 +22,7 @@ deg2rad = math.pi / 180.0
 rad2deg = 180.0 / math.pi
 
 
-# drawmap flags
+# drawmap flags (needs to match PyMapView.pas)
 DM_NORMAL      = 0
 DM_GRAYOOV     = 1     # gray out of view
 DM_HIDEOOV     = 2     # hide out of view
@@ -35,7 +35,7 @@ DM_DONTDRAWSEL = 64    # don't draw selected objects
 DM_REDRAWFACES = 128   # draw faces (usually they are only drawn as part of a polyhedron, when the polyhedron is drawn)
 DM_COMPUTEPOLYS= 256   # compute negative polyhedrons in textured views
 
-# map view flags
+# map view flags (needs to match PyMapView.pas)
 MV_HSCROLLBAR   = 1
 MV_VSCROLLBAR   = 2
 MV_CROSSDRAG    = 4    # the mouse cursor turns into a cross when you drag
@@ -44,15 +44,15 @@ MV_NOSCROLLBAR  = 16   # overrides the settings of flags 1 and 2
 MV_TOPREDLINE   = 32   # display the top red line
 MV_BOTTOMREDLINE= 64   # display the bottom red line
 
-# explorer flags
+# explorer flags (needs to match PyExplorer.pas)
 EF_AUTOFOCUS    = 8    # see MV_AUTOFOCUS
 EF_NOKEYBDELAY  = 16   # no delay between movements in the tree from the keyboard and screen updates
 
-# dataform flags
+# dataform flags (needs to match PyFormCfg.pas)
 DF_LOCAL        = 1    # prevents screen flashes if changes in this box don't affect anything else
 DF_AUTOFOCUS    = 8    # see MV_AUTOFOCUS
 
-# drawgrid flags
+# drawgrid flags (needs to match PyMapView.pas)
 DG_LINES            = 0x10000      # lines instead of dots
 DG_ONLYHIGHLIGHTED  = 0x20000      # omit the non-highlighted dots and draw the other ones using the 1st color instead
 
@@ -79,7 +79,7 @@ MB_NOGRID       = 65536
 MB_REDIMAGE     = MB_DRAGGING|MB_CTRL
 
 
-# mouse cursors
+# mouse cursors (needs to match PyMapView.pas)
 CR_CROSSH      = 8
 CR_LINEARV     = 9
 CR_LEFTARROW   = 10
@@ -110,7 +110,7 @@ CR_HELP        = -20
 CR_HAND        = -21
 CR_4ARROWS     = -22
 
-# brush styles
+# brush styles (needs to match Delphi's TBrushStyle)
 BS_SOLID       = 0
 BS_CLEAR       = 1
 BS_HORIZONTAL  = 2
@@ -120,7 +120,7 @@ BS_BDIAGONAL   = 5
 BS_CROSS       = 6
 BS_DIAGCROSS   = 7
 
-# pen styles
+# pen styles (needs to match Delphi's TPenStyle)
 PS_SOLID       = 0
 PS_DASH        = 1
 PS_DOT         = 2

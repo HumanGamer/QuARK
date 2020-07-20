@@ -11,7 +11,7 @@ Tool Bars and Buttons
 import quarkx
 from qutils import *
 
-# button state
+# button state (needs to match PyToolbars.pas)
 normal     = 0
 selected   = 2
 disabled   = 4    # can be added to the above

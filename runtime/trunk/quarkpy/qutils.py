@@ -46,13 +46,13 @@ LEFTDOCK  = "leftdock"
 RIGHTDOCK = "rightdock"
 NODOCK    = None
 
-# window states
-RESTORED  = 0       # normal
-MINIMIZED = 1
-MAXIMIZED = 2
+# window states (needs to match Delphi's TWindowState)
+#RESTORED  = 0       # normal
+#MINIMIZED = 1
+#MAXIMIZED = 2
 
 # filedialogbox
-SAVEDIALOG     = 1   # These have to match Delpih's TOpenOptions flags, except for '1', which is overwritten in QuarkX.pas
+SAVEDIALOG     = 1   # These have to match Delphi's TOpenOptions flags, except for '1', which is overwritten in QuarkX.pas
 MULTIPLEFILES  = 64
 
 # setupset
@@ -72,7 +72,7 @@ FWF_POPUPCLOSE = 8
 FWF_NOESCCLOSE = 16
 FWF_KEEPFOCUS  = 32
 
-# internal objects' "flags" value !!! WARNING !!! DO NOT MODIFY unless you know what you're doing !
+# internal objects' "flags" value (needs to match QkObjects.pas)
 OF_TVSUBITEM         = 1   # all objects in a tree-view except top-level
 OF_TVINVISIBLE       = 2   # present but invisible in the tree-view
 OF_TVALREADYEXPANDED = 4   # node has been expanded once
@@ -82,19 +82,17 @@ OF_FILELINK          = 32  # is a file link
 OF_WARNBEFORECHANGE  = 64  # warn the user before he makes changes
 OF_MODIFIED          = 128 # modified by the user
 
-# values of the ';view' Specific (as text) of TreeMapGroup objects
-# !! Must match the constants in QkMapObjects.PAS !!
+# values of the ';view' Specific (as text) of TreeMapGroup objects (needs to match QkMapObjects.pas)
 VF_GRAYEDOUT        = 1    # whole group is grayed out
 VF_HIDDEN           = 2    # whole group is hidden
 VF_IGNORETOBUILDMAP = 4    # the group is ignored when writing the .map file with the SO_IGNORETOBUILD flag
 VF_HIDEON3DVIEW     = 8    # not displayed on textured views
 VF_CANTSELECT       = 16   # the objects in this group can't be selected by clicking on the map view
 
-# values of the 'saveflags' Specific (as integer) of Map objects, to control how it should be saved
-# !! Must match the constants in QkMapObjects.PAS !!
+# values of the 'saveflags' Specific (as integer) of Map objects, to control how it should be saved (needs to match QkMapObjects.pas)
 SO_SELONLY         = 1    # only the selection is saved
 SO_IGNORETOBUILD   = 2    # the groups marked VF_IGNORETOBUILDMAP are not saved
-#SO_DISABLEENHTEX   = 4    # don't write the "//TX1"-style comments required by TXQBSP for enhanced texture positionning
+#SO_DISABLEENHTEX   = 4    # don't write the "//TX1"-style comments required by TXQBSP for enhanced texture positioning
 SO_DISABLEFPCOORD  = 8    # don't write floating-point coordinates in .map files, round all values
 #SO_ENABLEBRUSHPRIM = 16   # enable brush primitives format
 SO_USEINTEGRALVERTICES = 64 # use integral vertices as threepoints if possible
@@ -119,7 +117,7 @@ LOG_WARNING  = 20;
 LOG_INFO     = 30;
 LOG_VERBOSE  = 40;
 
-# icon indexes of internal objects (to be used with quarkx.seticons)
+# icon indexes of internal objects (to be used with quarkx.seticons; must be same as in QkObjects.pas!)
 iiUnknownFile           = 0
 iiExplorerGroup         = 1
 iiQuakeC                = 2
