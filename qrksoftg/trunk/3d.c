@@ -1,4 +1,3 @@
-
 #include "3d.h"
 
 #ifndef __cplusplus
@@ -81,7 +80,7 @@ void BuildFullPalette(void)
 	fogmax = FOGMAX;
 	if (unifiedpalette)
 	{
-	    if (colormode & GR_COLORCOMBINE_TEXTURE)
+		if (colormode & GR_COLORCOMBINE_TEXTURE)
 			cs = COLORSCHEMES;
 		else
 		{
@@ -212,9 +211,9 @@ void FillCurrentPalette(void)
 				currentpalette[i] = (c_macro(rbase, c>>16) << 21)
 				                  | (c_macro(gbase, c>>8) << 25)
 				                  | (c_macro(bbase, c) << 29);
-		        #ifdef DEBUGCOLORS
-		        printf("%08x  ", currentpalette[i]);
-		        #endif
+				#ifdef DEBUGCOLORS
+				printf("%08x  ", currentpalette[i]);
+				#endif
 			}
 		}
 	}
