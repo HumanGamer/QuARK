@@ -272,7 +272,7 @@ var
  FP: TDouble;
 begin
  i:=0; FP:=F;
- //how many digits are neccesary? (stop at 2)
+ //how many digits are necessary? (stop at 2)
  while (i<>2) and (Abs(FP-Round(FP))>rien) do begin FP:=FP*10; inc(i); end;
  if i=0 then
   Result:=IntToStr(Round(F))
