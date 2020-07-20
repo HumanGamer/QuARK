@@ -75,7 +75,7 @@ const
   crLinearV      = 9;
   crLeftArrow    = 10;
   crRightArrow   = 11;
-  crBrush        = 12; 
+  crBrush        = 12;
   crAirBrush     = 13;
   crCursorLast   = 13;
 
