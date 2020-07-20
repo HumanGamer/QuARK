@@ -8,7 +8,7 @@
 #
 #        by tiglari@hexenworld.com, with lots of advice
 #          code snippets and additions from Armin Rigo
-#     
+#
 #
 #   Possible extensions:
 #    - button & floating toolbar as well as menu commands
@@ -54,7 +54,7 @@ from faceutils import *
 import maptagpoint
 
 # A lot of recent code is piled up at the front.
-#  All this needs to be broken up into separate files!!
+#FIXME:  All this needs to be broken up into separate files!!
 #
 
 
@@ -70,7 +70,7 @@ def toggleitem(text,hint):
 
 def cyclenext(i, len):
     return (i+1)%len
-    
+
 def cycleprev(i, len):
     return (i-1)%len
 
@@ -115,7 +115,7 @@ class MakeTexMultDlg(quarkpy.qmacro.dialogbox):
 
         self.editor = editor
         self.sellist = self .editor .visualselection ()
-        
+
         src = quarkx.newobj(":")
         src["mult"] = 0,
         editor.texmult = self
@@ -136,7 +136,7 @@ class MakeTexMultDlg(quarkpy.qmacro.dialogbox):
       requestmultiplier.state=qmenu.normal
       self.editor.texmult = None
       quarkpy.qmacro.dialogbox.onclose(self,dlg)
-    
+
 
 def WrapMultClick(m):
   editor = mapeditor()
@@ -168,15 +168,15 @@ def snapobj(editor,o):
   if tagged is None:
     item.state=qmenu.disabled
   else:
-    item.o = o   
+    item.o = o
   return item
-  
+
 def SnapClick(m):
    editor=mapeditor()
    if editor is None: return
    (vmin,vmax)=quarkx.boundingboxof([m.o])
    squawk("min: "+`vmin`+"  max: "+`vmax`)
-   
+
 
 #
 # projecting textures onto faces
@@ -190,7 +190,7 @@ def projectpointtoplane2(point,along,origin,normal):
   p3 = p1/p2
   p4 = p3*along
   return point+p4
-  
+
 def projectpointtoplane(p,n1,o2,n2):
   "project point to plane at o2 with normal n2 along normal n1"
   v1 = o2-p
@@ -209,7 +209,7 @@ def projectpointtoplane(p,n1,o2,n2):
 #  return p + (((o2-p)*n2)/n1*n2)*n1
 
 #  return point+((origin-point)*normal/along*normal)*along
-   
+
 
 def projecttex(editor,o):
   item=qmenu.item("&Project tex. from tagged",ProjTexClick,"|Projects the texture of the tagged face onto the selected one, or those in the selected item, so that a texture can be wrapped without seams over an irregular assortment of faces.\n\nTextures aren't projected onto faces that are too close to perpendicular to the projecting face.")
@@ -224,7 +224,7 @@ def projecttex(editor,o):
     item.olist = [o]
     item.tagged=tagged
   return item
-  
+
 def ProjTexClick(m):
   editor = mapeditor()
   if editor is None: return
@@ -234,8 +234,8 @@ def ProjTexClick(m):
   if bad:
     quarkx.msgbox("Some faces could not have the texture projected onto them",
       MT_WARNING,MB_OK)
-  
-def projectface(undo, tagged, olist):  
+
+def projectface(undo, tagged, olist):
   list = []
   for o in olist:
     if o.type==":f":
@@ -295,8 +295,8 @@ def prepareobjecttodrop(editor,obj,oldprep=quarkpy.mapbtns.prepareobjecttodrop):
       newkey=newkey+1
     objkeys = getspecdict("_tag",obj)
   oldprep(editor,obj)
- 
-quarkpy.mapbtns.prepareobjecttodrop = prepareobjecttodrop 
+
+quarkpy.mapbtns.prepareobjecttodrop = prepareobjecttodrop
 
 def new_ok(self, editor,undo,old,new,oldok=quarkpy.qhandles.GenericHandle.ok.im_func):
   codrug = codrag(editor,undo,old,new)
@@ -340,7 +340,7 @@ def gluefaces(editor,undo,movee,tagdict):
       if checktree(movee,face) or coplanar(face,face1):
         continue
       glueface(undo,face,face1)
- 
+
 def number(num,sing,pl):
   if (num==1):
     return sing
@@ -370,7 +370,7 @@ def codrag(editor,undo,old,new):
   gluefaces(editor,undo,old,dragdict)
   return 1
 
-  
+
 menlinkonglue=toggleitem("Link on Glue","|Link on Glue:\n\nWhen this option is checked, the `Glue-to-tagged' command links the glued side to the tagged one, making it easy to keep them copanar.|intro.mapeditor.menu.html#optionsmenu")
 
 menmultisellinkdrag=toggleitem("MultiSelect on Linked Drag","|MultiSelect on Linked Drag:\n\nWhen this option is checked, when a face is dragged that is linked to others, they all become the multi-selection after the drag.\n\nWhen it is unchecked, the selection remains unchanged.|intro.mapeditor.menu.html#optionsmenu")
@@ -430,7 +430,7 @@ def abutting_vtx(l1, l2):
   if pozzies[0]==0 and pozzies[1]>1:
     intx.reverse()
   return intx
-    
+
 def colinear(list):
  "first 2 should not be coincident"
  if len(list) < 3:
@@ -463,7 +463,7 @@ def abutting_vtx2(l1, l2):
       if colinear([v1, v1n, v2, v2n]):
         return [i, i1]
   return []
-    
+
 def samelinenorm(v1, v2):
   "v1 and v2 must be normalized"
   if math.fabs(v1* v2) == 1:
@@ -484,7 +484,7 @@ def abutting_face_vtx(vtxes1, vtxes2):
         return result
     index = index+1
   return []
-      
+
 def intersection_vect(l1, l2):
   "for points/vectors only"
   "note that the points come out in the same order they have in l1"
@@ -495,8 +495,8 @@ def intersection_vect(l1, l2):
         shared.append(el1)
         break
   return shared
-       
-  
+
+
 def oppositeedge(vtx, i, b):
   "returns (op1, op2, width) tuple, or 0, indexes of opposite vertices"
   "in cycle order, and a vector from first to the opposite edge's line."
@@ -516,7 +516,7 @@ def oppositeedge(vtx, i, b):
     first = second
   return 0
 
-  
+
 def oppositeedge_vtxes(vtxes, abuttment):
   "does the work of oppositeedge, but taking a list of vertex-cycles"
   "and the output of abutting_face_vtx as inputs"
@@ -528,11 +528,11 @@ def oppositeedge_vtxes(vtxes, abuttment):
 def index_vect(list, vect):
   "finds the index-position of a vector on a list of vectors"
   ind = 0
-  for el  in list:
+  for el in list:
     if not (el-vect):
       return ind;
     ind = ind + 1
-   
+
 def coplanar_adjacent_sides(side1,side2):
   list = [side1]
   quarkx.extendcoplanar(list,[side2])
@@ -587,7 +587,7 @@ def sideof (m, editor):
 #  if n*(q1-p1) == 0:
 #    return 1
 #  return 0
-  
+
 def drawlinks2(editor, view):
   "separated linked faces drawn dotted, in blue if selected otherwise red"
   dict = getspecdict("_tag", editor.Root)
@@ -616,7 +616,7 @@ def drawlinks2(editor, view):
       #
       for face in faces:
         drawredface(view,cv,face)
-        
+
 def getlinkedfaces(tag, allfaces):
   result = []
   for face in allfaces:
@@ -744,7 +744,8 @@ def GlueSideClick(m):
             fulcrum = m.fulcrum
             gluit = 0
             ActionString = "Align to tagged"
-        except (AttributeError) : pass
+        except (AttributeError):
+            pass
         new=side.copy()
         if tagged is not None:
             #
@@ -941,12 +942,13 @@ def AlignTexClick(m):
 #          tagged2=tagged.copy()
 #          tagged2.swapsides()
 #          tagged = projecttexfrom(tagged, tagged2)
-  except:  pass
+  except:
+    pass
   try:
       abutt = m.abuttype
   except (AttributeError):
       aligntexstate(m, tagged, side)
-  
+
   editor.invalidateviews()
   ActionString = "wrap texture from tagged"
   undo = quarkx.action()
@@ -954,19 +956,19 @@ def AlignTexClick(m):
   if m.abuttype == 1:
     side2=side.copy()
     if tomirroritem.state==qmenu.checked:
-       side2.swapsides()   
+       side2.swapsides()
     newside = wraptex(tagged, side2)
     if tomirroritem.state==qmenu.checked:
-       newside.swapsides()   
+       newside.swapsides()
   else:
 #    debug('abut 0')
     newside=side.copy()
     if tomirroritem.state==qmenu.checked:
-       newside.swapsides()   
+       newside.swapsides()
     newside = projecttexfrom(tagged, newside)
     if tomirroritem.state==qmenu.checked:
-       newside.swapsides()   
-      
+       newside.swapsides()
+
   undo.exchange(side, newside)
   editor.ok(undo, ActionString)
   if checkshifttagged.state == qmenu.checked:
@@ -1056,7 +1058,7 @@ def pillarwrapdisabler(menuitem, tagged, o):
          (first, second, gap) = result
          facelist.append(face)
          circuitlength = circuitlength + abs(gap)
-         ovtxes = [nvtxes[first], nvtxes[second]]     
+         ovtxes = [nvtxes[first], nvtxes[second]]
          continue
       #
       # but if we didn't, mebbe that's cuz we're all the way around!
@@ -1081,7 +1083,7 @@ def pillarwrapdisabler(menuitem, tagged, o):
   except Bail:
     menuitem.state = qmenu.disabled
     return 0
-  
+
 def PillarWrapClick(m):
   "expects m to have fields:"
   "  .wraplist - sequential list of faces for wraparound"
@@ -1142,7 +1144,7 @@ def PillarWrapClick(m):
   ActionString = "pillar wrap"
   undo = quarkx.action()
   #
-  # swap in the resized texture  
+  # swap in the resized texture
   #
   undo.exchange(firstface, newface)
   startface = newface
@@ -1151,7 +1153,7 @@ def PillarWrapClick(m):
   #
   faces.remove(firstface)
   for face in faces:
-    currface = newface  
+    currface = newface
     newface = wraptex(currface, face)
     undo.exchange(face, newface)
   editor.ok(undo, ActionString)
@@ -1177,7 +1179,7 @@ def wraptaggedstate(menuitem, o):
         raise Bail
      #
      # the current side must be in the tagged list
-     #  (actaully, on an end or in a cycle!) 
+     #  (actaully, on an end or in a cycle!)
      #
      taglist = taglist[:]      #make a copy
      if taglist.count(o) == 0:
@@ -1235,7 +1237,7 @@ def wraptaggedstate(menuitem, o):
      #  to their shared edge, and get the distance between these
      #  edges.
      #
-#    squawk("banzai")     
+#    squawk("banzai")
      vertical = (ovtxes[ci][vi2]-ovtxes[ci][vi1]).normalized
      (opi1, opi2, width) =  check_true(oppositeedge(ovtxes[ci], vi1, vertical)) 
      #
@@ -1265,7 +1267,7 @@ def wraptaggedstate(menuitem, o):
      vertical = -vertical
      (opi1, opi2, width) = check_true(oppositeedge(nvtxes[ci], vi1, vertical))
 #     squawk("passed 3")
-     circuit = circuit + abs(width)   
+     circuit = circuit + abs(width)
      taglist.remove(current)
      wraplist = [o, current]
      #
@@ -1372,7 +1374,7 @@ def tagpopup(editor, o):
     selecttagged.taglist = gettaggedlist(editor)
   if gettaggedlist(editor) is None and gettagged(editor) is None:
         addtotagged.state = qmenu.disabled
-  
+
   list = [addtotagged,
           removefromtagged,
           selecttagged,
@@ -1459,9 +1461,9 @@ def LinkFaceClick(m, glue=1):
     undo.exchange(tagged, newtagged)
 
    # To fix this function. Old way never replaced with new keyword.
-#    editor.tagging.tagged = newtagged  
+#    editor.tagging.tagged = newtagged
     tagface(newtagged, editor)
-  
+
   newside = m.side.copy()
   newside.setint("_tag",tag)
   oldtag = m.side.getint("_tag")
@@ -1520,7 +1522,7 @@ def UnlinkFaceClick(m):
     face = m.object.copy()
     face["_tag"] = ""
     undo.exchange(m.object, face)
-  editor.ok(undo,"Unlink Face")  
+  editor.ok(undo,"Unlink Face")
   editor.layout.sellist = [m.object]
 
 def UnlinkAllClick(m):
@@ -1535,7 +1537,7 @@ def UnlinkAllClick(m):
     undo.exchange(face, newface)
   editor.ok(undo,"Unlink All")  
   editor.layout.sellist = [m.object]
-  
+
 def selectmenuitem(o,text,command,help):
   tag = o.getint("_tag")
   item =  qmenu.item(text,command,help)
@@ -1584,7 +1586,7 @@ def breaksharedface(e,o):
   if len(faceitem.polys) < 2:
     faceitem.state = qmenu.disabled
   return faceitem
-  
+
 def BreakFaceClick(m):
   undo = quarkx.action()
   polys = m.polys
@@ -1648,7 +1650,7 @@ def tagmenu(o, editor, oldfacemenu = quarkpy.mapentities.FaceType.menu.im_func):
 #      if not gettaggedlist(editor):
 #        wrappop.state = qmenu.disabled
 #        tagpop.state = qmenu.disabled
-  
+
   texpop = findlabelled(menu,'texpop')
   projtex = projecttex(editor,o)
   projtex.text = "Project from tagged"
@@ -1759,7 +1761,7 @@ def CutPolyClick(m):
   undo.put(m.o.parent,m.pieces[0],m.o)
   undo.exchange(m.o, m.pieces[1])
   editor.ok(undo,"Cut poly along tagged")
-  
+
 
 def gluepoly(editor, o):
   typename = typenames[o.type]
@@ -1783,7 +1785,7 @@ def GluePolyClick(m):
   undo = quarkx.action()
   mapdict = getspecdict("_tag",editor.Root)
   gluefaces(editor,undo,m.o,tagdict)
-  editor.ok(undo,"Glue linked faces")    
+  editor.ok(undo,"Glue linked faces")
   editor.layout.explorer.sellist=[m.o]
 
 
@@ -1797,7 +1799,7 @@ def tagpolymenu(o, editor, oldmenu=quarkpy.mapentities.PolyhedronType.menu.im_fu
               cutpoly(editor,o),
               qmenu.sep]
   return menu
-  
+
 quarkpy.mapentities.PolyhedronType.menu = tagpolymenu
 
 def taggroupmenu(o, editor,oldmenu=quarkpy.mapentities.GroupType.menu.im_func):
@@ -1808,7 +1810,7 @@ def taggroupmenu(o, editor,oldmenu=quarkpy.mapentities.GroupType.menu.im_func):
               projecttex(editor,o),
               qmenu.sep]
   return menu
-  
+
 quarkpy.mapentities.GroupType.menu = taggroupmenu
 
 def tagbrushmenu(o, editor,oldmenu=quarkpy.mapentities.BrushEntityType.menu.im_func):
@@ -1818,7 +1820,7 @@ def tagbrushmenu(o, editor,oldmenu=quarkpy.mapentities.BrushEntityType.menu.im_f
               projecttex(editor,o),
               qmenu.sep]
   return menu
-  
+
 quarkpy.mapentities.BrushEntityType.menu = tagbrushmenu
 
 
@@ -1841,7 +1843,7 @@ def commandsclick(menu, oldcommand=quarkpy.mapcommands.onclick):
   if isoneface(selection):
     face = selection[0]
     mentagside.state = qmenu.normal
-    tag =face.getint("_tag")
+    tag = face.getint("_tag")
 #
 # This below overloads the menu, I think.
 #    if tag==0:
@@ -1877,7 +1879,8 @@ def commandsclick(menu, oldcommand=quarkpy.mapcommands.onclick):
   try:
     if not editor.tagging is None:
        mencleartag.state = qmenu.normal
-  except AttributeError: pass
+  except AttributeError:
+    pass
 
 mentagside  = qmenu.item("&Tag side", TagSideClick, tagtext)
 mencleartag = qmenu.item("&Clear Tag", ClearTagClick, "|Clear Tag:\n\nClears (cancels) all the tags that have been set.|intro.mapeditor.menu.html#commandsmenu")
