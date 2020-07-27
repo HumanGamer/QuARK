@@ -187,10 +187,6 @@ begin
   else   if not CalculeProj3D(P, Result) then
           Raise EErrorFmt(167, [vtos(P)]);
  end;
-{if Result.X<-16384 then Result.X:=-16384;
- if Result.X>=16384 then Result.X:=16383;
- if Result.Y<-16384 then Result.Y:=-16384;
- if Result.Y>=16384 then Result.Y:=16383;}
 end;
 
 function ProjEx(const P: TVect; var Dest: TPoint) : Boolean;
