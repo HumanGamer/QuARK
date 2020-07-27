@@ -760,7 +760,7 @@ begin
           Result:=-2
          else
           begin
-           Angle:=Angle*(pi/180);
+           Angle:=Angle*Deg2Rad;
            Rapport:=LongueurVectNormal/pProjZ;
            V.X:=Origin.X+Cos(Angle)*Rapport;
            V.Y:=Origin.Y+Sin(Angle)*Rapport;

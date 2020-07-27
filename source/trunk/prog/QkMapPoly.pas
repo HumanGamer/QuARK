@@ -3855,7 +3855,7 @@ procedure TFace.SetFaceFromParams(const nNormale: TVect; nDist: TDouble; const T
     PY:=PY*TexParams[5];
    if TexParams[3]<>0 then
     begin
-     A:=TexParams[3] * (+pi/180);
+     A:=TexParams[3] * Deg2Rad;
      S:=Sin(A);
      C:=Cos(A);
      A:=PX;

@@ -462,7 +462,7 @@ begin
      with TCameraCoordinates(MapViewProj) do
       begin
        VAngleDegrees:=VAngle;
-       VAngle:=VAngle * (pi/180);
+       VAngle:=VAngle * Deg2Rad;
        RFactorBase:=Cos(VAngle)/Sin(VAngle);
        Resize(Self.ClientWidth, Self.ClientHeight);
        MinDistance:=Minoow / GetFloatSpec('DarkFactor', 1);
@@ -591,7 +591,7 @@ begin
      with TCameraCoordinates(MapViewProj) do
       begin
        VAngleDegrees:=VAngle;
-       VAngle:=VAngle * (pi/180);
+       VAngle:=VAngle * Deg2Rad;
        RFactorBase:=Cos(VAngle)/Sin(VAngle);
        Resize(Self.ClientWidth, Self.ClientHeight);
        MinDistance:=Minoow / GetFloatSpec('DarkFactor', 1);
@@ -1485,7 +1485,7 @@ begin
     begin
      Speed[False]:=GetFloatSpec('Speed', 200);
      Speed[True]:=GetFloatSpec('RunSpeed', 400);
-     RotateSpeed:=GetFloatSpec('RotateSpeed', 120)*(pi/180);
+     RotateSpeed:=GetFloatSpec('RotateSpeed', 120)*Deg2Rad;
      Accel[False]:=1/(GetFloatSpec('AccelDelay', 0.75)+1E-10);
      Accel[True]:=1/(GetFloatSpec('RunAccelDelay', 0.25)+1E-10);
     end;

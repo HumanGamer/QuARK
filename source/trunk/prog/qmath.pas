@@ -415,8 +415,8 @@ function CalculeMAngle(const Angles: TVect) : TVect;
 var
  A, B: TDouble;
 begin
- A:=Angles.Y*(pi/180);
- B:=Angles.X*(-pi/180);
+ A:=Angles.Y*Deg2Rad;
+ B:=Angles.X*Deg2Rad;
  Result.X:=Cos(A)*Cos(B);
  Result.Y:=Sin(A)*Cos(B);
  Result.Z:=Sin(B);

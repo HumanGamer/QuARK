@@ -110,7 +110,7 @@ procedure Info_mx_Rot(N1,N2: Integer; V: TDouble);
 var
  Angle: TDouble;
 begin
- Angle:=V * (pi/180);
+ Angle:=V * Deg2Rad;
  g_DrawInfo.Matrice:=MatriceIdentite;
  g_DrawInfo.Matrice[N1,N1]:=Cos(Angle);
  g_DrawInfo.Matrice[N2,N1]:=Sin(Angle);
@@ -128,7 +128,7 @@ function RotMatrixZ(V: TDouble; InMatrix:TMatrixTransformation):TMatrixTransform
 var
  Angle: TDouble;
 begin
- Angle:=V * (pi/180);
+ Angle:=V * Deg2Rad;
  Result:=InMatrix;
  Result[1,1]:=Cos(Angle);  Result[1,2]:=-Sin(Angle); {0}
  Result[2,1]:=Sin(Angle);  Result[2,2]:=Cos(Angle);  {0}
@@ -139,7 +139,7 @@ function RotMatrixY(V: TDouble; InMatrix:TMatrixTransformation):TMatrixTransform
 var
  Angle: TDouble;
 begin
- Angle:=V * (pi/180);
+ Angle:=V * Deg2Rad;
  Result:=InMatrix;
  Result[1,1]:=Cos(Angle);  {0}               Result[1,3]:=-Sin(Angle);
  {0}                       {1}               {0}
@@ -151,8 +151,8 @@ var
  AngleP: TDouble;
  AngleR: TDouble;
 begin
- AngleP:=Pitch * (pi/180);
- AngleR:=Roll * (pi/180);
+ AngleP:=Pitch * Deg2Rad;
+ AngleR:=Roll * Deg2Rad;
  Result:=InMatrix;
  Result[1,1]:=Cos(AngleP) * Cos(AngleR);  Result[1,2]:=-Sin(AngleP);  Result[1,3]:=-Sin(AngleR);
  Result[2,1]:=Sin(AngleP);                Result[2,2]:=Cos(AngleP);   {0}

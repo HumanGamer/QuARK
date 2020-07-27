@@ -182,7 +182,7 @@ begin
 
   //VAngle:=GetFloatSpec('VAngle', 45);
   MapProjView.VAngleDegrees:=45.0;
-  MapProjView.RFactorBase:=Cos(45.0 * (pi/180))/Sin(45.0 * (pi/180));
+  MapProjView.RFactorBase:=Cos(45.0 * Deg2Rad)/Sin(45.0 * Deg2Rad);
   MapProjView.Resize(Width, Height);
   //MinDistance:=Minoow / GetFloatSpec('DarkFactor', 1);
   MapProjView.MinDistance:=1.0;
@@ -196,7 +196,7 @@ begin
     with MapProjView do
     begin
       VAngleDegrees:=45.0;
-      RFactorBase:=Cos(VAngleDegrees*(pi/180))/Sin(VAngleDegrees*(pi/180));
+      RFactorBase:=Cos(VAngleDegrees*Deg2Rad)/Sin(VAngleDegrees*Deg2Rad);
       MinDistance:=Minoow / 1;
     end;
 
