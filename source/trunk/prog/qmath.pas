@@ -24,12 +24,6 @@ interface
 
 uses Windows, Messages, SysUtils, Graphics;
 
-const
- FacteurEchelle1 = 10;
- FacteurEchelle  = 1 shl FacteurEchelle1;
- DemiFacteur1    = 5;
- DemiFacteur     = 1 shl DemiFacteur1;
-
 type
  TInteger = Integer;
  TDouble = Double;

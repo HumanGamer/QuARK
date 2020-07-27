@@ -34,6 +34,11 @@ const
  EchelleTexture = 128;
  CannotEditFaceYet = '!';
 
+ FacteurEchelle1 = 10;
+ FacteurEchelle  = 1 shl FacteurEchelle1;
+ DemiFacteur1    = 5;
+ DemiFacteur     = 1 shl DemiFacteur1;
+
 type
  TThreePoints = array[1..3] of TVect;
 
