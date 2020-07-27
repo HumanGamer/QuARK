@@ -217,36 +217,6 @@ begin
   end;
 end;
 
-function vec3_t_add(v1,v2: vec3_t): vec3_t;
-var
-  i: integer;
-begin
-  for i:=0 to 2 do
-  begin
-    Result[i] := v1[i]+v2[i];
-  end;
-end;
-
-function vec3_t_sub(v1,v2: vec3_t): vec3_t;
-var
-  i: integer;
-begin
-  for i:=0 to 2 do
-  begin
-    Result[i] := v1[i]-v2[i];
-  end;
-end;
-
-function vec3_t_negate(v1: vec3_t): vec3_t;
-var
-  i: integer;
-begin
-  for i:=0 to 2 do
-  begin
-    Result[i] := -v1[i];
-  end;
-end;
-
 function AddMatrices(const M1, M2: TMatrixTransformation) : TMatrixTransformation;
 var
  I,J: Integer;
