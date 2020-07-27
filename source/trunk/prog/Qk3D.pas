@@ -96,7 +96,6 @@ type
                   TreeMapStatus: Byte;
                   BasePen, BaseR2, MaskR2: Byte;
                   CacherFaces{, CouleursTraitsOk}: Boolean;
-                  WindowsNT: Boolean;   { NT has no problem with 32 bit coordinates in drawing routines }
                   DefWhiteOnBlack: Boolean;
                   TexAntiScroll: Byte;
                   ShiftState: TShiftState;

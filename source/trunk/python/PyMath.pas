@@ -1161,7 +1161,7 @@ procedure T2DCoordinates.InitProjVar;
 begin
  inherited;
 {Facteur:=1/Sqr(pProjZ);}
- FastDisplay:=g_DrawInfo.WindowsNT or (pProjZ<=2);
+ FastDisplay:=CheckWindowsNT or (pProjZ<=2);
  FlatDisplay:=True;
  HiddenRegions:=os_Left or os_Right or os_Top or os_Bottom;
 end;
@@ -2567,6 +2567,4 @@ begin
  end;
 end;
 
-initialization
-  g_DrawInfo.WindowsNT:=CheckWindowsNT; //FIXME: Race condition with SystemDetails?
 end.
