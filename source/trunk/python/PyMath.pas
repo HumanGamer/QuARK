@@ -56,7 +56,6 @@ type
                 x, y, oow: Single; //FIXME: TDouble?
                 OffScreen: Byte;
                 OnEdge: Byte;
-                //Reserved1, Reserved2, Reserved3: Byte;
                end;
   TCoordinates = class
   protected
@@ -1040,19 +1039,14 @@ begin
 end;
 
 function TCoordinates.CheckVisible(var P: TPointProj) : Boolean;
-const
- ViewRectLeft   = -Max95;
- ViewRectTop    = -Max95;
- ViewRectRight  = Max95;
- ViewRectBottom = Max95;
 var
  Scr: Byte;
 begin
  Scr:=0;
- if P.X < ViewRectLeft then Inc(Scr, os_Left);
- if P.X >= ViewRectRight then Inc(Scr, os_Right);
- if P.Y < ViewRectTop then Inc(Scr, os_Top);
- if P.Y >= ViewRectBottom then Inc(Scr, os_Bottom);
+ if P.X < 0 then Inc(Scr, os_Left);
+ if P.X >= (ScrCenter.X * 2) + 1 then Inc(Scr, os_Right); //Compensate for rounding
+ if P.Y < 0 then Inc(Scr, os_Top);
+ if P.Y >= (ScrCenter.Y * 2) + 1 then Inc(Scr, os_Bottom); //Compensate for rounding
  if (P.oow < MinDistance) or (P.oow >= MaxDistance) then
   if NearerThan(P.oow, MinDistance) then
    Inc(Scr, os_Back)
