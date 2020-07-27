@@ -33,6 +33,7 @@ uses
 {$IFDEF MemCheck}
   MemCheck in 'prog\MemCheck.pas',
 {$ENDIF}
+
   FastMove in 'prog\FastMove.pas',
   FastCode in 'prog\FastCode\FastCode.pas',
   Forms,
@@ -100,6 +101,7 @@ uses
   Output1 in 'prog\Output1.pas' {OutputDirDlg},
   PakFiles in 'prog\PakFiles.pas',
   PixelSetSizeCache in 'prog\PixelSetSizeCache.pas',
+  qdraw in 'prog\qdraw.pas',
   Qk1 in 'prog\Qk1.pas' {Form1},
   Qk3D in 'prog\Qk3D.pas',
   Qk6DX in 'prog\Qk6DX.pas',
