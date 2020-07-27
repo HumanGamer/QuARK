@@ -53,9 +53,10 @@ type
              end;
   PPointProj = ^TPointProj;
   TPointProj = record
-                x, y, oow: Single;
+                x, y, oow: Single; //FIXME: TDouble?
                 OffScreen: Byte;
-                Reserved1, Reserved2, Reserved3: Byte;
+                OnEdge: Byte;
+                //Reserved1, Reserved2, Reserved3: Byte;
                end;
   TCoordinates = class
   protected
@@ -523,7 +524,7 @@ var
    with PrevV1 do
     begin
      OffScreen:=OffScreen and ScrMask;
-     Reserved1:=0;  { OnEdge }
+     OnEdge:=0;
     end;
   end;
 
@@ -813,59 +814,59 @@ begin
          if PV1.OffScreen and os_Left = 0 then
           begin
            ComingFrom((LocalViewRectLeft-PrevV1.x) / (PV1.x-PrevV1.x), bbX, LocalViewRectLeft);
-           PrevV1.{OnEdge}Reserved1:=oe_Left;
+           PrevV1.OnEdge:=oe_Left;
           end
          else
           begin
            GoingInto((LocalViewRectLeft-PV1.x) / (PrevV1.x-PV1.x), bbX, LocalViewRectLeft);
-           PV1.{OnEdge}Reserved1:=oe_Left;
+           PV1.OnEdge:=oe_Left;
           end;
         if ScrDiff and os_Right <> 0 then
          if PV1.OffScreen and os_Right = 0 then
           begin
            ComingFrom((LocalViewRectRight-PrevV1.x) / (PV1.x-PrevV1.x), bbX, LocalViewRectRight);
-           PrevV1.{OnEdge}Reserved1:=oe_Right;
+           PrevV1.OnEdge:=oe_Right;
           end
          else
           begin
            GoingInto((LocalViewRectRight-PV1.x) / (PrevV1.x-PV1.x), bbX, LocalViewRectRight);
-           PV1.{OnEdge}Reserved1:=oe_Right;
+           PV1.OnEdge:=oe_Right;
           end;
 
         if ScrDiff and os_Top <> 0 then
          if PV1.OffScreen and os_Top = 0 then
           begin
            ComingFrom((LocalViewRectTop-PrevV1.y) / (PV1.y-PrevV1.y), bbY, LocalViewRectTop);
-           PrevV1.{OnEdge}Reserved1:=oe_Top;
+           PrevV1.OnEdge:=oe_Top;
           end
          else
           begin
            GoingInto((LocalViewRectTop-PV1.y) / (PrevV1.y-PV1.y), bbY, LocalViewRectTop);
-           PV1.{OnEdge}Reserved1:=oe_Top;
+           PV1.OnEdge:=oe_Top;
           end;
         if ScrDiff and os_Bottom <> 0 then
          if PV1.OffScreen and os_Bottom = 0 then
           begin
            ComingFrom((LocalViewRectBottom-PrevV1.y) / (PV1.y-PrevV1.y), bbY, LocalViewRectBottom);
-           PrevV1.{OnEdge}Reserved1:=oe_Bottom;
+           PrevV1.OnEdge:=oe_Bottom;
           end
          else
           begin
            GoingInto((LocalViewRectBottom-PV1.y) / (PrevV1.y-PV1.y), bbY, LocalViewRectBottom);
-           PV1.{OnEdge}Reserved1:=oe_Bottom;
+           PV1.OnEdge:=oe_Bottom;
           end;
 
         if PrevV1.OffScreen or PV1.OffScreen = 0 then
          begin  { the resulting line is on-screen }
           if PrevChanged then
            begin
-            if (LastEdge<>0) and (PrevV1.{OnEdge}Reserved1<>0) then
-             AddCorners(PrevV1.{OnEdge}Reserved1);
-            if N=0 then SourceEdge:=PrevV1.{OnEdge}Reserved1;
+            if (LastEdge<>0) and (PrevV1.OnEdge<>0) then
+             AddCorners(PrevV1.OnEdge);
+            if N=0 then SourceEdge:=PrevV1.OnEdge;
             Output(PrevV1);
            end;
           Output(PV1);
-          LastEdge:=PV1.{OnEdge}Reserved1;
+          LastEdge:=PV1.OnEdge;
          end;
 
         PrevV1:=NewV1;
