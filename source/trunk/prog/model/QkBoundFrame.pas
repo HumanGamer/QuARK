@@ -239,13 +239,6 @@ begin
   Result:=GetStartPoint(startpoint) and GetEndPoint(endpoint);
 end;
 
-Function Vec3_To_TVect(vec: vec3_p): TVect;
-begin
-  Result.X:=vec^[0];
-  Result.Y:=vec^[1];
-  Result.Z:=vec^[2];
-end;
-
 procedure QBoundFrame.Dessiner;
 var
   start_point, end_point: vec3_p;
@@ -257,8 +250,8 @@ begin
   ok:=GetStartEnd(start_point, end_point);
   if not ok then
     exit;
-  pt_start:=CCoord.Proj(vec3_to_tvect(start_point));
-  pt_end:=CCoord.Proj(vec3_to_tvect(end_point));
+  pt_start:=CCoord.Proj(MakeVect(start_point^));
+  pt_end:=CCoord.Proj(MakeVect(end_point^));
 
   DeletePen:=CreatePen(ps_Solid, 0, clWhite);
   NewPen:=DeletePen;
