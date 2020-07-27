@@ -179,6 +179,7 @@ uses
   QkZip2 in 'prog\QkZip2.pas',
   qmath in 'prog\qmath.pas',
   qmatrices in 'prog\qmatrices.pas',
+  qquaternions in 'prog\qquaternions.pas',
   QPAcc in 'prog\QPAcc.pas',
   QuickWal in 'prog\QuickWal.pas' {QuickWalParser},
   RedLines in 'prog\RedLines.pas',

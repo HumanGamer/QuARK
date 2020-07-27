@@ -542,6 +542,7 @@ Strings = {
     4460: "Cannot find '%s', using '%s' instead",
     4461: "Unknown value '%s' for setting '%s'",
     4462: "expected a 3D matrix",
+    4463: "Invalid quaternion operation",
 
     4614: "&More >>",
     4616: "                     *** EXCEPTION REPORT ***\n\n%s       Address in the program : %p (%p)\n",

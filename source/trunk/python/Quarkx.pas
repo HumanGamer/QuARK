@@ -87,7 +87,7 @@ uses Classes, Dialogs, Graphics, CommCtrl, ExtCtrls, Controls,
      QkForm, PyToolbars, PyImages, PyPanels, TB97, QkObjects, QkConsts,
      PyObjects, QkFileObjects, {PyFiles,} PyExplorer, Travail, Running,
      Qk1, PyFormCfg, QkQuakeCtx, PyFloating, PyFullscreen, PyMapView, qmath, Setup,
-     PyMath, PyCanvas, PyUndo, qmatrices, QkMapObjects, QkTextures,
+     PyMath, PyCanvas, PyUndo, qquaternions, qmatrices, QkMapObjects, QkTextures,
      Undo, QkGroup, Qk3D, PyTravail, ToolBox1, Config, PyProcess,
      Console, Game, {$IFDEF CompiledWithDelphi2} ShellObj, {$ELSE} ShlObj, {$ENDIF}
      PakFiles, Reg2, SearchHoles, QkMapPoly, HelpPopup1, QkFullScreenWindow,
@@ -1209,6 +1209,31 @@ begin
      Exit;
     Result:=MakePyVect3(nX, nY, nZ);
    end;
+ except
+  Py_XDECREF(Result);
+  EBackToPython;
+  Result:=Nil;
+ end;
+end;
+
+function xQuaternion(self, args: PyObject) : PyObject; cdecl;
+var
+ nX, nY, nZ, nW: Double;
+begin
+ Result:=Nil;
+ try
+  if PyObject_Length(args)=1 then
+   begin
+    args:=PyTuple_GetItem(args, 0);
+    if args^.ob_type = PyString_Type then
+     begin
+      Result:=MakePyQuaternion(stoq(PyString_AsString(args)));
+      Exit;
+     end;
+   end;
+  if not PyArg_ParseTupleX(args, 'dddd', [@nX, @nY, @nZ, @nW]) then
+   Exit;
+  Result:=MakePyQuaternion(nX, nY, nZ, nW);
  except
   Py_XDECREF(Result);
   EBackToPython;
@@ -3165,7 +3190,7 @@ begin
 end;
 
 const
- MethodTable: array[0..92] of TyMethodDef =
+ MethodTable: array[0..93] of TyMethodDef =
   ((ml_name: 'Setup1';          ml_meth: xSetup1;          ml_flags: METH_VARARGS),
    (ml_name: 'newobj';          ml_meth: xNewObj;          ml_flags: METH_VARARGS),
    (ml_name: 'newfileobj';      ml_meth: xNewFileObj;      ml_flags: METH_VARARGS),
@@ -3211,6 +3236,7 @@ const
    (ml_name: 'poolobj';         ml_meth: xPoolObj;         ml_flags: METH_VARARGS),
    (ml_name: 'setpoolobj';      ml_meth: xSetPoolObj;      ml_flags: METH_VARARGS),
    (ml_name: 'vect';            ml_meth: xVect;            ml_flags: METH_VARARGS),
+   (ml_name: 'quaternion';      ml_meth: xQuaternion;      ml_flags: METH_VARARGS),
    (ml_name: 'matrix';          ml_meth: xMatrix;          ml_flags: METH_VARARGS),
    (ml_name: 'newform';         ml_meth: xNewForm;         ml_flags: METH_VARARGS),
    (ml_name: 'update';          ml_meth: xUpdate;          ml_flags: METH_VARARGS),
@@ -3301,6 +3327,7 @@ begin
  RegType(TyImageCtrl_Type, 'imagectrl_type');
  RegType(TyBtnPanel_Type,  'btnpanel_type');
  RegType(TyVect_Type,      'vector_type');
+ RegType(TyQuaternion_Type,'quaternion_type');
  RegType(TyMatrix_Type,    'matrix_type');
  RegType(TyCanvas_Type,    'canvas_type');
  RegType(TyProcess_Type,   'process_type');

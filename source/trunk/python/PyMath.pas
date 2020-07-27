@@ -24,7 +24,7 @@ interface
 
 {$INCLUDE PyVersions.inc}
 
-uses Windows, SysUtils, qmath, qmatrices, Python, Quarkx;
+uses Windows, SysUtils, qmath, qquaternions, qmatrices, Python, Quarkx;
 
 const
  os_Left    = $01;   { x too small }
@@ -47,6 +47,10 @@ type
   TyVectST = object(TyVect)
               TexS, TexT: TDouble;
              end;
+  PyQuaternion = ^TyQuaternion;
+  TyQuaternion = object(TyObject)
+                  Q: TQuaternion;
+                 end;
   PyMatrix = ^TyMatrix;
   TyMatrix = object(TyObject)
               M: TMatrixTransformation;
@@ -264,6 +268,51 @@ var
 
  {------------------------}
 
+function MakePyQuaternion(const nQ: TQuaternion) : PyQuaternion; overload;
+function MakePyQuaternion(nX, nY, nZ, nW: TDouble) : PyQuaternion; overload;
+
+function GetQuaternionAttr(self: PyObject; attr: PChar) : PyObject; cdecl;
+function PrintQuaternion(self: PyObject) : PyObject; cdecl;
+function QuaternionToStr(self: PyObject) : PyObject; cdecl;
+
+function QuaternionAdd(v1, v2: PyObject) : PyObject; cdecl;
+function QuaternionSubtract(v1, v2: PyObject) : PyObject; cdecl;
+function QuaternionMultiply(v1, v2: PyObject) : PyObject; cdecl;
+function QuaternionDivide(v1, v2: PyObject) : PyObject; cdecl;
+function QuaternionNegative(v1: PyObject) : PyObject; cdecl;
+function QuaternionPositive(v1: PyObject) : PyObject; cdecl;
+function QuaternionAbsolute(v1: PyObject) : PyObject; cdecl;
+function QuaternionNonZero(v1: PyObject) : Integer; cdecl;
+function QuaternionInvert(v1: PyObject) : PyObject; cdecl;
+function QuaternionCoerce(var v1, v2: PyObject) : Integer; cdecl;
+
+const
+ QuaternionNumbers: TyNumberMethods =
+  (nb_add:         QuaternionAdd;
+   nb_subtract:    QuaternionSubtract;
+   nb_multiply:    QuaternionMultiply;
+   nb_divide:      QuaternionDivide;
+   nb_negative:    QuaternionNegative;
+   nb_positive:    QuaternionPositive;
+   nb_absolute:    QuaternionAbsolute;
+   nb_nonzero:     QuaternionNonZero;
+   nb_invert:      QuaternionInvert;
+   nb_coerce:      QuaternionCoerce);
+
+var
+ TyQuaternion_Type: TyTypeObject =
+  (ob_refcnt:      1;
+   tp_name:        'quaternion';
+   tp_basicsize:   SizeOf(TyQuaternion);
+   tp_dealloc:     SimpleDestructor;
+   tp_getattr:     GetQuaternionAttr;
+   tp_repr:        PrintQuaternion;
+   tp_as_number:   @QuaternionNumbers;
+   tp_str:         QuaternionToStr;
+   tp_doc:         'A quaternion.');
+
+ {------------------------}
+
 function GetMatrixAttr(self: PyObject; attr: PChar) : PyObject; cdecl;
 function PrintMatrix(self: PyObject) : PyObject; cdecl;
 function MatrixToStr(self: PyObject) : PyObject; cdecl;
@@ -323,10 +372,12 @@ implementation
 uses qdraw, QkExceptions, QkMapObjects, QkMapPoly, Qk3D,
   SystemDetails;
 
- {------------------------}
-
 const
+ COERCEDFROMFLOAT : TDouble = -1E308; //Sentinel value if object was created through coercing of a float value.
+
  MaxoowLocal = 1.0;
+
+ {------------------------}
 
 function Ligne95(var P1, P2: TPointProj; Test3D: Boolean) : Boolean;
 var
@@ -1663,7 +1714,7 @@ begin
          else if StrComp(attr,'xyz')=0 then
           begin
            with PyVect(self)^.V do
-           Result:=Py_BuildValueDDD(X, Y, Z);
+            Result:=Py_BuildValueDDD(X, Y, Z);
            Exit;
          end
          else if StrComp(attr,'xyzst')=0 then
@@ -1903,9 +1954,6 @@ end;
 
  {------------------------}
 
-const
- COERCEDFROMFLOAT : TDouble = -1E308;
-
 function PyVectST_S(v1: PyObject) : TDouble;
 begin
  if PyVect(v1)^.ST then
@@ -2090,8 +2138,7 @@ begin
  try
   if v1^.ob_type <> @TyVect_Type then
    Raise EError(4443);
-  with PyVect(v1)^.V do
-   Result:=PyFloat_FromDouble(Sqrt(Sqr(X)+Sqr(Y)+Sqr(Z)));
+  Result:=PyFloat_FromDouble(VecLength(PyVect(v1)^.V));
  except
   Py_XDECREF(Result);
   EBackToPython;
@@ -2153,6 +2200,328 @@ begin
     f:=PyFloat_AsDouble(v3);
     Py_DECREF(v3);
     v2:=MakePyVect3(f, COERCEDFROMFLOAT, COERCEDFROMFLOAT);
+   end
+  else
+   Py_INCREF(v2);
+  Py_INCREF(v1);
+  Result:=0;
+ except
+  EBackToPython;
+  Result:=-1;
+ end;
+end;
+
+ {------------------------}
+
+function GetQuaternionAttr(self: PyObject; attr: PChar) : PyObject;
+var
+ Q1: TQuaternion;
+begin
+ Result:=Nil;
+ try
+  case attr[0] of
+   'c': if StrComp(attr, 'copy')=0 then
+         begin
+          Result:=MakePyQuaternion(PyQuaternion(self)^.Q);
+          Exit;
+         end;
+   'n': if StrComp(attr, 'normalized')=0 then
+         begin
+          Q1:=PyQuaternion(self)^.Q;
+          QuaternionNormalise(Q1);
+          Result:=MakePyQuaternion(Q1);
+          Exit;
+         end;
+   'w': if attr[1]=#0 then
+         begin
+          Result:=PyFloat_FromDouble(PyQuaternion(self)^.Q.W);
+          Exit;
+         end;
+   'x': if attr[1]=#0 then
+         begin
+          Result:=PyFloat_FromDouble(PyQuaternion(self)^.Q.X);
+          Exit;
+         end
+         else if StrComp(attr,'xyz')=0 then
+          begin
+           with PyQuaternion(self)^.Q do
+            Result:=Py_BuildValueDDD(X, Y, Z);
+           Exit;
+         end
+         else if StrComp(attr,'xyzw')=0 then
+          begin
+           with PyQuaternion(self)^.Q do
+            Result:=Py_BuildValueD4(X, Y, Z, W);
+           Exit;
+          end;
+   'y': if attr[1]=#0 then
+         begin
+          Result:=PyFloat_FromDouble(PyQuaternion(self)^.Q.Y);
+          Exit;
+         end;
+   'z': if attr[1]=#0 then
+         begin
+          Result:=PyFloat_FromDouble(PyQuaternion(self)^.Q.Z);
+          Exit;
+         end;
+  end;
+  PyErr_SetString(QuarkxError, PChar(LoadStr1(4429)));
+  Result:=Nil;
+ except
+  Py_XDECREF(Result);
+  EBackToPython;
+  Result:=Nil;
+ end;
+end;
+
+function PrintQuaternion(self: PyObject) : PyObject;
+var
+ S: String;
+begin
+ Result:=Nil;
+ try
+  S:='<quaternion '+qtos(PyQuaternion(self)^.Q)+'>';
+  Result:=PyString_FromString(PChar(S));
+ except
+  Py_XDECREF(Result);
+  EBackToPython;
+  Result:=Nil;
+ end;
+end;
+
+function QuaternionToStr(self: PyObject) : PyObject;
+var
+ S: String;
+begin
+ Result:=Nil;
+ try
+  S:=qtos(PyQuaternion(self)^.Q);
+  Result:=PyString_FromString(PChar(S));
+ except
+  Py_XDECREF(Result);
+  EBackToPython;
+  Result:=Nil;
+ end;
+end;
+
+function MakePyQuaternion(const nQ: TQuaternion) : PyQuaternion;
+begin
+ Result:=PyQuaternion(PyObject_New(@TyQuaternion_Type));
+ with PyQuaternion(Result)^ do
+  begin
+   Q:=nQ;
+  end;
+end;
+
+function MakePyQuaternion(nX, nY, nZ, nW: TDouble) : PyQuaternion;
+begin
+ Result:=PyQuaternion(PyObject_New(@TyQuaternion_Type));
+ with PyQuaternion(Result)^.Q do
+  begin
+   X:=nX;
+   Y:=nY;
+   Z:=nZ;
+   W:=nW;
+  end;
+end;
+
+ {------------------------}
+
+function QuaternionAdd(v1, v2: PyObject) : PyObject;
+var
+ W1, W2: TQuaternion;
+begin
+ Result:=Nil;
+ try
+  if (v1^.ob_type <> @TyQuaternion_Type)
+  or (v2^.ob_type <> @TyQuaternion_Type) then
+   Raise EError(4463);
+  W1:=PyQuaternion(v1)^.Q;
+  W2:=PyQuaternion(v2)^.Q;
+  if (W1.Y = COERCEDFROMFLOAT)
+  or (W2.Y = COERCEDFROMFLOAT) then
+   Raise EError(4463);
+  Result:=MakePyQuaternion(W1.X+W2.X, W1.Y+W2.Y, W1.Z+W2.Z, W1.W+W2.W);
+ except
+  Py_XDECREF(Result);
+  EBackToPython;
+  Result:=Nil;
+ end;
+end;
+
+function QuaternionSubtract(v1, v2: PyObject) : PyObject;
+var
+ W1, W2: TQuaternion;
+begin
+ Result:=Nil;
+ try
+  if (v1^.ob_type <> @TyQuaternion_Type)
+  or (v2^.ob_type <> @TyQuaternion_Type) then
+   Raise EError(4463);
+  W1:=PyQuaternion(v1)^.Q;
+  W2:=PyQuaternion(v2)^.Q;
+  if (W1.Y = COERCEDFROMFLOAT)
+  or (W2.Y = COERCEDFROMFLOAT) then
+   Raise EError(4463);
+  Result:=MakePyQuaternion(W1.X-W2.X, W1.Y-W2.Y, W1.Z-W2.Z, W1.W-W2.W);
+ except
+  Py_XDECREF(Result);
+  EBackToPython;
+  Result:=Nil;
+ end;
+end;
+
+function QuaternionMultiply(v1, v2: PyObject) : PyObject;
+var
+ W1, W2, W: TQuaternion;
+begin
+ Result:=Nil;
+ try
+  if (v1^.ob_type <> @TyQuaternion_Type)
+  or (v2^.ob_type <> @TyQuaternion_Type) then
+   Raise EError(4463);
+  W1:=PyQuaternion(v1)^.Q;
+  W2:=PyQuaternion(v2)^.Q;
+  if (W1.Y <> COERCEDFROMFLOAT)
+  and (W2.Y <> COERCEDFROMFLOAT) then
+   Result:=MakePyQuaternion(MultiplyQuaternions(PyQuaternion(v1)^.Q, PyQuaternion(v2)^.Q))
+  else
+   begin
+    if (W1.Y = COERCEDFROMFLOAT)
+    or (W2.Y <> COERCEDFROMFLOAT) then
+     begin
+      W:=W1;
+      W1:=W2;
+      W2:=W;
+      if (W1.Y = COERCEDFROMFLOAT)
+      or (W2.Y <> COERCEDFROMFLOAT) then
+       Raise EError(4463);
+      v1:=v2;
+     end;
+    Result:=MakePyQuaternion(W1.X*W2.X, W1.Y*W2.X, W1.Z*W2.X, W1.W*W2.X);
+   end;
+ except
+  Py_XDECREF(Result);
+  EBackToPython;
+  Result:=Nil;
+ end;
+end;
+
+function QuaternionDivide(v1, v2: PyObject) : PyObject;
+var
+ W1, W2: TQuaternion;
+ f: TDouble;
+begin
+ Result:=Nil;
+ try
+  if (v1^.ob_type <> @TyQuaternion_Type)
+  or (v2^.ob_type <> @TyQuaternion_Type) then
+   Raise EError(4463);
+  W1:=PyQuaternion(v1)^.Q;
+  W2:=PyQuaternion(v2)^.Q;
+  if (W1.Y = COERCEDFROMFLOAT)
+  or (W2.Y <> COERCEDFROMFLOAT) then
+   Raise EError(4463);
+  f:=1/W2.X;
+  Result:=MakePyQuaternion(W1.X*f, W1.Y*f, W1.Z*f, W1.W*f);
+ except
+  Py_XDECREF(Result);
+  EBackToPython;
+  Result:=Nil;
+ end;
+end;
+
+function QuaternionNegative(v1: PyObject) : PyObject;
+var
+ W1: TQuaternion;
+begin
+ Result:=Nil;
+ try
+  if v1^.ob_type <> @TyQuaternion_Type then
+   Raise EError(4463);
+  W1:=PyQuaternion(v1)^.Q;
+  Result:=MakePyQuaternion(-W1.X, -W1.Y, -W1.Z, -W1.W);
+ except
+  Py_XDECREF(Result);
+  EBackToPython;
+  Result:=Nil;
+ end;
+end;
+
+function QuaternionPositive(v1: PyObject) : PyObject;
+begin
+ Result:=Nil;
+ try
+  if v1^.ob_type <> @TyQuaternion_Type then
+   Raise EError(4443);
+  Result:=MakePyQuaternion(PyQuaternion(v1)^.Q);
+ except
+  Py_XDECREF(Result);
+  EBackToPython;
+  Result:=Nil;
+ end;
+end;
+
+function QuaternionAbsolute(v1: PyObject) : PyObject;
+begin
+ Result:=Nil;
+ try
+  if v1^.ob_type <> @TyQuaternion_Type then
+   Raise EError(4463);
+  Result:=PyFloat_FromDouble(QuaternionNorm(PyQuaternion(v1)^.Q));
+ except
+  Py_XDECREF(Result);
+  EBackToPython;
+  Result:=Nil;
+ end;
+end;
+
+function QuaternionNonZero(v1: PyObject) : Integer;
+var
+ W1: TQuaternion;
+begin
+ try
+  if v1^.ob_type <> @TyQuaternion_Type then
+   Raise EError(4463);
+  W1:=PyQuaternion(v1)^.Q;
+  if (Abs(W1.X)<rien) and (Abs(W1.Y)<rien) and (Abs(W1.Z)<rien) and (Abs(W1.W)<rien) then
+   Result:=0
+  else
+   Result:=1;
+ except
+  EBackToPython;
+  Result:=-1;
+ end;
+end;
+
+function QuaternionInvert(v1: PyObject) : PyObject;
+begin
+ Result:=Nil;
+ try
+  if v1^.ob_type <> @TyQuaternion_Type then
+   Raise EError(4463);
+  Result:=MakePyQuaternion(QuaternionInverse(PyQuaternion(v1)^.Q));
+ except
+  Py_XDECREF(Result);
+  EBackToPython;
+  Result:=Nil;
+ end;
+end;
+
+function QuaternionCoerce(var v1, v2: PyObject) : Integer;
+var
+ f: TDouble;
+ v3: PyObject;
+begin
+ try
+  Result:=-1;
+  if v2^.ob_type <> @TyQuaternion_Type then
+   begin
+    v3:=PyNumber_Float(v2);
+    if v3=Nil then Exit;
+    f:=PyFloat_AsDouble(v3);
+    Py_DECREF(v3);
+    v2:=MakePyQuaternion(f, COERCEDFROMFLOAT, COERCEDFROMFLOAT, COERCEDFROMFLOAT);
    end
   else
    Py_INCREF(v2);
