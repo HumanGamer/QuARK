@@ -212,9 +212,9 @@ function ControleSelection(T: TTreeMap) : Boolean;
 
 implementation
 
-uses Setup, QkMapPoly, Undo, FormCfg, Game, QkMacro, Quarkx, QkExceptions, PyMath,
-     PyMapView, PyObjects, QkImages, Bezier, EdSceneObject, Logging, StrUtils,
-     QkObjectClassList, QkMD3, QkQkl, QkModelRoot, ExtraFunctionality;
+uses qdraw, Setup, QkMapPoly, Undo, FormCfg, Game, QkMacro, Quarkx, QkExceptions,
+     PyMath, PyMapView, PyObjects, QkImages, Bezier, EdSceneObject, Logging,
+     StrUtils, QkObjectClassList, QkMD3, QkQkl, QkModelRoot, ExtraFunctionality;
 
  {------------------------}
 

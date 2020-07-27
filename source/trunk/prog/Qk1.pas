@@ -238,9 +238,9 @@ var
 
 implementation
 
-uses Undo, QkQuakeC, Setup, Config, ToolBox1, Game, QkOwnExplorer,
-  ObjProp, qmath, QkInclude, Running, Output1, QkTreeView, PyProcess,
-  Console, Python, Quarkx, About, {$IFDEF Debug} MemTester, {$ENDIF}
+uses {$IFDEF Debug}MemTester, {$ENDIF}Undo, QkQuakeC, Setup, Config,
+  ToolBox1, Game, QkOwnExplorer, ObjProp, qdraw, qmath, QkInclude,
+  Running, Output1, QkTreeView, PyProcess, Console, Python, Quarkx, About,
   PyMapView, PyForms, Qk3D, EdSceneObject, QkObjectClassList, QkApplPaths,
   QkExceptions, QkQuakeCtx, QkSteamFS, AutoUpdater, QkConsts, Toolbar1,
   Logging, SystemDetails;
@@ -483,6 +483,9 @@ begin
  // Warn for bugs
  if (SetupSubSet(ssGeneral, 'Startup').Specifics.Values['BugCheck']<>'') then
    WarnDriverBugs;
+
+ //Set-up OS specific things
+ InitViewport16;
 
  Log(LOG_VERBOSE, 'Preparing QuArK Explorer...');
 

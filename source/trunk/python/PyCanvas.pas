@@ -49,7 +49,7 @@ var
 
 implementation
 
-uses qmath, PyObjects, PyImages, QkObjects, QkTextures, Game, Setup,
+uses qdraw, PyObjects, PyImages, QkObjects, QkTextures, Game, Setup,
      PyMath, Qk3D, QkImages, QkPixelSet, QkExceptions;
 
  {------------------------}
@@ -76,8 +76,7 @@ begin
      begin
       if not PyArg_ParseTupleX(args, 'iiii', [@P1.X, @P1.Y, @P2.X, @P2.Y]) then
        Exit;
-      Windows.MoveToEx(g_DrawInfo.DC, P1.X, P1.Y, Nil);
-      Windows.LineTo(g_DrawInfo.DC, P2.X, P2.Y);
+      Line95(g_DrawInfo.DC, P1, P2);
      end;
    end;
   Result:=PyNoResult;
@@ -392,15 +391,9 @@ begin
         if obj=Nil then Exit;
         if not PyArg_ParseTupleX(obj, 'ii', [@Pt1^.X, @Pt1^.Y]) then
          Exit;
-        if (Pt1^.X<-Max95) or (Pt1^.X>Max95)
-        or (Pt1^.Y<-Max95) or (Pt1^.Y>Max95) then
-         begin
-          Result:=PyNoResult;
-          Exit;
-         end;
         Inc(Pt1);
        end;
-      Windows.Polygon(g_DrawInfo.DC, Pt^, Count);
+      Polygon95(g_DrawInfo.DC, Pt^, Count);
       finally FreeMem(Pt); end;
      end;
    end;

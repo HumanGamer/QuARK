@@ -209,9 +209,6 @@ function GetAngleCoord(const Angle, VAngle, Scale: TDouble) : T2DCoordinates;}
 
 function GetMatrixCoordinates(const mx: TMatrixTransformation) : T2DCoordinates;
 
-procedure Rectangle95(DC: HDC; X1, Y1, X2, Y2: Integer);
-procedure Ellipse95(DC: HDC; X1, Y1, X2, Y2: Integer);
-
  {------------------------}
 
 function MakePyVect3(const nX, nY, nZ: Double) : PyVect;
@@ -319,16 +316,12 @@ var
 
  {------------------------}
 
-const
- Max95 = 8192;  { to clip coordinates x and y }
- Max95r = Max95-2;
- Max95a = Max95+2;
-
 implementation
 
 { $DEFINE DebugCoord}
 
-uses QkExceptions, QkMapObjects, QkMapPoly, Qk3D, SystemDetails;
+uses qdraw, QkExceptions, QkMapObjects, QkMapPoly, Qk3D,
+  SystemDetails;
 
  {------------------------}
 
@@ -338,6 +331,7 @@ const
 function Ligne95(var P1, P2: TPointProj; Test3D: Boolean) : Boolean;
 var
  F: TDouble;
+ P1x, P2x: TPoint;
 begin
  if Test3D then
   begin
@@ -360,68 +354,11 @@ begin
     end;
   end;
 
- if P1.Y<-Max95 then
-  begin
-   if P2.Y<-Max95r then
-    begin
-     Ligne95:=False;
-     Exit;
-    end;
-   P1.X:=P2.X + (P2.Y+Max95)*(P1.X-P2.X)/(P2.Y-P1.Y);
-   P1.Y:=-Max95;
-  end;
- if P1.Y>Max95 then
-  begin
-   if P2.Y>Max95r then
-    begin
-     Ligne95:=False;
-     Exit;
-    end;
-   P1.X:=P2.X + (Max95-P2.Y)*(P1.X-P2.X)/(P1.Y-P2.Y);
-   P1.Y:=Max95;
-  end;
- if P2.Y<-Max95a then
-  begin
-   P2.X:=P1.X + (P1.Y+Max95)*(P2.X-P1.X)/(P1.Y-P2.Y);
-   P2.Y:=-Max95;
-  end;
- if P2.Y>Max95a then
-  begin
-   P2.X:=P1.X + (Max95-P1.Y)*(P2.X-P1.X)/(P2.Y-P1.Y);
-   P2.Y:=Max95;
-  end;
-
- if P1.X<-Max95 then
-  begin
-   if P2.X<-Max95r then
-    begin
-     Ligne95:=False;
-     EXit;
-    end;
-   P1.Y:=P2.Y + (P2.X+Max95)*(P1.Y-P2.Y)/(P2.X-P1.X);
-   P1.X:=-Max95;
-  end;
- if P1.X>Max95 then
-  begin
-   if P2.X>Max95r then
-    begin
-     Ligne95:=False;
-     Exit;
-    end;
-   P1.Y:=P2.Y + (Max95-P2.X)*(P1.Y-P2.Y)/(P1.X-P2.X);
-   P1.X:=Max95;
-  end;
- if P2.X<-Max95a then
-  begin
-   P2.Y:=P1.Y + (P1.X+Max95)*(P2.Y-P1.Y)/(P1.X-P2.X);
-   P2.X:=-Max95;
-  end;
- if P2.X>Max95a then
-  begin
-   P2.Y:=P1.Y + (Max95-P1.X)*(P2.Y-P1.Y)/(P2.X-P1.X);
-   P2.X:=Max95;
-  end;
- Result:=True;
+ P1x.X:=Round(P1.X);
+ P1x.Y:=Round(P1.Y);
+ P2x.X:=Round(P2.X);
+ P2x.Y:=Round(P2.Y);
+ Result:=qdraw.Ligne95(P1x, P2x);
 end;
 
 function TCoordinates.ClipLine95(var P1, P2: TPointProj) : Boolean;
@@ -447,34 +384,6 @@ begin
    Windows.MoveToEx(g_DrawInfo.DC, Round(P1.x), Round(P1.y), Nil);
    Windows.LineTo(g_DrawInfo.DC, Round(P2.x), Round(P2.y));
   end;
-end;
-
-procedure Rectangle95(DC: HDC; X1, Y1, X2, Y2: Integer);
-begin
- if not g_DrawInfo.WindowsNT then
-  begin
-   if (X2<=-Max95) or (Y2<=-Max95) or (X1>=Max95) or (Y1>=Max95) then
-    Exit;
-   if X1<-Max95 then X1:=-Max95;
-   if Y1<-Max95 then Y1:=-Max95;
-   if X2>Max95 then X2:=Max95;
-   if Y2>Max95 then Y2:=Max95;
-  end;
- Windows.Rectangle(DC, X1,Y1,X2,Y2);
-end;
-
-procedure Ellipse95(DC: HDC; X1, Y1, X2, Y2: Integer);
-begin
- if not g_DrawInfo.WindowsNT then
-  begin
-   if (X2<=-Max95) or (Y2<=-Max95) or (X1>=Max95) or (Y1>=Max95) then
-    Exit;
-   if X1<-Max95 then X1:=-Max95;
-   if Y1<-Max95 then Y1:=-Max95;
-   if X2>Max95 then X2:=Max95;
-   if Y2>Max95 then Y2:=Max95;
-  end;
- Windows.Ellipse(DC, X1,Y1,X2,Y2);
 end;
 
 procedure TCoordinates.Polygon95(var Pts; NbPts: Integer; CCW: Boolean);
@@ -1001,7 +910,6 @@ procedure TCoordinates.SetAsCCoord(nDC: HDC);
 begin
  g_DrawInfo.DC:=nDC;
  CCoord:=Self;
-{CheckWindows16bits(ScalingFactor>2);}
  g_DrawInfo.ModeAff:=0;
  g_DrawInfo.BlackBrush:=GetStockObject(g_DrawInfo.BasePen);
  g_DrawInfo.SelectedBrush:=0;

@@ -24,73 +24,69 @@ interface
 
 uses Windows, Messages, SysUtils, Graphics;
 
-{
- PointVisible16: function (const P: TPoint) : Boolean;
- Polygon16: function (DC: HDC; var Pts; NbPts: Integer) : Bool; stdcall;
- PolyPolyline16: function (DC: HDC; var Pts, Cnt; NbPolylines: Integer) : Bool; stdcall;
- Rectangle16: function (DC: HDC; X1,Y1,X2,Y2: Integer) : Bool; stdcall;
- Line16: procedure (DC: HDC; const P1,P2: TPoint);}
+var
+ PointVisible95: function(const P: TPoint) : Boolean;
+ Line95: function(DC: HDC; P1,P2: TPoint) : Boolean;
+ Rectangle95: function(DC: HDC; X1,Y1,X2,Y2: Integer) : Bool; stdcall;
+ Ellipse95: function(DC: HDC; X1, Y1, X2, Y2: Integer) : Bool; stdcall;
+ Polygon95: function(DC: HDC; var Pts; NbPts: Integer) : Bool; stdcall;
+ PolyPolyline95: function(DC: HDC; const Pts, Cnt; NbPolylines: DWORD) : Bool; stdcall;
 
-{procedure CheckWindows16bits(HiZoom: Boolean);}
+function Ligne95(var P1, P2: TPoint) : Boolean;
 
-{function PolyPolyline95(DC: HDC; var Pts, Cnt; NbPolylines: Integer) : Bool; stdcall;
-function Rectangle95(DC: HDC; X1,Y1,X2,Y2: Integer) : Bool; stdcall;
-procedure Line95(DC: HDC; const P1,P2: TPoint);
-function Polygon95(DC: HDC; var Pts; NbPts: Integer) : Bool; stdcall;
-function PointVisible95(const P: TPoint) : Boolean;}
+procedure InitViewport16();
 
 implementation
+
+uses SystemDetails;
+
+const
+ Max95 = 8192;  { to clip coordinates x and y }
+ Max95r = Max95-2;
+ Max95a = Max95+2;
 
 function PointVisibleOk(const P: TPoint) : Boolean;
 begin
  Result:=True;
 end;
 
-procedure LineOk(DC: HDC; const P1,P2: TPoint);
+function LineOk(DC: HDC; P1,P2: TPoint) : Boolean;  //FIXME: Untested
 begin
- Windows.MoveToEx(DC, P1.X,P1.Y, Nil);
- Windows.LineTo(DC, P2.X,P2.Y);
+ Result:=Windows.MoveToEx(DC, P1.X,P1.Y, Nil);
+ if Result then Exit;
+ Result:=Windows.LineTo(DC, P2.X,P2.Y);
 end;
 
-const
- Max95 = 8192;
-
-function PointVisible95(const P: TPoint) : Boolean;
-begin
- Result:=(P.X>=-Max95) and (P.Y>=-Max95) and (P.X<Max95) and (P.Y<Max95);
-end;
+ {------------------------}
 
 function Ligne95(var P1, P2: TPoint) : Boolean;
 begin
- Ligne95:=True;
  if P1.Y<-Max95 then
   begin
-   if P2.Y<-Max95 then
+   if P2.Y<-Max95r then
     begin
-     P2.Y:=-Max95;
      Ligne95:=False;
-    end
-   else
-    P1.X:=P2.X + MulDiv(P2.Y+Max95, P1.X-P2.X, P2.Y-P1.Y);
+     Exit;
+    end;
+   P1.X:=P2.X + MulDiv(P2.Y+Max95, P1.X-P2.X, P2.Y-P1.Y);
    P1.Y:=-Max95;
   end;
  if P1.Y>Max95 then
   begin
-   if P2.Y>Max95 then
+   if P2.Y>Max95r then
     begin
-     P2.Y:=Max95;
      Ligne95:=False;
-    end
-   else
-    P1.X:=P2.X + MulDiv(Max95-P2.Y, P1.X-P2.X, P1.Y-P2.Y);
+     Exit;
+    end;
+   P1.X:=P2.X + MulDiv(Max95-P2.Y, P1.X-P2.X, P1.Y-P2.Y);
    P1.Y:=Max95;
   end;
- if P2.Y<-Max95 then
+ if P2.Y<-Max95a then
   begin
    P2.X:=P1.X + MulDiv(P1.Y+Max95, P2.X-P1.X, P1.Y-P2.Y);
    P2.Y:=-Max95;
   end;
- if P2.Y>Max95 then
+ if P2.Y>Max95a then
   begin
    P2.X:=P1.X + MulDiv(Max95-P1.Y, P2.X-P1.X, P2.Y-P1.Y);
    P2.Y:=Max95;
@@ -98,39 +94,45 @@ begin
 
  if P1.X<-Max95 then
   begin
-   if P2.X<-Max95 then
+   if P2.X<-Max95r then
     begin
-     P2.X:=-Max95;
      Ligne95:=False;
-    end
-   else
-    P1.Y:=P2.Y + MulDiv(P2.X+Max95, P1.Y-P2.Y, P2.X-P1.X);
+     Exit;
+    end;
+   P1.Y:=P2.Y + MulDiv(P2.X+Max95, P1.Y-P2.Y, P2.X-P1.X);
    P1.X:=-Max95;
   end;
  if P1.X>Max95 then
   begin
-   if P2.X>Max95 then
+   if P2.X>Max95r then
     begin
-     P2.X:=Max95;
      Ligne95:=False;
-    end
-   else
-    P1.Y:=P2.Y + MulDiv(Max95-P2.X, P1.Y-P2.Y, P1.X-P2.X);
+     Exit;
+    end;
+   P1.Y:=P2.Y + MulDiv(Max95-P2.X, P1.Y-P2.Y, P1.X-P2.X);
    P1.X:=Max95;
   end;
- if P2.X<-Max95 then
+ if P2.X<-Max95a then
   begin
    P2.Y:=P1.Y + MulDiv(P1.X+Max95, P2.Y-P1.Y, P1.X-P2.X);
    P2.X:=-Max95;
   end;
- if P2.X>Max95 then
+ if P2.X>Max95a then
   begin
    P2.Y:=P1.Y + MulDiv(Max95-P1.X, P2.Y-P1.Y, P2.X-P1.X);
    P2.X:=Max95;
   end;
+ Ligne95:=True;
 end;
 
-function Polygon95(DC: HDC; var Pts; NbPts: Integer) : Bool; stdcall;
+ {------------------------}
+
+function PointVisible16(const P: TPoint) : Boolean;
+begin
+ Result:=(P.X>=-Max95) and (P.Y>=-Max95) and (P.X<Max95) and (P.Y<Max95);
+end;
+
+function Polygon16(DC: HDC; var Pts; NbPts: Integer) : Bool; stdcall;
 var
  I, J: Integer;
  Pt, Tampon, Dest: ^TPoint;
@@ -193,10 +195,10 @@ begin
  Result:=True;
 end;
 
-function PolyPolyline95(DC: HDC; var Pts, Cnt; NbPolylines: Integer) : Bool; stdcall;
+function PolyPolyline16(DC: HDC; const Pts, Cnt; NbPolylines: DWORD) : Bool; stdcall;
 var
- I, J: Integer;
- P: ^Integer;
+ I, J: DWORD;
+ P: ^Integer; //FIXME: We're using negative numbers here...!
  Pt: ^TPoint;
  Origine0, Origine, Dest: TPoint;
  CorrPolyline: Boolean;
@@ -257,7 +259,17 @@ begin
  Result:=True;
 end;
 
-function Rectangle95(DC: HDC; X1,Y1,X2,Y2: Integer) : Bool; stdcall;
+function Line16(DC: HDC; P1,P2: TPoint) : Boolean; //FIXME: Untested
+begin
+ if not Ligne95(P1, P2) then
+  begin
+   Result:=False;
+   Exit;
+  end;
+ Result:=LineOk(DC, P1, P2);
+end;
+
+function Rectangle16(DC: HDC; X1,Y1,X2,Y2: Integer) : Bool; stdcall;
 begin
  if (X2<=-Max95) or (Y2<=-Max95) or (X1>=Max95) or (Y1>=Max95) then
   begin
@@ -271,41 +283,40 @@ begin
  Result:=Windows.Rectangle(DC, X1,Y1,X2,Y2);
 end;
 
-procedure Line95(DC: HDC; const P1,P2: TPoint);
-var
- P1x, P2x: TPoint;
+function Ellipse16(DC: HDC; X1, Y1, X2, Y2: Integer) : Bool; stdcall;
 begin
- P1x:=P1;
- P2x:=P2;
- if Ligne95(P1x, P2x) then
+ if (X2<=-Max95) or (Y2<=-Max95) or (X1>=Max95) or (Y1>=Max95) then
   begin
-   Windows.MoveToEx(DC, P1x.X,P1x.Y, Nil);
-   Windows.LineTo(DC, P2x.X,P2x.Y);
+   Result:=True;
+   Exit;
   end;
+ if X1<-Max95 then X1:=-Max95;
+ if Y1<-Max95 then Y1:=-Max95;
+ if X2>Max95 then X2:=Max95;
+ if Y2>Max95 then Y2:=Max95;
+ Result:=Windows.Ellipse(DC, X1,Y1,X2,Y2);
 end;
 
-(*procedure CheckWindows16bits(HiZoom: Boolean);
-var
- OSVersion: TOSVersionInfo;
+procedure InitViewport16();
 begin
- OSVersion.dwOSVersionInfoSize:=SizeOf(OSVersion);
- if not HiZoom
- or (GetVersionEx(OSVersion) and (OSVersion.dwPlatformId=VER_PLATFORM_WIN32_NT)) then
-  begin   { Windows NT : Ok }
-   PointVisible16:=PointVisibleOk;
-   Polygon16:=Windows.Polygon;
-   PolyPolyline16:=Windows.PolyPolyline;
-   Rectangle16:=Windows.Rectangle;
-   Line16:=LineOk;
+ if CheckWindowsNT then
+  begin   { Windows NT can use the full 32 bits }
+   PointVisible95:=PointVisibleOk;
+   Line95:=LineOk;
+   Rectangle95:=Windows.Rectangle;
+   Ellipse95:=Windows.Ellipse;
+   Polygon95:=Windows.Polygon;
+   PolyPolyline95:=Windows.PolyPolyline;
   end
  else
-  begin
-   PointVisible16:=PointVisible95;
-   Polygon16:=Polygon95;
-   PolyPolyline16:=PolyPolyline95;
-   Rectangle16:=Rectangle95;
-   Line16:=Line95;
+  begin   { Windows 95/98 can only use the lower 16 bits }
+   PointVisible95:=PointVisible16;
+   Line95:=Line16;
+   Rectangle95:=Rectangle16;
+   Ellipse95:=Ellipse16;
+   Polygon95:=Polygon16;
+   PolyPolyline95:=PolyPolyline16;
   end;
-end;*)
+end;
 end.
 
