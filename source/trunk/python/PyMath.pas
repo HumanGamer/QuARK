@@ -67,7 +67,6 @@ type
     HiddenRegions: Byte;   { os_xxx }
     MinDistance, MaxDistance: TDouble;
     ScrCenter: TPoint;
-   {ViewRectLeft, ViewRectTop, ViewRectRight, ViewRectBottom: Integer;}
      { 3D point -> window (x,y,w), w is the distance from the viewer with the same scale as x and y }
     function Proj(const V: TVect) : TPointProj; virtual; abstract;
      { compute "OffScreen" and return True is the point is visible at all }
@@ -503,10 +502,6 @@ const
  oe_Top    = 2;
  oe_Right  = 3;
  oe_Bottom = 4;
- LocalViewRectLeft   = -Max95;
- LocalViewRectTop    = -Max95;
- LocalViewRectRight  = Max95;
- LocalViewRectBottom = Max95;
 var
  FindVertexState: Integer;
  PV, BaseV, BaseMaxV, SourceV, LoadedTarget: PPointProj;
@@ -516,6 +511,7 @@ var
  VList: array[0..MAX_VERTICES-1] of TPoint;
  N: Integer;
  aa, bb: Single;
+ ViewRectLeft, ViewRectTop, ViewRectRight, ViewRectBottom: Integer;
 
   procedure LoadV(var PrevV1: TV1; PV: PPointProj);
   begin
@@ -537,16 +533,16 @@ var
    else
     begin
      PrevV1.x:=PrevV1.x + (PV1.x-PrevV1.x)*F;
-     if PrevV1.x<LocalViewRectLeft  then Inc(nScr, os_Left) else
-     if PrevV1.x>LocalViewRectRight then Inc(nScr, os_Right);
+     if PrevV1.x<ViewRectLeft  then Inc(nScr, os_Left) else
+     if PrevV1.x>ViewRectRight then Inc(nScr, os_Right);
     end;
    if BBox=bbY then
     PrevV1.y:=nValue
    else
     begin
      PrevV1.y:=PrevV1.y + (PV1.y-PrevV1.y)*F;
-     if PrevV1.y<LocalViewRectTop    then Inc(nScr, os_Top) else
-     if PrevV1.y>LocalViewRectBottom then Inc(nScr, os_Bottom);
+     if PrevV1.y<ViewRectTop    then Inc(nScr, os_Top) else
+     if PrevV1.y>ViewRectBottom then Inc(nScr, os_Bottom);
     end;
    if BBox=bbW then
     PrevV1.oow:=nValue
@@ -589,20 +585,20 @@ var
        begin
         case LastEdge of
          oe_Left:   begin
-                     x:=LocalViewRectLeft;
-                     y:=LocalViewRectTop;
+                     x:=ViewRectLeft;
+                     y:=ViewRectTop;
                     end;
          oe_Top:    begin
-                     x:=LocalViewRectRight;
-                     y:=LocalViewRectTop;
+                     x:=ViewRectRight;
+                     y:=ViewRectTop;
                     end;
          oe_Right:  begin
-                     x:=LocalViewRectRight;
-                     y:=LocalViewRectBottom;
+                     x:=ViewRectRight;
+                     y:=ViewRectBottom;
                     end;
          oe_Bottom: begin
-                     x:=LocalViewRectLeft;
-                     y:=LocalViewRectBottom;
+                     x:=ViewRectLeft;
+                     y:=ViewRectBottom;
                     end;
         end;
         LastEdge:=(LastEdge and 3)+1;
@@ -611,20 +607,20 @@ var
        begin
         case LastEdge of
          oe_Top:    begin
-                     x:=LocalViewRectLeft;
-                     y:=LocalViewRectTop;
+                     x:=ViewRectLeft;
+                     y:=ViewRectTop;
                     end;
          oe_Right:  begin
-                     x:=LocalViewRectRight;
-                     y:=LocalViewRectTop;
+                     x:=ViewRectRight;
+                     y:=ViewRectTop;
                     end;
          oe_Bottom: begin
-                     x:=LocalViewRectRight;
-                     y:=LocalViewRectBottom;
+                     x:=ViewRectRight;
+                     y:=ViewRectBottom;
                     end;
          oe_Left:   begin
-                     x:=LocalViewRectLeft;
-                     y:=LocalViewRectBottom;
+                     x:=ViewRectLeft;
+                     y:=ViewRectBottom;
                     end;
         end;
         Dec(LastEdge);
@@ -773,10 +769,10 @@ var
   end;
 
 begin
-{LocalViewRectLeft  :=ViewRectLeft;
- LocalViewRectTop   :=ViewRectTop;
- LocalViewRectRight :=ViewRectRight;
- LocalViewRectBottom:=ViewRectBottom;}
+ ViewRectLeft  :=0;
+ ViewRectTop   :=0;
+ ViewRectRight :=(ScrCenter.X * 2) + 1; //compensate for rounding
+ ViewRectBottom:=(ScrCenter.Y * 2) + 1; //compensate for rounding
  ScrMask:=HiddenRegions;
  PV:=@Pts;
  BaseV:=PV;
@@ -812,46 +808,46 @@ begin
         if ScrDiff and os_Left <> 0 then
          if PV1.OffScreen and os_Left = 0 then
           begin
-           ComingFrom((LocalViewRectLeft-PrevV1.x) / (PV1.x-PrevV1.x), bbX, LocalViewRectLeft);
+           ComingFrom((ViewRectLeft-PrevV1.x) / (PV1.x-PrevV1.x), bbX, ViewRectLeft);
            PrevV1.OnEdge:=oe_Left;
           end
          else
           begin
-           GoingInto((LocalViewRectLeft-PV1.x) / (PrevV1.x-PV1.x), bbX, LocalViewRectLeft);
+           GoingInto((ViewRectLeft-PV1.x) / (PrevV1.x-PV1.x), bbX, ViewRectLeft);
            PV1.OnEdge:=oe_Left;
           end;
         if ScrDiff and os_Right <> 0 then
          if PV1.OffScreen and os_Right = 0 then
           begin
-           ComingFrom((LocalViewRectRight-PrevV1.x) / (PV1.x-PrevV1.x), bbX, LocalViewRectRight);
+           ComingFrom((ViewRectRight-PrevV1.x) / (PV1.x-PrevV1.x), bbX, ViewRectRight);
            PrevV1.OnEdge:=oe_Right;
           end
          else
           begin
-           GoingInto((LocalViewRectRight-PV1.x) / (PrevV1.x-PV1.x), bbX, LocalViewRectRight);
+           GoingInto((ViewRectRight-PV1.x) / (PrevV1.x-PV1.x), bbX, ViewRectRight);
            PV1.OnEdge:=oe_Right;
           end;
 
         if ScrDiff and os_Top <> 0 then
          if PV1.OffScreen and os_Top = 0 then
           begin
-           ComingFrom((LocalViewRectTop-PrevV1.y) / (PV1.y-PrevV1.y), bbY, LocalViewRectTop);
+           ComingFrom((ViewRectTop-PrevV1.y) / (PV1.y-PrevV1.y), bbY, ViewRectTop);
            PrevV1.OnEdge:=oe_Top;
           end
          else
           begin
-           GoingInto((LocalViewRectTop-PV1.y) / (PrevV1.y-PV1.y), bbY, LocalViewRectTop);
+           GoingInto((ViewRectTop-PV1.y) / (PrevV1.y-PV1.y), bbY, ViewRectTop);
            PV1.OnEdge:=oe_Top;
           end;
         if ScrDiff and os_Bottom <> 0 then
          if PV1.OffScreen and os_Bottom = 0 then
           begin
-           ComingFrom((LocalViewRectBottom-PrevV1.y) / (PV1.y-PrevV1.y), bbY, LocalViewRectBottom);
+           ComingFrom((ViewRectBottom-PrevV1.y) / (PV1.y-PrevV1.y), bbY, ViewRectBottom);
            PrevV1.OnEdge:=oe_Bottom;
           end
          else
           begin
-           GoingInto((LocalViewRectBottom-PV1.y) / (PrevV1.y-PV1.y), bbY, LocalViewRectBottom);
+           GoingInto((ViewRectBottom-PV1.y) / (PrevV1.y-PV1.y), bbY, ViewRectBottom);
            PV1.OnEdge:=oe_Bottom;
           end;
 
@@ -877,8 +873,8 @@ begin
    if (N=0) and (ScrTotal and (os_Top or os_Bottom or os_Left or os_Right)
                             = (os_Top or os_Bottom or os_Left or os_Right)) then
     begin  { maybe we are in the case of a big, full-screen polygon }
-     aa:=(LocalViewRectLeft+LocalViewRectRight)*0.5;
-     bb:=(LocalViewRectTop+LocalViewRectBottom)*0.5;
+     aa:=(ViewRectLeft+ViewRectRight)*0.5;
+     bb:=(ViewRectTop+ViewRectBottom)*0.5;
      PV:=BaseMaxV;
      SourceV:=BaseV;
      LoadedTarget:=Nil;
@@ -1239,10 +1235,6 @@ end;
 
 procedure TCoordinates.InitProjVar;
 begin
-{ViewRectLeft:=-Max95;
- ViewRectTop:=-Max95;
- ViewRectRight:=Max95;
- ViewRectBottom:=Max95;}
 end;
 
  {------------------------}
