@@ -23,6 +23,7 @@ import math
 
 MOUSEZOOMFACTOR = math.sqrt(2)     # with this value, the zoom factor doubles every two click
 STEP3DVIEW = 64.0
+DELAYREFRESHINTERVAL = 150 #in ms
 
 vfSkinView = 0x80 # 2d only - used for skin page for mdl editor and bezier page for map editor
 
@@ -410,7 +411,7 @@ class CenterHandle(GenericHandle):
     "Handle at the center of an object."
 
     hint = "move (Ctrl key: force to grid)|move with the mouse"
-    
+
     def __init__(self, pos, centerof, color=RED, caninvert=0):
         GenericHandle.__init__(self, pos)
         self.centerof = centerof
@@ -1060,11 +1061,9 @@ class RedImageDragObject(DragObject):
             special, refresh = self.ricmd()
             if special is None:    # can draw a red image only
                 if internal==1:    # erase the previous image
-                    try:
-                        for r in self.redimages:
-                            view.drawmap(r, mode)
-                    except:
-                        pass
+                    for r in self.redimages:
+                        view.drawmap(r, mode)
+
 ## cdunde added these 3 lines 05-14-05 to stop the
 ## 3d Textured view from erasing other items
 ## in the view when dragging redline objects in it.
@@ -1160,7 +1159,7 @@ class RedImageDragObject(DragObject):
                         if self.handle.g1 == 1:
                             pass
                     except:
-                        quarkx.settimer(refresh, self, 150)
+                        quarkx.settimer(refresh, self, DELAYREFRESHINTERVAL)
 
 
     def backup(self):
