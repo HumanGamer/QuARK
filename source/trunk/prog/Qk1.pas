@@ -1558,15 +1558,17 @@ end;
 
 procedure TForm1.FormDestroy(Sender: TObject);
 var
- Done: Boolean;
+ P: PIdleJob;
  I: Integer;
  F: TForm;
 begin
- //Forcefully process idle jobs.
- //DanielPharos: This prevents memory leaks of the idle jobs. Perhaps we could simply dispose of them?
- Done:=False;
- while not Done do
-  AppIdle(Nil, Done);
+ //Discard all idle jobs.
+ P:=IdleJobs;
+ while P<>nil do
+  begin
+   IdleJobs:=P^.Next;
+   Dispose(P);
+  end;
 
  //Destroy all forms (except this one), to make sure all other forms
  //have saved their data before we tear down that infrastructure.
