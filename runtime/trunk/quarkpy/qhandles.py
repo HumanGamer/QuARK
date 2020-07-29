@@ -968,8 +968,7 @@ class RedImageDragObject(DragObject):
 
             ### This is for the Model Editor Skin-view RedImageDragObject use only.
             if self.editor.MODE == SS_MODEL:
-                try:
-                    import mdlhandles
+                import mdlhandles
                     if self.view.info["viewname"] == "skinview":
                         if isinstance(self.editor.dragobject.handle, mdlhandles.SkinHandle):
                             ### To stop the Model Editor from drawing incorrect component image in Skin-view.
@@ -983,12 +982,13 @@ class RedImageDragObject(DragObject):
                                     for r in self.redimages: # Draws selected vertex rectangles while dragging.
                                         self.view.drawmap(r, mode, rectanglecolor)
                     else:
-                        import plugins.mdlcamerapos
-                        if isinstance(self.editor.dragobject.handle, plugins.mdlcamerapos.CamPosHandle) or isinstance(self.editor.dragobject.handle, mdlhandles.CenterHandle):
-                            self.drawredimages(self.view, 1)
-                            self.drawredimages(self.view, 2)
-                except:
-                    pass
+                        try:
+                            import plugins.mdlcamerapos
+                            if isinstance(self.editor.dragobject.handle, plugins.mdlcamerapos.CamPosHandle) or isinstance(self.editor.dragobject.handle, mdlhandles.CenterHandle):
+                                self.drawredimages(self.view, 1)
+                                self.drawredimages(self.view, 2)
+                    except:
+                        pass
 
             if flags&MB_DRAGGING:
                 self.drawredimages(self.view, 2)
@@ -997,12 +997,13 @@ class RedImageDragObject(DragObject):
                 if self.view.viewmode == "tex":
                     self.redimages = ri
                 #    self.view.repaint()
-                    try:
-                        import plugins.mdlcamerapos, mdlhandles
-                        if isinstance(self.editor.dragobject.handle, plugins.mdlcamerapos.CamPosHandle) or isinstance(self.editor.dragobject.handle, mdlhandles.CenterHandle):
-                            self.drawredimages(self.view, 1)
-                    except:
-                        pass
+                    if self.editor.MODE == SS_MODEL:
+                        try:
+                            import plugins.mdlcamerapos, mdlhandles
+                            if isinstance(self.editor.dragobject.handle, plugins.mdlcamerapos.CamPosHandle) or isinstance(self.editor.dragobject.handle, mdlhandles.CenterHandle):
+                                self.drawredimages(self.view, 1)
+                        except:
+                            pass
                     self.drawredimages(self.view, 2)
                 else:
                     self.redimages = ri
@@ -1061,6 +1062,7 @@ class RedImageDragObject(DragObject):
             special, refresh = self.ricmd()
             if special is None:    # can draw a red image only
                 if internal==1:    # erase the previous image
+## Deals with Standard Selector 3D face drawing, movement is in ok section
                     for r in self.redimages:
                         view.drawmap(r, mode)
 
@@ -1068,7 +1070,6 @@ class RedImageDragObject(DragObject):
 ## 3d Textured view from erasing other items
 ## in the view when dragging redline objects in it.
 
-## Deals with Standard Selector 3D face drawing, movement is in ok section
                     type = view.info["type"]
                     if type == "3D":
                         # during 1 face drag both go here but TG better, no hang
@@ -1102,11 +1103,8 @@ class RedImageDragObject(DragObject):
                                 # Really slows down the editors 2D view rectangle selection
                                 # when the view handles are being drawn if we don't kill them here.
                                 # They do still exist at the end of the drag though.
-                                try:
-                                    for r in self.redimages:
-                                        view.drawmap(r, mode, reccolor)
-                                except:
-                                    pass
+                                for r in self.redimages:
+                                    view.drawmap(r, mode, reccolor)
                                 try:
                                     import plugins.mdlcamerapos
                                     if isinstance(self.editor.dragobject.handle, plugins.mdlcamerapos.CamPosHandle) or isinstance(self.editor.dragobject.handle, mdlhandles.CenterHandle):
@@ -1141,10 +1139,7 @@ class RedImageDragObject(DragObject):
                                             self.redhandledata = self.handle.drawred(self.redimages, view, self.redcolor)
 
                             for r in self.redimages:
-                                try:
-                                    view.drawmap(r, mode, self.redcolor)
-                                except:
-                                    pass
+                                view.drawmap(r, mode, self.redcolor)
                             if self.handle is not None:
                                 self.redhandledata = self.handle.drawred(self.redimages, view, self.redcolor)
 
