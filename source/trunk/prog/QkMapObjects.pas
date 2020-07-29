@@ -919,9 +919,9 @@ var
           OriginPen:=SelPen;
          Demi.X:=(OriginPt.X+O2Pt.X) div 2;
          Demi.Y:=(OriginPt.Y+O2Pt.Y) div 2;
-         Line16(g_DrawInfo.DC, OriginPt, Demi);
+         Line95(g_DrawInfo.DC, OriginPt, Demi);
          SelectObject(g_DrawInfo.DC, Pen[Direct]);
-         Line16(g_DrawInfo.DC, Demi, O2Pt);
+         Line95(g_DrawInfo.DC, Demi, O2Pt);
 
         {if Pen=0 then
           begin
@@ -930,10 +930,10 @@ var
           end
          else
           SelectObject(g_DrawInfo.DC, Pen);
-         Line16(g_DrawInfo.DC, OriginPt, O2Pt);
+         Line95(g_DrawInfo.DC, OriginPt, O2Pt);
          Demi.X:=(OriginPt.X+O2Pt.X) div 2;
          Demi.Y:=(OriginPt.Y+O2Pt.Y) div 2;
-         if PointVisible16(Demi) then
+         if PointVisible95(Demi) then
           begin
            MoveToEx(g_DrawInfo.DC, Demi.X, Demi.Y, Nil);
            LineTo(g_DrawInfo.DC,
@@ -986,7 +986,7 @@ var
 begin
  if DernierOrigineSel(Origin)=Nil then Exit;
  Pts[0]:=CCoord.Proj(Origin);
- if not PointVisible16(Pts[0]) then Exit;
+ if not PointVisible95(Pts[0]) then Exit;
  Vecteur:=CalculePosAngle(N);
  if Vecteur>0 then
   begin
@@ -1001,7 +1001,7 @@ begin
      J:=1;
     end;
    Pts[1]:=CCoord.Proj(N);
-   if not PointVisible16(Pts[1]) then Exit;
+   if not PointVisible95(Pts[1]) then Exit;
   end
  else
   begin
@@ -1526,7 +1526,7 @@ begin
          end;
         if Pts[0].X>Pts[1].X then begin R:=Pts[0].X; Pts[0].X:=Pts[1].X; Pts[1].X:=R; end;
         if Pts[0].Y>Pts[1].Y then begin R:=Pts[0].Y; Pts[0].Y:=Pts[1].Y; Pts[1].Y:=R; end;
-        Rectangle16(g_DrawInfo.DC, Pts[0].X,Pts[0].Y, Pts[1].X+2,Pts[1].Y+2);
+        Rectangle95(g_DrawInfo.DC, Pts[0].X,Pts[0].Y, Pts[1].X+2,Pts[1].Y+2);
         Exit;
        end;
       with Origin do
@@ -1541,7 +1541,7 @@ begin
        end;
       case ModeProj of
        VueXY: begin
-               Polygon16(g_DrawInfo.DC, Pts, 4);
+               Polygon95(g_DrawInfo.DC, Pts, 4);
                Exit;
               end;
        VueXZ: begin
@@ -1554,7 +1554,7 @@ begin
                 end;
                V.Z:=Origin.Z+BBox[5];
                with CCoord.Proj(V) do
-                Rectangle16(g_DrawInfo.DC, Min,Y, Max+2,Pts[0].Y+2);
+                Rectangle95(g_DrawInfo.DC, Min,Y, Max+2,Pts[0].Y+2);
                Exit;
               end;
       end;*)

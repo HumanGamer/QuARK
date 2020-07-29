@@ -1061,7 +1061,7 @@ begin
        Line95(Pts[R], Proj(W));
       end;
    (*for R:=0 to 3 do
-      if not PointVisible16(Pts[R]) then Exit;
+      if not PointVisible95(Pts[R]) then Exit;
      MoveToEx(g_DrawInfo.DC, Pts[0].X, Pts[0].Y, Nil);
      for R:=0 to 3 do
       with Pts[Succ(R) and 3] do

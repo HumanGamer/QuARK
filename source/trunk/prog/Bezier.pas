@@ -70,7 +70,7 @@ function TriangleSTCoordinates(const cp: TMeshBuf5; I, J: Integer) : vec_st_t;
 
 implementation
 
-uses QuarkX, QkExceptions, Setup, PyMapView, PyObjects, QkObjectClassList, EdSceneObject;
+uses qdraw, QuarkX, QkExceptions, Setup, PyMapView, PyObjects, QkObjectClassList, EdSceneObject;
 
  (*    QUADRATIC BEZIER PATCHES
   *
@@ -636,7 +636,7 @@ begin
     end;
 
     { draw it ! }
-   PolyPolyline(g_DrawInfo.DC, PointBuffer^, CountBuffer^, FMeshCache.H+FMeshCache.W);
+   PolyPolyline95(g_DrawInfo.DC, PointBuffer^, CountBuffer^, FMeshCache.H+FMeshCache.W);
   end
  else
   begin  { "slow" drawing method, if visibility checking is required (e.g. 3D views) }

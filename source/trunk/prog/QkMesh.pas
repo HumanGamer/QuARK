@@ -88,7 +88,7 @@ type
 
 implementation
 
-uses QuarkX, QkExceptions, Setup, PyMapView, PyObjects, QkObjectClassList, EdSceneObject;
+uses qdraw, QuarkX, QkExceptions, Setup, PyMapView, PyObjects, QkObjectClassList, EdSceneObject;
 
 //@
 //https://github.com/id-Software/Quake-III-Arena/blob/dbe4ddb10315479fc00086f08e25d968b4b43c49/code/qcommon/cm_patch.c
@@ -478,7 +478,7 @@ begin
     end;
 
     { draw it ! }
-   PolyPolyline(g_DrawInfo.DC, PointBuffer^, CountBuffer^, cp.H+cp.W);
+   PolyPolyline95(g_DrawInfo.DC, PointBuffer^, CountBuffer^, cp.H+cp.W);
   end
  else
   begin  { "slow" drawing method, if visibility checking is required (e.g. 3D views) }

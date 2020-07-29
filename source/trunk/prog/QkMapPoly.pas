@@ -247,7 +247,7 @@ implementation
 
 uses QkFileObjects, Undo, PyMapView, QkMap, QkPixelSet, Dialogs, EdSceneObject,
      Quarkx, QkExceptions, PyObjects, QkSin, QkQuakeCtx, QkObjectClassList,
-     Logging, Math;
+     qdraw, Logging, Math;
 
 const
  TmpFaceSpec = '!~tmp~!this is a bug';
@@ -916,7 +916,7 @@ begin
       Pts[J].X:=Round(x);
       Pts[J].Y:=Round(y);
      end;
-   Polygon(g_DrawInfo.DC, Pts, NbPts);
+   Polygon95(g_DrawInfo.DC, Pts, NbPts);
   end
  else
   begin
@@ -2049,7 +2049,7 @@ begin
  else
   J:=Blackness;
  Pts[0]:=CCoord.Proj(CentrePolyedre);
- if PointVisible16(Pts[0]) then
+ if PointVisible95(Pts[0]) then
   with Pts[0] do
    PatBlt(g_DrawInfo.DC, X-2, Y-2, 5, 5, J);
  if FaceHandles then
@@ -2083,7 +2083,7 @@ begin
   for I:=0 to Faces.Count-1 do
    begin
     Pts:=CCoord.Proj(CentreSurface(PSurface(Faces[I])));
-    if PointVisible16(Pts) then
+    if PointVisible95(Pts) then
      with Pts do
       Rectangle(g_DrawInfo.DC, X-3, Y-3, X+4, Y+4);        { dessine les poignées }
    end;
@@ -2099,7 +2099,7 @@ begin
  else
   J:=Blackness;
  Pts:=CCoord.Proj(CentrePolyedre);
- if PointVisible16(Pts) then      { dessine la poignée centrale }
+ if PointVisible95(Pts) then      { dessine la poignée centrale }
   with Pts do
    PatBlt(g_DrawInfo.DC, X-2, Y-2, 5, 5, J);
 end;*)
@@ -3240,7 +3240,7 @@ begin
        else
         J:=GetStockObject(White_brush);
        J:=SelectObject(g_DrawInfo.DC, J);
-       if PointVisible16(Pts) then
+       if PointVisible95(Pts) then
         with Pts do
          Rectangle(g_DrawInfo.DC, X-3, Y-3, X+4, Y+4);        { poignée en blanc }
        SelectObject(g_DrawInfo.DC, J);*)
@@ -3329,7 +3329,7 @@ begin
                while NbPts>0 do
                 begin
                  Dec(NbPts);
-                 Line16(g_DrawInfo.DC, CCoord.Proj(P^.prvVertexTable[NbPts]^.P), Pts[0]);
+                 Line95(g_DrawInfo.DC, CCoord.Proj(P^.prvVertexTable[NbPts]^.P), Pts[0]);
                 end;
                DeleteObject(SelectObject(g_DrawInfo.DC, Pen));
               end;
@@ -3343,19 +3343,19 @@ begin
                 begin
                  GetObject(Brush, SizeOf(LogBrush), @LogBrush);
                  Pen:=SelectObject(g_DrawInfo.DC, CreatePen(ps_Solid, 0, LogBrush.lbColor));
-                 if PointVisible16(Pts[0]) then
+                 if PointVisible95(Pts[0]) then
                   with Pts[0] do
                    Rectangle(g_DrawInfo.DC, X-3, Y-3, X+4, Y+4);
                  DeleteObject(SelectObject(g_DrawInfo.DC, Pen));
                 end
                else
-                if PointVisible16(Pts[0]) then
+                if PointVisible95(Pts[0]) then
                  with Pts[0] do
                   Rectangle(g_DrawInfo.DC, X-3, Y-3, X+4, Y+4);
                SelectObject(g_DrawInfo.DC, Brush);
               end;
-           2: Line16(g_DrawInfo.DC, Pts[0], Pts[1]);
-           3: if PointVisible16(Pts[1]) then
+           2: Line95(g_DrawInfo.DC, Pts[0], Pts[1]);
+           3: if PointVisible95(Pts[1]) then
                begin
                 Brush:=GetStockObject(Gray_brush);
                 R:=Bounds(Pts[1].X-2, Pts[1].Y-1, 5, 3);

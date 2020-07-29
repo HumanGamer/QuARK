@@ -220,7 +220,7 @@ var
 implementation
 
 uses PyCanvas, QkFileObjects, QkTextures, Game, PyForms, RedLines, Logging, Qk1,
-     EdSoftware, EdGlide, EdOpenGL, EdDirect3D, SystemDetails, QkExceptions;
+     qdraw, EdSoftware, EdGlide, EdOpenGL, EdDirect3D, SystemDetails, QkExceptions;
 
 const
  MAX_PITCH = pi/2.1;
@@ -1985,7 +1985,7 @@ begin
         Pen:=SelectObject(DC, CreatePen(PS_SOLID, 0, Color2))
        else
         Pen:=SelectObject(DC, CreatePen(PS_SOLID, 0, Color));
-       PolyPolyline(DC, PointArray^, P2^, K);
+       PolyPolyline95(DC, PointArray^, P2^, K);
        DeleteObject(SelectObject(DC, Pen));
       end;
     end;
@@ -1994,10 +1994,10 @@ begin
 {if DessineAxes then
   begin
    Pen:=SelectObject(g_DrawInfo.DC, CreatePen(PS_SOLID, 0, MapColors[lcAxes]));
-   Line16(g_DrawInfo.DC,
+   Line95(g_DrawInfo.DC,
     Point(Round(pX*Pred(R.Left) + pDeltaX), Round(pXJ + pX*R.Top + pY*Pred(R.Left))),
     Point(Round(pX*Succ(R.Right) + pDeltaX), Round(pXJ + pX*R.Top + pY*Succ(R.Right))));
-   Line16(g_DrawInfo.DC,
+   Line95(g_DrawInfo.DC,
     Point(Round(pYJ-pY), Round(pXJ+pX)),
     Point(Round(pY*Succ(R.Bottom) + pDeltaX), Round(pXJ + pX*(R.Top-R.Bottom-1))));
    DeleteObject(SelectObject(g_DrawInfo.DC, Pen));
