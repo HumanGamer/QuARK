@@ -932,6 +932,11 @@ class RedImageDragObject(DragObject):
         self.xmin = self.ymin = self.xmax = self.ymax = None
         self.redcolor = redcolor
         self.redhandledata = None
+
+        self.oldx = x
+        self.oldy = y
+        self.flags = 0
+
 ## the lines below were added for the Terrain Generator
         editor = mapeditor()
         if editor is None:
@@ -950,11 +955,16 @@ class RedImageDragObject(DragObject):
         return None, refreshtimer     # default behaviour
 
     def dragto(self, x, y, flags):
+        if self.oldx == x and self.oldy == y and self.flags == flags:
+            #Duplicate call
+            return
+        self.oldx = x
+        self.oldy = y
+        self.flags = flags
         self.xmin is None
         self.xmax is None
         self.ymin is None
         self.ymax is None
-        self.flags = flags
         if x < self.xmin or self.xmin is None:
             self.xmin = x
         if y < self.ymin or self.ymin is None:
