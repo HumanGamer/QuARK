@@ -969,24 +969,24 @@ class RedImageDragObject(DragObject):
             ### This is for the Model Editor Skin-view RedImageDragObject use only.
             if self.editor.MODE == SS_MODEL:
                 import mdlhandles
-                    if self.view.info["viewname"] == "skinview":
-                        if isinstance(self.editor.dragobject.handle, mdlhandles.SkinHandle):
-                            ### To stop the Model Editor from drawing incorrect component image in Skin-view.
-                            pass
-                        else:
-                            if self.redimages is not None:
-                                mode = DM_OTHERCOLOR|DM_BBOX
-                                special, refresh = self.ricmd()
-                                if refresh is not None:
-                                    rectanglecolor = MapColor("SkinVertexSelListColor", SS_MODEL)
-                                    for r in self.redimages: # Draws selected vertex rectangles while dragging.
-                                        self.view.drawmap(r, mode, rectanglecolor)
+                if self.view.info["viewname"] == "skinview":
+                    if isinstance(self.editor.dragobject.handle, mdlhandles.SkinHandle):
+                        ### To stop the Model Editor from drawing incorrect component image in Skin-view.
+                        pass
                     else:
-                        try:
-                            import plugins.mdlcamerapos
-                            if isinstance(self.editor.dragobject.handle, plugins.mdlcamerapos.CamPosHandle) or isinstance(self.editor.dragobject.handle, mdlhandles.CenterHandle):
-                                self.drawredimages(self.view, 1)
-                                self.drawredimages(self.view, 2)
+                        if self.redimages is not None:
+                            mode = DM_OTHERCOLOR|DM_BBOX
+                            special, refresh = self.ricmd()
+                            if refresh is not None:
+                                rectanglecolor = MapColor("SkinVertexSelListColor", SS_MODEL)
+                                for r in self.redimages: # Draws selected vertex rectangles while dragging.
+                                    self.view.drawmap(r, mode, rectanglecolor)
+                else:
+                    try:
+                        import plugins.mdlcamerapos
+                        if isinstance(self.editor.dragobject.handle, plugins.mdlcamerapos.CamPosHandle) or isinstance(self.editor.dragobject.handle, mdlhandles.CenterHandle):
+                            self.drawredimages(self.view, 1)
+                            self.drawredimages(self.view, 2)
                     except:
                         pass
 
