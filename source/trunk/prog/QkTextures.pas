@@ -1811,15 +1811,17 @@ begin
   else
   begin
     PSD:=Tex.Description;
-    Result:=Cls.Create(nName, Tex.FParent) as QPixelSet;
     try
-      if not Result.SetDescription(PSD, ccAuto) then
-        raise EErrorFmt(5619, [nName]);
+      Result:=Cls.Create(nName, Tex.FParent) as QPixelSet;
+      try
+        if not Result.SetDescription(PSD, ccAuto) then
+          raise EErrorFmt(5619, [nName]);
+      except
+        Result.Free;
+        raise;
+      end;
+    finally
       PSD.Done;
-    except
-      PSD.Done;
-      Result.Free;
-      raise;
     end;
   end;
 end;
@@ -1837,15 +1839,17 @@ begin
   else
   begin
     PSD:=Tex.Description;
-    Result:=QTexture1.Create(Tex.Name, Nil);
-    Result.AddRef(+1);
     try
-      Result.SetDescription(PSD, ccAuto);
+      Result:=QTexture1.Create(Tex.Name, Nil);
+      Result.AddRef(+1);
+      try
+        Result.SetDescription(PSD, ccAuto);
+      except
+        Result.AddRef(-1);
+        raise;
+      end;
+    finally
       PSD.Done;
-    except
-      PSD.Done;
-      Result.AddRef(-1);
-      raise;
     end;
   end;
 end;
@@ -2051,7 +2055,6 @@ begin
             Count:=1;
 
           PSD:=PS.Description;
-
           try
             FullSize:=PSD.Size;
 
