@@ -25,6 +25,10 @@ MOUSEZOOMFACTOR = math.sqrt(2)     # with this value, the zoom factor doubles ev
 STEP3DVIEW = 64.0
 DELAYREFRESHINTERVAL = 150 #in ms
 
+#FIXME: Transform these into options:
+immediatelly_repaint_3d_textured_views_while_dragging = 0
+immediatelly_repaint_3d_views_while_dragging = 1
+
 vfSkinView = 0x80 # 2d only - used for skin page for mdl editor and bezier page for map editor
 
 #
@@ -996,7 +1000,6 @@ class RedImageDragObject(DragObject):
             if flags&MB_DRAGGING:
                 if self.view.viewmode == "tex":
                     self.redimages = ri
-                #    self.view.repaint()
                     if self.editor.MODE == SS_MODEL:
                         try:
                             import plugins.mdlcamerapos, mdlhandles
@@ -1052,8 +1055,7 @@ class RedImageDragObject(DragObject):
                                     if r.name == ("redbox:p"):
                                         continue
                                     else:
-                                        type = view.info["type"]
-                                        if type == "3D":
+                                        if view.info["type"] == "3D":
                                             import qbaseeditor
                                             qbaseeditor.BaseEditor.finishdrawing = newfinishdrawing
                                             return
@@ -1066,18 +1068,17 @@ class RedImageDragObject(DragObject):
                     for r in self.redimages:
                         view.drawmap(r, mode)
 
-## cdunde added these 3 lines 05-14-05 to stop the
-## 3d Textured view from erasing other items
-## in the view when dragging redline objects in it.
-
-                    type = view.info["type"]
-                    if type == "3D":
-                        # during 1 face drag both go here but TG better, no hang
-                        view.repaint()
-                        return
+                    if immediatelly_repaint_3d_views_while_dragging:
+                        if view.info["type"] == "3D":
+                            # during 1 face drag both go here but TG better, no hang
+                            view.repaint()
+                            return
                     if self.redhandledata is not None:
                         self.handle.drawred(self.redimages, view, view.color, self.redhandledata)
                 else:
+                    if internal==2 and immediatelly_repaint_3d_textured_views_while_dragging:
+                        if (view.info["type"] == "3D") and (view.viewmode == "tex"):
+                            view.repaint()
                     if editor is None:
                         for r in self.redimages:
                             if r.name != ("redbox:p"):
