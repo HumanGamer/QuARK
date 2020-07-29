@@ -45,17 +45,6 @@ from faceutils import *
 from maptagside import *
 
 
-########## not sure if I need these items below-test later ############
-
-MOUSEZOOMFACTOR = math.sqrt(2)     # with this value, the zoom factor doubles every two click
-STEP3DVIEW = 64.0
-
-vfSkinView = 0x80 # 2d only - used for skin page for mdl editor and bezier page for map editor
-
-
-############### I know I need these def's and stuff below ##############
-
-
 #
 # Global variables that are set by the map editor.
 #
