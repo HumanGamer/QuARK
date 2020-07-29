@@ -1375,7 +1375,8 @@ def refreshtimer(obj):
             pass
     else:
         for v in editor.layout.views:
-            v.invalidate()
+            #if v is not obj.view:
+                v.invalidate()
 
 def refreshtimertex(obj):
     for v in obj.editor.layout.views:
