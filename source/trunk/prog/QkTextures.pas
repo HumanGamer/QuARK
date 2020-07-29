@@ -386,6 +386,7 @@ var
     TexFormat1: QObjectClass;
     TexFormat: QPixelSetClass;
     TexName: String;
+    PSD: TPixelSetDescription;
   begin
     AlreadyProcessedTextureNames:=TStringList.Create;
     TextureDependencyNames:=TStringList.Create;
@@ -435,14 +436,19 @@ var
                   else
                   begin
                     { Figure out what (file-)format the textures should be written in }
-                    if Tex.Description.AlphaBits = psa8bpp then
-                    begin
-                      TexFormat2:=SetupGameSet.Specifics.Values['TextureWriteFormatA'];
-                      if TexFormat2 = '' then
+                    PSD:=Tex.Description;
+                    try
+                      if PSD.AlphaBits = psa8bpp then
+                      begin
+                        TexFormat2:=SetupGameSet.Specifics.Values['TextureWriteFormatA'];
+                        if TexFormat2 = '' then
+                          TexFormat2:=SetupGameSet.Specifics.Values['TextureWriteFormat'];
+                      end
+                      else
                         TexFormat2:=SetupGameSet.Specifics.Values['TextureWriteFormat'];
-                    end
-                    else
-                      TexFormat2:=SetupGameSet.Specifics.Values['TextureWriteFormat'];
+                    finally
+                      PSD.Done;
+                    end;
                     TexFormat1:=RequestClassOfType(TexFormat2);
                     if (TexFormat1=Nil) or not TexFormat1.InheritsFrom(QPixelSet) then
                       raise EError(5688);
