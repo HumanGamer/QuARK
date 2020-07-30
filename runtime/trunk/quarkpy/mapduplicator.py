@@ -143,7 +143,7 @@ class StandardDuplicator(DuplicatorManager):
                self.sourcecenter = 0.5*(box[0]+box[1])
            else:
                self.sourcecenter = None
-        
+
         s = self.dup["offset"]
         if s:
             self.offset = quarkx.vect(s)
@@ -315,7 +315,7 @@ class StandardDuplicator(DuplicatorManager):
 #                                debug('   '+surf.texturename)
                             except:
                                 pass
-                
+
             if self.dup["increment suffix"]:
                 if i==count-1:
                     for item in list:
@@ -487,10 +487,10 @@ class DupTemplate(StandardDuplicator):
                         Root = form.info.Root
                     except:
                         pass
-                    if(Root is not None and Root.shortname.lower() == "worldspawn"):
+                    if (Root is not None and Root.shortname.lower() == "worldspawn"):
                         editor = form.info
                         break
-                    
+
             if editor is None:
                 return
 
