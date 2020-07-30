@@ -574,6 +574,7 @@ begin
           begin
            if QkToolbar<>Nil then
             QkToolbar.DockPos:=PyInt_AsLong(value);
+           Result:=0;
            Exit;
           end
          else if StrComp(attr, 'dockrow')=0 then
