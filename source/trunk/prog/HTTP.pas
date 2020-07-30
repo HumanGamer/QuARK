@@ -47,7 +47,7 @@ type
 
 implementation
 
-uses StrUtils, SysUtils, Logging, ExtraFunctionality;
+uses StrUtils, SysUtils, Logging, QkExceptions, ExtraFunctionality;
 
 const
   StatusBufferLength : DWORD = 256;
@@ -59,6 +59,7 @@ destructor THTTPConnection.Destroy;
 begin
   if Online then
     GoOffline;
+
   inherited;
 end;
 
@@ -66,9 +67,13 @@ procedure THTTPConnection.GoOnline;
 begin
   if Online then
     GoOffline;
+
   InetHandle:=InternetOpen(PChar('QuArK'), INTERNET_OPEN_TYPE_PRECONFIG, nil, nil, 0);
   if InetHandle=nil then
-    raise exception.create('Unable to open internet connection. Online update failed.');
+  begin
+    LogWindowsError(GetLastError(), 'THTTPConnection.GoOnline: InternetOpen failed!');
+    raise exception.create('Unable to open internet connection.');
+  end;
   Online:=True;
 end;
 
@@ -76,11 +81,12 @@ procedure THTTPConnection.GoOffline;
 begin
   if not Online then
     Exit;
+
   if Connected then
     CloseConnect;
   if InternetCloseHandle(InetHandle)=false then
   begin
-    Log(LOG_WARNING, 'Online Update: Failed to close internet handle!');
+    LogWindowsError(GetLastError(), 'THTTPConnection.GoOffline: InternetCloseHandle failed!');
     //Exit;
   end;
   Online:=False;
@@ -91,9 +97,13 @@ procedure THTTPConnection.ConnectTo(const HostName: string);
 begin
   if Connected then
     CloseConnect;
+
   InetConnection:=InternetConnect(InetHandle, PChar(HostName), INTERNET_DEFAULT_HTTP_PORT, nil, nil, INTERNET_SERVICE_HTTP, 0, 0);
   if InetConnection=nil then
-    raise exception.create('Unable to open internet connection. Online update failed.');
+  begin
+    LogWindowsError(GetLastError(), 'THTTPConnection.ConnectTo: InternetConnect failed!');
+    raise exception.create('Unable to open internet connection.');
+  end;
   Connected:=True;
 end;
 
@@ -101,9 +111,10 @@ procedure THTTPConnection.CloseConnect;
 begin
   if not Connected then
     Exit;
+
   if InternetCloseHandle(InetConnection)=false then
   begin
-    Log(LOG_WARNING, 'Online Update: Failed to close internet connection handle!');
+    LogWindowsError(GetLastError(), 'THTTPConnection.CloseConnect: InternetCloseHandle failed!');
     //Exit;
   end;
   Connected:=False;
@@ -114,12 +125,19 @@ procedure THTTPConnection.FileRequest(const FileName: string);
 begin
   if Requesting then
     CloseRequest;
+
   //We might need to set this as accepted type: 'binary/octet-stream'
   InetResource:=HttpOpenRequest(InetConnection, PChar('GET'), PChar(FileName), nil, nil, nil, INTERNET_FLAG_RELOAD + INTERNET_FLAG_NO_CACHE_WRITE, 0);
   if InetResource=nil then
-    raise exception.create('Can not find online update file. Online update failed.');
+  begin
+    LogWindowsError(GetLastError(), 'THTTPConnection.FileRequest: HttpOpenRequest failed!');
+    raise exception.create('Can not access file to download.');
+  end;
   if HttpSendRequest(InetResource, nil, 0, nil, 0)=false then
-    raise exception.create('Can not find online update file. Online update failed.');
+  begin
+    LogWindowsError(GetLastError(), 'THTTPConnection.FileRequest: HttpSendRequest failed!');
+    raise exception.create('Can not access file to download.');
+  end;
   Requesting:=True;
 end;
 
@@ -127,9 +145,10 @@ procedure THTTPConnection.CloseRequest;
 begin
   if not Requesting then
     Exit;
+
   if InternetCloseHandle(InetResource)=false then
   begin
-    Log(LOG_WARNING, 'Online Update: Failed to close internet resource handle!');
+    LogWindowsError(GetLastError(), 'THTTPConnection.CloseRequest: InternetCloseHandle failed!');
     //Exit;
   end;
   Requesting:=False;
@@ -148,7 +167,11 @@ begin
     BufferLength:=StatusBufferLength;
 
     if HttpQueryInfo(InetResource, Flag, StatusBuffer, BufferLength, HeaderIndex)=false then
-      raise exception.create('HttpQueryInfo failed!');
+    begin
+      LogWindowsError(GetLastError(), 'THTTPConnection.FileQueryInfo: HttpQueryInfo failed!');
+      Result:=Default;
+      Exit;
+    end;
 
     Result:=StrToIntDef(LeftStr(StatusBuffer, BufferLength), Default);
   finally
@@ -164,7 +187,10 @@ begin
   if DataStart<>0 then
   begin
     if (InternetSetFilePointer(InetResource, DataStart, nil, FILE_BEGIN, 0) = INVALID_SET_FILE_POINTER) and (GetLastError() <> NO_ERROR) then
-      raise exception.create('Cannot download file: InternetSetFilePointer failed.');
+    begin
+      LogWindowsError(GetLastError(), 'THTTPConnection.ReadFile: InternetSetFilePointer failed!');
+      raise exception.create('Cannot download file. Data transfer failed.');
+    end;
   end;
 
   FileData.Seek(0, soFromBeginning);
@@ -174,7 +200,10 @@ begin
   try
     repeat
       if InternetReadFile(InetResource, Buffer, FileBufferLength, BufferLength)=false then
-        raise exception.create('Can not download online update file. Online update failed.');
+      begin
+        LogWindowsError(GetLastError(), 'THTTPConnection.ReadFile: InternetReadFile failed!');
+        raise exception.create('Cannot download file. Data transfer failed.');
+      end;
       if BufferLength>0 then
         FileData.WriteBuffer(Buffer^, BufferLength);
     until BufferLength=0;
@@ -183,7 +212,7 @@ begin
   end;
   if FileData.Position <> FileData.Size then
   begin
-    Log(LOG_WARNING, 'Online Update: FileData does NOT fill buffer completely!');
+    Log(LOG_WARNING, 'THTTPConnection.ReadFile: FileData does NOT fill buffer completely!');
     GetMem(Buffer, FileData.Size - FileData.Position);
     try
       FillChar(Buffer, FileData.Size - FileData.Position, 0);

@@ -22,7 +22,7 @@ unit AutoUpdateInstaller;
 
 interface
 
-uses Windows, Forms, Classes, StdCtrls, Controls, ComCtrls, AutoUpdater, HTTP;
+uses Windows, Forms, Classes, StdCtrls, Controls, ComCtrls;
 
 type
   TAutoUpdateInstaller = class(TForm)
@@ -40,7 +40,7 @@ function DoInstall: Boolean;
 
 implementation
 
-uses SysUtils, QuarkX, QkConsts;
+uses SysUtils, QuarkX, AutoUpdater, HTTP, QkConsts;
 
 function InstallPackages : DWORD; stdcall; forward;
 
