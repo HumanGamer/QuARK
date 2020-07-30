@@ -16,28 +16,6 @@ from qutils import *
 def newitem1click(m):
     quarkx.opentoolbox("New map items...")
 
-def ConvertHiddenToNoDrawClick(m):
-    editor = None
-    forms = quarkx.forms(2)
-    for form in forms:
-        if (form is not None) and (form.info is not None):
-            if(form.info.Root.shortname.lower() == "worldspawn"):
-                editor = form.info
-                break
-            
-    if editor is None:
-        return
-
-    worldspawn = editor.Root
-
-    faces = worldspawn.findallsubitems("", ":f")
-
-    for face in faces:
-        if (face["Flags"] is not None and int(face["Flags"])&128) != 0:
-            face.texturename  = "engine/nodraw"
-            
-    return
-
 #BUILD Brush prefabs list
 
 def PutItemFolder(Folder, Item):
@@ -45,12 +23,12 @@ def PutItemFolder(Folder, Item):
 
     CurrentFolder = Folder
     nChar=ItemName.find("/")
-    
+
     while nChar != -1:
         FolderName = ItemName[:nChar]
         ItemName = ItemName[nChar+1:]
         nChar=ItemName.find("/")
-        
+
         bFound = 0
         for iFolder in CurrentFolder.subitems:
             if iFolder.shortname==FolderName:
@@ -79,12 +57,12 @@ def FindTemplateNames():
             return None
         else:
             return []
-    
+
     for FileName in Directory:
         if FileName.endswith(".qkm"):
             TemplateFile = quarkx.openfileobj(PrefabDir + "\\" + FileName)
             ItemList = []
-            
+
             worldspawn = None
             for worldspawn in TemplateFile.subitems:
                 if worldspawn.shortname == "worldspawn":
@@ -156,7 +134,6 @@ def BuildTemplatesListClick(m):
     return
 
 NewItem1 = qmenu.item("&Insert map item...", newitem1click, "|Opens the 'New Map items' window:\n\nThis window contains all objects thats possible to use in the map-views and dataform-display.|intro.mapeditor.misctools.html#newmapitem")
-ConvertHiddenToNoDrawItem = qmenu.item("Convert Hidden flag to NoDraw", ConvertHiddenToNoDrawClick)
 BuildPrefabsListItem = qmenu.item("Build templates list", BuildTemplatesListClick, "|This function will build a list of all .qkm files that exist in the templates folder (if any) and place that list on 'New map items...' to select from.\n\nEach game can have its own templates and list, which this function also creates as a Templates.qrk file with the current game mode name in front of it and places that file in this games 'addons' folder.|intro.mapeditor.misctools.html#templates")
 
 
@@ -172,14 +149,10 @@ def CommandsMenu():
     #
     # Global variables to update from plug-ins.
     #
+    global items
+    global shortcuts
 
-    # This 'if' section is for the Shine game engine even though QuArK does not support it at this time.
-    # Because of the contributions they have made to QuArK please leave this in - cdunde Dec. 17, 2007.
-    if quarkx.setupsubset(SS_GAMES)['GameCfg'] == "Shine":
-        items2 = [NewItem1, qmenu.sep, ConvertHiddenToNoDrawItem, qmenu.sep, BuildPrefabsListItem]
-    else:
-        items2 = [NewItem1, qmenu.sep, BuildPrefabsListItem]
-    items2 = items2 + items
+    items2 = [NewItem1, qmenu.sep, BuildPrefabsListItem] + items
 
     MapHotKeyList("Insert", NewItem1, shortcuts)
     return qmenu.popup("&Commands", items2, onclick), shortcuts
