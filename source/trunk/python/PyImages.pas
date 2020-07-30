@@ -856,7 +856,7 @@ function SetImageCtrlAttr(self: PyObject; attr: PChar; value: PyObject) : Intege
 var
  Attr1: PyObjectPtr;
 begin
-{Result:=-1;}
+ {Result:=-1;}
  try
   with PyControlF(self)^ do
    case attr[0] of
@@ -875,6 +875,7 @@ begin
            Exit;
           end;
    end;
+
   Attr1:=GetImageCtrlObject(self, attr);
   if Attr1=Nil then
    Result:=SetControlAttr(self, attr, value)

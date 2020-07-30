@@ -731,8 +731,8 @@ var
  nRect: TRect;
  J: Integer;
 begin
+ Result:=-1;
  try
-  Result:=0;
   case attr[0] of
    'b': if StrComp(attr, 'begincolor') = 0 then
          begin
@@ -742,6 +742,7 @@ begin
              MarsCap.ActiveBeginColor:=PyInt_AsLong(value);
              UpdateMarsCap;
             end;
+          Result:=0;
           Exit;
          end;
    'e': if StrComp(attr, 'endcolor') = 0 then
@@ -752,6 +753,7 @@ begin
              MarsCap.ActiveEndColor:=PyInt_AsLong(value);
              UpdateMarsCap;
             end;
+          Result:=0;
           Exit;
          end;
    'f': if StrComp(attr, 'fileobject') = 0 then
@@ -766,8 +768,9 @@ begin
               end;
              ChangeFileObject(QkObjFromPyObj(value) as QFileObject);
              Caption:=FileObject.Name;
-             Exit;
             end;
+          Result:=0;
+          Exit;
          end;
    'w': if StrComp(attr, 'windowrect') = 0 then
          begin
@@ -775,6 +778,7 @@ begin
            Exit;
           if PyWindow(self)^.Form<>Nil then
            PyWindow(self)^.Form.RestoredRect:=nRect;
+          Result:=0;
           Exit;
          end
         else if StrComp(attr, 'windowstate') = 0 then
@@ -783,6 +787,7 @@ begin
           if (J>=0) and (J<=Ord(High(TWindowState))) then
            if PyWindow(self)^.Form<>Nil then
             PyWindow(self)^.Form.WindowState:=TWindowState(J);
+          Result:=0;
           Exit;
          end;
   end;

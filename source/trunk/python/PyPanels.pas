@@ -1493,7 +1493,7 @@ begin
             {if Resizer1<>Nil then
               CreateResizer;}
              PanelObject.Parent.InvalidateAlignment;
-            end; 
+            end;
            Result:=0;
            Exit;
           end;

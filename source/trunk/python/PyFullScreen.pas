@@ -340,6 +340,7 @@ begin
            Exit;
           end;
    end;
+
   Attr1:=GetFullscreenObject(self, attr);
   if Attr1=Nil then
    Result:=SetControlAttr(self, attr, value)

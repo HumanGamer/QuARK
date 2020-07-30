@@ -185,14 +185,14 @@ end;
 
 function SetObjAttr(self: PyObject; attr: PChar; value: PyObject) : Integer; cdecl;
 begin
+ Result:=-1;
  try
-  if QkObjFromPyObj(self).PySetAttr(attr, value) then
-   Result:=0
-  else
+  if not QkObjFromPyObj(self).PySetAttr(attr, value) then
    begin
     PyErr_SetString(QuarkxError, PChar(LoadStr1(4429)));
-    Result:=-1;
+    Exit;
    end;
+  Result:=0;
  except
   EBackToPython;
   Result:=-1;
@@ -700,8 +700,8 @@ function SetObjAttr(self: PyObject; attr: PChar; value: PyObject) : Integer; cde
 var
  P: PChar;
 begin
+ Result:=-1;
  try
-  Result:=-1;
   case attr[0] of
    'n': if StrComp(attr, 'name') = 0 then
          begin
@@ -756,8 +756,8 @@ function SetFileObjAttr(self: PyObject; attr: PChar; value: PyObject) : Integer;
 var
  P: PChar;
 begin
+ Result:=-1;
  try
-  Result:=-1;
   case attr[0] of
    'f': if StrComp(attr, 'filename') = 0 then
          begin

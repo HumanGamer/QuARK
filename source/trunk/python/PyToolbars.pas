@@ -526,13 +526,14 @@ var
  Dock: TComponent;
  nRect: TRect;
 begin
+ Result:=-1;
  try
-  Result:=0;
   with PyToolbar(self)^ do
    case attr[0] of
     'b': if StrComp(attr, 'buttons')=0 then
           begin
            SetButtons(value);
+           Result:=0;
            Exit;
           end;
     'c': if StrComp(attr, 'caption')=0 then
@@ -541,6 +542,7 @@ begin
            if P=Nil then Exit;
            if QkToolbar<>Nil then
             QkToolbar.Caption:=StrPas(P);
+           Result:=0;
            Exit;
           end;
     'd': if StrComp(attr, 'dock')=0 then
@@ -560,12 +562,12 @@ begin
                if (Dock=Nil) or not (Dock is TDock97) then
                 begin
                  PyErr_SetString(QuarkxError, PChar(LoadStr1(4419)));
-                 Result:=-1;
                  Exit;
                 end;
               end;
             end;
            QkToolbar.DockedTo:=TDock97(Dock);
+           Result:=0;
            Exit;
           end
          else if StrComp(attr, 'dockpos')=0 then
@@ -578,6 +580,7 @@ begin
           begin
            if QkToolbar<>Nil then
             QkToolbar.DockRow:=PyInt_AsLong(value);
+           Result:=0;
            Exit;
           end;
     'f': if StrComp(attr, 'floatrect')=0 then
@@ -592,6 +595,7 @@ begin
              else
               QkToolbar.FloatingRightX:=GetDesktopArea().Right-GetDesktopArea().Left;
             end;
+           Result:=0;
            Exit;
           end;
     'o': if StrComp(attr, 'onshowhide')=0 then
@@ -601,6 +605,7 @@ begin
            Py_INCREF(value);
            if (value<>Py_None) and (QkToolbar<>Nil) then
             QkToolbar.OnClose:=ShowHide;
+           Result:=0;
            Exit;
           end;
     'v': if StrComp(attr, 'visible')=0 then
@@ -611,7 +616,8 @@ begin
               QkToolbar.Visible:=not QkToolbar.Visible;
               ShowHide(Nil);
              end;
-           Exit; 
+           Result:=0;
+           Exit;
           end;
    end;
   PyErr_SetString(QuarkxError, PChar(LoadStr1(4429))); 

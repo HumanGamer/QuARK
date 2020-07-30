@@ -477,6 +477,7 @@ begin
            Exit;
           end;
    end;
+
   Attr1:=GetFloatingObject(self, attr);
   if Attr1=Nil then
    Result:=SetControlAttr(self, attr, value)

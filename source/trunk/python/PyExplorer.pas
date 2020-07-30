@@ -584,7 +584,7 @@ begin
                begin
                 Invalidate;
                 SelectionChanging;
-               end; 
+               end;
             end;
            Result:=0;
            Exit;
@@ -597,6 +597,7 @@ begin
            Exit;
           end;
    end;
+
   Attr1:=GetExplorerObject(self, attr);
   if Attr1=Nil then
    Result:=SetControlAttr(self, attr, value)
