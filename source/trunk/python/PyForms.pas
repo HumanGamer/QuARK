@@ -791,6 +791,7 @@ begin
           Exit;
          end;
   end;
+
   Attr1:=GetWindowObject(self, attr);
   if Attr1=Nil then
    begin
@@ -802,6 +803,7 @@ begin
     Py_DECREF(Attr1^);
     Attr1^:=value;
     Py_INCREF(value);
+    Result:=0;
    end;
  except
   EBackToPython;
