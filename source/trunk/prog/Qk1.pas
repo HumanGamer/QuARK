@@ -1589,6 +1589,8 @@ begin
  end;
  ClearGameBuffers(False);
  ClearPool(True);
+ ClearTimers;
+ ClearWireframeCache;
  {CloseSetupSet;  called by ShutdownPython}
 
  //Remove the QObjects from the dynamically created components;
