@@ -12,7 +12,6 @@ import quarkx
 from qdictionnary import Strings
 import qmenu
 from mdlutils import *
-import mdlcommands
 
 ### Setup for future use. See mapmenus.py for examples
 MdlEditMenuCmds = []

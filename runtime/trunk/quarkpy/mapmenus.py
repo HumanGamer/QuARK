@@ -13,13 +13,10 @@ from qdictionnary import Strings
 import qmenu
 import qhandles
 from maputils import *
-import mapcommands
-import bspcommands
 import plugins.map1addonsamendmenu
 import plugins.map1addonsmenu
 import mapselection
 import mapbtns
-from mapentities import CallManager
 
 
 def ViewGroup1click(m):
@@ -92,6 +89,7 @@ QuickKeys = [GridMinus, GridPlus, ZoomIn, ZoomOut,
 # Menu bar builder
 #
 def BuildMenuBar(editor):
+    import bspcommands
     import mapmgr
     import mapcommands
     import mapsearch
