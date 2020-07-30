@@ -1307,8 +1307,9 @@ end;
 function TPyForm.ProcessMenuShortcut(var Msg: TWMKeyDown; ShortCut: TShortCut) : Boolean;
 var
  S: String;
- obj, esc: PyObject;
+ obj, esc, menuobj: PyObject;
  Ac: TControl;
+ I: Integer;
 begin
  Result:=False;
  S:=ShortCutToText(ShortCut);
@@ -1363,7 +1364,20 @@ begin
    if obj=Nil then
     PythonCodeEnd
    else
-    ClickItem(obj, cioHourglass or cioPythonCodeEnd, Self);
+    begin
+     //Need to trigger 'onclick' of at least mapcommands menu;
+     //disabled-state may otherwise not be properly set!
+     for I:=0 to PyObject_Length(MenuBar)-1 do
+     begin
+       menuobj:=PyList_GetItem(MenuBar, I);
+       if menuobj=Nil then continue;
+       ClickItemNow(menuobj, cioImmediate, Self);
+     end;
+     RefreshMenus;
+     if IsPyMenuItemDisabled(obj) then
+       Exit;
+     ClickItem(obj, cioHourglass or cioPythonCodeEnd, Self);
+    end;
   end;
 end;
 

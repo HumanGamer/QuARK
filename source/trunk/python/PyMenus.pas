@@ -40,6 +40,7 @@ type
 
 function UpdateMenu(Menu: HMenu; List: PyObject; Callbacks: TList; FreeUnused: Boolean; sc, sci: PyObject; MenuBar, Recursive: Boolean) : Boolean;
 function FindMenuItem(Menu, PopupMenu: HMenu; var Info: TOldMenuItemInfo) : Boolean;
+function IsPyMenuItemDisabled(item: PyObject): Boolean;
 
 implementation
 
@@ -181,6 +182,7 @@ begin
           IsPopup:=PyObject_HasAttrString(ListItem, 'items');
           FillRec:=IsPopup;
 
+          //Partial copy of: IsPyMenuItemDisabled
           obj:=PyObject_GetAttrString(ListItem, 'state');
           if obj=Nil then Exit;
           J:=PyInt_AsLong(obj);
@@ -314,6 +316,20 @@ begin
     end;
   end;
  Result:=False;
+end;
+
+function IsPyMenuItemDisabled(item: PyObject): Boolean;
+var
+ obj: PyObject;
+ J: Integer;
+begin
+ Result:=False;
+ obj:=PyObject_GetAttrString(item, 'state');
+ if obj=Nil then Exit;
+ J:=PyInt_AsLong(obj);
+ Py_DECREF(obj);
+ if J and state_Disabled <> 0 then
+   Result:=True;
 end;
 
 end.
