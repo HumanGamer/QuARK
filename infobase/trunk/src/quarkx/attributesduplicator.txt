@@ -1,7 +1,7 @@
 title: Attributes of Internal objects of class "Duplicator"
 author: Armin Rigo
 
-Here is the additionnal attribute of Internal objects with "<tt>Duplicator</tt>" in their class tuple.
+Here is the additional attribute of Internal objects with "<tt>Duplicator</tt>" in their class tuple.
 
 <table border=1 cellspacing=0 cellpadding=4>
 

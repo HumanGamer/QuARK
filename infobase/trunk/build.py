@@ -24,7 +24,7 @@ TEXT_TO_HTML_NBSP[" "] = "&nbsp;"
 
 def text2html(text):
     newtext = string.join(map(TEXT_TO_HTML.get, text), "")
-    # Fix a problem with "&lt;" "&gt;" becomming "&amp;lt;" "&amp;gt;"
+    # Fix a problem with "&lt;" "&gt;" becoming "&amp;lt;" "&amp;gt;"
     newtext = string.replace(newtext, "&amp;lt;",   "&lt;")
     newtext = string.replace(newtext, "&amp;gt;",   "&gt;")
     # Hmmm? Lets fix "&nbsp;" too
@@ -40,7 +40,7 @@ def path2html(path):
     return string.join(filter(None, string.split(path, "/"))+["html"], ".")
 
 def climbpath(curpath, relpath):
-    if relpath[:3] == "../" :
+    if relpath[:3] == "../":
         return climbpath(curpath[:-1], relpath[3:])
     else:
         if verboseMode:

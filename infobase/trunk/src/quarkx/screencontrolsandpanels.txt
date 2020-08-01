@@ -6,7 +6,7 @@ views, image displayers, data-entry forms, floating windows, etc. - - are distin
 attributes. Note that toolbars are not screen controls in QuArK 5.0.c2, so they don’t have all these attributes, but this may
 change in a future version.
 
-Controls are not positionned on screen by setting coordinates. They are put into panels, which are screen controls themselves.
+Controls are not positioned on screen by setting coordinates. They are put into panels, which are screen controls themselves.
 Panels are dummy gray rectangles that can contains other screen controls and that know how to set their position. Usually,
 panels are nested, starting from the main panel, which covers the whole window except its border, its caption, and its menu
 bar. For example, in the map editor’s Classical layout, the main panel contains three controls: the two map view and a

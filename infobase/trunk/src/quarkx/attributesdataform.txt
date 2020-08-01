@@ -1,4 +1,4 @@
-title: Additionnal attributes of Data form controls
+title: Additional attributes of Data form controls
 author: Armin Rigo
 
 Data Forms are created by a panel’s <tt>newdataform()</tt> method. They are screen controls that display a
@@ -30,7 +30,7 @@ actionchanging<br>
 actiondeleting<br>
 actionrenaming
 </td><td>
-Texts for the actions of editing or deleting Specifics/Args, or renaming the object, resp. Note: in QuArK 5.0.c2, these are not strings, but <b>numbers</b> for the dictionnary <tt>qdictionnary.Strings</tt>.
+Texts for the actions of editing or deleting Specifics/Args, or renaming the object, resp. Note: in QuArK 5.0.c2, these are not strings, but <b>numbers</b> for the dictionary <tt>qdictionnary.Strings</tt>.
 </td></tr>
 
 <tr><td class="doccode">

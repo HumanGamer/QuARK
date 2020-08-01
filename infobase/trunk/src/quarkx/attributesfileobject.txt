@@ -1,7 +1,7 @@
 title: Attributes common to Internal File objects
 author: Armin rigo
 
-All Internal File Objects have the following additionnal attributes.
+All Internal File Objects have the following additional attributes.
 
 <table border=1 cellspacing=0 cellpadding=4>
 
@@ -29,7 +29,7 @@ Saves the file. If no argument is given, <tt>filename</tt> must be set before. I
 conversion()<br>
 conversion(type)
 </td><td>
-Conversion between different object types. Mostly used for conversions between textures and images. With no argument, returns a list of all types this object can be converted to, including the current type (each one is a string giving the extension of the corresponding files with the dot); with a type argument, it attemps to convert the object to the given type.
+Conversion between different object types. Mostly used for conversions between textures and images. With no argument, returns a list of all types this object can be converted to, including the current type (each one is a string giving the extension of the corresponding files with the dot); with a type argument, it attempts to convert the object to the given type.
 </td></tr>
 
 </table>

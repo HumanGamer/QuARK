@@ -1,7 +1,7 @@
 title: Attributes common to Internal objects of class "3DObject"
 author: Armin Rigo
 
-Here are the additionnal attributes of Internal objects with "3DObject" in their class tuple. The Internal 3D Objects are the
+Here are the additional attributes of Internal objects with "3DObject" in their class tuple. The Internal 3D Objects are the
 ones that have some kind of 3D position or shape. All objects present in the map editor’s tree view are Internal 3D Objects.
 This includes groups because you can move and resize whole groups.
 

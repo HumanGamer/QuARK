@@ -123,7 +123,7 @@ Makes a new polyhedron face with the given vertices list. Not for building polyh
 needgamefile(file)<br>
 needgamefile(file, base)
 </td><td>
-Loads a file from the current game's datas. The file path should be specified in a .pak-style fashion, e.g. "maps/base1.bsp". If base is present, QuArK only looks in this base directory; otherwise, it looks in all configured base directories, just like the game itself. Returns an Internal File Object. Raises quarkx.error if not found.
+Loads a file from the current game's data. The file path should be specified in a .pak-style fashion, e.g. "maps/base1.bsp". If base is present, QuArK only looks in this base directory; otherwise, it looks in all configured base directories, just like the game itself. Returns an Internal File Object. Raises quarkx.error if not found.
 </td></tr>
 
 </table>

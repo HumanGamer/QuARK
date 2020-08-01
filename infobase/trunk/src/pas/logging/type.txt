@@ -22,14 +22,14 @@ This is the default. Use this when no other options apply.
 LOG_PASCAL
 </td><td>
 Outputs 'QuArKLog'<br>
-You can use this when an error in the Pascal/Delphi code has occured.
+You can use this when an error in the Pascal/Delphi code has occurred.
 </td></tr>
 
 <tr><td class="doccode">
 LOG_PYTHON
 </td><td>
 Outputs 'PythonLog'<br>
-You can use this when an error in the Python code has occured.
+You can use this when an error in the Python code has occurred.
 </td></tr>
 
 <tr><td class="doccode">

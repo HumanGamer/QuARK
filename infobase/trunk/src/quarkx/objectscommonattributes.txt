@@ -12,14 +12,14 @@ Tuple of all class names implemented into this object. For example, .bmp file ob
 <tr><td class="doccode">
 dictitems
 </td><td>
-A dictionnary of all subitems with the format name:item. Modifying this dictionnary has no effect on the actual subitems of the object.
+A dictionary of all subitems with the format name:item. Modifying this dictionary has no effect on the actual subitems of the object.
 </td></tr>
 
 <tr><td class="doccode">
 dictspec
 </td><td>
-A read-only dictionnary with all Specific/Arg pairs.<br>
-Note: known to cause memory leaks in older versons of QuArK, see: <ref> src/bugs/leaks/dicts </ref>.
+A read-only dictionary with all Specific/Arg pairs.<br>
+Note: known to cause memory leaks in older versions of QuArK, see: <ref> src/bugs/leaks/dicts </ref>.
 </td></tr>
 
 <tr><td class="doccode">
@@ -116,7 +116,7 @@ Finds the first subitems with the given shortname, or None.
 <tr><td class="doccode">
 ...[spec]
 </td><td>
-Like dictionnaries, use this notation to read or set a Specific. The values that can take a Specific are: None if not set, a string (that may be void), or a tuple of floats. To store an integer, either convert it from/to a string, or use the methods getint and setint below. As a special case, when using the "<tt>[ ]</tt>" notation to write an integer value, setint is called. However, when reading the same value, "<tt>[ ]</tt>" will return the packed string, not the integer. (QuArK 5.0.c2: you cannot set a Specific to None to delete it. All versions: setting a Specific to an empty string will delete it, although Specifics can exist with an empty Arg.)
+Like dictionaries, use this notation to read or set a Specific. The values that can take a Specific are: None if not set, a string (that may be void), or a tuple of floats. To store an integer, either convert it from/to a string, or use the methods getint and setint below. As a special case, when using the "<tt>[ ]</tt>" notation to write an integer value, setint is called. However, when reading the same value, "<tt>[ ]</tt>" will return the packed string, not the integer. (QuArK 5.0.c2: you cannot set a Specific to None to delete it. All versions: setting a Specific to an empty string will delete it, although Specifics can exist with an empty Arg.)
 </td></tr>
 
 <tr><td class="doccode">
@@ -153,7 +153,7 @@ Copies all Specifics and sub-items of the object from the ones of source. To mak
 <tr><td class="doccode">
 acceptitem(ob)
 </td><td>
-Returns 1 if and only if the object ob can reasonnably be inserted into the list of subitems. For example, it is not reasonnable to insert a bitmap in an entity. Although it is possible, you should not try to do so.
+Returns 1 if and only if the object ob can reasonably be inserted into the list of subitems. For example, it is not reasonable to insert a bitmap in an entity. Although it is possible, you should not try to do so.
 </td></tr>
 
 <tr><td class="doccode">

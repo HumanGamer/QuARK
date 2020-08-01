@@ -1,4 +1,4 @@
-title: Additionnal attributes of Tree view controls (Explorers)
+title: Additional attributes of Tree view controls (Explorers)
 author: Armin Rigo
 
 Tree views are created by a panel’s newexplorer() method. They are screen controls that display a hierarchical view of Internal

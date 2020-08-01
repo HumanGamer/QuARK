@@ -42,7 +42,7 @@ The ‘?’ menu item. It is automatically added to menu bars.
 <tr><td class="doccode">
 clickform
 </td><td>
-The Window object in which the last menu or button click occured.
+The Window object in which the last menu or button click occurred.
 </td></tr>
 
 <tr><td class="doccode">

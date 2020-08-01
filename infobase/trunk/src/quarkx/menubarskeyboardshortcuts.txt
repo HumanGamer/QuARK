@@ -12,8 +12,8 @@ information about the expected attributes.
 
 You set a Window’s menu bar by storing a list of instances of <tt>qmenu.popup</tt> into its menubar attribute. You can also assign
 keyboard shortcuts to menu items; however, this is not done by setting an attribute (e.g. shortcut) to the instances of the
-class <tt>qmenu.item</tt>. All shortcuts for a Window must be grouped in a dictionnary that must be assigned to the Window’s shortcuts
-attribute. The dictionnary should contain pairs "shortcutkey":menuitem, where "shortcutkey" is a string describing the key
+class <tt>qmenu.item</tt>. All shortcuts for a Window must be grouped in a dictionary that must be assigned to the Window’s shortcuts
+attribute. The dictionary should contain pairs "shortcutkey":menuitem, where "shortcutkey" is a string describing the key
 (e.g. "Ctrl+X") and menuitem is the item whose onclick attribute should be called. Although not required, I recommend that this
 menuitem appear somewhere in the menu bar, too. If it is the case, QuArK adds the shortcut key string to the right of the item
 in the menu. New in QuArK 5.5: a shortcut can be a number (a "virtual key code") as obtained in the configuration dialog box

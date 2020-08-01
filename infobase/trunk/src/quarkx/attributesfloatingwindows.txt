@@ -1,4 +1,4 @@
-title: Additionnal attributes of Floating Windows controls
+title: Additional attributes of Floating Windows controls
 author: Armin Rigo
 
 Floating windows are created by a window’s newfloating() method. They are screen controls, and as all screen controls are, they

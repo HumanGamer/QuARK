@@ -1,4 +1,4 @@
-title: Additionnal attributes of Map View controls
+title: Additional attributes of Map View controls
 author: Armin Rigo
 
 Methods are described above. The following table describes the other attributes only.

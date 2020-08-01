@@ -85,7 +85,7 @@ Returns a list of all buttons used in this window, either on toolbars or on butt
 <tr><td class="doccode">
 newfloating(flags, caption)
 </td><td>
-Makes a new floating window attached to this window. See below for more infos. Parameters are optional: flags default to 0 and caption defaults to "". See qutils.FWF_XXX for flags values.
+Makes a new floating window attached to this window. See below for more infomation. Parameters are optional: flags default to 0 and caption defaults to "". See qutils.FWF_XXX for flags values.
 </td></tr>
 
 <tr><td class="doccode">
@@ -97,7 +97,7 @@ Returns a list of floating windows attached to this window.
 <tr><td class="doccode">
 choosecolor(color)
 </td><td>
-Displays a color picking dialog box. color is the default color. Returns the choosen color or None if the user cancelled the dialog box.
+Displays a color picking dialog box. color is the default color. Returns the chosen color or None if the user cancelled the dialog box.
 </td></tr>
 
 </table>

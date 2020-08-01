@@ -5,4 +5,4 @@ author: DanielPharos
 function GetSystemErrorMessage(ErrNr: DWORD) : String;
 </code>
 
-Retrieves the text associated with a Windows error number. This can be used in conjunction with <tt>GetLastError</tt> directly after a Windows exception has occured.
+Retrieves the text associated with a Windows error number. This can be used in conjunction with <tt>GetLastError</tt> directly after a Windows exception has occurred.

@@ -3,7 +3,7 @@ author: Armin Rigo
 
 3D Vector Objects are created with the function <tt>quarkx.vect</tt>. Vectors are immutable in the Python sense. Vector Objects usually
 represent 3D points or 3D vectors, but in some cases they are projections on a map view. See the second table below for the
-additionnal attributes that apply to projected vectors only. All vectors have a few attributes you can read, and you can use
+additional attributes that apply to projected vectors only. All vectors have a few attributes you can read, and you can use
 the arithmetic operations described below:
 
 <table border=1 cellspacing=0 cellpadding=4>
@@ -45,7 +45,7 @@ Norm (length) of a vector
 <tr><td class="doccode">
 boolean value
 </td><td>
-A vector is considered <tt>False</tt> if it is zero or almost zero, to accomodate for small computation
+A vector is considered <tt>False</tt> if it is zero or almost zero, to accommodate for small computation
 errors.
 </td></tr>
 
@@ -115,7 +115,7 @@ v.offscreen
 
 </table>
 
-The control points of Bezier patches use an extension of the 3D vectors: 5D vectors. These vectors have two additionnal
+The control points of Bezier patches use an extension of the 3D vectors: 5D vectors. These vectors have two additional
 coordinates, representing the texture coordinates. 5D vectors have the same Python type as 3D vectors, and all operations you
 can do with 3D vectors can be done with 5D vectors too; here is the new stuff:
 

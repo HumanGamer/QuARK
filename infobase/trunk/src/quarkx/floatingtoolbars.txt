@@ -80,7 +80,7 @@ Individual buttons are, like menu items, not built-in types, but rather instance
 for more information.
 
 Besides Floating Toolbars, buttons can also be displayed on fixed panels. Such panels are called Button Panels, and are created
-with a panel’s newbtnpanel() method. They are screen controls, with a few additionnal attributes:
+with a panel’s newbtnpanel() method. They are screen controls, with a few additional attributes:
 
 <table border=1 cellspacing=0 cellpadding=4>
 
@@ -104,5 +104,5 @@ See the method update() of Floating toolbars.
 
 </table>
 
-Button panels have additionnal formatting capabilities: by inserting special values in the list of buttons, you can create gaps
+Button panels have additional formatting capabilities: by inserting special values in the list of buttons, you can create gaps
 between buttons, pad buttons to the right, or force a new button row to begin. See <tt>qtoolbar.py</tt>.

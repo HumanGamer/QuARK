@@ -48,7 +48,7 @@ Checks the state of the keyboard. See qkeys.py for a list of all keys. Returns 1
 <tr><td class="doccode">
 setpoolobj(tagname, anything)
 </td><td>
-Stores anything into the pool under the name tagname. The pool is like a dictionnary, but objects that are put there will be periodically freed if they are not referencied any more by other variables. Use it to store complex memory-consuming objects that can be quickly rebuilt when necessary. This lets you use the same object from several places. If tagname is the empty string, the stored object cannot be retreived from the pool any more, but it guarantees that the object won’t be freed immediately (e.g. use it to store objects that take some time to be freed).
+Stores anything into the pool under the name tagname. The pool is like a dictionary, but objects that are put there will be periodically freed if they are not referenced any more by other variables. Use it to store complex memory-consuming objects that can be quickly rebuilt when necessary. This lets you use the same object from several places. If tagname is the empty string, the stored object cannot be retrieved from the pool any more, but it guarantees that the object won’t be freed immediately (e.g. use it to store objects that take some time to be freed).
 </td></tr>
 
 <tr><td class="doccode">

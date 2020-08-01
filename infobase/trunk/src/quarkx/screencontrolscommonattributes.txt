@@ -73,7 +73,7 @@ visible = 0
 invalidate()
 invalidate(rebuild)
 </td><td>
-Forces a control to display itself again. For map views in textured mode, this also forces a rebuild of the scene if rebuild is present and not egal to 0. (note that this default behavior is new from QuArK 5.9.) The control is not repainted immediately.
+Forces a control to display itself again. For map views in textured mode, this also forces a rebuild of the scene if rebuild is present and not egual to 0. (note that this default behavior is new from QuArK 5.9.) The control is not repainted immediately.
 </td></tr>
 
 <tr><td class="doccode">
