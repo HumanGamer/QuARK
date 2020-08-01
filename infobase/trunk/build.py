@@ -588,7 +588,8 @@ class Folder:
 
     def viewforgotten(self):
         for s in self.forgotten:
-            if s[-1:]!="~" and s!="cvs" and string.find(s,'.png')==-1 and string.find(s,'.jpg')==-1 and string.find(s,'.gif')==-1:
+            #if s[-1:]!="~" and s!="cvs" and string.find(s,'.png')==-1 and string.find(s,'.jpg')==-1 and string.find(s,'.gif')==-1:
+            if s[-1:]!="~" and string.find(s,'.png')==-1 and string.find(s,'.jpg')==-1 and string.find(s,'.gif')==-1:
                 print "*** NOTE: file '%s' not found in index" % (self.path+s)
         for folder in self.folders:
             folder.viewforgotten()
