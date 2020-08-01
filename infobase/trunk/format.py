@@ -18,6 +18,7 @@ HEADER_BEGIN = """<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
   <title>%(title)s</title>
   <meta name="Description" content="QuArK Information Database - Page: %(classif)s%(title)s">
   <meta name="Keywords" content="QuArK InfoBase, Quake Army Knife, QRK, QKM, Python, PY, Map Editor, Model Editor">
+  <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
   <link rel=stylesheet href="standard.css" type="text/css">
 </head>
 
