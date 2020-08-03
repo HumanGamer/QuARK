@@ -1,8 +1,10 @@
 #! /usr/bin/env python
 
-import string, htmlentitydefs, time, os, sys
+import html.entities, datetime, time, os, sys
+from format import *
 
 OutputPath = "output"
+copyrightyear = datetime.date.today().year
 
 
 #
@@ -11,7 +13,7 @@ OutputPath = "output"
 TEXT_TO_HTML = { }
 for c in range(256):
     TEXT_TO_HTML[chr(c)] = chr(c)
-for entity, character in htmlentitydefs.entitydefs.items():
+for entity, character in html.entities.entitydefs.items():
     TEXT_TO_HTML[character] = "&" + entity + ";"
 TEXT_TO_HTML_NBSP = TEXT_TO_HTML.copy()
 TEXT_TO_HTML_NBSP[" "] = "&nbsp;"
@@ -20,51 +22,49 @@ TEXT_TO_HTML_NBSP[" "] = "&nbsp;"
 # ------------------------------------------------------------
 #
 
-#today = time.strftime("%d %b %Y", time.localtime(time.time()))
-
 def text2html(text):
-    newtext = string.join(map(TEXT_TO_HTML.get, text), "")
+    newtext = "".join(map(TEXT_TO_HTML.get, text))
     # Fix a problem with "&lt;" "&gt;" becoming "&amp;lt;" "&amp;gt;"
-    newtext = string.replace(newtext, "&amp;lt;",   "&lt;")
-    newtext = string.replace(newtext, "&amp;gt;",   "&gt;")
+    newtext = newtext.replace("&amp;lt;",   "&lt;")
+    newtext = newtext.replace("&amp;gt;",   "&gt;")
     # Hmmm? Lets fix "&nbsp;" too
-    newtext = string.replace(newtext, "&amp;nbsp;", "&nbsp;")
+    newtext = newtext.replace("&amp;nbsp;", "&nbsp;")
     return newtext
 
 def text2html_nbsp(text, maxlen=999):
     if (len(text) > maxlen):
         text = text[:maxlen] + "..."
-    return string.join(map(TEXT_TO_HTML_NBSP.get, text), "")
+    return "".join(map(TEXT_TO_HTML_NBSP.get, text))
 
 def path2html(path):
-    return string.join(filter(None, string.split(path, "/"))+["html"], ".")
+    return ".".join(list(filter(None, path.split(os.sep)))+["html"])
 
 def climbpath(curpath, relpath):
-    if relpath[:3] == "../":
+    if relpath[:3] == ".."+os.sep:
         return climbpath(curpath[:-1], relpath[3:])
     else:
         if verboseMode:
-            print 'CURPATH ' + `curpath`
+            print('CURPATH ' + curpath)
         if curpath != []:
-            newpath = string.join(curpath, '/') + '/' + relpath
+            newpath = os.sep.join(curpath + [relpath])
         else:
             newpath = relpath
         if verboseMode:
-            print 'NEWPATH ' + `newpath`
+            print('NEWPATH ' + newpath)
         return newpath
 
 
 def relpath(curpath, relpath):
-    if relpath[:2] == './':
-       return curpath + relpath[2:]
-    elif relpath[:3] == '../':
-       track = string.split(curpath, '/')
+    if relpath.startswith('.'+os.sep):
+       return curpath + relpath[len('.'+os.sep):]
+    elif relpath.startswith('..'+os.sep):
+       track = curpath.split(os.sep)
        return climbpath(track[:-1], relpath)
     return relpath
 
 def findref(root, path, name, fkw, extraargs):
     if verboseMode:
-        print 'FKW: ' + `fkw["path"]`
+        print('FKW: ' + fkw["path"])
 
 #    def ref(refnormal, refwithname, kw, name=name, extraargs):
     def ref(refnormal, refwithname, kw, name=name):
@@ -76,88 +76,73 @@ def findref(root, path, name, fkw, extraargs):
 
     path = relpath(fkw["path"], path)
     if verboseMode:
-        print 'PATH: ' + `path`
-        print 'name: ' + `name`
-    path0 = path
-    path = string.split(path, "/")
-    path1 = ""
-    while path:
-        path1 = path1 + path[0] + "/"
+        print('PATH: ' + path)
+        print('name: ' + name)
+    parts = path.split(os.sep)
+    pathsofar = ""
+    while parts:
+        pathsofar = pathsofar + parts[0] + os.sep
         for folder in root.folders:
-            if folder.path == path1:
+            if folder.path == pathsofar:
+                # Found matching folder
                 root = folder
-                del path[0]
+                del parts[0]
                 break
         else:
-            if len(path) == 1:
+            if len(parts) == 1:
                 for subfiles in root.files:
-                    if subfiles.kw["hrefaname"] == path[0]:
+                    if subfiles.kw["hrefaname"] == parts[0]:
                         return ref(REFFILE, REFFILE_NAME, subfiles.kw)
-            raise RuntimeError("Reference not found to " + path0 + " in " + fkw["htmlfile"])
+            raise RuntimeError("Reference not found to " + path + " in " + fkw["htmlfile"])
     return ref(REFDIR, REFDIR_NAME, root.kw)
 
 def proc_g(kw, words):
     # '<g>...</g>' for Glossary-link
     # Ugly hack! This needs proper fixing, and not this semi-hardcoded bullshit.
-    if words[:1] == '.':
+    if words.startswith('.'):
         namelink = "fileext"
     elif words[:1] >= '0' and words[:1] <= '9':
         namelink = "numbers"
     else:
-        namelink = string.lower(words[:1])
+        namelink = words[:1].lower()
     return "<a href=\"glossary.html#%s\">%s</a>" % (namelink, words)
 
-def proclink(kw, targetname, extraargs):  #DanielPharos
+def proclink(kw, targetname, extraargs):
     # I know <link> exists in HTML, but we're not using it here, and it just seemed the best name of this!
     from links import linksdict
-    if linksdict.has_key(extraargs):
-        link = linksdict[extraargs]
-    else:
-        raise RuntimeError("unknown link: "+extraargs)
+    link = linksdict[extraargs]
     return "<a target=\"_blank\" href=\"%s\">%s</a>" % (link, targetname)
 
-def procpic(kw, path, extraargs):  #tiglari
-    if (string.find(path, "/") > -1) or (string.find(path, "\\") > -1) or (path[:1] == "."):
+def procpic(kw, path, extraargs):
+    if (os.sep.find(path) > -1) or (os.sep.find(path) > -1) or path.startswith("."):
         raise RuntimeError("Illegal picture filename: [%s]" % path)
-    picrl = PICLOC + string.join(filter(None, string.split(kw["path"], "/"))+[path], ".")
+    picrl = PICLOC + ".".join(list(filter(None, kw["path"].split(os.sep)))+[path])
     if extraargs == '':
         img = '<img src="%s">' % (picrl)
     else:
         img = '<img %s src="%s">' % (extraargs, picrl)
-    try:
-        data = open(kw["path"]+path, "rb").read()
-    except:
-        raise RuntimeError("open-error for file \"%s\"" % (kw["path"]+path))
-    f = open(OutputPath+"/"+picrl, "wb")
-    try:
+    data = open(kw["path"]+path, "rb").read()
+    with open(os.path.join(OutputPath, picrl), "wb") as f:
         f.write(data)
-    finally:
-        f.close()
 #    self.forgotten.remove(path)
     return img
 
-def procrsc(kw, path):  #tiglari
-    rscrl = string.join(filter(None, string.split(kw["path"], "/"))+[path], ".")
+def procrsc(kw, path):
+    rscrl = ".".join(list(filter(None, kw["path"].split(os.sep)))+[path])
     data = open(kw["path"]+path, "rb").read()
-    f = open(OutputPath+"/"+rscrl, "wb")
-    try:
+    with open(os.path.join(OutputPath, rscrl), "wb") as f:
         f.write(data)
-    finally:
-        f.close()
 #    self.forgotten.remove(path)
     return '"%s"' % rscrl
 
-def proczip(kw, path):  #tiglari
+def proczip(kw, path):
 #    self.forgotten.remove(path)
     if localMode:
-        data = open("zips/"+path, "rb").read()
-        if not os.path.exists(OutputPath+"/zips"):
-            os.mkdir(OutputPath+"/zips")
-        f = open(OutputPath+"/zips/"+path, "wb")
-        try:
+        data = open(os.path.join("zips", path), "rb").read()
+        if not os.path.exists(os.path.join(OutputPath, "zips")):
+            os.mkdir(os.path.join(OutputPath, "zips"))
+        with open(os.path.join(OutputPath, "zips", path), "wb") as f:
             f.write(data)
-        finally:
-            f.close()
         return '<a href="%s">%s</a>' % (path, path)
     else:
         return '<a href="%s%s">%s</a>' % (ZIPLOC, path, path)
@@ -165,8 +150,8 @@ def proczip(kw, path):  #tiglari
 def procact(kw, actionstring):
     # An 'action' is usually composed of a series of menu-actions the user
     # has to drill into. An example: "<act> RMB | Curves|Arch </act>"
-    actionstring = string.replace(actionstring, " | ", " -&gt; ")
-    actionstring = string.replace(actionstring, "|",   " -&gt; ")
+    actionstring = actionstring.replace(" | ", " -&gt; ")
+    actionstring = actionstring.replace("|",   " -&gt; ")
     return ACT_HTML % actionstring
 
 
@@ -175,115 +160,115 @@ def processtext(root, self, data):
     def perform_tag_action(tag, line, flags, root, kw):
 
         def perform_ref_action(extraargs, datastring, root, kw):
-            datastring = string.strip(datastring)
+            datastring = datastring.strip()
             try:
-                # figure out, if there is a alternative text for the link-reference
-                idx = string.index(datastring, '\\')
-                pathname = string.strip(datastring[:idx])
-                refname = string.strip(datastring[idx+1:])
+                # figure out, if there is an alternative text for the link-reference
+                idx = datastring.index('\\')
+                pathname = datastring[:idx].strip().replace("/", os.sep)
+                refname = datastring[idx+len('\\'):].strip()
             except (ValueError):
-                pathname = datastring
+                pathname = datastring.replace("/", os.sep)
                 refname = ""
-            return findref(root, pathname, refname, kw, string.strip(extraargs))
+            return findref(root, pathname, refname, kw, extraargs.strip())
 
         def perform_link_action(extraargs, datastring, root, kw):
-            return proclink(kw, string.strip(datastring), string.strip(extraargs))
+            return proclink(kw, datastring.strip(), extraargs.strip())
 
         def perform_pic_action(extraargs, datastring, root, kw):
-            return procpic(kw, string.strip(datastring), string.strip(extraargs))
+            return procpic(kw, datastring.strip().replace("/", os.sep), extraargs.strip())
 
         def perform_zip_action(datastring, root, kw):
-            return proczip(kw, string.strip(datastring))
+            return proczip(kw, datastring.strip())
 
         def perform_rsc_action(datastring, root, kw):
-            return procrsc(kw, string.strip(datastring))
+            return procrsc(kw, datastring.strip())
 
         def perform_act_action(datastring, root, kw):
-            return procact(kw, string.strip(datastring))
+            return procact(kw, datastring.strip())
 
         def perform_g_action(datastring, root, kw):
-            return proc_g(kw, string.strip(datastring))
+            return proc_g(kw, datastring.strip())
 
 
-        if (tag[:5] == "<code"):
+        if tag.startswith("<code"):
             replacewith = "<div class=\"doccode\"><pre>"
             flags["preformatmode"] = flags["preformatmode"] + 1
-        elif (tag[:6] == "</code"):
+        elif tag.startswith("</code"):
             replacewith = "</pre></div>"
             if (flags["preformatmode"] > 0):
                 flags["preformatmode"] = flags["preformatmode"] - 1
-        elif (tag[:4] == "<tt>"):
+        elif tag.startswith("<tt>"):
             replacewith = "&nbsp;<tt>"
-        elif (tag[:5] == "</tt>"):
+        elif tag.startswith("</tt>"):
             replacewith = "</tt>&nbsp;"
-        elif (tag[:4] == "<ref"):
-            end_tag = string.find(line, "</ref>")
+        elif tag.startswith("<ref"):
+            end_tag = line.find("</ref>")
             if end_tag == -1:
                 # A <ref>-tag must have a </ref>-tag on the same line, else this code won't work.
                 raise RuntimeError("<ref>-tag without any </ref>-tag on same line! <File>.TXT title: \"%s\"" % kw["title"])
-            replacewith = perform_ref_action(tag[4:-1], line[:end_tag], root, kw)
+            replacewith = perform_ref_action(tag[len("<ref"):-1], line[:end_tag], root, kw)
             line = line[end_tag+len("</ref>"):]
-        elif (tag[:5] == "<link"):
-            end_tag = string.find(line, "</link>")
+        elif tag.startswith("<link"):
+            end_tag = line.find("</link>")
             if end_tag == -1:
                 # A <link>-tag must have a </link>-tag on the same line, else this code won't work.
                 raise RuntimeError("<link>-tag without any </link>-tag on same line! <File>.TXT title: \"%s\"" % kw["title"])
-            replacewith = perform_link_action(tag[5:-1], line[:end_tag], root, kw)
+            replacewith = perform_link_action(tag[len("<link"):-1], line[:end_tag], root, kw)
             line = line[end_tag+len("</link>"):]
-        elif (tag[:4] == "<img"):
-            end_tag = string.find(line, "</img>")
+        elif tag.startswith("<img"):
+            end_tag = line.find("</img>")
             if end_tag == -1:
                 # A <img>-tag must have a </img>-tag on the same line, else this code won't work.
                 raise RuntimeError("<img>-tag without any </img>-tag on same line! <File>.TXT title: \"%s\"" % kw["title"])
-            replacewith = perform_pic_action(tag[4:-1], line[:end_tag], root, kw)
+            replacewith = perform_pic_action(tag[len("<img"):-1], line[:end_tag], root, kw)
             line = line[end_tag+len("</img>"):]
-        elif (tag[:4] == "<pic"):
-            end_tag = string.find(line, "</pic>")
+        elif tag.startswith("<pic"):
+            end_tag = line.find("</pic>")
             if end_tag == -1:
                 # A <pic>-tag must have a </pic>-tag on the same line, else this code won't work.
                 raise RuntimeError("<pic>-tag without any </pic>-tag on same line! <File>.TXT title: \"%s\"" % kw["title"])
-            replacewith = perform_pic_action(tag[4:-1], line[:end_tag], root, kw)
+            replacewith = perform_pic_action(tag[len("<pic"):-1], line[:end_tag], root, kw)
             line = line[end_tag+len("</pic>"):]
-        elif (tag[:4] == "<zip"):
-            end_tag = string.find(line, "</zip>")
+        elif tag.startswith("<zip"):
+            end_tag = line.find("</zip>")
             if end_tag == -1:
                 # A <zip>-tag must have a </zip>-tag on the same line, else this code won't work.
                 raise RuntimeError("<zip>-tag without any </zip>-tag on same line! <File>.TXT title: \"%s\"" % kw["title"])
             replacewith = perform_zip_action(line[:end_tag], root, kw)
             line = line[end_tag+len("</zip>"):]
-        elif (tag[:4] == "<rsc"):
-            end_tag = string.find(line, "</rsc>")
+        elif tag.startswith("<rsc"):
+            end_tag = line.find("</rsc>")
             if end_tag == -1:
                 # A <rsc>-tag must have a </rsc>-tag on the same line, else this code won't work.
                 raise RuntimeError("<rsc>-tag without any </rsc>-tag on same line! <File>.TXT title: \"%s\"" % kw["title"])
             replacewith = perform_rsc_action(line[:end_tag], root, kw)
             line = line[end_tag+len("</rsc>"):]
-        elif (tag[:4] == "<act"):
-            end_tag = string.find(line, "</act>")
+        elif tag.startswith("<act"):
+            end_tag = line.find("</act>")
             if end_tag == -1:
                 # A <act>-tag must have a </act>-tag on the same line, else this code won't work.
                 raise RuntimeError("<act>-tag without any </act>-tag on same line! <File>.TXT title: \"%s\"" % kw["title"])
             replacewith = perform_act_action(line[:end_tag], root, kw)
             line = line[end_tag+len("</act>"):]
-        elif (tag[:2] == "<g"):
-            end_tag = string.find(line, "</g>")
+        elif tag.startswith("<g"):
+            end_tag = line.find("</g>")
             if end_tag == -1:
                 # A <g>-tag must have a </g>-tag on the same line, else this code won't work.
                 raise RuntimeError("<g>-tag without any </g>-tag on same line! <File>.TXT title: \"%s\"" % kw["title"])
             replacewith = perform_g_action(line[:end_tag], root, kw)
             line = line[end_tag+len("</g>"):]
-        elif (tag[:4] == "</i>"):
+        elif tag.startswith("</i>"):
             replacewith = tag
-            if (line[:6] <> "&nbsp;"):
+            if (line[:6] != "&nbsp;"):
                 # Force in a non-breakable-space after end-of-italic.
                 replacewith = replacewith + "&nbsp;"
-        elif (tag[:2] == "< "):
+        elif tag.startswith("< "):
             raise RuntimeError("Illegal use of '<'-char. Use '&lt;' if a single '<' is needed! <File>.TXT title: \"%s\"" % kw["title"])
         else:
             replacewith = tag
-            if (tag[:4] == "<pre"):
+            if tag.startswith("<pre"):
                 flags["preformatmode"] = flags["preformatmode"] + 1
-            elif (tag[:5] == "</pre"):
+            elif tag.startswith("</pre"):
                 if (flags["preformatmode"] > 0):
                     flags["preformatmode"] = flags["preformatmode"] - 1
         return replacewith, line, flags
@@ -298,7 +283,7 @@ def processtext(root, self, data):
 
     for line in self.text:
         correctedline = ""
-        trimmedline = string.strip(line)
+        trimmedline = line.strip()
         if not trimmedline:
             correctedline = "\n"
             flags["prevlineempty"] = 1
@@ -312,7 +297,7 @@ def processtext(root, self, data):
             # Scan through the 'line' in search for "<tag's" to replace/perform actions on
             while len(line) > 0:
                 if (flags["inhtmlcomment"] == 1):
-                    endofcomment_found = string.find(line, "-->")
+                    endofcomment_found = line.find("-->")
                     if endofcomment_found == -1:
                         # We're still in HTML-comment
                         correctedline = correctedline + line
@@ -323,7 +308,7 @@ def processtext(root, self, data):
                         line = line[endofcomment_found+len("-->"):]
                         flags["inhtmlcomment"] = 0
                 else:
-                    startchar_tag_found = string.find(line, "<")
+                    startchar_tag_found = line.find("<")
                     if startchar_tag_found == -1:
                         # No "<tag" were found, so just copy the entire line
                         correctedline = correctedline + text2html(line)
@@ -332,32 +317,36 @@ def processtext(root, self, data):
                         # Found a "<tag". Take anything before that, and append to 'correctedline'
                         correctedline = correctedline + text2html(line[:startchar_tag_found])
                         line = line[startchar_tag_found:]
-                        if (line[:4] == "<!--"):
+                        if line.startswith("<!--"):
                             flags["inhtmlcomment"] = 1
                             correctedappend = line[:len("<!--")]
                             line = line[len("<!--"):]
                         else:
-                            endchar_tag_found = string.find(line, ">")
+                            endchar_tag_found = line.find(">")
                             if endchar_tag_found == -1:
                                 # there must exist an endchar_tag on the same line!
                                 raise RuntimeError("'%s' without ending '>' problem! <File>.TXT title: \"%s\"" % (line[:5], self.kw["title"]))
-                            else:
-                                tag = (line[:endchar_tag_found+1]).lower()
-                                if (tag == "<p>") or (tag == "</p>") or (tag[:5] == "<html") or (tag[:6] == "</html"):
-                                    # do not allow these tags!
-                                    raise RuntimeError("The %s tag is not allowed! <File>.TXT title: \"%s\"" % (tag, self.kw["title"]))
-                                if (tag[:3] == "<ul") or (tag[:3] == "<ol") or (tag[:3] == "<dl"):
-                                    listing_tags_added += 1
-                                elif (tag[:4] == "</ul") or (tag[:4] == "</ol") or (tag[:4] == "</dl"):
-                                    listing_tags_added -= 1
-                                    flags["prevlineempty"] = 0 #Don't paragraph this line, even if the previous line was empty
-                                elif (tag[:6] == "<table"):
-                                    table_tags_added += 1
-                                elif (tag[:7] == "</table"):
-                                    table_tags_added -= 1
-                                    flags["prevlineempty"] = 0 #Don't paragraph this line, even if the previous line was empty
-                                tag = (line[:endchar_tag_found+1]) #Don't lowercase, as this can break URLs
-                                correctedappend, line, line_flags = perform_tag_action(tag, line[endchar_tag_found+1:], flags, root, self.kw)
+                            endchar_tag_found += len(">")
+                            tag = (line[:endchar_tag_found]).lower()
+                            if (tag == "<p>") or (tag == "</p>") or tag.startswith("<html") or tag.startswith("</html"):
+                                # do not allow these tags!
+                                raise RuntimeError("The %s tag is not allowed! <File>.TXT title: \"%s\"" % (tag, self.kw["title"]))
+                            if tag.startswith("<ul") or tag.startswith("<ol") or tag.startswith("<dl"):
+                                listing_tags_added += 1
+                            elif tag.startswith("</ul") or tag.startswith("</ol") or tag.startswith("</dl"):
+                                listing_tags_added -= 1
+                                flags["prevlineempty"] = 0 #Don't paragraph this line, even if the previous line was empty
+                            elif tag.startswith("<table"):
+                                table_tags_added += 1
+                            elif tag.startswith("</table"):
+                                table_tags_added -= 1
+                                flags["prevlineempty"] = 0 #Don't paragraph this line, even if the previous line was empty
+                            tag = (line[:endchar_tag_found]) #Don't lowercase, as this can break URLs
+                            try:
+                                correctedappend, line, line_flags = perform_tag_action(tag, line[endchar_tag_found:], flags, root, self.kw)
+                            except:
+                                print("ERROR: Encountered a problem processing the tag in file %s:" % (self.filename))
+                                raise
                         correctedline = correctedline + correctedappend
 
             if flags["prevlineempty"] == 1:
@@ -391,14 +380,14 @@ def parse(file):
         kw = { }
         # Read the beginning non-empty lines, which should contain "key: value"'s
         while 1:
-            line = string.strip(f.readline())
+            line = f.readline().strip()
             if not line: # empty line found, stop reading for "key: value"'s
                 break
-            keysplit = string.find(line, ":")
+            keysplit = line.find(":")
             if keysplit == -1: # not a valid keypair; we're probably done
                 break
-            key = string.strip(line[:keysplit])
-            value = string.strip(line[keysplit+1:])
+            key = line[:keysplit].strip()
+            value = line[keysplit+len(":"):].strip()
             try:
                 data = kw[key]
             except (KeyError):
@@ -408,11 +397,7 @@ def parse(file):
         restdata = f.readlines()
     finally:
         f.close()
-    try:
-        # Doesn't work in versions lower than Python 2.2
-        return kw, restdata, os.stat(file).st_mtime
-    except:
-        return kw, restdata, os.stat(file)[8] # Decker - changed from [9] to [8] to get the right file-modification-date on Win2K
+    return kw, restdata, os.stat(file).st_mtime
 
 class File:
     def __init__(self, filename):
@@ -425,18 +410,18 @@ class Folder:
         self.parents = parents
         self.path = path
         if verboseMode:
-            print 'Path: '+self.path
+            print('Path: '+self.path)
         self.classif = classif
         if classif: # Decker
-            shortname = string.join(map(lambda s: s+".", classif), "") + "&nbsp;"
+            shortname = "".join(map(lambda s: s+".", classif)) + "&nbsp;"
         else: # Decker
             shortname = "" # Decker - Make the 'index.html' title _not_ prefixed with a single space
         if verboseMode:
-            print shortname,
+            print(shortname,)
         self.kw, self.text, lastmodifydate = parse(self.path + "index" + EXTENSION)
         s = self.kw["title"]
         if verboseMode:
-            print s
+            print(s)
         self.kw["htmltitle"] = text2html_nbsp(s)
         self.kw["htmltitleshort"] = text2html_nbsp(s, 25) # Decker - Try to prevent text-wrapping, so make it max 25 characters long
         self.kw["classif"] = shortname
@@ -446,6 +431,7 @@ class Folder:
         else:
             shortname = path2html(path)
         self.kw["htmlfile"] = shortname
+        self.kw["copyrightyear"] = copyrightyear
         self.kw["navprev"] = NAVNOPREV
         self.kw["navup"]   = NAVNOUP
         self.kw["navnext"] = NAVNONEXT
@@ -454,21 +440,21 @@ class Folder:
             self.kw["navup"] = NAVUP % parents[-1].kw
         # Recusivee into sub-folders
         self.folders = []
-        self.forgotten = map(string.lower, os.listdir("./" + self.path))
+        self.forgotten = list(map(str.lower, os.listdir(os.path.join(".", self.path))))
         self.forgotten.remove("index" + EXTENSION)
         self.kw["next"] = ""
         self.kw["nextfooter"] = ""
         htmlpath = path2html(path)
         previous = None
-        for foldername in string.split(self.kw.get("subdir", "")):
-            folder = Folder(path + foldername + "/", classif + (str(len(self.folders) + 1),), parents + (self,), previous)
+        for foldername in self.kw.get("subdir", "").split():
+            folder = Folder(path + foldername + os.sep, classif + (str(len(self.folders) + 1),), parents + (self,), previous)
             if folder.lastmodifydate > lastmodifydate:
                 lastmodifydate = folder.lastmodifydate
             self.folders.append(folder)
             self.forgotten.remove(foldername)
             previous = folder
         self.files = []
-        for filename in string.split(self.kw.get("desc", "")):
+        for filename in self.kw.get("desc", "").split():
             file = File(self.path + filename + EXTENSION)
             if file.lastmodifydate > lastmodifydate:
                 lastmodifydate = file.lastmodifydate
@@ -509,7 +495,7 @@ class Folder:
 
     def writefiles(self, root, filewriter):
         if verboseMode:
-            print 'writing file: ' + self.kw["htmlfile"], "  [%s]" % self.kw["title"]
+            print('writing file: ' + self.kw["htmlfile"], "  [%s]" % self.kw["title"])
         filewriter(self.kw["htmlfile"], self.makefile(root))
         for folder in self.folders:
             folder.writefiles(root, filewriter)
@@ -546,7 +532,7 @@ class Folder:
                         data.append(SUBFILES_BEGIN % folder.kw)
                         cnt = 0
                         for subfiles in folder.files:
-                            if cnt == ((len(folder.files)+1) / 2):
+                            if cnt == int((len(folder.files)+1) / 2):
                                 data.append(SUBFILES_END % folder.kw)
                                 data.append(SUBFILES_TABLEMIDDLE % { });
                                 data.append(SUBFILES_BEGIN % folder.kw)
@@ -569,7 +555,7 @@ class Folder:
                 data.append(FILES_ITEMBEGIN % self.kw)
                 cnt = 0
                 for subfiles in self.files:
-                    if cnt == ((len(self.files)+1) / 2):
+                    if cnt == int((len(self.files)+1) / 2):
                         data.append(FILES_ITEMEND % self.kw)
                         data.append(SUBFILES_TABLEMIDDLE % { });
                         data.append(FILES_ITEMBEGIN % self.kw)
@@ -588,31 +574,29 @@ class Folder:
 
     def viewforgotten(self):
         for s in self.forgotten:
-            #if s[-1:]!="~" and s!="cvs" and string.find(s,'.png')==-1 and string.find(s,'.jpg')==-1 and string.find(s,'.gif')==-1:
-            if s[-1:]!="~" and string.find(s,'.png')==-1 and string.find(s,'.jpg')==-1 and string.find(s,'.gif')==-1:
-                print "*** NOTE: file '%s' not found in index" % (self.path+s)
+            #if s[-1:]!="~" and s!="cvs" and s.find('.png')==-1 and s.find('.jpg')==-1 and s.find('.gif')==-1:
+            if s[-1:]!="~" and s.find('.png')==-1 and s.find('.jpg')==-1 and s.find('.gif')==-1:
+                print("NOTE: file '%s' not found in index" % (self.path+s))
         for folder in self.folders:
             folder.viewforgotten()
 
 
 def defaultwriter(filename, data, writemode="w"):
     # write the target file
-    f = open(OutputPath+"/"+filename, writemode)
-    f.writelines(data)
-    f.close()
+    with open(os.path.join(OutputPath, filename), writemode) as f:
+        f.writelines(data)
 
 def run(filewriter):
     def printline(text):
         if len(text)>77-3-1:
-            print text
+            print(text)
         else:
-            print "---" + text + "-"*(80-len(text)-3-1)
+            print("---" + text + "-"*(80-len(text)-3-1))
     # load format file
-    execfile("format.py", globals(), globals())
     # create additional output directories, if needed
-    if PICLOC<>'':
-        if not os.path.exists(OutputPath+'/'+PICLOC):
-            os.mkdir(OutputPath+'/'+PICLOC)
+    if PICLOC != '':
+        if not os.path.exists(os.path.join(OutputPath, PICLOC)):
+            os.mkdir(os.path.join(OutputPath, PICLOC))
     # recursively load everything in memory
     printline("FINDING ALL FILES")
     root = Folder("", (), ())
@@ -623,9 +607,9 @@ def run(filewriter):
     # recursively write everything to disk
     printline("WRITING FILES TO DISK")
     root.writefiles(root, filewriter)
-    for filename in string.split(root.kw.get("extrafiles_text", "")):
+    for filename in root.kw.get("extrafiles_text", "").split():
         filewriter(filename, [open(filename, "r").read()])
-    for filename in string.split(root.kw.get("extrafiles_binary", "")):
+    for filename in root.kw.get("extrafiles_binary", "").split():
         filewriter(filename, [open(filename, "rb").read()], "wb")
     printline("PRINTING FORGOTTEN FILES")
     root.forgotten = []
@@ -641,6 +625,6 @@ for flag in sys.argv:
 if not os.path.exists(OutputPath):
     os.mkdir(OutputPath)
 else:
-    print "WARNING: Output directory already exists!"
+    print("WARNING: Output directory already exists!")
 
 run(defaultwriter)
