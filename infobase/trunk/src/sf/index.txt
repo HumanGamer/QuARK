@@ -1,7 +1,7 @@
-title: The CVS repository at SourceForge
+title: The code repository at SourceForge
 subdir: eclipse
-desc: software anonymous reg
+desc: software reg cvs anonymous
 
-The source of QuArK is now based on a CVS repository provided by
+The source of QuArK is based on a code repository provided by
 <a href="http://sourceforge.net">SourceForge</a>.
 Here is how you can access it.

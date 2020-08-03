@@ -1,4 +1,4 @@
-title: Anonymous downloading
+title: Anonymous CVS downloading
 author: Armin Rigo
 
 Once WinCVS is installed, you can anonymously download the QuArK source. Configure WinCVS (from the Admin menu) as follows:
