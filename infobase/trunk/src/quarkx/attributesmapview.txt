@@ -6,6 +6,12 @@ Methods are described above. The following table describes the other attributes 
 <table border=1 cellspacing=0 cellpadding=4>
 
 <tr><td class="doccode">
+border
+</td><td>
+Whether this mapview has to draw a border (1) or not (0).
+</td></tr>
+
+<tr><td class="doccode">
 color<br>
 darkcolor
 </td><td>
@@ -64,18 +70,23 @@ An Internal Objects that describes the 3D perspective display parameters. Defaul
 <tr><td class="doccode">
 viewmode
 </td><td>
-View mode: "wire", "solid", or "tex". All values are valid in both flat and perspective projection modes. If the view doesn’t display a map at all (e.g. the shadowed texture panel of the Polyhedron page), use the mode "wire". The background is painted with the color before drawmap is called; if you want to avoid this, set color to NOCOLOR. Special mode: "opengl" for OpenGL views. Tested OpenGL implementations probably don't support several opengl views at the same time, nor switching back to another non-OpenGL mode.
+View mode: "wire" (for wireframe rendering), "solid" (for solid color rendering), or "tex" (for textured rendering). All values are valid in both flat and perspective projection modes. If the view doesn’t display a map at all (e.g. the shadowed texture panel of the Polyhedron page), use the mode "wire". The background is painted with the color before drawmap is called; if you want to avoid this, set color to NOCOLOR.
+</td></tr>
+
+<tr><td class="doccode">
+viewtype
+</td><td>
+View type: "editor", "panel", "window", "fullscreen". Indicates what type of mapview this is, and controls how and when its rendering should be performed.
 </td></tr>
 
 <tr><td class="doccode">
 viewname
 </td><td>
-Key values: "editors3Dview", "new3Dwindow", "full3Dview" or "opengl3Dview". All though not part of the actual quarkx source code, new keys have been added to all the required view layout python files for easier detection and control of these 3D views. Not required for 2D views, their key word "type" gives those view names already. Use of the new key can be coded by first qualifying for the 3D "type" views, then for their key "value" for example:
+Key values: "editors3Dview", "new3Dwindow", "full3Dview" or "opengl3Dview". Although not part of the actual quarkx source code, new keys have been added to all the required view layout python files for easier detection and control of these 3D views. Not required for 2D views, their key word "type" gives those view names already. Use of the new key can be coded by first qualifying for the 3D "type" views, then for their key "value" for example:
 
 <code>
   for view in editor.layout.views:
-      type = view.info["type"]
-      if type != "3D": continue
+      if view.info["type"] != "3D": continue
       viewname = view.info["viewname"]
       if viewname == "editors3Dview":
           print "got the Editors 3D view"
