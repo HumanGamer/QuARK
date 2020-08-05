@@ -1841,7 +1841,7 @@ begin
       BuildCorrectFileName(S);
      { tigari: .map extension fix }
      S:=Copy(S,1,Length(S)-Length(ExtractFileExt(S)));
-     {tiglari}
+     {/tiglari}
      SaveDialog1.FileName:=S;
      SaveDialog1.Options:=[ofHideReadOnly, ofOverwritePrompt, ofPathMustExist];
 
