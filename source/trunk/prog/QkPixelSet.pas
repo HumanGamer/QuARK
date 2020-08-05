@@ -33,17 +33,19 @@ type
  TPixelSetAlpha = (psaDefault, psaNoAlpha, psaGlobalAlpha, psa8bpp);
  TPixelSetAllocated = set of (psaData, psaAlpha, psaPalette);
  TPixelSetDescription = object
+                        private
+                         FPaletteAllocated: Boolean;
+                         Allocated: TPixelSetAllocated;
+                        public
                          Format: TPixelSetFormat;
                          Palette: TPixelSetPalette;
                          AlphaBits: TPixelSetAlpha;
-                         Allocated: TPixelSetAllocated;
                          Size: TPoint;       { X and Y size, > 0 }
                          ScanLine: Integer;  { negative if bottom-up }
                          Data: Pointer;
                          AlphaScanLine: Integer;
                          AlphaData: Pointer;
                          GlobalAlphaValue: Byte;
-                         FPaletteAllocated: Boolean;
                          ColorPalette: PPaletteLmp;
                          procedure Init;
                          procedure Done;
@@ -249,7 +251,10 @@ end;
 procedure TPixelSetDescription.ReleasePalette(Pal: HPalette);
 begin
  if FPaletteAllocated then
+ begin
   DeleteObject(Pal);
+  FPaletteAllocated:=False;
+ end;
 end;
 
 function TPixelSetDescription.IsGamePalette(Game: Char) : Boolean;
@@ -550,13 +555,16 @@ var
  DC: HDC;
 begin
  NewPSD:=PSDToDIB(Self, True);
- DC:=GetDC(GetDesktopWindow);
  try
-  BitmapInfo:=NewPSD.GetBitmapInfo(BmpInfo, Nil)^;
-  Result:=TBitmap.Create;
-  Result.Handle:=CreateToDC(DC, BitmapInfo, NewPSD.Data);
+  DC:=GetDC(GetDesktopWindow);
+  try
+   BitmapInfo:=NewPSD.GetBitmapInfo(BmpInfo, Nil)^;
+   Result:=TBitmap.Create;
+   Result.Handle:=CreateToDC(DC, BitmapInfo, NewPSD.Data);
+  finally
+   ReleaseDC(GetDesktopWindow, DC);
+  end;
  finally
-  ReleaseDC(GetDesktopWindow, DC);
   NewPSD.Done;
  end;
 end;*)
