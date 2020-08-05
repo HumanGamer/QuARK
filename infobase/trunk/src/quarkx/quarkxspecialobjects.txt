@@ -28,6 +28,12 @@ Returns a 3D (resp. 5D) vector object with coordinates x,y,z (resp. x,y,z,s,t) s
 </td></tr>
 
 <tr><td class="doccode">
+quaternion(string)
+</td><td>
+Returns a quaternion object. string textually contains 4 numbers separated with whitespaces (no parenthesis). As with vect above, instead of calling quaternion with three arguments, you can call it with a single tuple argument.
+</td></tr>
+
+<tr><td class="doccode">
 matrix(v1,v2,v3)<br>
 matrix((a,b,c), (d,e,f), (g,h,i))<br>
 matrix(string)

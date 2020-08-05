@@ -59,6 +59,7 @@ mapview_type<br>
 imagectrl_type<br>
 btnpanel_type<br>
 vector_type<br>
+quaternion_type<br>
 matrix_type<br>
 canvas_type<br>
 process_type

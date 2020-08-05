@@ -1,0 +1,97 @@
+title: Quaternion objects
+author: DanielPharos
+
+Quaternions are four values that together represent a rotation in 3D space and a scaling. Use quarkx.quaternion to create quaternion. They are not immutable objects,
+because you can change values in individual cases, but in general they should be considered as immutable.
+
+<table border=1 cellspacing=0 cellpadding=4>
+
+<tr><td class="doccode">
+q1+q2<br>
+q1-q2<br>
+-q
+</td><td>
+Sum, difference, or negation of quaternions
+</td></tr>
+
+<tr><td class="doccode">
+q1*q2
+</td><td>
+Quaternion product
+</td></tr>
+
+<tr><td class="doccode">
+q*v
+</td><td>
+Product of a quaternion and a vector
+</td></tr>
+
+<tr><td class="doccode">
+float*q<br>
+q*float<br>
+q/float
+</td><td>
+Product of a quaternion and a float, or division of a quaternion by a float
+</td></tr>
+
+<tr><td class="doccode">
+q1/q2
+</td><td>
+Product of q1 and the inverse of q2
+</td></tr>
+
+<tr><td class="doccode">
+float/q
+</td><td>
+Product of a float and the inverse of q
+</td></tr>
+
+<tr><td class="doccode">
+~q
+</td><td>
+Inverted quaternion (1/q)
+</td></tr>
+
+<tr><td class="doccode">
+abs(q)
+</td><td>
+Norm of a quaternion
+</td></tr>
+
+<tr><td class="doccode">
+boolean value
+</td><td>
+False if zero or almost zero
+</td></tr>
+
+<tr><td class="doccode">
+m[i]
+</td><td>
+The value (i) of the quaternion, where i isin the range 1 to 4.
+</td></tr>
+
+<tr><td class="doccode">
+str(q)
+</td><td>
+String representation. quarkx.quaternion(string) is the inverse operation.
+</td></tr>
+
+<tr><td class="doccode">
+q.copy
+</td><td>
+A copy of the quaternion (note: no "<tt>()</tt>")
+</td></tr>
+
+<tr><td class="doccode">
+q.normalized
+</td><td>
+A normalized copy of norm 1 of the quaternion.
+</td></tr>
+
+<tr><td class="doccode">
+q.tuple
+</td><td>
+A tuple of the four values.
+</td></tr>
+
+</table>

@@ -19,6 +19,7 @@ desc: attributestreemapbrush
 desc: attributesbezier
 desc: qmacro_py
 desc: 3dvector
+desc: quaternion
 desc: matrix
 desc: moduleundo
 desc: moduleprogressbar
