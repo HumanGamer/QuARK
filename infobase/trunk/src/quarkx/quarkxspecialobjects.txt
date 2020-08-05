@@ -78,8 +78,9 @@ FM_SaveTagOnly    = 4
 3rd argument
 <code>
 0       = (default setting), any file type *.*
-1 - 8   = as shown in source code (Pcx, Tga, DDS, Bmp, JPeg, Png, M32, VTF)
+1 - N   = as shown in source code (look for the various TestConversionType functions)
 </code>
+The values of the third argument depend on the object type. For example, for images 1=QPcx, 2=QTga, 3=QDDS, 4=QBmp, 5=QJPeg, 6=QPng, 7=QM32, 8=QFTX, 9=QVTF, 10=QIWI, but for map-files 1=QQkm and 2 is gamemode dependent (6DX: Hmf, HL2: VMF, Sylphis: QCMapFile, else: QQuakeMapFile).
 </td></tr>
 
 <tr><td class="doccode">
