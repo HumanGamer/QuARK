@@ -216,6 +216,7 @@ def ViewGroupMenu(editor):
 
 def BackgroundMenu(editor, view=None, origin=None):
     "Menu that appears when the user right-clicks on nothing."
+    import mapcommands
 
     undo, redo = quarkx.undostate(editor.Root)
     if undo is None:   # to undo
