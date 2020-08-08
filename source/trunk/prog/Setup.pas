@@ -825,6 +825,8 @@ end;
 
 procedure CloseAddonsList;
 begin
+ if AddOns=nil then
+  Exit;
  {$IFDEF Debug}
  if AddOns.PythonObj.ob_refcnt<>1 then
    Log(LOG_WARNING, 'CloseAddonsList: ob_refcnt<>1 !');
