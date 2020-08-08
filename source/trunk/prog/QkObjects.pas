@@ -3009,7 +3009,7 @@ end;
 procedure TestDataDump;
 begin
   if (QFileList.Count>0) or (g_MemQObject.Count>0) then
-    if Application.MessageBox('Some objects were not correctly freed. This is a bug. Do you want to write a data report (DATADUMP.TXT) ?', 'DEBUGGING - BETA VERSION', MB_YESNO) = IDYES then
+    if Windows.MessageBox(0, 'Some objects were not correctly freed. This is a bug. Do you want to write a data report (DATADUMP.TXT) ?', 'DEBUGGING - BETA VERSION', MB_YESNO) = IDYES then
       DataDump;
 end;
 {$ENDIF}
