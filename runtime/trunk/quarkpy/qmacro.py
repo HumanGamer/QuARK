@@ -179,6 +179,11 @@ def MACRO_shutdown(text):
         del qutils.ico_dict[key]
     del qutils.ico_dict
 
+    try:
+        del quarkx.redlinesicons
+    except AttributeError:
+        pass
+
 
 #
 #    ---- Dialog Boxes ----
