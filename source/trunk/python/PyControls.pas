@@ -188,13 +188,13 @@ begin
     Py_XDECREF(Info);
    end;
   {$IFDEF Debug}
-  I:=g_Controls.IndexOfName(format('%p' , [o]));
+  I:=g_Controls.IndexOfName(format('%p', [o]));
   if I=-1 then
    Log(LOG_WARNING, 'DEBUG: Destroying untracked %p', [o])
   else
    g_Controls.Delete(I);
   {$ENDIF}
-  FreeMem(o);
+  PyObject_FREE(o);
  except
   EBackToPython;
  end;

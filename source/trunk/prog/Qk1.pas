@@ -1589,7 +1589,6 @@ begin
    MessageBox(0, PChar(FmtLoadStr1(5658, [GetExceptionMessage(E)])), PChar(LoadStr1(5657)), MB_OK or MB_ICONHAND or MB_TASKMODAL);
  end;
  ClearGameBuffers(False);
- ClearPool(True);
  ClearTimers;
  ClearWireframeCache;
  {CloseSetupSet;  called by ShutdownPython}
@@ -1603,7 +1602,9 @@ begin
    if Components[I] is TDynMenuItem then
      TDynMenuItem(Components[I]).SrcObj:=Nil;
  end;
-// QObjectClassList.Free;
+ // QObjectClassList.Free;
+
+ //Remove all Python objects from the console buffer
  ClearConsole;
 
  ShutdownPython;

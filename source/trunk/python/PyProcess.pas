@@ -374,7 +374,7 @@ begin
   end;
  with PyProcessObject(o)^ do
   CloseHandle(Process);
- FreeMem(o);
+ PyObject_FREE(o);
 end;
 
 function pOnExit(self, args: PyObject) : PyObject; cdecl;

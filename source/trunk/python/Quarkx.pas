@@ -121,7 +121,7 @@ end;
 procedure SimpleDestructor(o: PyObject); cdecl;
 begin
  try
-  FreeMem(o);
+  PyObject_FREE(o);
  except
   EBackToPython;
  end;
@@ -3657,6 +3657,7 @@ end;
 procedure ShutdownPython;
 var
   obj: PyObject;
+  I: Integer;
 begin
   if not PythonLoaded then
    Exit;
@@ -3667,6 +3668,19 @@ begin
     Py_DECREF(obj);
   end;
   CloseSetupSet;
+
+  //Empty the pool
+  SizeDownPython;
+  for I:=Pool.Count-1 downto 0 do
+  begin
+    obj:=PyObject(Pool.Objects[I]);
+    if obj^.ob_refcnt > 1 then
+      Log(LOG_WARNING, 'Dropping Python %s object from pool with non-one ref count of %d...', [obj^.ob_type.tp_name, obj^.ob_refcnt]);
+    Pool.Delete(I);
+    Py_DECREF(obj);
+  end;
+  SizeDownPython;
+
   Py_Finalize;
   {UnInitializePython;} //FIXME: This creates problems, as not all Python objects have been freed yet...
   PythonLoaded := False;

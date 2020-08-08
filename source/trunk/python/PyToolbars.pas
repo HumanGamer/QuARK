@@ -161,7 +161,7 @@ function CreateButton(Owner: TComponent; Parent: TWinControl; Canvas: TCanvas; L
 
 implementation
 
-uses Quarkx, PyForms, FormCfg, QkExplorer, PyObjects, SystemDetails;
+uses Quarkx, PyForms, FormCfg, QkExplorer, PyObjects, SystemDetails, Logging;
 
 const
  BtnMarginX = 6;
@@ -322,11 +322,13 @@ procedure ToolbarDestructor(o: PyObject); cdecl;
 begin
  try
   with PyToolbar(o)^ do
-   if QkToolbar=Nil then
+   if QkToolbar<>Nil then
+    Log(LOG_WARNING, 'Trying to destroy PyToolbar with QkToolbar still attached; leaking it instead!')
+   else
     begin
      Py_DECREF(FOnShowHide);
      Py_DECREF(Buttons);
-     FreeMem(o);
+     PyObject_FREE(o);
     end;
  except
   EBackToPython;

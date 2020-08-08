@@ -26,6 +26,7 @@ uses ExtraFunctionality;
 
 {$IFDEF DEBUG}
 {$DEFINE PyRefDEBUG}
+{$DEFINE DebugPythonLeak}
 {$ENDIF}
 
  {-------------------}
@@ -478,6 +479,7 @@ PyGC_Collect: procedure; cdecl;
 
 function PyObject_NEW(t: PyTypeObject) : PyObject;
 {function PyObject_NEWVAR(t: PyTypeObject; i: Integer) : PyObject;}
+procedure PyObject_FREE(o: PyObject);
 function Py_BuildValueX(const fmt: PChar; Args: array of const) : PyObject;
 function Py_BuildValueDD(v1, v2: Double) : PyObject;
 function Py_BuildValueDDD(v1, v2, v3: Double) : PyObject;
@@ -513,8 +515,13 @@ implementation
 
 uses
  {$IFDEF Debug} QkObjects, {$ENDIF}
+ {$IFDEF DebugPythonLeak} Classes, QkConsts, PyObjects, Quarkx, {$ENDIF}
   Windows, Forms, SysUtils, StrUtils, QkExceptions,
   QkApplPaths, SystemDetails, Logging;
+
+{$IFDEF DebugPythonLeak}
+var g_PythonObjects: TList;
+{$ENDIF}
 
  {-------------------}
 
@@ -926,6 +933,9 @@ var
 begin
   GetMem(o, t^.tp_basicsize);
   Result:=PyObject_Init(o,t);
+  {$IFDEF DebugPythonLeak}
+  g_PythonObjects.Add(o);
+  {$ENDIF}
 end;
 
 {function PyObject_NEWVAR(t: PyTypeObject; i: Integer) : PyObject;
@@ -935,6 +945,14 @@ begin
  GetMem(o, t^.tp_basicsize + i*t^.tp_itemsize);
  Result:=_PyObject_NewVar(t,i,o);
 end;}
+
+procedure PyObject_FREE(o: PyObject);
+begin
+  {$IFDEF DebugPythonLeak}
+  g_PythonObjects.Remove(o);
+  {$ENDIF}
+  FreeMem(o);
+end;
 
 //Note: This function can only handle Args-elements that are 4 bytes in size (DWORD's), so it will NOT work with Double's!
 function Py_BuildValueX(const fmt: PChar; Args: array of const) : PyObject;
@@ -1199,6 +1217,54 @@ begin
    Result:=tp_as_sequence^.sq_item(o, index);
 end;*)
 
+{$IFDEF DebugPythonLeak}
+procedure PythonObjectDump;
+const
+  PythonObjectDumpFile = 'PythonObjectDump.txt';
+var
+  Text: TStringList;
+  I: Integer;
+  SomePythonObject: PyObject;
+  Q: QObject;
+begin
+  Text:=TStringList.Create;
+  try
+    Text.Add(QuArKVersion + ' ' + QuArKMinorVersion);
+
+    Text.Add('-----');
+
+    Text.Add(Format('%5.5s  %s  %s', ['RefCnt', 'Class', 'Object']));
+    for I:=0 to g_PythonObjects.Count-1 do
+    begin
+      SomePythonObject := g_PythonObjects[I];
+      Q:=QkObjFromPyObj(SomePythonObject);
+      if Q=nil then
+        Text.Add(Format('%5d  %s  nil', [SomePythonObject.ob_refcnt, SomePythonObject.ob_type.tp_name]))
+      else
+        Text.Add(Format('%5d  %s  %s', [SomePythonObject.ob_refcnt, SomePythonObject.ob_type.tp_name, Q.Name+Q.TypeInfo]));
+    end;
+
+    Text.SaveToFile(ExtractFilePath(ParamStr(0))+PythonObjectDumpFile);
+  finally
+    Text.Free;
+  end;
+end;
+
+procedure TestPythonObjectDump;
+begin
+  if g_PythonObjects.Count>0 then
+    if Application.MessageBox('Some Python objects were not correctly freed. This is a bug. Do you want to write a data report (PythonObjectDump.txt) ?', 'DEBUGGING - BETA VERSION', MB_YESNO) = IDYES then
+      PythonObjectDump;
+end;
+{$ENDIF}
+
 initialization
   PythonLib:=0;
+{$IFDEF DebugPythonLeak}
+  g_PythonObjects:=TList.Create;
+
+finalization
+  TestPythonObjectDump;
+  g_PythonObjects.Free;
+{$ENDIF}
 end.
