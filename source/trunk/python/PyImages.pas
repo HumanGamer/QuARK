@@ -123,6 +123,8 @@ procedure OpenGlobalImageList(ListView1: TListView);
 procedure CloseGlobalImageList(ListView1: TListView);
 function LoadGlobalImageList(Q: QObject) : Integer;
 
+procedure FinalizeInternalImages;
+
  {-------------------}
 
 implementation
@@ -912,7 +914,9 @@ begin
  for I:=High(InternalImages) downto Low(InternalImages) do
   begin
    Py_XDECREF(InternalImages[I,1]);
+   InternalImages[I,1]:=nil;
    Py_XDECREF(InternalImages[I,0]);
+   InternalImages[I,0]:=nil;
   end;
 end;
 
@@ -921,7 +925,6 @@ initialization
   InitializeInternalImages;
 
 finalization
-  FinalizeInternalImages;
   {if GlobalImageList<>nil then  //Has parent Application, so it automatically destroyed
     GlobalImageList.Free;}
   if ImageSources<>nil then

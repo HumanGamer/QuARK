@@ -3669,6 +3669,8 @@ begin
   end;
   CloseSetupSet;
 
+  FinalizeInternalImages;
+
   //Remove all Python objects from the console buffer
   ClearConsole;
 
