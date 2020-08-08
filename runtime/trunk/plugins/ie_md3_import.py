@@ -1346,7 +1346,6 @@ def dataformname(o):
     }
     """
 
-    from quarkpy.qeditor import ico_dict # Get the dictionary list of all icon image files available.
     editor = quarkpy.mdleditor.mdleditor # Get the editor.
     icon_btns = {}                       # Setup our button list, as a dictionary list, to return at the end.
 
