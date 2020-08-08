@@ -11,10 +11,6 @@
 #       Description:
 #
 #-------------------------------------------------------------------------------
-#
-#       $History: mapfindreptex $
-#
-#-------------------------------------------------------------------------------
 
 Info = {
    "plug-in":       "Search and replace textures",
@@ -100,7 +96,7 @@ class SearchReplaceTextureDlg(quarkpy.qmacro.dialogbox):
         elif uniquesel is not None and uniquesel.type==":f":
             texlist = quarkx.texturesof([uniquesel])
         else:
-            texlist = quarkx.texturesof(self.sellist);
+            texlist = quarkx.texturesof(self.sellist)
         if len(texlist) == 0:
             texlist.append(quarkx.setupsubset()["DefaultTexture"])
         src["fromtex"] = texlist[0]
