@@ -931,16 +931,7 @@ begin
   if Self=Nil then
     Exit;
 
-  Inc(PythonObj.ob_refcnt, Delta);
-  if PythonObj.ob_refcnt<=0 then
-  begin
-    {$IFDEF Debug}
-    if PythonObj.ob_refcnt<0 then
-      Raise InternalE('QObject.AddRef');
-    {$ENDIF}
-
-    PythonObj.ob_type^.tp_dealloc(@PythonObj);
-  end;
+  Py_REF_Delta(@PythonObj, Delta);
 end;
 
 procedure QObject.Modified();

@@ -90,7 +90,6 @@ end;
 
 {procedure QMdlObject.FixupReference;
 begin
-  PythonObj.ob_refcnt:=0;
 end;                        }
 
 procedure QMdlObject.AddTo3DScene(Scene: TObject);

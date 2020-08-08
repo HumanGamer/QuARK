@@ -488,7 +488,7 @@ function PyArg_ParseTupleX(src: PyObject; const fmt: PChar; AllArgs: array of co
 //function PyArg_ParseTupleAndKeywordsX(arg, kwdict: PyObject; const fmt: PChar; var kwlist: PChar; AllArgs: array of const) : LongBool;  pascal;
 procedure Py_INCREF(o: PyObject);
 procedure Py_DECREF(o: PyObject);
-procedure Py_Dealloc(o: PyObject);
+procedure Py_REF_Delta(o: PyObject; Delta: Integer);
 procedure Py_XINCREF(o: PyObject);
 procedure Py_XDECREF(o: PyObject);
 //function PySeq_Length(o: PyObject) : {$IFDEF PYTHON25} Py_ssize_t {$ELSE} Integer {$ENDIF};
@@ -1121,9 +1121,8 @@ begin
       RefError();
     {$ENDIF}
     Dec(ob_refcnt);
-    if ob_refcnt = 0 then begin
-      ob_type^.tp_dealloc(o);
-    end;
+    if ob_refcnt = 0 then
+      Py_Dealloc(o);
   end;
 end;
 
@@ -1157,6 +1156,29 @@ end;
 procedure Py_XDECREF(o: PyObject);
 begin
   if o <> nil then Py_DECREF(o);
+end;
+
+procedure Py_REF_Delta(o: PyObject; Delta: Integer);
+begin
+  if Delta=0 then
+   {$IFDEF DEBUG}
+   Raise InternalE('Delta = 0!');
+   {$ELSE}
+   Exit;
+   {$ENDIF}
+  {$IFDEF PyRefDEBUG}
+  if o^.ob_refcnt<0 then
+    RefError();
+  if (Delta<0) and (o^.ob_refcnt=0) then
+    RefError();
+  {$ENDIF}
+  Inc(o^.ob_refcnt, Delta);
+  {$IFDEF PyRefDEBUG}
+  if o^.ob_refcnt < 0 then
+    RefError();
+  {$ENDIF}
+  if o^.ob_refcnt <= 0 then
+    Py_Dealloc(o);
 end;
 
 (*function PySeq_Length(o: PyObject) : {$IFDEF PYTHON25} Py_ssize_t {$ELSE} Integer {$ENDIF};
