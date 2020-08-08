@@ -69,7 +69,7 @@ end;
 procedure LogAndWarn(const WarnMessage : String);
 begin
   Log(LOG_WARNING, WarnMessage);
-  Application.MessageBox(PChar(WarnMessage), 'QuArK', MB_TASKMODAL or MB_ICONEXCLAMATION or MB_OK);
+  Application.MessageBox(PChar(WarnMessage), 'QuArK', MB_ICONEXCLAMATION or MB_OK);
 end;
 
 procedure LogAndRaiseError(const ErrMessage : String);

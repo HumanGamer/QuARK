@@ -1418,20 +1418,12 @@ begin
                            Conv:=Copy(Conv,I,Length(Conv));
                            S:=Copy(S,I,Length(S));
                          end else begin
-                           {$ifdef Delphi1-5}
-                           Application.MessageBox(PChar(FmtLoadStr1(5656,[ConvOriginal,SOriginal])),PChar(LoadStr1(400)),0);
-                           {$else}
-                           Application.MessageBox(PChar(FmtLoadStr1(5656,[ConvOriginal,SOriginal])),PChar(LoadStr1(400)));
-                           {$endif}
+                           Application.MessageBox(PChar(FmtLoadStr1(5656,[ConvOriginal,SOriginal])),PChar(LoadStr1(400)), MB_ICONWARNING or MB_OK);
                            goto again;
                          end;
                        end;
                      end else begin
-                       {$ifdef Delphi1-5}
-                       Application.MessageBox(PChar(FmtLoadStr1(5656,[ConvOriginal,SOriginal])),PChar(LoadStr1(400)),0);
-                       {$else}
-                       Application.MessageBox(PChar(FmtLoadStr1(5656,[ConvOriginal,SOriginal])),PChar(LoadStr1(400)));
-                       {$endif}
+                       Application.MessageBox(PChar(FmtLoadStr1(5656,[ConvOriginal,SOriginal])),PChar(LoadStr1(400)), MB_ICONWARNING or MB_OK);
                        goto again;
                      end;
                    end;

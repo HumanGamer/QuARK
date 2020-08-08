@@ -476,10 +476,9 @@ var
  ParentNameChain: TStringList;
  Q: QObject;
 begin
- //DanielPharos: Even though this messagebox has no icon, Delphi doesn't have a way to set a default button,
- //even though it internally does. We *must* have the no-button set as default, because this is a destructive action,
+ //DanielPharos: We *must* have the no-button set as default, because this is a destructive action,
  //so we *have* to call this instead of Dialogs.MessageDlg.
- if Application.MessageBox(PChar(LoadStr1(4625)), 'QuArK', MB_ICONEXCLAMATION or MB_YESNO or MB_DEFBUTTON2 or MB_SYSTEMMODAL) <> IDYES then
+ if Application.MessageBox(PChar(LoadStr1(4625)), 'QuArK', MB_ICONEXCLAMATION or MB_YESNO or MB_DEFBUTTON2) <> IDYES then
    Exit;
  for I:=0 to FormCfg1.LinkedObjects.Count div 2 - 1 do
   begin

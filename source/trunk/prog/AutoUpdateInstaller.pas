@@ -63,7 +63,7 @@ begin
     ThreadHandle:=CreateThread(nil, 0, @InstallPackages, nil, 0, ThreadId);
     if ThreadHandle = 0 then
     begin
-      MessageBox(InstallWindow.Handle, PChar('Unable to create installer thread. Update unsuccessful.'), PChar('QuArK'), MB_TASKMODAL or MB_ICONEXCLAMATION or MB_OK);
+      MessageBox(InstallWindow.Handle, PChar('Unable to create installer thread. Update unsuccessful.'), PChar('QuArK'), MB_ICONEXCLAMATION or MB_OK);
       Exit;
     end;
     SetThreadPriority(ThreadHandle, THREAD_PRIORITY_ABOVE_NORMAL);
@@ -177,7 +177,7 @@ procedure TAutoUpdateInstaller.FormCloseQuery(Sender: TObject; var CanClose: Boo
 begin
   if ThreadHandle<>0 then
   begin
-    if MessageBox(Handle, PChar('Installation of the updates is still busy. Stopping the update will most likely result in a corrupt install. Are you sure you want to stop the installation?'), PChar('QuArK'), MB_TASKMODAL or MB_ICONEXCLAMATION or MB_YESNO or MB_DEFBUTTON2) = IDNO then
+    if MessageBox(Handle, PChar('Installation of the updates is still busy. Stopping the update will most likely result in a corrupt install. Are you sure you want to stop the installation?'), PChar('QuArK'), MB_ICONEXCLAMATION or MB_YESNO or MB_DEFBUTTON2) = IDNO then
     begin
       CanClose:=False;
       Exit;
