@@ -3026,6 +3026,7 @@ initialization
   {$ENDIF}
 
 finalization
+  //FIXME: We *have* to leak if MemTester is active, because it uses these in its finalization!
   QFileList.Free;
   {$IFDEF Debug}
   g_MemQObject.Free;
