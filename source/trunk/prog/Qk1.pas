@@ -422,13 +422,9 @@ begin
  else
    MutexError := GetLastError();
 
- // Set-up the console
- Log(LOG_VERBOSE, 'Setting up console...');
- InitConsole;
-
+ // Splash & nag screens
  if g_CmdOptions.DoSplash then
  begin
-   // splash & nag screens
    Splash:=OpenSplashScreen;
    Disclaimer:=DisclaimerThread(Splash);
  end
@@ -437,6 +433,10 @@ begin
    Splash:=nil;
    Disclaimer:=0;
  end;
+
+ // Set-up the console
+ Log(LOG_VERBOSE, 'Setting up console...');
+ InitConsole;
 
  // Python initialization and Defaults.qrk and Setup.qrk loading
  Log(LOG_VERBOSE, 'Initializing Python...');
@@ -469,6 +469,14 @@ begin
    DoUpdate(g_CmdOptions.OnlineUpdate, True);
  end;
 
+ // Warn for bugs
+ if (SetupSubSet(ssGeneral, 'Startup').Specifics.Values['BugCheck']<>'') then
+   WarnDriverBugs;
+
+ // Set-up OS specific things
+ InitViewport16;
+
+ // Wait for splash screen to close
  if g_CmdOptions.DoSplash then
  begin
    Log(LOG_VERBOSE, 'Waiting for splash screen...');
@@ -476,16 +484,11 @@ begin
      Application.ProcessMessages;
    until (WaitForSingleObject(Disclaimer, 100)<>WAIT_TIMEOUT);
    CloseHandle(Disclaimer);
+   //Disclaimer:=0;
    Splash.Release;
+   //Splash:=nil;
    Application.ProcessMessages;
  end;
-
- // Warn for bugs
- if (SetupSubSet(ssGeneral, 'Startup').Specifics.Values['BugCheck']<>'') then
-   WarnDriverBugs;
-
- //Set-up OS specific things
- InitViewport16;
 
  Log(LOG_VERBOSE, 'Preparing QuArK Explorer...');
 
