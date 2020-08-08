@@ -50,8 +50,17 @@ class console:
         pass       # called when the process terminates. This can also be overridden
 
 
+# Store the old stdout and stderr
+oldstdout = sys.stdout
+oldstderr = sys.stderr
+
 sys.stdout = console()
 sys.stderr = console(RED)
+
+def shutdown():
+    # Restore the old stdout and stderr
+    sys.stdout = oldstdout
+    sys.stderr = oldstderr
 
 
 firstwarning = 7

@@ -3669,6 +3669,9 @@ begin
   end;
   CloseSetupSet;
 
+  //Remove all Python objects from the console buffer
+  ClearConsole;
+
   //Empty the pool
   SizeDownPython;
   for I:=Pool.Count-1 downto 0 do

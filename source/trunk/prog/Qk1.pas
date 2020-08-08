@@ -1604,9 +1604,6 @@ begin
  end;
  // QObjectClassList.Free;
 
- //Remove all Python objects from the console buffer
- ClearConsole;
-
  ShutdownPython;
  FreeConsole;
  Application.OnException:=OldException;

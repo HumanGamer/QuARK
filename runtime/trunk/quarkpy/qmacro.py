@@ -184,6 +184,9 @@ def MACRO_shutdown(text):
     except AttributeError:
         pass
 
+    import qconsole
+    qconsole.shutdown()
+
 
 #
 #    ---- Dialog Boxes ----
