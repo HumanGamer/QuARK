@@ -24,13 +24,9 @@ interface
 
 uses ExtraFunctionality;
 
-// Comments:
-(* This file has been hacked by Rowdy and tiglari to make QuArK work
-with Python 2.X.
-A big clean-up was done by DanielPharos to add a lot of missing stuff. However,
-don't believe everything you see here! There can still be a LOT of wrong junk
-in here! YOU HAVE BEEN WARNED!
-*)
+{$IFDEF DEBUG}
+{$DEFINE PyRefDEBUG}
+{$ENDIF}
 
  {-------------------}
 
@@ -1041,7 +1037,7 @@ pascal; assembler; asm
  call PyArg_ParseTupleAndKeywords
 end;}
 
-{$IFDEF Debug}
+{$IFDEF PyRefDEBUG}
 procedure RefError;
 begin
  Raise InternalE('Python Reference count error');
@@ -1050,13 +1046,17 @@ end;
 
 procedure Py_INCREF(o: PyObject);
 begin
+  {$IFDEF PyRefDEBUG}
+  if o^.ob_refcnt<0 then
+    RefError();
+  {$ENDIF}
   Inc(o^.ob_refcnt);
 end;
 
 (*
 procedure Py_INCREF(o: PyObject); assembler;
 asm
-{$IFDEF Debug}
+{$IFDEF PyRefDEBUG}
  cmp dword ptr [eax], 0
  jl RefError
 {$ENDIF}
@@ -1069,7 +1069,7 @@ procedure Py_XINCREF(o: PyObject); assembler;
 asm
  or eax, eax
  jz @Null
-{$IFDEF Debug}
+{$IFDEF PyRefDEBUG}
  cmp dword ptr [eax], 0
  jl RefError
 {$ENDIF}
@@ -1116,6 +1116,10 @@ end;
 procedure Py_DECREF(o: PyObject);
 begin
   with o^ do begin
+    {$IFDEF PyRefDEBUG}
+    if ob_refcnt <= 0 then
+      RefError();
+    {$ENDIF}
     Dec(ob_refcnt);
     if ob_refcnt = 0 then begin
       ob_type^.tp_dealloc(o);
@@ -1126,7 +1130,7 @@ end;
 (*
 procedure Py_DECREF(o: PyObject); assembler;
 asm
-{$IFDEF Debug}
+{$IFDEF PyRefDEBUG}
  cmp dword ptr [eax], 0
  jle RefError
 {$ENDIF}
@@ -1140,7 +1144,7 @@ procedure Py_XDECREF(o: PyObject); assembler;
 asm
  or eax, eax
  jz @Null
-{$IFDEF Debug}
+{$IFDEF PyRefDEBUG}
  cmp dword ptr [eax], 0
  jle RefError
 {$ENDIF}
