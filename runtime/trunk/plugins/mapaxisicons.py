@@ -47,12 +47,12 @@ from quarkpy.qutils import *
 #      hint="|Display the X Y or Z indicator letter per view to associate #the rotation menu buttons. These are for reference only and are not #selectable with the mouse."))""
 
 # But I don't think that would be worthwhile, 
-#  so we'll just use the long version below insted:
+#  so we'll just use the long version below instead:
 #
 
 
 XYZitem = quarkpy.mapoptions.toggleitem("&Axis XYZ letter indicator in view windows", "AxisXYZ", (1,1),
-      hint="|Axis XYZ letter indicator in view windows:\n\nThis display s the X Y or Z indicator letter per view to associate the rotation menu buttons. These are for reference only and are not selectable with the mouse.|intro.mapeditor.menu.html#optionsmenu")
+      hint="|Axis XYZ letter indicator in view windows:\n\nThis displays the X, Y or Z indicator letter per view to associate the rotation menu buttons. These are for reference only and are not selectable with the mouse.|intro.mapeditor.menu.html#optionsmenu")
 
 quarkpy.mapoptions.items.append(XYZitem)
 for menitem, keytag in [(XYZitem, "AxisXYZ")]:
@@ -65,7 +65,7 @@ for menitem, keytag in [(XYZitem, "AxisXYZ")]:
 #  img = quarkx.loadimages(filename + ext, width, transparencypt)
 #
 
-axisicons = quarkx.loadimages("images\\axisicons.bmp",32,(0,0))
+axisicons = LoadPoolObj("axisicons", quarkx.loadimages, "images\\axisicons.bmp", 32,(0,0))
 
 #
 # This part is a magical incantation.
@@ -79,8 +79,8 @@ axisicons = quarkx.loadimages("images\\axisicons.bmp",32,(0,0))
 #  of the map editor, only the functions they define are.
 #
 
-def newfinishdrawing(editor, view, oldfinish=quarkpy.mapeditor.MapEditor.finishdrawing):
 
+def newfinishdrawing(editor, view, oldfinish=quarkpy.mapeditor.MapEditor.finishdrawing):
     #
     # execute the old method
     #
@@ -94,7 +94,7 @@ def newfinishdrawing(editor, view, oldfinish=quarkpy.mapeditor.MapEditor.finishd
 #    debug('area: '+`view.clientarea`)
 
     #
-    # Below ties this function to the toggel button
+    # Below ties this function to the toggle button
     #  in the Option menu.
     #
 
