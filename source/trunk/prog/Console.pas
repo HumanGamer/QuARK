@@ -91,7 +91,7 @@ implementation
 {$R *.DFM}
 
 uses Qk1, QkObjects, QkExceptions, Quarkx, PyProcess, Setup,
-     QkApplPaths, ExtraFunctionality;
+     Logging, QkApplPaths, ExtraFunctionality;
 
 var
   g_ConsoleForm: TConsoleForm;
@@ -359,7 +359,11 @@ var
  I: Integer;
  Line: ^TPipeLine;
 begin
- if not ConsoleReady then Exit;
+ if not ConsoleReady then
+  begin
+   Log(LOG_WARNING, 'Console not ready; text: %s', [Text]);
+   Exit;
+  end;
  if Length(Text)>0 then
   begin
    if PipeBuffer^[PipeBufPos].Src<>Src then
