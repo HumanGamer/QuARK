@@ -20,7 +20,6 @@ Info = {
 
 import time, os, struct, operator, sys as osSys
 import quarkx
-import quarkpy.qmacro
 from quarkpy.qutils import *
 import ie_utils
 from ie_utils import tobj
