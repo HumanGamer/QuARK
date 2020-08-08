@@ -206,7 +206,7 @@ begin
  if ob_refcnt<0 then Raise InternalE('Control refcount error');
  if DebugCheck=67890 then
   begin
-   if ob_refcnt<>0 then Raise InternalE('Control ref''ed after desctruction');
+   if ob_refcnt<>0 then Raise InternalE('Control ref''ed after destruction');
   end
  else
   if DebugCheck=12345 then
