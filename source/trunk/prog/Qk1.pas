@@ -231,7 +231,6 @@ type
 var
   Form1: TForm1;
   g_Form1: TForm1;
-  g_Form1Handle: HWnd;
   g_CmdOptions: CmdLineOptions;
 
  {------------------------}
@@ -397,7 +396,6 @@ begin
  Application.OnException:=AppException;
  Application.UpdateFormatSettings:=False;
  DecimalSeparator:='.';
- g_Form1Handle:=Handle;
 
  // DanielPharos: This processes the commandline and prepares it for further use
  g_cmdOptions.DoInstance := true; //These are the defaults

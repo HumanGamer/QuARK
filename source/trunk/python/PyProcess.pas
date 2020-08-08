@@ -90,7 +90,7 @@ type
 function WaiterProc(var Info: TWaiterInfo) : LongInt; stdcall;
 begin
  WaitForSingleObject(Info.self^.Process, INFINITE);
- PostMessage(g_Form1Handle, wm_InternalMessage, wppn_EndOfProcess, LongInt(@Info));
+ PostMessage(g_Form1.Handle, wm_InternalMessage, wppn_EndOfProcess, LongInt(@Info));
  Result:=0;
 end;
 
@@ -123,14 +123,14 @@ begin
   if not ReadFile(Pipe, InputMsg, SizeOf(InputMsg), Count, Nil) then
    begin
     //FIXME: Log an error or something?
-    PostMessage(g_Form1Handle, wm_InternalMessage, wppn_EndOfData, LongInt(@Info));
+    PostMessage(g_Form1.Handle, wm_InternalMessage, wppn_EndOfData, LongInt(@Info));
     Result:=1;
     Exit;
    end;
   if Count=0 then
    begin
     //No more data; pipe is closed.
-    PostMessage(g_Form1Handle, wm_InternalMessage, wppn_EndOfData, LongInt(@Info));
+    PostMessage(g_Form1.Handle, wm_InternalMessage, wppn_EndOfData, LongInt(@Info));
     Result:=0;
     Exit;
    end;
@@ -148,7 +148,7 @@ begin
        if not Buffer^.Pending then
         begin
          Buffer^.Pending:=True;
-         PostMessage(g_Form1Handle, wm_InternalMessage, wppn_DataWrite, LongInt(@Info));
+         PostMessage(g_Form1.Handle, wm_InternalMessage, wppn_DataWrite, LongInt(@Info));
         end;
 
        //If we caught up with the "end" of the buffer, break to wait.
