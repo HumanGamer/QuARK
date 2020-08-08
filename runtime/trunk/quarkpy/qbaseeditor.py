@@ -763,7 +763,7 @@ class BaseEditor:
             else:
                 filename = "images\\MapIcons-b.bmp"
             qhandles.mapicons_c = c
-            qhandles.mapicons = quarkx.loadimages(filename, 16, (0,0))
+            qhandles.mapicons = LoadPoolObj("mapicons_%s" % (filename, ), quarkx.loadimages, filename, 16,(0,0))
         if self.layout is not None:
             self.layout.setupchanged(level)
             self.explorerselchange()
