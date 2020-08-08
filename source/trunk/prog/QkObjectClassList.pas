@@ -47,14 +47,14 @@ var
 
 procedure RegisterQObject(Q: QObjectClass; Prior: Char);
 { (Comment by Decker 2001-01-21)
- Function to register a QkObject-decendant into QuArK's huge class-list.
+ Function to register a QkObject-descendant into QuArK's huge class-list.
  'Q' is the class which should be registered.
  'Prior' is a letter, which will be used to prefix 'Q's TypeInfo with, and
- then sorted by 'Prior+Q.TypeInfo()' - Why it needs to be sorted I dont know.
+ then sorted by 'Prior+Q.TypeInfo()' - Why it needs to be sorted I don't know.
   (Update by Decker 2002-06-20)
  It needs to be sorted, because ConstructQObject() loops backwards through the
  list, in search for a match, and if it does not find any, the lowest priority
- is automatically choosen. Only 'QkUnknown' has (must have) the lowest
+ is automatically chosen. Only 'QkUnknown' has (must have) the lowest
  priority, which is #32.
 }
 begin
