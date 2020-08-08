@@ -208,39 +208,6 @@ def LoadIconSet(filename, width, transparencypt=(0,0)):
         return (unsel, sel)
 
 
-#
-# equiv to LoadIconSet, just calls a different loadimages
-#  to help in leak-tracking
-#
-def LoadIconSet2(filename, width, transparencypt=(0,0)):
-    "Load a set of bitmap files and returns a tuple of image lists."
-
-    def loadset(tag, filename=filename, width=width, transparencypt=transparencypt, setup=quarkx.setupsubset(SS_GENERAL, "Display"), cache={}):
-        if setup[tag]:
-            ext = "-1.bmp"
-        else:
-            ext = "-0.bmp"
-        try:
-            return cache[ext]
-        except:
-            img = quarkx.loadimages(filename + ext, width, transparencypt)
-            cache[ext] = img
-            return img
-
-    # load the unselected version of the icons
-    unsel = loadset("Unsel")
-
-    # load the selected version of the icons
-    sel = loadset("Sel")
-
-    # load xxx-2.bmp, the triggered version for on/off buttons
-    try:
-        trig = quarkx.loadimages(filename + "-2.bmp", width, transparencypt)
-        return (unsel, sel, trig)
-    except quarkx.error:
-        return (unsel, sel)
-
-
 def LoadIconSet1(filename, width, transparencypt=(0,0)):
     return LoadIconSet(quarkx.setupsubset(SS_GENERAL, "Display")["IconPath"]+filename, width, transparencypt)
 
