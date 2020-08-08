@@ -22,7 +22,7 @@ unit QkSteamFS;
 
 interface
 
-uses Windows, Classes;
+uses Windows, Classes, Forms;
 
 function RunSteam: Boolean;
 function RunSteamExtractor(const Filename : String) : Boolean;
@@ -159,7 +159,7 @@ begin
     if I>=(SteamDelay/200) then
     begin
       //We've been waiting for quite some time now! Let's assume something went terribly wrong...!
-      if MessageBox(0, PChar('Some time has passed, but QuArK cannot detect Steam as having started up... Please start Steam manually now (if it has not yet done so) and press YES when you are logged in. Otherwise, press NO.'), PChar('QuArK'), MB_TASKMODAL or MB_ICONEXCLAMATION or MB_YESNO) = IDNO then
+      if Application.MessageBox(PChar('Some time has passed, but QuArK cannot detect Steam as having started up... Please start Steam manually now (if it has not yet done so) and press YES when you are logged in. Otherwise, press NO.'), PChar('QuArK'), MB_TASKMODAL or MB_ICONEXCLAMATION or MB_YESNO) = IDNO then //FIXME: Move to dict!
       begin
         Result:=False;
         WaitForSteam:=False;

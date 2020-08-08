@@ -1318,7 +1318,7 @@ var
   S: String;
 begin
   S:=FmtLoadStr1(5190, [Name]);
-  if MessageBox(0, PChar(S), 'QuArK', MB_YESNO or MB_DEFBUTTON2 or MB_SYSTEMMODAL) <> IDYES then
+  if Application.MessageBox(PChar(S), 'QuArK', MB_YESNO or MB_DEFBUTTON2 or MB_SYSTEMMODAL) <> IDYES then
     Abort;
 end;
 
@@ -3021,7 +3021,7 @@ end;
 procedure TestDataDump;
 begin
   if (QFileList.Count>0) or (g_MemQObject.Count>0) then
-    if MessageBox(0, 'Some objects were not correctly freed. This is a bug. Do you want to write a data report (DATADUMP.TXT) ?', 'DEBUGGING - BETA VERSION', mb_YesNo) = idYes then
+    if Application.MessageBox('Some objects were not correctly freed. This is a bug. Do you want to write a data report (DATADUMP.TXT) ?', 'DEBUGGING - BETA VERSION', mb_YesNo) = idYes then
       DataDump;
 end;
 {$ENDIF}

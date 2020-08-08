@@ -3617,7 +3617,7 @@ begin
  S:=strPas(P)+ProbableCauseOfFatalError[err];
  ShowConsole(True);
  Log(S + ' Error Code: ' + IntToStr(Err));
- Windows.MessageBox(0, PChar(S), FatalErrorCaption, MB_TASKMODAL or MB_ICONERROR or MB_OK);
+ Application.MessageBox(PChar(S), FatalErrorCaption, MB_TASKMODAL or MB_ICONERROR or MB_OK);
  ExitProcess(Err);
 end;
 
