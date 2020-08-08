@@ -238,7 +238,7 @@ begin
 {$ENDIF}
   Application.Initialize;
   Application.Title:='Quake Army Knife';
-  Application.CreateForm(TForm1, Form1);
+  Application.CreateForm(TForm1, g_Form1);
   Application.Run;
 
 end.

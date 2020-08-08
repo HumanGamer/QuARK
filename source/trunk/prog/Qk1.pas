@@ -228,8 +228,8 @@ type
     procedure MdlImportFrom1Item1Click(Sender: TObject);
     procedure ConvertFrom1Item1Click(Sender: TObject);
   end;
+
 var
-  Form1: TForm1;
   g_Form1: TForm1;
   g_CmdOptions: CmdLineOptions;
 
@@ -389,15 +389,15 @@ var
 begin
  Log(LOG_VERBOSE, 'Loading main form...');
 
- // This next line is done so that the G_ standard carries through for all of
- // the global variables.
- g_Form1 := Self;
+ // Set-up exception handling
  OldException:=Application.OnException;
  Application.OnException:=AppException;
+
+ // Set-up global settings
  Application.UpdateFormatSettings:=False;
  DecimalSeparator:='.';
 
- // DanielPharos: This processes the commandline and prepares it for further use
+ // Process the commandline and prepare it for further use
  g_cmdOptions.DoInstance := true; //These are the defaults
  g_CmdOptions.DoSplash := true;
  g_CmdOptions.DoUpdate := true;
