@@ -479,7 +479,7 @@ PyGC_Collect: procedure; cdecl;
 
 function PyObject_NEW(t: PyTypeObject) : PyObject;
 {function PyObject_NEWVAR(t: PyTypeObject; i: Integer) : PyObject;}
-procedure PyObject_FREE(o: PyObject);
+procedure PyObject_DEL(o: PyObject);
 function Py_BuildValueX(const fmt: PChar; Args: array of const) : PyObject;
 function Py_BuildValueDD(v1, v2: Double) : PyObject;
 function Py_BuildValueDDD(v1, v2, v3: Double) : PyObject;
@@ -946,7 +946,7 @@ begin
  Result:=_PyObject_NewVar(t,i,o);
 end;}
 
-procedure PyObject_FREE(o: PyObject);
+procedure PyObject_DEL(o: PyObject);
 begin
   {$IFDEF DebugPythonLeak}
   g_PythonObjects.Remove(o);

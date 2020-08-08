@@ -328,7 +328,7 @@ begin
     begin
      Py_DECREF(FOnShowHide);
      Py_DECREF(Buttons);
-     PyObject_FREE(o);
+     PyObject_DEL(o);
     end;
  except
   EBackToPython;

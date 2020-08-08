@@ -194,7 +194,7 @@ begin
   else
    g_Controls.Delete(I);
   {$ENDIF}
-  PyObject_FREE(o);
+  PyObject_DEL(o);
  except
   EBackToPython;
  end;

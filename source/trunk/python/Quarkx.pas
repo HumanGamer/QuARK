@@ -121,7 +121,7 @@ end;
 procedure SimpleDestructor(o: PyObject); cdecl;
 begin
  try
-  PyObject_FREE(o);
+  PyObject_DEL(o);
  except
   EBackToPython;
  end;

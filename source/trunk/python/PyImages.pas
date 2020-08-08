@@ -347,7 +347,7 @@ begin
     if BitmapCopy<>0 then
      DeleteObject(BitmapCopy);
    end;
-  PyObject_FREE(o);
+  PyObject_DEL(o);
  except
   EBackToPython;
  end;
@@ -397,7 +397,7 @@ begin
     Images[True].Free;
     Images[False].Free;
    end;
-  PyObject_FREE(o);
+  PyObject_DEL(o);
  except
   EBackToPython;
  end;
