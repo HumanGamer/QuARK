@@ -51,7 +51,7 @@ object AboutBox: TAboutBox
       IsControl = True
     end
     object ProductName1: TLabel
-      Left = 492
+      Left = 452
       Top = 11
       Width = 17
       Height = 13
@@ -65,7 +65,7 @@ object AboutBox: TAboutBox
       IsControl = True
     end
     object ProductName2: TLabel
-      Left = 508
+      Left = 468
       Top = 11
       Width = 22
       Height = 13
@@ -78,7 +78,7 @@ object AboutBox: TAboutBox
       ParentFont = False
     end
     object ProductName3: TLabel
-      Left = 536
+      Left = 496
       Top = 11
       Width = 13
       Height = 13
@@ -91,7 +91,7 @@ object AboutBox: TAboutBox
       ParentFont = False
     end
     object ProductName4: TLabel
-      Left = 548
+      Left = 508
       Top = 11
       Width = 16
       Height = 13
@@ -104,7 +104,7 @@ object AboutBox: TAboutBox
       ParentFont = False
     end
     object ProductName5: TLabel
-      Left = 570
+      Left = 530
       Top = 11
       Width = 9
       Height = 13
@@ -117,7 +117,7 @@ object AboutBox: TAboutBox
       ParentFont = False
     end
     object ProductName6: TLabel
-      Left = 577
+      Left = 537
       Top = 11
       Width = 22
       Height = 13
@@ -130,12 +130,10 @@ object AboutBox: TAboutBox
       ParentFont = False
     end
     object Version: TLabel
-      Left = 461
+      Left = 452
       Top = 29
-      Width = 172
-      Height = 20
-      Alignment = taCenter
-      AutoSize = False
+      Width = 3
+      Height = 13
       IsControl = True
     end
     object Label1: TLabel
@@ -155,7 +153,7 @@ object AboutBox: TAboutBox
     end
     object WebsiteAddress: TLabel
       Left = 472
-      Top = 256
+      Top = 242
       Width = 2
       Height = 11
       Font.Charset = DEFAULT_CHARSET
@@ -172,8 +170,8 @@ object AboutBox: TAboutBox
       Height = 13
     end
     object UsedCompilerLabel: TLabel
-      Left = 482
-      Top = 64
+      Left = 480
+      Top = 290
       Width = 2
       Height = 11
       Font.Charset = DEFAULT_CHARSET
@@ -185,7 +183,7 @@ object AboutBox: TAboutBox
     end
     object RepositoryAddress: TLabel
       Left = 472
-      Top = 272
+      Top = 258
       Width = 2
       Height = 11
       Font.Charset = DEFAULT_CHARSET
@@ -197,28 +195,28 @@ object AboutBox: TAboutBox
     end
     object Label3: TLabel
       Left = 408
-      Top = 272
+      Top = 256
       Width = 53
       Height = 13
       Caption = 'Repository:'
     end
     object Label2: TLabel
       Left = 408
-      Top = 256
+      Top = 240
       Width = 56
       Height = 13
       Caption = 'HomePage:'
     end
     object Label4: TLabel
       Left = 408
-      Top = 288
+      Top = 272
       Width = 120
       Height = 13
       Caption = 'QuArK Resource Forums:'
     end
     object ForumAddress: TLabel
       Left = 536
-      Top = 288
+      Top = 274
       Width = 2
       Height = 11
       Font.Charset = DEFAULT_CHARSET
@@ -229,15 +227,15 @@ object AboutBox: TAboutBox
       ParentFont = False
     end
     object Label5: TLabel
-      Left = 411
-      Top = 62
+      Left = 408
+      Top = 288
       Width = 68
       Height = 13
       Caption = 'Compiled with:'
     end
     object Memo1: TMemo
       Left = 408
-      Top = 83
+      Top = 67
       Width = 313
       Height = 166
       ParentColor = True

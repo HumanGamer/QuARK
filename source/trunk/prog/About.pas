@@ -281,7 +281,7 @@ begin
   Version.Caption := QuarkVersion + ' ' + QuArKMinorVersion;
   {*GetLocaleFormatSettings(LOCALE_SYSTEM_DEFAULT, DateFormat);}
   UsedCompilerLabel.Caption := QuArKUsedCompiler + ' on ' + DateToStr(QuArKCompileDate{*, DateFormat});
-  Copyright.Caption := '  ' + QuArKCopyright;
+  Copyright.Caption := QuArKCopyright;
   {$IFDEF Debug}
   Version.Caption := Version.Caption + '  DEBUG VERSION';
   {$ENDIF}
