@@ -468,22 +468,21 @@ begin
        MinDistance:=Minoow / GetFloatSpec('DarkFactor', 1);
       end;
     end
+   else if MapViewProj is T3DCoordinates then
+    DisplayType:=dt3D
    else if MapViewProj is TXYCoordinates then
-    begin
-     DisplayType:=dtXY;
-    end
+    DisplayType:=dtXY
    else if MapViewProj is TXZCoordinates then
-    begin
-     DisplayType:=dtXZ;
-    end
-   else if MapViewProj is T2DCoordinates then   {There is no separate YZ view at the moment}
-    begin
-     DisplayType:=dtYZ;
-    end
-   else if MapViewProj is T2DCoordinates then
-    begin
-     DisplayType:=dt2D;
-    end;
+    DisplayType:=dtXZ
+   else if MapViewProj is T2DCoordinates then //There is no separate YZ view at the moment
+    DisplayType:=dtYZ
+   (*else if MapViewProj is T2DCoordinates then
+    DisplayType:=dt2D*)
+   else if MapViewProj = nil then
+    //Have to intialize it to something!
+    DisplayType:=dt2D
+   else
+    raise InternalE('Unable to convert MapViewProj->DisplayType!');
 
    if Scene<>Nil then
     begin
@@ -506,6 +505,8 @@ begin
 
      Scene.ViewEntities:=ve1;
      Scene.TranspFactor:=GetFloatSpec('TranspFactor', 0.3);
+
+     DisplayMode:=dmEditor; //Need to initialize to something, in case of errors.
 
      try
       Scene.ErrorMsg:='';
