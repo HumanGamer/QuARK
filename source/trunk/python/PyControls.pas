@@ -134,9 +134,9 @@ begin
    end
   else
    src:=Py_None;
- lst:=QListToPyList(DragObject.SubElements);
+ lst:=QListToPyList(DragObject.SubElements); try
  args:=Py_BuildValueX('OOiiO', [self, lst, X, Y, src]);
- Py_DECREF(lst);
+ finally Py_DECREF(lst); end;
  if (args<>Nil) and not PostMessage(ValidParentForm(Target).Handle, wm_InternalMessage, wParam, LongInt(args)) then
   Py_DECREF(args);
 end;

@@ -882,10 +882,7 @@ begin
   Name:=nName;
   FParent:=nParent;
 
-{$IFDEF Debug}
   PythonObj.ob_refcnt := 0;
-{$ENDIF}
-
 (*if Self is QFileObject then
     PythonObj.ob_type:=@TyFileObject_Type
   else*)
@@ -942,7 +939,7 @@ begin
       Raise InternalE('QObject.AddRef');
     {$ENDIF}
 
-    Free;
+    PythonObj.ob_type^.tp_dealloc(@PythonObj);
   end;
 end;
 
