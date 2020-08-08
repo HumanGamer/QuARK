@@ -32,7 +32,6 @@ import quarkpy.mdlentities
 import quarkpy.mdlutils
 from ie_utils import tobj
 from quarkpy.qdictionnary import Strings
-from quarkpy.qeditor import ico_dict # Get the dictionary list of all icon image files available.
 
 # ===========================================================
 # === Utility Preamble ======================================
@@ -2597,6 +2596,7 @@ def dataformname(o):
     global editor
     if editor is None:
         editor = quarkpy.mdleditor.mdleditor # Get the editor.
+    from quarkpy.qeditor import ico_dict # Get the dictionary list of all icon image files available.
     ico_mdlskv = ico_dict['ico_mdlskv']  # Just to shorten our call later.
     icon_btns = {}                       # Setup our button list, as a dictionary list, to return at the end.
     vtxcolorbtn = quarkpy.qtoolbar.button(colorclick, "Test button for now.||This button is just for testing purposes for right now, does not do anything.|intro.modeleditor.dataforms.html#specsargsview", ico_mdlskv, 5)

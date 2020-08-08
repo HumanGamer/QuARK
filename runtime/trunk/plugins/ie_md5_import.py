@@ -29,7 +29,6 @@ from ie_utils import tobj
 import math
 from math import *
 from quarkpy.qdictionnary import Strings
-from quarkpy.qeditor import ico_dict # Get the dictionary list of all icon image files available.
 from quarkpy.qeditor import MapColor # Strictly needed for QuArK bones MapColor call.
 
 # Globals
@@ -1672,6 +1671,7 @@ def dataformname(o):
     global editor
     if editor is None:
         editor = quarkpy.mdleditor.mdleditor # Get the editor.
+    from quarkpy.qeditor import ico_dict # Get the dictionary list of all icon image files available.
     ico_mdlskv = ico_dict['ico_mdlskv']  # Just to shorten our call later.
     icon_btns = {}                       # Setup our button list, as a dictionary list, to return at the end.
     vtxcolorbtn = quarkpy.qtoolbar.button(colorclick, "Color mode||When active, puts the editor vertex selection into this mode and uses the 'COLR' specific setting as the color to designate these types of vertexes.\n\nIt also places the editor into Vertex Selection mode if not there already and clears any selected vertexes to protect from including unwanted ones by mistake.\n\nAny vertexes selected in this mode will become Color UV Vertexes and added to the component as such. Click the InfoBase button or press F1 again for more detail.|intro.modeleditor.dataforms.html#specsargsview", ico_mdlskv, 5)
