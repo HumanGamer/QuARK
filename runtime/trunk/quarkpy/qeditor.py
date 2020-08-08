@@ -880,7 +880,7 @@ class ZoomBar:
 
     def Update(self, scale1):
         editor = mapeditor()
-        if editor.MODE == SS_MODEL:
+        if (editor is not None) and (editor.MODE == SS_MODEL):
             import mdlmgr
             mdlmgr.treeviewselchanged = 1
         #
