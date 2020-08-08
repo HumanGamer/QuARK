@@ -178,34 +178,56 @@ iiMesh                  = 51
 iiTotalImageCount       = 52
 
 
+#
+# Pool Manager : when you read data that doesn't change, like icon
+# bitmaps, you should store the result in the Pool so that if you
+# need the data again you don't have to reload it. So instead of :
+#     functionthatloadstuff(argument, ...)
+# write :
+#     LoadPoolObj(uniquestring, functionthatloadstuff, argument, ...)
+#
+
+def LoadPoolObj(tag, loadfn, *loadargs):
+    "Retrieve the content of a pool object, or call a function if not found."
+
+    obj = quarkx.poolobj(tag)
+    if obj == None:
+        obj = apply(loadfn, loadargs)
+        quarkx.setpoolobj(tag, obj)
+    return obj
+
 
 def LoadIconSet(filename, width, transparencypt=(0,0)):
     "Load a set of bitmap files and returns a tuple of image lists."
 
-    def loadset(tag, filename=filename, width=width, transparencypt=transparencypt, setup=quarkx.setupsubset(SS_GENERAL, "Display"), cache={}):
-        if setup[tag]:
-            ext = "-1.bmp"
-        else:
-            ext = "-0.bmp"
+    def loadset(ext, filename=filename, width=width, transparencypt=transparencypt):
+        pooltag = "%s_%i_%s" % (filename + ext, int(width), transparencypt)
         try:
-            return cache[ext]
-        except:
-            img = quarkx.loadimages(filename + ext, width, transparencypt)
-            cache[ext] = img
-            return img
+            img = LoadPoolObj(pooltag, quarkx.loadimages, filename + ext, width, transparencypt)
+        except quarkx.error:
+            return None
+        return img
+
+    setup = quarkx.setupsubset(SS_GENERAL, "Display")
 
     # load the unselected version of the icons
-    unsel = loadset("Unsel")
+    if setup["Unsel"]:
+        unsel = loadset("-1.bmp")
+    else:
+        unsel = loadset("-0.bmp")
 
     # load the selected version of the icons
-    sel = loadset("Sel")
+    if setup["Sel"]:
+        sel = loadset("-1.bmp")
+    else:
+        sel = loadset("-0.bmp")
 
     # load xxx-2.bmp, the triggered version for on/off buttons
-    try:
-        trig = quarkx.loadimages(filename + "-2.bmp", width, transparencypt)
-        return (unsel, sel, trig)
-    except quarkx.error:
+    trig = loadset("-2.bmp")
+    if trig is None:
         return (unsel, sel)
+    else:
+        return (unsel, sel, trig)
 
 
 def LoadIconSet1(filename, width, transparencypt=(0,0)):
@@ -623,24 +645,6 @@ def SetupChanged(level):
     for s in SetupRoutines:
         s(level)
 
-
-#
-# Pool Manager : when you read data that doesn't change, like icon
-# bitmaps, you should store the result in the Pool so that if you
-# need the data again you don't have to reload it. So instead of :
-#     functionthatloadstuff(argument, ...)
-# write :
-#     LoadPoolObj(uniquestring, functionthatloadstuff, argument, ...)
-#
-
-def LoadPoolObj(tag, loadfn, *loadargs):
-    "Retrieve the content of a pool object, or call a function if not found."
-
-    obj = quarkx.poolobj(tag)
-    if obj == None:
-        obj = apply(loadfn, loadargs)
-        quarkx.setpoolobj(tag, obj)
-    return obj
 
 
 def debug(text):
