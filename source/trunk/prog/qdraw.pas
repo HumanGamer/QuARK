@@ -26,12 +26,13 @@ uses Windows, Messages, SysUtils, Graphics;
 
 var
  PointVisible95: function(const P: TPoint) : Boolean;
- Line95: function(DC: HDC; P1,P2: TPoint) : Boolean;
+ Line95: function(DC: HDC; P1,P2: TPoint) : Bool;
  Rectangle95: function(DC: HDC; X1,Y1,X2,Y2: Integer) : Bool; stdcall;
  Ellipse95: function(DC: HDC; X1, Y1, X2, Y2: Integer) : Bool; stdcall;
  Polygon95: function(DC: HDC; var Pts; NbPts: Integer) : Bool; stdcall;
  PolyPolyline95: function(DC: HDC; const Pts, Cnt; NbPolylines: DWORD) : Bool; stdcall;
 
+//Returns False out of bounds, True if visible
 function Ligne95(var P1, P2: TPoint) : Boolean;
 
 procedure InitViewport16();
@@ -50,10 +51,10 @@ begin
  Result:=True;
 end;
 
-function LineOk(DC: HDC; P1,P2: TPoint) : Boolean;  //FIXME: Untested
+function LineOk(DC: HDC; P1,P2: TPoint) : Bool;
 begin
  Result:=Windows.MoveToEx(DC, P1.X,P1.Y, Nil);
- if Result then Exit;
+ if not Result then Exit;
  Result:=Windows.LineTo(DC, P2.X,P2.Y);
 end;
 
@@ -259,11 +260,11 @@ begin
  Result:=True;
 end;
 
-function Line16(DC: HDC; P1,P2: TPoint) : Boolean; //FIXME: Untested
+function Line16(DC: HDC; P1,P2: TPoint) : Bool;
 begin
  if not Ligne95(P1, P2) then
   begin
-   Result:=False;
+   Result:=True;
    Exit;
   end;
  Result:=LineOk(DC, P1, P2);
