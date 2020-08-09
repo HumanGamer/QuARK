@@ -985,20 +985,18 @@ def SkinCustomGrid(editor):
 def modelaxis(view):
     "Creates and draws the models axis for all of the editors views."
 
-    editor = mdleditor
-    for v in editor.layout.views:
-        if v.info["viewname"] == "editors3Dview":
-            modelcenter = v.info["center"]
+    modelaxissize = 10
     if view.info["viewname"] == "editors3Dview" or view.info["viewname"] == "3Dwindow":
-        mc = view.proj(view.info["center"])
-        Xend = view.proj(view.info["center"]+quarkx.vect(10,0,0))
-        Yend = view.proj(view.info["center"]+quarkx.vect(0,10,0))
-        Zend = view.proj(view.info["center"]+quarkx.vect(0,0,10))
+        modelcenter = view.info["center"]
     else:
-        mc = view.proj(modelcenter)
-        Xend = view.proj(modelcenter+quarkx.vect(10,0,0))
-        Yend = view.proj(modelcenter+quarkx.vect(0,10,0))
-        Zend = view.proj(modelcenter+quarkx.vect(0,0,10))
+        editor = mdleditor
+        for v in editor.layout.views:
+            if v.info["viewname"] == "editors3Dview":
+                modelcenter = v.info["center"]
+    mc = view.proj(modelcenter)
+    Xend = view.proj(modelcenter+quarkx.vect(modelaxissize,0,0))
+    Yend = view.proj(modelcenter+quarkx.vect(0,modelaxissize,0))
+    Zend = view.proj(modelcenter+quarkx.vect(0,0,modelaxissize))
     cv = view.canvas()
 
     try:
