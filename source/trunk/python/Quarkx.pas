@@ -92,7 +92,8 @@ uses Classes, Dialogs, Graphics, CommCtrl, ExtCtrls, Controls,
      Console, Game, {$IFDEF CompiledWithDelphi2} ShellObj, {$ELSE} ShlObj, {$ENDIF}
      PakFiles, Reg2, SearchHoles, QkMapPoly, HelpPopup1, QkFullScreenWindow,
      PyForms, QkPixelSet, Bezier, Logging, QkObjectClassList, QkTextBoxForm,
-     QkApplPaths, MapError, StrUtils, QkImages, QkGCF, QkExceptions, ExtraFunctionality;
+     QkApplPaths, MapError, StrUtils, QkImages, QkGCF, QkExceptions,
+     SystemDetails, ExtraFunctionality;
 
  {-------------------}
 
@@ -859,8 +860,12 @@ begin
     SaveDialog:=TSaveDialog.Create(Application);
     try
      SaveDialog.Title:=nTitle;
-     SaveDialog.Options:=TOpenOptions(Flags)
-      + [ofCreatePrompt, ofPathMustExist, ofHideReadOnly];
+     if CheckWindows98And2000 then
+       SaveDialog.Options:=TOpenOptions(Flags)
+        + [ofCreatePrompt, ofPathMustExist, ofHideReadOnly, ofEnableSizing]
+     else
+       SaveDialog.Options:=TOpenOptions(Flags)
+        + [ofCreatePrompt, ofPathMustExist, ofHideReadOnly];
      SaveDialog.DefaultExt:=nDefExt;
      SaveDialog.FileName:=nFileName;
      SaveDialog.Filter:=FiltersStr;
@@ -875,8 +880,12 @@ begin
     OpenDialog:=TOpenDialog.Create(Application);
     try
      OpenDialog.Title:=nTitle;
-     OpenDialog.Options:=TOpenOptions(Flags)
-      + [ofFileMustExist, ofHideReadOnly];
+     if CheckWindows98And2000 then
+       OpenDialog.Options:=TOpenOptions(Flags)
+        + [ofFileMustExist, ofHideReadOnly, ofEnableSizing]
+     else
+       OpenDialog.Options:=TOpenOptions(Flags)
+        + [ofFileMustExist, ofHideReadOnly];
      OpenDialog.DefaultExt:=nDefExt;
      OpenDialog.FileName:=nFileName;
      OpenDialog.Filter:=FiltersStr;

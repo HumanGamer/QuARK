@@ -54,7 +54,7 @@ type
 implementation
 
 uses Game, Qk1, Setup, QkGroup, QkObjects, QkFileObjects, Undo, Quarkx, QkExceptions,
-  PyImages, ToolBoxGroup, QkApplPaths;
+  PyImages, ToolBoxGroup, QkApplPaths, SystemDetails;
 
 {$R *.DFM}
 
@@ -111,6 +111,10 @@ begin
   begin
    SaveDialog1.Filter:=LoadStr1(772)+'|'+LoadStr1(774);
    SaveDialog1.Title:=LoadStr1(5257);
+   if CheckWindows98And2000 then
+     SaveDialog1.Options:=[ofHideReadOnly, ofOverwritePrompt, ofPathMustExist, ofEnableSizing]
+   else
+     SaveDialog1.Options:=[ofHideReadOnly, ofOverwritePrompt, ofPathMustExist];
    if not SaveDialog1.Execute then Exit;
    if CompareText(ExtractFilePath(SaveDialog1.FileName), GetQPath(pQuArK)) <> 0 then
     Raise EError(5596);

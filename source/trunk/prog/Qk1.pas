@@ -1418,7 +1418,10 @@ begin
   OpenFilterIndex:=L.IndexOf(LoadStr1(Code))+1;
  OpenDialog1.FilterIndex:=OpenFilterIndex;
  finally L.Free; end;
- OpenDialog1.Options:=[ofAllowMultiSelect, ofFileMustExist];
+ if CheckWindows98And2000 then
+  OpenDialog1.Options:=[ofAllowMultiSelect, ofFileMustExist, ofEnableSizing]
+ else
+  OpenDialog1.Options:=[ofAllowMultiSelect, ofFileMustExist];
  if OpenDialog1.Execute then
   begin
    if (F is TQForm1) and (OpenDialog1.FilterIndex=OpenFilterIndex) then
@@ -2341,7 +2344,10 @@ begin
  OpenDialog1.Filter:=S;
  OpenDialog1.FilterIndex:=OpenFilterIndex;
  finally L.Free; end;
- OpenDialog1.Options:=[ofAllowMultiSelect, ofFileMustExist];
+ if CheckWindows98And2000 then
+  OpenDialog1.Options:=[ofAllowMultiSelect, ofFileMustExist, ofEnableSizing]
+ else
+  OpenDialog1.Options:=[ofAllowMultiSelect, ofFileMustExist];
  if OpenDialog1.Execute then
   begin
    Gr:=ClipboardGroup;

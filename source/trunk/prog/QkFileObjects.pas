@@ -208,7 +208,7 @@ implementation
 
 uses Qk1, Undo, QkExplorer, Setup, qmath, QkGroup, Travail, QkOwnExplorer,
   QkFileExplorer, QkUnknown, Toolbar1, Quarkx, QkExceptions, QkInclude, PyObjects,
-  QkModel, QkMap, QkQkl, QkConsts, Logging,
+  QkModel, QkMap, QkQkl, QkConsts, Logging, SystemDetails,
   PyForms, QkTreeView, Game, QkObjectClassList, QkApplPaths, ExtraFunctionality;
 
 {$R *.DFM}
@@ -1843,7 +1843,10 @@ begin
      S:=Copy(S,1,Length(S)-Length(ExtractFileExt(S)));
      {/tiglari}
      SaveDialog1.FileName:=S;
-     SaveDialog1.Options:=[ofHideReadOnly, ofOverwritePrompt, ofPathMustExist];
+     if CheckWindows98And2000 then
+       SaveDialog1.Options:=[ofHideReadOnly, ofOverwritePrompt, ofPathMustExist, ofEnableSizing]
+     else
+       SaveDialog1.Options:=[ofHideReadOnly, ofOverwritePrompt, ofPathMustExist];
 
      if ParentForm<>Nil then
       ActivateNow(ParentForm);
@@ -2028,6 +2031,10 @@ begin
            mrYes: with TSaveDialog.Create(Application) do
                    try
                     Title:=LoadStr1(770);
+                    if CheckWindows98And2000 then
+                     Options:=[ofHideReadOnly, ofOverwritePrompt, ofPathMustExist, ofEnableSizing]
+                    else
+                     Options:=[ofHideReadOnly, ofOverwritePrompt, ofPathMustExist];
                     DefaultExt:=Copy(Ext, 2, MaxInt);  { drop '.' }
                     Filter:='*'+Ext+'|*'+Ext;
                     while Execute and not MoveFile(PChar(S1), PChar(FileName)) do

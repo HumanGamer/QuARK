@@ -28,6 +28,7 @@ uses
   SysUtils, StrUtils, Windows, Classes, ExtraFunctionality;
 
 function CheckWindowsNT: Boolean;
+function CheckWindows98And2000: Boolean;
 function ProcessExists(const exeFileName: String): Boolean;
 function WindowExists(const WindowName: String): Boolean;
 function RetrieveModuleFilename(ModuleHandle: HMODULE): String;
@@ -314,6 +315,7 @@ var
   WindowsPlatformCompatibility: TPlatformType;
   WindowsPlatform: TPlatform;
   DriverBugs: TStringList;
+  SetDllDirectoryAvailable: Boolean;
 
 function FormatBytes(const Number: Cardinal) : String;
 begin
@@ -2163,6 +2165,10 @@ begin
   try
     c.getInfo;
     c.report(s);
+
+    SetDllDirectoryAvailable := (c.FMajorVersion > 5)
+                            or ((c.FMajorVersion = 5) and (c.FMinorVersion > 1))
+                            or ((c.FMajorVersion = 5) and (c.FMinorVersion = 1) and (c.ServicePackMajor >= 1));
   finally
     c.free;
   end;
@@ -2328,6 +2334,11 @@ begin
   Result:=(WindowsPlatformCompatibility=osWinNTComp);
 end;
 
+function CheckWindows98And2000: Boolean;
+begin
+  Result:=(WindowsPlatform<>osWin95) and (WindowsPlatform<>osWinNT4);
+end;
+
 procedure WarnDriverBugs;
 var
   S: String;
@@ -2345,40 +2356,31 @@ begin
     S:=S+'There are also Intel HD graphics and VMWare drivers that contain the same bug, but with the "HardwareInformation" keys.'#13#10;
     S:=S+'For more information, see: http://quark.sourceforge.net/forums/index.php?topic=1064'#13#10#13#10;
     S:=S+'You can disable this check by unchecking Configuration > Startup > Check for bugs.';
-    MessageBox(0, PChar(S), 'QuArK', MB_TASKMODAL or MB_ICONWARNING or MB_OK);
+    Windows.MessageBox(0, PChar(S), 'QuArK', MB_ICONWARNING or MB_OK);
   end;
 end;
 
 procedure SetDllSearchPath;
 var
-  c: TOperatingSystem;
   SetDllDirectoryPtr: Pointer;
 begin
   //This is only available on Windows XP SP1 and later (and Windows Server 2003 and later).
-  c:=TOperatingSystem.Create; //FIXME: Don't do this twice...!
-  try
-    c.getInfo;
-    if (c.FMajorVersion > 5)
-   or ((c.FMajorVersion = 5) and (c.FMinorVersion > 1))
-   or ((c.FMajorVersion = 5) and (c.FMinorVersion = 1) and (c.ServicePackMajor >= 1)) then
-      SetDllDirectoryPtr := GetProcAddress(GetModuleHandle('kernel32'), 'SetDllDirectoryA'); //Note: Delphi7 always calls the ANSI version
-  finally
-    c.free;
-  end;
+  if not SetDllDirectoryAvailable then
+    Exit;
 
-  if SetDllDirectoryPtr <> nil then
+  SetDllDirectoryPtr := GetProcAddress(GetModuleHandle('kernel32'), 'SetDllDirectoryA'); //Note: Delphi7 always calls the ANSI version
+  if SetDllDirectoryPtr=nil then
   begin
-    SetDllDirectory := SetDllDirectoryPtr;
-    if SetDllDirectory('') = false then
-    begin
-      LogWindowsError(GetLastError(), 'SetDllDirectory("")');
-      SetDllDirectoryPtr := nil;
-    end;
+    LogWindowsError(GetLastError(), 'SetDllSearchPath: GetProcAddress');
+    Log(LOG_WARNING, 'Failed to change the DLL search path; QuArK will be vulnerable to DLL hijacking!');
+    Exit;
   end;
 
-  if SetDllDirectoryPtr = nil then
+  SetDllDirectory := SetDllDirectoryPtr;
+  if SetDllDirectory('') = false then
   begin
     Log(LOG_WARNING, 'Failed to change the DLL search path; QuArK will be vulnerable to DLL hijacking!');
+    LogWindowsError(GetLastError(), 'SetDllSearchPath: SetDllDirectory("")');
   end;
 end;
 

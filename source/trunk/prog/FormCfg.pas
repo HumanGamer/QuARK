@@ -169,7 +169,7 @@ implementation
 uses QkUnknown, Undo, TbPalette, QkFileObjects, Toolbar1, ToolBox1,
      Setup, QuarkX, QkExceptions, QkInclude, QkMacro, QkImages, QkTextures,
      Python, PyMacros, PyToolbars, PyForms, QkPixelSet, QkObjectClassList,
-     ExtraFunctionality;
+     SystemDetails, ExtraFunctionality;
 
 const
  Differs = 5391;
@@ -1388,7 +1388,10 @@ begin
            end else FileName:=Path;
            DefaultExt:=Specifics.Values['DefExt'];
            Filter:=Format('*.%0:s|*.%0:s|%1:s', [DefaultExt, LoadStr1(774)]);
-           Options:=[ofFileMustExist, ofHideReadOnly];
+           if CheckWindows98And2000 then
+             Options:=[ofFileMustExist, ofHideReadOnly, ofEnableSizing]
+           else
+             Options:=[ofFileMustExist, ofHideReadOnly];
            again:
            Ok:=Execute;
            If Ok then begin
