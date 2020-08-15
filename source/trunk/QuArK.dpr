@@ -124,6 +124,7 @@ uses
   QkFormCfg in 'prog\QkFormCfg.pas',
   QkFormVw in 'prog\QkFormVw.pas' {FQFormVw},
   QkFreeImage in 'prog\QkFreeImage.pas',
+  QkG3D in 'prog\QkG3D.pas',
   QkGCF in 'prog\QkGCF.pas',
   QkGroup in 'prog\QkGroup.pas' {FQGroup},
   QkHL in 'prog\QkHL.pas',

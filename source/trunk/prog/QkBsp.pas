@@ -36,6 +36,7 @@ uses
   bspTypeQ2 =     'A';
   bspTypeQ3 =     'a';
   bspTypeHL2 =    'k';
+  bspTypeG3D =    '4';
 
   hullQ1 =     '1';
   hullHx =     '2';
@@ -376,7 +377,7 @@ implementation
 uses Travail, QkWad, Setup, QkMap, QkBspHulls, QkApplPaths,
      Undo, Quarkx, QkExceptions, PyForms, QkObjectClassList, ToolBox1,
      ToolBoxGroup, QkQuakeCtx, FormCFG, Logging, QkTextures, QkFormCfg,
-     QkQ1, QkQ2, QkQ3;
+     QkQ1, QkQ2, QkQ3, QkG3D;
 
 {$R *.DFM}
 
@@ -403,7 +404,10 @@ end;
 class function QBspFileHandler.BspType(mj : Char) : Char;
 begin
  if (mj>='1') and (mj<='9') then
-   Result:=bspTypeQ1
+   if (mj='4') then
+     Result:=bspTypeG3D
+   else
+     Result:=bspTypeQ1
  else if (mj>='A') and (mj<='E') then
    Result:=bspTypeQ2
  else if (mj>'a') and (mj<='z') then
@@ -416,7 +420,7 @@ begin
    Result:=mj
 end;
 
-function QBspFileHandler.GetSurfaceType(const GameMode : Char) : Char;
+function QBspFileHandler.GetSurfaceType(const GameMode : Char) : Char; //FIXME: Handle BspTypeG3D!
 begin
   if BspType(GameMode)=BspTypeQ3 then
     Result:=BspTypeQ3
@@ -467,6 +471,8 @@ begin
        ((CompareText(Copy(S, Length(S)-4, 4), '.bsp' ) = 0) and (S[Length(S)] in ['1'..'9']))
     { or any ".bsp10" to ".bsp15" }
     or ((CompareText(Copy(S, Length(S)-5, 5), '.bsp1') = 0) and (S[Length(S)] in ['0'..'5']))
+    { or ".bspg3d" }
+    or (CompareText(Copy(S, Length(S)-6, 7), '.bspg3d') = 0)
   ];
 end;
 
@@ -690,13 +696,15 @@ begin
           case Version of
             cVersionBspFAKK: { Heavy Metal: FAKK2 }
             begin
-              LoadBsp3(F, StreamSize);
+              FFileHandler:=QBsp3FileHandler.Create(Self);
+              FFileHandler.LoadBsp(F, StreamSize);
               ObjectGameCode := mjFAKK2;
             end;
 
             cVersionBspAlice: { American McGee's Alice }
             begin
-              LoadBsp3(F, StreamSize);
+              FFileHandler:=QBsp3FileHandler.Create(Self);
+              FFileHandler.LoadBsp(F, StreamSize);
               ObjectGameCode := mjAlice;
             end;
 
@@ -731,8 +739,15 @@ begin
           end;
         end;
 
+        0: { Genesis3D, hopefully }
+        begin
+          ObjectGameCode := mjGenesis3D;
+          FFileHandler:=QBspG3DFileHandler.Create(Self);
+          FFileHandler.LoadBsp(F, StreamSize);
+        end;
+
         else {signature unknown}
-          Raise EErrorFmt(5520, [LoadName, Signature, cSignatureBspQ1H2, cSignatureBspQ2]);
+          Raise EErrorFmt(5520, [LoadName, Signature]);
       end;
     end;
   else

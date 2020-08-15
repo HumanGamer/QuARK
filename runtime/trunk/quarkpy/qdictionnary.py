@@ -768,7 +768,7 @@ Strings = {
     5517: "Could not save the file. The disk is maybe full or read-only.//%s",
     5518: "Invalid texture link - no link !",
     5519: "No data - the file is empty",
-    5520: "'%s' is not a Quake 1, Hexen II nor Quake 2 BSP file//%d should be %d or %d",
+    5520: "'%s' is not a supported BSP file//Signature %d",
     5521: "Missing BSP data. You can't use or save an empty or incomplete .bsp file",
     5522: "(Missing)",
     5523: "(Empty data)",
