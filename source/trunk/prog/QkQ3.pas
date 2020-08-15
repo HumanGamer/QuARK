@@ -244,7 +244,7 @@ begin
  Result:=Nil;
  {tiglari}
  {alex disabled this because it led to crashes
-  (it is never initilialized)
+  (it is never initialized)
  if DefaultImageCache<>Nil then
  begin
 
