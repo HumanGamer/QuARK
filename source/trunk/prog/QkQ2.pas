@@ -63,7 +63,7 @@ type
    function GetLumpEntities: Integer; override;
    function GetLumpFaces: Integer; override;
    function GetLumpLeafs: Integer; override;
-   function GetLumpLeafFaces: Integer; override;   
+   function GetLumpLeafFaces: Integer; override;
    function GetLumpModels: Integer; override;
    function GetLumpNodes: Integer; override;
    function GetLumpPlanes: Integer; override;
