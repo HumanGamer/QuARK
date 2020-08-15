@@ -9,6 +9,7 @@ QQRKSRC1
   {
     Toolbox = "Texture Browser..."
     Root = "Alice Textures.qtxfolder"
+    HTML = "intro.texturebrowser.html"
 
     t_Base:incl =      { a = "Base" }
 

@@ -9,6 +9,7 @@ QQRKSRC1
   {
     Toolbox = "Texture Browser..."
     Root = "CoD2 Textures and shaders.qtxfolder"
+    HTML = "intro.texturebrowser.html"
 
     t_cod2:incl =      { a = "main" }
     t_cod2_materials:incl  = { a="main" b="NOT_USED_FOR_CoD2" }
