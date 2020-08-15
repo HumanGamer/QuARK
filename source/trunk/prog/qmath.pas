@@ -243,45 +243,60 @@ begin
 end;
 
 function ftos(const F: TDouble) : String;
+const
+ maxDigits = 2;
 var
  i: Integer;
  FP: TDouble;
 begin
- i:=0; FP:=F;
- //how many digits are necessary? (stop at 2)
- while (i<>2) and (Abs(FP-Round(FP))>rien) do begin FP:=FP*10; inc(i); end;
- if i=0 then
-  Result:=IntToStr(Round(F))
+ if Abs(F) < High(Integer) - 2 then //Safety margin
+ begin
+   i:=0; FP:=F;
+   //how many digits are necessary? (stop at maxDigits)
+   while (i<>maxDigits) and (Abs(FP-Round(FP))>rien) do begin FP:=FP*10; inc(i); end;
+   if i=0 then
+   begin
+     Result:=IntToStr(Round(F));
+     Exit;
+   end;
+ end
  else
-  Result:=FloatToStrF(F, ffFixed, 7, i);
+  i:=maxDigits;
+ Result:=FloatToStrF(F, ffFixed, 7, i);
 end;
 
 function ftos0(const F: TDouble) : String;
 var
  R: Integer;
 begin
- R:=Round(F);
- if Abs(F-R) <= rien then
-  Result:=IntToStr(R)+'.0'
- else
-  begin
-  {DecimalSeparator:='.';}
-   Result:=FloatToStrF(F, ffFixed, 7, 5);
-  end;
+ if Abs(F) < High(R) - 2 then //Safety margin
+ begin
+   R:=Round(F);
+   if Abs(F-R) <= rien then
+   begin
+     Result:=IntToStr(R)+'.0';
+     Exit;
+   end;
+ end;
+ {DecimalSeparator:='.';}
+ Result:=FloatToStrF(F, ffFixed, 7, 5);
 end;
 
 function ftos1(const F: TDouble) : String;
 var
  R: Integer;
 begin
- R:=Round(F);
- if Abs(F-R) <= rien then
-  Result:=IntToStr(R)
- else
-  begin
-  {DecimalSeparator:='.';}
-   Result:=FloatToStrF(F, ffFixed, 7, 5);
-  end;
+ if Abs(F) < High(R) - 2 then //Safety margin
+ begin
+   R:=Round(F);
+   if Abs(F-R) <= rien then
+   begin
+     Result:=IntToStr(R);
+     Exit;
+   end;
+ end;
+ {DecimalSeparator:='.';}
+ Result:=FloatToStrF(F, ffFixed, 7, 5);
 end;
 
 function ftosp(const F: TDouble; const P: integer) : String;

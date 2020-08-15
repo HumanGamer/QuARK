@@ -658,7 +658,7 @@ end;
 
 procedure TFormCfg.AcceptEditFloat(Sender: TObject);
 const
- None : TDouble = (1 shl 25)*1.0*(1 shl 25);
+ None : TDouble = (1 shl 25)*1.0*(1 shl 25); //FIXME: This appears to be a valid value?
 var
  Value, LimitMin, LimitMax: TDouble;
  Arg, Arg1, S: String;
@@ -671,7 +671,11 @@ begin
  with Form.SubElements[(Sender as TControl).Tag-1] do
   begin
    LimitMin:=GetFloatSpec('Min', None);
+   if LimitMin=None then
+     LimitMin:=-3.4E38; //Approx Single range
    LimitMax:=GetFloatSpec('Max', None);
+   if LimitMax=None then
+     LimitMax:=3.4E38; //Approx Single range
    S:=Specifics.Values['Typ'];
    IsFloat:=Copy(S,1,2)='EF';
    if IsFloat then
@@ -694,7 +698,7 @@ begin
          System.Delete(Arg, 1, P);
         end;
        Value:=StrToFloat(S);
-       if (LimitMin<>None) and (Value<LimitMin) then
+       if Value<LimitMin then
         begin
          Value:=LimitMin;
          if Sender is TEnterEdit then
@@ -702,7 +706,7 @@ begin
          else
           (Sender as TCustomEdit).Text:=ftos(Value);
         end;
-       if (LimitMax<>None) and (Value>LimitMax) then
+       if Value>LimitMax then
         begin
          Value:=LimitMax;
          if Sender is TEnterEdit then
@@ -728,8 +732,8 @@ begin
    else
     begin   { single value as text }
      Value:=StrToFloat(Arg);
-     if (LimitMin<>None) and (Value<LimitMin) then Arg:=ftos(LimitMin);
-     if (LimitMax<>None) and (Value>LimitMax) then Arg:=ftos(LimitMax);
+     if Value<LimitMin then Arg:=ftos(LimitMin);
+     if Value>LimitMax then Arg:=ftos(LimitMax);
      SetArg(Sender, Arg);
     end;
   end;
