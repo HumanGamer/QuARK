@@ -25,8 +25,9 @@ interface
 uses Windows, SysUtils, Classes, QkObjects, QkMapObjects, QkBsp,
      qmath, QkFileObjects;
 
-     const
-     MAX_MAP_HULLS = 4; //8 FOR HEXEN2!!!
+const
+  MAX_MAP_HULLS = 4; //8 FOR HEXEN2!!!
+  MAXLIGHTMAPS = 4;
 
 type
  TBytePair = record
@@ -74,7 +75,7 @@ type
               Plane_id, Side: SmallInt;
               LEdge_id: Integer;
               LEdge_num, TexInfo_id: SmallInt;
-              LightStyles: array[0..3] of Byte; //@@@ MAXLIGHTMAPS
+              LightStyles: array[0..MAXLIGHTMAPS-1] of Byte;
               LightMap: Integer;
              end;
 
@@ -87,8 +88,8 @@ type
               Region_id: SmallInt;
               RegionFace_id: Integer;
               RegionFace_num: SmallInt;
-              LightStyles: array[0..3] of Byte; //@MAXLIGHTMAPS = 4;
-	            Lightofs: Integer;
+              LightStyles: array[0..MAXLIGHTMAPS-1] of Byte;
+              Lightofs: Integer;
               Lm_Size, Lm_Start : TBytePair;
               Texturemins: TSmallIntPair;
               Extents: TSmallIntPair;
@@ -251,7 +252,6 @@ var
  P1, P2, P3, NN: TVect;
  P5_1, P5_2, P5_3: TVect5;
  PlaneDist: TDouble;
- dist: vec3_t;
  texcoord: vec2_t;
  Q3Vertex: TQ3Vertex;
  Q3VertexP: PQ3Vertex;
@@ -489,7 +489,7 @@ begin
       begin
         Dest^:=PVertex(Vertices+(Vertex_id+J-1)*SizeOf(TVect));
         Q3VertexP:=PQ3Vertex(FBsp.Q3Vertices+(Vertex_id+J-1)*SizeOf(TQ3Vertex));
-        dist:=Q3VertexP^.Normal;
+        //dist:=Q3VertexP^.Normal;
         if J=1 then
         begin
           { This trick works because the position and tex coords are the
