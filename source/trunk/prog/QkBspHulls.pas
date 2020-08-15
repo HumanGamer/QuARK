@@ -492,18 +492,9 @@ begin
         //dist:=Q3VertexP^.Normal;
         if J=1 then
         begin
-          { This trick works because the position and tex coords are the
-            first 5 fields.  If we want to drag lightmaps into it we'll
-            need to go to 7, or do something different }
-          P5_1:=AdjustTexScale(MakeVect5(vec5_p(Q3VertexP)^));
-
           P1:=MakeVect(vec3_p(Q3VertexP)^);
           PlaneDist:=Dot(NN,P1)
-        end
-        else if J=2 then
-          P5_2:=AdjustTexScale(MakeVect5(vec5_p(Q3VertexP)^))
-        else if J=3 then
-          P5_3:=AdjustTexScale(MakeVect5(vec5_p(Q3VertexP)^));
+        end;
         Inc(Dest);
       end;
     end;
@@ -585,17 +576,43 @@ begin
     end
     else
     begin {Q3 texture info}
-     { The idea is to take the 3 5-vecs collected earlier and convert
-       them to etp 3points P1-P3 }
-      SolveForThreePoints(P5_1, P5_2, P5_3, P1, P2, P3);
-        with PTexInfoQ3(TexInfo+Q3Faces^.TexInfo_id*SizeOf(TTexInfoQ3))^ do
+      if Q3Faces^.Vertex_num< 3 then
+        Raise EErrorFmt(5635, [7]);
+      J:=1;
+      while true do
+      begin
+        Q3VertexP:=PQ3Vertex(FBsp.Q3Vertices+(Q3Faces^.Vertex_id+J-1)*SizeOf(TQ3Vertex));
+        if J=1 then
+          { This trick works because the position and tex coords are the
+            first 5 fields.  If we want to drag lightmaps into it we'll
+            need to go to 7, or do something different }
+          P5_1:=AdjustTexScale(MakeVect5(vec5_p(Q3VertexP)^))
+        else if J=2 then
+          P5_2:=AdjustTexScale(MakeVect5(vec5_p(Q3VertexP)^))
+        else if J=3 then
+          P5_3:=AdjustTexScale(MakeVect5(vec5_p(Q3VertexP)^))
+        else
         begin
-          S:=CharToPas(texture);
-          { strip off leading texture/ }
-          S:=Copy(S,10,Length(S)-9);
-          { get flags & contents }
-        end
-
+          // If this failed, the three vertices lay on a single line. Cycle through to find some that don't.
+          P5_1:=P5_2;
+          P5_2:=P5_3;
+          P5_3:=AdjustTexScale(MakeVect5(vec5_p(Q3VertexP)^));
+        end;
+        if J>2 then
+          // Try to convert them to etp 3points P1-P3
+          if SolveForThreePoints(P5_1, P5_2, P5_3, P1, P2, P3) then
+            break;
+        J:=J+1;
+        if J>Q3Faces^.Vertex_num then
+          Raise EErrorFmt(5635, [8]);
+      end;
+      with PTexInfoQ3(TexInfo+Q3Faces^.TexInfo_id*SizeOf(TTexInfoQ3))^ do
+      begin
+        S:=CharToPas(texture);
+        { strip off leading texture/ }
+        S:=Copy(S,10,Length(S)-9);
+        { get flags & contents }
+      end;
     end;
 
     Face:=TFace.Create(IntToStr(I), Self);
@@ -653,13 +670,12 @@ begin
   if InvFaces>0 then
    GlobalWarning(FmtLoadStr1(5638, [Index, InvFaces, LastError]));
  except
-  on E: Exception do
-   begin
-    FBsp.VerticesAddRef(-1);
-    FBsp.AddRef(-1);
-    FBsp:=Nil;
-    GlobalWarning(FmtLoadStr1(5634, [Index, GetExceptionMessage(E)]));
-   end;
+   //DanielPharos: None of this is needed; we're already running through the destructor!
+   //FBsp.VerticesAddRef(-1);
+   //FBsp.AddRef(-1);
+   //FBsp:=Nil;
+   //FreeMem(SurfaceList);
+   raise;
  end;
 end;
 

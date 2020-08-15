@@ -453,6 +453,7 @@ var
  Flags, Contents : LongInt;
  Q : QPixelSet;
  Header : TQ2MipTex;
+ BspHull: QObject;
 
  { Rowdy, for Doom 3 and Quake 4 stuff}
  MapVersion: Integer;
@@ -2398,7 +2399,11 @@ begin
        begin
         EntitePoly:=TTreeMapSpec(HullList[I]);
         if EntitePoly<>Nil then
-         EntitePoly.SubElements.Add(BSP.CreateHull(I, EntitePoly as TTreeMapGroup));
+         begin
+          BspHull:=BSP.CreateHull(I, EntitePoly as TTreeMapGroup);
+          if BspHull<>nil then
+           EntitePoly.SubElements.Add(BspHull);
+         end;
        end;
 
      if not WorldSpawn then

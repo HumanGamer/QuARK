@@ -14,6 +14,9 @@
 
 6.6.0 Beta 7
 ============
+* [DanielPharos]: Quake 3 BSP file loader can now handle faces that have vertices that lay on
+          - a single line.
+
 * [DanielPharos]: Made the Open and Save dialogs resizable (only supported on Windows 98,
           - Windows 2000, and higher).
 

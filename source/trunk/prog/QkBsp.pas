@@ -890,7 +890,15 @@ end;
 
 function QBsp.CreateHull(Index: Integer; nParent: QObject): QObject;
 begin
-  Result:=TBSPHull.Create(Self, Index, nParent);
+  try
+    Result:=TBSPHull.Create(Self, Index, nParent);
+  except
+    on E: Exception do
+    begin
+      Result:=nil;
+      GlobalWarning(FmtLoadStr1(5634, [Index, GetExceptionMessage(E)]));
+    end;
+  end;
 end;
 
 procedure QBsp.Go1(maplist, extracted: PyObject; var FirstMap: String; var QCList: TQList);
