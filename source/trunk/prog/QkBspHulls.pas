@@ -119,16 +119,16 @@ type
  PTexInfo = ^TTexInfo;
  TTexInfo = record
              vecs: TTexInfoVecs;     // [s/t][xyz offset]
-             miptex: Integer;
-             flags: Integer;
+             miptex: Cardinal;
+             flags: Cardinal;
             end;
  PTexInfoQ2 = ^TTexInfoQ2; //@Also used by SOF!
  TTexInfoQ2 = record
                vecs: TTexInfoVecs;             // [s/t][xyz offset]
-               flags: Integer;                 // miptex flags + overrides
-               value: Integer;                 // light emission, etc
+               flags: LongWord;                // miptex flags + overrides
+               value: LongWord;                // light emission, etc
                texture: array[0..31] of Byte;  // texture name (textures/*.wal)
-               nexttexinfo: Integer;           // for animations, -1 = end of chain
+               nexttexinfo: LongWord;          // for animations, -1 = end of chain
               end;
 
 const
@@ -485,15 +485,16 @@ begin
        Vertex (Sommet) table like that constructed in FBsp.GetStructure,
        we use it for the vertexes, but use direct access to the bsp
        structure for the texture position information }
-      for J:=1 to Vertex_num do
+      for J:=0 to Vertex_num-1 do
       begin
-        Dest^:=PVertex(Vertices+(Vertex_id+J-1)*SizeOf(TVect));
-        Q3VertexP:=PQ3Vertex(FBsp.Q3Vertices+(Vertex_id+J-1)*SizeOf(TQ3Vertex));
+        //FIXME: Handle meshverts!
+        Dest^:=PVertex(Vertices+(Vertex_id+J)*SizeOf(TVect));
+        Q3VertexP:=PQ3Vertex(FBsp.Q3Vertices+(Vertex_id+J)*SizeOf(TQ3Vertex));
         //dist:=Q3VertexP^.Normal;
         if J=1 then
         begin
           P1:=MakeVect(vec3_p(Q3VertexP)^);
-          PlaneDist:=Dot(NN,P1)
+          PlaneDist:=Dot(NN,P1);
         end;
         Inc(Dest);
       end;
@@ -532,7 +533,7 @@ begin
         with PTexInfo(TexInfo + Faces^.TexInfo_id * SizeOf(TTexInfo))^ do
         begin
           BspVecs:=@vecs;
-          if miptex>=TextureList.SubElements.Count then
+          if miptex>=Cardinal(TextureList.SubElements.Count) then
           begin
             Inc(InvFaces); LastError:=FmtLoadStr1(5639,[miptex]); Continue;
           end;
@@ -657,7 +658,8 @@ begin
       Inc(InvFaces); LastError:='Err degenerate'; Continue;
     end;
     Face.NomTex:=S;
-    Face.SetThreePointsUserTex(P1,P2,P3,nil);
+    if not q12surf then
+      Face.SetThreePointsUserTex(P1,P2,P3,nil);
     Face.Specifics.Add(CannotEditFaceYet+'=1');
     Surface1^.F:=Face;
     Face.LinkSurface(Surface1);
