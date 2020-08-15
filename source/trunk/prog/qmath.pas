@@ -72,6 +72,8 @@ function ftos(const F: TDouble) : String;
 function ftos0(const F: TDouble) : String;
 function ftos1(const F: TDouble) : String;
 function ftosp(const F: TDouble; const P: integer) : String;
+{function dtos(const D: TDouble) : String;}
+function dtosp(const D: TDouble; const P: integer) : String;
 function vtos(const V: TVect) : String;
 function vtos1(const V: TVect) : String;
 function CalculeMAngle(const Angles: TVect) : TVect;
@@ -303,14 +305,57 @@ function ftosp(const F: TDouble; const P: integer) : String;
 var
  R: Integer;
 begin
- R:=Round(F);
- if Abs(F-R) <= rien then
-  Result:=IntToStr(R)
+ if Abs(F) < High(R) - 2 then //Safety margin
+ begin
+   R:=Round(F);
+   if Abs(F-R) <= rien then
+   begin
+     Result:=IntToStr(R);
+     Exit;
+   end;
+ end;
+ {DecimalSeparator:='.';}
+ Result:=FloatToStrF(F, ffFixed, 7, P);
+end;
+
+{function dtos(const D: TDouble) : String;
+const
+ maxDigits = 2;
+var
+ i: Integer;
+ DP: TDouble;
+begin
+ if Abs(D) < High(Integer) - 2 then //Safety margin
+ begin
+   i:=0; DP:=D;
+   //how many digits are necessary? (stop at maxDigits)
+   while (i<>maxDigits) and (Abs(DP-Round(DP))>rien) do begin DP:=DP*10; inc(i); end;
+   if i=0 then
+   begin
+     Result:=IntToStr(Round(D));
+     Exit;
+   end;
+ end
  else
-  begin
-  {DecimalSeparator:='.';}
-   Result:=FloatToStrF(F, ffFixed, 7, P);
-  end;
+  i:=maxDigits;
+ Result:=FloatToStrF(D, ffFixed, 15, i);
+end;}
+
+function dtosp(const D: TDouble; const P: integer) : String;
+var
+ R: Integer;
+begin
+ if Abs(D) < High(R) - 2 then //Safety margin
+ begin
+   R:=Round(D);
+   if Abs(D-R) <= rien then
+   begin
+     Result:=IntToStr(R);
+     Exit;
+   end;
+ end;
+ {DecimalSeparator:='.';}
+ Result:=FloatToStrF(D, ffFixed, 15, P);
 end;
 
 procedure ReadDoubleArray(const S1: String; var Vals: array of TDouble);

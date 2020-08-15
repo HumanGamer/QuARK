@@ -3138,7 +3138,7 @@ var
  F: TFace;
  WriteIntegers, UseIntegralVertices, ExpandThreePoints : Boolean;
  S, S1, S2, S3: String;
- I, R, J, K : Integer;
+ I, J, K : Integer;
  P, PT, VT: TThreePoints;
  Params: TFaceParams;
  Delta1, V, V2, V3: TVect;
@@ -3743,23 +3743,20 @@ begin
       else
         S:=S+'( ';
 
-      R:=Round(X);
-      if WriteIntegers or (Abs(X-R) < rien) then
-       S:=S+IntToStr(R)+' '
+      if WriteIntegers then
+       S:=S+IntToStr(Round(X))+' '
       else
-       S:=S+FloatToStrF(X, ffFixed, 20, DecimalPlaces)+' ';
+       S:=S+dtosp(X, DecimalPlaces)+' ';
 
-      R:=Round(Y);
-      if WriteIntegers or (Abs(Y-R) < rien) then
-       S:=S+IntToStr(R)+' '
+      if WriteIntegers then
+       S:=S+IntToStr(Round(Y))+' '
       else
-       S:=S+FloatToStrF(Y, ffFixed, 20, DecimalPlaces)+' ';
+       S:=S+dtosp(Y, DecimalPlaces)+' ';
 
-      R:=Round(Z);
-      if WriteIntegers or (Abs(Z-R) < rien) then
-       S:=S+IntToStr(R)
+      if WriteIntegers then
+       S:=S+IntToStr(Round(Z))
       else
-       S:=S+FloatToStrF(Z, ffFixed, 20, DecimalPlaces);
+       S:=S+dtosp(Z, DecimalPlaces);
 
       if MapSaveSettings.MapFormat=HL2Type then
         S:=S+') '
@@ -3877,13 +3874,7 @@ begin
         for I:=1 to 2 do
           S:=S+' '+IntToStr(Round(Params[I]));
         for I:=3 to 5 do
-        begin
-          R:=Round(Params[I]);
-          if Abs(R-Params[I])<rien then
-            S:=S+' '+IntToStr(R)
-          else
-            S:=S+' '+FloatToStrF(Params[I], ffFixed, 20, DecimalPlaces);
-        end;
+          S:=S+' '+dtosp(Params[I], DecimalPlaces);
 
         if MapSaveSettings.GameCode=mjCoD2 then
         begin
@@ -4054,7 +4045,7 @@ end;
 procedure SaveAsMapTextTMesh(ObjectToSave: QObject; MapSaveSettings: TMapSaveSettings; Target: TStrings);
 var
  cp: TMeshBuf5;
- I, J, K, R: Integer;
+ I, J, K: Integer;
  S: String;
  Value: PSingle;
  TextureName: String;
@@ -4145,11 +4136,10 @@ begin
        S:=S+'( ';
        for K:=1 to 5 do
         begin
-         R:=Round(Value^);
-         if {WriteIntegers or} (Abs(Value^-R) < rien) then
-          S:=S+IntToStr(R)+' '
-         else
-          S:=S+FloatToStrF(Value^, ffFixed, 20, DecimalPlaces)+' ';
+         {if WriteIntegers then
+          S:=S+IntToStr(Round(Value^))+' '
+         else}
+          S:=S+ftosp(Value^, DecimalPlaces)+' ';
          Inc(Value);
         end;
        if MapSaveSettings.PatchDefVersion>= 5 then
