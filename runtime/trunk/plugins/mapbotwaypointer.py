@@ -758,8 +758,7 @@ class BotWaypointerPoint(DuplicatorManager):
                 if (routes_to is not None):
                     routes_to_list.append(routes_to.origin)
                     if (routes_to not in to_list):
-			    points_to_list.append
-			    
+                        to_list.append(points_to)
 
         # First add the selected handle, so it will be drawn first (z-order of drawn lines)
         hndls.append(BotWaypointerPointHandle(points_to_list, routes_to_list, self.dup.origin, self.dup))
