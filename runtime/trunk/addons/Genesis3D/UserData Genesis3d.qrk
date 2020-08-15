@@ -1,6 +1,6 @@
 QQRKSRC1
 // This file has been written by QuArK QuArK 6.3snap080601
-// It's the text version of file: UserData Quake 1.qrk
+// It's the text version of file: UserData Genesis3d.qrk
 
 {
   Description = "Custom configuration file for Genesis3d."
@@ -57,7 +57,7 @@ QQRKSRC1
   {
     item: =
     {
-      Txt = "&GO ! (textures+build+Quake)"
+      Txt = "&GO ! (textures+build+G3D)"
       Shortcut = "Ctrl+R"
       Textures = "1"
       RunGame = "1"
@@ -109,7 +109,7 @@ QQRKSRC1
     }
     item: =
     {
-      Txt = "&Run Quake"
+      Txt = "&Run G3D"
       RunGame = "1"
     }
     item: =

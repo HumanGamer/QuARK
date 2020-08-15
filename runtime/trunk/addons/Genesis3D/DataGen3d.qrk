@@ -9,55 +9,26 @@ QQRKSRC1
   {
     Game = "Genesis3D"
     HTML = "index.html"
-
-    SFSkills = '256 512 1024 2048'   // must be 4 to 6 values : easy/medium/hard/deathm.[/coop/single]
-    CreateFiles: =
-    {
-      Quake.rc =
-      {
-        Data =
-               "// This file has been created by QuArK - Quake Army Knife"
-         $0D$0A"//"
-         $0D$0A"// For more info about QuArK please see the home page at :"
-         $0D$0A"//"
-         $0D$0A"//      http://www.planetquake.com/quark"
-         $0D$0A"//"
-         $0D$0A"//"
-         $0D$0A"//                                   -- Armin Rigo"
-         $0D$0A
-         $0D$0A"exec default.cfg"
-         $0D$0A"exec config.cfg"
-         $0D$0A"exec autoexec.cfg"
-         $0D$0A"echo"
-         $0D$0A"echo "$22" "$80$81$81$81$81$82" Quake Army Knife 5 "$80$81$81$81$81$82$22
-         $0D$0A"echo"
-         $0D$0A"exec quark.cfg"
-         $0D$0A"stuffcmds"
-         $0D$0A
-      }
-    }
   }
   NewFiles.qtx =
   {
     ToolBox = "New files..."
-    Root = "Quake 1 file types.qtxfolder"
-    Quake 1 file types.qtxfolder =
+    Root = "Genesis 3D file types.qtxfolder"
+    Genesis 3D file types.qtxfolder =
     {
-      Texture Wad.wad = { }
-      QuakeC.qc = { }
     }
   }
   walltex:incl =
   {
-    tex = "bricka2_2"
+    tex = "Wall1"
   }
   floortex:incl =
   {
-    tex = "woodflr1_5"
+    tex = "floor1"
   }
   ceiltex:incl =
   {
-    tex = "sky1"
+    tex = "w_ceiling"
   }
   NewMap:incl =
   {

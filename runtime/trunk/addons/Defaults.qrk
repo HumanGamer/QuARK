@@ -390,7 +390,7 @@ QQRKSRC1
         Program = "6DX11.EXE"
 
         Directory = ""
-        CheckDirectory = ""
+        CheckDirectory = "*.EXE"
 
         MapCommentsPrefix = ";"
         OutputMapFormat = "Quark etp"
@@ -926,10 +926,10 @@ QQRKSRC1
         Game = "Genesis3D"
         Code = "4" // Hardcoded value in Setup.PAS
 
-        Program = "Quake.EXE"
+        Program = "GTest.EXE"
 
-        Directory = "\Quake"
-        CheckDirectory = "QUAKE.EXE"
+        Directory = ""
+        CheckDirectory = "*.EXE"
 
         MapCommentsPrefix = "//"
 
@@ -943,24 +943,19 @@ QQRKSRC1
         BuildPgm3  = "ARGHLITE.EXE"
         BuildArgs3 = ""
 
-        DefaultTexture = "bricka2_2"
-        DefaultTextureTrigger = "trigger"
-        DefaultTextureClip = "clip"
+        DefaultTexture = "Wall1"
         LightingInnerConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone" is the specifics name that gives the spotlight inter size.
         LightingOuterConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone2" is the specifics name that gives the spotlight outer size.
 
         WateryTex = "*"
-        TextureFormat = ".wad_D"
-        TextureWriteFormat = ".wad_D"
-        TextureWad = "gfx/QuArK.wad"
+        TextureFormat = ".bmp"
+        TextureWriteFormat = ".bmp"
 
         BaseDir = "id1"
         tmpQuArK = "tmpQuArK"
 
         MapHoles = ".pts"
-        Palette = "gfx/palette.lmp"
-        Gradient = "gfx/colormap.lmp"
-        UnifiedPalette = "1"
+        Palette = ":gfx/palette.lmp"
         ExtraCmdLine = "-game %gamedir%"
         RunMapCmdLine = "+map %filename%"
         AddOns = "DataGen3D.qrk"$0D"Gen3DEntities.qrk"$0D"Gen3DTextures.qrk"
@@ -973,7 +968,6 @@ QQRKSRC1
         Form = "GameGenesis3D"
         PlayerClass = "X"
         DecimalPlaces = '5'
-        UsesMipTex = "1"
       }
 
       Half-Life:config =
@@ -1431,7 +1425,7 @@ QQRKSRC1
         Game = "MOHAA"
         Code = "e" // Hardcoded value in Setup.PAS
 //        Program = "MOHAA.EXE +set sv_pure 0"
-        Program = "mohaa +set developer 1 +set thereisnomonkey 1 +set cheats 1 +set ui_console 1"
+        Program = "MOHAA.EXE +set developer 1 +set thereisnomonkey 1 +set cheats 1 +set ui_console 1"
 
         Directory = "\MOHAA"
         CheckDirectory = "MOHAA.EXE"
@@ -4231,22 +4225,16 @@ QQRKSRC1
       sep: = {Typ="S" Txt="---- Game Settings ----"}
       Program: = {
         Typ = "C"     // combo box
-        Txt = "Quake command-line"
-        Items = "Quake.EXE"
-             $0D"Quake.EXE -listen 4"
-             $0D"GLQuake.EXE"
-             $0D"GLQuake.EXE -listen 4"
-             $0D"WinQuake.EXE"
-             $0D"WinQuake.EXE -listen 4"
-             $0D"WinDed.EXE"
+        Txt = "Genesis3D command-line"
+        Items = "GTest.EXE"
         t_ProgramHint=!
       }
       Directory: =
       {
-        Txt = "Directory of Quake 1"
+        Txt = "Directory of Genesis3D"
         Typ = "ED"      // Edit Directory
         Hint = "Path to the game executable"
-        CheckFile = "QUAKE.EXE"
+        CheckFile = "*.EXE"
       }
       Templates: =
       {
