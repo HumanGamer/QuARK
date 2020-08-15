@@ -33,15 +33,6 @@ uses Windows, Classes, Setup, SysUtils,
 { $DEFINE DebugLOG}
 { $DEFINE DebugSOFTLIMITS}
 
-(*
-const
- MinW = 64.0;
- MaxW = 65535.0-128.0;    { Note: constants copied from PyMath3D }
- Minoow = 1.0001/MaxW;
- Maxoow = 0.9999/MinW;
- RFACTOR_1 = 32768*1.1;
-*)
-
 type
  TViewRect = record
               R: TRect; //Rect sent to the renderer
