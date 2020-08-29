@@ -37,10 +37,8 @@ const
 var
  Py_None        : PyObject = Nil;
  Py_xStrings    : PyObject = Nil;
- QuarkxDict     : PyObject = Nil;
-{SysModule      : PyObject = Nil;
- SysDict        : PyObject = Nil;}
  MacrosDict     : PyObject = Nil;
+ QuarkxDict     : PyObject = Nil;
  QuarkxError    : PyObject = Nil;
  QuarkxAborted  : PyObject = Nil;
  EmptyTuple     : PyObject = Nil;
@@ -3689,10 +3687,32 @@ begin
   begin
     obj:=PyObject(Pool.Objects[I]);
     if obj^.ob_refcnt > 1 then
-      Log(LOG_INFO, 'Dropping Python %s object from pool with non-one ref count of %d.', [obj^.ob_type.tp_name, obj^.ob_refcnt]);
+      Log(LOG_INFO, 'Dropping Python %s object from pool with non-one ref count of %d.', [obj^.ob_type.tp_name, obj^.ob_refcnt]); //FIXME: Move to dict!
     Pool.Delete(I);
     Py_DECREF(obj);
   end;
+
+  //Release the PyObjects we are holding onto
+  Py_XDECREF(Py_None);
+  Py_None := Nil;
+  Py_XDECREF(Py_xStrings);
+  Py_xStrings := Nil;
+  Py_XDECREF(MacrosDict);
+  MacrosDict := Nil;
+  //QuarkxDict: Borrowed reference; do not DECREF
+  QuarkxDict := Nil;
+  Py_XDECREF(QuarkxError);
+  QuarkxError := Nil;
+  Py_XDECREF(QuarkxAborted);
+  QuarkxAborted := Nil;
+  Py_XDECREF(EmptyTuple);
+  EmptyTuple := Nil;
+{  Py_XDECREF(MenuItemCls);
+  MenuItemCls := Nil;}
+  Py_XDECREF(ToolboxMenu);
+  ToolboxMenu := Nil;
+  Py_XDECREF(HelpMenu);
+  HelpMenu := Nil;
 
   Py_Finalize;
   UnInitializePython;
