@@ -38,7 +38,7 @@ is shown in the next image just below.
 <tr><td valign=top align=left>
 <b>Part 2 – QuArK game and .md3 model packs</b>
 
-These are the QuArK Quake 4 game support packages. Download both .zip files and extract them, using the 
+These are the QuArK Quake 4 game support packages. Download both <g>.zip</g> files and extract them, using the 
 folders path option, to the game folder location where you have Quake 4 installed on your computer.
 
 All the paths to the "q4base" sub-folder have already been set in these zip files.
@@ -118,7 +118,7 @@ It can't get much simpler then that!
 <img border=1 valign=top align=middle>quake4_config3.png</img>
 </td></tr>
 
-<tr><td><br>
+<tr><td>
 Because you have already completed the configuration steps above you will be able to see your map in QuArK's Textured 3D view.
 Even that part is automatically done for you. Just place your mouse cursor over that view, click your <g>RMB</g> and select "Textured" from the pop-up menu.
 The only other thing QuArK could do to make it easer, would be to make the map for you.

@@ -5,9 +5,9 @@ This section covers how to get your own custom textures to work in Half-Life 2, 
 
 It's good to know how "materials", what texture files are called, are used in the game and how they are handled by the Half-Life 2 game engine. A good place to look for information on this is the <!--a href="http://www.valve-erc.com/srcsdk/Materials/materials_creation.html">materials section</a--><a href="https://developer.valvesoftware.com/wiki/Creating_a_Material">materials section</a> of the SDK itself.
 
-Material or texture files are split into two parts: first your texture itself, a picture of any kind of file type, which later have to be converted into the .tga file type and then into .vtf with the vtex compiler from the sdk. We'll get to that later...
+Material or texture files are split into two parts: first your texture itself, a picture of any kind of file type, which later have to be converted into the <g>.tga</g> file type and then into <g>.vtf</g> with the vtex compiler from the sdk. We'll get to that later...
 
-The second part of our texture is the .vmt file, a script file which tells the engine how to render and handle the materials. Most settings in the .vmt file are based on variables for shaders and values which describe the material, like wood, glass, stone and so on,... it also flags the sound behavior of our texture,  mostly automatically.
+The second part of our texture is the <g>.vmt</g> file, a script file which tells the engine how to render and handle the materials. Most settings in the .vmt file are based on variables for shaders and values which describe the material, like wood, glass, stone and so on,... it also flags the sound behavior of our texture,  mostly automatically.
 
 The first line of our .vmt file is the name of the shader that is used. depending on your computer, it can set to a default shader level, or set itself after a shader test to fit to the best result for each computer your map is running on. Shaders add reflections and such to the texture.
 

@@ -152,7 +152,7 @@ following text at the bottom of the Console window:
 <li>/quark.cfg: exists
 <li>/maps/newmap.bsp: ready
 <li>/maps/newmap.pts: ignored
-<li>Files stored in C:\Program Files\Valve\Steam\SteamApps\...\counte<br>r-strike source\cstrike\
+<li>Files stored in C:\Program Files\Valve\Steam\SteamApps\...\counter-strike source\cstrike\
 <li>Operation finished.
 </ul>
 The Console outputs what the Valve compiler is doing, and you should always
