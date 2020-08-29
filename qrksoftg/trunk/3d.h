@@ -70,6 +70,10 @@ typedef struct { //__declspec(align(4))?
 #define GR_TEXFMT_RGB_565  10
 #define GR_TEXFMT_RGB_443  222    // custom internal format; 11-bits (see RGBBITS)
 
+//GrFogMode_t
+//#define GR_FOG_DISABLE     0
+//#define GR_FOG_WITH_TABLE  2
+
 //GrHint_t
 #define GR_HINT_STWHINT  0
 
@@ -87,7 +91,9 @@ FxBool __declspec(dllexport) __stdcall grSstWinOpen(FxU32 hwnd, GrScreenResoluti
 void __declspec(dllexport) __stdcall grSstWinClose(void);
 int  __declspec(dllexport) __stdcall softgQuArK(void);
 void __declspec(dllexport) __stdcall grConstantColorValue(GrColor_t color);
+//void __declspec(dllexport) __stdcall grFogMode(GrFogMode_t mode);
 //void __declspec(dllexport) __stdcall grFogColorValue(GrColor_t color);
+//void __declspec(dllexport) __stdcall guFogGenerateExp2(GrFogTable_t *fogtable, float density);
 void __declspec(dllexport) __stdcall guColorCombineFunction(GrColorCombineFunction_t func);
 void __declspec(dllexport) __stdcall grHints(GrHint_t type, FxU32 hintMask);
 
