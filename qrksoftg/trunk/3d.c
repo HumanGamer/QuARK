@@ -13,13 +13,22 @@
 //#define DEBUGCOLORS
 //#define FULLBRIGHT
 
+/*  This module can work in one of three pixel modes :
+ *   [T] textured
+ *   [S] solid
+ *   [X] paletteless (new in this version)
+ */
+
 #define RGBBITS				11
 #define RGBMAX				(1<<RGBBITS)
 #define FOGBITS				(16-RGBBITS)
 #define FOGMAX				(1<<FOGBITS)
 
+// For mode [T] :
 #define COLORSCHEMEBITS		(8-FOGBITS)
 #define COLORSCHEMES		(1<<COLORSCHEMEBITS)
+
+// For mode [S] :
 #define SOLIDFOGBITS		8
 #define SOLIDFOGMAX			(1<<SOLIDFOGBITS)
 #define SOLIDCOLORSCHEMES	(1<<(16-SOLIDFOGBITS))
@@ -28,19 +37,12 @@
 #define GR_COLORCOMBINE_TEXTURE		4
 
 
-/*  This module can work in one of three pixel modes :
- *   [T] textured
- *   [S] solid
- *   [X] paletteless (new in this version)
- */
-
-
 FxU32 *texturepalette;        // GuPalette format
 FxU32 schemecolor;
 FxU32 scheme;
 FxU32 currentpalette[256];    // [X] bbbggggrrrr00000 0000000000000000  format
-//FxU8  fogtable[64];
-float fogdensity;
+//GrFog_t fogtable[GR_FOG_TABLE_SIZE];
+//float fogdensity;
 FxU32 *fullpalette;		// 256x256 array indexed by high word of framebuffer pixels
 //grTexInfo_t *texsource;
 FxU8 *texdata;
@@ -52,22 +54,21 @@ FxU32 *framebuffer;		// a pixel is :   [T] ttttttttcccfffff zzzzzzzzzzzzzzzz    
 						// 'solid' mode : [S] ccccccccffffffff zzzzzzzzzzzzzzzz    (c)olor, (f)og
 						// paletteless :  [X] bbbggggrrrrfffff zzzzzzzzzzzzzzzz    (r)ed, (g)reen, (b)lue, (f)og, (z)-depth
 float oow_to_w[OOWTABLESIZE];
-FxU32 oow_to_pix[OOWTABLESIZE];
+FxU32 oow_to_pix[OOWTABLESIZE]; //Contains the "f" and "z" bits for the framebuffer, based on oow as index
 GrColorCombineFunction_t colormode;
 unsigned int flatdisplay, texturepaletteok, unifiedpalettemode;
+unsigned int oow_table_mode;
 
 #define unifiedpalette (unifiedpalettemode&1)
 
-// not for mode [X] :
+// For mode [S] :
 FxU32 SchemeBaseColor[SOLIDCOLORSCHEMES];
+
+// For mode [T] :
 FxU32 SchemesUsageTime[COLORSCHEMES];
-int oow_table_mode;
-
-
 
 #define l_macro(l,c) (((c)*(l))>>18)
 #define z_macro(l)   ((l)>>10)
-#define FOG_DENSITY_1 0.000015
 
 void BuildFullPalette(void)
 {
@@ -225,7 +226,7 @@ int __stdcall softgQuArK(void)
 	return SOFTG_QUARK_VERSION_NUMBER;
 }
 
-void FillOowTable(int fogmask)
+void FillOowTable(unsigned int fogmask)
 {
 	if (!flatdisplay)
 	{
@@ -241,7 +242,7 @@ void FillOowTable(int fogmask)
 			if (val<=0)
 				oow_to_pix[i] = i;
 			else
-				oow_to_pix[i] = i | (((int)val) << 16);
+				oow_to_pix[i] = i | (((unsigned int)val) << 16);
 		}
 	}
 	else
@@ -336,11 +337,11 @@ void __stdcall guColorCombineFunction(GrColorCombineFunction_t func)
 }
 
 
-void __stdcall grHints(GrHints_t type, FxU32 hintMask)
+void __stdcall grHints(GrHint_t type, FxU32 hintMask)
 {
-	if (!type)	  // GR_HINT_STWHINT
+	if (type == GR_HINT_STWHINT)
 	{
-		hintMask &= 2;		    // GR_STWHINT_W_DIFF_TMU0
+		hintMask &= GR_STWHINT_W_DIFF_TMU0;
 		if (hintMask!=flatdisplay)
 		{
 			flatdisplay = hintMask;
@@ -1056,7 +1057,7 @@ void __stdcall grGlideInit(void)
 {
 	unsigned int i;
 
-	fogdensity = 1;
+	//fogdensity = 1;
 	oow_to_w[0] = 1.0*OOWTABLEBASE;
 	for (i=1; i<OOWTABLESIZE; i++)
 		oow_to_w[i] = (1.0*OOWTABLEBASE)/i;

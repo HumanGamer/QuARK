@@ -20,6 +20,7 @@ typedef FxI32 GrChipID_t;
 typedef FxI32 GrCombineFunction_t;
 typedef FxI32 GrColorCombineFunction_t;
 typedef FxI32 GrAspectRatio_t;
+//typedef FxU8  GrFog_t;
 //typedef FxI32 GrFogMode_t;
 typedef FxI32 GrColorFormat_t;
 typedef FxI32 GrOriginLocation_t;
@@ -29,7 +30,6 @@ typedef FxU32 GrTexTable_t;
 typedef FxU32 GrHint_t;
 typedef FxU32 GrScreenResolution_t;
 typedef FxU32 GrScreenRefresh_t;
-typedef GrHint_t GrHints_t; //Hmm, why is there a naming conflict here?
 
 
 typedef struct { //__declspec(align(4))?
@@ -38,9 +38,6 @@ typedef struct { //__declspec(align(4))?
 	GrTextureFormat_t format;
 	void *data;
 } GrTexInfo;
-
-#define GR_TEXFMT_RGB_565  10
-#define GR_TEXFMT_RGB_443  222    // custom internal format
 
 typedef struct { //__declspec(align(4))?
 	float sow, tow, oow;
@@ -59,12 +56,25 @@ typedef struct { //__declspec(align(4))?
 #define EPSILON          (1.0/64)
 #define MINWBITS         6
 #define MINW             (1<<MINWBITS)
-#define MAXW             (65535.0-128.0)
+#define MAXW             (65535-128)
 #define OOWTABLEBITS     16
 #define OOWTABLESIZE     (1<<OOWTABLEBITS)
 #define OOWTABLEBASE     (OOWTABLESIZE<<MINWBITS)
-#define MAXOOWBIAS       (unsigned int)(OOWTABLEBASE/MAXW)
+#define MAXOOWBIAS       (unsigned int)(OOWTABLEBASE/(float)MAXW)
 
+// --- Glide ---
+
+//#define GR_FOG_TABLE_SIZE      64
+
+//GrTextureFormat_t
+#define GR_TEXFMT_RGB_565  10
+#define GR_TEXFMT_RGB_443  222    // custom internal format; 11-bits (see RGBBITS)
+
+//GrHint_t
+#define GR_HINT_STWHINT  0
+
+//GrSTWHint_t
+#define GR_STWHINT_W_DIFF_TMU0  2
 
 void __declspec(dllexport) __stdcall grTexSource(GrChipID_t tmu, FxU32 startAddress, FxU32 evenOdd, GrTexInfo *info);
 void __declspec(dllexport) __stdcall softgLoadFrameBuffer(int *buffer, int format);
@@ -79,7 +89,7 @@ int  __declspec(dllexport) __stdcall softgQuArK(void);
 void __declspec(dllexport) __stdcall grConstantColorValue(GrColor_t color);
 //void __declspec(dllexport) __stdcall grFogColorValue(GrColor_t color);
 void __declspec(dllexport) __stdcall guColorCombineFunction(GrColorCombineFunction_t func);
-void __declspec(dllexport) __stdcall grHints(GrHints_t type, FxU32 hintMask);
+void __declspec(dllexport) __stdcall grHints(GrHint_t type, FxU32 hintMask);
 
 #ifdef __cplusplus
 }
