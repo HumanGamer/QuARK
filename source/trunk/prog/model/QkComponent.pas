@@ -1113,8 +1113,8 @@ begin
         for L:=0 to 2 do
           with CTris^[L] do
             PyTuple_SetItem(tri, L, Py_BuildValueX('iii', [VertexNo, S, T]));
-          PyList_SetItem(Result, I, tri);
-          Inc(CTris);
+        PyList_SetItem(Result, I, tri);
+        Inc(CTris);
       end;
       Exit;
     end;
