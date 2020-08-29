@@ -1,17 +1,24 @@
 #include "3d.h"
 
-#ifndef __cplusplus
-#include <stdlib.h>
-#include <string.h>
-#else
-#include <cstdlib>
-#include <cstring>
-#endif
-
-#define SOFTG_QUARK_VERSION_NUMBER		30
 //#define DEBUG
 //#define DEBUGCOLORS
 //#define FULLBRIGHT
+
+#ifndef __cplusplus
+#include <stdlib.h>
+#include <string.h>
+#ifdef DEBUG
+#include <stdio.h>
+#endif
+#else
+#include <cstdlib>
+#include <cstring>
+#ifdef DEBUG
+#include <cstdio>
+#endif
+#endif
+
+#define SOFTG_QUARK_VERSION_NUMBER		30
 
 /*  This module can work in one of three pixel modes :
  *   [T] textured
