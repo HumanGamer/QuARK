@@ -1,4 +1,5 @@
-title: Commandline of QuArK
+title: Commandline
+author: DanielPharos
 
 The commandline of QuArK allows you to send some additional information to QuArK as it starts up.  There aren't many options, since most can be set using environmental variables <ref> src/topics/logging </ref> (for logging only) or in the Configuration menu.
 
