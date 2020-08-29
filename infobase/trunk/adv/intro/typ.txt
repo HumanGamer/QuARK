@@ -2,17 +2,17 @@ title: Guide to Typ's
 author: cdunde
 
 Typ's are used in all kinds of forms but the most common are <a href="adv.quarkpy.gui.html#dialogs">Dialog Boxes</a>.
-These are placed within tripple double quotes <tt>"""</tt> and ends with them also, because it's a multi-line string.<br>
+These are placed within triple double quotes <tt>"""</tt> and ends with them also, because it's a multi-line string.<br>
 A <b>very important</b> thing to know and remember about this is how to use a Python defined variable within this
-tripple double quotes area.
+triple double quotes area.
 
-First the variable, which can also be a stored setting, must be defind before and outside of the above area like this:
+First the variable, which can also be a stored setting, must be defined before and outside of the above area like this:
 
 <code>
     NbrOfLines = "10"
 </code>
 
-Then that variable can be used within the tripple double quotes area like this:
+Then that variable can be used within the triple double quotes area like this:
 
 <code>
     mesh_shader: = {Typ="M"
@@ -24,7 +24,7 @@ Then that variable can be used within the tripple double quotes area like this:
                    }
 </code>
 
-The <tt>chr(34)</tt> items, which is for a single double quote, must be used like this to avoid confusion with the tripple double quotes.
+The <tt>chr(34)</tt> items, which is for a single double quote, must be used like this to avoid confusion with the triple double quotes.
 
 Here is a list of the most common used Typ's in .QRK :form definitions.
 
@@ -43,7 +43,7 @@ The dollar sign is used to enter one or more special/invisible characters. In th
 <br>
 How to spread text on several lines.</b>
 
-<u>Txt</u> - defines the lable. Labels are special in QuArK. If you set their value to "&" they will display the name of the component.<br>So if you have defined a component like this:
+<u>Txt</u> - defines the label. Labels are special in QuArK. If you set their value to "&" they will display the name of the component.<br>So if you have defined a component like this:
 
 <code>
 name: = { Typ="E" Txt="&" } 
