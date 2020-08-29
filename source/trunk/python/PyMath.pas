@@ -1631,11 +1631,10 @@ begin
            PyTuple_SetItem(o, 0, PyFloat_FromDouble(PyVect(self)^.V.x));
            PyTuple_SetItem(o, 1, PyFloat_FromDouble(PyVect(self)^.V.y));
            PyTuple_SetItem(o, 2, PyFloat_FromDouble(PyVect(self)^.V.z));
-          except
+           PyDict_SetItemString(Result, 'v', o);
+          finally
            Py_DECREF(o);
-           raise;
           end;
-          PyDict_SetItemString(Result, 'v', o);
           Exit;
          end;
    'c': if StrComp(attr, 'copy')=0 then
