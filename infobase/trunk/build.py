@@ -276,6 +276,7 @@ def processtext(root, self, data):
     paragraph_tags_added = 0
     listing_tags_added = 0
     table_tags_added = 0
+    lastnonemptyline = -1
     flags = { }
     flags["prevlineempty"] = 1
     flags["preformatmode"] = 0
@@ -287,12 +288,16 @@ def processtext(root, self, data):
         if not trimmedline:
             correctedline = "\n"
             flags["prevlineempty"] = 1
-            if (paragraph_tags_added > 0) and (listing_tags_added == 0) and (table_tags_added == 0) and (flags["preformatmode"] == 0) and (flags["inhtmlcomment"] == 0):
-                if len(data):
-                    data[-1] = data[-1].rstrip("\r\n") + "</p>\n"
-                else:
-                    data.append("</p>\n")
-                paragraph_tags_added = paragraph_tags_added - 1
+            if (flags["preformatmode"] == 0) and (flags["inhtmlcomment"] == 0):
+                if (paragraph_tags_added > 0) and (listing_tags_added == 0) and (table_tags_added == 0):
+                    if len(data):
+                        data[-1] = data[-1].rstrip("\r\n") + "</p>\n"
+                    else:
+                        data.append("</p>\n")
+                    paragraph_tags_added = paragraph_tags_added - 1
+                    lastnonemptyline = -1
+                if lastnonemptyline > -1:
+                    data[lastnonemptyline] = data[lastnonemptyline].rstrip("\r\n") + "<br>\n"
         else:
             # Scan through the 'line' in search for "<tag's" to replace/perform actions on
             while len(line) > 0:
@@ -308,6 +313,7 @@ def processtext(root, self, data):
                         line = line[endofcomment_found+len("-->"):]
                         flags["inhtmlcomment"] = 0
                 else:
+                    lastnonemptyline = len(data)
                     startchar_tag_found = line.find("<")
                     if startchar_tag_found == -1:
                         # No "<tag" were found, so just copy the entire line
@@ -335,11 +341,13 @@ def processtext(root, self, data):
                                 listing_tags_added += 1
                             elif tag.startswith("</ul") or tag.startswith("</ol") or tag.startswith("</dl"):
                                 listing_tags_added -= 1
+                                lastnonemptyline = -1
                                 flags["prevlineempty"] = 0 #Don't paragraph this line, even if the previous line was empty
                             elif tag.startswith("<table"):
                                 table_tags_added += 1
                             elif tag.startswith("</table"):
                                 table_tags_added -= 1
+                                lastnonemptyline = -1
                                 flags["prevlineempty"] = 0 #Don't paragraph this line, even if the previous line was empty
                             tag = (line[:endchar_tag_found]) #Don't lowercase, as this can break URLs
                             try:
@@ -369,7 +377,7 @@ def processtext(root, self, data):
         data[-1] = data[-1] + "\n"
 
     if listing_tags_added != 0:
-        raise RuntimeError("File ends with an open ul-tag! <File>.TXT title: \"%s\"" % (self.kw["title"], ))
+        raise RuntimeError("File ends with an open ul/ol/dl-tag! <File>.TXT title: \"%s\"" % (self.kw["title"], ))
 
 def parse(file):
     try:
