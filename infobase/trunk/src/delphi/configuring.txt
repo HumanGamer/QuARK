@@ -1,13 +1,14 @@
 title: Configuring Delphi
 author: Rowdy
 
-Configuring Delphi falls into three main categories:<br>
-1) Setting general Delphi options,<br>2) Installing the required components,<br>
-3) And setting the QuArK project options.
+Configuring Delphi falls into three main categories:
 
-(Note that the examples below are from Delphi 7, but the commands and dialogs are similar for earlier versions of Delphi.)
+<ol><li>Setting general Delphi options,
+<li>Installing the required components,
+<li>And setting the QuArK project options.
+</ol>
 
-(Note also that Delphi version 5 or greater is required.)
+(Note that the examples below are from Delphi 7, but the commands and dialogs are similar for earlier versions of Delphi. Delphi 6 should also still work, but for Delphi 5 some module name adjustments for StringUtils/SysUtils is required.)
 
 <dl>
 <dt><a name="options"></a>Delphi options<dd>
@@ -33,7 +34,7 @@ Now browse to the source\components directory and click OK.
 
 <pic>options_direct2.png</pic>
 
-Back on the Directories form notice that the directory you selected appears in the edit field, and the Add button is enabled.  click the Add button and the directory will be added to the end of the list.
+Back on the Directories form notice that the directory you selected appears in the edit field, and the Add button is enabled.  Click the Add button and the directory will be added to the end of the list.
 
 <pic>options_direct3.png</pic>
 
