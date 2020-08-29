@@ -94,8 +94,8 @@ void BuildFullPalette(void)
 	unsigned int i,j,s;
 	unsigned int cs; //Number of colors
 	unsigned int fogmax; //Number of fogvalues
-	int ls[COLORSCHEMES][3];
-	int lsfactor[SOLIDCOLORSCHEMES][3];
+	unsigned int ls[COLORSCHEMES][3];
+	unsigned int lsfactor[SOLIDCOLORSCHEMES][3];
 	float lightfactor;
 
 	fogmax = FOGMAX;
