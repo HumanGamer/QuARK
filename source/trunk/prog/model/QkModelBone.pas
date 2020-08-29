@@ -261,15 +261,18 @@ begin
         N2:=PInteger(P2)^;
         Inc(P2, SizeOf(Integer));
         o:=PyList_New(N2);
-        for I2:=0 to N2-1 do
-        begin
-          I3:=PInteger(P2)^;
-          Inc(P2, SizeOf(Integer));
-          o2:=PyInt_FromLong(I3);
-          PyList_SetItem(o, I2, o2);
+        try
+          for I2:=0 to N2-1 do
+          begin
+            I3:=PInteger(P2)^;
+            Inc(P2, SizeOf(Integer));
+            o2:=PyInt_FromLong(I3);
+            PyList_SetItem(o, I2, o2);
+          end;
+          PyDict_SetItemString(Result, PChar(S2), o);
+        finally
+          Py_DECREF(o);
         end;
-        PyDict_SetItemString(Result, PChar(S2), o);
-        Py_XDECREF(o);
       end;
       Exit;
     end
@@ -289,15 +292,18 @@ begin
         N2:=PInteger(P2)^;
         Inc(P2, SizeOf(Integer));
         o:=PyList_New(N2);
-        for I2:=0 to N2-1 do
-        begin
-          I3:=PInteger(P2)^;
-          Inc(P2, SizeOf(Integer));
-          o2:=PyInt_FromLong(I3);
-          PyList_SetItem(o, I2, o2);
+        try
+          for I2:=0 to N2-1 do
+          begin
+            I3:=PInteger(P2)^;
+            Inc(P2, SizeOf(Integer));
+            o2:=PyInt_FromLong(I3);
+            PyList_SetItem(o, I2, o2);
+          end;
+          PyDict_SetItemString(Result, PChar(S2), o);
+        finally
+          Py_DECREF(o);
         end;
-        PyDict_SetItemString(Result, PChar(S2), o);
-        Py_XDECREF(o);
       end;
       Exit;
     end;

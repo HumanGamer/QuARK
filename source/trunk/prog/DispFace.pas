@@ -63,12 +63,13 @@ begin
          for i:=0 to meshsize-1 do
          begin
            list:=PyList_New(0);
-           for j:=0 to meshsize-1 do
-           begin
-             PyList_Append(list ,PyFloat_FromDouble(dists[i,j]));
+           try
+             for j:=0 to meshsize-1 do
+               PyList_Append(list ,PyFloat_FromDouble(dists[i,j]));
+             PyList_Append(Result, list);
+           finally
+             Py_DECREF(list);
            end;
-           PyList_Append(Result, list);
-           Py_DECREF(list);
          end;
        end;
 
