@@ -978,7 +978,7 @@ QQRKSRC1
 
         BaseMenu = "Half Life"
 
-        Program = "HL.EXE -console -dev -zone 1024 +set sv_cheats 1"
+        Program = "HL.EXE -console -dev -nointro +set sv_cheats 1"
         Directory = "\Sierra\Half-Life"
         CheckDirectory = "HL.EXE"
 
@@ -4314,7 +4314,7 @@ QQRKSRC1
         Typ = "C"     // combo box
         Txt = "Half-Life command-line"
         Items = "HL.EXE"
-             $0D"HL.EXE -console -dev -zone 1024 +set sv_cheats 1"
+             $0D"HL.EXE -console -dev -nointro +set sv_cheats 1"
         t_ProgramHint=!
       }
       Directory: =
