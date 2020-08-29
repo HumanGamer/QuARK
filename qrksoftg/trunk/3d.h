@@ -80,6 +80,13 @@ typedef struct { //__declspec(align(4))?
 //GrSTWHint_t
 #define GR_STWHINT_W_DIFF_TMU0  2
 
+// --- softg ---
+
+#define softgUnifiedPalette 1
+#define softgFlatDisplay GR_STWHINT_W_DIFF_TMU0
+#define softgRGB443Texture 4
+#define softg16BitColor 0x100
+
 void __declspec(dllexport) __stdcall grTexSource(GrChipID_t tmu, FxU32 startAddress, FxU32 evenOdd, GrTexInfo *info);
 void __declspec(dllexport) __stdcall softgLoadFrameBuffer(int *buffer, int format);
 void __declspec(dllexport) __stdcall grDrawTriangle(const GrVertex *a, const GrVertex *b, const GrVertex *c);

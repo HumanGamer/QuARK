@@ -67,10 +67,11 @@ FxU32 *framebuffer;		// a pixel is :   [T] ttttttttcccfffff zzzzzzzzzzzzzzzz    
 float oow_to_w[OOWTABLESIZE];
 FxU32 oow_to_pix[OOWTABLESIZE]; //Contains the "f" and "z" bits for the framebuffer, based on oow as index
 GrColorCombineFunction_t colormode;
-unsigned int flatdisplay, texturepaletteok, unifiedpalettemode;
+unsigned int texturepaletteok;
+unsigned int flatdisplay; //zero or GR_STWHINT_W_DIFF_TMU0
+unsigned int unifiedpalettemode; //zero or softgUnifiedPalette
+unsigned int texture_mode; //zero or softgRGB443Texture
 unsigned int oow_table_mode;
-
-#define unifiedpalette (unifiedpalettemode&1)
 
 // For mode [S] :
 FxU32 SchemeBaseColor[SOLIDCOLORSCHEMES];
@@ -98,7 +99,7 @@ void BuildFullPalette(void)
 	float lightfactor;
 
 	fogmax = FOGMAX;
-	if (unifiedpalette)
+	if (unifiedpalettemode)
 	{
 		if (colormode & GR_COLORCOMBINE_TEXTURE)
 			cs = COLORSCHEMES;
@@ -141,7 +142,7 @@ void BuildFullPalette(void)
 		l = 1<<lightbits;
 		#endif
 
-		if (unifiedpalette)
+		if (unifiedpalettemode)
 		{
 			if (colormode & GR_COLORCOMBINE_TEXTURE)
 			{
@@ -386,7 +387,7 @@ void setschemecolor(void)
 void __stdcall grConstantColorValue(GrColor_t color)
 {
 	schemecolor = color & 0xFFFFFF;
-	if (unifiedpalette)
+	if (unifiedpalettemode)
 		setschemecolor();
 	else
 	{
@@ -397,7 +398,7 @@ void __stdcall grConstantColorValue(GrColor_t color)
 
 void __stdcall guColorCombineFunction(GrColorCombineFunction_t func)
 {
-	if (unifiedpalette)
+	if (unifiedpalettemode)
 	{
 		if ((colormode^func) & GR_COLORCOMBINE_TEXTURE)
 			if (fullpalette)
@@ -420,7 +421,7 @@ void __stdcall grHints(GrHint_t type, FxU32 hintMask)
 			flatdisplay = hintMask;
 			if (fullpalette)
 				FreeFullPalette();
-			if ((!unifiedpalette) || (colormode & GR_COLORCOMBINE_TEXTURE))
+			if ((!unifiedpalettemode) || (colormode & GR_COLORCOMBINE_TEXTURE))
 				FillOowTable(FOGMAX-1);
 			else
 				FillOowTable(SOLIDFOGMAX-1);
@@ -465,9 +466,9 @@ void __stdcall grTexSource(GrChipID_t tmu, FxU32 startAddress, FxU32 evenOdd, Gr
 		info->format = GR_TEXFMT_RGB_443;
 	}
 	if (info->format == GR_TEXFMT_RGB_443)
-		unifiedpalettemode |= 4;
+		texture_mode = softgRGB443Texture;
 	else
-		unifiedpalettemode &= ~4;
+		texture_mode = 0;
 }
 
 
@@ -475,7 +476,7 @@ void setunifiedpalette(unsigned int n)
 {
 	unifiedpalettemode = n;
 	schemecolor = 0xFFFFFFu;
-	if (unifiedpalette)
+	if (unifiedpalettemode)
 	{
 		unsigned int i;
 		oow_table_mode = 0;
@@ -508,10 +509,10 @@ void __stdcall softgLoadFrameBuffer(int *buffer, int format)
 
   if (!buffer)
   {
-    if (format & 0x100)
+    if (format & softg16BitColor)
     {
-      format &= 1;
-      if (unifiedpalette!=format)
+      format &= softgUnifiedPalette;
+      if (unifiedpalettemode!=format)
         setunifiedpalette(format);
     }
     return;
@@ -645,7 +646,7 @@ void __stdcall grDrawTriangle(const GrVertex *a, const GrVertex *b, const GrVert
 
   if (colormode & GR_COLORCOMBINE_TEXTURE)
   {
-    unsigned int displayroutines = unifiedpalettemode | flatdisplay;
+    unsigned int displayroutines = unifiedpalettemode | flatdisplay | texture_mode;
     #ifdef DEBUG
     fprintf(logfile, "displayroutines %d\n", displayroutines);
     #endif
@@ -744,7 +745,7 @@ void __stdcall grDrawTriangle(const GrVertex *a, const GrVertex *b, const GrVert
         curx2 = curx;
         switch (displayroutines)
         {
-        case 6:
+        case softgRGB443Texture | softgFlatDisplay:
           while (1)
           {
             i = (int)cur.oow;
@@ -786,7 +787,7 @@ void __stdcall grDrawTriangle(const GrVertex *a, const GrVertex *b, const GrVert
             }
           }
           break;
-        case 4:
+        case softgRGB443Texture:
           while (1)
           {
             i = (int)cur.oow;
@@ -830,7 +831,7 @@ void __stdcall grDrawTriangle(const GrVertex *a, const GrVertex *b, const GrVert
             }
           }
           break;
-        case 2:
+        case softgFlatDisplay:
           while (1)
           {
             i = (int)cur.oow;
@@ -910,7 +911,7 @@ void __stdcall grDrawTriangle(const GrVertex *a, const GrVertex *b, const GrVert
             }
           }
           break;
-        case 3:
+        case softgFlatDisplay | softgUnifiedPalette:
           while (1)
           {
             i = (int)cur.oow;
@@ -949,7 +950,7 @@ void __stdcall grDrawTriangle(const GrVertex *a, const GrVertex *b, const GrVert
             }
           }
           break;
-        case 1:
+        case softgUnifiedPalette:
           while (1)
           {
             i = (int)cur.oow;
@@ -1155,7 +1156,7 @@ void __stdcall grBufferClear(GrColor_t color, GrAlpha_t alpha, FxU16 depth)
 
 void __stdcall grTexDownloadTable(GrChipID_t tmu, GrTexTable_t type, void *data)
 {
-	if (unifiedpalette)
+	if (unifiedpalettemode)
 	{
 		if (fullpalette)
 			FreeFullPalette();
