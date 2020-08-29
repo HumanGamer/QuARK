@@ -97,6 +97,13 @@ implementation
 uses Game, Quarkx, QkExceptions, Travail,
      PyMath3D, QkPixelSet, QkTextures, QkMapPoly, QkApplPaths;
 
+const
+ //Software renderer has different bounds for now
+ softMinW = 64;
+ softMaxW = 65535-128;
+ softMinoow = 1.0001/softMaxW;
+ softMaxoow = 0.9999/softMinW;
+
 type
  PVect3D = ^TVect3D;
  TVect3D = record
@@ -1575,6 +1582,10 @@ begin
                 if oow>Maxoow+1E-8 then Raise InternalE('N:Maxoow');
                 {$ENDIF}
                 tmuvtx[0].oow:=1.0;
+                if oow<softMinoow then
+                 oow:=softMinoow;
+                if oow>softMaxoow then
+                 oow:=softMaxoow;
               end;
             end;
 
