@@ -2,11 +2,12 @@ title: Commandline of QuArK
 
 The commandline of QuArK allows you to send some additional information to QuArK as it starts up.  There aren't many options, since most can be set using environmental variables <ref> src/topics/logging </ref> (for logging only) or in the Configuration menu.
 
-Recognized parameters:<br>
-/?: Displays a window containing this information.<br>
-/NOINSTANCE: Skips the single-instance check (use at own risk!)<br>
-/NOSPLASH: Skips the splash screen.  This will improve start-up time.<br>
-/NOUPDATE: Skips the update check.  This will prevent QuArK from checking for updates.
+Recognized parameters:
+<ul><li>/?: Displays a window containing this information.
+<li>/NOINSTANCE: Skips the single-instance check (use at own risk!)
+<li>/NOSPLASH: Skips the splash screen.  This will improve start-up time.
+<li>/NOUPDATE: Skips the update check.  This will prevent QuArK from checking for updates.
+</ul>
 
 Note: All other parameters will be interpreted as files to load.
 
