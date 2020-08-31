@@ -3419,15 +3419,19 @@ begin
  key.ob_refcnt:=1;
  key.ob_type:=PyInt_Type;
  key.ob_ival:=I;
- obj:=PyObject_GetItem(Py_xStrings, @key);
- if obj=Nil then
-  Exit;
  try
-  P:=PyString_AsString(obj);
-  if P<>Nil then
-   Result:=StrPas(P);
+  obj:=PyObject_GetItem(Py_xStrings, @key);
+  if obj=Nil then
+   Exit;
+  try
+   P:=PyString_AsString(obj);
+   if P<>Nil then
+    Result:=StrPas(P);
+  finally
+   Py_DECREF(obj);
+  end;
  finally
-  Py_DECREF(obj);
+  PythonCodeEnd;
  end;
 end;
 
