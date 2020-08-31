@@ -267,7 +267,7 @@ object OutputDirDlg: TOutputDirDlg
     object Label4: TLabel
       Left = 8
       Top = 24
-      Width = 105
+      Width = 100
       Height = 13
       Alignment = taRightJustify
       AutoSize = False
@@ -281,9 +281,9 @@ object OutputDirDlg: TOutputDirDlg
       OnClick = CheckBox1Click
     end
     object Edit1: TEdit
-      Left = 120
+      Left = 115
       Top = 24
-      Width = 257
+      Width = 262
       Height = 17
       Hint = '2026'
       BorderStyle = bsNone
