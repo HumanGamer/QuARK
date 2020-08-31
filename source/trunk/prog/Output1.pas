@@ -71,6 +71,8 @@ uses FormCfg, Game, QkPak, Setup, Travail, Qk1, Quarkx, PakFiles, QkApplPaths;
 
 {$R *.DFM}
 
+//FIXME: Hint 2026 doesn't exist, but both TEdit's are using it!
+
 procedure OutputDirDlg;
 begin
  with TOutputDirDlg.Create(Application) do
