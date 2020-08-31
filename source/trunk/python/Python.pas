@@ -399,7 +399,7 @@ PyErr_ExceptionMatches: function (exc: PyObject) : LongBool; cdecl;
 
 //function PyObject_Hash(o: PyObject) : LongInt; cdecl;
 PyObject_Length: function (o: PyObject) : {$IFDEF PYTHON25} Py_ssize_t {$ELSE} Integer {$ENDIF}; cdecl;
-PyObject_GetItem: function (o, key: PyObject) : PyObject; cdecl;
+//PyObject_GetItem: function (o, key: PyObject) : PyObject; cdecl;
 PyObject_HasAttrString: function (o: PyObject; const attr_name: PChar) : LongBool; cdecl;
 PyObject_GetAttrString: function (o: PyObject; const attr_name: PChar) : PyObject; cdecl;
 PyObject_IsTrue: function (o: PyObject) : LongBool; cdecl;
@@ -526,7 +526,7 @@ var g_PythonObjects: TList;
  {-------------------}
 
 const
-  PythonProcList: array[0..59] of record
+  PythonProcList: array[0..58] of record
                                     Variable: Pointer;
                                     Name: PChar;
                                     MinimalVersion: Integer; //Exact meaning in GoodPythonVersion
@@ -560,7 +560,7 @@ const
     (Variable: @@PyErr_SetString;            Name: 'PyErr_SetString';            MinimalVersion: 0 ),
     (Variable: @@PyErr_ExceptionMatches;     Name: 'PyErr_ExceptionMatches';     MinimalVersion: 0 ),
     (Variable: @@PyObject_Length;            Name: 'PyObject_Length';            MinimalVersion: 0 ),
-    (Variable: @@PyObject_GetItem;           Name: 'PyObject_GetItem';           MinimalVersion: 0 ),
+//    (Variable: @@PyObject_GetItem;           Name: 'PyObject_GetItem';           MinimalVersion: 0 ),
     (Variable: @@PyObject_HasAttrString;     Name: 'PyObject_HasAttrString';     MinimalVersion: 0 ),
     (Variable: @@PyObject_GetAttrString;     Name: 'PyObject_GetAttrString';     MinimalVersion: 0 ),
     (Variable: @@PyObject_IsTrue;            Name: 'PyObject_IsTrue';            MinimalVersion: 0 ),

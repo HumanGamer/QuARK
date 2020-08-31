@@ -3420,16 +3420,12 @@ begin
  key.ob_type:=PyInt_Type;
  key.ob_ival:=I;
  try
-  obj:=PyObject_GetItem(Py_xStrings, @key);
+  obj:=PyDict_GetItem(Py_xStrings, @key);
   if obj=Nil then
    Exit;
-  try
-   P:=PyString_AsString(obj);
-   if P<>Nil then
-    Result:=StrPas(P);
-  finally
-   Py_DECREF(obj);
-  end;
+  P:=PyString_AsString(obj);
+  if P<>Nil then
+   Result:=StrPas(P);
  finally
   PythonCodeEnd;
  end;
