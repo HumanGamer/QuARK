@@ -536,6 +536,7 @@ begin
    if P=ConsoleHeight then P:=0;
   end;
  finally SelectObject(DC, Font); end;
+ PythonCodeEnd;
 end;
 
 procedure TConsoleForm.FormClose(Sender: TObject;
