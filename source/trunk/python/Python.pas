@@ -923,6 +923,10 @@ end;
 
 procedure SizeDownPython;
 begin
+  //GC doesn't work when PyErr is set
+  //See: https://github.com/python/cpython/commit/2fe940c727802ad54cff9486c658bc38743f7bfc
+  if PyErr_Occurred<>Nil then
+    Exit;
   if Assigned(PyGC_Collect) then
     PyGC_Collect;
 end;
