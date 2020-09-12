@@ -1,6 +1,7 @@
 #include "3d.h"
 
 //#define DEBUG
+//#define DEBUGCALLS
 //#define DEBUGCOLORS
 //#define DEBUGOOW
 //#define FULLBRIGHT
@@ -9,13 +10,13 @@
 #ifndef __cplusplus
 #include <stdlib.h>
 #include <string.h>
-#if defined(DEBUG) | defined(DEBUGCOLORS) | defined(DEBUGOOW)
+#if defined(DEBUG) | defined(DEBUGCALLS) | defined(DEBUGCOLORS) | defined(DEBUGOOW)
 #include <stdio.h>
 #endif
 #else
 #include <cstdlib>
 #include <cstring>
-#if defined(DEBUG) | defined(DEBUGCOLORS) | defined(DEBUGOOW)
+#if defined(DEBUG) | defined(DEBUGCALLS) | defined(DEBUGCOLORS) | defined(DEBUGOOW)
 #include <cstdio>
 #endif
 #endif
@@ -52,6 +53,7 @@ FxU32 *texturepalette;        // GuPalette format
 FxU32 schemecolor;
 FxU32 scheme;
 FxU32 currentpalette[256];    // [X] bbbggggrrrr00000 0000000000000000  format
+                              // [T,S] GuTexPalette format (ARGB8888, with A ignored)
 //GrFog_t fogtable[GR_FOG_TABLE_SIZE];
 //float fogdensity;
 FxU32 *fullpalette;		// 256x256 array of true colors indexed by high word of framebuffer pixels
@@ -83,7 +85,7 @@ FxU32 SchemesUsageTime[COLORSCHEMES];
 #define l_macro(l,c) (((c)*(l))>>(lightbits+8))
 #define z_macro(l)   ((l)>>lightbits)
 
-#if defined(DEBUG) | defined(DEBUGCOLORS) | defined(DEBUGOOW)
+#if defined(DEBUG) | defined(DEBUGCALLS) | defined(DEBUGCOLORS) | defined(DEBUGOOW)
 #define logfilename "qrksoftg.log"
 FILE* logfile = 0;
 #endif
@@ -97,6 +99,11 @@ void BuildFullPalette(void)
 	unsigned int ls[COLORSCHEMES][3];
 	unsigned int lsfactor[SOLIDCOLORSCHEMES][3];
 	float lightfactor;
+
+    #ifdef DEBUGCALLS
+    fprintf(logfile, "BuildFullPalette()\n");
+    fflush(logfile);
+    #endif
 
 	fogmax = FOGMAX;
 	if (unifiedpalettemode)
@@ -148,6 +155,7 @@ void BuildFullPalette(void)
 			{
 				#ifdef DEBUGCOLORS
 				fprintf(logfile, "BuildFullPalette: Unified palette AND GR_COLORCOMBINE_TEXTURE");
+                fflush(logfile);
 				#endif
 				for (s=0; s<COLORSCHEMES; s++)
 				{
@@ -166,11 +174,13 @@ void BuildFullPalette(void)
 						                  | (l_macro(ls[s][2], c>>16) << 16);
 						#ifdef DEBUGCOLORS
 						fprintf(logfile, "  %06x", fullpalette[base]);
+                        fflush(logfile);
 						#endif
 					}
 				}
 				#ifdef DEBUGCOLORS
 				fprintf(logfile, "\n");
+                fflush(logfile);
 				#endif
 			}
 			else
@@ -178,6 +188,7 @@ void BuildFullPalette(void)
 				unsigned int base = j;
 				#ifdef DEBUGCOLORS
 				fprintf(logfile, "BuildFullPalette: Unified palette AND NOT GR_COLORCOMBINE_TEXTURE");
+                fflush(logfile);
 				#endif
 				for (s=0; s<SOLIDCOLORSCHEMES; s++, base+=SOLIDFOGMAX)
 				{
@@ -186,10 +197,12 @@ void BuildFullPalette(void)
 					                  | (z_macro(l*lsfactor[s][2]) << 16);
 					#ifdef DEBUGCOLORS
 					fprintf(logfile, "  %06x", fullpalette[base]);
+                    fflush(logfile);
 					#endif
 				}
 				#ifdef DEBUGCOLORS
 				fprintf(logfile, "\n");
+                fflush(logfile);
 				#endif
 			}
 		}
@@ -203,6 +216,7 @@ void BuildFullPalette(void)
 
 			#ifdef DEBUGCOLORS
 			fprintf(logfile, "BuildFullPalette: NOT Unified palette");
+            fflush(logfile);
 			#endif
 			for (bb=0x03*l, bcount=0; bcount<8; bb+=l24, bcount++)
 				for (gg=gcount=0; gcount<16; gg+=l11, gcount++)
@@ -213,11 +227,13 @@ void BuildFullPalette(void)
 						                  | (z_macro(bb));
 						#ifdef DEBUGCOLORS
 						fprintf(logfile, "  %06x", fullpalette[base]);
+                        fflush(logfile);
 						#endif
 						base+=FOGMAX;
 					}
 			#ifdef DEBUGCOLORS
 			fprintf(logfile, "\n");
+            fflush(logfile);
 			#endif
 		}
 	}
@@ -229,6 +245,11 @@ void BuildFullPalette(void)
 
 void FreeFullPalette(void)
 {
+    #ifdef DEBUGCALLS
+    fprintf(logfile, "FreeFullPalette()\n");
+    fflush(logfile);
+    #endif
+
 	free(fullpalette);
 	fullpalette=0;
 }
@@ -243,12 +264,19 @@ void FillCurrentPalette(void)
 {
 	unsigned int i;
 	FxU32 c;
+
+    #ifdef DEBUGCALLS
+    fprintf(logfile, "FillCurrentPalette()\n");
+    fflush(logfile);
+    #endif
+
 	if (!unifiedpalettemode)
 	{
 		if (schemecolor == 0xFFFFFF)
 		{
 			#ifdef DEBUGCOLORS
 			fprintf(logfile, "FillCurrentPalette: NOT Unified palette AND NOT schemecolor");
+            fflush(logfile);
 			#endif
 			for (i=0; i<256; i++)
 			{
@@ -256,16 +284,19 @@ void FillCurrentPalette(void)
 				currentpalette[i] = PACKCOLOR(c);
 				#ifdef DEBUGCOLORS
 				fprintf(logfile, "  %08x", currentpalette[i]);
+                fflush(logfile);
 				#endif
 			}
 			#ifdef DEBUGCOLORS
 			fprintf(logfile, "\n");
+            fflush(logfile);
 			#endif
 		}
 		else
 		{
 			#ifdef DEBUGCOLORS
 			fprintf(logfile, "FillCurrentPalette: NOT Unified palette AND schemecolor");
+            fflush(logfile);
 			#endif
 			FxU32 rbase = schemecolor & 0xFF;
 			FxU32 gbase = (schemecolor>>8) & 0xFF;
@@ -278,10 +309,12 @@ void FillCurrentPalette(void)
 				                  | (c_macro(bbase, c) << 29);
 				#ifdef DEBUGCOLORS
 				fprintf(logfile, "  %08x", currentpalette[i]);
+                fflush(logfile);
 				#endif
 			}
 			#ifdef DEBUGCOLORS
 			fprintf(logfile, "\n");
+            fflush(logfile);
 			#endif
 		}
 	}
@@ -290,11 +323,26 @@ void FillCurrentPalette(void)
 
 int __stdcall softgQuArK(void)
 {
+    #if defined(DEBUG) | defined(DEBUGCALLS) | defined(DEBUGCOLORS) | defined(DEBUGOOW)
+    #pragma warning(suppress : 4996)
+    logfile = fopen(logfilename, "w");
+    #endif
+
+    #ifdef DEBUGCALLS
+    fprintf(logfile, "softgQuArK()\n");
+    fflush(logfile);
+    #endif
+
 	return SOFTG_QUARK_VERSION_NUMBER;
 }
 
 void FillOowTable(unsigned int fogmask)
 {
+    #ifdef DEBUGCALLS
+    fprintf(logfile, "FillOowTable(%u)\n", fogmask);
+    fflush(logfile);
+    #endif
+
 	if (!flatdisplay)
 	{
 		unsigned int i;
@@ -333,6 +381,11 @@ void setschemecolor(void)
 	unsigned int i, j;
 	static FxU32 time = 0;
 	FxU32 mintime, color;
+
+    #ifdef DEBUGCALLS
+    fprintf(logfile, "setschemecolor()\n");
+    fflush(logfile);
+    #endif
 
 	if (colormode & GR_COLORCOMBINE_CCRGB)
 		color = schemecolor;
@@ -386,6 +439,11 @@ void setschemecolor(void)
 
 void __stdcall grConstantColorValue(GrColor_t color)
 {
+    #ifdef DEBUGCALLS
+    fprintf(logfile, "grConstantColorValue(%u)\n", color);
+    fflush(logfile);
+    #endif
+
 	schemecolor = color & 0xFFFFFF;
 	if (unifiedpalettemode)
 		setschemecolor();
@@ -398,6 +456,11 @@ void __stdcall grConstantColorValue(GrColor_t color)
 
 void __stdcall guColorCombineFunction(GrColorCombineFunction_t func)
 {
+    #ifdef DEBUGCALLS
+    fprintf(logfile, "guColorCombineFunction(%d)\n", func);
+    fflush(logfile);
+    #endif
+
 	if (unifiedpalettemode)
 	{
 		if ((colormode^func) & GR_COLORCOMBINE_TEXTURE)
@@ -413,6 +476,11 @@ void __stdcall guColorCombineFunction(GrColorCombineFunction_t func)
 
 void __stdcall grHints(GrHint_t type, FxU32 hintMask)
 {
+    #ifdef DEBUGCALLS
+    fprintf(logfile, "grHints(%u, %u)\n", type, hintMask);
+    fflush(logfile);
+    #endif
+
 	if (type == GR_HINT_STWHINT)
 	{
 		hintMask &= GR_STWHINT_W_DIFF_TMU0;
@@ -436,6 +504,11 @@ void __stdcall grTexSource(GrChipID_t tmu, FxU32 startAddress, FxU32 evenOdd, Gr
 	int texwbits, texhbits;
 	int size1=8-info->largeLod;
 
+    #ifdef DEBUGCALLS
+    fprintf(logfile, "grTexSource(%d, %u, %u, %p)\n", tmu, startAddress, evenOdd, info);
+    fflush(logfile);
+    #endif
+
 	//texsource=info;
 	texdata = (FxU8*) info->data;
 	if (info->aspectRatio<=3)
@@ -452,6 +525,7 @@ void __stdcall grTexSource(GrChipID_t tmu, FxU32 startAddress, FxU32 evenOdd, Gr
 	stowbase = 1.0/(256>>size1);
 	#ifdef DEBUG
 	fprintf(logfile, "texwbits=%d   texwmask=%d   texhbits=%d   texhmask=%d\n", texwbits, texwmask, texhbits, texhmask);
+    fflush(logfile);
 	#endif
 
 	if (info->format == GR_TEXFMT_RGB_565)
@@ -474,6 +548,11 @@ void __stdcall grTexSource(GrChipID_t tmu, FxU32 startAddress, FxU32 evenOdd, Gr
 
 void setunifiedpalette(unsigned int n)
 {
+    #ifdef DEBUGCALLS
+    fprintf(logfile, "setunifiedpalette(%u)\n", n);
+    fflush(logfile);
+    #endif
+
 	unifiedpalettemode = n;
 	schemecolor = 0xFFFFFFu;
 	if (unifiedpalettemode)
@@ -499,13 +578,17 @@ void setunifiedpalette(unsigned int n)
 //#define framepixel(i)	fullpalette[((FxU16*)framebuffer)[(i)*2+1]]
 #define framepixel(i)	fullpalette[*((FxU16*)(framebufferex+i))]
 
-
 void __stdcall softgLoadFrameBuffer(int *buffer, int format)
 {
   static FxU32* framebufferex;
   unsigned int i, end;
   int j, bufferline;
   FxU32 c1, c2, c3, c4, c5, c6, c7, c8, c9, c10;
+
+  #ifdef DEBUGCALLS
+  fprintf(logfile, "softgLoadFrameBuffer(%p, %d)\n", buffer, format);
+  fflush(logfile);
+  #endif
 
   if (!buffer)
   {
@@ -597,7 +680,6 @@ void __stdcall softgLoadFrameBuffer(int *buffer, int format)
 
 #define VERYSMALL(value)  ((value)<EPSILON && (value)>-EPSILON)
 
-
 void __stdcall grDrawTriangle(const GrVertex *a, const GrVertex *b, const GrVertex *c)
 {
   const GrVertex *d, *a2, *b2, *c2;
@@ -606,6 +688,11 @@ void __stdcall grDrawTriangle(const GrVertex *a, const GrVertex *b, const GrVert
   int padright, curx2, s, t, i;
   float temp, temp1, curhx, curvy, left, right, left1, right1;
   FxU32 *dest;
+
+  #ifdef DEBUGCALLS
+  fprintf(logfile, "grDrawTriangle(%p, %p, %p)\n", a, b, c);
+  fflush(logfile);
+  #endif
 
   if (a->y > b->y) {d=a; a=b; b=d;}
   if (a->y > c->y) {d=a; a=c; c=d;}
@@ -621,6 +708,7 @@ void __stdcall grDrawTriangle(const GrVertex *a, const GrVertex *b, const GrVert
   curhx = a->x + (c->x - a->x) * temp;
   #ifdef DEBUG
   fprintf(logfile, "scanline %d   midline %d   lastline %d   curhx %f\n", scanline, midline, lastline, curhx);
+  fflush(logfile);
   #endif
   if (VERYSMALL(b->x-curhx)) return;
   if (b->x>curhx)
@@ -638,10 +726,12 @@ void __stdcall grDrawTriangle(const GrVertex *a, const GrVertex *b, const GrVert
 
   #ifdef DEBUGOOW
   fprintf(logfile, "a->oow=%f   b->oow=%f   c->oow=%f\n", a->oow, b->oow, c->oow);
+  fflush(logfile);
   #endif
 
   #ifdef DEBUG
   fprintf(logfile, "colormode %d\n", colormode);
+  fflush(logfile);
   #endif
 
   if (colormode & GR_COLORCOMBINE_TEXTURE)
@@ -649,6 +739,7 @@ void __stdcall grDrawTriangle(const GrVertex *a, const GrVertex *b, const GrVert
     unsigned int displayroutines = unifiedpalettemode | flatdisplay | texture_mode;
     #ifdef DEBUG
     fprintf(logfile, "displayroutines %d\n", displayroutines);
+    fflush(logfile);
     #endif
 
     if (!texturepaletteok)
@@ -688,6 +779,7 @@ void __stdcall grDrawTriangle(const GrVertex *a, const GrVertex *b, const GrVert
     cur.oow = a->oow*OOWTABLEBASE           + temp*deltah.oow + temp1*deltav.oow;
     #ifdef DEBUGOOW
     fprintf(logfile, "cur.oow=%f   deltah.oow=%f   deltav.oow=%f\n", cur.oow, deltah.oow, deltav.oow);
+    fflush(logfile);
     #endif
     if (scanline<=midline)
     {
@@ -714,6 +806,7 @@ void __stdcall grDrawTriangle(const GrVertex *a, const GrVertex *b, const GrVert
           left1 = (c->x - b->x) / (c->y - b->y);
           #ifdef DEBUG
           fprintf(logfile, "b %f %f    c %f %f    left1 %f\n", b->x, b->y, c->x, c->y, left1);
+          fflush(logfile);
           #endif
           left = b->x + temp1*left1 + 0.999;
           right = curhx + temp1*right1;
@@ -726,6 +819,7 @@ void __stdcall grDrawTriangle(const GrVertex *a, const GrVertex *b, const GrVert
       {
         #ifdef DEBUG
         fprintf(logfile, "%d - %d\n", minx, maxx);
+        fflush(logfile);
         #endif
         for (; curx<minx; curx++)
         {
@@ -753,6 +847,7 @@ void __stdcall grDrawTriangle(const GrVertex *a, const GrVertex *b, const GrVert
             else if (i<0) i=0;
             #ifdef DEBUGOOW
             fprintf(logfile, "oow index: %d\n", i);
+            fflush(logfile);
             #endif
             if (i>((FxU16)(dest[curx])))
             {
@@ -778,6 +873,7 @@ void __stdcall grDrawTriangle(const GrVertex *a, const GrVertex *b, const GrVert
             else if (i<0) i=0;
             #ifdef DEBUGOOW
             fprintf(logfile, "oow index: %d\n", i);
+            fflush(logfile);
             #endif
             if (i>((FxU16)(dest[curx2])))
             {
@@ -795,6 +891,7 @@ void __stdcall grDrawTriangle(const GrVertex *a, const GrVertex *b, const GrVert
             else if (i<0) i=0;
             #ifdef DEBUGOOW
             fprintf(logfile, "oow index: %d\n", i);
+            fflush(logfile);
             #endif
             if (i>((FxU16)(dest[curx])))
             {
@@ -821,6 +918,7 @@ void __stdcall grDrawTriangle(const GrVertex *a, const GrVertex *b, const GrVert
             else if (i<0) i=0;
             #ifdef DEBUGOOW
             fprintf(logfile, "oow index: %d\n", i);
+            fflush(logfile);
             #endif
             if (i>((FxU16)(dest[curx2])))
             {
@@ -839,6 +937,7 @@ void __stdcall grDrawTriangle(const GrVertex *a, const GrVertex *b, const GrVert
             else if (i<0) i=0;
             #ifdef DEBUGOOW
             fprintf(logfile, "oow index: %d\n", i);
+            fflush(logfile);
             #endif
             if (i>((FxU16)(dest[curx])))
             {
@@ -862,6 +961,10 @@ void __stdcall grDrawTriangle(const GrVertex *a, const GrVertex *b, const GrVert
             i = (int)cur2.oow;
             if (i>=OOWTABLESIZE) i=OOWTABLESIZE-1;
             else if (i<0) i=0;
+            #ifdef DEBUGOOW
+            fprintf(logfile, "oow index: %d\n", i);
+            fflush(logfile);
+            #endif
             if (i>((FxU16)(dest[curx2])))
             {
               s = (int)cur2.sow;
@@ -878,6 +981,7 @@ void __stdcall grDrawTriangle(const GrVertex *a, const GrVertex *b, const GrVert
             else if (i<0) i=0;
             #ifdef DEBUGOOW
             fprintf(logfile, "oow index: %d\n", i);
+            fflush(logfile);
             #endif
             if (i>((FxU16)(dest[curx])))
             {
@@ -902,6 +1006,10 @@ void __stdcall grDrawTriangle(const GrVertex *a, const GrVertex *b, const GrVert
             i = (int)cur2.oow;
             if (i>=OOWTABLESIZE) i=OOWTABLESIZE-1;
             else if (i<0) i=0;
+            #ifdef DEBUGOOW
+            fprintf(logfile, "oow index: %d\n", i);
+            fflush(logfile);
+            #endif
             if (i>((FxU16)(dest[curx2])))
             {
               temp = oow_to_w[i];
@@ -919,6 +1027,7 @@ void __stdcall grDrawTriangle(const GrVertex *a, const GrVertex *b, const GrVert
             else if (i<0) i=0;
             #ifdef DEBUGOOW
             fprintf(logfile, "oow index: %d\n", i);
+            fflush(logfile);
             #endif
             if (i>((FxU16)(dest[curx])))
             {
@@ -942,6 +1051,10 @@ void __stdcall grDrawTriangle(const GrVertex *a, const GrVertex *b, const GrVert
             i = (int)cur2.oow;
             if (i>=OOWTABLESIZE) i=OOWTABLESIZE-1;
             else if (i<0) i=0;
+            #ifdef DEBUGOOW
+            fprintf(logfile, "oow index: %d\n", i);
+            fflush(logfile);
+            #endif
             if (i>((FxU16)(dest[curx2])))
             {
               s = (int)cur2.sow;
@@ -958,6 +1071,7 @@ void __stdcall grDrawTriangle(const GrVertex *a, const GrVertex *b, const GrVert
             else if (i<0) i=0;
             #ifdef DEBUGOOW
             fprintf(logfile, "oow index: %d\n", i);
+            fflush(logfile);
             #endif
             if (i>((FxU16)(dest[curx])))
             {
@@ -984,6 +1098,7 @@ void __stdcall grDrawTriangle(const GrVertex *a, const GrVertex *b, const GrVert
             else if (i<0) i=0;
             #ifdef DEBUGOOW
             fprintf(logfile, "oow index: %d\n", i);
+            fflush(logfile);
             #endif
             if (i>((FxU16)(dest[curx2])))
             {
@@ -1042,6 +1157,7 @@ void __stdcall grDrawTriangle(const GrVertex *a, const GrVertex *b, const GrVert
     cur.oow = a->oow*OOWTABLEBASE           + temp*deltah.oow + temp1*deltav.oow;
     #ifdef DEBUGOOW
     fprintf(logfile, "cur.oow=%f   deltah.oow=%f   deltav.oow=%f\n", cur.oow, deltah.oow, deltav.oow);
+    fflush(logfile);
     #endif
     if (scanline<=midline)
     {
@@ -1068,6 +1184,7 @@ void __stdcall grDrawTriangle(const GrVertex *a, const GrVertex *b, const GrVert
           left1 = (c->x - b->x) / (c->y - b->y);
           #ifdef DEBUG
           fprintf(logfile, "b %f %f    c %f %f    left1 %f\n", b->x, b->y, c->x, c->y, left1);
+          fflush(logfile);
           #endif
           left = b->x + temp1*left1 + 0.999;
           right = curhx + temp1*right1;
@@ -1080,6 +1197,7 @@ void __stdcall grDrawTriangle(const GrVertex *a, const GrVertex *b, const GrVert
       {
         #ifdef DEBUG
         fprintf(logfile, "%d - %d\n", minx, maxx);
+        fflush(logfile);
         #endif
         for (; curx<minx; curx++)
         {
@@ -1098,6 +1216,7 @@ void __stdcall grDrawTriangle(const GrVertex *a, const GrVertex *b, const GrVert
           else if (i<0) i=0;
           #ifdef DEBUGOOW
           fprintf(logfile, "oow index: %d\n", i);
+          fflush(logfile);
           #endif
           if (i>((FxU16)(dest[curx])))
           {
@@ -1117,6 +1236,7 @@ void __stdcall grDrawTriangle(const GrVertex *a, const GrVertex *b, const GrVert
           else if (i<0) i=0;
           #ifdef DEBUGOOW
           fprintf(logfile, "oow index: %d\n", i);
+          fflush(logfile);
           #endif
           if (i>((FxU16)(dest[curx2])))
           {
@@ -1144,11 +1264,21 @@ void __stdcall grDrawTriangle(const GrVertex *a, const GrVertex *b, const GrVert
 
 void __stdcall grBufferClear(GrColor_t color, GrAlpha_t alpha, FxU16 depth)
 {
+    #ifdef DEBUGCALLS
+    fprintf(logfile, "grBufferClear(%u, %u, %u)\n", color, alpha, depth);
+    fflush(logfile);
+    #endif
+	
 	memset(framebuffer, 0, framecount*sizeof(FxU32));
 }
 
 /*void grFogTable(void *table)
 {
+    #ifdef DEBUGCALLS
+    fprintf(logfile, "grFogTable(%p)\n", table);
+    fflush(logfile);
+    #endif
+
 	if (fullpalette)
 		FreeFullPalette();
 	memcpy(&fogtable, table, sizeof(fogtable));
@@ -1156,6 +1286,11 @@ void __stdcall grBufferClear(GrColor_t color, GrAlpha_t alpha, FxU16 depth)
 
 void __stdcall grTexDownloadTable(GrChipID_t tmu, GrTexTable_t type, void *data)
 {
+    #ifdef DEBUGCALLS
+    fprintf(logfile, "grTexDownloadTable(%d, %u, %p)\n", tmu, type, data);
+    fflush(logfile);
+    #endif
+
 	if (unifiedpalettemode)
 	{
 		if (fullpalette)
@@ -1173,22 +1308,29 @@ void __stdcall grGlideInit(void)
 {
 	unsigned int i;
 
+    #ifdef DEBUGCALLS
+    fprintf(logfile, "grGlideInit()\n");
+    fflush(logfile);
+    #endif
+
 	//fogdensity = 1;
 	oow_to_w[0] = 1.0*OOWTABLEBASE;
 	for (i=1; i<OOWTABLESIZE; i++)
 		oow_to_w[i] = (1.0*OOWTABLEBASE)/i;
 	colormode = GR_COLORCOMBINE_TEXTURE;
 	flatdisplay = 0;
+    texturepalette = 0;
+    memset(currentpalette, 0, sizeof(currentpalette));
 	setunifiedpalette(0);
-
-	#if defined(DEBUG) | defined(DEBUGCOLORS) | defined(DEBUGOOW)
-	#pragma warning(suppress : 4996)
-	logfile = fopen(logfilename, "w");
-	#endif
 }
 
 void __stdcall grClipWindow(FxU32 minx, FxU32 miny, FxU32 maxx, FxU32 maxy)
 {
+    #ifdef DEBUGCALLS
+    fprintf(logfile, "grClipWindow(%u, %u, %u, %u)\n", minx, miny, maxx, maxy);
+    fflush(logfile);
+    #endif
+
 	if (framebuffer)
 		free(framebuffer);
 	framew = maxx-minx;
@@ -1205,12 +1347,22 @@ void __stdcall grClipWindow(FxU32 minx, FxU32 miny, FxU32 maxx, FxU32 maxy)
 
 FxBool __stdcall grSstWinOpen(FxU32 hwnd, GrScreenResolution_t res, GrScreenRefresh_t ref, GrColorFormat_t cformat, GrOriginLocation_t org_loc, int num_buffers, int num_aux_buffers)
 {
+    #ifdef DEBUGCALLS
+    fprintf(logfile, "grSstWinOpen(%u, %u, %u, %d, %d, %d, %d)\n", hwnd, res, ref, cformat, org_loc, num_buffers, num_aux_buffers);
+    fflush(logfile);
+    #endif
+
 	grClipWindow(0,0,640,480);
 	return 1;
 }
 
 void __stdcall grSstWinClose(void)
 {
+    #ifdef DEBUGCALLS
+    fprintf(logfile, "grSstWinClose()\n");
+    fflush(logfile);
+    #endif
+
 	free(framebuffer);
 	framebuffer=0;
 	if (fullpalette)
@@ -1219,16 +1371,31 @@ void __stdcall grSstWinClose(void)
 
 /*void __stdcall grFogMode(GrFogMode_t mode)
 {
+    #ifdef DEBUGCALLS
+    fprintf(logfile, "grFogMode(%u)\n", mode);
+    fflush(logfile);
+    #endif
+
 	//FIXME
 }*/
 
 /*void __stdcall grFogColorValue(GrColor_t color)
 {
+    #ifdef DEBUGCALLS
+    fprintf(logfile, "grFogColorValue(%u)\n", color);
+    fflush(logfile);
+    #endif
+
 	//FIXME
 }*/
 
-/*void __stdcall guFogGenerateExp2(void *reserved1, float density)
+/*void __stdcall guFogGenerateExp2(GrFog_t *fogtable, float density)
 {
+    #ifdef DEBUGCALLS
+    fprintf(logfile, "guFogGenerateExp2(%p, %f)\n", fogtable, density);
+    fflush(logfile);
+    #endif
+
 	if (fullpalette)
 		FreeFullPalette();
 	fogdensity = density;

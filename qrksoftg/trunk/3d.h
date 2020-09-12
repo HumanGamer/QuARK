@@ -100,7 +100,7 @@ int  __declspec(dllexport) __stdcall softgQuArK(void);
 void __declspec(dllexport) __stdcall grConstantColorValue(GrColor_t color);
 //void __declspec(dllexport) __stdcall grFogMode(GrFogMode_t mode);
 //void __declspec(dllexport) __stdcall grFogColorValue(GrColor_t color);
-//void __declspec(dllexport) __stdcall guFogGenerateExp2(GrFogTable_t *fogtable, float density);
+//void __declspec(dllexport) __stdcall guFogGenerateExp2(GrFog_t *fogtable, float density);
 void __declspec(dllexport) __stdcall guColorCombineFunction(GrColorCombineFunction_t func);
 void __declspec(dllexport) __stdcall grHints(GrHint_t type, FxU32 hintMask);
 
