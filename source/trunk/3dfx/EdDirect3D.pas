@@ -871,7 +871,10 @@ var
   PList: PSurfaces;
 begin
   if not Direct3DLoaded then
-    Exit;
+    raise EError(6007);
+
+  if Coord = Nil then
+    raise EError(6007);
 
   //If the viewport has been resized, then tell Direct3D what happened
   if (ScreenResized = True) then
@@ -1107,7 +1110,7 @@ var
   Dest: PByte;
 begin
   if not Direct3DLoaded then
-    Exit;
+    raise EError(6007);
 
   if WorkaroundGDI then
   begin

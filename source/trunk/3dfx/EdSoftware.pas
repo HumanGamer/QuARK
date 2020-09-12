@@ -775,7 +775,12 @@ end;
 
 procedure TSoftwareSceneObject.Render3DView;
 begin
+ if not RendererLoaded then
+  raise EError(6007);
+
  CCoord:=Coord;  { PyMath.CCoord }
+ if CCoord = Nil then
+  raise EError(6007);
  if CCoord.FlatDisplay then
  begin
    InitFlatZ;
@@ -1647,6 +1652,9 @@ var
   end;
 
 begin
+ if not RendererLoaded then
+  raise EError(6007);
+
  FillChar(bmiHeader, SizeOf(bmiHeader), 0);
  FillChar(BmpInfo, SizeOf(BmpInfo), 0);
  with bmiHeader do

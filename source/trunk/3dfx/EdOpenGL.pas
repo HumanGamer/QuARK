@@ -928,7 +928,7 @@ var
   DIBSection: HGDIOBJ;
 begin
   if not OpenGlLoaded then
-    Exit;
+    raise EError(6007);
 
   if WorkaroundGDI then
   begin
@@ -1322,7 +1322,10 @@ var
  OldFPControl, FPControl: Word;
 begin
   if not OpenGlLoaded then
-    Exit;
+    raise EError(6007);
+
+  if Coord = Nil then
+    raise EError(6007);
 
   if WorkaroundFPExceptions then
   asm

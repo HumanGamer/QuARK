@@ -928,7 +928,12 @@ procedure TGlideSceneObject.Render3DView;
 var
  OldMinDist, OldMaxDist: TDouble;
 begin
+ if not GlideLoaded then
+  raise EError(6007);
+
  CCoord:=Coord;  { PyMath.CCoord }
+ if CCoord = Nil then
+  raise EError(6007);
  if CCoord.FlatDisplay then
  begin
    InitFlatZ;
@@ -1781,6 +1786,9 @@ var
   end;
 
 begin
+ if not GlideLoaded then
+  raise EError(6007);
+
  (* In case of hardware drawing:
   grBufferSwap(0);
   grSstIdle;

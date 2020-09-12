@@ -683,28 +683,17 @@ begin
  if (Scene<>Nil) then
   Scene.SetDrawRect(rcPaint);
 
- case DrawMode of
- dmFull:
-  begin
-   if Animation<>Nil then
-    Canvas.Handle:=Animation^.DC
-   else
-    Canvas.Handle:=DC;
-
-   try
-    Render;
-   finally
-    if Animation<>Nil then
-     Canvas.Handle:=Animation^.SrcDC
-    else
-     Canvas.Handle:=0;
-   end;
-  end;
- dmRenderingOnly:
-  begin
-   Scene.Render3DView();
-   Scene.Draw3DView();
-  end;
+ if Animation<>Nil then
+  Canvas.Handle:=Animation^.DC
+ else
+  Canvas.Handle:=DC;
+ try
+  Render;
+ finally
+  if Animation<>Nil then
+   Canvas.Handle:=Animation^.SrcDC
+  else
+   Canvas.Handle:=0;
  end;
 end;
 
@@ -810,6 +799,8 @@ begin
 end;
 
 procedure TPyMapView.Render;
+var
+ S: String;
 begin
  if MapViewProj<>Nil then
   begin
@@ -823,6 +814,28 @@ begin
  try
   if BackgroundImage.Image<>nil then
    PaintBackground;
+
+  case DrawMode of
+   dmFull:
+    ; //FIXME
+   dmRenderingOnly:
+    begin
+     try
+      Scene.Render3DView();
+      Scene.Draw3DView();
+     except
+      on E: Exception do
+       begin
+        S:=GetExceptionMessage(E);
+        Log(LOG_WARNING, LoadStr1(5790), [S]);
+        ClearPanel(S);
+        Scene.ClearScene;
+        Drawing:=Drawing or dfRebuildScene;
+       end;
+     end;
+     Exit;
+    end;
+   end;
 
   if (ViewMode = vmWireframe) or (MapViewProj=Nil) then
    begin
@@ -3201,30 +3214,32 @@ begin
                 CameraMoved;
                end
               else
-               with Animation^ do
-                if ViewMode = vmWireframe then
-                 begin
-                  FillRect(SrcDC, GetClientRect, Brush);
-                  CallNotifyEvent(MapViewObject, FOnDraw, False);
-                  BitBlt(DC, 0, 0, ClientWidth, ClientHeight, SrcDC, 0, 0, srcCopy);
-                 end
-                else
-                 begin
-                  if not FPainting then
+               if ViewMode = vmWireframe then
+                begin
+                 with Animation^ do
                   begin
-                    DrawMode:=dmRenderingOnly;
-                    try
-                      Repaint;
-                    finally
-                      DrawMode:=dmFull;
-                    end;
-                  end
-                  else
-                  begin
-                    Scene.Render3DView();
-                    Scene.Draw3DView();
+                   FillRect(SrcDC, GetClientRect, Brush);
+                   CallNotifyEvent(MapViewObject, FOnDraw, False);
+                   BitBlt(DC, 0, 0, ClientWidth, ClientHeight, SrcDC, 0, 0, srcCopy);
                   end;
+                end
+               else
+                begin
+                 if not FPainting then
+                 begin
+                   DrawMode:=dmRenderingOnly;
+                   try
+                     Repaint;
+                   finally
+                     DrawMode:=dmFull;
+                   end;
+                 end
+                 else
+                 begin
+                   Scene.Render3DView();
+                   Scene.Draw3DView();
                  end;
+                end;
              end;
            Result:=0;
            Exit;

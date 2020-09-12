@@ -1078,6 +1078,7 @@ Strings = {
     6004: "Bad LOD",
     6005: "Bad reverse LOD",
     6006: "Bad aspect ratio",
+    6007: "Renderer was not initialized properly",
 
     6010: "Texture not loaded",
     6011: "Invalid value for %s found: %d. Using default",
