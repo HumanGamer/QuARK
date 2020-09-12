@@ -1575,6 +1575,7 @@ begin
   begin
    IdleJobs:=P^.Next;
    Dispose(P);
+   P:=IdleJobs;
   end;
 
  //Destroy all forms (except this one), to make sure all other forms
