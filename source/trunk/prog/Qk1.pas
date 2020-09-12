@@ -485,7 +485,7 @@ begin
      until (WaitForSingleObject(Disclaimer, 100)<>WAIT_TIMEOUT);
      CloseHandle(Disclaimer);
      //Disclaimer:=0;
-     Splash.Release;
+     Splash.Close;
      //Splash:=nil;
      Application.ProcessMessages;
    end;

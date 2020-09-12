@@ -82,6 +82,7 @@ type
   end;
   TSplashScreen = class(TForm)
     procedure RedrawSplashScreen(Sender : Tobject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   end;
 
 const
@@ -254,6 +255,7 @@ begin
  Image1.AutoSize:=True;
  SplashScreen.ClientWidth:=Image1.Width;
  SplashScreen.ClientHeight:=Image1.Height;
+ SplashScreen.OnClose:=SplashScreen.FormClose;
  SplashScreen.OnPaint:=SplashScreen.RedrawSplashScreen;
  SplashScreen.Show;
  SplashScreen.Update;
@@ -397,5 +399,10 @@ begin
  RedrawDisclaimer:=true;
 end;
 
-end.
+procedure TSplashScreen.FormClose(Sender : TObject; var Action : TCloseAction);
+begin
+ //FIXME: Stop the disclaimer thread, if still running? Or should Qk1 do that?
+ Action := caFree;
+end;
 
+end.
