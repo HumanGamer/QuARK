@@ -431,61 +431,64 @@ begin
    Splash:=nil;
    Disclaimer:=0;
  end;
+ try
+   // Set-up the console
+   Log(LOG_VERBOSE, 'Setting up console...');
+   InitConsole;
 
- // Set-up the console
- Log(LOG_VERBOSE, 'Setting up console...');
- InitConsole;
+   // Python initialization and Defaults.qrk and Setup.qrk loading
+   Log(LOG_VERBOSE, 'Initializing Python...');
+   InitPython;
 
- // Python initialization and Defaults.qrk and Setup.qrk loading
- Log(LOG_VERBOSE, 'Initializing Python...');
- InitPython;
-
- if g_CmdOptions.DoInstance and (SetupSubSet(ssGeneral, 'Startup').Specifics.Values['SingleInstance']<>'') then
- begin
-   if MutexError = ERROR_ALREADY_EXISTS then
-     begin
-       S:='An instance of QuArK is already running. This can cause serious problems. ';
-       S:=S+'For example, changed configuration settings might not be saved, and QuArK might not update correctly.'#13#10;
-       S:=S+'This check can be disabled (at own risk!) in the configuration settings.'#13#10#13#10;
-       S:=S+'Are you sure you want to start a new instance of QuArK?';
-       if Windows.MessageBox(0, PChar(S), PChar('QuArK'), MB_TASKMODAL or MB_YESNO or MB_ICONWARNING or MB_DEFBUTTON2) = idNo then
+   if g_CmdOptions.DoInstance and (SetupSubSet(ssGeneral, 'Startup').Specifics.Values['SingleInstance']<>'') then
+   begin
+     if MutexError = ERROR_ALREADY_EXISTS then
        begin
-         Application.Terminate;
-         Exit;
+         S:='An instance of QuArK is already running. This can cause serious problems. ';
+         S:=S+'For example, changed configuration settings might not be saved, and QuArK might not update correctly.'#13#10;
+         S:=S+'This check can be disabled (at own risk!) in the configuration settings.'#13#10#13#10;
+         S:=S+'Are you sure you want to start a new instance of QuArK?';
+         if Windows.MessageBox(0, PChar(S), PChar('QuArK'), MB_TASKMODAL or MB_YESNO or MB_ICONWARNING or MB_DEFBUTTON2) = idNo then
+         begin
+           Splash.Close;
+           Application.Terminate;
+           Exit;
+         end;
        end;
-     end;
- end;
+   end;
 
- { DanielPharos: It's safer to do the update-check BEFORE loading Python,
-   but then the option in the Defaults will have to be removed, since it
-   won't be loaded yet. Change this when the update-screen isn't a nag-screen
-   anymore! (Store data in registry?) }
- //Check for updates...
- if g_CmdOptions.DoUpdate and (SetupSubSet(ssGeneral, 'Startup').Specifics.Values['UpdateCheck']<>'') then
- begin
-   Log(LOG_VERBOSE, 'Checking for updates...');
-   DoUpdate(g_CmdOptions.OnlineUpdate, True);
- end;
+   { DanielPharos: It's safer to do the update-check BEFORE loading Python,
+     but then the option in the Defaults will have to be removed, since it
+     won't be loaded yet. Change this when the update-screen isn't a nag-screen
+     anymore! (Store data in registry?) }
+   //Check for updates...
+   if g_CmdOptions.DoUpdate and (SetupSubSet(ssGeneral, 'Startup').Specifics.Values['UpdateCheck']<>'') then
+   begin
+     Log(LOG_VERBOSE, 'Checking for updates...');
+     DoUpdate(g_CmdOptions.OnlineUpdate, True);
+   end;
 
- // Warn for bugs
- if (SetupSubSet(ssGeneral, 'Startup').Specifics.Values['BugCheck']<>'') then
-   WarnDriverBugs;
+   // Warn for bugs
+   if (SetupSubSet(ssGeneral, 'Startup').Specifics.Values['BugCheck']<>'') then
+     WarnDriverBugs;
 
- // Set-up OS specific things
- InitViewport16;
+   // Set-up OS specific things
+   InitViewport16;
 
- // Wait for splash screen to close
- if g_CmdOptions.DoSplash then
- begin
-   Log(LOG_VERBOSE, 'Waiting for splash screen...');
-   repeat
+ finally
+   // Wait for splash screen to close
+   if g_CmdOptions.DoSplash then
+   begin
+     Log(LOG_VERBOSE, 'Waiting for splash screen...');
+     repeat
+       Application.ProcessMessages;
+     until (WaitForSingleObject(Disclaimer, 100)<>WAIT_TIMEOUT);
+     CloseHandle(Disclaimer);
+     //Disclaimer:=0;
+     Splash.Release;
+     //Splash:=nil;
      Application.ProcessMessages;
-   until (WaitForSingleObject(Disclaimer, 100)<>WAIT_TIMEOUT);
-   CloseHandle(Disclaimer);
-   //Disclaimer:=0;
-   Splash.Release;
-   //Splash:=nil;
-   Application.ProcessMessages;
+   end;
  end;
 
  Log(LOG_VERBOSE, 'Preparing QuArK Explorer...');
