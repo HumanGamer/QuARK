@@ -14,6 +14,8 @@
 
 6.6.0 Beta 7
 ============
+* [DanielPharos]: Improved the software renderer to use 16-bit floating point depth buffering.
+
 * [DanielPharos]: Added experimental Genesis3D .bsp file loading and saving support.
 
 * [DanielPharos]: Quake 3 BSP file loader can now handle faces that have vertices that lay on

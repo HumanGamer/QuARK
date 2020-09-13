@@ -52,21 +52,24 @@ typedef struct { //__declspec(align(4))?
 	GrTmuVertex tmuvtx[2];
 } GrVertex;
 
+typedef struct { //__declspec(align(4))?
+	FxU32 data[256];
+} GuTexPalette;
+
 
 #define EPSILON          (1.0/64)
-#define MINWBITS         6
-#define MINW             (1<<MINWBITS)
-#define MAXW             (65535-128)
+#define MINW             (1)
+#define MAXW             (65535)
 #define OOWTABLEBITS     16
 #define OOWTABLESIZE     (1<<OOWTABLEBITS)
-#define OOWTABLEBASE     (OOWTABLESIZE<<MINWBITS)
-#define MAXOOWBIAS       (unsigned int)(OOWTABLEBASE/(float)MAXW)
+#define MAXOOWBIAS       (unsigned int)(OOWTABLESIZE/(float)MAXW)
 
 // --- Glide ---
 
 //#define GR_FOG_TABLE_SIZE      64
 
 //GrTextureFormat_t
+//#define GR_TEXFMT_P_8      5
 #define GR_TEXFMT_RGB_565  10
 #define GR_TEXFMT_RGB_443  222    // custom internal format; 11-bits (see RGBBITS)
 
@@ -100,7 +103,8 @@ int  __declspec(dllexport) __stdcall softgQuArK(void);
 void __declspec(dllexport) __stdcall grConstantColorValue(GrColor_t color);
 //void __declspec(dllexport) __stdcall grFogMode(GrFogMode_t mode);
 //void __declspec(dllexport) __stdcall grFogColorValue(GrColor_t color);
-//void __declspec(dllexport) __stdcall guFogGenerateExp2(GrFog_t *fogtable, float density);
+//void __declspec(dllexport) __stdcall guFogGenerateExp2(GrFog_t fogTable[GR_FOG_TABLE_SIZE], float density);
+//void __declspec(dllexport) __stdcall grFogTable(const GrFog_t table[GR_FOG_TABLE_SIZE]);
 void __declspec(dllexport) __stdcall guColorCombineFunction(GrColorCombineFunction_t func);
 void __declspec(dllexport) __stdcall grHints(GrHint_t type, FxU32 hintMask);
 

@@ -1575,6 +1575,7 @@ function GetGlideDummyHwnd: HWND;
 const
  SoftMultiplePalettes = 20;
  SoftTexFmt565        = 30;
+ SoftFullRangeW       = 31;
 
 function GlideTimesLoaded : Cardinal;
 function LoadGlide(const LibName, SearchDir: String) : Boolean;

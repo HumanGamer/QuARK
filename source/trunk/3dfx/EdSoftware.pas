@@ -98,7 +98,7 @@ uses Game, Quarkx, QkExceptions, Travail,
      PyMath3D, QkPixelSet, QkTextures, QkMapPoly, QkApplPaths;
 
 const
- //Software renderer has different bounds for now
+ //Older versions of the software renderer had different bounds
  softMinW = 64;
  softMaxW = 65535-128;
  softMinoow = 1.0001/softMaxW;
@@ -1587,10 +1587,13 @@ begin
                 if oow>Maxoow+1E-8 then Raise InternalE('N:Maxoow');
                 {$ENDIF}
                 tmuvtx[0].oow:=1.0;
-                if oow<softMinoow then
-                 oow:=softMinoow;
-                if oow>softMaxoow then
-                 oow:=softMaxoow;
+                if (RendererVersion<SoftFullRangeW) then
+                begin
+                  if oow<softMinoow then
+                   oow:=softMinoow;
+                  if oow>softMaxoow then
+                   oow:=softMaxoow;
+                end;
               end;
             end;
 
