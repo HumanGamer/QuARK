@@ -336,8 +336,11 @@ void FreeFullPalette(void)
 	fflush(logfile);
 	#endif
 
-	free(fullpalette);
-	fullpalette = 0;
+	if (fullpalette)
+	{
+		free(fullpalette);
+		fullpalette = 0;
+	}
 }
 
 int __stdcall softgQuArK(void)
@@ -469,8 +472,7 @@ void setschemecolor(void)
 		SchemeBaseColor[scheme] = color;
 		scheme <<= 8;
 	}
-	if (fullpalette)
-		FreeFullPalette();
+	FreeFullPalette();
 }
 
 void __stdcall grConstantColorValue(GrColor_t color)
@@ -500,8 +502,7 @@ void __stdcall guColorCombineFunction(GrColorCombineFunction_t func)
 	if (unifiedpalettemode)
 	{
 		if ((colormode^func) & GR_COLORCOMBINE_TEXTURE)
-			if (fullpalette)
-				FreeFullPalette();
+			FreeFullPalette();
 		colormode = func;
 		setschemecolor();
 	}
@@ -523,8 +524,7 @@ void __stdcall grHints(GrHint_t type, FxU32 hintMask)
 		if (hintMask!=flatdisplay)
 		{
 			flatdisplay = hintMask;
-			if (fullpalette)
-				FreeFullPalette();
+			FreeFullPalette();
 			if ((!unifiedpalettemode) || (colormode & GR_COLORCOMBINE_TEXTURE))
 				FillOowTable(FOGMAX-1);
 			else
@@ -610,8 +610,7 @@ void setunifiedpalette(unsigned int n)
 	{
 		scheme = PACKCOLOR(0xFFFFFFu);
 		FillOowTable(FOGMAX-1);
-		if (fullpalette)
-			FreeFullPalette();
+		FreeFullPalette();
 	}
 }
 
@@ -1336,8 +1335,7 @@ void __stdcall grBufferClear(GrColor_t color, GrAlpha_t alpha, FxU16 depth)
 	fflush(logfile);
 	#endif
 
-	if (fullpalette)
-		FreeFullPalette();
+	FreeFullPalette();
 	memcpy(&fogtable, table, sizeof(fogtable));
 }*/
 
@@ -1423,8 +1421,7 @@ void __stdcall grSstWinClose(void)
 	framebuffer=0;
 	free(depthbuffer);
 	depthbuffer = 0;
-	if (fullpalette)
-		FreeFullPalette();
+	FreeFullPalette();
 }
 
 /*void __stdcall grFogMode(GrFogMode_t mode)
@@ -1454,8 +1451,7 @@ void __stdcall grSstWinClose(void)
 	fflush(logfile);
 	#endif
 
-	if (fullpalette)
-		FreeFullPalette();
+	FreeFullPalette();
 	fogdensity = density;
 }*/
 
