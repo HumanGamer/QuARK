@@ -7,6 +7,10 @@
 //#define FULLBRIGHT
 //#define NOFOG
 
+#ifdef _MSC_VER
+#define _CRT_DISABLE_PERFCRIT_LOCKS
+#endif
+
 #ifndef __cplusplus
 #include <stdlib.h>
 #include <string.h>
