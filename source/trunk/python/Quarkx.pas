@@ -3422,7 +3422,10 @@ begin
  try
   obj:=PyDict_GetItem(Py_xStrings, @key);
   if obj=Nil then
+  begin
+   Log(LOG_WARNING, 'Cannot find string number %d in LoadStr1!', [I]);
    Exit;
+  end;
   P:=PyString_AsString(obj);
   if P<>Nil then
    Result:=StrPas(P);
