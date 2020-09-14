@@ -1736,6 +1736,11 @@ expected one.
    Surface: TFace;
    TexPath: String;
  begin
+  //Initialize ZVect
+  ZVect.X:=0;
+  ZVect.Y:=0;
+  ZVect.Z:=1;
+
   ReadSymbol(sStringToken); // lbrace follows "brushDef"
   ReadSymbol(sCurlyBracketLeft); // data follows lbrace
   P:=TPolyhedron.Create(LoadStr1(138), EntitePoly);
@@ -1780,7 +1785,6 @@ expected one.
     { Convert to map space }
     GetAxisBase(Surface.Normale, TexS, TexT);
     Tex0:=VecScale(Surface.Dist, Surface.Normale);
-    ZVect.X:=0; ZVect.Y:=0; ZVect.Z:=1;
     Matrix:=MatrixFromCols(TexS, TexT, ZVect);
     P0:=VecSum(MatrixMultByVect(Matrix,P0),Tex0);
     P1:=VecSum(MatrixMultByVect(Matrix,P1),Tex0);
@@ -1834,6 +1838,11 @@ expected one.
    TexPath: String;
    QTmp: QPixelSet;
  begin
+  //Initialize ZVect
+  ZVect.X:=0;
+  ZVect.Y:=0;
+  ZVect.Z:=1;
+
   ReadSymbol(sStringToken); // lbrace follows "brushDef2" or "brushDef3"
   ReadSymbol(sCurlyBracketLeft); // texture follows lbrace
   P:=TPolyhedron.Create(LoadStr1(138), EntitePoly);
@@ -1895,7 +1904,6 @@ expected one.
     GetAxisBase(Surface.Normale, TexS, TexT);
     {GetAxisBase(normal, TexS, TexT);    }
     Tex0:=VecScale(Surface.Dist, Surface.Normale);
-    ZVect.X:=0; ZVect.Y:=0; ZVect.Z:=1;
     Matrix:=MatrixFromCols(TexS, TexT, ZVect);
     P0:=VecSum(MatrixMultByVect(Matrix,P0),Tex0);
     P1:=VecSum(MatrixMultByVect(Matrix,P1),Tex0);
