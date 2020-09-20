@@ -80,6 +80,8 @@ def gridfinishdrawing(editor, view, gridoldfinish=quarkpy.mapeditor.MapEditor.fi
     cv = view.canvas()
 
     grid = editor.gridstep         # Gives grid setting
+    if grid == 0.0:
+        return
     gridunits = quarkx.ftos(grid)  # Converts float nbr to string
     type = view.info["type"]       # These type values are set
                                    #  in the layout-defining plugins.
@@ -102,8 +104,8 @@ def gridfinishdrawing(editor, view, gridoldfinish=quarkpy.mapeditor.MapEditor.fi
        pixels = pixels.split(",")       # trims , from YZarea
        Ystring = pixels[0]              # pulls out y factor string
        Zstring = pixels[1].strip()      # pulls out z factor string
-       Ypixels = int(Ystring)           # converts y string to intiger nbr
-       Zpixels = int(Zstring)           # converts z string to intiger nbr
+       Ypixels = int(Ystring)           # converts y string to integer nbr
+       Zpixels = int(Zstring)           # converts z string to integer nbr
        highlight = int(quarkx.setupsubset(SS_MAP, "Display")["GridHighlight"])
        Ygroups = ((Ypixels/(grid * 1.0)) / view.scale()) / highlight
        Zgroups = ((Zpixels/(grid * 1.0)) / view.scale()) / highlight
@@ -237,8 +239,6 @@ def gridfinishdrawing(editor, view, gridoldfinish=quarkpy.mapeditor.MapEditor.fi
        units = (grid * highlight)
        Xstring = quarkx.ftos(0)
        Zstring = quarkx.ftos(0)
-       
-
 
 
        if not MapOption("YxScaleCentered") and not MapOption("AllScalesCentered"):
@@ -253,7 +253,6 @@ def gridfinishdrawing(editor, view, gridoldfinish=quarkpy.mapeditor.MapEditor.fi
                Xviewcenter = 0
 
 
-   
        if not MapOption("YzScaleCentered") and not MapOption("AllScalesCentered"):
            Zviewcenter = (Zpixels)-12
        else:
@@ -263,7 +262,7 @@ def gridfinishdrawing(editor, view, gridoldfinish=quarkpy.mapeditor.MapEditor.fi
        cv.brushstyle = BS_CLEAR
        cv.fontname = "Terminal"
        cv.textout(Xviewcenter, 2, "X " + Xstring)
-       cv.textout(Xviewcenter, 16, "  l")      # for mark line      
+       cv.textout(Xviewcenter, 16, "  l")      # for mark line
        if MapOption("RedLines2") and not MapOption("AllScalesCentered") and not MapOption("YzScaleCentered"):
            cv.textout(10, Zviewcenter, " Z " + Zstring + " --")
        else:
@@ -364,7 +363,6 @@ def gridfinishdrawing(editor, view, gridoldfinish=quarkpy.mapeditor.MapEditor.fi
        units = (grid * highlight)
        Xstring = quarkx.ftos(0)
        Ystring = quarkx.ftos(0)
-
 
 
        if not MapOption("ZxScaleCentered") and not MapOption("AllScalesCentered"):
