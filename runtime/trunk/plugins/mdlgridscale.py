@@ -75,29 +75,37 @@ def gridfinishdrawing(editor, view, gridoldfinish=quarkpy.mdleditor.ModelEditor.
         if not MdlOption("All2DviewsScale") and not MdlOption("AllScalesCentered") and not MdlOption("XviewScale") and not MdlOption("XyScaleCentered") and not MdlOption("XzScaleCentered"):
             return
 
+        cv.brushstyle = BS_CLEAR
+        cv.fontname = "Terminal"
         cv.fontcolor = RED
         cv.fontsize = 8
 
-        YZarea = `view.clientarea`       # Gets the view area as a string
-        pixels = YZarea.replace("(","")  # trims ( from YZarea
-        pixels = pixels.replace(")","")  # trims ) from YZarea
-        pixels = pixels.split(",")       # trims , from YZarea
-        Ystring = pixels[0]              # pulls out y factor string
-        Zstring = pixels[1].strip()      # pulls out z factor string
-        Ypixels = int(Ystring)           # converts y string to integer nbr
-        Zpixels = int(Zstring)           # converts z string to integer nbr
+        YZarea = view.clientarea
+        Ypixels = YZarea[0]
+        Zpixels = YZarea[1]
         highlight = int(quarkx.setupsubset(SS_MODEL, "Display")["GridHighlight"])
-        Ygroups = ((Ypixels/(grid * 1.0)) / view.scale()) / highlight
-        Zgroups = ((Zpixels/(grid * 1.0)) / view.scale()) / highlight
-        pixspergroup = Zpixels / Zgroups
-        Ycounter = 1
-        Zcounter = 1
-        Ygroup = (Ypixels / Ygroups)
-        Zgroup = (Zpixels / Zgroups)
-        if Ygroup < 20:return
-        units = (grid * highlight)
-        Ystring = quarkx.ftos(0)
-        Zstring = quarkx.ftos(0)
+        Ygroupsize = grid * highlight
+        Zgroupsize = grid * highlight
+        Ygrouppixels = Ygroupsize * view.scale()
+        Zgrouppixels = Zgroupsize * view.scale()
+        Ygroups = Ypixels / Ygrouppixels
+        Zgroups = Zpixels / Zgrouppixels
+        while Ygroups < 4.0: #Not enough groups
+            Ygroupsize = Ygroupsize / 2
+            Ygrouppixels = Ygrouppixels / 2
+            Ygroups = Ygroups * 2
+        while Ygrouppixels < 40: #Too close together
+            Ygroupsize = Ygroupsize * 2
+            Ygrouppixels = Ygrouppixels * 2
+            Ygroups = Ygroups / 2
+        while Zgroups < 4.0: #Not enough groups
+            Zgroupsize = Zgroupsize / 2
+            Zgrouppixels = Zgrouppixels / 2
+            Zgroups = Zgroups * 2
+        while Zgrouppixels < 20: #Too close together
+            Zgroupsize = Zgroupsize * 2
+            Zgrouppixels = Zgrouppixels * 2
+            Zgroups = Zgroups / 2
 
 
         if not MdlOption("XyScaleCentered") and not MdlOption("AllScalesCentered"):
@@ -118,74 +126,31 @@ def gridfinishdrawing(editor, view, gridoldfinish=quarkpy.mdleditor.ModelEditor.
             Zviewcenter = (Zpixels/2)-4
         Ygroup1 = Yviewcenter+2
         Zgroup1 = Zviewcenter
-        cv.brushstyle = BS_CLEAR
-        cv.fontname = "Terminal"
+        Ystring = quarkx.ftos(0)
+        Zstring = quarkx.ftos(0)
         cv.textout(Yviewcenter, 2, "Y " + Ystring)
         cv.textout(Yviewcenter, 16, "  l")      # for mark line
         cv.textout(0, Zviewcenter, " Z " + Zstring + " --") # for mark line
-        Ytotal =  (units * 2)
-        Ztotal =  units
-        if pixspergroup > 40:
-            Zgroup = Zgroup/2
-            Ztotal = Ztotal/2
-            units = units/2
-        if pixspergroup > 80:
-            Zgroup = Zgroup/2
-            Ztotal = Ztotal/2
-            units = units/2
-        if pixspergroup > 160:
-            Zgroup = Zgroup/2
-            Ztotal = Ztotal/2
-            units = units/2
-        while 1:
-            if Zcounter > 11:
-               break
-            else:
-                Zstring =  quarkx.ftos(Ztotal)
-                Znextgroupup = Zgroup1 - (Zgroup * Zcounter)
-                Znextgroupup = int(Znextgroupup)
-                if Znextgroupup > 19:
-                    cv.textout(0, Znextgroupup, " " + Zstring + " --")
-                Znextgroupdown = Zgroup1 + (Zgroup * Zcounter)
-                Znextgroupdown = int(Znextgroupdown)
-                cv.textout(0, Znextgroupdown, "-" + Zstring + " --")
-                Zcounter = Zcounter + 1
-                Ztotal = Ztotal + units
 
-        if pixspergroup > 40:
-            Ygroup = Ygroup/2
-            Ytotal = Ytotal/2
-        if pixspergroup > 80:
-            Ygroup = Ygroup/2
-            Ytotal = Ytotal/2
-        if pixspergroup > 160:
-            Ygroup = Ygroup/2
-            Ytotal = Ytotal/2
-        if pixspergroup > 320:
-            Ygroup = Ygroup/2
-            Ytotal = Ytotal/2
-            units = units*.5
-        while 1:
-            if Ycounter > 7:
-                break
-            else:
-                Ystring =  quarkx.ftos(Ytotal)
-                Ynextgroupleft = Ygroup1 - ((Ygroup*2) * Ycounter)
-                Ynextgroupleft = int(Ynextgroupleft)
-                if not MdlOption("AxisXYZ"):
-                    cv.textout(Ynextgroupleft-2, 2, Ystring)
-                    cv.textout(Ynextgroupleft-2, 16, "  l")
-                else:
-                    if Ynextgroupleft > 40:
-                        cv.textout(Ynextgroupleft-2, 2, Ystring)
-                        cv.textout(Ynextgroupleft-2, 16, "  l")
-                Ynextgroupright = Ygroup1 + ((Ygroup*2) * Ycounter)
-                Ynextgroupright = int(Ynextgroupright)
-                cv.textout(Ynextgroupright+4, 2, "-" + Ystring)
-                cv.textout(Ynextgroupright-2, 16, "  l")
-                cv.textout(Ynextgroupleft-2, 16, "  l")
-                Ycounter = Ycounter + 1
-                Ytotal = Ytotal + (units*2)
+        Ztotal = 0
+        for Zcounter in range(1, int(Zgroups)):
+            Ztotal = Ztotal + Zgroupsize
+            Zstring = quarkx.ftos(Ztotal)
+            Znextgroupup = Zgroup1 - (Zgrouppixels * Zcounter)
+            cv.textout(0, int(Znextgroupup), " " + Zstring + " --")
+            #Znextgroupdown = Zgroup1 + (Zgrouppixels * Zcounter) #FIXME: This doesn't work; we're currently drawing from a CORNER...!
+            #cv.textout(0, int(Znextgroupdown), "-" + Zstring + " --")
+
+        Ytotal = 0
+        for Ycounter in range(1, int(Ygroups)):
+            Ytotal = Ytotal + Ygroupsize
+            Ystring = quarkx.ftos(Ytotal)
+            #Ynextgroupleft = Ygroup1 - (Ygrouppixels * Ycounter)
+            #cv.textout(int(Ynextgroupleft)-2, 2, Ystring)
+            #cv.textout(int(Ynextgroupleft)-2, 16, "  l")
+            Ynextgroupright = Ygroup1 + (Ygrouppixels * Ycounter)
+            cv.textout(int(Ynextgroupright)+4, 2, "-" + Ystring)
+            cv.textout(int(Ynextgroupright)-2, 16, "  l")
 
 # ===============
 # Y view settings
@@ -196,29 +161,37 @@ def gridfinishdrawing(editor, view, gridoldfinish=quarkpy.mdleditor.ModelEditor.
         if not MdlOption("All2DviewsScale") and not MdlOption("AllScalesCentered") and not MdlOption("YviewScale") and not MdlOption("YxScaleCentered") and not MdlOption("YzScaleCentered"):
             return
 
+        cv.brushstyle = BS_CLEAR
+        cv.fontname = "Terminal"
         cv.fontcolor = RED
         cv.fontsize = 8
 
-        XZarea = `view.clientarea`
-        pixels = XZarea.replace("(","")
-        pixels = pixels.replace(")","")
-        pixels = pixels.split(",")
-        Xstring = pixels[0]
-        Zstring = pixels[1].strip()
-        Xpixels = int(Xstring)
-        Zpixels = int(Zstring)
+        XZarea = view.clientarea
+        Xpixels = XZarea[0]
+        Zpixels = XZarea[1]
         highlight = int(quarkx.setupsubset(SS_MODEL, "Display")["GridHighlight"])
-        Xgroups = ((Xpixels/(grid * 1.0)) / view.scale()) / highlight
-        Zgroups = ((Zpixels/(grid * 1.0)) / view.scale()) / highlight
-        pixspergroup = Zpixels / Zgroups
-        Xcounter = 1
-        Zcounter = 1
-        Xgroup = (Xpixels / Xgroups)
-        Zgroup = (Zpixels / Zgroups)
-        if Xgroup < 20:return
-        units = (grid * highlight)
-        Xstring = quarkx.ftos(0)
-        Zstring = quarkx.ftos(0)
+        Xgroupsize = grid * highlight
+        Zgroupsize = grid * highlight
+        Xgrouppixels = Xgroupsize * view.scale()
+        Zgrouppixels = Zgroupsize * view.scale()
+        Xgroups = Xpixels / Xgrouppixels
+        Zgroups = Zpixels / Zgrouppixels
+        while Xgroups < 4.0: #Not enough groups
+            Xgroupsize = Xgroupsize / 2
+            Xgrouppixels = Xgrouppixels / 2
+            Xgroups = Xgroups * 2
+        while Xgrouppixels < 40: #Too close together
+            Xgroupsize = Xgroupsize * 2
+            Xgrouppixels = Xgrouppixels * 2
+            Xgroups = Xgroups / 2
+        while Zgroups < 4.0: #Not enough groups
+            Zgroupsize = Zgroupsize / 2
+            Zgrouppixels = Zgrouppixels / 2
+            Zgroups = Zgroups * 2
+        while Zgrouppixels < 20: #Too close together
+            Zgroupsize = Zgroupsize * 2
+            Zgrouppixels = Zgrouppixels * 2
+            Zgroups = Zgroups / 2
 
 
         if not MdlOption("YxScaleCentered") and not MdlOption("AllScalesCentered"):
@@ -239,77 +212,34 @@ def gridfinishdrawing(editor, view, gridoldfinish=quarkpy.mdleditor.ModelEditor.
             Zviewcenter = (Zpixels/2)-4
         Xgroup1 = Xviewcenter+2
         Zgroup1 = Zviewcenter
-        cv.brushstyle = BS_CLEAR
-        cv.fontname = "Terminal"
+        Xstring = quarkx.ftos(0)
+        Zstring = quarkx.ftos(0)
         cv.textout(Xviewcenter, 2, "X " + Xstring)
         cv.textout(Xviewcenter, 16, "  l")      # for mark line
         if MdlOption("RedLines2") and not MdlOption("AllScalesCentered") and not MdlOption("YzScaleCentered"):
             cv.textout(10, Zviewcenter, " Z " + Zstring + " --")
         else:
             cv.textout(0, Zviewcenter, " Z " + Zstring + " --")
-        Xtotal =  (units * 2)
-        Ztotal =  units
-        if pixspergroup > 40:
-            Zgroup = Zgroup/2
-            Ztotal = Ztotal/2
-            units = units/2
-        if pixspergroup > 80:
-            Zgroup = Zgroup/2
-            Ztotal = Ztotal/2
-            units = units/2
-        if pixspergroup > 160:
-            Zgroup = Zgroup/2
-            Ztotal = Ztotal/2
-            units = units/2
-        while 1:
-            if Zcounter > 11:
-               break
-            else:
-                Zstring =  quarkx.ftos(Ztotal)
-                Znextgroupup = Zgroup1 - (Zgroup * Zcounter)
-                Znextgroupup = int(Znextgroupup)
-                if Znextgroupup > 19:
-                    cv.textout(0, Znextgroupup, " " + Zstring + " --")
-                Znextgroupdown = Zgroup1 + (Zgroup * Zcounter)
-                Znextgroupdown = int(Znextgroupdown)
-                cv.textout(0, Znextgroupdown, "-" + Zstring + " --")
-                Zcounter = Zcounter + 1
-                Ztotal = Ztotal + units
 
-        if pixspergroup > 40:
-            Xgroup = Xgroup/2
-            Xtotal = Xtotal/2
-        if pixspergroup > 80:
-            Xgroup = Xgroup/2
-            Xtotal = Xtotal/2
-        if pixspergroup > 160:
-            Xgroup = Xgroup/2
-            Xtotal = Xtotal/2
-        if pixspergroup > 320:
-            Xgroup = Xgroup/2
-            Xtotal = Xtotal/2
-            units = units*.5
-        while 1:
-            if Xcounter > 7:
-                break
-            else:
-                Xstring =  quarkx.ftos(Xtotal)
-                Xnextgroupleft = Xgroup1 - ((Xgroup*2) * Xcounter)
-                Xnextgroupleft = int(Xnextgroupleft)
-                if not MdlOption("AxisXYZ"):
-                    cv.textout(Xnextgroupleft-2, 2, "-" + Xstring)
-                    cv.textout(Xnextgroupleft-2, 16, "  l") # new for line
-                else:
-                    if Xnextgroupleft > 40:
-                        cv.textout(Xnextgroupleft-2, 2, "-" + Xstring)
-                        cv.textout(Xnextgroupleft-2, 16, "  l") # new for line
-                Xnextgroupright = Xgroup1 + ((Xgroup*2) * Xcounter)
-                Xnextgroupright = int(Xnextgroupright)
-                cv.textout(Xnextgroupright+4, 2, Xstring)
-                cv.textout(Xnextgroupright-2, 16, "  l")  # for mark line
-                cv.textout(Xnextgroupleft-2, 16, "  l")   # for mark line
-                Xcounter = Xcounter + 1
-                Xtotal = Xtotal + (units*2)
+        Ztotal = 0
+        for Zcounter in range(1, int(Zgroups)):
+            Ztotal = Ztotal + Zgroupsize
+            Zstring = quarkx.ftos(Ztotal)
+            Znextgroupup = Zgroup1 - (Zgrouppixels * Zcounter)
+            cv.textout(0, int(Znextgroupup), " " + Zstring + " --")
+            #Znextgroupdown = Zgroup1 + (Zgrouppixels * Zcounter)
+            #cv.textout(0, int(Znextgroupdown), "-" + Zstring + " --")
+
+        Xtotal = 0
+        for Xcounter in range(1, int(Xgroups)):
+            Xtotal = Xtotal + Xgroupsize
+            Xstring = quarkx.ftos(Xtotal)
+            #Xnextgroupleft = Xgroup1 - (Xgrouppixels * Xcounter)
+            #cv.textout(int(Xnextgroupleft)-2, 2, "-" + Xstring)
+            #cv.textout(int(Xnextgroupleft)-2, 16, "  l") # new for line
+            Xnextgroupright = Xgroup1 + (Xgrouppixels * Xcounter)
+            cv.textout(int(Xnextgroupright)+4, 2, Xstring)
+            cv.textout(int(Xnextgroupright)-2, 16, "  l")  # for mark line
 
 # ===============
 # Z view settings
@@ -320,29 +250,37 @@ def gridfinishdrawing(editor, view, gridoldfinish=quarkpy.mdleditor.ModelEditor.
         if not MdlOption("All2DviewsScale") and not MdlOption("AllScalesCentered") and not MdlOption("ZviewScale") and not MdlOption("ZxScaleCentered") and not MdlOption("ZyScaleCentered"):
             return
 
+        cv.brushstyle = BS_CLEAR
+        cv.fontname = "Terminal"
         cv.fontcolor = RED
         cv.fontsize = 8
 
-        XZarea = `view.clientarea`
-        pixels = XZarea.replace("(","")
-        pixels = pixels.replace(")","")
-        pixels = pixels.split(",")
-        Xstring = pixels[0]
-        Ystring = pixels[1].strip()
-        Xpixels = int(Xstring)
-        Ypixels = int(Ystring)
+        XYarea = view.clientarea
+        Xpixels = XYarea[0]
+        Ypixels = XYarea[1]
         highlight = int(quarkx.setupsubset(SS_MODEL, "Display")["GridHighlight"])
-        Xgroups = ((Xpixels/(grid * 1.0)) / view.scale()) / highlight
-        Ygroups = ((Ypixels/(grid * 1.0)) / view.scale()) / highlight
-        pixspergroup = Ypixels / Ygroups
-        Xcounter = 1
-        Ycounter = 1
-        Xgroup = (Xpixels / Xgroups)
-        Ygroup = (Ypixels / Ygroups)
-        if Xgroup < 20:return
-        units = (grid * highlight)
-        Xstring = quarkx.ftos(0)
-        Ystring = quarkx.ftos(0)
+        Xgroupsize = grid * highlight
+        Ygroupsize = grid * highlight
+        Xgrouppixels = Xgroupsize * view.scale()
+        Ygrouppixels = Ygroupsize * view.scale()
+        Xgroups = Xpixels / Xgrouppixels
+        Ygroups = Ypixels / Ygrouppixels
+        while Xgroups < 4.0: #Not enough groups
+            Xgroupsize = Xgroupsize / 2
+            Xgrouppixels = Xgrouppixels / 2
+            Xgroups = Xgroups * 2
+        while Xgrouppixels < 40: #Too close together
+            Xgroupsize = Xgroupsize * 2
+            Xgrouppixels = Xgrouppixels * 2
+            Xgroups = Xgroups / 2
+        while Ygroups < 4.0: #Not enough groups
+            Ygroupsize = Ygroupsize / 2
+            Ygrouppixels = Ygrouppixels / 2
+            Ygroups = Ygroups * 2
+        while Ygrouppixels < 20: #Too close together
+            Ygroupsize = Ygroupsize * 2
+            Ygrouppixels = Ygrouppixels * 2
+            Ygroups = Ygroups / 2
 
 
         if not MdlOption("ZxScaleCentered") and not MdlOption("AllScalesCentered"):
@@ -363,77 +301,34 @@ def gridfinishdrawing(editor, view, gridoldfinish=quarkpy.mdleditor.ModelEditor.
             Yviewcenter = (Ypixels/2)-4
         Xgroup1 = Xviewcenter+2
         Ygroup1 = Yviewcenter
-        cv.brushstyle = BS_CLEAR
-        cv.fontname = "Terminal"
+        Xstring = quarkx.ftos(0)
+        Ystring = quarkx.ftos(0)
         cv.textout(Xviewcenter, 2, "X " + Xstring)
         cv.textout(Xviewcenter, 16, "  l")      # new for mark line
         if not MdlOption("AllScalesCentered") and not MdlOption("ZyScaleCentered"):
             cv.textout(10, Yviewcenter, " Y " + Ystring + " --") # for mark line
         else:
             cv.textout(0, Yviewcenter, " Y " + Ystring + " --")  # for mark line
-        Xtotal =  (units * 2)
-        Ytotal =  units
-        if pixspergroup > 40:
-            Ygroup = Ygroup/2
-            Ytotal = Ytotal/2
-            units = units/2
-        if pixspergroup > 80:
-            Ygroup = Ygroup/2
-            Ytotal = Ytotal/2
-            units = units/2
-        if pixspergroup > 160:
-            Ygroup = Ygroup/2
-            Ytotal = Ytotal/2
-            units = units/2
-        while 1:
-            if Ycounter > 11:
-               break
-            else:
-                Ystring =  quarkx.ftos(Ytotal)
-                Ynextgroupup = Ygroup1 - (Ygroup * Ycounter)
-                Ynextgroupup = int(Ynextgroupup)
-                if Ynextgroupup > 19:
-                    cv.textout(0, Ynextgroupup, " " + Ystring + " --")
-                Ynextgroupdown = Ygroup1 + (Ygroup * Ycounter)
-                Ynextgroupdown = int(Ynextgroupdown)
-                cv.textout(0, Ynextgroupdown, "-" + Ystring + " --")
-                Ycounter = Ycounter + 1
-                Ytotal = Ytotal + units
 
-        if pixspergroup > 40:
-            Xgroup = Xgroup/2
-            Xtotal = Xtotal/2
-        if pixspergroup > 80:
-            Xgroup = Xgroup/2
-            Xtotal = Xtotal/2
-        if pixspergroup > 160:
-            Xgroup = Xgroup/2
-            Xtotal = Xtotal/2
-        if pixspergroup > 320:
-            Xgroup = Xgroup/2
-            Xtotal = Xtotal/2
-            units = units*.5
-        while 1:
-            if Xcounter > 7:
-                break
-            else:
-                Xstring =  quarkx.ftos(Xtotal)
-                Xnextgroupleft = Xgroup1 - ((Xgroup*2) * Xcounter)
-                Xnextgroupleft = int(Xnextgroupleft)
-                if not MdlOption("AxisXYZ"):
-                    cv.textout(Xnextgroupleft-2, 2, "-" + Xstring)
-                    cv.textout(Xnextgroupleft-2, 16, "  l")      # for mark line
-                else:
-                    if Xnextgroupleft > 40:
-                        cv.textout(Xnextgroupleft-2, 2, "-" + Xstring)
-                        cv.textout(Xnextgroupleft-2, 16, "  l")  # for mark line
-                Xnextgroupright = Xgroup1 + ((Xgroup*2) * Xcounter)
-                Xnextgroupright = int(Xnextgroupright)
-                cv.textout(Xnextgroupright+4, 2, Xstring)
-                cv.textout(Xnextgroupright-2, 16, "  l")     # for mark line
-                cv.textout(Xnextgroupleft-2, 16, "  l")      # for mark line
-                Xcounter = Xcounter + 1
-                Xtotal = Xtotal + (units*2)
+        Ytotal = 0
+        for Ycounter in range(1, int(Ygroups)):
+            Ytotal = Ytotal + Ygroupsize
+            Ystring = quarkx.ftos(Ytotal)
+            Ynextgroupup = Ygroup1 - (Ygrouppixels * Ycounter)
+            cv.textout(0, int(Ynextgroupup), " " + Ystring + " --")
+            #Ynextgroupdown = Ygroup1 + (Ygrouppixels * Ycounter)
+            #cv.textout(0, int(Ynextgroupdown), "-" + Ystring + " --")
+
+        Xtotal = 0
+        for Xcounter in range(1, int(Xgroups)):
+            Xtotal = Xtotal + Xgroupsize
+            Xstring = quarkx.ftos(Xtotal)
+            #Xnextgroupleft = Xgroup1 - (Xgrouppixels * Xcounter)
+            #cv.textout(int(Xnextgroupleft)-2, 2, "-" + Xstring)
+            #cv.textout(int(Xnextgroupleft)-2, 16, "  l")      # for mark line
+            Xnextgroupright = Xgroup1 + (Xgrouppixels * Xcounter)
+            cv.textout(int(Xnextgroupright)+4, 2, Xstring)
+            cv.textout(int(Xnextgroupright)-2, 16, "  l")     # for mark line
 
     else:
        return
