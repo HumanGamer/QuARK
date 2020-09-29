@@ -16,8 +16,10 @@ Info = {
    "author e-mail": "cdunde@sbcglobal.net",
    "quark":         "Version 6.5 Beta 2.0" }
 
+
 import quarkpy.mdloptions
 from quarkpy.mdlutils import *
+
 
 #
 # -------- grid numbering routines
@@ -80,9 +82,7 @@ def gridfinishdrawing(editor, view, gridoldfinish=quarkpy.mdleditor.ModelEditor.
         cv.fontcolor = RED
         cv.fontsize = 8
 
-        YZarea = view.clientarea
-        Ypixels = YZarea[0]
-        Zpixels = YZarea[1]
+        Ypixels, Zpixels = view.clientarea
         highlight = int(quarkx.setupsubset(SS_MODEL, "Display")["GridHighlight"])
         Ygroupsize = grid * highlight
         Zgroupsize = grid * highlight
@@ -114,22 +114,24 @@ def gridfinishdrawing(editor, view, gridoldfinish=quarkpy.mdleditor.ModelEditor.
             else:
                 Yviewcenter = 48
         else:
+            Ygroups = Ygroups / 2
             if not MdlOption("All2DviewsScale") and not MdlOption("XviewScale"):
                 Yviewcenter = (Ypixels/2)+4
             else:
                 Yviewcenter = 0
-
-
         if not MdlOption("XzScaleCentered") and not MdlOption("AllScalesCentered"):
             Zviewcenter = (Zpixels)-12
         else:
+            Zgroups = Zgroups / 2
             Zviewcenter = (Zpixels/2)-4
+
+
         Ygroup1 = Yviewcenter+2
         Zgroup1 = Zviewcenter
         Ystring = quarkx.ftos(0)
         Zstring = quarkx.ftos(0)
         cv.textout(Yviewcenter, 2, "Y " + Ystring)
-        cv.textout(Yviewcenter, 16, "  l")      # for mark line
+        cv.textout(Yviewcenter, 16, "  |")      # for mark line
         cv.textout(0, Zviewcenter, " Z " + Zstring + " --") # for mark line
 
         Ztotal = 0
@@ -138,19 +140,21 @@ def gridfinishdrawing(editor, view, gridoldfinish=quarkpy.mdleditor.ModelEditor.
             Zstring = quarkx.ftos(Ztotal)
             Znextgroupup = Zgroup1 - (Zgrouppixels * Zcounter)
             cv.textout(0, int(Znextgroupup), " " + Zstring + " --")
-            #Znextgroupdown = Zgroup1 + (Zgrouppixels * Zcounter) #FIXME: This doesn't work; we're currently drawing from a CORNER...!
-            #cv.textout(0, int(Znextgroupdown), "-" + Zstring + " --")
+            if MdlOption("XzScaleCentered") or MdlOption("AllScalesCentered"):
+                Znextgroupdown = Zgroup1 + (Zgrouppixels * Zcounter) #FIXME: This doesn't work; we're currently drawing from a CORNER...!
+                cv.textout(0, int(Znextgroupdown), "-" + Zstring + " --")
 
         Ytotal = 0
         for Ycounter in range(1, int(Ygroups)):
             Ytotal = Ytotal + Ygroupsize
             Ystring = quarkx.ftos(Ytotal)
-            #Ynextgroupleft = Ygroup1 - (Ygrouppixels * Ycounter)
-            #cv.textout(int(Ynextgroupleft)-2, 2, Ystring)
-            #cv.textout(int(Ynextgroupleft)-2, 16, "  l")
+            if MdlOption("XyScaleCentered") or MdlOption("AllScalesCentered"):
+                Ynextgroupleft = Ygroup1 - (Ygrouppixels * Ycounter)
+                cv.textout(int(Ynextgroupleft)-2, 2, Ystring)
+                cv.textout(int(Ynextgroupleft)-2, 16, "  |")
             Ynextgroupright = Ygroup1 + (Ygrouppixels * Ycounter)
             cv.textout(int(Ynextgroupright)+4, 2, "-" + Ystring)
-            cv.textout(int(Ynextgroupright)-2, 16, "  l")
+            cv.textout(int(Ynextgroupright)-2, 16, "  |")
 
 # ===============
 # Y view settings
@@ -166,9 +170,7 @@ def gridfinishdrawing(editor, view, gridoldfinish=quarkpy.mdleditor.ModelEditor.
         cv.fontcolor = RED
         cv.fontsize = 8
 
-        XZarea = view.clientarea
-        Xpixels = XZarea[0]
-        Zpixels = XZarea[1]
+        Xpixels, Zpixels = view.clientarea
         highlight = int(quarkx.setupsubset(SS_MODEL, "Display")["GridHighlight"])
         Xgroupsize = grid * highlight
         Zgroupsize = grid * highlight
@@ -200,22 +202,24 @@ def gridfinishdrawing(editor, view, gridoldfinish=quarkpy.mdleditor.ModelEditor.
             else:
                 Xviewcenter = 48
         else:
+            Xgroups = Xgroups / 2
             if not MdlOption("All2DviewsScale") and not MdlOption("YviewScale"):
                 Xviewcenter = (Xpixels/2)+4
             else:
                 Xviewcenter = 0
-
-
         if not MdlOption("YzScaleCentered") and not MdlOption("AllScalesCentered"):
             Zviewcenter = (Zpixels)-12
         else:
+            Zgroups = Zgroups / 2
             Zviewcenter = (Zpixels/2)-4
+
+
         Xgroup1 = Xviewcenter+2
         Zgroup1 = Zviewcenter
         Xstring = quarkx.ftos(0)
         Zstring = quarkx.ftos(0)
         cv.textout(Xviewcenter, 2, "X " + Xstring)
-        cv.textout(Xviewcenter, 16, "  l")      # for mark line
+        cv.textout(Xviewcenter, 16, "  |")      # for mark line
         if MdlOption("RedLines2") and not MdlOption("AllScalesCentered") and not MdlOption("YzScaleCentered"):
             cv.textout(10, Zviewcenter, " Z " + Zstring + " --")
         else:
@@ -227,19 +231,21 @@ def gridfinishdrawing(editor, view, gridoldfinish=quarkpy.mdleditor.ModelEditor.
             Zstring = quarkx.ftos(Ztotal)
             Znextgroupup = Zgroup1 - (Zgrouppixels * Zcounter)
             cv.textout(0, int(Znextgroupup), " " + Zstring + " --")
-            #Znextgroupdown = Zgroup1 + (Zgrouppixels * Zcounter)
-            #cv.textout(0, int(Znextgroupdown), "-" + Zstring + " --")
+            if MdlOption("YzScaleCentered") or MdlOption("AllScalesCentered"):
+                Znextgroupdown = Zgroup1 + (Zgrouppixels * Zcounter)
+                cv.textout(0, int(Znextgroupdown), "-" + Zstring + " --")
 
         Xtotal = 0
         for Xcounter in range(1, int(Xgroups)):
             Xtotal = Xtotal + Xgroupsize
             Xstring = quarkx.ftos(Xtotal)
-            #Xnextgroupleft = Xgroup1 - (Xgrouppixels * Xcounter)
-            #cv.textout(int(Xnextgroupleft)-2, 2, "-" + Xstring)
-            #cv.textout(int(Xnextgroupleft)-2, 16, "  l") # new for line
+            if MdlOption("YxScaleCentered") or MdlOption("AllScalesCentered"):
+                Xnextgroupleft = Xgroup1 - (Xgrouppixels * Xcounter)
+                cv.textout(int(Xnextgroupleft)-2, 2, "-" + Xstring)
+                cv.textout(int(Xnextgroupleft)-2, 16, "  |") # new for line
             Xnextgroupright = Xgroup1 + (Xgrouppixels * Xcounter)
             cv.textout(int(Xnextgroupright)+4, 2, Xstring)
-            cv.textout(int(Xnextgroupright)-2, 16, "  l")  # for mark line
+            cv.textout(int(Xnextgroupright)-2, 16, "  |")  # for mark line
 
 # ===============
 # Z view settings
@@ -255,9 +261,7 @@ def gridfinishdrawing(editor, view, gridoldfinish=quarkpy.mdleditor.ModelEditor.
         cv.fontcolor = RED
         cv.fontsize = 8
 
-        XYarea = view.clientarea
-        Xpixels = XYarea[0]
-        Ypixels = XYarea[1]
+        Xpixels, Ypixels = view.clientarea
         highlight = int(quarkx.setupsubset(SS_MODEL, "Display")["GridHighlight"])
         Xgroupsize = grid * highlight
         Ygroupsize = grid * highlight
@@ -289,22 +293,24 @@ def gridfinishdrawing(editor, view, gridoldfinish=quarkpy.mdleditor.ModelEditor.
             else:
                 Xviewcenter = 48
         else:
+            Xgroups = Xgroups / 2
             if not MdlOption("All2DviewsScale") and not MdlOption("ZviewScale"):
                 Xviewcenter = (Xpixels/2)+4
             else:
                 Xviewcenter = 0
-
-
         if not MdlOption("ZyScaleCentered") and not MdlOption("AllScalesCentered"):
             Yviewcenter = (Ypixels)-12
         else:
+            Ygroups = Ygroups / 2
             Yviewcenter = (Ypixels/2)-4
+
+
         Xgroup1 = Xviewcenter+2
         Ygroup1 = Yviewcenter
         Xstring = quarkx.ftos(0)
         Ystring = quarkx.ftos(0)
         cv.textout(Xviewcenter, 2, "X " + Xstring)
-        cv.textout(Xviewcenter, 16, "  l")      # new for mark line
+        cv.textout(Xviewcenter, 16, "  |")      # new for mark line
         if not MdlOption("AllScalesCentered") and not MdlOption("ZyScaleCentered"):
             cv.textout(10, Yviewcenter, " Y " + Ystring + " --") # for mark line
         else:
@@ -316,19 +322,21 @@ def gridfinishdrawing(editor, view, gridoldfinish=quarkpy.mdleditor.ModelEditor.
             Ystring = quarkx.ftos(Ytotal)
             Ynextgroupup = Ygroup1 - (Ygrouppixels * Ycounter)
             cv.textout(0, int(Ynextgroupup), " " + Ystring + " --")
-            #Ynextgroupdown = Ygroup1 + (Ygrouppixels * Ycounter)
-            #cv.textout(0, int(Ynextgroupdown), "-" + Ystring + " --")
+            if MdlOption("ZyScaleCentered") or MdlOption("AllScalesCentered"):
+                Ynextgroupdown = Ygroup1 + (Ygrouppixels * Ycounter)
+                cv.textout(0, int(Ynextgroupdown), "-" + Ystring + " --")
 
         Xtotal = 0
         for Xcounter in range(1, int(Xgroups)):
             Xtotal = Xtotal + Xgroupsize
             Xstring = quarkx.ftos(Xtotal)
-            #Xnextgroupleft = Xgroup1 - (Xgrouppixels * Xcounter)
-            #cv.textout(int(Xnextgroupleft)-2, 2, "-" + Xstring)
-            #cv.textout(int(Xnextgroupleft)-2, 16, "  l")      # for mark line
+            if MdlOption("ZxScaleCentered") or MdlOption("AllScalesCentered"):
+                Xnextgroupleft = Xgroup1 - (Xgrouppixels * Xcounter)
+                cv.textout(int(Xnextgroupleft)-2, 2, "-" + Xstring)
+                cv.textout(int(Xnextgroupleft)-2, 16, "  |")      # for mark line
             Xnextgroupright = Xgroup1 + (Xgrouppixels * Xcounter)
             cv.textout(int(Xnextgroupright)+4, 2, Xstring)
-            cv.textout(int(Xnextgroupright)-2, 16, "  l")     # for mark line
+            cv.textout(int(Xnextgroupright)-2, 16, "  |")     # for mark line
 
     else:
        return
