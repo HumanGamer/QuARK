@@ -224,6 +224,8 @@ uses PyCanvas, QkFileObjects, QkTextures, Game, PyForms, RedLines, Logging, Qk1,
 
 const
  MAX_PITCH = pi/2.1;
+ MIN_VAngle = 5;
+ MAX_VAngle = 85;
 
  {------------------------}
 
@@ -566,11 +568,11 @@ begin
    if MapViewProj is TCameraCoordinates then
     begin
      VAngle:=GetFloatSpec('VAngle', 45);
-     if VAngle<5 then
-      VAngle:=5
+     if VAngle<MIN_VAngle then
+      VAngle:=MIN_VAngle
      else
-      if VAngle>85 then
-       VAngle:=85;
+      if VAngle>MAX_VAngle then
+       VAngle:=MAX_VAngle;
 
      with TCameraCoordinates(MapViewProj) do
       begin
