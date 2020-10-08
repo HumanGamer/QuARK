@@ -436,7 +436,6 @@ end;
 procedure TPyMapView.ReadSetupInformation(Inv: Boolean);
 var
 {Size: array[1..2] of Single;}
- VAngle: TDouble;
  K: TKey3D;
  ve1: TViewEntities;
  AllowsGDI: Boolean;
@@ -450,24 +449,7 @@ begin
  with ConfigSrc do
   begin
    if MapViewProj is TCameraCoordinates then
-    begin
-     DisplayType:=dt3D;
-     VAngle:=GetFloatSpec('VAngle', 45);
-     if VAngle<5 then
-      VAngle:=5
-     else
-      if VAngle>85 then
-       VAngle:=85;
-
-     with TCameraCoordinates(MapViewProj) do
-      begin
-       VAngleDegrees:=VAngle;
-       VAngle:=VAngle * Deg2Rad;
-       RFactorBase:=Cos(VAngle)/Sin(VAngle);
-       Resize(Self.ClientWidth, Self.ClientHeight);
-       MinDistance:=Minoow / GetFloatSpec('DarkFactor', 1);
-      end;
-    end
+    DisplayType:=dt3D
    else if MapViewProj is T3DCoordinates then
     DisplayType:=dt3D
    else if MapViewProj is TXYCoordinates then
@@ -479,10 +461,11 @@ begin
    (*else if MapViewProj is T2DCoordinates then
     DisplayType:=dt2D*)
    else if MapViewProj = nil then
-    //Have to intialize it to something!
+    //Have to initialize it to something!
     DisplayType:=dt2D
    else
     raise InternalE('Unable to convert MapViewProj->DisplayType!');
+   UpdateCoords(False);
 
    if Scene<>Nil then
     begin
@@ -599,7 +582,7 @@ begin
       end;
     end;
 
-   if Scene<>Nil then
+   if (Scene<>Nil) and Scene.Initialized then
     begin
      try
       Scene.ErrorMsg:='';
