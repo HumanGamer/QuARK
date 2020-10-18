@@ -26,7 +26,8 @@ import maptexpos
 
 def addtoTaggedClick(m):
     editor = mapeditor()
-    if editor is None: return
+    if editor is None:
+        return
     if gettaggedlist(editor) is None and gettagged(editor) is None:
         quarkx.msgbox("No Tagged items exist.\n\nYou must first tag one side or vertex\nbefore you can use this function to add more.\n\nNothing done.", MT_ERROR, MB_OK)
         return
@@ -50,7 +51,8 @@ def addtoTaggedClick(m):
 
 def removefromTaggedClick(m):
     editor = mapeditor()
-    if editor is None: return
+    if editor is None:
+        return
     if gettaggedlist(editor) is None and gettagged(editor) is None:
         quarkx.msgbox("No Tagged items exist.\n\nThere must first be a tagged side or vertex\nbefore you can use this function to remove one\nof the items from the Tag List.\n\nNothing done.", MT_ERROR, MB_OK)
         return
@@ -104,8 +106,8 @@ def linkFaceClick(m):
 
 def glueLinkedClick(m):
   editor = mapeditor()
-  o = editor.layout.explorer.uniquesel 
-  m = qmenu.item("Dummy", None, "") 
+  o = editor.layout.explorer.uniquesel
+  m = qmenu.item("Dummy", None, "")
   m.object = o
   side = o
   tagged = gettagged(editor)
@@ -125,8 +127,8 @@ def glueLinkedClick(m):
 
 def unlinkFaceClick(m):
   editor = mapeditor()
-  o = editor.layout.explorer.uniquesel 
-  m = qmenu.item("Dummy", None, "") 
+  o = editor.layout.explorer.uniquesel
+  m = qmenu.item("Dummy", None, "")
   m.object = o
   tagged = gettagged(editor)
   if m.object is None:
@@ -150,7 +152,7 @@ def unlinkFaceClick(m):
   maptagside.UnlinkFaceClick(m)
 
 
-def selectClick(m): 
+def selectClick(m):
   editor = mapeditor()
   o = editor.layout.explorer.uniquesel
   if o is None:
@@ -171,7 +173,7 @@ def selectClick(m):
     quarkx.msgbox("Nothing done\n\nSelection is not tagged\nor you have not selected a tagged side.", MT_ERROR, MB_OK)
 
 
-def unlinkAllClick(m): 
+def unlinkAllClick(m):
   editor = mapeditor()
   o = editor.layout.explorer.uniquesel
   if o is None:
@@ -193,10 +195,10 @@ def unlinkAllClick(m):
     quarkx.msgbox("Nothing done\n\nSelection is not tagged\nor you have not selected a tagged side.", MT_ERROR, MB_OK)
 
 
-def taggedWrapClick(m): 
-  editor = mapeditor() 
-  o = editor.layout.explorer.uniquesel 
-  m = qmenu.item("Dummy", None, "") 
+def taggedWrapClick(m):
+  editor = mapeditor()
+  o = editor.layout.explorer.uniquesel
+  m = qmenu.item("Dummy", None, "")
   m.side = o 
   if gettaggedlist(editor) is None:
     quarkx.msgbox("Nothing done\n\nEither you have not selected anything,\nmade multiple selections,\nor not tagged your sides and\nselected the tagged face\nyou want to (copy) wrap from.", MT_ERROR, MB_OK)
