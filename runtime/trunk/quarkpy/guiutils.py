@@ -10,20 +10,13 @@ Various utilities for making gui devices.
 #
 
 import quarkx
-from quarkpy.maputils import *
+from quarkpy.qutils import *
+from quarkpy.qeditor import *
 #
 # FIXME: ugh hideous hack refactoring time!!!
 #
 from plugins.mapmadsel import menrestsel
 
-
-
-def getSetupOption(name, default):
-    result = quarkx.setupsubset(SS_MAP, "Options")[name]
-#    debug("result: "+`result`)
-    if result==None:
-      result=default
-    return result
 
 #
 # In LiveEditDialogs, monitors changes in numeric parameters stored as EF1's.
@@ -70,6 +63,6 @@ def buildParentPopupList(o, parentpopupitems, editor):
         if current==restrictor and menrestsel.state == qmenu.checked:
             list.append(qmenu.sep)
             restricted = 1
-        current = current.treeparent;
+        current = current.treeparent
   #  list.reverse()
     return list

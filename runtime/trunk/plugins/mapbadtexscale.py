@@ -62,7 +62,6 @@ class BadTexScaleDlg (quarkpy.dlgclasses.LiveEditDlg):
           Hint = "These are the faces with bad texture scales.  Pick one," $0D " then push buttons on row below for action."
         }
 
-          
         sep: = { Typ="S" Txt=""}
 
         buttons: = {
@@ -84,14 +83,14 @@ class BadTexScaleDlg (quarkpy.dlgclasses.LiveEditDlg):
           Txt = "smallest angle: "
           Hint = "Faces whose texture axes make an angle smaller than this (degrees) are deemed bad"
         }
-        
+
         badtexaxis: = {
           Typ = "EF001"
           Txt = "smallest axis: "
           Hint = "Faces with a texture axis smaller than this (units) are deemed bad"
         }
-        
-        
+
+
         sep: = { Typ="S" Txt=""}
 
         exit:py = {Txt="" }
@@ -113,7 +112,7 @@ class BadTexScaleDlg (quarkpy.dlgclasses.LiveEditDlg):
         Spec1 = qmenu.item("", quarkpy.mapmenus.set_mpp_page, "")
         Spec1.page = 3 # face properties page
         quarkpy.mapmenus.set_mpp_page(Spec1) 
-        
+
 
 #
 # Define the viewbadtex macro here, put the definition into
@@ -125,7 +124,7 @@ def macro_viewbadtex(self, index=0):
     if editor is None: return
     if index==1:
         editor.badtexscaledlg.inspect()
-        
+
 quarkpy.qmacro.MACRO_viewbadtex = macro_viewbadtex
 
 #
@@ -144,24 +143,30 @@ def texIsBad(face, badsize, badangle):
     angle = math.fabs(math.acos(u.normalized*v.normalized))/deg2rad
 #    debug("%s: %.6f"%(face.name, angle))
     return angle<badangle
-                    
-           
+
+
+def getSetupOption(name, default):
+    result = quarkx.setupsubset(SS_MAP, "Options")[name]
+    if result==None:
+        result=default
+    return result
+
 def getBad(badsize, badangle, editor):
     baddies = []
     for face in editor.Root.findallsubitems("",":f"):
         if texIsBad(face,badsize, badangle):
             baddies.append(face)
     return baddies
-    
+
 def badClick(m):
     editor=mapeditor()
 
-    badangle = guiutils.getSetupOption("badangle","5")
-    badtexaxis = guiutils.getSetupOption("badtexaxis", "1")
-    
+    badangle = getSetupOption("badangle","5")
+    badtexaxis = getSetupOption("badtexaxis", "1")
+
     baddies = getBad(eval(badtexaxis), eval(badangle), editor)
-    
-    
+
+
     #
     # Here we start the Live Edit dialog invocation sequence.
     #  Data to be tracked during the life of the dialog goes
@@ -173,7 +178,7 @@ def badClick(m):
     pack.badangle=badangle
     pack.badtexaxis=badtexaxis
     pack.seen = 0
-      
+
     #
     # This loads the relevant data into the dialog, gets
     #  recalled after changes.
@@ -186,7 +191,7 @@ def badClick(m):
         # Cleaned up in onclosing below.
         #
         editor.badtexscaledlg=self
-        
+
         #
         # Names and list-indexes of thin brushes
         #
@@ -203,7 +208,7 @@ def badClick(m):
         elif len(ran)==0:
             self.chosen = ''
             pack.seen = ''
-            
+
         #
         # Note the commas, EF..1 controls take 1-tuples as data
         #
@@ -211,7 +216,6 @@ def badClick(m):
         self.src["badangle"]=eval(pack.badangle),
         self.src["badtexaxis"]=eval(pack.badtexaxis),
 
-        
 
     #
     # When data is entered, this gets executed.
@@ -229,14 +233,14 @@ def badClick(m):
         axischange, newaxis = guiutils.dlgNumberCheck(self, pack, "badtexaxis", 1.00)
         if anglechange or axischange:
             pack.baddies = getBad(newaxis, newangle, editor)
-            
+
     #
     # Cleanup when dialog closes (not needed if no mess has
     #  been created)
     #
     def onclosing(self,editor=editor):
         del editor.badtexscaledlg
-        
+
     #
     # And here's the invocation. 2nd arg is a label for storing
     #  position info in setup.qrk.
