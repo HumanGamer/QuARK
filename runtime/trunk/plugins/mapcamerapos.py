@@ -48,8 +48,8 @@ from quarkpy.maphandles import *
 #
 def get3DView(editor,makeone=0):
     #
-    # A bit of showoff coding, see the onlne Python tutorial,
-    #   functional programming techiques
+    # A bit of showoff coding, see the online Python tutorial,
+    #   functional programming techniques
     #
     views = filter(lambda v:v.info["type"]=="3D",editor.layout.views)
     if len(views)==0:
@@ -200,7 +200,6 @@ class NameDialog(SimpleCancelDlgBox):
     def datachange(self, df):
         if self.src["name"]!=self.initialvalue:
             self.close()
- 
 
     #
     # This is executed when the OK button is pressed
@@ -272,10 +271,10 @@ def addPosition(view3D, editor):
 #  EyePositionMap handle defined in maphandles.py.
 #
 def newEyePosMenu(self, editor, view):
-    
+
     def addClick(m,self=self,editor=editor):
         addPosition(self.view3D,editor)
-        
+
     item = qmenu.item('Add position',addClick)
     return [item]
 
@@ -286,7 +285,7 @@ def backmenu(editor, view=None, origin=None, oldbackmenu = mapmenus.BackgroundMe
 
   def addClick(m,view=view,editor=editor):
       addPosition(view,editor)
-      
+
   if view is not None and view.info["type"]=="3D":
       menu.append(qmenu.item("Add Camera Position",addClick, "|Add Camera Position:\n\nWhen selected, this function is used to set and store 3D camera views. This feature will only work for the Editor's 3D view and not the 3D view window.\n\nPress F1 again or click the 'InfoBase' for more detailed information on its use.|intro.mapeditor.floating3dview.html#camera"))
   return menu
@@ -308,7 +307,7 @@ class FindCameraPosDlg(dlgclasses.LiveEditDlg):
     size = (220,160)
     dfsep = 0.35
     dlgflags = qutils.FWF_KEEPFOCUS 
-    
+
     dlgdef = """
         {
         Style = "9"
@@ -348,7 +347,7 @@ class FindCameraPosDlg(dlgclasses.LiveEditDlg):
     """
 
     def select(self):
-        index = eval(self.chosen)
+        index = int(self.chosen)
         #
         # FIXME: dumb hack, revise mapmadsel
         #
@@ -357,23 +356,23 @@ class FindCameraPosDlg(dlgclasses.LiveEditDlg):
         mapmadsel.SelectMe(m)
 
     def setview(self):
-        index = eval(self.chosen)
+        index = int(self.chosen)
         editor=mapeditor()
         if editor is None:
-            quarkx.msgbox('oops no editor',2,4)
+            return
         setView(self.pack.cameras[index],editor)
-                
+
     def storeview(self):
-        index = eval(self.chosen)
+        index = int(self.chosen)
         editor=mapeditor()
         if editor is None:
-            quarkx.msgbox('oops no editor',2,4)
+            return
         storeView(self.pack.cameras[index],editor)
 
 
 #
 # Define the zapview macro here, put the definition into
-#  quarkpy.qmacro, which is where macros called from delphi
+#  quarkpy.qmacro, which is where macros called from Delphi
 #  live.
 #
 def macro_camerapos(self, index=0):
@@ -393,7 +392,7 @@ def findClick(m):
 
     class pack:
         "stick stuff in this"
-    
+
     def setup(self, pack=pack, editor=editor):
         editor.cameraposdlg=self
         self.pack=pack
@@ -428,7 +427,6 @@ def camnextClick(m, editor=None, oldnext=mapselection.nextClick):
     if quarkx.keydown('C')==1:
         editor=mapeditor()
         if editor is None:
-           quarkx.msgbox('oops no editor',2,4)
            return
         try:
             current=editor.currentcampos
