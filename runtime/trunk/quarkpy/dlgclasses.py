@@ -38,7 +38,7 @@ class placepersistent_dialogbox(qmacro.dialogbox):
         df.sep = self.dfsep
         df.setdata(src, f)
         df.onchange = self.datachange
-        df.flags = 8   # DF_AUTOFOCUS
+        df.flags = DF_AUTOFOCUS
         dlg.show()
 
   def windowrect(self):
