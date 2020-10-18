@@ -88,12 +88,12 @@ def dropitemsnow(editor, newlist, text=Strings[544], center=quarkx.vect(0,0,0)):
             msg = Strings[-101]
             #if "QImage" in newitem.classes:
             #    msg = msg + Strings[-102]
-            quarkx.msgbox(msg, MT_ERROR, MB_OK)
+            quarkx.msgbox(msg, qutils.MT_ERROR, qutils.MB_OK)
             return
         if not newitem.isallowedparent(nparent):
             undo.cancel()    # not required, but it's better when it's done
             msg = Strings[-106]
-            quarkx.msgbox(msg, MT_ERROR, MB_OK)
+            quarkx.msgbox(msg, qutils.MT_ERROR, qutils.MB_OK)
             return
         new = newitem.copy()
         prepareobjecttodrop(editor, new)
@@ -151,7 +151,7 @@ def prepareobjecttodrop(editor, obj):
             tex_for_terrain = quarkx.setupsubset()["DefaultTextureTerrain"]
             obj.replacetex("[terrain]", tex_for_terrain)
         else:
-            if quarkx.msgbox("The 'Default terrain texture' has not been\nchosen in the 'Games' configuration section.\nWould you like to go there now to do so?\n\nThis Terrain Maker will still be created using\nthe standard 'Default texture' setting instead.", MT_CONFIRMATION, MB_YES | MB_NO) == MR_YES:
+            if quarkx.msgbox("The 'Default terrain texture' has not been\nchosen in the 'Games' configuration section.\nWould you like to go there now to do so?\n\nThis Terrain Maker will still be created using\nthe standard 'Default texture' setting instead.", qutils.MT_CONFIRMATION, qutils.MB_YES | qutils.MB_NO) == qutils.MR_YES:
                 quarkx.openconfigdlg(":")
             tex_for_terrain = quarkx.setupsubset()["DefaultTexture"]
             obj.replacetex("[terrain]", tex_for_terrain)
@@ -386,7 +386,7 @@ def texturebrowser(reserved=None):
 #               msg = Strings[msg1+1]
 #           else:
 #               msg = Strings[msg1]%len(list)
-#           if quarkx.msgbox(msg, MT_CONFIRMATION, MB_YES | MB_NO) == MR_YES:
+#           if quarkx.msgbox(msg, qutils.MT_CONFIRMATION, qutils.MB_YES | qutils.MB_NO) == qutils.MR_YES:
 #               SetMapOption("DeleteFaces", 1)
 #               undo = quarkx.action()
 #               for f in list:
@@ -446,37 +446,37 @@ def resettexscale(editor, flist, adjust):
                     tp0 + min(s)*tp1 + max(t)*tp2),
                  2, editor.TexSource)
             else:
-                    tex = f .texturename
-                    texobj = quarkx .loadtexture (tex, editor.TexSource)
-                    if texobj is not None:
-                        try:
-                            texobj = texobj .disktexture
-                        except quarkx.error:
-                            texobj = None
-                    size = (128.0,128.0)
-                    if texobj is not None:
-                        size = texobj ["size"]
-                    if size is None:
-                        size = (128.0,128.0)
+                tex = f.texturename
+                texobj = quarkx.loadtexture(tex, editor.TexSource)
+                if texobj is not None:
+                    try:
+                        texobj = texobj.disktexture
+                    except quarkx.error:
+                        texobj = None
+                size = (128.0, 128.0)
+                if texobj is not None:
+                    size = texobj["size"]
+                if size is None:
+                    size = (128.0, 128.0)
 
-                    tpn0 = tp0 + min(s)*tp1 + min(t)*tp2
-                    tpn1 = tp0 + max(s)*tp1 + min(t)*tp2
-                    tpn2 = tp0 + min(s)*tp1 + max(t)*tp2
-                    l = abs (tpn1 - tpn0)
-                    s1 = round (l / size [0])
-                    if s1 == 0:
-                        s1 = 1
-                    s1 = l / s1
-                    l = abs (tpn2 - tpn0)
-                    s2 = round (l / size [1])
-                    if s2 == 0:
-                        s2 = 1
-                    s2 = l / s2
-                    tp = (
-                       (tpn0,
-                        tpn0 + s1 * (tpn1 - tpn0) .normalized,
-                        tpn0 + s2 * (tpn2 - tpn0) .normalized),
-                       2, editor.TexSource)
+                tpn0 = tp0 + min(s)*tp1 + min(t)*tp2
+                tpn1 = tp0 + max(s)*tp1 + min(t)*tp2
+                tpn2 = tp0 + min(s)*tp1 + max(t)*tp2
+                l = abs(tpn1 - tpn0)
+                s1 = round(l / size[0])
+                if s1 == 0:
+                    s1 = 1
+                s1 = l / s1
+                l = abs(tpn2 - tpn0)
+                s2 = round(l / size[1])
+                if s2 == 0:
+                    s2 = 1
+                s2 = l / s2
+                tp = (
+                   (tpn0,
+                    tpn0 + s1 * (tpn1 - tpn0).normalized,
+                    tpn0 + s2 * (tpn2 - tpn0).normalized),
+                   2, editor.TexSource)
 
         else:
             #
@@ -604,7 +604,7 @@ def moveselection(editor, text, offset=None, matrix=None, origin=None, inflate=N
         #
         # No selection.
         #
-        quarkx.msgbox(Strings[222], MT_ERROR, MB_OK)
+        quarkx.msgbox(Strings[222], qutils.MT_ERROR, qutils.MB_OK)
 
 
 
