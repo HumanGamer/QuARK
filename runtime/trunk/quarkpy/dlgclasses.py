@@ -4,13 +4,13 @@
 #                  Dialog Classes
 #
 #              works with quark 5.10
-#          (and probably earlier versons)
+#          (and probably earlier versions)
 #
 ######################################
 
 import qmacro
 import qtoolbar
-from maputils import *
+from qeditor import *
 
 class placepersistent_dialogbox(qmacro.dialogbox):
   def __init__(self, form, src, label, **buttons):
