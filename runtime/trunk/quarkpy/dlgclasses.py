@@ -10,6 +10,7 @@
 
 import qmacro
 import qtoolbar
+from qutils import *
 from qeditor import *
 
 class placepersistent_dialogbox(qmacro.dialogbox):
