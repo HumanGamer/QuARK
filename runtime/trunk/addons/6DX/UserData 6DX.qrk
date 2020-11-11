@@ -107,7 +107,6 @@ QQRKSRC1
   {
     item: =
     {
-
       Txt = "Export 6DX Map"
       Shortcut = "Ctrl+E"
       ExportMapFile = "1"
