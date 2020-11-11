@@ -12,3 +12,7 @@ hollow action should result in.
 
 <i>Force angle to (degrees)</i>. The closest minimum degree angle, a rotation
 should snap to.
+
+<i>NormalizeColors</i>. Many games normalize color-specifics, so that only
+the relative RGB-values matter. In order for the coloring to match while
+editing, QuArK does this too. Turn off this option to disable this behavior.

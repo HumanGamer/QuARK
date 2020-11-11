@@ -2845,6 +2845,7 @@ QQRKSRC1
         LinearWarning   = "1"
         //BezierCenterX = '-32'
         //BezierCenterY = '-32'
+        NormalizeColors = "1"
         Form = "MapBuilding"
       }
       Layouts:config =
@@ -8514,6 +8515,7 @@ QQRKSRC1
       //  Min = '-64'
       //  Max = '64'
       //}
+      NormalizeColors: = {Typ="X" Txt="Normalize colors" Cap="Normalize colors" Hint="Many games normalize color-specifics, so that only the relative RGB-values matter. In order for the coloring to match while editing, QuArK does this too. Turn off this option to disable this behavior."}
     }
     MdlBuilding:form =
     {

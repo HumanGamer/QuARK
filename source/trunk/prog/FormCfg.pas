@@ -792,7 +792,7 @@ begin
     begin
      Spec:=Name;
      S:=Specifics.Values['Typ'];
-     if Upcase(S[2]) = 'N' then   { must normalize color }
+     if (Upcase(S[2]) = 'N') and (SetupSubSet(ssMap, 'Building').Specifics.Values['NormalizeColors']<>'') then   { must normalize color }
       NormaliseCol1(V);
     end;
    with Sender as TToolbarButton97 do
@@ -1229,10 +1229,10 @@ begin
  ReadDoubleArray(Edit.Text, Values);
  {Direction := (Sender as TSmallArrowButtons).Direction; }
  case Direction of
-  sabDirectionUp: Values[2] := Values[2]+1;
+  sabDirectionUp:    Values[2] := Values[2]+1;
   sabDirectionDown:  Values[2] := Values[2]-1;
   sabDirectionLeft:  Values[1] := Values[1]-1;
-  sabDirectionRight:  Values[1] := Values[1]+1;
+  sabDirectionRight: Values[1] := Values[1]+1;
  end;
  Edit.Text := ftos(Values[1])+' '+ftos(Values[2]);
  SetArg(Sender, Edit.Text);
