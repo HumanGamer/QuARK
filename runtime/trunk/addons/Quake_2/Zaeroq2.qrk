@@ -2989,7 +2989,6 @@ QQRKSRC1
         Typ = "EF3"
         Txt = "The three maxs values:"
         Hint = "You must enter three whole values here. (ex: 50  72 56)"
-
       }
       mins: =
       {

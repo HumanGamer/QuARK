@@ -7741,8 +7741,6 @@ QQRKSRC1
       _color: =
       {
         Txt = "&"
-        Typ = ""
-        Hint = ""
       }
       _distance: =
       {
@@ -7820,7 +7818,6 @@ QQRKSRC1
       _ambient: =
       {
         txt = "&"
-        Typ = ""
         Hint = "brightness - A single brightness value for plain white ambient"
          " light."
       }
@@ -7952,8 +7949,6 @@ QQRKSRC1
       _color: =
       {
         Txt = "&"
-        Typ = ""
-        Hint = ""
       }
       _distance: =
       {
@@ -8031,7 +8026,6 @@ QQRKSRC1
       _ambient: =
       {
         txt = "&"
-        Typ = ""
         Hint = "brightness - A single brightness value for plain white ambient"
          " light."
       }
@@ -8173,8 +8167,6 @@ QQRKSRC1
       _color: =
       {
         Txt = "&"
-        Typ = ""
-        Hint = ""
       }
       _distance: =
       {
@@ -8252,7 +8244,6 @@ QQRKSRC1
       _ambient: =
       {
         txt = "&"
-        Typ = ""
         Hint = "brightness - A single brightness value for plain white ambient"
          " light."
       }
@@ -8404,8 +8395,6 @@ QQRKSRC1
       _color: =
       {
         Txt = "&"
-        Typ = ""
-        Hint = ""
       }
       _distance: =
       {
@@ -8483,7 +8472,6 @@ QQRKSRC1
       _ambient: =
       {
         txt = "&"
-        Typ = ""
         Hint = "brightness - A single brightness value for plain white ambient"
          " light."
       }
@@ -8658,9 +8646,6 @@ QQRKSRC1
          " be retriggered in order for it to close.This will also result in th"
          "e bob effect taking place on both ends of the bobbingwater's motion,"
          " rather than just its "$22"opening"$22" motion. (Default=-1)."
-        Typ = ""
-        Items = ""
-        Values = ""
       }
       spawnflags: =
       {
@@ -8734,8 +8719,6 @@ QQRKSRC1
       _color: =
       {
         Txt = "&"
-        Typ = ""
-        Hint = ""
       }
       _distance: =
       {
@@ -8813,7 +8796,6 @@ QQRKSRC1
       _ambient: =
       {
         txt = "&"
-        Typ = ""
         Hint = "brightness - A single brightness value for plain white ambient"
          " light."
       }
@@ -8993,8 +8975,6 @@ QQRKSRC1
       _color: =
       {
         Txt = "&"
-        Typ = ""
-        Hint = ""
       }
       _distance: =
       {
@@ -9072,7 +9052,6 @@ QQRKSRC1
       _ambient: =
       {
         txt = "&"
-        Typ = ""
         Hint = "brightness - A single brightness value for plain white ambient"
          " light."
       }
@@ -9295,8 +9274,6 @@ QQRKSRC1
       _color: =
       {
         Txt = "&"
-        Typ = ""
-        Hint = ""
       }
       _distance: =
       {
@@ -9374,7 +9351,6 @@ QQRKSRC1
       _ambient: =
       {
         txt = "&"
-        Typ = ""
         Hint = "brightness - A single brightness value for plain white ambient"
          " light."
       }
@@ -9651,8 +9627,6 @@ QQRKSRC1
       _color: =
       {
         Txt = "&"
-        Typ = ""
-        Hint = ""
       }
       _distance: =
       {
@@ -9730,7 +9704,6 @@ QQRKSRC1
       _ambient: =
       {
         txt = "&"
-        Typ = ""
         Hint = "brightness - A single brightness value for plain white ambient"
          " light."
       }
@@ -10001,8 +9974,6 @@ QQRKSRC1
       _color: =
       {
         Txt = "&"
-        Typ = ""
-        Hint = ""
       }
       _distance: =
       {
@@ -10080,7 +10051,6 @@ QQRKSRC1
       _ambient: =
       {
         txt = "&"
-        Typ = ""
         Hint = "brightness - A single brightness value for plain white ambient"
          " light."
       }
@@ -10363,8 +10333,6 @@ QQRKSRC1
       _color: =
       {
         Txt = "&"
-        Typ = ""
-        Hint = ""
       }
       _distance: =
       {
@@ -10442,7 +10410,6 @@ QQRKSRC1
       _ambient: =
       {
         txt = "&"
-        Typ = ""
         Hint = "brightness - A single brightness value for plain white ambient"
          " light."
       }
@@ -10600,8 +10567,6 @@ QQRKSRC1
       _color: =
       {
         Txt = "&"
-        Typ = ""
-        Hint = ""
       }
       _distance: =
       {
@@ -10679,7 +10644,6 @@ QQRKSRC1
       _ambient: =
       {
         txt = "&"
-        Typ = ""
         Hint = "brightness - A single brightness value for plain white ambient"
          " light."
       }
@@ -10940,8 +10904,6 @@ QQRKSRC1
       _color: =
       {
         Txt = "&"
-        Typ = ""
-        Hint = ""
       }
       _distance: =
       {
@@ -11019,7 +10981,6 @@ QQRKSRC1
       _ambient: =
       {
         txt = "&"
-        Typ = ""
         Hint = "brightness - A single brightness value for plain white ambient"
          " light."
       }
@@ -11225,8 +11186,6 @@ QQRKSRC1
       _color: =
       {
         Txt = "&"
-        Typ = ""
-        Hint = ""
       }
       _distance: =
       {
@@ -11304,7 +11263,6 @@ QQRKSRC1
       _ambient: =
       {
         txt = "&"
-        Typ = ""
         Hint = "brightness - A single brightness value for plain white ambient"
          " light."
       }
@@ -11556,8 +11514,6 @@ QQRKSRC1
       _color: =
       {
         Txt = "&"
-        Typ = ""
-        Hint = ""
       }
       _distance: =
       {
@@ -11635,7 +11591,6 @@ QQRKSRC1
       _ambient: =
       {
         txt = "&"
-        Typ = ""
         Hint = "brightness - A single brightness value for plain white ambient"
          " light."
       }
@@ -11763,8 +11718,6 @@ QQRKSRC1
       _color: =
       {
         Txt = "&"
-        Typ = ""
-        Hint = ""
       }
       _distance: =
       {
@@ -11842,7 +11795,6 @@ QQRKSRC1
       _ambient: =
       {
         txt = "&"
-        Typ = ""
         Hint = "brightness - A single brightness value for plain white ambient"
          " light."
       }
@@ -12034,8 +11986,6 @@ QQRKSRC1
       _color: =
       {
         Txt = "&"
-        Typ = ""
-        Hint = ""
       }
       _distance: =
       {
@@ -12113,7 +12063,6 @@ QQRKSRC1
       _ambient: =
       {
         txt = "&"
-        Typ = ""
         Hint = "brightness - A single brightness value for plain white ambient"
          " light."
       }
@@ -12229,8 +12178,6 @@ QQRKSRC1
       _color: =
       {
         Txt = "&"
-        Typ = ""
-        Hint = ""
       }
       _distance: =
       {
@@ -12308,7 +12255,6 @@ QQRKSRC1
       _ambient: =
       {
         txt = "&"
-        Typ = ""
         Hint = "brightness - A single brightness value for plain white ambient"
          " light."
       }
@@ -12476,8 +12422,6 @@ QQRKSRC1
       _color: =
       {
         Txt = "&"
-        Typ = ""
-        Hint = ""
       }
       _distance: =
       {
@@ -12555,7 +12499,6 @@ QQRKSRC1
       _ambient: =
       {
         txt = "&"
-        Typ = ""
         Hint = "brightness - A single brightness value for plain white ambient"
          " light."
       }
@@ -12741,8 +12684,6 @@ QQRKSRC1
       _color: =
       {
         Txt = "&"
-        Typ = ""
-        Hint = ""
       }
       _distance: =
       {
@@ -12820,7 +12761,6 @@ QQRKSRC1
       _ambient: =
       {
         txt = "&"
-        Typ = ""
         Hint = "brightness - A single brightness value for plain white ambient"
          " light."
       }
@@ -13129,8 +13069,6 @@ QQRKSRC1
       _color: =
       {
         Txt = "&"
-        Typ = ""
-        Hint = ""
       }
       _distance: =
       {
@@ -13208,7 +13146,6 @@ QQRKSRC1
       _ambient: =
       {
         txt = "&"
-        Typ = ""
         Hint = "brightness - A single brightness value for plain white ambient"
          " light."
       }
@@ -13439,8 +13376,6 @@ QQRKSRC1
       _color: =
       {
         Txt = "&"
-        Typ = ""
-        Hint = ""
       }
       _distance: =
       {
@@ -13518,7 +13453,6 @@ QQRKSRC1
       _ambient: =
       {
         txt = "&"
-        Typ = ""
         Hint = "brightness - A single brightness value for plain white ambient"
          " light."
       }
@@ -13771,8 +13705,6 @@ QQRKSRC1
       _color: =
       {
         Txt = "&"
-        Typ = ""
-        Hint = ""
       }
       _distance: =
       {
@@ -13850,7 +13782,6 @@ QQRKSRC1
       _ambient: =
       {
         txt = "&"
-        Typ = ""
         Hint = "brightness - A single brightness value for plain white ambient"
          " light."
       }
@@ -14094,8 +14025,6 @@ QQRKSRC1
       _color: =
       {
         Txt = "&"
-        Typ = ""
-        Hint = ""
       }
       _distance: =
       {
@@ -14173,7 +14102,6 @@ QQRKSRC1
       _ambient: =
       {
         txt = "&"
-        Typ = ""
         Hint = "brightness - A single brightness value for plain white ambient"
          " light."
       }
@@ -14434,8 +14362,6 @@ QQRKSRC1
       _color: =
       {
         Txt = "&"
-        Typ = ""
-        Hint = ""
       }
       _distance: =
       {
@@ -14513,7 +14439,6 @@ QQRKSRC1
       _ambient: =
       {
         txt = "&"
-        Typ = ""
         Hint = "brightness - A single brightness value for plain white ambient"
          " light."
       }
@@ -14713,8 +14638,6 @@ QQRKSRC1
       _color: =
       {
         Txt = "&"
-        Typ = ""
-        Hint = ""
       }
       _distance: =
       {
@@ -14792,7 +14715,6 @@ QQRKSRC1
       _ambient: =
       {
         txt = "&"
-        Typ = ""
         Hint = "brightness - A single brightness value for plain white ambient"
          " light."
       }
@@ -14979,8 +14901,6 @@ QQRKSRC1
       _color: =
       {
         Txt = "&"
-        Typ = ""
-        Hint = ""
       }
       _distance: =
       {
@@ -15058,7 +14978,6 @@ QQRKSRC1
       _ambient: =
       {
         txt = "&"
-        Typ = ""
         Hint = "brightness - A single brightness value for plain white ambient"
          " light."
       }
@@ -15208,8 +15127,6 @@ QQRKSRC1
       _color: =
       {
         Txt = "&"
-        Typ = ""
-        Hint = ""
       }
       _distance: =
       {
@@ -15287,7 +15204,6 @@ QQRKSRC1
       _ambient: =
       {
         txt = "&"
-        Typ = ""
         Hint = "brightness - A single brightness value for plain white ambient"
          " light."
       }
@@ -15451,8 +15367,6 @@ QQRKSRC1
       _color: =
       {
         Txt = "&"
-        Typ = ""
-        Hint = ""
       }
       _distance: =
       {
@@ -15530,7 +15444,6 @@ QQRKSRC1
       _ambient: =
       {
         txt = "&"
-        Typ = ""
         Hint = "brightness - A single brightness value for plain white ambient"
          " light."
       }
@@ -19990,7 +19903,6 @@ QQRKSRC1
       _color: =
       {
         Txt = "&"
-        Typ = ""
         Hint = "Specifies light color in relative RGB values. (Default=1 1 1)."
       }
       _cone: =
@@ -20148,7 +20060,6 @@ QQRKSRC1
       _color: =
       {
         Txt = "&"
-        Typ = ""
         Hint = "Specifies light color in relative RGB values. (Default=1 1 1)."
       }
       _cone: =
@@ -20292,7 +20203,6 @@ QQRKSRC1
       _color: =
       {
         Txt = "&"
-        Typ = ""
         Hint = "Specifies light color in relative RGB values. (Default=1 1 1)."
       }
       _cone: =
@@ -29842,8 +29752,6 @@ QQRKSRC1
       _color: =
       {
         Txt = "&"
-        Typ = ""
-        Hint = ""
       }
       _distance: =
       {
@@ -29921,7 +29829,6 @@ QQRKSRC1
       _ambient: =
       {
         txt = "&"
-        Typ = ""
         Hint = "brightness - A single brightness value for plain white ambient"
          " light."
       }
@@ -30807,7 +30714,6 @@ QQRKSRC1
       fog_color: =
       {
         txt = "&"
-        Typ = ""
         Hint = "Specifies relative RGB color components of the fog effect; val"
          "id range for each component is 0.0-1.0. (Default=0.5 0.5 0.5)."
       }
@@ -31974,8 +31880,6 @@ QQRKSRC1
       _color: =
       {
         Txt = "&"
-        Typ = ""
-        Hint = ""
       }
       _distance: =
       {
@@ -32050,7 +31954,6 @@ QQRKSRC1
       _ambient: =
       {
         txt = "&"
-        Typ = ""
         Hint = "brightness - A single brightness value for plain white ambient"
          " light."
       }
@@ -34371,7 +34274,6 @@ QQRKSRC1
       fog_color: =
       {
         txt = "&"
-        Typ = ""
         Hint = "Specifies relative RGB color components of the fog effect; val"
          "id range for each component is 0.0-1.0. (Default=0.5 0.5 0.5)."
       }
@@ -36122,8 +36024,6 @@ QQRKSRC1
       _color: =
       {
         Txt = "&"
-        Typ = ""
-        Hint = ""
       }
       _distance: =
       {
@@ -36201,7 +36101,6 @@ QQRKSRC1
       _ambient: =
       {
         txt = "&"
-        Typ = ""
         Hint = "brightness - A single brightness value for plain white ambient"
          " light."
       }
@@ -36449,8 +36348,6 @@ QQRKSRC1
       _color: =
       {
         Txt = "&"
-        Typ = ""
-        Hint = ""
       }
       _distance: =
       {
@@ -36528,7 +36425,6 @@ QQRKSRC1
       _ambient: =
       {
         txt = "&"
-        Typ = ""
         Hint = "brightness - A single brightness value for plain white ambient"
          " light."
       }

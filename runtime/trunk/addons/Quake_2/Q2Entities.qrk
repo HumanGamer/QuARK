@@ -13917,7 +13917,6 @@ QQRKSRC1
       }
       _ambient: =
       {
-        Typ = ""
         Txt = "&"
         Hint = "brightness - A single brightness value for plain white ambient"
          " light."

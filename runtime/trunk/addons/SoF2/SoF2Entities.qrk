@@ -1978,11 +1978,6 @@ QQRKSRC1
       {
         txt = "&"
         Hint = "Path and Name of model to use"
-        Typ = ""
-        Items = ""
-        Values = ""
-        Form = ""
-        Cap = ""
       }
       spawnflags: =
       {
@@ -1993,11 +1988,6 @@ QQRKSRC1
       {
         txt = "&"
         Hint = "direction model will be oriented"
-        Typ = ""
-        Items = ""
-        Values = ""
-        Form = ""
-        Cap = ""
       }
       model: =
       {
@@ -2158,11 +2148,6 @@ QQRKSRC1
       {
         txt = "&"
         Hint = "Path and Name of model to use"
-        Typ = ""
-        Items = ""
-        Values = ""
-        Form = ""
-        Cap = ""
       }
       spawnflags: =
       {
@@ -2173,11 +2158,6 @@ QQRKSRC1
       {
         txt = "&"
         Hint = "direction model will be oriented"
-        Typ = ""
-        Items = ""
-        Values = ""
-        Form = ""
-        Cap = ""
       }
       model: =
       {

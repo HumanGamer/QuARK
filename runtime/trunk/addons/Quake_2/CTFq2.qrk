@@ -1,19 +1,17 @@
 QQRKSRC1
+//    Dont forget, any maps using the CTF textures, must run Quake2 like this:
+//    quake2 +set game ctf +map (your map)
 
 {
-    QuArKProtected = "1"
-    Description = "Requires q2ctf150.zip at http://www.fileaholic.com/idgames.d/idstuff/quake2/ctf/"
+  QuArKProtected = "1"
+  Description = "Requires q2ctf150.zip at http://www.fileaholic.com/idgames.d/idstuff/quake2/ctf/"
 
-    CTF directory infos.qctx =    // Quake ConTeXt
-    {
-        Game = "Quake 2"    // based on Quake 2
-        SourceDir = "CTF"    // looks there for files
-        GameDir = "CTF"        // starts Quake 2 with "+set game CTF"
-    }
-    //    Dont forget, any maps using the CTF textures, must run Quake2 like this:
-    //    quake2 +set game ctf +map (your map)
-
-    //    Thankyou!
+  CTF directory infos.qctx =    // Quake ConTeXt
+  {
+    Game = "Quake 2"    // based on Quake 2
+    SourceDir = "CTF"    // looks there for files
+    GameDir = "CTF"        // starts Quake 2 with "+set game CTF"
+  }
 
   Textures.qtx =
   {
@@ -2764,8 +2762,6 @@ QQRKSRC1
       _color: =
       {
         Txt = "&"
-        Typ = ""
-        Hint = ""
       }
       _distance: =
       {
@@ -2840,7 +2836,6 @@ QQRKSRC1
       _ambient: =
       {
         txt = "&"
-        Typ = ""
         Hint = "brightness - A single brightness value for plain white ambient"
          " light."
       }

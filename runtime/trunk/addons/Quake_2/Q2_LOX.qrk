@@ -2134,8 +2134,6 @@ QQRKSRC1
       _color: =
       {
         Txt = "&"
-        Typ = ""
-        Hint = ""
       }
       _distance: =
       {
@@ -2210,7 +2208,6 @@ QQRKSRC1
       _ambient: =
       {
         txt = "&"
-        Typ = ""
         Hint = "brightness - A single brightness value for plain white ambient"
          " light."
       }

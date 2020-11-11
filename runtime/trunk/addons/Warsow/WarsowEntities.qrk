@@ -6492,7 +6492,6 @@ QQRKSRC1
       _color: =
       {
         txt = "&"
-        Typ = ""
         Hint = "RGB value of light color (default white - 1.0 1.0 1.0)."
       }
       _color: =
@@ -10807,7 +10806,6 @@ QQRKSRC1
       _color: =
       {
         Txt = "&"
-        Typ = ""
         Hint = "light color (not the intensity, only the color) used for the a"
          "mbient light."
       }
