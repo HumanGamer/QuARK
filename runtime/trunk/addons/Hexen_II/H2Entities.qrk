@@ -5403,11 +5403,6 @@ QQRKSRC1
        }
      spawnflags: =
        {Txt="&"
-        Typ="Xcobwebs"
-        Cap="and"
-        Hint="corner web.  1&2 make it break apart upon touch."}
-     spawnflags: =
-       {Txt="&"
         Typ="X1"
         Cap="SOLID"
         Hint="Make it so you can walk on it and not pass though it."}
@@ -5415,12 +5410,17 @@ QQRKSRC1
        {Txt="&"
         Typ="X2"
         Cap="ANIMATE"
-        Hint="give it a slight constant animation.  Looks best on"}
+        Hint="give it a slight constant animation.  Looks best on corner web."}
+     spawnflags: =
+       {Txt="&"
+        Typ="X3"
+        Cap="WEAK"
+        Hint="1&2 make it break apart upon touch."}
      spawnflags: =
        {Txt="&"
         Typ="X4"
         Cap="TOUCHMOVE"
-        Hint="Will cycle through it's animation once only when touched, not meant to be used with any other spawnflag"}
+        Hint="Will cycle through its animation once only when touched, not meant to be used with any other spawnflag"}
      spawnflags: =
        {Txt="&"
         Typ="X8"
