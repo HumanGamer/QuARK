@@ -5783,7 +5783,7 @@ QQRKSRC1
       _color: =
       {
         Txt = "&"
-        Typ = "L"
+        Typ = "LN"
         Hint = "Click here to pick the light color."
       }
       radius: =
@@ -7475,7 +7475,7 @@ QQRKSRC1
       _color: =
       {
         Txt = "&"
-        Typ = "LN"
+        Typ = "L"
         Hint = "light color (not the intensity, only the color) used for the ambient light."
       }
       gravity: =
