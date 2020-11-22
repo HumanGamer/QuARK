@@ -1373,8 +1373,8 @@ begin
  MouseTimer.Enabled:=False;
  H:=GetHandle(g_DrawInfo.X, g_DrawInfo.Y, Flags and vfCrossDrag <> 0, Nil);
  Py_DECREF(CurrentHandle);
- Py_INCREF(H);
  CurrentHandle:=H;
+ Py_INCREF(CurrentHandle);
  CallMouseEvent(MapViewObject, FOnMouse, g_DrawInfo.X+CorrectionX, g_DrawInfo.Y+CorrectionY, mbDragStart, g_DrawInfo.ShiftState, CurrentHandle);
 end;
 
