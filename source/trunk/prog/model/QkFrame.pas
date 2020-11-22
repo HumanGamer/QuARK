@@ -205,22 +205,6 @@ begin
   PChar(P):=PChar(S) + BoneSpec;
 end;
 
-function vec3_t_add(v1,v2: vec3_t): vec3_t;
-var
-  i: integer;
-begin
-  for i:=0 to 2 do
-    result[i]:=v1[i]+v2[i];
-end;
-
-function vec3_t_sub(v1,v2: vec3_t): vec3_t;
-var
-  i: integer;
-begin
-  for i:=0 to 2 do
-    result[i]:=v1[i]-v2[i];
-end;
-
 function QFrame.GetVertices(var P: vec3_p) : Integer;
 const
   VertSpec = Length('Vertices=');
@@ -281,7 +265,7 @@ begin
     s_Tag.GetRotMatrix(m);
     o_Tag.GetRotMatrix(m1);
     RotateVecs(MultiplieMatrices(M^,M1^), P, Result);
-    TranslateVecs(vec3_t_sub(o_Tag.GetPosition^, s_tag.getPosition^), P, Result);
+    TranslateVecs(Vec3Diff(o_Tag.GetPosition^, s_tag.getPosition^), P, Result);
 //    ScaleVecs(P, Result, sc-bf.GetQ3A_Scale);
     if Specifics.IndexOfName(S0)<>-1 then
       Specifics.Delete(Specifics.IndexofName(S0));
