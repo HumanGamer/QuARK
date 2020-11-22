@@ -69,7 +69,7 @@ begin
    begin
      Result:=FileExists(S+CheckFile);
    end;
-  end; 
+  end;
 end;
 
 function BrowseCallback(hWnd: HWND; uMsg: UINT; lParam, lpData: LPARAM): Integer stdcall; export;
@@ -106,14 +106,14 @@ end;
 
 function BrowseForFolderDlg(hwnd: HWnd; var Path: String; Title: String; const CheckFile: String) : Boolean;
 var
- g_pMalloc: IMALLOC;
- pidlFolder: PITEMIDLIST;
+ g_pMalloc: IMalloc;
+ pidlFolder: PItemIDList;
  BrowseInfo: TBrowseInfo;
  S: String;
  I: Integer;
 begin
  Result:=False;
- if not SUCCEEDED(CoGetMalloc(MEMCTX_TASK,g_pMalloc)) then
+ if not SUCCEEDED(SHGetMalloc(g_pMalloc)) then
   Exit;
  I:=Pos(#13+#10, Title);
  if I<>0 then
@@ -143,10 +143,6 @@ begin
   if pidlFolder<>Nil then
    g_pMalloc.Free(pidlFolder);
  end;
-
- { Release the shell's allocator. }
- // g_pMalloc.Release;   DONE AUTOMATICALLY BY DELPHI 4 (I hope)
-
  Result:=S<>'';
  if Result then
   Path:=S;
