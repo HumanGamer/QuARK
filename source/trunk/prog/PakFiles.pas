@@ -220,7 +220,7 @@ begin
          FindClose(sr);
        end;
      end;
-     StrList.CustomSort(StringListCompareOfficialPakFiles);     
+     StrList.CustomSort(StringListCompareOfficialPakFiles);
    end;
 
    //Get the list of strings, by looking in the path for files matching the filefilter
