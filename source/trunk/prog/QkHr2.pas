@@ -188,7 +188,7 @@ end;
 type
  THr2Entry = record
               SectionName: array[0..31] of Byte;
-              Version, Size: LongInt;
+              Version, Size: LongWord;
              end;
  THr2Header = record
                skinwidth: LongInt;
@@ -236,7 +236,7 @@ begin
         F.Position:=Origine+Delta;
         F.ReadBuffer(Hr2Entry, SizeOf(Hr2Entry));
         Inc(Delta, SizeOf(Hr2Entry));
-        if (Hr2Entry.Size<0) or (Delta+Hr2Entry.Size > FSize) then
+        if (Delta+Integer(Hr2Entry.Size) > FSize) then
          Raise EErrorFmt(5509, [291]);
 
         S:=CharToPas(Hr2Entry.SectionName);
