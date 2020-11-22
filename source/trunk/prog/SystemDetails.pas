@@ -102,8 +102,8 @@ type
     FVirtualFree: SIZE_T;
 
     FAllocGranularity: DWORD;
-    FMinAppAddress: Integer;
-    FMaxAppAddress: Integer;
+    FMinAppAddress: Cardinal; //Actually, Pointer...
+    FMaxAppAddress: Cardinal; //Actually, Pointer...
     FPageSize: DWORD;
     FGDIRes: Byte;
     FUserRes: Byte;
@@ -123,8 +123,8 @@ type
     property VirtualTotal :SIZE_T read FVirtualTotal write FVirtualTotal stored false;
     property VirtualFree :SIZE_T read FVirtualFree write FVirtualFree stored false;
     property AllocGranularity :DWORD read FAllocGranularity write FAllocGranularity stored false;
-    property MaxAppAddress :Integer read FMaxAppAddress write FMaxAppAddress stored false;
-    property MinAppAddress :Integer read FMinAppAddress write FMinAppAddress stored false;
+    property MaxAppAddress :Cardinal read FMaxAppAddress write FMaxAppAddress stored false;
+    property MinAppAddress :Cardinal read FMinAppAddress write FMinAppAddress stored false;
     property PageSize :DWORD read FPageSize write FPageSize stored false;
     property Win9x_SystemRes :Byte read FSystemRes write FSystemRes stored false;
     property Win9x_GDIRes :Byte read FGDIRes write FGDIRes stored false;
@@ -1319,8 +1319,8 @@ begin
   ZeroMemory(@SI,SizeOf(SI));
   GetSystemInfo(SI);
   AllocGranularity:=SI.dwAllocationGranularity;
-  MaxAppAddress:=Integer(SI.lpMaximumApplicationAddress);
-  MinAppAddress:=Integer(SI.lpMinimumApplicationAddress);
+  MaxAppAddress:=Cardinal(SI.lpMaximumApplicationAddress);
+  MinAppAddress:=Cardinal(SI.lpMinimumApplicationAddress);
   PageSize:=SI.dwPageSize;
   FSystemRes:=GetSystemRes;
   FGDIRes:=GetGDIRes;
