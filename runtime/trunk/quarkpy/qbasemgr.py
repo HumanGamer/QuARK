@@ -261,7 +261,7 @@ class BaseLayout:
 
         setprojmode(view)
         self.editor.setupview(view)
-        floating.info = view
+        #floating.info = view
         floating.onclose = self.close3Dwindow
 
         setup = quarkx.setupsubset(SS_GENERAL, "3D View")
@@ -335,7 +335,7 @@ class BaseLayout:
 
         setprojmode(view)
         self.editor.setupview(view)
-        fullscreen.info = view
+        #fullscreen.info = view
         fullscreen.onclose = self.closefull3Dview
 
         self.views.append(view)
