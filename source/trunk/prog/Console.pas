@@ -60,7 +60,7 @@ type
     ConsoleFont: HFont;
     LineHeight: Integer;
     StartY, Clipboard1, Clipboard2: Integer;
-    More: LongInt;
+    More: DWORD;
     function LineOf(YdY: Integer) : Integer;
   public
   end;
@@ -694,7 +694,7 @@ var
 begin
  if not ConsoleReady then Exit;
  if Clipboard1=Clipboard2 then Exit;
- if ((Integer(GetTickCount)<More) or (Integer(GetTickCount)>More+200))
+ if ((GetTickCount<More) or (GetTickCount>More+200))
  and (MessageDlg(LoadStr1(4456), mtConfirmation, [mbYes, mbNo], 0) = mrYes) then
   begin
    I:=Clipboard1;
