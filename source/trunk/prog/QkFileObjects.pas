@@ -960,11 +960,14 @@ var
     { Find all files with the *.TMP extension }
     if (FindFirst(TempPath+Tag+'*.TMP', faAnyFile, F) = 0) then
     begin
-      repeat
-        List.Add(F.Name);
-      until FindNext(F)<>0;
+      try
+        repeat
+          List.Add(F.Name);
+        until FindNext(F)<>0;
+      finally
+        FindClose(F);
+      end;
     end;
-    FindClose(F);
   end;
 
   procedure DeleteTheseFiles;

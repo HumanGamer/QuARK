@@ -205,28 +205,31 @@ begin
     // Find all QuArK-created PAK files
     if FindFirst(QD1+'\*', faDirectory, sr) = 0 then
     begin
-      repeat
-        if (sr.Name<>'.') and (sr.Name<>'..') and (sr.Attr and faDirectory > 0) then
-        begin
-          GetPakNames := TGetPakNames.Create;
-          try
-            GetPakNames.CreatePakList(ConcatPaths([QD1, sr.Name]), '', False, True);
-            while GetPakNames.GetNextPakName(True, PakFilename, False) do
-            begin
-              if IsPakTemp(PakFilename) then
+      try
+        repeat
+          if (sr.Name<>'.') and (sr.Name<>'..') and (sr.Attr and faDirectory > 0) then
+          begin
+            GetPakNames := TGetPakNames.Create;
+            try
+              GetPakNames.CreatePakList(ConcatPaths([QD1, sr.Name]), '', False, True);
+              while GetPakNames.GetNextPakName(True, PakFilename, False) do
               begin
-                ListBox1.Items.Add(PakFilename);
-                ListBox1.Selected[ListBox1.Items.Count-1]:=True;
-                ListBox1.Update;
+                if IsPakTemp(PakFilename) then
+                begin
+                  ListBox1.Items.Add(PakFilename);
+                  ListBox1.Selected[ListBox1.Items.Count-1]:=True;
+                  ListBox1.Update;
+                end;
               end;
+            finally
+              GetPakNames.Free;
             end;
-          finally
-            GetPakNames.Free;
           end;
-        end;
-      until FindNext(sr)<>0;
+        until FindNext(sr)<>0;
+      finally
+        FindClose(sr);
+      end;
     end;
-    FindClose(sr);
   finally
     Screen.Cursor:=crDefault;
   end;
