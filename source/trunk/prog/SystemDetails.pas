@@ -300,7 +300,7 @@ type
 
 implementation
 
-uses ShlObj, ActiveX, TlHelp32, Psapi, Registry, Logging, QkExceptions;
+uses {$IFDEF CompiledWithDelphi2}ShellObj, OLE2, {$ELSE}ShlObj, ActiveX, {$ENDIF}TlHelp32, Psapi, Registry, Logging, QkExceptions;
 
 type
   TPlatformType = (osWin95Comp, osWinNTComp);
@@ -889,6 +889,12 @@ var
 begin
   Result:='';
 
+  err:=SHGetMalloc(AMalloc);
+  if not SUCCEEDED(err) then
+  begin
+    Log(LOG_WARNING, 'Failed to get special folder %d: error 0x%x (SHGetMalloc)', [nFolder, LongWord(err)]);
+    Exit;
+  end;
   err:=SHGetSpecialFolderLocation(Handle, nFolder, PIDL);
   if err<>S_OK then
   begin
@@ -904,7 +910,6 @@ begin
       StrDispose(Path);
     end;
   finally
-    SHGetMalloc(AMalloc);
     AMalloc.Free(PIDL);
   end;
 end;
