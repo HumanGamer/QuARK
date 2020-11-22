@@ -392,7 +392,6 @@ begin
     Fw:=TPyFloatingWnd.CreateCustom(Form, nFlags, nCaption);
     Fw.WindowObject^.Hidden:=True;
     Result:=Fw.WindowObject;
-    Py_INCREF(Result);
     LayoutMgrFromPanelObj(Form.MainPanelC).InsertControl(Result);
    end;
  except
@@ -449,8 +448,8 @@ begin
       Exit;
      end;
     Fw:=TPyFullscreenWnd.CreateCustom(Form, nFlags, nCaption);
-    Result:=Fw.WindowObject; //FIXME: INCREF?
     Fw.WindowObject^.Hidden:=True;
+    Result:=Fw.WindowObject;
     LayoutMgrFromPanelObj(Form.MainPanelC).InsertControl(Result);
    end;
  except
