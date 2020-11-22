@@ -295,8 +295,9 @@ destructor QComponent.Destroy;
 begin
   Py_XDECREF(FInfo);
   FCurrentSkin.AddRef(-1);
+  FCurrentSkin:=Nil;
   FCurrentFrameObj.AddRef(-1);
-  {FreeMem(FCurrentFrame);}
+  FCurrentFrameObj:=Nil;
   Py_XDECREF(FSelTris);
   {Py_XDECREF(FColor);}
   inherited;
@@ -353,9 +354,9 @@ procedure QComponent.SetCurrentSkin(nSkin: QImage);
 begin
   FCurrentSkin.AddRef(-1);
   FCurrentSkin:=nSkin;
-  if nSkin<>Nil then
+  if FCurrentSkin<>Nil then
   begin
-    nSkin.AddRef(+1);
+    FCurrentSkin.AddRef(+1);
     FSkinCounter:=GlobalSkinCounter;
     //FIXME: GlobalSkinCounter never decreases. Eventually, we're going to overflow!
     Inc(GlobalSkinCounter);

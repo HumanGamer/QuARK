@@ -130,48 +130,44 @@ end;
 
 procedure QFrame.RotateFrame(matrice: TMatrixTransformation);
 var
-  Frame: QFrame;
   p, p_org: vec3_p;
   S0,s:String;
   j,c: integer;
   Dest: vec3_p;
 begin
-    Frame:=self;
-    c:=Frame.GetVertices(p_org);
-    p:=p_org;
-    S0:=FloatSpecNameOf('Vertices');
-    S:=S0+'=';
-    SetLength(S, Length(S)+SizeOf(vec3_t)*c);
-    PChar(Dest):=PChar(S)+Length(S0+'=');
-    for j:=1 to c do
-    begin
-      Dest^:=VectByMatrix(matrice, p^);
-      inc(p);
-      inc(Dest);
-    end;
-    Frame.Specifics.Delete(Frame.Specifics.IndexOfName(S0));
-    Frame.Specifics.Add(S);
+  c:=GetVertices(p_org);
+  p:=p_org;
+  S0:=FloatSpecNameOf('Vertices');
+  S:=S0+'=';
+  SetLength(S, Length(S)+SizeOf(vec3_t)*c);
+  PChar(Dest):=PChar(S)+Length(S0+'=');
+  for j:=1 to c do
+  begin
+    Dest^:=VectByMatrix(matrice, p^);
+    inc(p);
+    inc(Dest);
+  end;
+  Specifics.Delete(Specifics.IndexOfName(S0));
+  Specifics.Add(S);
 end;
 
 procedure QFrame.TranslateFrame(vec: vec3_t);
 var
-  Frame: QFrame;
   p_org: vec3_p;
   S0,s:String;
   c: integer;
   Dest: vec3_p;
 begin
-    Frame:=self;
-    c:=Frame.GetVertices(p_org);
-    S0:=FloatSpecNameOf('Vertices');
-    S:=S0+'=';
-    SetLength(S, Length(S)+SizeOf(vec3_t)*c);
-    PChar(Dest):=PChar(S)+Length(S0+'=');
+  c:=GetVertices(p_org);
+  S0:=FloatSpecNameOf('Vertices');
+  S:=S0+'=';
+  SetLength(S, Length(S)+SizeOf(vec3_t)*c);
+  PChar(Dest):=PChar(S)+Length(S0+'=');
 
-    TranslateVecs(vec, Dest, C);
+  TranslateVecs(vec, Dest, C);
 
-    Frame.Specifics.Delete(Frame.Specifics.IndexOfName(S0));
-    Frame.Specifics.Add(S);
+  Specifics.Delete(Specifics.IndexOfName(S0));
+  Specifics.Add(S);
 end;
 
 destructor QFrame.Destroy;

@@ -307,6 +307,7 @@ end;
 procedure TFormCfgDlg.FormDestroy;
 begin
  FSrcObj.AddRef(-1);
+ FSrcObj:=Nil;
  L.Free;
 end;
 
@@ -1612,8 +1613,8 @@ end;
 
 constructor TFormCfg.Create(AOwner: TComponent);
 begin
+  ClosePopupForm;
   inherited;
-  PopupForm:=nil;
   OnMouseWheelDown:=MouseWheelDown;
   OnMouseWheelUp:=MouseWheelUp;
 end;
@@ -2715,8 +2716,8 @@ begin
    ClosePopupWindows;
    PopupFormSpec:=S;
    Form.AddRef(-1);
+   Form:=Nil;
   end;
- Form:=Nil;
  if Links.Count>0 then  { if there is one or more linked objects }
   begin
    if nForm<>Nil then  { uses the provided form as basis }
@@ -2833,10 +2834,12 @@ end;
 destructor TFormCfg.Destroy;
 begin
  FOriginalForm.AddRef(-1);
+ FOriginalForm:=nil;
  if Form<>Nil then
   begin
    ClosePopupWindows;
    Form.AddRef(-1);
+   Form:=Nil;
   end;
  Links.Free;
  EditTogether.Free;
