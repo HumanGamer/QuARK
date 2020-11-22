@@ -2448,7 +2448,7 @@ begin
       else if CharModeJeu=mjCrystalSpace then
         Result:=mjCrystalSpace
       else if CharModeJeu=mjTorque then
-        Result:=mjTorque 
+        Result:=mjTorque
       else if CharModeJeu=mjSylphis then
         Result:=mjSylphis;
 
