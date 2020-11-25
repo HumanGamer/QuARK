@@ -567,7 +567,7 @@ begin
 
   PL^.Brightness:=Brightness;
 
-  PL^.Color:=SwapColor(Color) and $FFFFFF;
+  PL^.Color:=Color and $FFFFFF;
 
   NumberOfLights:=NumberOfLights+1;
 end;
@@ -1432,7 +1432,6 @@ begin
             Currentf[2]:=Currentf[2]*CurrentfTMP[2];
             Currentf[3]:=Currentf[3];
           end;
-          //@SwapColors?!?
 
           material.Diffuse := D3DXCOLOR(Currentf[0], Currentf[1], Currentf[2], Currentf[3]);
         end

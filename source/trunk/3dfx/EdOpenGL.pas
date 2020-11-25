@@ -1077,7 +1077,7 @@ begin
 
   PL^.Brightness:=Brightness;
 
-  PL^.Color:={SwapColor(Color)} Color and $FFFFFF;
+  PL^.Color:=SwapColor(Color) and $FFFFFF;
 
   PL^.Min[0]:=Position.X-Brightness;
   PL^.Min[1]:=Position.Y-Brightness;
