@@ -217,12 +217,12 @@ begin
   end;
 end;
 
-function _3vec3t_to_matrix(t: TMD3Tag): TMatrixTransformation;
+function MD3TagToMatrix(t: TMD3Tag): TMatrixTransformation;
 begin
   Result:=MatrixFromRows(t.rotation[1], t.rotation[2], t.rotation[3]);
 end;
 
-procedure _matrix_to_3vec3t(var t: TMD3Tag; m: TMatrixTransformation);
+procedure MatrixToMD3Tag(var t: TMD3Tag; m: TMatrixTransformation);
 var
   i: integer;
 begin
@@ -716,7 +716,7 @@ begin
                 end;
                 OTagFrame:=QTagFrame.Create('Tag Frame ' + inttostr(j), OTag);
                 OTagFrame.SetPosition(tag.position);
-                OTagFrame.SetRotMatrix(_3vec3t_to_matrix(tag));
+                OTagFrame.SetRotMatrix(MD3TagToMatrix(tag));
                 OTag.SubElements.Add(OTagFrame);
               end;
             end;
@@ -888,7 +888,7 @@ begin
                vec3:=OTagFrame.GetPosition;
                tag.Position := vec3^;
                OTagFrame.GetRotMatrix(TagMatrix);
-               _matrix_to_3vec3t(tag, TagMatrix^);
+               MatrixToMD3Tag(tag, TagMatrix^);
                F.WriteBuffer(tag, SizeOf(tag));
              finally
                TagFrames.Free;
