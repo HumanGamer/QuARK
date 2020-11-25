@@ -1339,7 +1339,6 @@ expected one.
 
    // now comes 7 numbers which tell how many control points there are
    // use ReadVect7 which is the same as ReadVect but expects 7 numbers
-   // and we only need the first and second values
    V7:=ReadVect7(False);
    // Nr 1: Width (many lines of control points there are)
    // Nr 2: Height (how many control points on each line)
@@ -1427,7 +1426,6 @@ expected one.
 
    // now comes 7 numbers which tell how many control points there are
    // use ReadVect7 which is the same as ReadVect but expects 7 numbers
-   // and we only need the first and second values
    V7:=ReadVect7(False);
    // Nr 1: Width (many lines of control points there are)
    // Nr 2: Height (how many control points on each line)
@@ -1522,7 +1520,6 @@ expected one.
 
    // now comes 7 numbers which tell how many control points there are
    // use ReadVect7 which is the same as ReadVect but expects 7 numbers
-   // and we only need the first and second values
    V7:=ReadVect7(False);
    // Nr 1: Width (many lines of control points there are)
    // Nr 2: Height (how many control points on each line)
