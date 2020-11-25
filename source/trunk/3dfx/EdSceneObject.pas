@@ -2171,7 +2171,7 @@ function GetLodFor(w: Integer) : GrLOD_t;
 begin
  case w of
   4096: Result:=GR_LOD_256;  //DanielPharos: The software and 3DFX don't support higher LODs
-  2048: Result:=GR_LOD_256;  //              Other renderers therefore shouldn't use these function
+  2048: Result:=GR_LOD_256;  //              Other renderers therefore shouldn't use this function
   1024: Result:=GR_LOD_256;
   512:  Result:=GR_LOD_256;
   256:  Result:=GR_LOD_256;
