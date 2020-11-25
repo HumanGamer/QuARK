@@ -48,14 +48,15 @@ function MatriceInverse(const M: TMatrixTransformation) : TMatrixTransformation;
 function MatriceTranspose(const M: TMatrixTransformation) : TMatrixTransformation;
 function MatrixMultByVect(const Matrice : TMatrixTransformation; const V: TVect) : TVect;
 function MatrixFromCols(const V1, V2, V3 : TVect) : TMatrixTransformation;
-function MatrixFromRows(const V1, V2, V3 : TVect) : TMatrixTransformation;
+function MatrixFromRows(const V1, V2, V3 : TVect) : TMatrixTransformation; overload;
+function MatrixFromRows(const V1, V2, V3 : vec3_t) : TMatrixTransformation; overload;
 function Determinant(const Matrice: TMatrixTransformation) : TDouble;
 function VectByMatrix(const Matrice : TMatrixTransformation; const V: TVect) : TVect; overload;
 function VectByMatrix(const Matrice : TMatrixTransformation; const V: vec3_t) : vec3_t; overload;
 
-function RotMatrixZ(V: TDouble; InMatrix:TMatrixTransformation):TMatrixTransformation ;
-function RotMatrixY(V: TDouble; InMatrix:TMatrixTransformation):TMatrixTransformation ;
-function RotMatrixPitchRoll(Pitch: TDouble;Roll: TDouble; InMatrix:TMatrixTransformation):TMatrixTransformation ;
+function RotMatrixZ(V: TDouble; InMatrix:TMatrixTransformation) : TMatrixTransformation;
+function RotMatrixY(V: TDouble; InMatrix:TMatrixTransformation) : TMatrixTransformation;
+function RotMatrixPitchRoll(Pitch: TDouble; Roll: TDouble; InMatrix: TMatrixTransformation) : TMatrixTransformation;
 
  {------------------------}
 
@@ -124,7 +125,7 @@ begin
  g_DrawInfo.Matrice[Coord,Coord]:=-1;
 end;
 
-function RotMatrixZ(V: TDouble; InMatrix:TMatrixTransformation):TMatrixTransformation ;
+function RotMatrixZ(V: TDouble; InMatrix:TMatrixTransformation) : TMatrixTransformation;
 var
  Angle: TDouble;
 begin
@@ -135,7 +136,7 @@ begin
  {0}                       {0}                       {1}
 end;
 
-function RotMatrixY(V: TDouble; InMatrix:TMatrixTransformation):TMatrixTransformation ;
+function RotMatrixY(V: TDouble; InMatrix:TMatrixTransformation) : TMatrixTransformation;
 var
  Angle: TDouble;
 begin
@@ -146,7 +147,7 @@ begin
  Result[3,1]:=Sin(Angle);  {0}               Result[3,3]:=Cos(Angle);
 end;
 
-function RotMatrixPitchRoll(Pitch: TDouble; Roll: TDouble;  InMatrix:TMatrixTransformation):TMatrixTransformation ;
+function RotMatrixPitchRoll(Pitch: TDouble; Roll: TDouble; InMatrix: TMatrixTransformation) : TMatrixTransformation ;
 var
  AngleP: TDouble;
  AngleR: TDouble;
@@ -232,7 +233,7 @@ procedure MatrixFillCol(var M: TMatrixTransformation; const J : Integer; const V
 begin
   M[1][J]:=V.X;
   M[2][J]:=V.Y;
-  M[3][J]:=V.Z
+  M[3][J]:=V.Z;
 end;
 
 function MatrixFromCols(const V1, V2, V3 : TVect) : TMatrixTransformation;
@@ -242,14 +243,28 @@ begin
   MatrixFillCol(Result,3,V3);
 end;
 
-procedure MatrixFillRow(var M: TMatrixTransformation; const J : Integer; const V: TVect);
+procedure MatrixFillRow(var M: TMatrixTransformation; const J : Integer; const V: TVect); overload;
 begin
   M[J][1]:=V.X;
   M[J][2]:=V.Y;
-  M[J][3]:=V.Z
+  M[J][3]:=V.Z;
+end;
+
+procedure MatrixFillRow(var M: TMatrixTransformation; const J : Integer; const V: vec3_t); overload;
+begin
+  M[J][1]:=V[0];
+  M[J][2]:=V[1];
+  M[J][3]:=V[2];
 end;
 
 function MatrixFromRows(const V1, V2, V3 : TVect) : TMatrixTransformation;
+begin
+  MatrixFillRow(Result,1,V1);
+  MatrixFillRow(Result,2,V2);
+  MatrixFillRow(Result,3,V3);
+end;
+
+function MatrixFromRows(const V1, V2, V3 : vec3_t) : TMatrixTransformation;
 begin
   MatrixFillRow(Result,1,V1);
   MatrixFillRow(Result,2,V2);

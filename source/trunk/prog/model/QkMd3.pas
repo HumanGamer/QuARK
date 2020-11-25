@@ -257,15 +257,8 @@ begin
 end;
 
 function _3vec3t_to_matrix(t: TMD3Tag): TMatrixTransformation;
-var
-  i: integer;
 begin
-  for i:=1 to 3 do
-  begin
-    result[i][1]:=t.rotation[i][0];
-    result[i][2]:=t.rotation[i][1];
-    result[i][3]:=t.rotation[i][2];
-  end;
+  Result:=MatrixFromRows(t.rotation[1], t.rotation[2], t.rotation[3]);
 end;
 
 procedure _matrix_to_3vec3t(var t: TMD3Tag; m: TMatrixTransformation);
