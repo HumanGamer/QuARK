@@ -65,7 +65,6 @@ procedure Normalise(var V: TVect; var S: Double); overload;
 function AngleXY(const X, Y: TDouble) : TDouble;
 procedure ReadDoubleArray(const S1: String; var Vals: array of TDouble);
 function ReadVector(const S: String) : TVect;
-function ReadVec3(const S: String) : vec3_t;
 function ReadNumValueEx(const S: String) : TDouble;
 function itos(const I: TInteger) : String;
 function ftos(const F: TDouble) : String;
@@ -388,17 +387,6 @@ begin
  Result.Y:=Lu[2];
  Result.Z:=Lu[3];
 end;
-
-function ReadVec3(const S: String) : vec3_t;
-var
- Lu: array[1..3] of TDouble;
-begin
- ReadDoubleArray(S, Lu);
- Result[0]:=Lu[1];
- Result[1]:=Lu[2];
- Result[2]:=Lu[3];
-end;
-
 
 function ReadNumValueEx(const S: String) : TDouble;
 var

@@ -1609,7 +1609,7 @@ var
  VDest: vec3_p;
  I, J, K, Count: Integer;
  ModelOrg: vec3_t;
- RotVec: vec3_t;
+ RotVec: TVect;
  SkinDescr: String;
  spec,comp_name: string;
  c: QComponent;
@@ -1718,26 +1718,26 @@ begin
    end;
 
    AnglesDefined:=false;
-   rotvec[0]:=0;
-   rotvec[1]:=0;
-   rotvec[2]:=0;
+   rotvec.X:=0;
+   rotvec.Y:=0;
+   rotvec.Z:=0;
    mRotationMatrix:=MatriceIdentite;
 
    // analyse angles specific first!
    S:=Specifics.Values['angles'];
    if (S<>'') then
    begin
-     rotvec:=ReadVec3(s);
-     mRotationMatrix:=RotMatrixPitchRoll(rotvec[1],-rotvec[0],mRotationMatrix);
+     rotvec:=ReadVector(s);
+     mRotationMatrix:=RotMatrixPitchRoll(rotvec.Y,-rotvec.X,mRotationMatrix);
      AnglesDefined:=true;
    end;
 
    S:=Specifics.Values['angle'];
    if (S<>'') and (S<>'0') and (S<>'360') and not AnglesDefined then
    begin
-     rotvec[0]:=Round(StrToFloatDef(S, 0)) mod 360;
+     rotvec.X:=Round(StrToFloatDef(S, 0)) mod 360;
      AnglesDefined:=true;
-     mRotationMatrix:=RotMatrixZ(rotvec[0],mRotationMatrix);
+     mRotationMatrix:=RotMatrixZ(rotvec.X,mRotationMatrix);
    end;
 
    { list components }
