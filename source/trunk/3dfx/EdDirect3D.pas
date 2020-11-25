@@ -567,7 +567,7 @@ begin
 
   PL^.Brightness:=Brightness;
 
-  PL^.Color:=Color and $FFFFFF;
+  PL^.Color:=Color;
 
   NumberOfLights:=NumberOfLights+1;
 end;
@@ -1048,7 +1048,7 @@ begin
     while Assigned(PL) do
     begin
       light._Type := Direct3D9.D3DLIGHT_POINT;
-      light.Diffuse := D3DXColorFromDWord(PL^.Color);
+      light.Diffuse := D3DXColorFromDWord(SwapColor(PL^.Color));
       light.Specular := D3DXColorFromDWord(0);
       light.Ambient := D3DXColorFromDWord(0);
       light.Position := D3DXVECTOR3(PL^.Position[0], PL^.Position[1], PL^.Position[2]);

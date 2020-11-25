@@ -1921,7 +1921,7 @@ begin
         I3[2] := Round(L4[2]);
         I3[3] := Round(L4[3]);
         ClambColorValues(I3);
-        Color:=(I3[1] shl 16) or (I3[2] shl 8) or I3[3];
+        Color:=I3[1] or (I3[2] shl 8) or (I3[3] shl 16);
       end
       else
       begin
@@ -1942,7 +1942,7 @@ begin
             I3[2] := Round(255*L3[2]);
             I3[3] := Round(255*L3[3]);
             ClambColorValues(I3);
-            Color:=(I3[1] shl 16) or (I3[2] shl 8) or I3[3];
+            Color:=I3[1] or (I3[2] shl 8) or (I3[3] shl 16);
           end;
         end;
       end;
