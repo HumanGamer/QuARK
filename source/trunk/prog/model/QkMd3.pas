@@ -217,45 +217,6 @@ begin
   end;
 end;
 
-function AddMatrices(const M1, M2: TMatrixTransformation) : TMatrixTransformation;
-var
- I,J: Integer;
-begin
-  for J:=1 to 3 do
-  begin
-    for I:=1 to {4} 3 do
-    begin
-      Result[J,I] := M1[J,I]+M2[J,I];
-    end;
-  end;
-end;
-
-function SubMatrices(const M1, M2: TMatrixTransformation) : TMatrixTransformation;
-var
- I,J: Integer;
-begin
-  for J:=1 to 3 do
-  begin
-    for I:=1 to {4} 3 do
-    begin
-      Result[J,I] := M1[J,I]-M2[J,I];
-    end;
-  end;
-end;
-
-function NegateMatrices(const M1: TMatrixTransformation) : TMatrixTransformation;
-var
- I,J: Integer;
-begin
-  for J:=1 to 3 do
-  begin
-    for I:=1 to {4} 3 do
-    begin
-      Result[J,I]:=-M1[J,I];
-    end;
-  end;
-end;
-
 function _3vec3t_to_matrix(t: TMD3Tag): TMatrixTransformation;
 begin
   Result:=MatrixFromRows(t.rotation[1], t.rotation[2], t.rotation[3]);

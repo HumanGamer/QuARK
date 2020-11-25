@@ -41,6 +41,9 @@ procedure TransformationLineaire(var Pt: TVect);
 function InverseOrientation : Boolean;
 procedure Info_mx_Rot(N1,N2: Integer; V: TDouble);
 procedure Info_mx_Symetrie(Coord: Integer);
+function AddMatrices(const M1, M2: TMatrixTransformation) : TMatrixTransformation;
+function SubMatrices(const M1, M2: TMatrixTransformation) : TMatrixTransformation;
+function NegateMatrices(const M1: TMatrixTransformation) : TMatrixTransformation;
 function MultiplieMatrices(const M1, M2: TMatrixTransformation) : TMatrixTransformation;
 function mxtos(const M: TMatrixTransformation) : String;
 function stomx(const S: String) : TMatrixTransformation;
@@ -158,7 +161,45 @@ begin
  Result[1,1]:=Cos(AngleP) * Cos(AngleR);  Result[1,2]:=-Sin(AngleP);  Result[1,3]:=-Sin(AngleR);
  Result[2,1]:=Sin(AngleP);                Result[2,2]:=Cos(AngleP);   {0}
  Result[3,1]:=Sin(AngleR);                {0}                         Result[3,3]:=Cos(AngleR);
+end;
 
+function AddMatrices(const M1, M2: TMatrixTransformation) : TMatrixTransformation;
+var
+ I,J: Integer;
+begin
+  for J:=1 to 3 do
+  begin
+    for I:=1 to {4} 3 do
+    begin
+      Result[J,I] := M1[J,I]+M2[J,I];
+    end;
+  end;
+end;
+
+function SubMatrices(const M1, M2: TMatrixTransformation) : TMatrixTransformation;
+var
+ I,J: Integer;
+begin
+  for J:=1 to 3 do
+  begin
+    for I:=1 to {4} 3 do
+    begin
+      Result[J,I] := M1[J,I]-M2[J,I];
+    end;
+  end;
+end;
+
+function NegateMatrices(const M1: TMatrixTransformation) : TMatrixTransformation;
+var
+ I,J: Integer;
+begin
+  for J:=1 to 3 do
+  begin
+    for I:=1 to {4} 3 do
+    begin
+      Result[J,I]:=-M1[J,I];
+    end;
+  end;
 end;
 
 function MultiplieMatrices(const M1, M2: TMatrixTransformation) : TMatrixTransformation;
