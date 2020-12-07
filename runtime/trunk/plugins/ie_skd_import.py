@@ -1378,41 +1378,40 @@ def check4skin(file, Component, material_name, message, version):
         check_files = []
         try:
             files = os.listdir(shaders_path)
-            for file in files:
-                if file.endswith(".shader"):
-                    check_files.append(file)
         except:
             pass
-        if check_files != []:
-            for file in check_files:
-                #read the file in
-                read_file = open(shaders_path + "\\" + file,"r")
-                filelines = read_file.readlines()
-                read_file.close()
-                for line in range(len(filelines)):
-                    if filelines[line].find(material_name) != -1 and filelines[line].find("hud") == -1:
-                        L_curly_count = 0
-                        while 1:
-                            line += 1 # Advance the line counter by 1.
-                            try:
-                                filelines[line] = filelines[line].lower() # Make sure all text is lower case.
-                            except:
-                                break
-                            if filelines[line].find("{") != -1:
-                                L_curly_count = L_curly_count + 1
-                            if filelines[line].find("}") != -1:
-                                L_curly_count = L_curly_count - 1
-                            if filelines[line].find(".tga") != -1:
-                                items = filelines[line].split(" ")
-                                for item in items:
-                                    item = item.strip()
-                                    if item.endswith(".tga"):
-                                        file_skin_name = item
-                                        skin_name = item.split(".")[0]
-                                        shader_file = shaders_path + "\\" + file
-                                        skin_names = skin_names + [skin_name]
-                            if L_curly_count == 0 and filelines[line].find("}") != -1:
-                                break
+        for file in files:
+            if file.endswith(".shader"):
+                check_files.append(file)
+        for file in check_files:
+            #read the file in
+            read_file = open(shaders_path + "\\" + file,"r")
+            filelines = read_file.readlines()
+            read_file.close()
+            for line in range(len(filelines)):
+                if filelines[line].find(material_name) != -1 and filelines[line].find("hud") == -1:
+                    L_curly_count = 0
+                    while 1:
+                        line += 1 # Advance the line counter by 1.
+                        try:
+                            filelines[line] = filelines[line].lower() # Make sure all text is lower case.
+                        except:
+                            break
+                        if filelines[line].find("{") != -1:
+                            L_curly_count = L_curly_count + 1
+                        if filelines[line].find("}") != -1:
+                            L_curly_count = L_curly_count - 1
+                        if filelines[line].find(".tga") != -1:
+                            items = filelines[line].split(" ")
+                            for item in items:
+                                item = item.strip()
+                                if item.endswith(".tga"):
+                                    file_skin_name = item
+                                    skin_name = item.split(".")[0]
+                                    shader_file = shaders_path + "\\" + file
+                                    skin_names = skin_names + [skin_name]
+                        if L_curly_count == 0 and filelines[line].find("}") != -1:
+                            break
 
     path = skin_path # Reset to the full path to try and find the skin texture.
     found_skin_file = None

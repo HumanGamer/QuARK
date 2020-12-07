@@ -607,36 +607,41 @@ def check4skin(file, Component, material_name, message):
     model_name = path[1]
     path = skin_path = path[0]
     while 1:
-        files = os.listdir(path)
-        check_files = []
-        for file in files:
-            if file.endswith(".tik") and not file.endswith(".tiki"):
-                check_files.append(file)
-        if check_files != []:
-            for file in check_files:
-                #read the file in
-                read_tik_file = open(path + "\\" + file,"r")
-                filelines = read_tik_file.readlines()
-                read_tik_file.close()
-                foundmodel = None
-                count = 0
-                for line in filelines:
-                    if line.find(model_name) != -1:
-                        foundmodel = 1
-                    if foundmodel is not None and line.find(material_name) != -1:
-                        items = line.split(" ")
-                        for item in items:
-                            for type in ImageTypes:
-                                if item.find(type) != -1:
-                                    file_skin_name = item
-                                    skin_name = item.split(".")[0]
-                                    tik_file = path + "\\" + file
-                                    break
-                    if skin_name is not None or count == 20:
-                        break
-                    count = count + 1
+        for file in os.listdir(path):
+            if not (file.endswith(".tik") and not file.endswith(".tiki")):
+                continue
+            #figure out if this tiki file is the right one
+            foundpath = None
+            foundmodel = None
+            read_tik_file = open(os.path.join(path, file), "r")
+            for line in read_tik_file.readlines():
+                if line.find(model_name) != -1:
+                    foundmodel = 1
+                try:
+                    tik_path = line.split("path", 1)[1].lstrip().rstrip("\n").split(" ", 1)[0].replace("/", "\\")
+                except:
+                    continue
+                if tik_path == skin_path[-len(tik_path):]:
+                    foundpath = 1
+            if foundmodel is None or foundpath is None:
+                continue
+            #this is the tiki file we need!
+            read_tik_file.seek(0)
+            for line in read_tik_file.readlines():
+                if line.find(material_name) != -1:
+                    items = line.split(" ")
+                    for item in items:
+                        for type in ImageTypes:
+                            if item.find(type) != -1:
+                                file_skin_name = item
+                                skin_name = item.split(".")[0]
+                                tik_file = os.path.join(path, file)
+                                break
                 if skin_name is not None:
                     break
+            read_tik_file.close()
+            if skin_name is not None:
+                break
         if path.endswith("\\models") or skin_name is not None:
             break
         path = path.rsplit('\\', 1)[0]
@@ -644,8 +649,7 @@ def check4skin(file, Component, material_name, message):
     found_skin_file = None
     if skin_name is not None:
         while 1:
-            files = os.listdir(path)
-            for file in files:
+            for file in os.listdir(path):
                 for type in ImageTypes:
                     if os.path.isfile(path + "\\" + skin_name + type): # We found the skin texture file.
                         found_skin_file = path + "\\" + skin_name + type
@@ -666,10 +670,9 @@ def check4skin(file, Component, material_name, message):
                 break
             path = path.rsplit('\\', 1)[0]
     else: # Last effort, try to find and load any skin texture files in the models folder.
-        files = os.listdir(path)
         skinsize = [0, 0]
         skingroup = Component.dictitems['Skins:sg']
-        for file in files:
+        for file in os.listdir(path):
             for type in ImageTypes:
                 if file.endswith(type):
                     found_skin_file = path + "\\" + file
