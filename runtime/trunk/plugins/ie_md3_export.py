@@ -719,7 +719,10 @@ class ExportSettingsDlg(quarkpy.qmacro.dialogbox):
                     tempfilename = self.filename.replace("\\", "/")
                     tempfilename = tempfilename.rsplit("/", 1)[0]
                     tempskinname = skin.name.replace("\\", "/")
-                    tempskinname = tempskinname.rsplit("/", 1)[1]
+                    try:
+                        tempskinname = tempskinname.rsplit("/", 1)[1]
+                    except:
+                        pass
                     skin.filename = tempfilename + '/' + tempskinname
                     quarkx.savefileobj(skin, FM_Save, 0)
         if self.src['Shaders'] is not None:
