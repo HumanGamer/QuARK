@@ -41,9 +41,9 @@ def vector_by_matrix(p, m):
 MAX_QPATH = 64
 MD3_XYZ_SCALE = (1.0 / 64.0)
 
-def asciiz(s):
+def asciiz(s, maxLength=MAX_QPATH):
     n = 0
-    while( n < MAX_QPATH and ord(s[n]) != 0):
+    while( n < maxLength and ord(s[n]) != 0):
         n = n + 1
     return s[0:n]
 
@@ -260,7 +260,7 @@ class md3Frame(object):
         self.localOrigin[1] = data[7]
         self.localOrigin[2] = data[8]
         self.radius = data[9]
-        self.name = asciiz(data[10])
+        self.name = asciiz(data[10], 16)
         return self
 
 
