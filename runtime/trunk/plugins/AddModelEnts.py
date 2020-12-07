@@ -43,7 +43,7 @@ def AddMdlEnts(QuArKpath, gamename, gamefileslocation, modelfiletype, mdlentsfol
                 fileshortname = file.replace(mdlentsfiletype, "")  ### This removes the file type suffix.
                 o.write("      " + fileshortname + "_* entities.qtxfolder =\n")
                 o.write("      {\n")
-                i = open(mdlentsfolder + "\\" + file)  ### Opens the individual input file.
+                i = open(mdlentsfolder + "\\" + file, "r")  ### Opens the individual input file.
                 count = 1
                 s = i.readline()
             while s != "":
@@ -108,7 +108,7 @@ def AddMdlEnts(QuArKpath, gamename, gamefileslocation, modelfiletype, mdlentsfol
     for file in filenames:
         if file.endswith(mdlentsfiletype):
             if count == 0:
-                i = open(mdlentsfolder + "\\" + file)  ### Opens the individual input file.
+                i = open(mdlentsfolder + "\\" + file, "r")  ### Opens the individual input file.
                 count = 1
                 s = i.readline()
             while s != "":

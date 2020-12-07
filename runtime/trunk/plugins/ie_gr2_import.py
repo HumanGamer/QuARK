@@ -1258,9 +1258,9 @@ def loadmodel(root, filename, gamename, nomessage=0):
         cmdline = 'grnreader \"%s\"' % (filename)
     else:
         cmdline = 'grnreader \"%s\" %d' % (filename, NumberOfFrames)
-    fromdir = quarkx.exepath + "dlls"
+    fromdir = os.path.join(quarkx.exepath, "dlls")
     process = quarkx.runprogram(cmdline, fromdir)
-    MSfilename = quarkx.exepath + "dlls/output.ms"
+    MSfilename = os.path.join(quarkx.exepath, "dlls", "output.ms")
     goahead = 0
     while not goahead:
         try:

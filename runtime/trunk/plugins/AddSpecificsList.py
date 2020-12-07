@@ -166,9 +166,9 @@ def AddSpecifics(QuArKpath, gamename, gamefileslocation, gamepakfiletype,
             print "Operation Terminated !"
             print "\a" # Makes the computer "Beep" once if a file is not found.
 
-    output = open(WorkDirectory + '\\' + OutPutList, "w")
-    qrkinput = open(os.path.join(WorkDirectory, "New file.qrk"))
-    spfinput = open(os.path.join(WorkDirectory, spffile))
+    output = open(os.path.join(WorkDirectory, OutPutList), "w")
+    qrkinput = open(os.path.join(WorkDirectory, "New file.qrk"), "r")
+    spfinput = open(os.path.join(WorkDirectory, spffile), "r")
 
     while 1: ### Sets up the first entity name in the .spf file for comparison later.
         spfline = spfinput.readline()

@@ -182,7 +182,7 @@ def Q3typeEntList(root, QuArKpath, gamename, gamefileslocation,
     ### This section handles all the files in the main "files to check" folder, FIRST.
     for name in names:
         if name.endswith(entitiesfiletype) and name != OutPutList:   ### Checks if this is a file name or a folder name.
-            input = open(os.path.join(dirname, name))
+            input = open(os.path.join(dirname, name), "r")
             HandleInput(input)
 
 

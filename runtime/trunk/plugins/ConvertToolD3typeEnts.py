@@ -469,8 +469,8 @@ def D3typeEntList(root, QuArKpath, gamename, gamefileslocation,
 
     ### Start of processing code
     mainworkfoldername = entitiesfolder
-    eo = open(QuArKpath + '\\' + gamename + '\\' + 'Entities.txt', 'w')
-    fo = open(QuArKpath + '\\' + gamename + '\\' + 'Forms.txt', 'w')
+    eo = open(os.path.join(QuArKpath, gamename, 'Entities.txt'), 'w')
+    fo = open(os.path.join(QuArKpath, gamename, 'Forms.txt'), 'w')
     allnames = os.listdir(mainworkfoldername)
     allnames.sort()
 
@@ -484,13 +484,13 @@ def D3typeEntList(root, QuArKpath, gamename, gamefileslocation,
         if name.find(".") != -1:   ### Checks if this is a file name or a folder name
             pass
         else:
-            foldername = mainworkfoldername + "\\" + name
+            foldername = os.path.join(mainworkfoldername, name)
             SetupEntities(foldername)
 
     ### Closes the temp output files for the entities and forms sections and makes the final .qrk file.
     eo.close()
     fo.close()
-    o = open(QuArKpath + '\\' + gamename + '\\' + gamename + 'Entities.qrk', 'w')
+    o = open(os.path.join(QuArKpath, gamename, gamename + 'Entities.qrk', 'w')
 
     ### Writes start of Entities.qrk file here
     o.write('QQRKSRC1\n')
@@ -511,7 +511,7 @@ def D3typeEntList(root, QuArKpath, gamename, gamefileslocation,
     o.write('      ;desc = "Created from ' + gamename + ' ' + entitiesfiletype + ' files"\n')
 
     ### Copys all data from the temp 'Entities.txt' to the .qrk file.
-    ei = open(QuArKpath + '\\' + gamename + '\\' + 'Entities.txt')
+    ei = open(os.path.join(QuArKpath, gamename, 'Entities.txt'), "r")
     while 1:
         s = ei.readline()
         if s == "":
@@ -633,7 +633,7 @@ def D3typeEntList(root, QuArKpath, gamename, gamefileslocation,
         for name in soundshaders:
             if name.endswith(SoundListFileType):
                 shaders = []
-                si = open(SoundListFileFolder + '\\' + name)
+                si = open(os.path.join(SoundListFileFolder, name), "r")
                 while 1:
                     s = si.readline()
                     if s == "":
@@ -842,7 +842,7 @@ def D3typeEntList(root, QuArKpath, gamename, gamefileslocation,
         o.write("\n")
 
     ### Copys all data from the temp 'Forms.txt' to the .qrk file.
-    fi = open(QuArKpath + '\\' + gamename + '\\' + 'Forms.txt')
+    fi = open(os.path.join(QuArKpath, gamename, 'Forms.txt'), "r")
     while 1:
         s = fi.readline()
         if s == "":
@@ -853,7 +853,7 @@ def D3typeEntList(root, QuArKpath, gamename, gamefileslocation,
     o.write('  }\n') # Closes end of the :form section.
     o.write('}\n') # Closes end of the .qrk file.
     o.close() # Closes the .qrk file.
-    WorkDirectory = (QuArKpath + '\\' + gamename)
+    WorkDirectory = os.path.join(QuArKpath, gamename)
     WorkDirectory = WorkDirectory.replace("\\", "/")
-    os.remove(WorkDirectory + '/' + 'Entities.txt') # Deletes this temp file.
-    os.remove(WorkDirectory + '/' + 'Forms.txt') # Deletes this temp file.
+    os.remove(os.path.join(WorkDirectory, 'Entities.txt')) # Deletes this temp file.
+    os.remove(os.path.join(WorkDirectory, 'Forms.txt')) # Deletes this temp file.

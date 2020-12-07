@@ -21,7 +21,7 @@ import sys
 
 def OutputPyObjects(filename='python_objects'):
     import gc
-    f = open(quarkx.logpath+filename+'.log', 'w')
+    f = open(os.path.join(quarkx.logpath, filename+'.log'), 'w')
     try:
         for obj in gc.get_objects():
             try:
@@ -105,7 +105,7 @@ def OutputPyObjects(filename='python_objects'):
 #
 
 def WhatIsThisObject(obj=None, self=None, view=None, flags=None, openconsole=None):
-    o = open(quarkx.exepath+"DEVELOPERS.txt", "w")
+    o = open(os.path.join(quarkx.exepath, "DEVELOPERS.txt"), "w")
     print "-------------- start of test -------------"
     o.write("\n-------------- start of test -------------")
     if self is not None:

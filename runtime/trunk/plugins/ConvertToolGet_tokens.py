@@ -109,7 +109,7 @@ def getToken(infile, shaders):
     return T_SPECIAL, ch
 
 def getTokens(inname, shaders=0):
-    infile = open(inname)
+    infile = open(inname, "r")
     result = []
     while 1:
         tokenType, tokenValue = getToken(infile, shaders)
