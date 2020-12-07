@@ -669,7 +669,7 @@ class ExportSettingsDlg(quarkpy.qmacro.dialogbox):
 
         # Create the dialog form and the buttons.
         quarkpy.qmacro.dialogbox.__init__(self, form1, src,
-            MakeFiles = quarkpy.qtoolbar.button(self.MakeFiles,"DO NOT close this dialog\n ( to retain your settings )\nuntil you check your new files.",ico_editor, 3, "Export Model"),
+            MakeFiles = quarkpy.qtoolbar.button(self.MakeFiles,"DO NOT close this dialog\n ( to retain your settings )\nuntil you check your new files.", ico_editor, 3, "Export Model"),
             close = quarkpy.qtoolbar.button(self.close, "DO NOT close this dialog\n ( to retain your settings )\nuntil you check your new files.", ico_editor, 0, "Cancel Export")
             )
 
@@ -727,13 +727,12 @@ class ExportSettingsDlg(quarkpy.qmacro.dialogbox):
 
         # Opens the output file for writing the .md3 file to disk.
         self.md3file = open(self.filename,"wb")
-        save_md3(self) # This is the funciton above called to start exporting the mesh or animation file.
+        save_md3(self) # This is the function above called to start exporting the mesh or animation file.
         self.md3file.close()
 
 
 def UIExportDialog(root, filename, editor):
-    # Sets up the new window form for the exporters dialog for user selection settings and calls its class.
-    form1 = quarkx.newform("masterform")
+    # Sets up the exporters dialog for user selection settings and calls its class.
     if filename.endswith(".md3"):
         newfiles_folder = filename.replace(".md3", "")
-    ExportSettingsDlg(form1, root, filename, editor, newfiles_folder)
+    ExportSettingsDlg(quarkx.clickform, root, filename, editor, newfiles_folder)

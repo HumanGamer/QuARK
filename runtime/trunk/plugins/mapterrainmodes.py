@@ -521,7 +521,7 @@ def viewsingleface(editor, view, vertex, poly):
 
 ################### I know I need the above def's and stuff ############
 
-########### start of buttons and their funcitons ############
+########### start of buttons and their functions ############
 #
 # Additional drag modes (other plug-ins may add other drag modes).
 #

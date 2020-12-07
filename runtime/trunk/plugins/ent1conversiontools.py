@@ -1654,11 +1654,10 @@ class TypeOfConversionDlg(quarkpy.qmacro.dialogbox):
 
 
 def Intro(root):
-    "Sets up the new window form for the main dialog and calls its class."
+    "Sets up the main dialog and calls its class."
 
     quarkx.msgbox("This is the main tool that will step you through the process of\nconverting various game files to the QuArK *.qrk file format.\n\nIt is primarily used to add new game support for editing in QuArK.\nBut it can also be used to add new elements for existing games\nsuch as Entity, Texture, Shader, Model and Sound '.qrk' files.\n\nIf you encounter any problems using this 'Conversion Tool' utility,\nplease make a posting on the 'QuArK's Forums site'\nwhich is directly accessible from the QuArK '?' main menu.\n\nSome folders may need to be extracted from the game's pak files\nfor this process and to edit with in QuArK.\nIf so, place those folders in the same folder that the pak files are in.\nYou will be prompted to do so, if needed, during this process.\n\nPlease click the 'OK' button to continue to 'Step 1'.", quarkpy.qutils.MT_INFORMATION, quarkpy.qutils.MB_OK)
-    form1 = quarkx.newform("masterform")
-    TypeOfConversionDlg(form1, root)
+    TypeOfConversionDlg(quarkx.clickform, root)
 
 text = "Conversion Tool - use this first"
 import quarkpy.qentbase

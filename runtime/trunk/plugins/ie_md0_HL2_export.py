@@ -3225,7 +3225,7 @@ class ExportSettingsDlg(quarkpy.qmacro.dialogbox):
             self.mdlfile = open(self.filename,"wb")
             self.vtxfile = open(base_name + ".dx90.vtx","wb")
             self.vvdfile = open(base_name + ".vvd","wb")
-            save_mdl(self) # This is the funciton above called to start exporting the model file.
+            save_mdl(self) # This is the function above called to start exporting the model file.
             self.mdlfile.close()
             self.vtxfile.close()
             self.vvdfile.close()
@@ -3240,11 +3240,10 @@ def UIExportDialog(root, filename, editor, comp_group):
         SpecsList = SpecsList + """MakeGestures: = {Txt = "Make Gesture files:" Typ = "X" Hint = "Check this box to create the model's Gesture files."$0D"These consist of _gestures.mdl & _gestures.ani files."}"""
         SpecsList = SpecsList + """MakePostures: = {Txt = "Make Posture files:" Typ = "X" Hint = "Check this box to create the model's Posture files."$0D"These consist of _postures.mdl & _postures.ani files."}"""
 
-    # Sets up the new window form for the exporters dialog for user selection settings and calls its class.
-    form1 = quarkx.newform("masterform")
+    # Sets up the exporters dialog for user selection settings and calls its class.
     if filename.endswith(".mdl"):
         newfiles_folder = filename.replace(".mdl", "")
-    ExportSettingsDlg(form1, root, filename, editor, newfiles_folder, comp_group)
+    ExportSettingsDlg(quarkx.clickform, root, filename, editor, newfiles_folder, comp_group)
 
 
 ##########################################################
@@ -3370,7 +3369,7 @@ def DialogClick(MDL_DLG, editor, filename, ComponentList, folder_name):
             print "line 3194 saving ani files animations = ", len(LoadAnim), MDL_DLG.mdlfile.name, MDL_DLG.src['MakeMainMDL']
             ani_name = MDL_DLG.mdlfile.name.rsplit(".", 1)[0] + ".ani"
             self.anifile = open(ani_name,"wb")
-            save_mdl(MDL_DLG) # This is the funciton above called to start exporting the model file.
+            save_mdl(MDL_DLG) # This is the function above called to start exporting the model file.
             MDL_DLG.mdlfile.close()
             self.anifile.close()
             ani_dlg = None
@@ -3388,7 +3387,7 @@ def DialogClick(MDL_DLG, editor, filename, ComponentList, folder_name):
                 MDL_DLG.vtxfile = open(base_name + ".dx90.vtx","wb")
                 MDL_DLG.vvdfile = open(base_name + ".vvd","wb")
                 print "line 3214 saving BASE file", MDL_DLG.mdlfile.name
-                save_mdl(MDL_DLG) # This is the funciton above called to start exporting the model file.
+                save_mdl(MDL_DLG) # This is the function above called to start exporting the model file.
                 MDL_DLG.mdlfile.close()
                 MDL_DLG.vtxfile.close()
                 MDL_DLG.vvdfile.close()
@@ -3396,9 +3395,8 @@ def DialogClick(MDL_DLG, editor, filename, ComponentList, folder_name):
             ani_dlg = None
             SpecsList2 = """ """
 
-    # Sets up the new window form for the exporters dialog for user selection settings and calls its class.
-    form2 = quarkx.newform("animmasterform")
-    AnimDlg(form2, 'animdlg', editor, setup, action, onclosing)
+    # Sets up the exporters dialog for user selection settings and calls its class.
+    AnimDlg(quarkx.clickform, 'animdlg', editor, setup, action, onclosing)
 
 
 def UIAnimDialog(MDL_DLG, editor, filename, ComponentList, folder_name):

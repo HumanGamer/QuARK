@@ -1149,14 +1149,13 @@ class ExportSettingsDlg(quarkpy.qmacro.dialogbox):
 
         # Opens the output file for writing the .md5 mesh or animation file to disk.
         self.md5file = open(self.filename,"w")
-        save_md5(self) # This is the funciton above called to start exporting the mesh or animation file.
+        save_md5(self) # This is the function above called to start exporting the mesh or animation file.
 
 
 def UIExportDialog(root, filename, editor):
-    # Sets up the new window form for the exporters dialog for user selection settings and calls its class.
-    form1 = quarkx.newform("masterform")
+    # Sets up the exporters dialog for user selection settings and calls its class.
     if filename.endswith(".md5mesh"):
         newfiles_folder = filename.replace(".md5mesh", "")
     else:
         newfiles_folder = filename.replace(".md5anim", "")
-    ExportSettingsDlg(form1, root, filename, editor, newfiles_folder)
+    ExportSettingsDlg(quarkx.clickform, root, filename, editor, newfiles_folder)

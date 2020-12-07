@@ -2765,13 +2765,12 @@ class ExportSettingsDlg(quarkpy.qmacro.dialogbox):
 
         # Opens the output file for writing the .mdl file to disk.
         self.mdlfile = open(self.filename,"wb")
-        save_mdl(self) # This is the funciton above called to start exporting the model file.
+        save_mdl(self) # This is the function above called to start exporting the model file.
         self.mdlfile.close()
 
 
 def UIExportDialog(root, filename, editor, comp_group):
-    # Sets up the new window form for the exporters dialog for user selection settings and calls its class.
-    form1 = quarkx.newform("masterform")
+    # Sets up the exporters dialog for user selection settings and calls its class.
     if filename.endswith(".mdl"):
         newfiles_folder = filename.replace(".mdl", "")
-    ExportSettingsDlg(form1, root, filename, editor, newfiles_folder, comp_group)
+    ExportSettingsDlg(quarkx.clickform, root, filename, editor, newfiles_folder, comp_group)

@@ -1699,7 +1699,6 @@ class ExportSettingsDlg(quarkpy.qmacro.dialogbox):
 
 
 def UIExportDialog(root, filename, editor):
-    # Sets up the new window form for the exporters dialog for user selection settings and calls its class.
-    form1 = quarkx.newform("masterform")
+    # Sets up the exporters dialog for user selection settings and calls its class.
     newfiles_folder = filename.replace(".ase", "")
-    ExportSettingsDlg(form1, root, filename, editor, newfiles_folder)
+    ExportSettingsDlg(quarkx.clickform, root, filename, editor, newfiles_folder)

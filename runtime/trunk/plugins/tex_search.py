@@ -95,5 +95,4 @@ class TextureSearchDlg(quarkpy.qmacro.dialogbox):
         return
 
 def openbox():
-    f = quarkx.newform("temp")
-    TextureSearchDlg(f)
+    TextureSearchDlg(quarkx.clickform)

@@ -41,8 +41,8 @@ def abutting_vtx(l1, l2):
 
 def non_abutting_vtx(l1, l2):
   "gets the two vertexes shared between vertex list 1 (l1) & 2 (l2),"
-  " which are supposed to be vertex-cyles of abutting faces."
-  "This funciton returns two sets of lists."
+  " which are supposed to be vertex-cycles of abutting faces."
+  "This function returns two sets of lists."
   "The first list is of (el,ind) tuples, where el is from l1, and ind is its index."
   "The second list returns the index of the two vertex points that make up the shared edge."
   intx = []
