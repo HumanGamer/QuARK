@@ -870,7 +870,7 @@ begin
     Fin := Info.F.Position;
 
     Info.F.Position := Origine;
-    Header.Signature := cSignatureBspQ2;
+    Header.Signature := cSignatureBspID;
     Header.Version := cVersionBspQ3;
     Info.F.WriteBuffer(Header, SizeOf(Header));
 

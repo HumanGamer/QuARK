@@ -294,35 +294,41 @@ type
   end;
 
 (***********  Quake 1, Hexen II and Half-Life .bsp format  ***********)
-
 const
  cSignatureBspQ1H2 = $0000001D; {Quake-1/Hexen-2 .BSP, 4-digit header}
  cSignatureBspHL   = $0000001E; {Half-Life .BSP, 4-digit header}
 
-(***********  Quake 2 .bsp format  ***********)
-
+(***********  id Software .bsp format  ***********)
 const
- cSignatureBspQ2 = $50534249; {"IBSP" 4-letter header}
+ cSignatureBspID   = $50534249; {"IBSP" 4-letter header}
 
- cVersionBspQ2   = $00000026; {Quake-2 .BSP}
- cVersionBspQ3   = $0000002E; {Quake-3 or STVEF or Nexuiz .BSP}
- cVersionBspDK   = $00000029; {Daikatana .BSP}
- cVersionBspRTCW = $0000002F; {RTCW .BSP}
+ cVersionBspQ2     = $00000026; {Quake-2 .BSP}
+ cVersionBspDK     = $00000029; {Daikatana .BSP}
+ cVersionBspQ3     = $0000002E; {Quake-3 or STVEF or Nexuiz .BSP}
+ cVersionBspSOF    = $0000002E; {Soldier of Fortune .BSP} //Raven Software didn't talk to id Software about claiming this version number, did they?
+ cVersionBspQL     = $0000002F; {Quake Live .BSP}
+ cVersionBspRTCW   = $0000002F; {RTCW .BSP} //Gray Matter Interactive didn't talk to id Software about claiming this version number, did they?
+ cVersionBspIG     = $00000030; {Iron Grip .BSP}
+ cVersionBspQuetoo = $00000045; {Quetoo .BSP} //Wanna bet the Quetoo developer ALSO didn't talk to id Software about claiming this version number? Also, childish 69 humour detected.
 
-(***********  Quake-3 .bsp format  ***********)
-
+(***********  Ritual/Raven Software .bsp format  ***********) //Erm, can you guys please NOT share BSP signatures?
 const
- // Note: Quake-3 and STVEF .BSPs, uses the same signature as Quake-2 .BSPs!
- cSignatureBspQ3      = $50534252; {"RBSP" 4-letter header}
- cSignatureBspMOHAA   = $35313032; {"2015" 4-letter header}
+ cSignatureBspRaven = $50534252; {"RBSP" 4-letter header}
 
- cVersionBspJK2JA     = $00000001; {JK2 or JA .BSP}
- cVersionBspSin       = $00000001; {SiN .BSP}
- cVersionBspMOHAA     = $00000013; {MOHAA .BSP} //FIXME: Untested
+ cVersionBspSin     = $00000001; {SiN .BSP}
+ cVersionBspJK2     = $00000001; {Jedi Knight 2 .BSP}
+ cVersionBspSof2    = $00000001; {Soldier of Fortune 2 .BSP} //Dear Raven; did you forget about your previous game that used the same version number?
+ cVersionBspJA      = $00000001; {Jedi Academy .BSP} //Dear Raven; did you forget about your previous game that used the same version number?
+
+(***********  2015 .bsp format  ***********)
+const
+ cSignatureBsp2015 = $35313032; {"2015" 4-letter header}
+
+ cVersionBspMOHAA  = $00000013; {MOHAA .BSP} //FIXME: Untested
 
 (***********  FAKK .bsp format  ***********)
 const
-  cSignatureBspFAKK = $4B4B4146; {"FAKK" 4-letter header, which HM:FAKK2 contains}
+  cSignatureBspFAKK = $4B4B4146; {"FAKK" 4-letter header}
 
   cVersionBspFAKK   = $0000000C; {FAKK .BSP}
   cVersionBspAlice  = $0000002A; {Alice .BSP}
@@ -333,20 +339,17 @@ const
 
 (***********  Warsow .bsp format  ***********)
 const
-  cSignatureBspWarsow = $50534246; {"PSBF" 4-letter header, which Warsow contains}
+  cSignatureBspWarsow = $50534246; {"FBSP" 4-letter header, (Q)Fusion-engine BSP}
 
   cVersionBspWarsow   = $00000001; {Warsow .BSP}
 
-//FIXME: Lots of stuff missing here
-
-(***********  Half-Life 2 .bsp format  ***********)
-
+(***********  Valve .bsp format  ***********)
 const
- cSignatureHL2        = $50534256; {"VBSP" 4-letter header, which HL2 contains}
+ cSignatureValve      = $50534256; {"VBSP" 4-letter header}
 
- cVersionBspHL2       = $00000013; {HL2}
- cVersionBspHL2HDR    = $00000014; {HL2 with HDR lighting}
- cVersionBspHL2V21    = $00000015; {HL2 with various changes}
+ cVersionBspHL2       = $00000013; {Half-Life 2}
+ cVersionBspHL2HDR    = $00000014; {Half-Life 2 with HDR lighting}
+ cVersionBspHL2V21    = $00000015; {Half-Life 2 with various changes}
 
 (*const
   HEADER_LUMPS = 64; //From HL2's bspfile.h
@@ -536,7 +539,7 @@ var
  FaceCount, Taille1: Integer;
  ModeQ1, ModeH2: Boolean;
 begin
-    { determine map game : Quake 1 or Hexen II }
+  { determine map game : Quake 1 or Hexen II }
   FFlags := FFlags and not ofNotLoadedToMemory;  { to prevent infinite loop on "Acces" }
 
   FaceCount := GetBspEntryData(FFileHandler.GetLumpFaces(), P) div SizeOf(TbSurface);
@@ -581,8 +584,9 @@ begin
       F.Seek(-(SizeOf(Signature)+SizeOf(Version)), soFromCurrent);
 
       case Signature of
-        cSignatureBspQ1H2: { Quake-1 or Hexen-2 }
+        cSignatureBspQ1H2: { Quake 1 or Hexen 2 }
         begin
+          ObjectGameCode := mjQuake; //Will check for Hexen 2 after loading
           FFileHandler:=QBsp1FileHandler.Create(Self);
           FFileHandler.LoadBsp(F, StreamSize);
           ObjectGameCode := DetermineGameCodeForBsp1();
@@ -590,35 +594,26 @@ begin
 
         cSignatureBspHL: { Half-Life }
         begin
+          ObjectGameCode := mjHalfLife;
           FFileHandler:=QBsp1FileHandler.Create(Self);
           FFileHandler.LoadBsp(F, StreamSize);
-          ObjectGameCode := mjHalfLife;
         end;
 
-        cSignatureBspQ2:
+        cSignatureBspID: { id Software BSP format }
         begin
-          { Check version of a cSignatureBspQ2DKQ3 file type }
-{ FIXME: SOF don't load, got same Sig/Vers as Q3 (!!)
-          if CharModeJeu=mjSOF then
-          begin
-              FFileHandler:=QBsp2FileHandler.Create(Self)
-              FFileHandler.LoadBsp(F, StreamSize);
-              ObjectGameCode := mjSOF;
-          end else
-}
           case Version of
-            cVersionBspQ2: { Quake-2 }
+            cVersionBspQ2: { Quake 2 }
             begin
               if QBspFileHandler.BspType(CharModeJeu)<>bspTypeQ2 then
                 ChangeGameMode(mjQuake2,true);
+              ObjectGameCode := CurrentQuake2Mode;
               FFileHandler:=QBsp2FileHandler.Create(Self);
               FFileHandler.LoadBsp(F, StreamSize);
-              ObjectGameCode := CurrentQuake2Mode;
             end;
 
-            cVersionBspQ3: { Quake-3 }
+            cVersionBspQ3: { Quake 3 or Soldier of Fortune }
             begin
-              { Somebody should be shot ... }
+              { Somebody should be shot; SOF has the same Sig/Vers as Q3 (!!) }
               if CharModejeu=mjSOF then
               begin
                 ObjectGameCode := mjSOF;
@@ -627,24 +622,43 @@ begin
               end
               else
               begin
-                FFileHandler:=QBsp3FileHandler.Create(Self);
-                FFileHandler.LoadBsp(F, StreamSize);
-                if CharModeJeu<mjQ3A then
+                if (CharModeJeu <> mjQ3A) and (CharModeJeu <> mjSTVEF)  and (CharModeJeu <> mjNexuiz) then
                   ObjectGameCode := mjQ3A
                 else
                   ObjectGameCode := CharModeJeu;
+                FFileHandler:=QBsp3FileHandler.Create(Self);
+                FFileHandler.LoadBsp(F, StreamSize);
               end;
             end;
 
-           (* well nice try but it doesn't actually work *)
-            cVersionBspRTCW:  { RTCW }
+            cVersionBspQL: { Quake Live or Return to Castle Wolfenstein}
             begin
-          (*
+(*
+              ObjectGameCode := mjRTCW;
               FFileHandler:=QBsp3FileHandler.Create(Self);
               FFileHandler.LoadBsp(F, StreamSize);
-              ObjectGameCode := mjRTCW;
-          *)
-              Raise EErrorFmt(5602, [LoadName, Version, cVersionBspRTCW]);
+*)
+              Raise EErrorFmt(5602, [LoadName, Version, cVersionBspQL]);
+            end;
+
+            cVersionBspIG: { Iron Grip: Warlord }
+            begin
+(*
+              ObjectGameCode := ...;
+              FFileHandler:=QBsp3FileHandler.Create(Self);
+              FFileHandler.LoadBsp(F, StreamSize);
+*)
+              Raise EErrorFmt(5602, [LoadName, Version, cVersionBspIG]);
+            end;
+
+            cVersionBspQuetoo: { Quetoo }
+            begin
+(*
+              ObjectGameCode := ...;
+              FFileHandler:=QBsp3FileHandler.Create(Self);
+              FFileHandler.LoadBsp(F, StreamSize);
+*)
+              Raise EErrorFmt(5602, [LoadName, Version, cVersionBspQuetoo]);
             end;
 
             else {version unknown}
@@ -652,83 +666,113 @@ begin
           end;
         end;
 
-        cSignatureBspQ3:
+        cSignatureBspRaven:
         begin
           case Version of
-            cVersionBspJK2JA: { Jedi Knight II or Jedi Academy }
+//            cVersionBspSin: { SiN }
+//            begin
+//              Raise EErrorFmt(5602, [LoadName, Version, cVersionBspSin]);
+//(*              ObjectGameCode := mjSin;
+//                FFileHandler:=QBsp2FileHandler.Create(Self);
+//                FFileHandler.LoadBsp(F, StreamSize);
+//*)
+//            end;
+
+            cVersionBspJK2: { Jedi Knight II or Soldier of Fortune 2 or Jedi Academy }
             begin
-              FFileHandler:=QBsp3FileHandler.Create(Self); {Decker - try using the Q3 .BSP loader for JK2/JA maps}
-              FFileHandler.LoadBsp(F, StreamSize);
-              if (CharModeJeu <> mjJK2) and (CharModeJeu <> mjJA) then
+              if (CharModeJeu <> mjJK2) and (CharModeJeu <> mjJA)  and (CharModeJeu <> mjSoF2) then
                 ObjectGameCode := mjJK2
               else
                 ObjectGameCode := CharModeJeu;
+              FFileHandler:=QBsp3FileHandler.Create(Self); {Decker - try using the Q3 .BSP loader}
+              FFileHandler.LoadBsp(F, StreamSize);
             end;
 
-//            cVersionBspSin: { SiN }
-//            begin
-//              { This is a Quake 2 engine game! Somebody else should ALSO be shot! }
-//              Raise EErrorFmt(5602, [LoadName, Version, cVersionBspSin]);
-//(*              FFileHandler:=QBsp2FileHandler.Create(Self);
-//                FFileHandler.LoadBsp(F, StreamSize);
-//              ObjectGameCode := mjSin;*)
-//            end;
-
             else {version unknown}
-              Raise EErrorFmt(5572, [LoadName, Version, cVersionBspJK2JA]);
+              Raise EErrorFmt(5572, [LoadName, Version, cVersionBspJK2]);
           end;
         end;
 
-        cSignatureBspMOHAA: { Moh:aa }
+        cSignatureBsp2015:
         begin
-          Raise EErrorFmt(5602, [LoadName, Version, cSignatureBspMOHAA]);
-
+          case Version of
+            cVersionBspMOHAA: { Moh:aa }
+            begin
+              Raise EErrorFmt(5602, [LoadName, Version, cSignatureBsp2015]);
 (* Non functional
-          FFileHandler:=QBsp3FileHandler.Create(Self); {Decker - try using the Q3 .BSP loader for Moh:aa maps}
-          FFileHandler.LoadBsp(F, StreamSize);
-          ObjectGameCode := mjMohaa;
+              ObjectGameCode := mjMohaa;
+              FFileHandler:=QBsp3FileHandler.Create(Self); {Decker - try using the Q3 .BSP loader}
+              FFileHandler.LoadBsp(F, StreamSize);
 *)
+            end;
+
+            else {version unknown}
+              Raise EErrorFmt(5572, [LoadName, Version, cVersionBspMOHAA]);
+            end;
         end;
 
-(* Currently not supported
         cSignatureBspFAKK:
         begin
           case Version of
             cVersionBspFAKK: { Heavy Metal: FAKK2 }
             begin
+              Raise EErrorFmt(5602, [LoadName, Version, cSignatureBspFAKK]);
+(* Currently not supported
+              ObjectGameCode := mjFAKK2;
               FFileHandler:=QBsp3FileHandler.Create(Self);
               FFileHandler.LoadBsp(F, StreamSize);
-              ObjectGameCode := mjFAKK2;
+*)
             end;
 
             cVersionBspAlice: { American McGee's Alice }
             begin
+              Raise EErrorFmt(5602, [LoadName, Version, cSignatureBspFAKK]);
+(* Currently not supported
+              ObjectGameCode := mjAlice;
               FFileHandler:=QBsp3FileHandler.Create(Self);
               FFileHandler.LoadBsp(F, StreamSize);
-              ObjectGameCode := mjAlice;
+*)
             end;
 
             else {version unknown}
               Raise EErrorFmt(5572, [LoadName, Version, cVersionBspFAKK]);
             end;
-        end;*)
+        end;
 
-        cSignatureHL2: { HL2 }
+        cSignatureBspWarsow:
         begin
           case Version of
-            cVersionBspHL2: {HL2}
+            cVersionBspWarsow: { Warsow }
+            begin
+              Raise EErrorFmt(5602, [LoadName, Version, cSignatureBspWarsow]);
+(* Currently not supported
+              ObjectGameCode := mjWarsow;
+              FFileHandler:=QBsp3FileHandler.Create(Self);
+              FFileHandler.LoadBsp(F, StreamSize);
+*)
+            end;
+
+            else {version unknown}
+              Raise EErrorFmt(5572, [LoadName, Version, cVersionBspWarsow]);
+            end;
+        end;
+
+        cSignatureValve: { Valve BSP format }
+        begin
+          case Version of
+            cVersionBspHL2: { Half-Life 2 }
             begin
               Raise EErrorFmt(5602, [LoadName, Version, cVersionBspHL2]);
 (*              ObjectGameCode := mjHL2;*)
             end;
 
-            cVersionBspHL2HDR: {HL2 with HDR lighting}
+            cVersionBspHL2HDR: { Half-Life 2 with HDR lighting }
             begin
               Raise EErrorFmt(5602, [LoadName, Version, cVersionBspHL2HDR]);
 (*              ObjectGameCode := mjHL2;*)
             end;
 
-            cVersionBspHL2V21: {HL2 with various changes}
+            cVersionBspHL2V21: { Half-Life 2 with various changes }
             begin
               Raise EErrorFmt(5602, [LoadName, Version, cVersionBspHL2V21]);
 (*              ObjectGameCode := mjHL2;*)
