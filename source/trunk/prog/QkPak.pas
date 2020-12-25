@@ -108,7 +108,7 @@ implementation
 
 uses Travail, QkExplorer, Quarkx, QkExceptions, PyObjects, Game, QkSin,
  Qkzip2, QkQ3, QkD3, QkCoD2, QkSylphis, QkObjectClassList, QkBsp,
- ExtraFunctionality;
+ Logging, ExtraFunctionality;
 
 {$R *.DFM}
 
@@ -197,15 +197,22 @@ begin
        begin
         J:=SizeOf(TIntroPak);
         Header.Code1:=0;
+        //Header.Code2:=0;
        end
       else
        J:=SizeOf(TIntroPakEx);
       F.ReadBuffer(Header, J);
       if Header.Intro.Signature=SignaturePACK then
-       TailleNom:=TailleNomFichPACK
+       begin
+        if Self is QSinPak then Log(LOG_WARNING, 'SiN Pak file with wrong extension!'); //FIXME: Move to dict!
+        TailleNom:=TailleNomFichPACK
+       end
       else
        if Header.Intro.Signature=SignatureSPAK then
-        TailleNom:=TailleNomFichSPAK
+        begin
+         if not (Self is QSinPak) then Log(LOG_WARNING, 'Pak file with bad SiN extension!'); //FIXME: Move to dict!
+         TailleNom:=TailleNomFichSPAK
+        end
        else
         Raise EErrorFmt(5506, [LoadName, Header.Intro.Signature, SignaturePACK]);
       if Header.Intro.PosRep + Header.Intro.TailleRep > FSize then
