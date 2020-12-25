@@ -303,19 +303,19 @@ begin
               FirstFace:=Face_id;
               cTexInfo:=SizeOf(TTexInfo);
              end;
-  HullHx: with PHullH2(P)^ do
+   HullHx: with PHullH2(P)^ do
              begin
               NbFaces:=Face_num;
               FirstFace:=Face_id;
               cTexInfo:=SizeOf(TTexInfo);
              end;
-  HullQ2: with PHullQ2(P)^ do
+   HullQ2: with PHullQ2(P)^ do
               begin
                NbFaces:=Face_num;
                FirstFace:=Face_id;
                cTexInfo:=SizeOf(TTexInfoQ2);
               end;
-  HullQ3: with PHullQ3(P)^ do
+   HullQ3: with PHullQ3(P)^ do
               begin
                NbFaces:=Face_num;
                FirstFace:=Face_id;
