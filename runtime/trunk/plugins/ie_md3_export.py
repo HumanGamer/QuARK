@@ -326,7 +326,7 @@ def fill_md3(md3, QuArK_objects):
         md3.numFrames = len(frames)-1
         frames_new = []
         for frame in frames:
-            if not frame.endswith("baseframe"):
+            if not frame.shortname.endswith("baseframe"):
                 frames_new.append(frame)
         frames = frames_new
     else:
