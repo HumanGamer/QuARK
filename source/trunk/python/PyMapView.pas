@@ -227,6 +227,16 @@ const
  MIN_VAngle = 5;
  MAX_VAngle = 85;
 
+var
+ //When painting the BoundingBoxes are retrieved, and for this we set the hourglass cursor,
+ //because that might take some time. This causes SetCursor to fire, which then calls into
+ //FOnMouse, which can trigger a repaint. This repaint invalidates our DC mid-paint,
+ //causing various GDI-functions to fail (silently, because we're not checking for errors),
+ //which (in unrelated drawing code) results in a HPen leak. With a large level,
+ //this leak can exhaust all available GDI objects, causing major GUI glitches.
+ //So let's disable the call into FOnMouse in that particular case.
+ PreventMouseMoveOnCursorSet: Boolean;
+
  {------------------------}
 
 constructor TPyMapView.Create(AOwner: TComponent);
@@ -1007,7 +1017,8 @@ begin
     PythonCodeEnd;
    end;
   end;
- CallMouseEvent(MapViewObject, FOnMouse, M.X, M.Y, mbMouseMove, [], H);
+ if not PreventMouseMoveOnCursorSet then
+  CallMouseEvent(MapViewObject, FOnMouse, M.X, M.Y, mbMouseMove, [], H);
 end;
 
 procedure TPyMapView.ResizeViewport;
@@ -1143,7 +1154,12 @@ begin
    FEntityForms:=TQList.Create;
    Result:=FEntityForms;
 
-   callresult:=GetPythonValue(FBoundingBoxes, Py_BuildValueX('(O)', [MapViewObject]), True);
+   try
+     PreventMouseMoveOnCursorSet:=True;
+     callresult:=GetPythonValue(FBoundingBoxes, Py_BuildValueX('(O)', [MapViewObject]), True);
+   finally
+     PreventMouseMoveOnCursorSet:=False;
+   end;
    if callresult=Nil then Exit;
    try
     Count:=PyObject_Length(callresult);
