@@ -373,7 +373,7 @@ type
 
  {------------------------}
 
-Function StringListFromEntityLump(e_lump: String; ExistingAddons: QFileObject; var Found: TStringList): Integer;
+Function StringListFromEntityLump(const e_lump: String; ExistingAddons: QFileObject; var Found: TStringList): Integer;
 
 implementation
 
@@ -1300,7 +1300,7 @@ begin
   Result:=S;
 end;
 
-Function StringListFromEntityLump(e_lump: String; ExistingAddons: QFileObject; var Found: TStringList): Integer;
+Function StringListFromEntityLump(const e_lump: String; ExistingAddons: QFileObject; var Found: TStringList): Integer;
 var
   S: String;
   specList: TStringList;
