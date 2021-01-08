@@ -814,6 +814,8 @@ end;
 destructor QBsp.Destroy;
 begin
  CloseStructure;
+ FFileHandler.Free;
+ FFileHandler:=nil;
  inherited;
 end;
 
