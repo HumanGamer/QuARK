@@ -813,10 +813,13 @@ end;
 
 destructor QBsp.Destroy;
 begin
- CloseStructure;
- FFileHandler.Free;
- FFileHandler:=nil;
- inherited;
+  CloseStructure;
+  if FFileHandler<> nil then
+  begin
+    FFileHandler.Free;
+    FFileHandler:=nil;
+  end;
+  inherited;
 end;
 
 procedure QBsp.CloseStructure;
