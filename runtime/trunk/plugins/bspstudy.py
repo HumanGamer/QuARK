@@ -31,7 +31,7 @@ class ClosePlanesDlg (quarkpy.dlgclasses.LiveEditDlg):
     endcolor = AQUA
     size = (220,200)
     dfsep = 0.35
-    dlgflags = FWF_KEEPFOCUS 
+    dlgflags = FWF_KEEPFOCUS
 
     dlgdef = """
         {
@@ -51,13 +51,13 @@ class ClosePlanesDlg (quarkpy.dlgclasses.LiveEditDlg):
           Txt = "Normal"
           Hint = "The normal of the chosen plane"
         }
-        
+
         dist: = {
           Typ = "EF00001"
           Txt = "dist"
           Hint = "The dist value of the chosen plane"
         }
-        
+
         sep: = { Typ="S" Txt=""}
 
         buttons: = {
@@ -80,7 +80,7 @@ class ClosePlanesDlg (quarkpy.dlgclasses.LiveEditDlg):
           Txt = "tolerance: "
           Hint = "Planes whose dist*norm difference is less than this are deemed suspicious."
         }
-        
+
         sep: = { Typ="S" Txt=""}
 
         exit:py = {Txt="" }
@@ -89,9 +89,9 @@ class ClosePlanesDlg (quarkpy.dlgclasses.LiveEditDlg):
 
     def inspect(self):
         self.editor.layout.explorer.uniquesel = self.pack.plane
-        
+
     def nearplanes(self):
-        index = eval(self.chosen)
+        index = int(self.chosen)
         plane = self.pack.closeones[index]
         nearPlanesClickFunc(None,plane,self.editor)
 
@@ -104,7 +104,7 @@ def macro_closeplanes(self, index=0):
 
     elif index==2:
         editor.closeplanesdlg.nearplanes()
-        
+
 quarkpy.qmacro.MACRO_closeplanes = macro_closeplanes
 
 
@@ -143,8 +143,8 @@ def CheckPlanesClick(m):
     close = quarkx.setupsubset(SS_MAP, "Options")["planestooclose"]
     if close==None:
         close="1.0"
-    close=eval(close)
-    
+    close=float(close)
+
     closeones = getClosePlanes(close, editor)
 #    editor.layout.explorer.sellist=closeones
 #    quarkx.msgbox("%d suspicious planes found"%len(closeones), quarkpy.qutils.MT_INFORMATION, quarkpy.qutils.MB_OK)
@@ -177,16 +177,15 @@ def CheckPlanesClick(m):
         self.src["close"]=pack.close,
 
     def action(self, pack=pack, editor=editor):
-        src = self.src
         #
         # note what's been chosen
         #
-        self.chosen = src["closeplanes"]
-        plane = self.pack.closeones[eval(self.chosen)]
+        self.chosen = self.src["closeplanes"]
+        plane = self.pack.closeones[int(self.chosen)]
         self.pack.plane=plane
 #        debug('norm '+`plane.normal`+' dist '+`plane.dist`)
-        src["normal"]=plane.normal.tuple
-        src["dist"]=plane.dist,
+        self.src["normal"]=plane.normal.tuple
+        self.src["dist"]=plane.dist,
         #
         # see if thinness threshold has been changed
         #
@@ -196,7 +195,7 @@ def CheckPlanesClick(m):
                 quarkx.setupsubset(SS_MAP, "Options")["planestooclose"]=None
             else:
                 quarkx.setupsubset(SS_MAP, "Options")["planestooclose"]="%f2"%newclose
- 
+
             pack.close="%.2f"%newclose
             pack.closeones=getClosePlanes(newclose, editor)
 
@@ -206,10 +205,10 @@ def CheckPlanesClick(m):
     #
     def onclosing(self,editor=editor):
         del editor.closeplanesdlg
-    
+
     ClosePlanesDlg(quarkx.clickform, 'closeplanes', editor, setup, action, onclosing)
 
-    
+
 def NodesClick(m,editor=None):
     if editor is None:
         editor=mapeditor()
@@ -228,7 +227,7 @@ def NodesClick(m,editor=None):
         editor.ok(undo, 'get nodes')
         editor.layout.explorer.uniquesel=nodes
         editor.nodes=nodes
-  
+
 planesitem=qmenu.item('Get Planes',PlanesClick)
 nodesitem=qmenu.item('Get Nodes',NodesClick)
 planecheckitem=qmenu.item('Check Planes',CheckPlanesClick)
@@ -252,7 +251,7 @@ class NearPlanesDlg (quarkpy.dlgclasses.LiveEditDlg):
     endcolor = AQUA
     size = (220,200)
     dfsep = 0.35
-    dlgflags = FWF_KEEPFOCUS 
+    dlgflags = FWF_KEEPFOCUS
 
     dlgdef = """
         {
@@ -272,13 +271,13 @@ class NearPlanesDlg (quarkpy.dlgclasses.LiveEditDlg):
           Txt = "Normal"
           Hint = "The normal of the chosen plane"
         }
-        
+
         dist: = {
           Typ = "EF00001"
           Txt = "dist"
           Hint = "The dist value of the chosen plane"
         }
-        
+
         sep: = { Typ="S" Txt=""}
 
         buttons: = {
@@ -296,7 +295,7 @@ class NearPlanesDlg (quarkpy.dlgclasses.LiveEditDlg):
           Typ = "EF1"
           Txt = "No. found"
         }
-        
+
         close: = {
           Typ = "EF001"
           Txt = "tolerance: "
@@ -313,7 +312,7 @@ class NearPlanesDlg (quarkpy.dlgclasses.LiveEditDlg):
         self.editor.layout.explorer.uniquesel=self.pack.plane
 
     def collect(self):
-        index = eval(self.chosen)
+        index = int(self.chosen)
         plane = self.pack.nearones[index]
         collectFacesClickFunc(None,plane,self.editor)
 
@@ -368,7 +367,7 @@ def nearPlanesClickFunc(m,o,editor):
             close = quarkx.setupsubset(SS_MAP, "Options")["planestooclose"]
             if close==None:
                 close="1.0"
-            close=eval(close)
+            close=float(close)
 
             nearones = getNearPlanes(close,o, editor)
         #   debug('near '+`nearones`)
@@ -405,16 +404,15 @@ def nearPlanesClickFunc(m,o,editor):
                 self.src["close"]=pack.close,
 
             def action(self, pack=pack, editor=editor):
-                src = self.src
                 #
                 # note what's been chosen
                 #
-                self.chosen = src["nearplanes"]
-                plane = self.pack.nearones[eval(self.chosen)]
+                self.chosen = self.src["nearplanes"]
+                plane = self.pack.nearones[int(self.chosen)]
                 self.pack.plane=plane
 #                debug('norm '+`plane.normal`+' dist '+`plane.dist`)
-                src["normal"]=plane.normal.tuple
-                src["dist"]=plane.dist,
+                self.src["normal"]=plane.normal.tuple
+                self.src["dist"]=plane.dist,
                 #
                 # see if thinness threshold has been changed
                 #
@@ -427,7 +425,7 @@ def nearPlanesClickFunc(m,o,editor):
 
                     pack.close="%.2f"%newclose
                     pack.nearones=getNearPlanes(newclose, self.plane, editor)
-            
+
             #
             # Cleanup when dialog closes (not needed if no mess has
             #  been created)
@@ -468,13 +466,13 @@ class PlaneType(quarkpy.mapentities.EntityManager):
 
         def collectFacesClick(m,o=o,editor=editor):
             collectFacesClickFunc(m,o,editor)
-     
+
         def nearPlanesClick(m,o=o,editor=editor):
             nearPlanesClickFunc(m,o,editor)
 
         def splitNodesClick(m,o=o,editor=editor):
             findSplitNodes(editor,o)
-            
+
         collectItem=qmenu.item("Select Faces",collectFacesClick,"|Select the faces lying on this plane")
         nearItem = qmenu.item("Near Planes",nearPlanesClick,"|Find the planes near this one")
         splitItem = qmenu.item("Split Nodes",splitNodesClick,"|Find the nodes split by this plane")
@@ -488,7 +486,7 @@ class HullType(quarkpy.mapentities.GroupType):
         def showFaces(m,o=o,editor=editor):
             for face in o.subitems:
                 face.flags = face.flags & ~2
-        
+
         faceItem = qmenu.item("Show Faces",showFaces)
         return [faceItem]
 
@@ -545,12 +543,12 @@ def nodePoly(o):
 
 class NodeType(quarkpy.mapentities.GroupType):
     "Bsp Nodes"
-     
+
     def drawback(o, editor, view, mode):
         view.drawmap(nodePoly(o),mode)
 
     def menu(o, editor):
-         
+
         #
         # For debugging
         #
@@ -569,7 +567,7 @@ class NodeType(quarkpy.mapentities.GroupType):
 #        def showFaceClick(m,o=o,editor=editor):
 #            faces=o.faces
 #            debug(`faces`)
-#            
+#
 #        faceItem=qmenu.item("Show Faces",showFaceClick)
 
         return [polyItem]
