@@ -150,9 +150,9 @@ def buildParentPopupList(o, parentpopupitems, editor):
         if current==restrictor and menrestsel.state == qmenu.checked:
             list.append(qmenu.sep)
             restricted = 1
-        current = current.treeparent;
+        current = current.treeparent
   #  list.reverse()
-    return list    
+    return list
 
 
 def buildParentPopup(o,parentpopup, parentpopupitems, editor=None):
@@ -162,7 +162,7 @@ def buildParentPopup(o,parentpopup, parentpopupitems, editor=None):
     else:
         parentpopup.items = list
     return parentpopup
-     
+
 #
 # This makes a parent popup item for navigating the tree
 #   above the selected item.  Imitate in other files to
@@ -339,12 +339,11 @@ def zoomToMeFunc(editor,object):
 
 
 def SelectMe(m):
-      import quarkpy.mapmenus
-      editor = mapeditor()
-      if editor is None:
-          squawk("no editor")
-          return
-      selectMeFunc(editor,m.object)
+    editor = mapeditor()
+    if editor is None:
+        squawk("no editor")
+        return
+    selectMeFunc(editor,m.object)
 
 def selectMeFunc(editor, object):
     #
@@ -484,7 +483,7 @@ def LiftMe(m):
      if faceutils.coplanar(o, face) and o != face:
        undo.exchange(face,None)
    mapeditor().ok(undo, m.text)
-  
+
 
 ###################################
 #
@@ -767,7 +766,7 @@ def ExtendSelClick(m):
   editor = mapeditor()
   if editor is None: return
   selection = editor.layout.explorer.sellist
-  if len(selection) == 1:    
+  if len(selection) == 1:
     sel = selection[0]
     try:
       item = m.obj
@@ -775,7 +774,7 @@ def ExtendSelClick(m):
         sel = item
     except (AttributeError) : pass
     if sel.type == ":f":
-      list = [sel];
+      list = [sel]
       lotsa = editor.Root.findallsubitems("",":f")
       quarkx.extendcoplanar(list,editor.Root.subitems)
       editor.layout.explorer.sellist = list
@@ -792,7 +791,7 @@ def ExtendSelClick(m):
       editor.invalidateviews()
   else:
     quarkx.msgbox("No multiple selections",MT_INFORMATION,MB_OK)
-   
+
 
 def madclick(editor, view, x, y, oldclick=quarkpy.maphandles.ClickOnView):
   if mennosel.state == qmenu.checked:
@@ -867,7 +866,7 @@ class BrowseListDlg(quarkpy.dlgclasses.LiveBrowserDlg):
         Caption = "Browse List Dialog"
 
         collected: = {
-          Typ = "C"
+          Typ = "CL"
           Txt = "Selected:"
           Items = "%s"
           Values = "%s"
@@ -946,7 +945,7 @@ def browseListFunc(editor, list):
     def action(self,editor=editor):
         editor.layout.explorer.sellist=[self.chosen]
         editor.invalidateviews()
-    
+
     BrowseListDlg('browselist', editor, pack, None, action)
 
 browseHelpString="|Browse Multiple Selection:\n\nMakes a dialog for browsing the selected elements.|intro.mapeditor.menu.html#invertface"
@@ -1003,15 +1002,15 @@ def invertFaceSelClick(m):
 #    debug('faces')
     editor.layout.explorer.sellist=newfaces
     editor.invalidateviews()
-    
+
 
 meninvertfacesel = quarkpy.qmenu.item("&Invert Face Selection", invertFaceSelClick, "|Invert Face Selection:\n\nThis is for polys containing faces that are currently selected, deselect these and select the other, currently unselected, faces.|intro.mapeditor.menu.html#invertface")
 
 menrestsel = quarkpy.qmenu.item("&Restrict to Selection", RestSelClick,"|Restrict to Selection:\n\nRestrict selections to within the current restrictor group, if any, which you can set with by clicking `Containing Groups I Some Item I Restrict' on the right mouse menu for polys, etc.|intro.mapeditor.menu.html#invertface")
 
 menextsel = quarkpy.qmenu.item("&Extend Selection from Face", ExtendSelClick, exttext)
- 
-mennosel = quarkpy.qmenu.item("No Selection in Map Views", NoSelClick, "|No Selection in Map Views:\n\nWhen this menu item is checked, selection in the map views is prevented.\n\nThis is useful when touring with the 3d viewer, to prevent selecting things accidentally.|intro.mapeditor.menu.html#optionsmenu");
+
+mennosel = quarkpy.qmenu.item("No Selection in Map Views", NoSelClick, "|No Selection in Map Views:\n\nWhen this menu item is checked, selection in the map views is prevented.\n\nThis is useful when touring with the 3d viewer, to prevent selecting things accidentally.|intro.mapeditor.menu.html#optionsmenu")
 
 menunrestrict = quarkpy.qmenu.item("&Unrestrict Selection",UnrestrictClick,"|Unrestrict Selection:\n\nWhen selection is restricted (see the Containing Groups right-mouse menu), clicking on this will unrestrict the selection & restore things to normal.|intro.mapeditor.menu.html#invertface")
 
