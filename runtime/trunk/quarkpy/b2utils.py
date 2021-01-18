@@ -90,7 +90,7 @@ def interpolateGrid(p0, p1, p2, p3, h=3, w=3):
     "makes a bezier from the four points"
     "p0, ..., p1 top row, p2,..., p3 bottom"
     cp = []
-    h, w = float(h), float(w)
+    h, w = int(h), int(w)
     H, W = h-1, w-1
     upfront, upback = (p2-p0)/(h-1), (p3-p1)/(h-1)
     for i in range(h):
@@ -101,7 +101,7 @@ def interpolateGrid(p0, p1, p2, p3, h=3, w=3):
             #
             # non 3x3 cp's need to be 5-space
             #
-            row.append(quarkx.vect((front+j*across).tuple+(i/H,j/W)))
+            row.append(quarkx.vect((front+j*across).tuple+(float(i)/float(H),float(j)/float(W))))
         cp.append(row)
     return cp
 
