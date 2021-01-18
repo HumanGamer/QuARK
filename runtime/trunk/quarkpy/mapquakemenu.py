@@ -400,6 +400,11 @@ def RebuildAndRun(maplist, editor, runquake, text, forcepak, extracted, cfgfile,
 
             if buildmode[pgrmx]:        # Should this program be run?
                 cmdline = setup[pgrmx]
+                if cmdline is None:
+                    msg = Strings[5812] % pgrmnbr
+                    if quarkx.msgbox(msg, MT_CONFIRMATION, MB_YES | MB_NO) == MR_YES:
+                        quarkx.openconfigdlg(":")
+                    return
 
                 console = BuildPgmConsole_Advanced
 

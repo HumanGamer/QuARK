@@ -1069,6 +1069,7 @@ Strings = {
     5809: "Unknown md3 format found ('%s')",
     5810: "Invalid vertex number",
     5811: "Tag frame number mismatch",
+    5812: "The command line for tool %i is not set. Do you want to enter the command line now ?",
 
     # DanielPharos would like to reserve 6000 .. 6099 for all renderers
     6000: "Unable to create SceneObject//%s",
