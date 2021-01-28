@@ -1325,8 +1325,8 @@ class BaseEditor:
                             if self.ModelFaceSelList != [] and quarkx.setupsubset(SS_MODEL, "Options")['MAIV'] != "1":
                                 mdlhandles.ModelFaceHandle(qhandles.GenericHandle).draw(self, view, self.EditorObjectList)
                         else:
-                            try:
-                                for v in self.layout.views:
+                            for v in self.layout.views:
+                                try:
                                     if v.info["viewname"] == "editors3Dview" and self.dragobject.handle.hint.find("Editor 3D view") != -1:
                                         v.repaint()
                                         if self.ModelFaceSelList != [] and quarkx.setupsubset(SS_MODEL, "Options")['MAIV'] != "1":
@@ -1335,8 +1335,8 @@ class BaseEditor:
                                         v.repaint()
                                         if self.ModelFaceSelList != [] and quarkx.setupsubset(SS_MODEL, "Options")['MAIV'] != "1":
                                             mdlhandles.ModelFaceHandle(qhandles.GenericHandle).draw(self, v, self.EditorObjectList)
-                            except:
-                                pass
+                                except:
+                                    pass
                 except:
                     pass
                 try:
