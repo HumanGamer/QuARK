@@ -15,8 +15,6 @@ import maphandles
 import mapentities
 import dlgclasses
 
-from plugins.tagging import *
-import plugins.maptagpoint
 from b2utils import *
 
 class CornerTexPos(dlgclasses.LiveEditDlg):
@@ -378,6 +376,7 @@ class CPHandle(qhandles.GenericHandle):
     #
 
     def menu(self, editor, view):
+        import plugins.tagging
 
         i, j = self.ij
         cp = self.b2.cp
@@ -481,7 +480,7 @@ class CPHandle(qhandles.GenericHandle):
                 qmenu.sep, doublerow, doublecol])
 
 
-        tagpt = gettaggedpt(editor)
+        tagpt = plugins.tagging.gettaggedpt(editor)
 
         #
         # This should be slated for removal because `glue to tagged'
@@ -532,7 +531,7 @@ class CPHandle(qhandles.GenericHandle):
         joinitem = qmenu.item("&Join patch to tagged",JoinClick,"|Combine tagged patch and this one into one quilt.|maped.curves.html")
         knititem = qmenu.item("&Knit edge to tagged",KnitClick,"|Attach this edge to tagged edge.|maped.curves.html")
         joinitem.state=knititem.state=qmenu.disabled
-        tagged = gettaggedb2cp(editor)
+        tagged = plugins.tagging.gettaggedb2cp(editor)
         for item in joinitem, knititem:
           if tagged is not None:
             tagtype = tagged.edgeType() # orientation, dimension of edge
@@ -546,7 +545,7 @@ class CPHandle(qhandles.GenericHandle):
              morehint = "\n\nTo enable this menu item, tag a non-corner edge point of one patch, and RMB on a non-corner edge point of another"
              item.hint=item.hint+morehint
 
-        tagged = gettaggededge(editor)
+        tagged = plugins.tagging.gettaggededge(editor)
 
         def alignclick(m,self=self,tagged=tagged,editor=editor):
             b2 = self.b2.copy()
@@ -959,9 +958,10 @@ def tagB2CpClick(m):
     import qeditor
     editor = qeditor.mapeditor()
     if editor is None: return
-    tagb2cp(m.o, editor)
+    import plugins.tagging
+    plugins.tagging.tagb2cp(m.o, editor)
 
-def originmenu(self, editor, view, oldoriginmenu = quarkpy.qhandles.GenericHandle.OriginItems.im_func):
+def originmenu(self, editor, view, oldoriginmenu = qhandles.GenericHandle.OriginItems.im_func):
   menu = oldoriginmenu(self, editor, view)
   if isinstance(self, CPHandle):
       for item in menu:
@@ -973,14 +973,14 @@ def originmenu(self, editor, view, oldoriginmenu = quarkpy.qhandles.GenericHandl
               pass
   return menu
 
-quarkpy.qhandles.GenericHandle.OriginItems = originmenu
+qhandles.GenericHandle.OriginItems = originmenu
 
 #
 # Stuff that's meaningful for the whole patch should go here
 #
 def newb2menu(o, editor, oldmenu=mapentities.BezierType.menubegin.im_func):
     "update for RMB menu for beziers"
-
+    import plugins.tagging
 
     def projtexclick(m, o=o, editor=editor):
         new = o.copy()
@@ -990,7 +990,7 @@ def newb2menu(o, editor, oldmenu=mapentities.BezierType.menubegin.im_func):
         editor.ok(undo,"project texture from tagged")
 
     projtex = qmenu.item("&Project from tagged", projtexclick, "|Texture of a tagged face is projected onto the patch in a `flat' way (just like project texture from tagged face onto faces).|maped.curves.html#texmanag")
-    tagged = gettaggedface(editor)
+    tagged = plugins.tagging.gettaggedface(editor)
     if tagged is None:
        projtex.state=qmenu.disabled
     else:
@@ -1132,8 +1132,8 @@ class CenterHandle(maphandles.CenterHandle):
     # /tiglari
 
 import mapeditor
-from plugins.tagging import drawsquare
 def pickfinishdrawing(editor, view, oldmore=mapeditor.MapEditor.finishdrawing):
+    import plugins.tagging
     cv = view.canvas()
     cv.pencolor = MapColor("Duplicator")
     for item in editor.layout.explorer.sellist:
@@ -1142,7 +1142,7 @@ def pickfinishdrawing(editor, view, oldmore=mapeditor.MapEditor.finishdrawing):
             for p in item["picked"]:
                 i, j = cpPos(p, item)
                 p1 = view.proj(cp[i][j])
-                drawsquare(cv,p1,10)
+                plugins.tagging.drawsquare(cv,p1,10)
     oldmore(editor,view)
 
 mapeditor.MapEditor.finishdrawing = pickfinishdrawing
