@@ -25,8 +25,6 @@ from maputils import *
 import mapentities
 import qmacro
 
-from plugins.tagging import *
-
 #
 # The handle classes.
 #
@@ -1075,11 +1073,11 @@ class CyanLHandle(qhandles.GenericHandle):
         #
         # Glue to tagged point
         #
-        tagged=plugins.tagging.gettaggedpt(editor)
+        tagged = plugins.tagging.gettaggedpt(editor)
         if tagged is not None:
             taggedonface = onFace(tagged)
         else:
-            taggedonface=0
+            taggedonface = 0
 
         def glueClick(m,tagged=tagged,self=self,editor=editor,toFace=toFace):
             #
@@ -1127,7 +1125,7 @@ class CyanLHandle(qhandles.GenericHandle):
         # Align to tagged edge (by rotation, to the one
         #   that's closest to being aligned)
         #
-        edge = gettaggededge(editor)
+        edge = plugins.tagging.gettaggededge(editor)
 
         def alignClick(m,self=self,edge=edge,editor=editor,
                        toAxisBase=toAxisBase,fromAxisBase=fromAxisBase):
@@ -1171,7 +1169,7 @@ class CyanLHandle(qhandles.GenericHandle):
             alignitem.state=qmenu.disabled
 
         def action(dlgself, self=self, tagged=tagged, editor=editor, toFace=toFace):
-            prop=dlgself.prop            
+            prop=dlgself.prop
             tagged=toFace(tagged)
             p1, p2, p3, p4 = self.tp4
             newface = self.face.copy()
