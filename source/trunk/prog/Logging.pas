@@ -23,7 +23,7 @@ unit Logging;
 interface
 
 //Keep the number of uses to a bare minimal, due to Delphi's init-order!
-uses Windows, Sysutils;
+uses Windows, Sysutils{$IFDEF PyProfiling}, Classes{$ENDIF};
 
 type
   TLogName = (LOG_DEFAULT, LOG_PASCAL, LOG_PYTHON, LOG_SYS, LOG_DEBUG);
@@ -52,6 +52,13 @@ const
   LOG_INFO = 30;
   LOG_VERBOSE = 40;
 
+{$IFDEF PyProfiling}
+Procedure LogProfiling(const Location: String; const PythonStackTrace: TStringList);
+
+const
+  LOG_PROFILE_FILENAME = 'PROFILING.LOG';
+{$ENDIF}
+
 implementation
 
 //Keep the number of uses to a bare minimal, due to Delphi's init-order!
@@ -64,6 +71,9 @@ var
   LogPatchname: string;
   LogLevel: cardinal;
   LogLevelEnv: string;
+{$IFDEF PyProfiling}
+  LogProfileFile: TextFile;
+{$ENDIF}
 
 const
   //Default level is 'warning'
@@ -116,6 +126,13 @@ begin
   else
     Log(LOG_PASCAL, 'QuArK version is %s %s',[QuarkVersion, QuArKMinorVersion]);
   Log(LOG_PASCAL, 'Loglevel is %d',[LogLevel]);
+{$IFDEF PyProfiling}
+  {$I-}
+  //AssignFile(LogProfileFile, ConcatPaths([GetQPath(pQuArKLog), LOG_PROFILE_FILENAME]));
+  AssignFile(LogProfileFile, LOG_PROFILE_FILENAME);
+  rewrite(LogProfileFile);
+  {$I+}
+{$ENDIF}
 end;
 
 Procedure aLog(logger: TLogName; const s: string);
@@ -189,7 +206,22 @@ begin
   CloseFile(LogFile);
   {$I+}
   LogOpened:=false;
+{$IFDEF PyProfiling}
+  {$I-}
+  CloseFile(LogProfileFile);
+  {$I+}
+{$ENDIF}
 end;
+
+{$IFDEF PyProfiling}
+Procedure LogProfiling(const Location: String; const PythonStackTrace: TStringList);
+begin
+  {$I-}
+  WriteLn(LogProfileFile, Format('%s: %s', [Location, PythonStackTrace.Text]));
+  Flush(LogProfileFile);
+  {$I+}
+end;
+{$ENDIF}
 
 initialization
   LogOpened:=False;

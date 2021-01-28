@@ -2331,6 +2331,9 @@ var
  C, OtherColor: TColorRef;
 begin
  Result:=Nil;
+ {$IFDEF PyProfiling}
+ LogProfiling('PyMapView, mDrawMap', PythonGetStackTrace());
+ {$ENDIF}
  try
   flags:=0;
   if (PyControlF(self)^.QkControl=Nil)

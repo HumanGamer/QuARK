@@ -25,8 +25,6 @@ unit Python;
 {$DEFINE DebugPythonLeak}
 {$ENDIF}
 
-{.$DEFINE PyProfiling}
-
  {-------------------}
 
 interface
