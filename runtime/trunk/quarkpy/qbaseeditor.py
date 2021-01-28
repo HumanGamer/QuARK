@@ -970,6 +970,7 @@ class BaseEditor:
                 i = quarkx.setupsubset(SS_MODEL, "Building").getint("PaintMode")
                 if i < 20 and i != 0 and (flagsmouse == 552 or flagsmouse == 1064 or flagsmouse == 2088):
                     self.dragobject = None
+                    import plugins.mdlpaintmodes
                     plugins.mdlpaintmodes.PaintManager(self, view, x, y, flagsmouse, modelfacelist)
 
              # This clears the face selection list when both the LMB & RMB are pressed with the cursor in an open area of a view.
@@ -1071,12 +1072,14 @@ class BaseEditor:
                         #tb2 = editor.layout.toolbars["tb_terrmodes"]
                         i = quarkx.setupsubset(SS_MAP, "Building").getint("TerrMode")
                         if i < 20 and i != 0:
+                            import plugins.mapterrainmodes
                             plugins.mapterrainmodes.TerrainManager(editor, view, x, y, flags, handle)
                 elif self.MODE == SS_MODEL:
                     if flagsmouse == 16384 and quarkx.setupsubset(SS_MODEL, "Options")['VertexPaintMode'] is not None and quarkx.setupsubset(SS_MODEL, "Options")['VertexPaintMode'] == "1":
                         import mdlentities
                         mdlentities.vtxpaintcursor(editor)
                     elif editor.layout.toolbars["tb_paintmodes"] is not None:
+                        import plugins.mdlpaintmodes
                         plugins.mdlpaintmodes.paintcursor(editor)
 
             if handle is None:
@@ -1385,6 +1388,7 @@ class BaseEditor:
                             if tb2.tb.buttons[4].state == 2:
                                 self.dragobject = None
                                 modelfacelist = mdlhandles.ClickOnView(self, view, x, y)
+                                import plugins.mdlpaintmodes
                                 plugins.mdlpaintmodes.ColorPicker(self, view, x, y, flagsmouse, modelfacelist)
                                 return
                         else:
@@ -1563,6 +1567,7 @@ class BaseEditor:
                              #   view.handles = []
                              #   view.invalidate(1)
                              #   mdleditor.setsingleframefillcolor(self, view)
+                             #   import plugins.mdlgridscale, plugins.mdlaxisicons
                              #   plugins.mdlgridscale.gridfinishdrawing(self, view)
                              #   plugins.mdlaxisicons.newfinishdrawing(self, view)
                                 return
