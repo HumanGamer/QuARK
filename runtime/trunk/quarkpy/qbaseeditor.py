@@ -228,7 +228,7 @@ class BaseEditor:
         # If Terrain Generator button is active this stops the white outline
         # drawing of the selected face/poly parent in a selection of more than
         # one face to give a cleaner look when working in Terrain Generator.
-        if self.MODE == SS_MAP:
+        if (self.MODE == SS_MAP) and ("tb_terrmodes" in self.layout.toolbars):
             if self.layout.toolbars["tb_terrmodes"] is not None and len(ex.sellist) > 1:
                 tb2 = self.layout.toolbars["tb_terrmodes"]
                 for b in tb2.tb.buttons:
@@ -967,7 +967,7 @@ class BaseEditor:
             # This section handles the Skin-view Painting paint brush function.
             modelfacelist = mdlhandles.ClickOnView(self, view, x, y)
             if self.layout.toolbars["tb_paintmodes"] is not None:
-                tb2 = self.layout.toolbars["tb_paintmodes"]
+                #tb2 = self.layout.toolbars["tb_paintmodes"]
                 i = quarkx.setupsubset(SS_MODEL, "Building").getint("PaintMode")
                 if i < 20 and i != 0 and (flagsmouse == 552 or flagsmouse == 1064 or flagsmouse == 2088):
                     self.dragobject = None
@@ -1067,17 +1067,18 @@ class BaseEditor:
             s = ""
             if handle is None:
                 editor = self
-                if self.MODE == SS_MODEL:
+                if self.MODE == SS_MAP:
+                    if ("tb_terrmodes" in editor.layout.toolbars) and (editor.layout.toolbars["tb_terrmodes"] is not None):
+                        #tb2 = editor.layout.toolbars["tb_terrmodes"]
+                        i = quarkx.setupsubset(SS_MAP, "Building").getint("TerrMode")
+                        if i < 20 and i != 0:
+                            plugins.mapterrainmodes.TerrainManager(editor, view, x, y, flags, handle)
+                elif self.MODE == SS_MODEL:
                     if flagsmouse == 16384 and quarkx.setupsubset(SS_MODEL, "Options")['VertexPaintMode'] is not None and quarkx.setupsubset(SS_MODEL, "Options")['VertexPaintMode'] == "1":
                         import mdlentities
                         mdlentities.vtxpaintcursor(editor)
                     elif editor.layout.toolbars["tb_paintmodes"] is not None:
                         plugins.mdlpaintmodes.paintcursor(editor)
-                elif editor.layout.toolbars["tb_terrmodes"] is not None:
-                    tb2 = editor.layout.toolbars["tb_terrmodes"]
-                    i = quarkx.setupsubset(SS_MAP, "Building").getint("TerrMode")
-                    if i < 20 and i != 0:
-                        plugins.mapterrainmodes.TerrainManager(editor, view, x, y, flags, handle)
 
             if handle is None:
                 try:
