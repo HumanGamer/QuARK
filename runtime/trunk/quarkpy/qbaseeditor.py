@@ -913,7 +913,6 @@ class BaseEditor:
             cursorpos = (x, y)
             import mdleditor
             import mdlhandles
-            import plugins.mdlcamerapos
 
             if (flagsmouse == 560 or flagsmouse == 1072) and (view.info["viewname"] == "editors3Dview" or view.info["viewname"] == "3Dwindow"):
                 if flagsmouse == 560 and self.dragobject is None:
@@ -1313,6 +1312,7 @@ class BaseEditor:
             if self.MODE == SS_MODEL:
                 # This section for True3Dmode drags.
                 import mdlhandles
+                import plugins.mdlcamerapos
                 try:
                     if flagsmouse != 1048 and quarkx.setupsubset(SS_MODEL, "Options")["EditorTrue3Dmode"] == "1" or quarkx.setupsubset(SS_MODEL, "Options")["Full3DTrue3Dmode"] == "1":
                         if view.info["viewname"] == "editors3Dview" or view.info["viewname"] == "3Dwindow":
