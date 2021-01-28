@@ -20,16 +20,18 @@ http://quark.sourceforge.net/ - Contact information in AUTHORS.TXT
 **************************************************************************)
 unit Python;
 
-interface
-
-uses ExtraFunctionality;
-
 {$IFDEF DEBUG}
 {$DEFINE PyRefDEBUG}
 {$DEFINE DebugPythonLeak}
 {$ENDIF}
 
+{.$DEFINE PyProfiling}
+
  {-------------------}
+
+interface
+
+uses ExtraFunctionality {$IFDEF PyProfiling}, Classes {$ENDIF};
 
 {$INCLUDE PyVersions.inc}
 
@@ -475,6 +477,129 @@ PyCFunction_New: function (const Def: TyMethodDef; self: PyObject) : PyObject; c
 
 PyGC_Collect: procedure; cdecl;
 
+{$IFDEF PyProfiling}
+type
+  PyCodeObject = ^TyCodeObject;
+  TyCodeObject = object(TyObject)
+    co_argcount, co_nlocals, co_stacksize, co_flags: Integer;
+    co_code, co_consts, co_names, co_varnames: PyObject;
+    {$IFDEF PYTHON21}
+    co_freevars, co_cellvars: PyObject;
+    {$ENDIF}
+    co_filename, co_name: PyObject;
+    co_firstlineno: Integer;
+    co_lnotab: PyObject;
+    {$IFDEF PYTHON25}
+    co_zombieframe: Pointer;
+    {$ENDIF}
+    {$IFDEF PYTHON27}
+    co_weakreflist: PyObject;
+    {$ENDIF}
+  end;
+
+const
+  CO_MAXBLOCKS = 20;
+
+type
+  PyTryBlock = packed record
+    b_type, b_handler, b_level: Integer;
+  end;
+
+  PyFrameObject = ^TyFrameObject;
+  TyFrameObject = object(TyVarObject)
+    f_back: PyFrameObject;
+    f_code: PyCodeObject;
+    f_builtins: PyObject;
+    f_globals: PyObject;
+    f_locals: PyObject;
+    f_valuestack: ^PyObject;
+
+    f_stacktop: ^PyObject;
+    f_trace: PyObject;
+
+    f_exc_type, f_exc_value, f_exc_traceback: PyObject;
+
+    f_tstate: Pointer; //Actually PyThreadState, but Delphi can't handle forward record declarations, so we have to break the cyclical dependancy.
+    f_lasti, f_lineno, f_iblock: Integer;
+
+    f_blockstack: packed array[0..CO_MAXBLOCKS-1] of PyTryBlock;
+    f_localsplus: array of PyObject; //dynamically sized
+  end;
+
+{$IFDEF PYTHON22}
+type
+  Py_tracefunc = function(obj: PyObject; frame: PyFrameObject; what: Integer; arg: PyObject) : Integer;
+{$ENDIF}
+
+type
+  PyInterpreterState = ^TyInterpreterState;
+  TyInterpreterState = packed record
+    next, tstate_head: PyInterpreterState;
+    modules, sysdict, builtins: PyObject;
+    {$IFDEF PYTHON26}
+    modules_reloading: PyObject;
+    {$ENDIF}
+    {$IFDEF PYTHON22}
+    codec_search_path, codec_search_cache, codec_error_registry: PyObject;
+    {$ELSE}
+    checkinterval: Integer;
+    {$ENDIF}
+    //dlopenflags: Integer; //HAVE_DLOPEN
+    {$IFDEF PYTHON24}
+    //tscdump: Integer; //WITH_TSC
+    {$ENDIF}
+  end;
+
+  PyThreadState = ^TyThreadState;
+  TyThreadState = packed record
+    next: PyThreadState;
+    interp: PyInterpreterState;
+
+    frame: PyFrameObject;
+    recursion_depth: Integer;
+
+    {$IFNDEF PYTHON23}
+    ticker: Integer;
+    {$ENDIF}
+    tracing: Integer;
+    {$IFDEF PYTHON22}
+    use_tracing: Integer;
+    {$ENDIF}
+
+    {$IFDEF PYTHON22}
+    c_profilefunc: Py_tracefunc;
+    c_tracefunc: Py_tracefunc;
+    c_profileobj: PyObject;
+    c_traceobj: PyObject;
+    {$ELSE}
+    sys_profilefunc, sys_tracefunc: PyObject;
+    {$ENDIF}
+
+    curexc_type, curexc_value, curexc_traceback: PyObject;
+    exc_type, exc_value, exc_traceback: PyObject;
+
+    dict: PyObject;
+
+    {$IFDEF PYTHON23}
+    tick_counter, gilstate_counter: Integer;
+
+    async_exc: PyObject;
+    thread_id: LongInt;
+
+    (* These were added in Python 2.7.4:
+    trash_delete_nesting: Integer;
+    trash_delete_later: PyObject;
+    *)
+    {$ENDIF}
+  end;
+
+var
+  PyThreadState_Get: function : PyThreadState; cdecl;
+  {$IFDEF PYTHON23}
+  PyCode_Addr2Line: function(co: PyCodeObject; addrq: Integer) : Integer; cdecl;
+  {$ENDIF}
+{$ENDIF}
+
  {-------------------}
 
 function PyObject_NEW(t: PyTypeObject) : PyObject;
@@ -509,13 +634,17 @@ function InitializePython : Integer;
 procedure UnInitializePython;
 procedure SizeDownPython;
 
+{$IFDEF PyProfiling}
+function PythonGetStackTrace() : TStringList;
+{$ENDIF}
+
  {-------------------}
 
 implementation
 
 uses
  {$IFDEF Debug} QkObjects, {$ENDIF}
- {$IFDEF DebugPythonLeak} Classes, QkConsts, PyObjects, Quarkx, {$ENDIF}
+ {$IFDEF DebugPythonLeak} {$IFNDEF PyProfiling}Classes,{$ENDIF} QkConsts, PyObjects, Quarkx, {$ENDIF}
   Windows, Forms, SysUtils, StrUtils, QkExceptions,
   QkApplPaths, SystemDetails, Logging;
 
@@ -526,7 +655,7 @@ var g_PythonObjects: TList;
  {-------------------}
 
 const
-  PythonProcList: array[0..58] of record
+  PythonProcList: array[0..{$IFDEF PyProfiling}60{$ELSE}58{$ENDIF}] of record
                                     Variable: Pointer;
                                     Name: PChar;
                                     MinimalVersion: Integer; //Exact meaning in GoodPythonVersion
@@ -600,7 +729,9 @@ const
     (Variable: @@PyFloat_AsDouble;           Name: 'PyFloat_AsDouble';           MinimalVersion: 0 ),
     (Variable: @@PyObject_Init;              Name: 'PyObject_Init';              MinimalVersion: 0 ),
     (Variable: @@PyCFunction_New;            Name: 'PyCFunction_New';            MinimalVersion: 0 ),
-    (Variable: @@PyGC_Collect;               Name: 'PyGC_Collect';               MinimalVersion: 235 )
+    (Variable: @@PyGC_Collect;               Name: 'PyGC_Collect';               MinimalVersion: 235 ){$IFDEF PyProfiling},
+    (Variable: @@PyThreadState_Get;          Name: 'PyThreadState_Get';          MinimalVersion: 0 ),
+    (Variable: @@PyCode_Addr2Line;           Name: 'PyCode_Addr2Line';           MinimalVersion: 230 ){$ENDIF}
   );
 
 var
@@ -630,6 +761,36 @@ begin
   begin
     //All Python versions will do
     Result:=true;
+  end;
+  230:
+  begin
+    if Length(PythonVersionNumber) >= 1 then
+    begin
+      if PythonVersionNumber[0] > 2 then
+      begin
+        Result:=true;
+      end
+      else if PythonVersionNumber[0] = 2 then
+      begin
+        if Length(PythonVersionNumber) >= 2 then
+        begin
+          if PythonVersionNumber[1] > 3 then
+          begin
+            Result:=true;
+          end
+          else if PythonVersionNumber[1] = 3 then
+          begin
+            if Length(PythonVersionNumber) >= 3 then
+            begin
+              if PythonVersionNumber[2] >= 0 then
+              begin
+                Result:=true;
+              end;
+            end;
+          end;
+        end;
+      end;
+    end;
   end;
   235:
   begin
@@ -663,7 +824,7 @@ begin
   end;
   else
   begin
-    Log(LOG_PYTHON, LOG_WARNING, 'Call to GoodPythonVersion with an unknown NumberToCheck!');
+    raise InternalE('Call to GoodPythonVersion with an unknown NumberToCheck!');
   end;
   end;
 end;
@@ -847,6 +1008,8 @@ begin
   //Now that we know the Python version, load the version-specific functions
   for I:=Low(PythonProcList) to High(PythonProcList) do
   begin
+    if (PythonProcList[I].MinimalVersion = 0) then
+      continue;
     if GoodPythonVersion(PythonProcList[I].MinimalVersion, VersionNumber) then
     begin
       P:=GetProcAddress(PythonLib, PythonProcList[I].Name);
@@ -1220,6 +1383,38 @@ begin
   else
    Result:=tp_as_sequence^.sq_item(o, index);
 end;*)
+
+{$IFDEF PyProfiling}
+//Based on: https://stackoverflow.com/questions/1796510/accessing-a-python-traceback-from-the-c-api
+function PythonGetStackTrace() : TStringList;
+var
+ tstate: PyThreadState;
+ frame: PyFrameObject;
+ LineNumber: Integer;
+ Filename, Funcname: PChar;
+begin
+ Result := TStringList.Create;
+ tstate := PyThreadState_GET();
+ if tstate = nil then
+   Exit;
+ frame := tstate^.frame;
+ if frame = nil then
+   Exit;
+
+  while (frame<>nil) do
+  begin
+    {$IFDEF PYTHON23}
+    LineNumber := PyCode_Addr2Line(frame^.f_code, frame^.f_lasti);
+    {$ELSE}
+    LineNumber := frame^.lineno;
+    {$ENDIF}
+    Filename := PyString_AsString(frame^.f_code^.co_filename);
+    Funcname := PyString_AsString(frame^.f_code^.co_name);
+    Result.Add(Format('%s: %s, line %d', [Funcname, Filename, LineNumber]));
+    frame := frame^.f_back;
+  end;
+end;
+{$ENDIF}
 
 {$IFDEF DebugPythonLeak}
 procedure PythonObjectDump;
