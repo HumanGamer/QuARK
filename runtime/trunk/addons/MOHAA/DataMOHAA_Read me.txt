@@ -2,15 +2,15 @@ Notes on the Mohaa file:
 ========================
 
 The weapon entity data in the included qrk file was just "mocked"
-to fit in with the rest of the other entites in the qrk file.
+to fit in with the rest of the other entities in the qrk file.
 The weapon entity names were taken from MOHradiant
 
 Other Notes:
 ===========
 
-I have recieved information that for the weapon entities to work,
+I have received information that for the weapon entities to work,
 for every map you create, you have to make a script file with the
-same name as your map. The ligitimacy of this info is unkown.
+same name as your map. The legitimacy of this info is unknown.
 
 												Happy Mapping!!
-												Hannibal 
+												Hannibal
