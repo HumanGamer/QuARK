@@ -3490,7 +3490,7 @@ QQRKSRC1
       DecimalPlaces: = {
         Txt = "No. of decimal places for brushes and beziers."
         Typ = "EF1"
-        Hint="Set for the number of decimals to write to the map file."$0D"The default is for this game is 5 places."
+        Hint="Set for the number of decimals to write to the map file."$0D"The default for this game is 5 places."
         Min = '1'
         Max = '40'
       }
@@ -3603,7 +3603,7 @@ QQRKSRC1
       DecimalPlaces: = {
         Txt = "No. of decimal places for brushes and beziers."
         Typ = "EF1"
-        Hint="Set for the number of decimals to write to the map file."$0D"The default is for this game is 5 places."
+        Hint="Set for the number of decimals to write to the map file."$0D"The default for this game is 5 places."
         Min = '1'
         Max = '40'
       }
@@ -3711,7 +3711,7 @@ QQRKSRC1
       DecimalPlaces: = {
         Txt = "No. of decimal places for brushes and beziers."
         Typ = "EF1"
-        Hint="Set for the number of decimals to write to the map file."$0D"The default is for this game is 5 places."
+        Hint="Set for the number of decimals to write to the map file."$0D"The default for this game is 5 places."
         Min = '1'
         Max = '40'
       }
@@ -3789,7 +3789,7 @@ QQRKSRC1
       DecimalPlaces: = {
         Txt = "No. of decimal places for brushes and beziers."
         Typ = "EF1"
-        Hint="Set for the number of decimals to write to the map file."$0D"The default is for this game is 5 places."
+        Hint="Set for the number of decimals to write to the map file."$0D"The default for this game is 5 places."
         Min = '1'
         Max = '40'
       }
@@ -3895,7 +3895,7 @@ QQRKSRC1
       DecimalPlaces: = {
         Txt = "No. of decimal places for brushes and beziers."
         Typ = "EF1"
-        Hint="Set for the number of decimals to write to the map file."$0D"The default is for this game is 5 places."
+        Hint="Set for the number of decimals to write to the map file."$0D"The default for this game is 5 places."
         Min = '1'
         Max = '40'
       }
@@ -3999,7 +3999,7 @@ QQRKSRC1
       DecimalPlaces: = {
         Txt = "No. of decimal places for brushes and beziers."
         Typ = "EF1"
-        Hint="Set for the number of decimals to write to the map file."$0D"The default is for this game is 5 places."
+        Hint="Set for the number of decimals to write to the map file."$0D"The default for this game is 5 places."
         Min = '1'
         Max = '40'
       }
@@ -4104,7 +4104,7 @@ QQRKSRC1
       DecimalPlaces: = {
         Txt = "No. of decimal places for brushes and beziers."
         Typ = "EF1"
-        Hint="Set for the number of decimals to write to the map file."$0D"The default is for this game is 5 places."
+        Hint="Set for the number of decimals to write to the map file."$0D"The default for this game is 5 places."
         Min = '1'
         Max = '40'
       }
@@ -4211,7 +4211,7 @@ QQRKSRC1
       DecimalPlaces: = {
         Txt = "No. of decimal places for brushes and beziers."
         Typ = "EF1"
-        Hint="Set for the number of decimals to write to the map file."$0D"The default is for this game is 5 places."
+        Hint="Set for the number of decimals to write to the map file."$0D"The default for this game is 5 places."
         Min = '1'
         Max = '40'
       }
@@ -4298,7 +4298,7 @@ QQRKSRC1
       DecimalPlaces: = {
         Txt = "No. of decimal places for brushes and beziers."
         Typ = "EF1"
-        Hint="Set for the number of decimals to write to the map file."$0D"The default is for this game is 5 places."
+        Hint="Set for the number of decimals to write to the map file."$0D"The default for this game is 5 places."
         Min = '1'
         Max = '40'
       }
@@ -4391,7 +4391,7 @@ QQRKSRC1
       DecimalPlaces: = {
         Txt = "No. of decimal places for brushes and beziers."
         Typ = "EF1"
-        Hint="Set for the number of decimals to write to the map file."$0D"The default is for this game is 5 places."
+        Hint="Set for the number of decimals to write to the map file."$0D"The default for this game is 5 places."
         Min = '1'
         Max = '40'
       }
@@ -4627,7 +4627,7 @@ QQRKSRC1
       DecimalPlaces: = {
         Txt = "No. of decimal places for brushes and beziers."
         Typ = "EF1"
-        Hint="Set for the number of decimals to write to the map file."$0D"The default is for this game is 5 places."
+        Hint="Set for the number of decimals to write to the map file."$0D"The default for this game is 5 places."
         Min = '1'
         Max = '40'
       }
@@ -4793,7 +4793,7 @@ QQRKSRC1
       DecimalPlaces: = {
         Txt = "No. of decimal places for brushes and beziers."
         Typ = "EF1"
-        Hint="Set for the number of decimals to write to the map file."$0D"The default is for this game is 5 places."
+        Hint="Set for the number of decimals to write to the map file."$0D"The default for this game is 5 places."
         Min = '1'
         Max = '40'
       }
@@ -4892,7 +4892,7 @@ QQRKSRC1
       DecimalPlaces: = {
         Txt = "No. of decimal places for brushes and beziers."
         Typ = "EF1"
-        Hint="Set for the number of decimals to write to the map file."$0D"The default is for this game is 5 places."
+        Hint="Set for the number of decimals to write to the map file."$0D"The default for this game is 5 places."
         Min = '1'
         Max = '40'
       }
@@ -4989,7 +4989,7 @@ QQRKSRC1
       DecimalPlaces: = {
         Txt = "No. of decimal places for brushes and beziers."
         Typ = "EF1"
-        Hint="Set for the number of decimals to write to the map file."$0D"The default is for this game is 5 places."
+        Hint="Set for the number of decimals to write to the map file."$0D"The default for this game is 5 places."
         Min = '1'
         Max = '40'
       }
@@ -5086,7 +5086,7 @@ QQRKSRC1
       DecimalPlaces: = {
         Txt = "No. of decimal places for brushes and beziers."
         Typ = "EF1"
-        Hint="Set for the number of decimals to write to the map file."$0D"The default is for this game is 5 places."
+        Hint="Set for the number of decimals to write to the map file."$0D"The default for this game is 5 places."
         Min = '1'
         Max = '40'
       }
@@ -5180,7 +5180,7 @@ QQRKSRC1
       DecimalPlaces: = {
         Txt = "No. of decimal places for brushes and beziers."
         Typ = "EF1"
-        Hint="Set for the number of decimals to write to the map file."$0D"The default is for this game is 5 places."
+        Hint="Set for the number of decimals to write to the map file."$0D"The default for this game is 5 places."
         Min = '1'
         Max = '40'
       }
@@ -5283,7 +5283,7 @@ QQRKSRC1
       DecimalPlaces: = {
         Txt = "No. of decimal places for brushes and beziers."
         Typ = "EF1"
-        Hint="Set for the number of decimals to write to the map file."$0D"The default is for this game is 5 places."
+        Hint="Set for the number of decimals to write to the map file."$0D"The default for this game is 5 places."
         Min = '1'
         Max = '40'
       }
@@ -5390,7 +5390,7 @@ QQRKSRC1
       DecimalPlaces: = {
         Txt = "No. of decimal places for brushes and beziers."
         Typ = "EF1"
-        Hint="Set for the number of decimals to write to the map file."$0D"The default is for this game is 5 places."
+        Hint="Set for the number of decimals to write to the map file."$0D"The default for this game is 5 places."
         Min = '1'
         Max = '40'
       }
@@ -5494,7 +5494,7 @@ QQRKSRC1
       DecimalPlaces: = {
         Txt = "No. of decimal places for brushes and beziers."
         Typ = "EF1"
-        Hint="Set for the number of decimals to write to the map file."$0D"The default is for this game is 5 places."
+        Hint="Set for the number of decimals to write to the map file."$0D"The default for this game is 5 places."
         Min = '1'
         Max = '40'
       }
@@ -5587,7 +5587,7 @@ QQRKSRC1
       DecimalPlaces: = {
         Txt = "No. of decimal places for brushes and beziers."
         Typ = "EF1"
-        Hint="Set for the number of decimals to write to the map file."$0D"The default is for this game is 5 places."
+        Hint="Set for the number of decimals to write to the map file."$0D"The default for this game is 5 places."
         Min = '1'
         Max = '40'
       }
@@ -5686,7 +5686,7 @@ QQRKSRC1
       DecimalPlaces: = {
         Txt = "No. of decimal places for brushes and beziers."
         Typ = "EF1"
-        Hint="Set for the number of decimals to write to the map file."$0D"The default is for this game is 5 places."
+        Hint="Set for the number of decimals to write to the map file."$0D"The default for this game is 5 places."
         Min = '1'
         Max = '40'
       }
@@ -5792,7 +5792,7 @@ QQRKSRC1
       DecimalPlaces: = {
         Txt = "No. of decimal places for brushes and beziers."
         Typ = "EF1"
-        Hint="Set for the number of decimals to write to the map file."$0D"The default is for this game is 5 places."
+        Hint="Set for the number of decimals to write to the map file."$0D"The default for this game is 5 places."
         Min = '1'
         Max = '40'
       }
@@ -5896,7 +5896,7 @@ QQRKSRC1
       DecimalPlaces: = {
         Txt = "No. of decimal places for brushes and beziers."
         Typ = "EF1"
-        Hint="Set for the number of decimals to write to the map file."$0D"The default is for this game is 5 places."
+        Hint="Set for the number of decimals to write to the map file."$0D"The default for this game is 5 places."
         Min = '1'
         Max = '40'
       }
@@ -6002,7 +6002,7 @@ QQRKSRC1
       DecimalPlaces: = {
         Txt = "No. of decimal places for brushes and beziers."
         Typ = "EF1"
-        Hint="Set for the number of decimals to write to the map file."$0D"The default is for this game is 5 places."
+        Hint="Set for the number of decimals to write to the map file."$0D"The default for this game is 5 places."
         Min = '1'
         Max = '40'
       }
@@ -6107,7 +6107,7 @@ QQRKSRC1
       DecimalPlaces: = {
         Txt = "No. of decimal places for brushes and beziers."
         Typ = "EF1"
-        Hint="Set for the number of decimals to write to the map file."$0D"The default is for this game is 5 places."
+        Hint="Set for the number of decimals to write to the map file."$0D"The default for this game is 5 places."
         Min = '1'
         Max = '40'
       }
@@ -6201,7 +6201,7 @@ QQRKSRC1
       DecimalPlaces: = {
         Txt = "No. of decimal places for brushes and beziers."
         Typ = "EF1"
-        Hint="Set for the number of decimals to write to the map file."$0D"The default is for this game is 5 places."
+        Hint="Set for the number of decimals to write to the map file."$0D"The default for this game is 5 places."
         Min = '1'
         Max = '40'
       }
@@ -6295,7 +6295,7 @@ QQRKSRC1
       DecimalPlaces: = {
         Txt = "No. of decimal places for brushes and beziers."
         Typ = "EF1"
-        Hint="Set for the number of decimals to write to the map file."$0D"The default is for this game is 5 places."
+        Hint="Set for the number of decimals to write to the map file."$0D"The default for this game is 5 places."
         Min = '1'
         Max = '40'
       }
@@ -6398,7 +6398,7 @@ QQRKSRC1
       DecimalPlaces: = {
         Txt = "No. of decimal places for brushes and beziers."
         Typ = "EF1"
-        Hint="Set for the number of decimals to write to the map file."$0D"The default is for this game is 5 places."
+        Hint="Set for the number of decimals to write to the map file."$0D"The default for this game is 5 places."
         Min = '1'
         Max = '40'
       }
@@ -6539,7 +6539,7 @@ QQRKSRC1
       DecimalPlaces: = {
         Txt = "No. of decimal places for brushes and beziers."
         Typ = "EF1"
-        Hint="Set for the number of decimals to write to the map file."$0D"The default is for this game is 5 places."
+        Hint="Set for the number of decimals to write to the map file."$0D"The default for this game is 5 places."
         Min = '1'
         Max = '40'
       }
@@ -6659,7 +6659,7 @@ QQRKSRC1
       DecimalPlaces: = {
         Txt = "No. of decimal places for brushes and beziers."
         Typ = "EF1"
-        Hint="Set for the number of decimals to write to the map file."$0D"The default is for this game is 5 places."
+        Hint="Set for the number of decimals to write to the map file."$0D"The default for this game is 5 places."
         Min = '1'
         Max = '40'
       }
@@ -6737,7 +6737,7 @@ QQRKSRC1
       DecimalPlaces: = {
         Txt = "No. of decimal places for brushes and beziers."
         Typ = "EF1"
-        Hint="Set for the number of decimals to write to the map file."$0D"The default is for this game is 16 places."
+        Hint="Set for the number of decimals to write to the map file."$0D"The default for this game is 16 places."
         Min = '1'
         Max = '40'
       }
@@ -6941,7 +6941,7 @@ QQRKSRC1
       DecimalPlaces: = {
         Txt = "No. of decimal places for brushes and beziers."
         Typ = "EF1"
-        Hint="Set for the number of decimals to write to the map file."$0D"The default is for this game is 5 places."
+        Hint="Set for the number of decimals to write to the map file."$0D"The default for this game is 5 places."
         Min = '1'
         Max = '40'
       }
