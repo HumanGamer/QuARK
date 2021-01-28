@@ -134,10 +134,8 @@ def vec2angle(v, oldvalue=None):
 def angles2vec1(pitch, roll, yaw):
     roll = roll * deg2rad
     pitch = -pitch * deg2rad
-    sin = math.sin
-    cos = math.cos
-    cosb = cos(pitch)
-    return quarkx.vect(cos(roll)*cosb, sin(roll)*cosb, sin(pitch))
+    cosb = math.cos(pitch)
+    return quarkx.vect(math.cos(roll)*cosb, math.sin(roll)*cosb, math.sin(pitch))
 
 def angles2vec(s):
     return apply(angles2vec1, quarkx.vect(s).tuple)
