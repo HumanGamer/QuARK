@@ -179,7 +179,7 @@ def cpFrom2Rows(row0, row2, bulge=None):
     if bulge is None:
       bulge=(0.5, 1.0)
     cp = [row0, None, row2]
-    cp[1] = map(lambda x, y, h=bulge[0]:h*x+(1-h)*y, cp[0], cp[2]) 
+    cp[1] = map(lambda x, y, h=bulge[0]:h*x+(1-h)*y, cp[0], cp[2])
     if bulge[1]!=1:
         c=reduce(lambda x,y:x+y,cp[1])/float(len(cp[1]))
         cp[1]=map(lambda v,c=c,b=bulge[1]:c+b*(v-c), cp[1])
@@ -393,7 +393,7 @@ def texPlaneFromCph(cph, editor):
 #     to `rotate' things for patch-merger & knitting
 #
 P_FRONT = 0   # first column of patch
-P_TOP = 1     # last row of patch 
+P_TOP = 1     # last row of patch
 P_BACK = 2    # last column of patch
 P_BOTTOM = 3  # row 0 of patch
 
@@ -526,7 +526,7 @@ def subdivideColumns(n, cp, func=None):
 # Attempt at a better circle approximation.
 #  the idea is to think of the b2 curve as an approximation
 #  to an image of a quarter-circle.
-# 
+#
 # Derived from a suggestion by Alex Haarer.
 #
 def arcSubdivideLine(n, p0, p1, p2):

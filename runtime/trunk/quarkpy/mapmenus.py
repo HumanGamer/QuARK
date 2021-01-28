@@ -350,21 +350,21 @@ def MenuTexFlags(editor):
                    item.whatform = form
                    item.floattitle= title
                    return item
-                   
-                
+
+
                 game = quarkx.setupsubset().shortname
                 if game == "Sin":
                   cont = makelist("ContFlags",0)
                   surf = makelist("SurfFlags",0)
                   l1 = [qmenu.item("All Flags/Reset",
                           editor.layout.flagsclick, "All the flags"),
-                        qmenu.popup("Content Flags",cont), 
-                        qmenu.popup("Surface Flags",surf)] 
+                        qmenu.popup("Content Flags",cont),
+                        qmenu.popup("Surface Flags",surf)]
                 else:
                   l1 = [qmenu.item("&Flags...", editor.layout.flagsclick, "open the flags window")]
                   l1[2:] = makelist("TextureFlags",1)
                 m.items = l1
-             
+
             flist = editor.layout.loadtfflist()
             game = quarkx.setupsubset().shortname
             if game == "Sin":

@@ -41,7 +41,7 @@ def dlgNumberCheck(dlg, pack, attribute, defaultvalue, format="%.2f"):
 # For an object o, uses the parentpopupitems function to
 #   construct a menu of popups, one for each object that
 #   contains o in the tree hierarchy
-#   
+#
 #   see plugins/mapmadsel, plugins/mapmovevertex for examples
 #     of use
 #

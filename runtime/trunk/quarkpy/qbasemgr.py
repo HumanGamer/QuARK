@@ -12,7 +12,6 @@ Map and Model editor Layout managers.
 # See comments in file mapmgr.py.
 #
 
-import math
 import quarkx
 import qtoolbar
 import qmenu

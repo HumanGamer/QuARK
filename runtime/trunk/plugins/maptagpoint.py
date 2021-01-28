@@ -54,7 +54,7 @@ def DistTaggedClick(m):
     MT_INFORMATION,MB_OK)
 
 
-def TagPointClick (m):
+def TagPointClick(m):
   "tags a single point"
   editor = mapeditor()
   if editor is None: return
@@ -91,14 +91,14 @@ def MakePlaneClick(m):
     if editor is None: return
     p1, p2 = gettaggededge(editor)
     tagplane((m.pos,p1,p2), editor)
-    
+
 def tagpointitem(editor, origin):
   from maptagside import ClearTagClick
   oldtag = gettaggedpt(editor)
   if oldtag is not None and not (origin-oldtag):
     tagv = qmenu.item("Clear tag", ClearTagClick)
   else:
-    tagv = qmenu.item("&Tag point", TagPointClick, "|`Tags' the point below the mouse for reference in later operations of positioning and alignment.\n\nThe tagged point then appears in red.\n\nFor more detail on the use of this fuction, click on the InfoBase button below.|maped.plugins.tagside.html#basic")
+    tagv = qmenu.item("&Tag point", TagPointClick, "|`Tags' the point below the mouse for reference in later operations of positioning and alignment.\n\nThe tagged point then appears in red.\n\nFor more detail on the use of this function, click on the InfoBase button below.|maped.plugins.tagside.html#basic")
     tagv.pos = origin
     tagv.tagger = 1
   return tagv

@@ -53,7 +53,7 @@ def droptarget(editor, newitem):
         elif newitem.type==(':bone'):
             if editor.Root["no_skeleton"]=='1':
                 return editor.Root.dictitems['Misc:mg'], None
-            else: 
+            else:
                 if not fs is None:
                     c=componentof(fs)
                     if c is None:
@@ -269,7 +269,7 @@ def deleteitems(editor, root, list):
             else:
                 if editor.ModelComponentList['bboxlist'].has_key(s.name):
                     del editor.ModelComponentList['bboxlist'][s.name]
-            
+
         if text is None:
             text = Strings[582] % s.shortname
         else:

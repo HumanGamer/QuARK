@@ -6,6 +6,7 @@
 # FOUND IN FILE "COPYING.TXT"
 #
 
+import math
 import quarkx
 import quarkpy.qbaseeditor
 import quarkpy.mapmenus

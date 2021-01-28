@@ -43,7 +43,7 @@ vfSkinView = 0x80 # 2d only - used for skin page for mdl editor and bezier page 
 grid = (0,0)
 lengthnormalvect = 0
 mapicons_c = -1
-modelcenter = None
+modelcenter = None #FIXME: This leaks a quarkx.vect on exit!
 
 def newfinishdrawing(editor, view): #, oldfinish=qbaseeditor.BaseEditor.finishdrawing
     import qbaseeditor
@@ -1592,7 +1592,7 @@ class SideStepDragObject(AnimatedDragObject):
             self.view.invalidate(1)
 
 #
-# circlestafe utilities
+# circlestrafe utilities
 #
 def vec2rads(v):
     "returns pitch, yaw, in radians"
@@ -1607,7 +1607,7 @@ class CircleStrafeDragObject(SideStepDragObject):
     def __init__(self, editor, view, x, y):
         self.editor=editor
         SideStepDragObject.__init__(self, editor, view, x, y)
-        
+
     def dragto(self, x, y, flags):
         sel = self.editor.layout.explorer.sellist
         if sel:

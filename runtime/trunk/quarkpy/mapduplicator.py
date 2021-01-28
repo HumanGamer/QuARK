@@ -16,6 +16,7 @@ Map Duplicator abstract classes.
 #
 
 
+import math
 from maputils import *
 import maphandles
 import mapentities
@@ -547,7 +548,6 @@ class DupTemplate(StandardDuplicator):
             return []
 
         subitems = item.findallsubitems("", ":e")
-        
         correctlist = []
         for subitem in subitems:
             if subitem["mangle"] is not None:

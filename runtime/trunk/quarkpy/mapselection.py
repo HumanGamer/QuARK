@@ -66,7 +66,7 @@ def DetailClick(m):
 
         undo.ok(editor.Root, "swap detail flag")
         editor.layout.explorer.sellist = items
-    
+
 def UnfreezeClick(m):
     editor = mapeditor(SS_MAP)
     delAttr(editor, 'frozenselection')
@@ -92,7 +92,7 @@ def parentClick(m,editor=None):
             #
             Spec1 = qmenu.item("", mapmenus.set_mpp_page, "")
             Spec1.page = 0
-            mapmenus.set_mpp_page(Spec1) 
+            mapmenus.set_mpp_page(Spec1)
             explorer.expand(parent,0)
 
 
@@ -109,7 +109,7 @@ def childClick(m, editor=None):
     #
     Spec1 = qmenu.item("", mapmenus.set_mpp_page, "")
     Spec1.page = 0
-    mapmenus.set_mpp_page(Spec1) 
+    mapmenus.set_mpp_page(Spec1)
     explorer.expand(sel)
 
 def getNext(obj):
@@ -181,7 +181,7 @@ def onclick(menu):
     removeItem.state=makedetail.state=parentItem.state=childItem.state=qmenu.disabled
     nextItem.state=prevItem.state=freezeItem.state=unfreezeItem.state=qmenu.disabled
     if editor is not None:
-        uniquesel = editor.layout.explorer.uniquesel 
+        uniquesel = editor.layout.explorer.uniquesel
         if uniquesel is not None:
             removeItem.state=makedetail.state=nextItem.state=prevItem.state=qmenu.normal
             if len(uniquesel.subitems)>0:

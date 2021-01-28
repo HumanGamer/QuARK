@@ -44,7 +44,7 @@ class BrushNumDlg(SimpleCancelDlgBox):
     size = (160, 75)
     dfsep = 0.6
     flags = FWF_KEEPFOCUS
-    
+
     dlgdef = """
     {
         Style = "9"

@@ -34,12 +34,12 @@ Info = {
    "author e-mail": "tiglari@hexenworld.com",
    "quark":         "Version 5.11" }
 
+import math
 import quarkx
 import quarkpy.mapmenus
 import quarkpy.mapentities
 import quarkpy.qmenu
 import quarkpy.mapeditor
-import quarkpy.qbaseeditor
 import quarkpy.mapcommands
 import quarkpy.mapoptions
 import quarkpy.qhandles
@@ -1656,7 +1656,7 @@ def tagmenu(o, editor, oldfacemenu = quarkpy.mapentities.FaceType.menu.im_func):
   projtex.text = "Project from tagged"
   texpop.items = texpop.items + [projtex,mirrorflipitem,wrappop]
   menu[:0] = [#extendtolinked(editor, o),
-              gluemenuitem("&Tag face",TagSideClick,o,"|Tag face:\n\n`Tags' a face for reference in later operations of positioning and alignment.\n\nThe tagged face then appears in red.\n\nFor more detail on the use of this fuction, click on the InfoBase button below.|maped.plugins.tagside.html#basic"),
+              gluemenuitem("&Tag face",TagSideClick,o,"|Tag face:\n\n`Tags' a face for reference in later operations of positioning and alignment.\n\nThe tagged face then appears in red.\n\nFor more detail on the use of this function, click on the InfoBase button below.|maped.plugins.tagside.html#basic"),
 #              addtotagged,
               glueitem,
               snapitem,

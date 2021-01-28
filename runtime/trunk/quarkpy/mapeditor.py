@@ -88,8 +88,7 @@ class MapEditor(BaseEditor):
                 for face in sel.faces:
                     #
                     # find the face whose projected normal is closest to
-                    #  paralell with the line from the center to the click
-                    #  
+                    # parallel with the line from the center to the click
                     #
 #                    debug('zero: '+`view.proj(quarkx.vect(0,0,0))`)
 #                    debug('face '+`face.name`)

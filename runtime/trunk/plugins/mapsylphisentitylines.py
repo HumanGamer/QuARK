@@ -6,14 +6,13 @@
 
 Info = {
    "plug-in":       "Sylphis entities line support",
-   "desc":          "Displays varius lines assosiated with Sylphis.",
+   "desc":          "Displays various lines associated with Sylphis.",
    "date":          "23 Feb 2003",
    "author":        "Harry Kalogirou",
    "author e-mail": "harkal@gmx.net",
    "quark":         "Version 6.4" }
 
 
-import math
 from quarkpy.maputils import *
 import quarkpy.mapentities
 import quarkpy.qeditor

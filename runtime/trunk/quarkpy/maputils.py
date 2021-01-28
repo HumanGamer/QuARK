@@ -8,6 +8,7 @@ Various Map editor utilities.
 # FOUND IN FILE "COPYING.TXT"
 #
 
+import math
 import quarkx
 import qtoolbar
 from qeditor import *
@@ -166,7 +167,7 @@ def ArbRotationMatrix(normal, angle):
 #    oldcos = cosangle
 #    cosangle = cosangle*cosa-sinangle*sina
 #    sinangle = sinangle*cosa+sina*oldcos
- 
+
     m = quarkx.matrix((cosangle,  sinangle, 0),
                       (-sinangle, cosangle, 0),
                       (    0,        0,     1))

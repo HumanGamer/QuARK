@@ -25,16 +25,10 @@ Info = {
    "author e-mail": "tiglari@hexenworld.com",
    "quark":         "Version 5.11" }
 
+import math
 import quarkx
-import quarkpy.mapmenus
 import quarkpy.mapentities
 import quarkpy.qmenu
-import quarkpy.mapeditor
-import quarkpy.qbaseeditor
-import quarkpy.mapcommands
-import quarkpy.mapoptions
-import quarkpy.qhandles
-import quarkpy.mapbtns
 import quarkpy.dlgclasses
 from quarkpy.maputils import *
 
@@ -171,7 +165,7 @@ def texmenu(o, editor, oldmenu = quarkpy.mapentities.FaceType.menu.im_func):
   "the new right-mouse for sides"
   menu = oldmenu(o, editor)
   texpop = findlabelled(menu, 'texpop')
-  texitem = qmenu.item("Position Texture",PosTexClick)
+  texitem = quarkpy.qmenu.item("Position Texture",PosTexClick)
   texitem.o = o
   texpop.items[1:1] = [texitem]
   return menu

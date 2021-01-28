@@ -14,7 +14,6 @@ Model editor Layout managers.
 #
 
 import qutils
-import math
 import quarkx
 import qtoolbar
 import qmenu

@@ -58,7 +58,7 @@ def _diag():
 #   ===========================
 def _gettagging(editor):
   """   _gettagging(editor)
-  
+
 Get the Tagging object associated with editor.
 
 Should never be called by any methods other than the ones in
@@ -91,7 +91,7 @@ this module.
 
 
 # -- Exported functions -------------------------------------------- #
-#   ====================      
+#   ====================
 def cleartags(editor, *keys):
   """   cleartags(editor, key[, key2, ..., keyN])
 
@@ -108,7 +108,7 @@ Clear all tags in the specified categories.
 
 def untag(editor, key, *objs):
   """   untag(editor, key, obj[, obj2, ..., objN])
-  
+
 If any of the specified objects are tagged in the specified category,
 untag them.
 """
@@ -145,7 +145,7 @@ If all specified objects are tagged in the specified category, return
 
 def tag(editor, key, *objs):
   """   tag(editor, key, obj[, obj2, ..., objN])
-  
+
 Tag objects in the tag category specified by key.
 """
   t = _gettaglist(editor, key)
@@ -162,7 +162,7 @@ Tag objects in the tag category specified by key.
   # Do addition
   for o in objstotag:
     t.append(o)
-      
+
   editor.invalidateviews()
 
 
@@ -259,7 +259,7 @@ this module.
 #   ======================
 
 # Stores callbacks for drawing tagged objects
-# 
+#
 # The ONLY code that may access this dictionary are the tagdrawfunc()
 # and _tagfinishdrawing functions below.
 _drawcallbacks = {}
@@ -304,7 +304,7 @@ Uses callback functions set using tagdrawfunc().
     if f is None:
       continue
 
-    for obj in _gettaglist(editor, k): # _gettaglist is faster 
+    for obj in _gettaglist(editor, k): # _gettaglist is faster
       f(editor, view, cv, obj)
 
   # Restore the pen colour
