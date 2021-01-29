@@ -8,14 +8,11 @@ The Animation Toolbar.
 # FOUND IN FILE "COPYING.TXT"
 #
 
-import qmenu
 from mdlutils import *
 import qbaseeditor
 import mdlhandles
 import qtoolbar
-import qmacro
 from qeditor import *
-from qdictionnary import Strings
 
 # Globals
 # =========

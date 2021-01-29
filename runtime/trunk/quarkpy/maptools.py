@@ -8,7 +8,6 @@ The map editor's "Toolbars" menu (to be extended by plug-ins)
 # FOUND IN FILE "COPYING.TXT"
 #
 
-import qmenu
 import qtoolbar
 from maputils import *
 import qeditor
