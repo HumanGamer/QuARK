@@ -568,7 +568,7 @@ class BaseEditor:
                         self.dragobject = None
                         return
             ### Don't put back in will cause dupe draw of handles. Had to move handle drawing code
-            ### to mdlhandles.py, class VertexHandle, def menu, def pick_cleared funciton, see notes there.
+            ### to mdlhandles.py, class VertexHandle, def menu, def pick_cleared function, see notes there.
                     elif flagsmouse == 2064 and (view.info["viewname"] == "XY" or view.info["viewname"] == "YZ" or view.info["viewname"] == "XZ"):
                         return
                     elif flagsmouse == 1032:

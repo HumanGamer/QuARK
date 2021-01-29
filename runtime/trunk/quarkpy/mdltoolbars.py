@@ -40,7 +40,7 @@ class DisplayBar(qeditor.ToolBar):
 
         BtnFull3D = qtoolbar.button(layout.full3Dclick, "3D fullscreen view||3D fullscreen view:\n\nThis will create a full-screen 3D-display.\nYou must press Escape to return to the model editor.", ico_maped, 21, infobaselink="intro.modeleditor.toolpalettes.display.html#3dwindows")
 
-        BtnFancyFull3D = qtoolbar.button(layout.fancyfull3Dclick, "Fancy 3D fullscreen view||Fancy 3D fullscreen view:\n\nThis will create a full-screen 3D-display, with all kinds of fancy graphics.\nYou must press Escape to return to the model editor.", ico_maped, 27, infobaselink="intro.modeleditor.toolpalettes.display.html#3dwindows") 
+        BtnFancyFull3D = qtoolbar.button(layout.fancyfull3Dclick, "Fancy 3D fullscreen view||Fancy 3D fullscreen view:\n\nThis will create a full-screen 3D-display, with all kinds of fancy graphics.\nYou must press Escape to return to the model editor.", ico_maped, 27, infobaselink="intro.modeleditor.toolpalettes.display.html#3dwindows")
 
         LinearVBtn = qtoolbar.button(layout.editor.linear1click, "Vertex/Face modes||Vertex/Face modes:\n\nThis button is always active in one way or another. If deactivated (off, default) your in Vertex mode, if activated (on) your in Face mode. It performs various ways in each mode in the Model Editor, depending on what is selected, and has no effect for the Skin-view. When more then one item is selected in any view it will display a 'Linear Drag Handle', a circle around those selected objects, for editing purposes.\n\nThis circle and its attached handles let you apply 'linear movement' to the objects. 'Linear movement' means any transformation such as group movement, rotation, enlarging/shrinking and distortion/shearing. When you use the rotate, enlarge, shrink, and symmetry buttons of the movement tool palette, you actually apply a linear movement on the selected objects.\n\n.\Some Toolbar functions require you to be in the Face mode to operate such as Reverse face direction, Subdivide faces, Face Cut tool and the Keep Dupe Vertexes buttons.n\nClick the 'InfoBase' button for more details on its uses.", ico_maped, 19,  infobaselink="intro.modeleditor.toolpalettes.display.html#linear")
 
@@ -172,7 +172,7 @@ def extrudeclick(m):
                 if comp.triangles[tri][vtx][0] in editor.SelVertexes:
                     pass
                 else:
-                    editor.SelVertexes = editor.SelVertexes + [comp.triangles[tri][vtx][0]] 
+                    editor.SelVertexes = editor.SelVertexes + [comp.triangles[tri][vtx][0]]
                 editor.SelCommonTriangles = editor.SelCommonTriangles + findTrianglesAndIndexes(comp, comp.triangles[tri][vtx][0], None)
         MakeEditorFaceObject(editor)
 
@@ -276,7 +276,7 @@ def extrudebulkheadsclick(m):
                 if comp.triangles[tri][vtx][0] in editor.SelVertexes:
                     pass
                 else:
-                    editor.SelVertexes = editor.SelVertexes + [comp.triangles[tri][vtx][0]] 
+                    editor.SelVertexes = editor.SelVertexes + [comp.triangles[tri][vtx][0]]
                 editor.SelCommonTriangles = editor.SelCommonTriangles + findTrianglesAndIndexes(comp, comp.triangles[tri][vtx][0], None)
         MakeEditorFaceObject(editor)
 
@@ -560,7 +560,7 @@ class FaceCutter(parent):
                     tris_index = tris_index + 1
                     newfaceselection = newfaceselection + [tris_index]
                     new_tris_added = new_tris_added + [((vtx_index_A, U_A, V_A), new_tris[cf_nbr][1], (vtx_index_B, U_B, V_B))]
- 
+
                     tris_index = tris_index + 1
                     newfaceselection = newfaceselection + [tris_index]
                     new_tris_added = new_tris_added + [((vtx_index_B, U_B, V_B), new_tris[cf_nbr][1], new_tris[cf_nbr][2])]
@@ -571,7 +571,7 @@ class FaceCutter(parent):
                     tris_index = tris_index + 1
                     newfaceselection = newfaceselection + [tris_index]
                     new_tris_added = new_tris_added + [((vtx_index_A, U_A, V_A), (vtx_index_B, U_B, V_B), new_tris[cf_nbr][0])]
- 
+
                     tris_index = tris_index + 1
                     newfaceselection = newfaceselection + [tris_index]
                     new_tris_added = new_tris_added + [(new_tris[cf_nbr][0], (vtx_index_B, U_B, V_B), new_tris[cf_nbr][2])]
@@ -583,7 +583,7 @@ class FaceCutter(parent):
                     tris_index = tris_index + 1
                     newfaceselection = newfaceselection + [tris_index]
                     new_tris_added = new_tris_added + [(new_tris[cf_nbr][0], new_tris[cf_nbr][1], (vtx_index_B, U_B, V_B))]
- 
+
                     tris_index = tris_index + 1
                     newfaceselection = newfaceselection + [tris_index]
                     new_tris_added = new_tris_added + [(new_tris[cf_nbr][1], (vtx_index_A, U_A, V_A), (vtx_index_B, U_B, V_B))]
@@ -667,7 +667,7 @@ class FaceCutter(parent):
                     tris_index = tris_index + 1
                     newfaceselection = newfaceselection + [tris_index]
                     new_tris_added = new_tris_added + [((vtx_index_A, U_A, V_A), new_tris[cf_nbr][1], (vtx_index_B, U_B, V_B))]
- 
+
                     tris_index = tris_index + 1
                     newfaceselection = newfaceselection + [tris_index]
                     new_tris_added = new_tris_added + [((vtx_index_B, U_B, V_B), new_tris[cf_nbr][1], new_tris[cf_nbr][2])]
@@ -678,7 +678,7 @@ class FaceCutter(parent):
                     tris_index = tris_index + 1
                     newfaceselection = newfaceselection + [tris_index]
                     new_tris_added = new_tris_added + [((vtx_index_A, U_A, V_A), (vtx_index_B, U_B, V_B), new_tris[cf_nbr][0])]
- 
+
                     tris_index = tris_index + 1
                     newfaceselection = newfaceselection + [tris_index]
                     new_tris_added = new_tris_added + [(new_tris[cf_nbr][0], (vtx_index_B, U_B, V_B), new_tris[cf_nbr][2])]
@@ -691,7 +691,7 @@ class FaceCutter(parent):
                     tris_index = tris_index + 1
                     newfaceselection = newfaceselection + [tris_index]
                     new_tris_added = new_tris_added + [(new_tris[cf_nbr][0], new_tris[cf_nbr][1], (vtx_index_B, U_B, V_B))]
- 
+
                     tris_index = tris_index + 1
                     newfaceselection = newfaceselection + [tris_index]
                     new_tris_added = new_tris_added + [(new_tris[cf_nbr][1], (vtx_index_A, U_A, V_A), (vtx_index_B, U_B, V_B))]
@@ -776,7 +776,7 @@ class FaceCutter(parent):
                     tris_index = tris_index + 1
                     newfaceselection = newfaceselection + [tris_index]
                     new_tris_added = new_tris_added + [((vtx_index_A, U_A, V_A), new_tris[cf_nbr][1], (vtx_index_B, U_B, V_B))]
- 
+
                     tris_index = tris_index + 1
                     newfaceselection = newfaceselection + [tris_index]
                     new_tris_added = new_tris_added + [((vtx_index_B, U_B, V_B), new_tris[cf_nbr][1], new_tris[cf_nbr][2])]
@@ -787,7 +787,7 @@ class FaceCutter(parent):
                     tris_index = tris_index + 1
                     newfaceselection = newfaceselection + [tris_index]
                     new_tris_added = new_tris_added + [((vtx_index_A, U_A, V_A), (vtx_index_B, U_B, V_B), new_tris[cf_nbr][0])]
- 
+
                     tris_index = tris_index + 1
                     newfaceselection = newfaceselection + [tris_index]
                     new_tris_added = new_tris_added + [(new_tris[cf_nbr][0], (vtx_index_B, U_B, V_B), new_tris[cf_nbr][2])]
@@ -800,7 +800,7 @@ class FaceCutter(parent):
                     tris_index = tris_index + 1
                     newfaceselection = newfaceselection + [tris_index]
                     new_tris_added = new_tris_added + [(new_tris[cf_nbr][0], new_tris[cf_nbr][1], (vtx_index_B, U_B, V_B))]
- 
+
                     tris_index = tris_index + 1
                     newfaceselection = newfaceselection + [tris_index]
                     new_tris_added = new_tris_added + [(new_tris[cf_nbr][1], (vtx_index_A, U_A, V_A), (vtx_index_B, U_B, V_B))]
@@ -827,7 +827,6 @@ class FaceCutter(parent):
 
                     vert_pos_diff = (vert_pos_2 - vert_pos_1).tuple
                     if (abs(vert_pos_diff[0]) < 0.001) and (abs(vert_pos_diff[1]) < 0.001) and (abs(vert_pos_diff[2]) < 0.001):
-                    
                         # Comment this in if you want to check for U,V too (not needed for QuArK, because we're awesome!)
                         #Udiff = U_2 - U_1
                         #Vdiff = V_2 - V_1

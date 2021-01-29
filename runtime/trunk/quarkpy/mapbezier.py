@@ -77,14 +77,13 @@ class CPTexPos(dlgclasses.LiveEditDlg):
         Style = "9"
         Caption = "Positioning Dialog"
 
-        Coords: = 
-        {
-        Txt = "&"
-        Typ = "EF002"
-        Hint = "s t texture coordinates.  Enter new ones here." $0D "The difference between new and old can be propagated to row, column or all with checkboxes below."
+        Coords: = {
+            Txt = "&"
+            Typ = "EF002"
+            Hint = "s t texture coordinates.  Enter new ones here." $0D "The difference between new and old can be propagated to row, column or all with checkboxes below."
         }
 
-        sep: = {Typ="S" Txt=" "} 
+        sep: = {Typ="S" Txt=" "}
         moverow: ={Txt="move row" Typ="X"
                    Hint = "If this is checked, texture movement applies to whole row (same color)."}
         movecol: ={Txt="move col" Typ="X"
@@ -104,13 +103,13 @@ def pointsToMove(moverow, movecol, i, j, h, w):
     if moverow and movecol:
         def row(i,w=w):
              return map(lambda j,i=i:(i,j),range(w))
-        return reduce(lambda x,y:x+y, map(row,range(h))) 
+        return reduce(lambda x,y:x+y, map(row,range(h)))
     if movecol:
         return map(lambda i,j=j:(i, j),range(h))
     if moverow:
         return map(lambda j,i=i:(i, j), range(w))
     return (i, j),  # Newbie Pythonistas: the comma is not a typo,
-                    # but means that the function returns a 
+                    # but means that the function returns a
                     # 1-element tuple whose sole element is a 2-tuple.
 
 
@@ -164,7 +163,7 @@ def quilt_addrow(cp,(i,j)):
     "alters cp so that two patch-rows replace the ith one"
     md, q1, q3 = [], [], []
     #
-    # Should try to do this with maplist 
+    # Should try to do this with maplist
     #
     # & We'll probably want a variant to do this to a whole list
     #
@@ -361,7 +360,7 @@ class CPHandle(qhandles.GenericHandle):
             if j==0:
                 return P_FRONT, h
             if j==w-1:
-                return P_BACK, h 
+                return P_BACK, h
         if 0<j<w-1:
             if i==0:
                 return P_BOTTOM, w
@@ -597,7 +596,7 @@ class CPHandle(qhandles.GenericHandle):
     #        return [texcp, thicken] + [qmenu.sep] + mapentities.CallManager("menu", self.b2, editor)+self.OriginItems(editor, view)
 
         index = i*(self.b2.W)+j
-        picked=self.b2["picked"] 
+        picked=self.b2["picked"]
 
         def pickClick(m,editor=editor,b2=self.b2,index=index, picked=picked):
             if picked is None:
@@ -880,7 +879,7 @@ class CPTextureHandle(qhandles.GenericHandle):
         self.hint = "(%s,%s)--"%ij+self.hint
         self.color = color #DECKER
         self.cursor = CR_CROSSH
-        self.h = len(b2.cp) 
+        self.h = len(b2.cp)
         self.w =  len(b2.cp[0])
 
     def draw(self, view, cv, draghandle=None):
@@ -916,7 +915,7 @@ class CPTextureHandle(qhandles.GenericHandle):
             if j==0:
                 return P_FRONT, h
             if j==w-1:
-                return P_BACK, h 
+                return P_BACK, h
         if 0<j<w-1:
             if i==0:
                 return P_BOTTOM, w

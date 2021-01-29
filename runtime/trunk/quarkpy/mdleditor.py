@@ -178,7 +178,6 @@ class ModelEditor(BaseEditor):
     #                               item 2: The Model component mesh triangle number this vertex is used in (usually more then one triangle).
     #                               item 3: The ver_index_order_pos number is its order number position of the triangle points, either 0, 1 or 2.
     #                               item 4: All 3 of the triangles vertexes data (ver_index, u and v (or x,y) projected texture 2D Skin-view positions)
-    # 
 
 
     def OpenRoot(self):
@@ -693,8 +692,7 @@ class ModelEditor(BaseEditor):
                                     self.layout.explorer.sellist = self.layout.explorer.sellist + [thing]
                                     BonesSellist = self.layout.explorer.sellist
                                     nobones = 1
-                                    
-                                if thing.type == ':bone':
+                                elif thing.type == ':bone':
                                     self.layout.explorer.sellist = selection + [thing]
                                     BonesSellist = self.layout.explorer.sellist
                                     nobones = 1
@@ -809,7 +807,7 @@ class ModelEditor(BaseEditor):
                         h.draw(view, cv, h)
                 if quarkx.setupsubset(SS_MODEL, "Options")["MAIV"] == "1":
                     modelaxis(view)
-            
+
             self.linearbox = not self.linearbox
         self.savesetupinfos()
         try:
@@ -1081,7 +1079,7 @@ def setsingleframefillcolor(editor, view):
         editor.Root.currentcomponent = editor.Root.dictitems[componentnames[0]]
 
     comp = editor.Root.currentcomponent
-    
+
     if view.info["viewname"] == "XY":
         fillcolor = MapColor("Options3Dviews_fillColor2", SS_MODEL)
         backfacecolor1 = MapColor("BackFaceColor1", SS_MODEL)
@@ -1170,7 +1168,7 @@ def setframefillcolor(editor, view):
         editor.Root.currentcomponent = editor.Root.dictitems[componentnames[0]]
 
     comp = editor.Root.currentcomponent
-    
+
     if (view.info["viewname"] == "XY" or view.info["viewname"] == "XZ" or view.info["viewname"] == "YZ"):
         for v in editor.layout.views:
             if v.info["viewname"] == "XY":
@@ -1358,7 +1356,7 @@ def commonhandles(self, redraw=1):
 
     if flagsmouse == 536:
         return
-            
+
     if flagsmouse == 2072 and isinstance(self.dragobject, qhandles.FreeZoomDragObject):
         self.dragobject = None
 
@@ -1830,7 +1828,7 @@ def commonhandles(self, redraw=1):
             self.dragobject = None
     except:
         pass
-        
+
     if mdlmgr.treeviewselchanged == 1:
         mdlmgr.treeviewselchanged = 0
 

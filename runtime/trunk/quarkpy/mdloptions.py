@@ -146,7 +146,7 @@ def Plugins1Click(item):
             pass
         group.appenditem(ci)
     quarkx.openconfigdlg("List of Plug-ins", group)
-    
+
 
 def Options1Click(menu):
     editor = mdleditor.mdleditor
@@ -368,7 +368,7 @@ def mNFDL(m):
                 if comp.triangles[tri][vtx][0] in editor.SelVertexes:
                     pass
                 else:
-                    editor.SelVertexes = editor.SelVertexes + [comp.triangles[tri][vtx][0]] 
+                    editor.SelVertexes = editor.SelVertexes + [comp.triangles[tri][vtx][0]]
                 editor.SelCommonTriangles = editor.SelCommonTriangles + findTrianglesAndIndexes(comp, comp.triangles[tri][vtx][0], None)
 
 
@@ -570,7 +570,7 @@ def TicksViewingMenu():
             quarkx.setupsubset(SS_MODEL, "Options")['RDT_M1'] = None
         else:
             quarkx.setupsubset(SS_MODEL, "Options")['RDT_M2'] = None
-            
+
     Xrdt_m1 = qmenu.item("Rectangle drag-method 1", mRDT_M1, "|Rectangle drag-method 1:\n\nThis function will draw the Skin-view mesh vertex 'Ticks' during a rectangle drag with a minimum amount of flickering, but is a slower drawing method.|intro.modeleditor.menu.html#optionsmenu")
     Xrdt_m2 = qmenu.item("Rectangle drag-method 2", mRDT_M2, "|Rectangle drag-method 2:\n\nThis function will draw the Skin-view mesh vertex 'Ticks', using the fastest method, during a rectangle drag, but will cause the greatest amount of flickering.|intro.modeleditor.menu.html#optionsmenu")
 

@@ -105,7 +105,7 @@ def ListAngleSpecs(entity):
     h.append(("angles", h3D))   # "angles" is 3D
     h.append(("mangle", h3D))   # "mangle" is 3D
     h.append(("movedir", h3D))   # HL2
-    h.append(("gibdir", h3D))   # HL2 
+    h.append(("gibdir", h3D))   # HL2
     return h
 
 
@@ -347,7 +347,7 @@ def drawdistnet(o,view): # NOTE: this function needs to handle the selected face
         for d in dists:
           p=line(v,pa,pb)
           #print u,v,p,d
-          pointpos= d*o.normal+p               
+          pointpos= d*o.normal+p
           cc.append(pointpos)
           v=v+delta
 
@@ -356,9 +356,9 @@ def drawdistnet(o,view): # NOTE: this function needs to handle the selected face
       for cpline in cp:
         for j in range(len(cpline)-1):
           cv.line(cpline[j], cpline[j+1])
-      
+
       cp = apply(map, (None,)+tuple(cp))
-      
+
       for cpline in cp:
         for i in range(len(cpline)-1):
             cv.line(cpline[i], cpline[i+1])
@@ -366,7 +366,7 @@ def drawdistnet(o,view): # NOTE: this function needs to handle the selected face
   except:
     exctype, value = sys.exc_info()[:2]
   #  print exctype, value
-  
+
 class FaceType(EntityManager):
     "Polyhedron Faces"
 
@@ -930,7 +930,7 @@ class DefaultDrawEntityLines:
            self.drawentityarrows("targetname", entity["deathtarget"], org, 0, RED, view, entities, processentities)
         if entity["killtarget"] is not None:
            self.drawentityarrows("targetname", entity["killtarget"], org, 0, RED, view, entities, processentities)
-        if entity["name"] is not None:  
+        if entity["name"] is not None:
            # Rowdy: allow for Doom 3's target -> name instead of (and as well as) target -> targetname
            self.drawentityarrows("target", entity["name"], org, 1, color, view, entities, processentities)
         if entity["movewith"] is not None:  # X7: movewith to targetname, color GREEN
@@ -938,7 +938,7 @@ class DefaultDrawEntityLines:
         if entity["pathtarget"] is not None:  # X7: pathtarget to targetname
            self.drawentityarrows("targetname", entity["pathtarget"], org, 0, color, view, entities, processentities)
         if entity["target"] is not None:
-           self.drawentityarrows("targetname", entity["target"], org, 0, color, view, entities, processentities)       
+           self.drawentityarrows("targetname", entity["target"], org, 0, color, view, entities, processentities)
            self.drawentityarrows("name", entity["target"], org, 0, color, view, entities, processentities) # Rowdy: allow for Doom 3's
 ############ SHINE support code start
         if entity["Activator.Target"] is not None and quarkx.setupsubset(SS_GAMES)['GameCfg'] == "Shine":
@@ -977,7 +977,6 @@ class DefaultDrawEntityLines:
                         self.drawAABB(mins, maxs, color, view)
             except:
                 pass
-                
 
             try:
                 if entity["CollisionInfo.CompoundVolumeData"] is not None:
@@ -1032,7 +1031,7 @@ class DefaultDrawEntityLines:
 
             self.drawentityradius(entity, "CollisionInfo.radius", org1, color, view)
             self.drawentityradius(entity, "SkinMesh.VisibilityDistance", org1, color, view)
-            self.drawentityradius(entity, "Shadow.VisibilityDistance", org1, color, view) 
+            self.drawentityradius(entity, "Shadow.VisibilityDistance", org1, color, view)
             self.drawentityradius(entity, "BrushModel.VisibilityDistance", org1, color, view)
             self.drawentityradius(entity, "Shadow.MaxDistance", org1, color, view)
 

@@ -222,7 +222,7 @@ class ModelLayout(BaseLayout):
     def setanimationfpschanged(self):
         setup = quarkx.setupsubset(self.editor.MODE, "Display")
         setup["AnimationFPS"] = (self.editor.animationFPSstep,)
-        
+
         # Update the display on the 'fps' button.
         try:
             fpsbtn = self.buttons["fps"]
@@ -274,7 +274,7 @@ class ModelLayout(BaseLayout):
     def setanimationipfchanged(self):
         setup = quarkx.setupsubset(self.editor.MODE, "Display")
         setup["AnimationIPF"] = (self.editor.animationIPFstep,)
-        
+
         # Update the display on the 'ipf' button.
         try:
             ipfbtn = self.buttons["ipf"]
@@ -329,7 +329,7 @@ class ModelLayout(BaseLayout):
     def skingridchanged(self):
         setup = quarkx.setupsubset(self.editor.MODE, "Display")
         setup["SkinGridStep"] = (self.editor.skingridstep,)
-        
+
         # Update the display on the 'grid' button.
         try:
             gridbtn = self.buttons["skingrid"]
@@ -1834,7 +1834,7 @@ class ModelLayout(BaseLayout):
             c.currentskin = skin
             saveskin = skin
             self.selectcomponent(c)
-            
+
         if c != self.editor.Root.currentcomponent:
             self.editor.SkinVertexSelList = []
             self.editor.SkinFaceSelList = []

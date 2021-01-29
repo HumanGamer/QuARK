@@ -430,8 +430,8 @@ def checktuplepos(tuple1, tuple2):
 #
 def ProjectKeepingLength(A,C,L):
     def NormaliseVect(v1, v2):
-        le = sqrt( pow(v2.x - v1.x, 2) + 
-                   pow(v2.y - v1.y, 2) + 
+        le = sqrt( pow(v2.x - v1.x, 2) +
+                   pow(v2.y - v1.y, 2) +
                    pow(v2.z - v1.z, 2) )
         if (le <> 0):
             v = quarkx.vect( \
@@ -549,7 +549,7 @@ def findTrianglesAndIndexes(comp, vert_index, vert_pos):
 
 
 # 'index' the vertex index number that is being deleted and is used in the triangle 'tri'.
-# This funciton fixes the vert_index number for one particular triangle.
+# This function fixes the vert_index number for one particular triangle.
 def fixTri(tri, index):
     new_tri = [ ]
     for c in tri:
@@ -566,8 +566,8 @@ def fixTri(tri, index):
 
 #
 # 'index' is a vertex index number that is being deleted and is used in the triangle 'tri'.
-# This funciton fixes the vert_index numbers for all triangles in the list 'tris'.
-# Goes through tri list: if greaterthan index then takes 1 away from vertexno.
+# This function fixes the vert_index numbers for all triangles in the list 'tris'.
+# Goes through tri list: if greater than index then takes 1 away from vertexno.
 #
 def fixUpVertexNos(tris, index):
     new_tris = [ ]
@@ -638,7 +638,7 @@ def KeyframeLinearInterpolation(editor, sellistPerComp, IPF, keyframenbr1, keyfr
                                 group_list = []
                                 bones2move.append(group_list)
                             bones_parent_list.append(bone.name)
-                                
+
                         bones2move[group_count].append(bone.name)
                     else:
                         includebones = includebones + [bone.name]
@@ -1077,7 +1077,7 @@ def removevertex(comp, index, all3=0):
         p = checkinlist(tri, toBeRemoved)
         if (p==0):
             new_tris = new_tris + [ tri ]
-    
+
     if all3 == 1:
         new_tris = []
         for tri in tris:
@@ -1118,7 +1118,7 @@ def removevertex(comp, index, all3=0):
         compframes = new_comp.findallsubitems("", ':mf')   # find all frames
         for unusedvertex in vertexestoremove:
             unusedindex = unusedvertex
-            for compframe in compframes: 
+            for compframe in compframes:
                 old_vtxs = compframe.vertices
                 vtxs = old_vtxs[:unusedindex]
                 compframe.vertices = vtxs
@@ -1129,7 +1129,7 @@ def removevertex(comp, index, all3=0):
         enew_tris = fixUpVertexNos(new_tris, index)
         new_comp.triangles = enew_tris
         compframes = new_comp.findallsubitems("", ':mf')   # find all frames
-        for compframe in compframes: 
+        for compframe in compframes:
             old_vtxs = compframe.vertices
             vtxs = old_vtxs[:index] + old_vtxs[index+1:]
             compframe.vertices = vtxs
@@ -1195,7 +1195,7 @@ def update_vertex_list(Old_vtxlist, vertices_to_remove):
     return New_vtxlist
 
 
-    
+
 ###############################
 #
 # Triangle & Face functions
@@ -1471,7 +1471,7 @@ def movefaces(editor, movetocomponent, option=2):
         for index in vertices_to_remove:
             enew_tris = fixUpVertexNos(new_tris, index)
             new_tris = enew_tris
-            for compframe in compframes: 
+            for compframe in compframes:
                 old_vtxs = compframe.vertices
                 vtxs = old_vtxs[:index] + old_vtxs[index+1:]
                 compframe.vertices = vtxs
@@ -1493,7 +1493,7 @@ def movefaces(editor, movetocomponent, option=2):
             editor.ok(undo, "faces moved from " + change_comp.shortname)
         else:
             editor.ok(undo, "faces deleted from " + change_comp.shortname)
-        # Updates the editor.ModelComponentList, for this component, 'bonevtxlist' and 'colorvtxlist' if one or both exist. 
+        # Updates the editor.ModelComponentList, for this component, 'bonevtxlist' and 'colorvtxlist' if one or both exist.
         if len(vertices_to_remove) != 0:
             if editor.ModelComponentList[change_comp.name]['bonevtxlist'] != {}:
                 update_bonevtxlist(editor, change_comp, vertices_to_remove)
@@ -1874,7 +1874,7 @@ def MakeEditorVertexPolyObject(editor, option=0, otherlist=None, name=None):
         skinname = currentskin.shortname
     else:
         skinname = "None"
-        
+
     if option == 0:
         if editor.ModelVertexSelList == [] and otherlist is None:
             return []
@@ -1947,7 +1947,7 @@ def MakeEditorVertexPolyObject(editor, option=0, otherlist=None, name=None):
 
         polylist = polylist + [group]
         return polylist
-    
+
     if option == 1:
         from mdlhandles import SkinView1
         import mdlhandles
@@ -2149,7 +2149,7 @@ def UpdateFramesVertexes(editor, delta, view, undomsg, option=0):
                 compframe.compparent = new_comp # To allow frame relocation after editing.
         undo.exchange(comp, new_comp)
         editor.ok(undo, undomsg)
-                
+
 
 #
 # Does the opposite of the 'MakeEditorVertexPolyObject' (just above this function) to convert a list
@@ -2265,7 +2265,7 @@ def ConvertVertexPolyObject(editor, newobjectslist, flags, view, undomsg, option
             if comp.currentskin is not None:
                 newpos = quarkx.vect(face["v"][0] , face["v"][1], face["v"][2]) + quarkx.vect(texWidth*.5, texHeight*.5, 0)
             else:
-                newpos = quarkx.vect(face["v"][0] , face["v"][1], face["v"][2]) + quarkx.vect(int((texWidth*.5) +.5), int((texHeight*.5) -.5), 0)    
+                newpos = quarkx.vect(face["v"][0] , face["v"][1], face["v"][2]) + quarkx.vect(int((texWidth*.5) +.5), int((texHeight*.5) -.5), 0)
             tuplename = tuple(str(s) for s in polygon.shortname.split(','))
             tri_index, ver_index = tuplename
             tri_index = int(tri_index)
@@ -2287,7 +2287,7 @@ def ConvertVertexPolyObject(editor, newobjectslist, flags, view, undomsg, option
         undo = quarkx.action()
         undo.exchange(comp, new_comp)
         editor.ok(undo, undomsg)
-    
+
     if option == 2:
         comp = editor.Root.currentcomponent
         new_comp = comp.copy()
@@ -2434,7 +2434,7 @@ def MakeEditorFaceObject(editor, option=0):
     v0 = editor.ModelVertexSelList[0] # Gives the index number of the 1st vertex in the list.
     v1 = editor.ModelVertexSelList[1] # Gives the index number of the 2nd vertex in the list.
     v2 = editor.ModelVertexSelList[2] # Gives the index number of the 3rd vertex in the list.
-    
+
     if option == 1: # Returns only one object (face) & tri_index for the 3 selected vertexes used by the same triangle.
                     # This object can then be used with other Map Editor and Quarkx functions.
         for trinbr in range(len(tris)):  # Iterates, goes through, the above list, starting with a count number of zero, 0, NOT 1.
@@ -2489,7 +2489,7 @@ def MakeEditorFaceObject(editor, option=0):
                 face["v"] = vertexlist
                 editor.EditorObjectList = editor.EditorObjectList + [[face, tri_index]]
         return editor.EditorObjectList
-        
+
     elif option == 3: # Returns an object & tri_index for each triangle that shares the 1st and one other vertex of our selected triangle's vertexes.
                       # These objects can then be used with other Map Editor and Quarkx functions.
         for trinbr in range(len(tris)):  # Iterates, goes through, the above list, starting with a count number of zero, 0, NOT 1.
@@ -2746,7 +2746,7 @@ def ConvertEditorFaceObject(editor, newobjectslist, flags, view, undomsg, option
                     if comp.triangles[tri][vtx][0] in editor.SelVertexes:
                         pass
                     else:
-                        editor.SelVertexes = editor.SelVertexes + [comp.triangles[tri][vtx][0]] 
+                        editor.SelVertexes = editor.SelVertexes + [comp.triangles[tri][vtx][0]]
                     editor.SelCommonTriangles = editor.SelCommonTriangles + findTrianglesAndIndexes(comp, comp.triangles[tri][vtx][0], None)
 
         MakeEditorFaceObject(editor)
@@ -2988,7 +2988,7 @@ def addcomponent(editor, option=2):
                 if change_comp.triangles[tri][vtx][0] in dumylist:
                     dumylist.remove(change_comp.triangles[tri][vtx][0])
     vertices_to_remove = dumylist
-    
+
     # This section uses the "remove_triangle_list" to recreate the original
     # component.triangles without the selected faces.
     old_tris = change_comp.triangles
@@ -3005,7 +3005,7 @@ def addcomponent(editor, option=2):
     for index in vertices_to_remove:
         enew_tris = fixUpVertexNos(new_tris, index)
         new_tris = enew_tris
-        for compframe in compframes: 
+        for compframe in compframes:
             old_vtxs = compframe.vertices
             vtxs = old_vtxs[:index] + old_vtxs[index+1:]
             compframe.vertices = vtxs
@@ -3027,7 +3027,7 @@ def addcomponent(editor, option=2):
     # Updates the editor.ModelComponentList 'tristodraw', for this component.  This needs to be done for each component or bones will not work if used in the editor.
     make_tristodraw_dict(editor, change_comp)
     editor.ok(undo, change_comp.shortname + " updated")
-    # Updates the editor.ModelComponentList, for this component, 'bonevtxlist' and 'colorvtxlist' if one or both exist. 
+    # Updates the editor.ModelComponentList, for this component, 'bonevtxlist' and 'colorvtxlist' if one or both exist.
     if len(vertices_to_remove) != 0:
         if editor.ModelComponentList[change_comp.name]['bonevtxlist'] != {}:
             update_bonevtxlist(editor, change_comp, vertices_to_remove)
@@ -4305,7 +4305,7 @@ def TexturePixelLocation(editor, view, x, y, object=None):
             facevtx0 = triangleface[0][1].currentframe.vertices[triangleface[0][1].triangles[triangleface[0][2]][0][0]]
             facevtx1 = triangleface[0][1].currentframe.vertices[triangleface[0][1].triangles[triangleface[0][2]][1][0]]
             facevtx2 = triangleface[0][1].currentframe.vertices[triangleface[0][1].triangles[triangleface[0][2]][2][0]]
-            
+
             pixpos = view.space(quarkx.vect(x, y, 0)) # Where the cursor is pointing in the view.
 
             vectorZ = view.vector("z").normalized
@@ -4329,7 +4329,7 @@ def TexturePixelLocation(editor, view, x, y, object=None):
             v0 = (C - A)
             v1 = (B - A)
             v2 = (P - A)
-            
+
             dot00 = v0 * v0
             dot01 = v0 * v1
             dot02 = v0 * v2

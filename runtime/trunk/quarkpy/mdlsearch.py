@@ -41,7 +41,7 @@ def defCompList():
 
     CompList = """comp_list: = {Typ = "CL" Txt = "Comp list:" items = """
     for item in items:
-        CompList = CompList + item 
+        CompList = CompList + item
 
     CompList = CompList + """ values = """
     for value in values:
@@ -610,7 +610,7 @@ def EditorGetNext(obj):
     if next is None:
         next = parent.subitems[0]
     return next
-    
+
 def EditorGetPrevious(obj):
     parent = obj.treeparent
     if parent is None or len(parent.subitems) == 0:
@@ -621,7 +621,7 @@ def EditorGetPrevious(obj):
     else:
         prev = parent.subitem(len(parent.subitems)-1)
     return prev
-    
+
 def EditorNextClick(m, editor=None):
     global camsel
     if editor is None:
@@ -727,7 +727,7 @@ def WindowGetNext(obj):
     if next is None:
         next = parent.subitems[0]
     return next
-    
+
 def WindowGetPrevious(obj):
     parent = obj.treeparent
     if parent is None or len(parent.subitems) == 0:
@@ -738,7 +738,7 @@ def WindowGetPrevious(obj):
     else:
         prev = parent.subitem(len(parent.subitems)-1)
     return prev
-    
+
 def WindowNextClick(m, editor=None):
     global camsel
     if editor is None:

@@ -328,7 +328,7 @@ class ModelFaceHandle(qhandles.GenericHandle):
     def selection(self, editor, view, modelfacelist, flagsmouse, draghandle=None):
         global lastmodelfaceremovedlist
         comp = editor.Root.currentcomponent
-        
+
         if view.info["viewname"] == "skinview": return
         if flagsmouse == 536:
             for v in editor.layout.views:
@@ -376,7 +376,7 @@ class ModelFaceHandle(qhandles.GenericHandle):
                     if comp.triangles[tri][vtx][0] in editor.SelVertexes:
                         pass
                     else:
-                        editor.SelVertexes = editor.SelVertexes + [comp.triangles[tri][vtx][0]] 
+                        editor.SelVertexes = editor.SelVertexes + [comp.triangles[tri][vtx][0]]
                         editor.SelCommonTriangles = editor.SelCommonTriangles + findTrianglesAndIndexes(comp, comp.triangles[tri][vtx][0], None)
         if quarkx.setupsubset(SS_MODEL, "Options")['SFSISV'] == "1" or quarkx.setupsubset(SS_MODEL, "Options")['PFSTSV'] == "1":
             if SkinView1 is not None:
@@ -1136,7 +1136,7 @@ class PolyHandle(qhandles.CenterHandle):
             assigned2 = poly.dictspec['assigned2']
             menu = [qmenu.item(assigned2.split(":")[0], onclick2)]
             m.items = menu
-        
+
         def select_bboxes_click(m, self=self, editor=editor, bboxlist_comps=bboxlist_comps, view=view):
             componentnames = bboxlist_comps
             componentnames.sort()
@@ -1302,7 +1302,7 @@ class PolyHandle(qhandles.CenterHandle):
             editor.ok(undo, "bbox released")
             editor.layout.explorer.uniquesel = New_poly
             editor.layout.explorer.sellist = [New_poly]
-        
+
         def select_bbox_click2(m, editor=editor, bone_bbox_list=bone_bbox_list):
             menu = []
             for bbox in bone_bbox_list:
@@ -1923,7 +1923,7 @@ class VertexHandle(qhandles.GenericHandle):
                     quarkx.setupsubset(SS_MODEL, "Options")['APVexs_Method1'] = None
                 else:
                     quarkx.setupsubset(SS_MODEL, "Options")['APVexs_Method2'] = None
-            
+
             Xapv_m1 = qmenu.item("Align vertexes-method 1", mAPVexs_Method1, "|Align vertexes-method 1:\n\nThis method will align, move, other selected vertexes to the 'Base' vertex position of each tree-view selected 'frame'.|intro.modeleditor.rmbmenus.html#vertexrmbmenu")
             Xapv_m2 = qmenu.item("Align vertexes-method 2", mAPVexs_Method2, "|Align vertexes-method 2:\n\nThis method will align, move, other selected vertexes to the 'Base' vertex position of the 1st tree-view selected 'frame'.|intro.modeleditor.rmbmenus.html#vertexrmbmenu")
             menulist = [Xapv_m1, Xapv_m2]
@@ -2365,7 +2365,7 @@ class SkinHandle(qhandles.GenericHandle):
             itemcount = 0
             removedcount = 0
             holdlist = []
-                
+
             if editor.SkinVertexSelList == []:
                 editor.SkinVertexSelList = editor.SkinVertexSelList + [[self.pos, self, self.tri_index, self.ver_index]]
             else:
@@ -2415,7 +2415,7 @@ class SkinHandle(qhandles.GenericHandle):
                     editor.SkinVertexSelList = editor.SkinVertexSelList + [[self.pos, self, self.tri_index, self.ver_index]]
 
                     if not setup["SingleVertexDrag"]:
-                        dragtris = find2DTriangles(self.comp, self.tri_index, self.ver_index) # This is the funciton that gets the common vertexes in mdlutils.py.
+                        dragtris = find2DTriangles(self.comp, self.tri_index, self.ver_index) # This is the function that gets the common vertexes in mdlutils.py.
                         for index,tri in dragtris.iteritems():
                             vtx_index = 0
                             for vtx in tri:
@@ -2871,7 +2871,7 @@ class SkinHandle(qhandles.GenericHandle):
             if component is not None:
                 if component.name.endswith(":mc"):
                     handlevertex = self.tri_index
-                    dragtris = find2DTriangles(self.comp, self.tri_index, self.ver_index) # This is the funciton that gets the common vertexes in mdlutils.py.
+                    dragtris = find2DTriangles(self.comp, self.tri_index, self.ver_index) # This is the function that gets the common vertexes in mdlutils.py.
 
                     newvert = (int(oldvert[0]), int(oldvert[1])+int(delta.x), int(oldvert[2])+int(delta.y))
                     for index,tri in dragtris.iteritems():
@@ -3612,7 +3612,7 @@ class RectSelDragObject(qhandles.RectangleDragObject):
                             if comp.triangles[tri][vtx][0] in editor.SelVertexes:
                                 pass
                             else:
-                                editor.SelVertexes = editor.SelVertexes + [comp.triangles[tri][vtx][0]] 
+                                editor.SelVertexes = editor.SelVertexes + [comp.triangles[tri][vtx][0]]
                                 editor.SelCommonTriangles = editor.SelCommonTriangles + findTrianglesAndIndexes(comp, comp.triangles[tri][vtx][0], None)
 
                 MakeEditorFaceObject(editor)
@@ -3809,7 +3809,7 @@ class ModelEditorLinHandlesManager:
                         if vtx[0] in self.selvtxlist:
                             pass
                         else:
-                            self.selvtxlist = self.selvtxlist + [vtx[0]] 
+                            self.selvtxlist = self.selvtxlist + [vtx[0]]
                         self.tristodrawlist = self.tristodrawlist + findTrianglesAndIndexes(comp, vtx[0], vtx[1])
             else:
                 if quarkx.setupsubset(SS_MODEL, "Options")["ExtrudeFaces"] == "1" or quarkx.setupsubset(SS_MODEL, "Options")["ExtrudeBulkHeads"] == "1" and len(self.editor.ModelVertexSelList) > 1:
@@ -6024,7 +6024,7 @@ class BoneCenterHandle(BoneHandle):
                             break
                     parent_handle_scale = parentbone['scale'][0]
                     p2 = view.proj(parentbone.position)
-                    
+
                     handle_color = self.bone.dictspec['_color']
                     quarkx.setupsubset(SS_MODEL, "Colors")["handle_color"] = handle_color
                     handle_color = MapColor("handle_color", SS_MODEL)
@@ -6033,7 +6033,7 @@ class BoneCenterHandle(BoneHandle):
                     else:
                         line_color = MapColor("BoneHandles", SS_MODEL)
                     DrawBoneLine(p, p2, cv, line_color, scale, parent_handle_scale, view)
-                    
+
         for obj in redimages:
             if obj.type != ":bone":
                 continue

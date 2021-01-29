@@ -1000,7 +1000,7 @@ class PropGlueDlg (SimpleCancelDlgBox):
     def datachange(self, df):
         quarkx.setupsubset(SS_MAP, "Options")["PropTexGlue"] = self.src["prop"]
         self.close()
- 
+
 
     #
     # This is executed when the OK button is pressed
@@ -1181,10 +1181,10 @@ class CyanLHandle(qhandles.GenericHandle):
             undo=quarkx.action()
             undo.exchange(self.face,newface)
             editor.ok(undo,'Proportional Glue to Tagged')
- 
+
         def propGlueClick(m, action=action):
             PropGlueDlg(quarkx.clickform,action)
-        
+
         propglueitem = qmenu.item('Proportional glue',propGlueClick)
         propglueitem.state=qmenu.disabled
         if tagged is not None and (self.n==1 or self.n==2):
@@ -1596,9 +1596,9 @@ def wantPoly():
 
 def wantFace():
     return quarkx.keydown(MapAuxKey('Select Faces'))==1
-    
+
 def wantCurve():
-     return quarkx.keydown(MapAuxKey('Select Curves'))==1    
+     return quarkx.keydown(MapAuxKey('Select Curves'))==1
 
 def wantEntity():
     return quarkx.keydown(MapAuxKey('Select Entities'))==1
@@ -1647,14 +1647,14 @@ def MouseClicked(self, view, x, y, s, handle):
                     if item[1].type==':e':
                         result.append(item)
                     else:
-                        parent=item[1].treeparent   
+                        parent=item[1].treeparent
                         while parent.name!='worldspawn:b':
                             if parent.type==':b':    # eventually it will hit worldspawn
                                 result.append((choice[0], parent, parent))
                                 break
                             parent=parent.treeparent
                 return result
-                
+
             choice=getentities(choice)
         if len(choice):
             wantpoly = wantPoly()

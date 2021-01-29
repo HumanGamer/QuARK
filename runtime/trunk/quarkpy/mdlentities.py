@@ -26,7 +26,7 @@ import qutils
 
 #
 # Generic Model object types have type==':m', and are distinguished by a "type" Specific.
-# Here is the list of reconized values.
+# Here is the list of recognized values.
 #
 
 MT_GROUP       = 0      # generic group
@@ -179,7 +179,6 @@ def RegisterMenuExporterChanged(TextProc):
 def menu_setupchanged(level):
     import mdleditor
     import qmacro
-    import quarkx
     editor = mdleditor.mdleditor
 
     # Do the importers
@@ -258,7 +257,7 @@ qutils.SetupRoutines.append(menu_setupchanged)
 #
 ###############################
 
-# Funcitons for AnimationCFG Module ONLY.
+# Functions for AnimationCFG Module ONLY.
 
 def CFGfileLines():
     import mdleditor
@@ -343,7 +342,7 @@ def UseAnimationCFG():
 #
 ###############################
 
-# Funcitons for Shader Module ONLY.
+# Functions for Shader Module ONLY.
 
 def ShaderLines():
     import mdleditor
@@ -514,7 +513,7 @@ def macro_opentexteditor(btn):
             undo = quarkx.action()
             undo.exchange(old_obj, new_obj)
             editor.ok(undo, new_obj.shortname + " - mesh shader changed")
-    
+
 qmacro.MACRO_opentexteditor = macro_opentexteditor
 
 
@@ -839,7 +838,7 @@ class WeightsDlg(dlgclasses.LiveEditDlg):
 def WeightsClick(editor):
     if editor is None: return
     AddStuff(editor)
-  
+
     def setup(self, editor=editor):
         global vtxnbrs
         editor.weightsdlg = self
@@ -1090,7 +1089,7 @@ def vtxweightsclick(btn):
             editor.ModelVertexSelList = []
             editor.linearbox = "True"
             editor.linear1click(btn)
-        
+
 def macro_selectvtxs(btn):
     import mdleditor
     editor = mdleditor.mdleditor # Get the editor.
@@ -1280,7 +1279,7 @@ class EntityManager:
                             view.drawmap(o, mode)  # Draws default color for model mesh lines.
                     else: # This section handles textured and solid view modes.
                         if quarkx.setupsubset(SS_MODEL, "Options")["Options3Dviews_framemesh2"] != "1":
-                            pass    
+                            pass
                         else:
                             o = editor.Root.currentcomponent # Redefining o like this allows the model's mesh lines to be drawn.
                             # Causes lines to be drawn using comp_color2.
@@ -1372,7 +1371,7 @@ class EntityManager:
                             view.drawmap(o, mode)  # Draws default color for model mesh lines.
                     else: # This section handles textured and solid view modes.
                         if quarkx.setupsubset(SS_MODEL, "Options")["Options3Dviews_framemesh4"] != "1":
-                            pass    
+                            pass
                         else:
                             o = editor.Root.currentcomponent # Redefining o like this allows the model's mesh lines to be drawn.
                             # Causes lines to be drawn using comp_color2.
@@ -1464,7 +1463,7 @@ class EntityManager:
                             view.drawmap(o, mode)  # Draws default color for model mesh lines.
                     else: # This section handles textured and solid view modes.
                         if quarkx.setupsubset(SS_MODEL, "Options")["Options3Dviews_framemesh3"] != "1":
-                            pass    
+                            pass
                         else:
                             o = editor.Root.currentcomponent # Redefining o like this allows the model's mesh lines to be drawn.
                             # Causes lines to be drawn using comp_color2.
@@ -1556,7 +1555,7 @@ class EntityManager:
                             view.drawmap(o, mode)  # Draws default color for model mesh lines.
                     else: # This section handles textured and solid view modes.
                         if quarkx.setupsubset(SS_MODEL, "Options")["Options3Dviews_framemesh1"] != "1":
-                            pass    
+                            pass
                         else:
                             o = editor.Root.currentcomponent # Redefining o like this allows the model's mesh lines to be drawn.
                             # Causes lines to be drawn using comp_color2.
@@ -1652,7 +1651,7 @@ class EntityManager:
                             view.drawmap(o, mode)  # Draws default color for model mesh lines.
                     else: # This section handles textured and solid view modes.
                         if quarkx.setupsubset(SS_MODEL, "Options")["Options3Dviews_framemesh5"] != "1":
-                            pass    
+                            pass
                         else:
                             o = editor.Root.currentcomponent # Redefining o like this allows the model's mesh lines to be drawn.
                             # Causes lines to be drawn using comp_color2.
@@ -1940,25 +1939,25 @@ class BoundType(EntityManager):
                  "          They have an accuracy of two digits."
           sep: = {
               Typ="S"
-              Txt="(Not funtional at this time)"
+              Txt="(Not functional at this time)"
                  }
           position: = {
-              Typ="EF003" 
+              Typ="EF003"
               Txt="position"
               Hint="You must enter three values here."$0D"They have an accuracy of two digits."
                  }
           scale: = {
-              Typ="EF001" 
+              Typ="EF001"
               Txt="scale"
               Hint="You must enter one positive float value here."$0D"It has an accuracy of two digits."
                  }
           maxs: = {
-              Typ="EF003" 
+              Typ="EF003"
               Txt="maxs"
               Hint="You must enter three values here."$0D"They have an accuracy of two digits."
                  }
           mins: = {
-              Typ="EF003" 
+              Typ="EF003"
               Txt="mins"
               Hint="You must enter three values here."$0D"They have an accuracy of two digits."
                  }
@@ -2282,11 +2281,11 @@ class TagType(EntityManager):
         if len(tag_items) != 0:
             TagList = TagList + """tag_list: = {Typ = "CL" Txt = "Tags list" items = """
             for item in tag_items:
-                TagList = TagList + item 
+                TagList = TagList + item
 
             TagList = TagList + """ values = """
             for value in tag_values:
-                TagList = TagList + value 
+                TagList = TagList + value
 
             TagList = TagList + """ Hint="List of other tags for this group."$0D"Click on one to jump to that tag."}"""
 
@@ -2301,11 +2300,11 @@ class TagType(EntityManager):
 
         TagList = TagList + """comp_tag_list: = {Typ = "CL" Txt = "Comps list:" items = """
         for item in comp_items:
-            TagList = TagList + item 
+            TagList = TagList + item
 
         TagList = TagList + """ values = """
         for value in comp_values:
-            TagList = TagList + value 
+            TagList = TagList + value
 
         TagList = TagList + """ Hint="List of tag components for this group."$0D"Click on one to jump to that component."}"""
 
@@ -2433,7 +2432,7 @@ class TagFrameType(EntityManager):
                  "origin"$22" - You must enter three values here."$0D
                  "          They have an accuracy of two digits."
           origin: = {
-              Typ="EF003" 
+              Typ="EF003"
               Txt="origin"
               Hint="You must enter three values here."$0D"They have an accuracy of two digits."
                  }
@@ -2541,7 +2540,7 @@ class BoneType(EntityManager):
         SpecsList = """comp_list: = {Typ="C" Txt="comp list" items = """
 
         for item in items:
-            SpecsList = SpecsList + item 
+            SpecsList = SpecsList + item
 
         SpecsList = SpecsList + """ values = """
 
@@ -2614,54 +2613,47 @@ class BoneType(EntityManager):
                  "                   the default value for normal size = 1.00"$0D22
                  "show weight colors"$22" - When checked, if component has vertex weight coloring they will show."$0D
                  "          If NOT checked and it has bones with vetexes, those will show."
-          bone_length: = 
-            {
-              Typ="EF003" 
+          bone_length: = {
+              Typ="EF003"
               Txt="Bone Length"
               Hint="You must enter three values here."$0D
                    "They have an accuracy of two digits."
             }
           sep: = { Typ="S" Txt="" }
           """ + SpecsList + """
-          frame_autoexpand: = 
-            {
-              Typ="X1" 
+          frame_autoexpand: = {
+              Typ="X1"
               Txt="auto expand"
               Hint="When checked, opens the 'Frames'"$0D
                    "folder, if closed, when the component"$0D
                    "in the 'comp list' is clicked on,"$0D
                    "each bone is set separately."
             }
-          parent_name: = 
-            {
+          parent_name: = {
               Typ="E R"
               Txt="parent"
               Hint="The handle name that this"$0D
                    "one is attached to, if any."
             }
-          _color: = 
-            {
+          _color: = {
               Typ="LI"
               Txt="color"
               Hint="Color to use for this bone handle's vertex group color."$0D
                    "Click this color button to select a color."
             }
-          position: = 
-            {
-              Typ="EF003" 
+          position: = {
+              Typ="EF003"
               Txt="position"
               Hint="You must enter three values here."$0D"They have an accuracy of two digits."
             }
-          draw_offset: = 
-            {
-              Typ="EF003" 
+          draw_offset: = {
+              Typ="EF003"
               Txt="offset"
               Hint="You must enter three values here."$0D"They have an accuracy of two digits."$0D
                    "Not all models use this."
             }
-          scale: = 
-            {
-              Typ="EF001" 
+          scale: = {
+              Typ="EF001"
               Txt="scale"
               Hint="You must enter one positive float value here."$0D
                    "It has an accuracy of two digits."$0D"Larger value = bigger handle size."$0D
@@ -2769,7 +2761,7 @@ class ComponentType(EntityManager):
 
         import mdlmenus
         return [SC1, HC1, qmenu.sep] + CallManager("menubegin", o, editor) + mdlmenus.BaseMenu([o], editor)
- 
+
     def handles(o, editor, view):
         "A Model's COMPONENT currentframe 'frame' MESH, each animation Frame has its own."
         frame = o.currentframe
@@ -2817,7 +2809,7 @@ class ComponentType(EntityManager):
                                 editor.layout.explorer.sellist = [bone]
                                 editor.layout.selchange()
                                 break
-                                
+
                     nbr = key.split("_")[2]
                     bone_name = o.dictspec[key].split(":")
                     BoneControls = BoneControls + 'bone_control_' + nbr + ': = {Typ = "CL"  Txt = "&"  items = "' + bone_name[0] + '"$0D"select bone"'
@@ -2843,11 +2835,11 @@ class ComponentType(EntityManager):
 
                 TagList = TagList + """tag_list: = {Typ = "CL" Txt = "Tags list" items = """
                 for item in items:
-                    TagList = TagList + item 
+                    TagList = TagList + item
 
                 TagList = TagList + """ values = """
                 for value in values:
-                    TagList = TagList + value 
+                    TagList = TagList + value
 
                 TagList = TagList + """ Hint="List of tags for this component."$0D"Click on one to jump to that tag."}"""
 
@@ -2865,11 +2857,11 @@ class ComponentType(EntityManager):
                 if len(items) != 0:
                     TagList = TagList + """comp_tag_list: = {Typ = "CL" Txt = "Comps list:" items = """
                     for item in items:
-                        TagList = TagList + item 
+                        TagList = TagList + item
 
                     TagList = TagList + """ values = """
                     for value in values:
-                        TagList = TagList + value 
+                        TagList = TagList + value
 
                     TagList = TagList + """ Hint="List of tag components for this component."$0D"Click on one to jump to that component."}"""
 
@@ -2896,26 +2888,22 @@ class ComponentType(EntityManager):
                  "color over their textured and solid views which can also"$0D
                  "display their mesh lines in a second color when a views"$0D
                  "'Mesh in Frames' option is checked on the 'Views Options' dialog."
-          skins_count: = 
-            {
+          skins_count: = {
               Typ="E R"
               Txt="skins"
               Hint="Number of skins of this component."
             }
-          frames_count: = 
-            {
+          frames_count: = {
               Typ="E R"
               Txt="frames"
               Hint="Number of frames of this component."
             }
-          tri_count: = 
-            {
+          tri_count: = {
               Typ="E R"
               Txt="triangles"
               Hint="Number of triangle faces of this component."
             }
-          vtx_count: = 
-            {
+          vtx_count: = {
               Typ="E R"
               Txt="vertices"
               Hint="Number of vertices of this component."
@@ -2927,14 +2915,15 @@ class ComponentType(EntityManager):
               "color in texture or solid mode and line color in wire mode."$0D
               "Click the color selector button to pick a color."
                  }
-          comp_color2: = {Typ="LI"
+          comp_color2: = {
+              Typ="LI"
               Txt="comp color 2"
               Hint="Color to use for this component's mesh"$0D
               "color in texture or solid mode if 'use color 2' is checked."$0D
               "Click the color selector button to pick a color."
                  }
           usecolor2: = {
-              Typ="X1" 
+              Typ="X1"
               Txt="use color 2"
               Hint="When checked, this color draws the"$0D
               "component's mesh lines in textured or solid view mode."
@@ -2970,8 +2959,7 @@ class ComponentType(EntityManager):
                         editor.layout.explorer.sellist = [editor.Root.dictitems['Misc:mg'].dictitems[o.dictspec['tag_list']]]
                         editor.layout.explorer.expand(editor.Root.dictitems['Misc:mg'])
                         o['tag_list'] = ""
-                    
-                    
+
             if o.dictspec.has_key("tag_components"):
                 comp_names = o.dictspec['tag_components'].split(", ")
                 if o.dictspec.has_key("comp_tag_list"):
@@ -2980,6 +2968,7 @@ class ComponentType(EntityManager):
                     if not o.dictspec.has_key("None"):
                         editor.layout.explorer.sellist = [editor.Root.dictitems[o.dictspec['comp_tag_list']]]
                         o['comp_tag_list'] = ""
+
         # Cleans these items out of the component when they should not be there, to keep them from showing up incorrectly.
             if not o.dictspec.has_key("Tags") and o.dictspec.has_key("tag_list"):
                 o['tag_list'] = ""
