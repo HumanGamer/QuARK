@@ -11,7 +11,8 @@ Various utilities for making gui devices.
 
 import quarkx
 from quarkpy.qutils import *
-from quarkpy.qeditor import *
+import qeditor
+import qmenu
 #
 # FIXME: ugh hideous hack refactoring time!!!
 #
@@ -54,7 +55,7 @@ def buildParentPopupList(o, parentpopupitems, editor):
     current=o
     list = []
     if editor is None:
-        editor = mapeditor()
+        editor = qeditor.mapeditor()
     restrictor = getrestrictor(editor)
     restricted = 0
   #  while current.name != "worldspawn:b":
