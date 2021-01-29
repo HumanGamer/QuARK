@@ -1,6 +1,6 @@
 #!/usr/local/bin/perl
-# rip log messages after given ate from given file
-# 
+# rip log messages after given date from given file
+#
 # GNU PUBLIC SOFTWARE LICENSE
 #
 
@@ -33,11 +33,10 @@ sub cmpdates()
 }
 
 ## open the file given by argument
-open(FILE,$ARGV[0]) or die "dont opens $!";
+open(FILE,$ARGV[0]) or die "cant open $!";
 while(<FILE>)
 {
   ## get current rev from header tag
-  ## 
   if(m/^[\#\s\/]*\$(Header:.+)$/)
   {
     ($hea,$fileident,$rev,$date,$time,$usr,$bla)=split(/\s+/,$1);
@@ -50,9 +49,9 @@ $logentrycount=0;
 #    print "log start $1\n";
     while(<FILE>)
     {
-      ## a log entry is etecte
+      ## a log entry is detected
       if(m/^[\#\s\/]*Revision\s+(.+)\s+([\d\/]+) /)
-      { 
+      {
         $logrev=$1;
         ($cyy,$cmm,$cdd)=split(/\//,$2);
 
@@ -69,7 +68,6 @@ $logentrycount=0;
           if ($logentrycount==0)
           {
             print "################ Log for File $fileident $rev ###############\n";
-            
           }
           ## count log entries
           $logentrycount++;

@@ -17,9 +17,8 @@ import glob
 # doesn't check for empty folders, these need to be cleared by hand
 # they produce syntax errors
 #
-#
 
-   
+
 def doit():
     getmodpaths('e:/rtcwmod/models/mapobjects', 'modlist.txt')
 
@@ -79,5 +78,4 @@ def getmodpaths(root,out):
            output.write('/models/mapobjects/'+mod[start:])
        output.write('"\n      }\n')
     output.write('    }\n')
-    output.close()       
-           
+    output.close()

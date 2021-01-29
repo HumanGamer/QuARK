@@ -1,16 +1,16 @@
 ###########################################################################
-# Makefile to compile Quark with the command line tools
-# and produce a snapshot package. 
+# Makefile to compile QuArK with the command line tools
+# and produce a snapshot package.
 #
 #  ! WILL NOT WORK WITH BORLAND MAKE OR FROM A DOS SHELL !
-#     .. and is not indended to operate in such environment
+#     .. and is not intended to operate in such environment
 #
 # This makefile is intended to be used from a bash shell
 # inside the cygnus environment. 
 #
 # So make sure, that the no carriage returns are there
 # by making first this
-#   make rmcr 
+#   make rmcr
 # that removes CR's from the makefile, then you can build a 
 # snapshot by 
 #   make distro
@@ -80,7 +80,7 @@ $(SNAPSHOTDIR)/$(EXE): $(RUNTIMEPATH)/$(EXE)
 	echo "This is a snapshot compile of QuArK from the current CVS." > $(SNAPSHOTDIR)/README.txt
 	echo "It represents the current development state of QuArK and " >> $(SNAPSHOTDIR)/README.txt
 	echo "probably contains Bugs. Please report them to the QuArK  " >> $(SNAPSHOTDIR)/README.txt
-	echo "developement mailing list at egroups.                    " >> $(SNAPSHOTDIR)/README.txt
+	echo "development mailing list at egroups.                     " >> $(SNAPSHOTDIR)/README.txt
 	echo "Compiled at:                                             " >> $(SNAPSHOTDIR)/README.txt
 	date >> $(SNAPSHOTDIR)/README.txt
 	echo "                                                         ">> $(SNAPSHOTDIR)/README.txt
@@ -104,7 +104,7 @@ $(SNAPSHOTDIR)/$(EXE): $(RUNTIMEPATH)/$(EXE)
 	echo "                                                              ">> $(SNAPSHOTDIR)/README.txt
 	echo "Contact the author Armin Rigo by e-mail: arigo@planetquake.com">> $(SNAPSHOTDIR)/README.txt
 	echo "or by mail: Armin Rigo, La Cure, 1854 Leysin, Switzerland.    ">> $(SNAPSHOTDIR)/README.txt
-	echo "See also http://www.planetquake.com/quark                     ">> $(SNAPSHOTDIR)/README.txt
+	echo "See also http://quark.sourceforge.net/                        ">> $(SNAPSHOTDIR)/README.txt
 
 ### compress test directory
 $(SNAPSHOTPATH)/$(SNAPSHOTNAME).ace: $(SNAPSHOTDIR)/$(EXE)

@@ -13,7 +13,7 @@ sub getfile()
 {
   local($fname)=@_;
   local @lines;
-  open(FILE,$fname) or die "doesnt open $!";
+  open(FILE,$fname) or die "cant open $!";
   @lines=<FILE>;
   close(FILE);
   return \@lines;
@@ -23,7 +23,7 @@ sub getfile()
 sub putfile()
 {
   local($r_lines,$fname)=@_;
-  open(FILE,">$fname") or die "doesnt open $!";
+  open(FILE,">$fname") or die "cant open $!";
   print FILE @$r_lines;
   close(FILE);
 }
