@@ -120,7 +120,7 @@ def vec2angles(v, oldvalue=None):
 def vec2angle(v, oldvalue=None):
     hlen2 = v.x*v.x+v.y*v.y
     if hlen2 > v.z*v.z:
-        angle = quarkx.rnd(math.atan2(v.y,v.x) * 180.0/math.pi)
+        angle = quarkx.rnd(math.atan2(v.y,v.x) * rad2deg)
         if angle>0:
             return `angle`
         return `angle+360`
@@ -146,7 +146,7 @@ def angle2vec(angle):
         return quarkx.vect(0,0,1)
     if angle==-2:
         return quarkx.vect(0,0,-1)
-    angle = angle * math.pi/180.0
+    angle = angle * deg2rad
     return quarkx.vect(math.cos(angle), math.sin(angle), 0)
 
 
@@ -707,7 +707,7 @@ class LinSideHandle(LinearHandle):
             v = quarkx.vect(tuple(w))
         else:
             w = v.tuple
-        self.draghint = "enlarge %d %%   shear %d deg." % (100.0*w[dir], math.atan2(math.sqrt(w[dir-1]*w[dir-1] + w[dir-2]*w[dir-2]), w[dir])*180.0/math.pi)
+        self.draghint = "enlarge %d %%   shear %d deg." % (100.0*w[dir], math.atan2(math.sqrt(w[dir-1]*w[dir-1] + w[dir-2]*w[dir-2]), w[dir])*rad2deg)
         m[dir] = v
 
         return quarkx.matrix(tuple(m))
@@ -764,7 +764,7 @@ class LinCornerHandle(LinearHandle):
             m = UserRotationMatrix(normal, npos, texp4, 0)
             if m is None: return
         if diff is None: diff = abs(npos) / abs(texp4)
-        self.draghint = "rotate %d deg.   zoom %d %%" % (math.acos(m[0,0])*180.0/math.pi, 100.0*diff)
+        self.draghint = "rotate %d deg.   zoom %d %%" % (math.acos(m[0,0])*rad2deg, 100.0*diff)
 
         return m * diff
 

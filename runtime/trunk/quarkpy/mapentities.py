@@ -905,7 +905,7 @@ class DefaultDrawEntityLines:
                     elif entity['spotlightwidth']:
                         cone = float(entity['spotlightwidth'])/2.0
                     for i in range(18):
-                        phi = i*2.0*math.pi/18
+                        phi = i*pi2/18
                         dirvectn=qhandles.angles2vec1(direct.x+cone*math.cos(phi),direct.y+cone*math.sin(phi),direct.z)
                         cv.line(view.proj(org+dirvectn*radius),org1)
                     ### Draws the inner cone lines.
@@ -913,7 +913,7 @@ class DefaultDrawEntityLines:
                         cone = float(entity[quarkx.setupsubset()["LightingInnerConeKeyword"]])
                         cv.pencolor = color
                         for i in range(9):
-                            phi = i*2.0*math.pi/9
+                            phi = i*pi2/9
                             dirvectn = qhandles.angles2vec1(direct.x+cone*math.cos(phi),direct.y+cone*math.sin(phi),direct.z)
                             cv.line(view.proj(org+dirvectn*radius),org1)
                 else:

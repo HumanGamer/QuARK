@@ -1238,7 +1238,7 @@ class CyanLHandle(qhandles.GenericHandle):
                 return None, None
             p2 = m*p2
             p3 = m*p3
-            self.draghint = "%d degrees" % (math.acos(m[0,0])*180.0/math.pi)
+            self.draghint = "%d degrees" % (math.acos(m[0,0])*rad2deg)
             # ---- texture rotation end ----
 
 #DECKER - 2001.08.13 - The 'if abs(p2^p3) < l*l*0.1:' makes it impossible to have a _huge_ first texture-axis and a _small_ second texture-axis

@@ -4877,7 +4877,7 @@ class LinSideHandle(LinearHandle): # for LinSideHandle
                 v = quarkx.vect(tuple(w))
             else:
                 w = v.tuple
-            self.draghint = "enlarge %d %%   shear %d deg." % (100.0*w[dir], math.atan2(math.sqrt(w[dir-1]*w[dir-1] + w[dir-2]*w[dir-2]), w[dir])*180.0/math.pi)
+            self.draghint = "enlarge %d %%   shear %d deg." % (100.0*w[dir], math.atan2(math.sqrt(w[dir-1]*w[dir-1] + w[dir-2]*w[dir-2]), w[dir])*rad2deg)
             m[dir] = v
 
             return quarkx.matrix(tuple(m))
@@ -4900,7 +4900,7 @@ class LinSideHandle(LinearHandle): # for LinSideHandle
                 v = quarkx.vect(tuple(w))
             else:
                 w = v.tuple
-            self.draghint = "enlarge %d %%   shear %d deg." % (100.0*w[dir], math.atan2(math.sqrt(w[dir-1]*w[dir-1] + w[dir-2]*w[dir-2]), w[dir])*180.0/math.pi)
+            self.draghint = "enlarge %d %%   shear %d deg." % (100.0*w[dir], math.atan2(math.sqrt(w[dir-1]*w[dir-1] + w[dir-2]*w[dir-2]), w[dir])*rad2deg)
             self.m[dir] = v
 
             return quarkx.matrix(tuple(self.m))
@@ -5007,9 +5007,9 @@ class LinCornerHandle(LinearHandle):
                 self.diff = abs(npos) / abs(texp4)
             ### Drag Hint section.
             if view.info['type'] == 'YZ':
-                rotate = math.acos(self.m[1,1])*180.0/math.pi
+                rotate = math.acos(self.m[1,1])*rad2deg
             else:
-                rotate = math.acos(self.m[0,0])*180.0/math.pi
+                rotate = math.acos(self.m[0,0])*rad2deg
             scaling = 100.0 * self.diff
             self.draghint = "rotate %d deg.   scale %d %%" % (rotate, scaling)
             return self.m * self.diff
@@ -5037,9 +5037,9 @@ class LinCornerHandle(LinearHandle):
             if self.m is None:
                 self.m = quarkx.matrix(quarkx.vect(1, 0, 0), quarkx.vect(0, 1, 0), quarkx.vect(0, 0, 1))
             if view.info['type'] == 'YZ':
-                rotate = math.acos(self.m[1,1])*180.0/math.pi
+                rotate = math.acos(self.m[1,1])*rad2deg
             else:
-                rotate = math.acos(self.m[0,0])*180.0/math.pi
+                rotate = math.acos(self.m[0,0])*rad2deg
             scaling = 100.0 * self.diff
             self.draghint = "rotate %d deg.   scale %d %%" % (rotate, scaling)
 
@@ -6290,8 +6290,8 @@ class BoneCornerHandle(BoneHandle):
         self.newverticespos = newverticespos
 
         if view.info['type'] == 'YZ':
-            return (math.acos(m[1,1])*180.0/math.pi)
-        return (math.acos(m[0,0])*180.0/math.pi)
+            return (math.acos(m[1,1])*rad2deg)
+        return (math.acos(m[0,0])*rad2deg)
 
     def drawred(self, redimages, view, redcolor): # for BoneCornerHandle
         view.repaint()
