@@ -1972,10 +1972,9 @@ def macro_usercenter(self):
     if editor is None: return
     dup = editor.layout.explorer.uniquesel
     if dup is None: return
-    from mapentities import ObjectOrigin
     try:
         undo = quarkx.action()
-        tup = ObjectOrigin(dup).tuple
+        tup = mapentities.ObjectOrigin(dup).tuple
         undo.setspec(dup,'usercenter',tup)
         editor.ok(undo,'add usercenter')
         editor.invalidateviews()
