@@ -24,9 +24,6 @@ import quarkpy.mapentities
 from quarkpy.qeditor import MapColor
 
 DefaultDrawEntityLines = quarkpy.mapentities.DefaultDrawEntityLines
-quakecolor = quarkpy.mapentities.quakecolor
-makeRGBcolor = quarkpy.mapentities.makeRGBcolor
-ObjectOrigin = quarkpy.mapentities.ObjectOrigin
 
 import plugins.deckerutils
 FindOriginTexPolyPos = plugins.deckerutils.FindOriginTexPolyPos
