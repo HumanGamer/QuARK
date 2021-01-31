@@ -32,7 +32,6 @@ import quarkpy.mapbtns
 import quarkpy.qtoolbar
 import quarkpy.maphandles
 import math
-from math import *
 from quarkpy.qhandles import *
 
 ## think I need these below
@@ -55,8 +54,6 @@ from maptagside import *
 #
 
 grid = (0,0)
-lengthnormalvect = 0
-mapicons_c = -1
 saveeditor = None
 newpoly = newface = newpoint = None
 selectlist = []
