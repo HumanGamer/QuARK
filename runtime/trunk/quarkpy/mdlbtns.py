@@ -97,7 +97,7 @@ def dropitemsnow(editor, newlist, text=Strings[544], center="S"):
             incompatible_items = 1
         if item.type != ":mc" and incompatible_items == 1:
             msg = Strings[-107]
-            quarkx.msgbox(msg, MT_ERROR, MB_OK)
+            quarkx.msgbox(msg, qutils.MT_ERROR, qutils.MB_OK)
             return
 
     if incompatible_items == 0:
@@ -157,7 +157,7 @@ def dropitemsnow(editor, newlist, text=Strings[544], center="S"):
         if nparent is None:
             undo.cancel()    # not required, but it's better when it's done
             msg = Strings[-151]
-            quarkx.msgbox(msg, MT_ERROR, MB_OK)
+            quarkx.msgbox(msg, qutils.MT_ERROR, qutils.MB_OK)
             return
         if not newitem.isallowedparent(nparent):
             undo.cancel()    # not required, but it's better when it's done
@@ -693,7 +693,7 @@ def moveselection(editor, text, offset=None, matrix=None, origin=None, inflate=N
         #
         # No selection.
         #
-        quarkx.msgbox(Strings[222], MT_ERROR, MB_OK)
+        quarkx.msgbox(Strings[222], qutils.MT_ERROR, qutils.MB_OK)
 
 
 def ForceToGrid(editor, grid, sellist):
