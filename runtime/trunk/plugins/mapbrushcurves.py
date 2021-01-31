@@ -52,6 +52,8 @@ from quarkpy.perspective import *
 #import quarkpy.mapbezier
 #from quarkpy.b2utils import *
 
+halfpi = math.pi/2.0
+
 #############################
 #
 #  MAJOR SECTIONS
@@ -66,7 +68,7 @@ from quarkpy.perspective import *
 
 #
 # the underlying equation is matrix*invect=outvect
-#   as colums, uses tr(M*N)=tr(M)*tr(N) transpositionfact
+#   as columns, uses tr(M*N)=tr(M)*tr(N) transpositionfact
 #
 def matrixFromMap(v1, v2, v3, w1, w2, w3):
     invect = quarkx.matrix(v1,v2,v3)
@@ -107,13 +109,12 @@ def intersectionPoint2d(p0, d0, p1, d1):
 #
 # n line-segments are generated, approximating an ellipse
 #   nested in the corner formed by (p1, p0) and (p2, p0),
-#   lines inside, touchning at corners.
+#   lines inside, touching at corners.
 #
 # derived from a suggestion by Alex Haarer.
 #
 def innerArcLine(n, p0, p1, p2):
     mat = matrix_u_v(p0-p1, p2-p1)
-    halfpi = math.pi/2.0
     points = [quarkx.vect(1,0,0)]
     for i in range(n):
         a = halfpi*(i+1)/n
@@ -128,7 +129,6 @@ def innerArcLine(n, p0, p1, p2):
 #
 def outerArcLine(n, p0, p1, p2):
     mat = matrix_u_v(p0-p1, p2-p1)
-    halfpi = math.pi/2.0
     points = []
     prev = quarkx.vect(1,0,0)
     prevdir = quarkx.vect(-1,0,0)

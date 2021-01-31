@@ -14,6 +14,8 @@ import math
 import quarkx
 from maputils import *
 
+halfpi = math.pi/2.0
+
 #
 # Here should go things of general utility for managing
 #  quadratic bezier patches
@@ -531,7 +533,6 @@ def subdivideColumns(n, cp, func=None):
 #
 def arcSubdivideLine(n, p0, p1, p2):
     mat = matrix_u_v(p0-p1, p2-p1)
-    halfpi = math.pi/2.0
     points = [quarkx.vect(1,0,0)]
     last = points[0]
     lastdir = quarkx.vect(-1,0,0)
