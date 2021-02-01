@@ -215,9 +215,12 @@ end;
 
 {$IFDEF PyProfiling}
 Procedure LogProfiling(const Location: String; const PythonStackTrace: TStringList);
+var
+  Timestamp: TDateTime;
 begin
+  Timestamp := Now;
   {$I-}
-  WriteLn(LogProfileFile, Format('%s: %s', [Location, PythonStackTrace.Text]));
+  WriteLn(LogProfileFile, Format('[%s %s] Thread %d, Location %s:'#13#10'Python stack trace:'#13#10'%s', [DateToStr(Timestamp), TimeToStr(Timestamp), GetCurrentThreadId, Location, PythonStackTrace.Text]));
   Flush(LogProfileFile);
   {$I+}
 end;

@@ -2756,6 +2756,9 @@ var
  V: TVect;
 begin
  Result:=Nil;
+ {$IFDEF PyProfiling}
+ LogProfiling('PyMapView, mDrawGrid', PythonGetStackTrace());
+ {$ENDIF}
  try
   flags:=0;
   color2:=0;
@@ -2784,6 +2787,9 @@ var
  S: String;
 begin
  Result:=Nil;
+ {$IFDEF PyProfiling}
+ LogProfiling('PyMapView, mSolidImage', PythonGetStackTrace());
+ {$ENDIF}
  try
   AltTexSrc:=Nil;
   if not PyArg_ParseTupleX(args, '|O', [@AltTexSrc]) then
@@ -2846,6 +2852,9 @@ var
  R: TRect;
 begin
  Result:=Nil;
+ {$IFDEF PyProfiling}
+ LogProfiling('PyMapView, mInvalidateRect', PythonGetStackTrace());
+ {$ENDIF}
  try
   if not PyArg_ParseTupleX(args, 'iiii', [@P1.X, @P1.Y, @P2.X, @P2.Y]) then
    Exit;
