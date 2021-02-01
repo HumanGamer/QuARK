@@ -19,7 +19,6 @@ import qhandles
 import qmacro
 import time
 
-import qbasemgr
 from qeditor import *
 from qdictionnary import Strings
 
