@@ -17,7 +17,6 @@ import qtoolbar
 import qmenu
 from qdictionnary import Strings
 from qeditor import *
-import quarkpy.qhandles # To add change of "Floating 3D view" mouse control between Map and Model editors.
 
 
 ModesHint = "|Each view can be set to one of three rendering modes :\n\nWireframe : all polygons are drawn as lines, entities as points, etc.\n\nSolid : each polygon is drawn in a single, solid color.\n\nTextured : polygon and models are displayed with their texture."
@@ -252,7 +251,8 @@ class BaseLayout:
         ### But only for the Model Editor, so we first test for that.
         if self.editor.MODE == SS_MODEL:
             view.viewtype = "editor"
-            quarkpy.qhandles.flat3Dview(view, self)
+            import qhandles # To add change of "Floating 3D view" mouse control between Map and Model editors.
+            qhandles.flat3Dview(view, self)
             del view.info["noclick"]
             view.info["viewname"]="3Dwindow"
             import mdlmgr
@@ -326,7 +326,8 @@ class BaseLayout:
         ### But only for the Model Editor, so we first test for that.
         if self.editor.MODE == SS_MODEL:
             view.viewtype = "editor"
-            quarkpy.qhandles.flat3Dview(view, self)
+            import qhandles # To add change of "Floating 3D view" mouse control between Map and Model editors.
+            qhandles.flat3Dview(view, self)
             del view.info["noclick"]
             view.info["viewname"]="3Dwindow"
             import mdlmgr
