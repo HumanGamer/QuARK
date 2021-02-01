@@ -473,6 +473,7 @@ PyCFunction_New: function (const Def: TyMethodDef; self: PyObject) : PyObject; c
 //Py_True: function : PyObject; cdecl;
 //PyBool_FromLong: function (Value: LongInt) : PyObject; cdecl;
 
+//Note: Added in Python 2.3.5
 PyGC_Collect: procedure; cdecl;
 
 {$IFDEF PyProfiling}
@@ -593,9 +594,7 @@ type
 
 var
   PyThreadState_Get: function : PyThreadState; cdecl;
-  {$IFDEF PYTHON23}
-  PyCode_Addr2Line: function(co: PyCodeObject; addrq: Integer) : Integer; cdecl;
-  {$ENDIF}
+  PyCode_Addr2Line: function(co: PyCodeObject; addrq: Integer) : Integer; cdecl; //Note: Added in Python 2.3.0
 {$ENDIF}
 
  {-------------------}
