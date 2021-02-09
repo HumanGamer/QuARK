@@ -623,7 +623,7 @@ begin
   end;
   if not PackageSelected then
   begin
-    MessageBox(0, PChar('No packages selected. Please first select packages to install, or click "Cancel".'), PChar('QuArK'), MB_TASKMODAL or MB_ICONEXCLAMATION or MB_OK);
+    MessageBox(0, PChar('No packages selected. Please first select packages to install, or click "Cancel".'), 'QuArK', MB_TASKMODAL or MB_ICONEXCLAMATION or MB_OK);
     Exit;
   end;
   Close;
