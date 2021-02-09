@@ -944,7 +944,7 @@ Strings = {
     5687: "* The image will be converted to the palette of %s.\n",
     5688: "Invalid texture extension in Defaults.qrk",
     5689: "This image has got no palette : it is a true-color 24-bit image",
-    5690: "Welcome to QuArK!\n\nThis appears to be the first time you have started QuArK. You can press F1 at any time to get help.\n\nPlease report any bugs you might find to the QuArK development team at http://quark.sourceforge.net/forums/\nThank you!",
+    5690: "Welcome to QuArK!\n\nYou can press F1 at any time to get help, and find information about set-up and usage in our Infobase.\n\nPlease report any bugs you might encounter to the QuArK development team at http://quark.sourceforge.net/forums/\nThank you, and have fun!",
     5691: "Invalid Sprite File!",
     5692: "The file %s is not compressed using stored, shrunk, imploded and deflated methods.\n\nLoading Aborted! (%d)",
     5693: "'%s' expected in %s",
