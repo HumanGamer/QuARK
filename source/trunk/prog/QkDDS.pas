@@ -231,14 +231,14 @@ begin
         if ilTexImage(Width, Height, 1, ImageBpp, ImageFormat, IL_UNSIGNED_BYTE, nil)=IL_FALSE then
         begin
           ilDeleteImages(1, @DevILImage);
-          LogAndRaiseError(FmtLoadStr1(5739, [FormatName, 'ilTexImage']));
+          LogAndRaiseError(FmtLoadStr1(5721, [FormatName, 'ilTexImage']));
         end;
         CheckDevILError(ilGetError);
 
         if ilClearImage=IL_FALSE then
         begin
           ilDeleteImages(1, @DevILImage);
-          LogAndRaiseError(FmtLoadStr1(5739, [FormatName, 'ilClearImage']));
+          LogAndRaiseError(FmtLoadStr1(5721, [FormatName, 'ilClearImage']));
         end;
         CheckDevILError(ilGetError);
 
@@ -393,7 +393,7 @@ begin
       if ilSave(IL_TGA, PChar(DumpFileName+'.tga'))=IL_FALSE then
       begin
         ilDeleteImages(1, @DevILImage);
-        LogAndRaiseError(FmtLoadStr1(5739, ['ilSave']));
+        LogAndRaiseError(FmtLoadStr1(5721, [FormatName, 'ilSave']));
       end;
 
       ilDeleteImages(1, @DevILImage);
@@ -435,7 +435,7 @@ begin
           if Windows.CreateProcess(PChar(ConcatPaths([GetQPath(pQuArKDll), 'nvdxt.exe'])), PChar('nvdxt.exe -rescale nearest -file "'+DumpFileName+'.tga" -output "'+DumpFileName+'.dds" -@@@@8,16,24,32! -'+TexFormatParameter+' -'+QualityParameter), nil, nil, false, 0, nil, PChar(GetQPath(pQuArKDll)), NVDXTStartupInfo, NVDXTProcessInformation)=false then //@@@-8, -16, -24, -32 bits!
           begin
             LogWindowsError(GetLastError(), 'CreateProcess(nvdxt.exe)');
-            LogAndRaiseError(FmtLoadStr1(5739, [FormatName, 'CreateProcess']));
+            LogAndRaiseError(FmtLoadStr1(5721, [FormatName, 'CreateProcess']));
           end;
           CloseHandle(NVDXTProcessInformation.hThread);
 
@@ -443,14 +443,14 @@ begin
           if WaitForSingleObject(NVDXTProcessInformation.hProcess, INFINITE)=WAIT_FAILED then
           begin
             LogWindowsError(GetLastError(), 'WaitForSingleObject(NVDXT)');
-            LogAndRaiseError(FmtLoadStr1(5739, [FormatName, 'WaitForSingleObject']));
+            LogAndRaiseError(FmtLoadStr1(5721, [FormatName, 'WaitForSingleObject']));
           end;
         finally
           CloseHandle(NVDXTProcessInformation.hProcess);
         end;
       finally
         if DeleteFile(DumpFileName+'.tga')=false then
-          LogAndRaiseError(FmtLoadStr1(5739, [FormatName, 'DeleteFile(tga)']));
+          LogAndRaiseError(FmtLoadStr1(5721, [FormatName, 'DeleteFile(tga)']));
       end;
 
       //DanielPharos: Now let's read in that DDS file and be done!
@@ -461,7 +461,7 @@ begin
         DumpBuffer.Free;
       end;
       if DeleteFile(DumpFileName+'.dds')=false then
-        LogAndRaiseError(FmtLoadStr1(5739, [FormatName, 'DeleteFile(dds)']));
+        LogAndRaiseError(FmtLoadStr1(5721, [FormatName, 'DeleteFile(dds)']));
 
     end
     else

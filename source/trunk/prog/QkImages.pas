@@ -279,7 +279,7 @@ begin
   if (not DevILLoaded) then
   begin
     if not LoadDevIL then
-      Raise EErrorFmt(5730, ['DevIL library', GetLastError]);
+      Raise EErrorFmt(5730, ['DevIL', GetLastError]);
     DevILLoaded:=true;
   end;
 
@@ -502,7 +502,7 @@ begin
   if (not DevILLoaded) then
   begin
     if not LoadDevIL then
-      Raise EErrorFmt(5730, ['DevIL library', GetLastError]);
+      Raise EErrorFmt(5730, ['DevIL', GetLastError]);
     DevILLoaded:=true;
   end;
 
@@ -542,11 +542,11 @@ begin
       CheckDevILError(ilGetError);
 
       if ilTexImage(Width, Height, 1, ImageBpp, ImageFormat, IL_UNSIGNED_BYTE, nil)=IL_FALSE then
-        LogAndRaiseError(FmtLoadStr1(5739, [FormatName, 'ilTexImage']));
+        LogAndRaiseError(FmtLoadStr1(5721, [FormatName, 'ilTexImage']));
       CheckDevILError(ilGetError);
 
       if ilClearImage=IL_FALSE then
-        LogAndRaiseError(FmtLoadStr1(5739, [FormatName, 'ilClearImage']));
+        LogAndRaiseError(FmtLoadStr1(5721, [FormatName, 'ilClearImage']));
       CheckDevILError(ilGetError);
 
       if PSD.Format = psf8bpp then
@@ -711,7 +711,7 @@ begin
   if (not FreeImageLoaded) then
   begin
     if not LoadFreeImage then
-      Raise EErrorFmt(5730, ['FreeImage library', GetLastError]);
+      Raise EErrorFmt(5730, ['FreeImage', GetLastError]);
     FreeImageLoaded:=true;
   end;
 
@@ -901,7 +901,7 @@ begin
   if (not FreeImageLoaded) then
   begin
     if not LoadFreeImage then
-      Raise EErrorFmt(5730, ['FreeImage library', GetLastError]);
+      Raise EErrorFmt(5730, ['FreeImage', GetLastError]);
     FreeImageLoaded:=true;
   end;
 
@@ -932,7 +932,7 @@ begin
     //FIImage:=FreeImage_Allocate(Width, Height, FIBpp, FI_RGBA_RED_MASK, FI_RGBA_GREEN_MASK, FI_RGBA_BLUE_MASK);
     FIImage:=FreeImage_Allocate(Width, Height, FIBpp, 0, 0, 0);
     if FIImage=nil then
-      LogAndRaiseError(FmtLoadStr1(5739, [FormatName, 'FreeImage_Allocate']));
+      LogAndRaiseError(FmtLoadStr1(5721, [FormatName, 'FreeImage_Allocate']));
 
     if PSD.Format = psf8bpp then
     begin
@@ -1035,12 +1035,12 @@ begin
 
   FIBuffer := FreeImage_OpenMemory(nil, 0);
   if FIBuffer = nil then
-    LogAndRaiseError(FmtLoadStr1(5739, [FormatName, 'FreeImage_OpenMemory']));
+    LogAndRaiseError(FmtLoadStr1(5721, [FormatName, 'FreeImage_OpenMemory']));
 
   if FreeImage_SaveToMemory(FileTypeFreeImage, FIImage, FIBuffer, SaveFileFreeImageSettings)=false then
   begin
     FreeImage_CloseMemory(FIBuffer);
-    LogAndRaiseError(FmtLoadStr1(5739, [FormatName, 'FreeImage_SaveToMemory']));
+    LogAndRaiseError(FmtLoadStr1(5721, [FormatName, 'FreeImage_SaveToMemory']));
   end;
   FreeImage_Unload(FIImage); //FIXME: Put in try..finally
 
@@ -1049,13 +1049,13 @@ begin
   if FreeImage_SeekMemory(FIBuffer, 0, SEEK_SET)=false then
   begin
     FreeImage_CloseMemory(FIBuffer);
-    LogAndRaiseError(FmtLoadStr1(5739, [FormatName, 'FreeImage_SeekMemory']));
+    LogAndRaiseError(FmtLoadStr1(5721, [FormatName, 'FreeImage_SeekMemory']));
   end;
   OutputSize:=FreeImage_ReadMemory(Pointer(RawBuffer), 1, OutputSize, FIBuffer);
   if OutputSize=0 then
   begin
     FreeImage_CloseMemory(FIBuffer);
-    LogAndRaiseError(FmtLoadStr1(5739, [FormatName, 'FreeImage_ReadMemory']));
+    LogAndRaiseError(FmtLoadStr1(5721, [FormatName, 'FreeImage_ReadMemory']));
   end;
   FreeImage_CloseMemory(FIBuffer); //FIXME: Put in try..finally
 

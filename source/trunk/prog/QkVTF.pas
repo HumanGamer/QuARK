@@ -331,7 +331,7 @@ begin
       if not VTFLoaded then
       begin
         if not LoadVTFLib then
-          Raise EErrorFmt(5718, [GetLastError]);
+          Raise EErrorFmt(5730, ['VTFLib', GetLastError]);
         VTFLoaded:=true;
       end;
 
