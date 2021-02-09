@@ -12,6 +12,7 @@ import quarkx
 from qdictionnary import Strings
 import qutils
 from mdlutils import *
+import os
 
 #
 # Drag-and-drop functions
@@ -128,32 +129,22 @@ def dropitemsnow(editor, newlist, text=Strings[544], center="S"):
     for newitem in newlist:
         nparent, nib = droptarget(editor, newitem)
         if nparent is None and newitem.type == ".wl":
-            import os
             image_type_list = ['.tga', '.dds', '.png', '.jpg', '.bmp', '.ftx', '.vtf', '.m8']  # Order from best to worst (personal judgement).
-            try:
-                for type in image_type_list:
-                    if os.path.exists(newitem['path'] + "/" + newitem.shortname + type):
-                        nparent = editor.Root.currentcomponent.dictitems['Skins:sg']
-                        skin = quarkx.newobj(newitem.shortname + type)
-                        image = quarkx.openfileobj(newitem['path'] + "/" + newitem.shortname + type)
-                        skin['Image1'] = image.dictspec['Image1']
-                        skin['Size'] = image.dictspec['Size']
-                        newitem = skin
-                        break
-            except:
+            for type in image_type_list:
                 try:
-                    path = quarkx.setupsubset(SS_GAMES, 'ModelEditor')['Directory']
-                    for type in image_type_list:
-                        if os.path.exists(path + "/" + newitem.shortname + type):
-                            nparent = editor.Root.currentcomponent.dictitems['Skins:sg']
-                            skin = quarkx.newobj(newitem.shortname + type)
-                            image = quarkx.openfileobj(path + "/" + newitem.shortname + type)
-                            skin['Image1'] = image.dictspec['Image1']
-                            skin['Size'] = image.dictspec['Size']
-                            newitem = skin
-                            break
+                    path = newitem['path']
                 except:
-                    pass
+                    path = None
+                if path is None:
+                    path = "."
+                if os.path.exists(path + "/" + newitem.shortname + type):
+                    nparent = editor.Root.currentcomponent.dictitems['Skins:sg']
+                    skin = quarkx.newobj(newitem.shortname + type)
+                    image = quarkx.openfileobj(path + "/" + newitem.shortname + type)
+                    skin['Image1'] = image.dictspec['Image1']
+                    skin['Size'] = image.dictspec['Size']
+                    newitem = skin
+                    break
         if nparent is None:
             undo.cancel()    # not required, but it's better when it's done
             msg = Strings[-151]
