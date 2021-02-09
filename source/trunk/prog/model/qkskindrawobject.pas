@@ -36,7 +36,7 @@ type
 
 implementation
 
-uses QkModelRoot, QkComponent, QkObjectClassList;
+uses QkModelRoot, QkComponent, QkObjectClassList, QkExceptions;
 
 function QSkinDrawObject.IsAllowedParent(Parent: QObject) : Boolean;
 begin
@@ -68,79 +68,81 @@ begin
   result:=':sdo';
 end;
 
-// Modified from QuArK 4.08b source (qmmdl_?.pas) - i knew that would
-// come in useful somewhere...
-
 type
-  TTriPoint = array[0..2] of tpoint;
-  PTriTable = ^TTriPoint;
+  TTri = array[0..2] of TVect;
+  PTri = ^TTri;
 
-Function ReadTrianglePosition(Comp: QComponent; var Tris: PTriTable): Integer;
+function GetSkinTriangles(Comp: QComponent; var Tris: PTri): Integer;
 var
-  I, j: Integer;
+  i, j: Integer;
   skin_dims: array[1..2] of single;
   numtris: Integer;
   triangles: PComponentTris;
-  aTris: PTriTable;
+  aTris: PTri;
 begin
   comp.GetFloatsSpec('skinsize', skin_dims);
   numtris:=comp.Triangles(triangles);
-  GetMem(Tris, sizeof(TTriPoint)*NumTris);
+  GetMem(Tris, sizeof(TTri)*NumTris);
   aTris:=Tris;
   result:=numtris;
-  for I:=0 to numtris-1 do begin
-    for j:=0 to 2 do begin
+  for i:=0 to numtris-1 do
+  begin
+    for j:=0 to 2 do
+    begin
       aTris^[j].X:=Triangles^[j].S;
       aTris^[j].Y:=Triangles^[j].T;
+      aTris^[j].Z:=0;
     end;
     inc(aTris);
     inc(Triangles);
   end;
 end;
 
-type
+{type
   TTableauInt = Integer;
-  PTableauInt = ^TTableauInt;
+  PTableauInt = ^TTableauInt;}
 
 procedure QSkinDrawObject.Dessiner;
 var
-  Tris, Tris_O: PTriTable;
+  Tris, aTris: PTri;
   I, J: Integer;
   numtris: integer;
   c: qcomponent;
-  va: tvect;
   pa, pa_o: PPointProj;
 begin
+  //FIXME: Is this code dead? It's never called from QkComponent!
+  //In fact, it seems to ONLY be used to retrieve the texture size from Python!
+  //I think this entire class can be REMOVED!
   if not(CCoord is T2DCoordinates) then exit;
   if not (md2dOnly in g_DrawInfo.ModeDessin) then exit;
   c:=QComponent(Self.FParent);
   if (c = nil) or not(c is QComponent) then
-    Raise Exception.Create('QSkinDrawObject.Dessiner - Internal Error: C');
-  numtris:=ReadTrianglePosition(c, Tris_O);
+    Raise InternalE('QSkinDrawObject.Dessiner: C is not a QComponent');
+  //FIXME: CouleurDessin(C1);
+  numtris:=GetSkinTriangles(c, Tris);
   //  draw 'c.currentskin' on canvas
     { don't know how }
   //  draw net connecting vertices
   try
-    tris:=tris_o;
+    aTris:=Tris;
     getmem(pa_o, sizeof(TPointProj)*3);
     try
-      for i:=0 to numtris-1 do begin
+      for i:=0 to numtris-1 do
+      begin
         pa:=pa_o;
-        for j:=0 to 2 do begin
-          va.x:=tris^[j].X;
-          va.y:=tris^[j].Y;
-          va.z:=0;
-          pA^:=CCoord.Proj(vA);
+        for j:=0 to 2 do
+        begin
+          pA^:=CCoord.Proj(aTris^[j]);
           inc(pa);
         end;
         CCoord.Polygon95f(pa_o^,3, false);
-        inc(tris);
+        inc(aTris);
       end;
     finally
       freemem(pa_o);
     end;
   finally
-    FreeMem(Tris_o);
+    FreeMem(Tris);
   end;
 end;
 
