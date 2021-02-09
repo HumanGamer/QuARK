@@ -4227,7 +4227,7 @@ begin
        4: Result.Mode:=trmSolid;
        5: Result.Mode:=trmAdditive;
        else
-         Log(LOG_WARNING, 'Invalid texture render mode; defaulting to normal.'); //FIXME: Move to dict!
+         Log(LOG_WARNING, LoadStr1(5817));
          Result.Mode:=trmNormal;
        end;
        if (Result.Mode=trmColor) or (Result.Mode=trmTexture) or (Result.Mode=trmSolid) or (Result.Mode=trmAdditive) then

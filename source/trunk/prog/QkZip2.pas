@@ -375,7 +375,7 @@ begin
   try
     err:=UnZipFile(Ref^.Self, mem, Ref^.Position);
     if err<>0 then
-      raise Exception.CreateFmt('Error decompressing file (%d)', [err]); //FIXME: Move to DICT!
+      raise EErrorFmt(5815, [err]);
     Result:=mem.Size;
     mem.Position:=0;
     S:=mem;

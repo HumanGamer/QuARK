@@ -956,7 +956,7 @@ Strings = {
     5699: "(complex)",
     #5700: "%s or %s",
     5701: "The configuration-setting '.MAP comments prefix' for %s is empty.\nPlease correct this, or set the \"Don't write comments in .map files\" in Configuration->Map->Options.",
-    5702: "Unknown map format: %s",
+    5702: "Unknown map format: %s\nDefaulting to Classic Quake",
 
     # alexander would like to reserve 5703 .. 5729 for HL2 :-)
     5703: "%s contains an unsupported format (width %d, height %d, format %d)",
@@ -974,12 +974,12 @@ Strings = {
     5715: "VMF file",
     5716: "VMT file",
     5717: "Syntax error in Material file %s, line %d",
-    #5718: "reserved for hl2",
+    5718: "Some time has passed, but QuArK cannot detect Steam as having started up...\nPlease start Steam manually now (if it has not yet done so) and press YES when you are logged in. Otherwise, press NO.",
     #5719: "reserved for hl2",
     5720: "Unable to load %s file. Call to %s failed.",
     5721: "Unable to save %s file. Call to %s failed.",
     5722: "Unable to load %s file. Call to %s failed.\nError: %s",
-    5723: "Unable to save %F file. Call to %s failed.\nError: %s",
+    5723: "Unable to save %s file. Call to %s failed.\nError: %s",
     5724: "Number of bytes read does not equal the file size",
     5725: "Root element not found",
     #5726: "reserved for hl2",
@@ -996,7 +996,7 @@ Strings = {
     5736: "Unable to load %s file. Call to %s failed. Please make sure the file is a valid %s file, and not damaged or corrupt.",
     5737: "Unable to load %s file. Picture is too large.",
     5738: "Unable to load %s file. Invalid palette.",
-    #5739: "Unable to save %s file. Call to %s failed.",
+    5739: "Unable to save %s file. %s not found.",
     5740: "Loading %s library from file %s...",
     5741: "Unable to load the %s library",
     5742: "%s library version mismatch!",
@@ -1075,6 +1075,10 @@ Strings = {
     5812: "The command line for tool %i is not set. Do you want to enter the command line now ?",
     5813: "Unable to load %s file. No valid loading library selected.",
     5814: "Unable to save %s file. No valid saving library selected.",
+    5815: "Error decompressing file (%d)",
+    5816: "Problem with texture scale of face %d in brush %d",
+    5817: "Invalid texture render mode\nDefaulting to normal",
+    5818: "Unable to load pixelset from %s",
 
     # DanielPharos would like to reserve 6000 .. 6099 for all renderers
     6000: "Unable to create SceneObject//%s",

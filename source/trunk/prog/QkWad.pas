@@ -638,7 +638,7 @@ begin
  try
    QObj:=Q.LoadPixelSet;
  except
-   Log(LOG_WARNING,'Unable to load pixelset from '+Q.GetFullName()); //FIXME: Move to dict!
+   Log(LOG_WARNING, LoadStr1(5818), [Q.GetFullName()]);
    Exit;
  end;
  if not (QObj is QTextureFile) then

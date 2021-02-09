@@ -1836,7 +1836,7 @@ begin
            4: Model^.ModelRenderMode:=trmSolid;
            5: Model^.ModelRenderMode:=trmAdditive;
            else
-             Log(LOG_WARNING, 'Invalid texture render mode; defaulting to normal.'); //FIXME: Move to dict!
+             Log(LOG_WARNING, LoadStr1(5817));
              Model^.ModelRenderMode:=trmNormal;
            end;
 

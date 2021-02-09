@@ -402,7 +402,7 @@ begin
       try
         //DanielPharos: Now convert the TGA to DDS with NVIDIA's DDS tool...
         if FileExists(ConcatPaths([GetQPath(pQuArKDll), 'nvdxt.exe']))=false then
-          LogAndRaiseError('Unable to save DDS file. NVDXT not found.'); //FIXME: Move to dict!
+          LogAndRaiseError(FmtLoadStr1(5739, [FormatName, 'NVDXT']));
 
         case TexFormat of
         0: TexFormatParameter:='dxt1c';

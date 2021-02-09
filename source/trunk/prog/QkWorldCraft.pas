@@ -325,7 +325,7 @@ var
      Params[4]:=OldTex33.scale[0];
      Params[5]:=OldTex33.scale[1];
      if not WC22Params(Surface, Params, UAxis, VAxis , UShift, VShift) then
-       g_MapError.AddText('Problem with texture scale of face '+IntToStr(FaceNum)+ ' in brush '+IntToStr(BrushNum)); //FIXME: Move to dict!
+       g_MapError.AddText(Format(LoadStr1(5816), [FaceNum, BrushNum]));
    end;
 
    if RMFVersion >= 0.7 then

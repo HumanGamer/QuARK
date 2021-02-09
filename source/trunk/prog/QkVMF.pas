@@ -425,7 +425,7 @@ expected one.
     end; // side attributes
 
     if not WC22Params(Surface, Params, UAxis, VAxis, UShift, VShift) then
-      g_MapError.AddText('Problem with texture scale of face '+IntToStr(FaceNum)+ ' in brush '+IntToStr(BrushNum)); //FIXME: Move to dict!
+      g_MapError.AddText(Format(LoadStr1(5816), [FaceNum, BrushNum]));
 
     if side_id<>'' then
       Surface.Specifics.Values['id']:=side_id;

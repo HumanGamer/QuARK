@@ -194,7 +194,7 @@ begin
   else if StrComp(S, 'HL2')              = 0 then Result := HL2Type
   else
   begin
-    Log(LOG_WARNING,LoadStr1(5702)+'\nDefaulting to Classic Quake',[S]); //@MOVE TO DICT!
+    Log(LOG_WARNING, LoadStr1(5702), [S]);
     //Raise EErrorFmt(5702, [S]);
     Result:=CQType
   end;
