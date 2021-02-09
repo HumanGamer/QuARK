@@ -53,7 +53,7 @@ const
   LOG_VERBOSE = 40;
 
 {$IFDEF PyProfiling}
-Procedure LogProfiling(const Location: String; const PythonStackTrace: TStringList);
+Procedure LogProfiling(const Location: String; const Args: array of String; const PythonStackTrace: TStringList);
 
 const
   LOG_PROFILE_FILENAME = 'PROFILING.LOG';
@@ -214,13 +214,37 @@ begin
 end;
 
 {$IFDEF PyProfiling}
-Procedure LogProfiling(const Location: String; const PythonStackTrace: TStringList);
+//Based on: https://stackoverflow.com/a/46523477
+function JoinArgs(const s: array of string): string;
+var
+  i, c: Integer;
+  p: PChar;
+begin
+  c := 0;
+  for i := 0 to High(s) do
+    Inc(c, Length(s[i]));
+  SetLength(Result, c + High(s));
+  p := PChar(Result);
+  for i := 0 to High(s) do begin
+    if i > 0 then begin
+      p^ := ',';
+      Inc(p);
+    end;
+    Move(PChar(s[i])^, p^, SizeOf(Char)*Length(s[i]));
+    Inc(p, Length(s[i]));
+  end;
+end;
+
+Procedure LogProfiling(const Location: String; const Args: array of String; const PythonStackTrace: TStringList);
 var
   Timestamp: TDateTime;
 begin
   Timestamp := Now;
   {$I-}
-  WriteLn(LogProfileFile, Format('[%s %s] Thread %d, Location %s:'#13#10'Python stack trace:'#13#10'%s', [DateToStr(Timestamp), TimeToStr(Timestamp), GetCurrentThreadId, Location, PythonStackTrace.Text]));
+  if PythonStackTrace<>nil then
+   WriteLn(LogProfileFile, Format('[%s %s] Thread %d, Location %s'#13#10'Arguments: %s'#13#10'Python stack trace:'#13#10'%s', [DateToStr(Timestamp), TimeToStr(Timestamp), GetCurrentThreadId, Location, JoinArgs(Args), PythonStackTrace.Text]))
+  else
+   WriteLn(LogProfileFile, Format('[%s %s] Thread %d, Location %s'#13#10'Arguments: %s'#13#10, [DateToStr(Timestamp), TimeToStr(Timestamp), GetCurrentThreadId, Location, JoinArgs(Args)]));
   Flush(LogProfileFile);
   {$I+}
 end;

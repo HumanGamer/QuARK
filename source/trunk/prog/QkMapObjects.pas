@@ -2075,6 +2075,9 @@ var
  C: TColor;
  IsRestrictor: Boolean;
 begin
+ {$IFDEF PyProfiling}
+ LogProfiling('TTreeMapGroup, Dessiner', ['Scene'], nil);
+ {$ENDIF}
  NewPen:=0;
  DeletePen:=0;
  if g_DrawInfo.GreyBrush <> 0 then

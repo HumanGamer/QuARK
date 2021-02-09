@@ -2332,7 +2332,7 @@ var
 begin
  Result:=Nil;
  {$IFDEF PyProfiling}
- LogProfiling('PyMapView, mDrawMap', PythonGetStackTrace());
+ LogProfiling('PyMapView, mDrawMap', [self.ob_type.tp_name, args.ob_type.tp_name], PythonGetStackTrace());
  {$ENDIF}
  try
   flags:=0;
@@ -2757,7 +2757,7 @@ var
 begin
  Result:=Nil;
  {$IFDEF PyProfiling}
- LogProfiling('PyMapView, mDrawGrid', PythonGetStackTrace());
+ LogProfiling('PyMapView, mDrawGrid', [self.ob_type.tp_name, args.ob_type.tp_name], PythonGetStackTrace());
  {$ENDIF}
  try
   flags:=0;
@@ -2788,7 +2788,7 @@ var
 begin
  Result:=Nil;
  {$IFDEF PyProfiling}
- LogProfiling('PyMapView, mSolidImage', PythonGetStackTrace());
+ LogProfiling('PyMapView, mSolidImage', [self.ob_type.tp_name, args.ob_type.tp_name], PythonGetStackTrace());
  {$ENDIF}
  try
   AltTexSrc:=Nil;
@@ -2853,7 +2853,7 @@ var
 begin
  Result:=Nil;
  {$IFDEF PyProfiling}
- LogProfiling('PyMapView, mInvalidateRect', PythonGetStackTrace());
+ LogProfiling('PyMapView, mInvalidateRect', [self.ob_type.tp_name, args.ob_type.tp_name], PythonGetStackTrace());
  {$ENDIF}
  try
   if not PyArg_ParseTupleX(args, 'iiii', [@P1.X, @P1.Y, @P2.X, @P2.Y]) then

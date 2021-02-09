@@ -125,7 +125,7 @@ procedure ClearWireframeCache;
 
 implementation
 
-uses QkQuakeCtx, QkUnknown, PyObjects, Quarkx;
+uses QkQuakeCtx, QkUnknown, PyObjects, Quarkx{$IFDEF PyProfiling}, Logging{$ENDIF};
 
  {------------------------}
 
@@ -162,6 +162,9 @@ end;*)
 
 procedure Q3DObject.Dessiner;
 begin
+ {$IFDEF PyProfiling}
+ LogProfiling('Q3DObject, Dessiner', [], nil);
+ {$ENDIF}
 end;
 
 procedure Q3DObject.PreDessinerSel;
@@ -174,6 +177,9 @@ end;}
 
 procedure Q3DObject.AddTo3DScene(Scene: TObject);
 begin
+ {$IFDEF PyProfiling}
+ LogProfiling('Q3DObject, AddTo3DScene', ['Scene'], nil);
+ {$ENDIF}
 end;
 
 function Q3DObject.GetOrigin;
