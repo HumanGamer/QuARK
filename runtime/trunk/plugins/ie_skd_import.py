@@ -15,14 +15,13 @@ Info = {
    "author e-mail": "cdunde@sbcglobal.net",
    "quark":         "Version 6.6.0 Beta 4" }
 
-import struct, sys, os, time, math
+import struct, os, math
 import quarkx
 import quarkpy.qutils
 from types import *
 import quarkpy.mdlutils
 import ie_utils
 from ie_utils import tobj
-from quarkpy.qdictionnary import Strings
 from quarkpy.qeditor import MapColor # Strictly needed for QuArK bones MapColor call.
 from quarkpy.qeditor import matrix_rot_x
 
@@ -553,7 +552,7 @@ class skd_obj:
         self.ComponentList = []
 
     def load_mesh(self, file):
-        global file_version, progressbar, Strings
+        global file_version, progressbar
         # file.name is the model file & full path, ex: C:\MOHAA\Main\models\furniture\chairs\roundedchair.skd
         # FullPathName is the full path and the full file name being imported with forward slashes.
         FullPathName = file.name.replace("\\", "/")
@@ -1174,7 +1173,7 @@ class skc_obj:
         self.QuArK_Index2Channels = {}
 
     def load_anim(self, file, Components, QuArK_bones, Exist_Comps, anim_name):
-        global file_version, progressbar, Strings
+        global file_version, progressbar
         # file.name is the model file & full path, ex: C:\MOHAA\Main\models\furniture\chairs\roundedchair.skc
         # FullPathName is the full path and the full file name being imported with forward slashes.
         FullPathName = file.name.replace("\\", "/")
@@ -1554,7 +1553,7 @@ def loadmodel(root, filename, gamename):
     #   for example:  C:\MOHAA\Main\models\furniture\chairs\roundedchair.skd
     #   gamename is None.
 
-    global editor, progressbar, tobj, logging, importername, textlog, Strings
+    global editor, progressbar, tobj, logging, importername, textlog
     import quarkpy.mdleditor
     editor = quarkpy.mdleditor.mdleditor
     # Step 1 to import model from QuArK's Explorer.

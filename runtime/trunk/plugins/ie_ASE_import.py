@@ -18,13 +18,12 @@ Info = {
 # Based on work by Goofos & Plagman:
 # goofos at epruegel.de
 
-import time, os, struct, operator, sys as osSys
+import time, os, struct, sys as osSys
 import quarkx
 from quarkpy.qutils import *
 import ie_utils
 from ie_utils import tobj
 from quarkpy.qdictionnary import Strings
-import quarkpy.dlgclasses
 
 # Globals
 SS_MODEL = 3
@@ -477,6 +476,7 @@ def spawn_main(objects, basepath, filename):
 
 
 def spawn_mesh(obj, basepath, filename, ComponentList, message, CompNbr):
+    global Strings
     # obj = Equivalent to a QuArK component, a mesh.
     # basepath = The full path of the .ase file's location, up to and including the game folder with a forward slash,  / , at the end.
     # filename = The full path and name of the .ase file.

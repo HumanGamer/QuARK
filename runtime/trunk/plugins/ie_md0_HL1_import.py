@@ -15,7 +15,7 @@ Info = {
    "author e-mail": "cdunde@sbcglobal.net",
    "quark":         "Version 6.6.0 Beta 4" }
 
-import struct, sys, os, time, operator, math
+import struct, os, math
 import quarkx
 from types import *
 import quarkpy.mdlutils
@@ -1599,7 +1599,7 @@ class mdl_obj:
 
 
     def load(self, file, folder_name, mdl_name, message):
-        global progressbar, UseName
+        global progressbar, Strings, UseName
         # file = the actual .mdl model file being read in, imported.
         # folder_name = name of the folder the .mdl model file is in.
         # mdl_name = just the basic name of the .mdl file, ex: barney

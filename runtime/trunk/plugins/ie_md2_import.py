@@ -15,7 +15,7 @@ Info = {
    "author e-mail": "cdunde@sbcglobal.net",
    "quark":         "Version 6.6.0 Beta 2" }
 
-import struct, sys, os, time, operator
+import struct, os
 import quarkx
 from types import *
 import ie_utils

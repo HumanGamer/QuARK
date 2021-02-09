@@ -15,14 +15,13 @@ Info = {
    "author e-mail": "cdunde@sbcglobal.net",
    "quark":         "Version 6.6.0 Beta 4" }
 
-import struct, sys, os, time, operator
+import struct, os
 import quarkx
 import quarkpy.qutils
 from types import *
 import quarkpy.mdlutils
 import ie_utils
 from ie_utils import tobj
-from quarkpy.qdictionnary import Strings
 
 # Globals
 logging = 0
@@ -710,7 +709,7 @@ def CreateTagObject(ModelFolder, tagName, curTag):
 # CALL TO IMPORT MESH (.tan) FILE
 ############################
 def load_tan(filename):
-    global progressbar, tobj, logging, Strings
+    global progressbar, tobj, logging
     #read the file in
     file = open(filename, "rb")
     tan = tan_obj()
@@ -742,7 +741,7 @@ def loadmodel(root, filename, gamename, nomessage=0):
     #   for example:  C:\FAKK2\fakk\models\monster\claw\claw.tan
     #   gamename is None.
 
-    global editor, progressbar, tobj, logging, importername, textlog, Strings
+    global editor, progressbar, tobj, logging, importername, textlog
     import quarkpy.mdleditor
     editor = quarkpy.mdleditor.mdleditor
     # Step 1 to import model from QuArK's Explorer.

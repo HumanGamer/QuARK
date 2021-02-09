@@ -15,16 +15,14 @@ Info = {
    "author e-mail": "cdunde@sbcglobal.net",
    "quark":         "Version 6.6.0 Beta 5" }
 
-import struct, sys, os, time, operator, math
+import struct, os, math
 import quarkx
 import quarkpy.qtoolbar
 from quarkpy.qutils import *
 import quarkpy.mdleditor
 from types import *
-import quarkpy.mdlutils
 import ie_utils
 from ie_utils import tobj
-from quarkpy.qdictionnary import Strings
 from quarkpy.qeditor import MapColor # Strictly needed for QuArK bones MapColor call.
 
 # Globals
@@ -2446,7 +2444,7 @@ class mdl_obj: # Done cdunde from -> hlmviewer source file -> studio.h -> studio
 ########################
 # filename = the model file & full path being writen to, ex: C:\Half-Life\valve\models\player\barney\barney.mdl
 def save_mdl(dlg):
-    global tobj, logging, exportername, textlog, Strings, mdl
+    global tobj, logging, exportername, textlog, mdl
 
     logging, tobj, starttime = ie_utils.default_start_logging(exportername, textlog, dlg.filename, "EX") ### Use "EX" for exporter text, "IM" for importer text.
 

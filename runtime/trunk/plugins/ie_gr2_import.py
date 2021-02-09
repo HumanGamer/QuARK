@@ -18,17 +18,14 @@ Info = {
 
 # Python specific modules import.
 import quarkx
-import sys, struct, os, Lib, Lib.base64
+import struct, os, Lib, Lib.base64
 from quarkpy.qutils import *
 from quarkpy.qeditor import MapColor # Strictly needed for QuArK bones MapColor call.from types import *
-import quarkpy.qhandles
-import quarkpy.mdlhandles
 import quarkpy.mdlutils
+import quarkpy.mdleditor
 import ie_utils
-from os import path
 from ie_utils import tobj
 import math
-from math import *
 from quarkpy.qdictionnary import Strings
 
 # Globals
@@ -1179,8 +1176,7 @@ def LoadGR2MSFile(MSfilename):
     return [art_tool, exporter_tool, models, animations, textures, materials, skeletons, vertexdatas, tritopologies, meshes, trackgroups]
 
 def loadmodel(root, filename, gamename, nomessage=0):
-    global editor, used_skin_names
-    import quarkpy.mdleditor
+    global editor, used_skin_names, Strings
     editor = quarkpy.mdleditor.mdleditor
     # Step 1 to import model from QuArK's Explorer.
     if editor is None:

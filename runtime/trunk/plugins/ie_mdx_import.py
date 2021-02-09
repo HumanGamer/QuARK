@@ -15,7 +15,7 @@ Info = {
    "author e-mail": "cdunde@sbcglobal.net",
    "quark":         "Version 6.6.0 Beta 4" }
 
-import struct, sys, os, time, operator
+import struct, os
 import quarkx
 from types import *
 import ie_utils
@@ -304,7 +304,7 @@ class mdx_obj:
 
 
     def load (self, file, name):
-        global progressbar
+        global progressbar, Strings
 
         # file is the model file & full path, ex: C:\Kingpin\main\models\weapons\crowbar.mdx
         # data is all of the header data amounts.
@@ -796,7 +796,7 @@ def loadmodel(root, filename, gamename, nomessage=0):
     "and name of the .mdx file selected."
     "For example:  C:\Kingpin\main\models\weapons\crowbar.mdx"
 
-    global editor, progressbar, tobj, logging, importername, textlog, Strings
+    global editor, progressbar, tobj, logging, importername, textlog
     import quarkpy.mdleditor
     editor = quarkpy.mdleditor.mdleditor
     # Step 1 to import model from QuArK's Explorer.

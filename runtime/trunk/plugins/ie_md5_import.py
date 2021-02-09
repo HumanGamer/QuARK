@@ -15,19 +15,14 @@ Info = {
    "author e-mail": "cdunde@sbcglobal.net",
    "quark":         "Version 6.6.0 Beta 2" }
 
-import sys, struct, os
+import struct, os, math
 from types import *
 import quarkx
 import quarkpy.qutils
-import quarkpy.qhandles
 import quarkpy.qtoolbar
-import quarkpy.mdlhandles
 import quarkpy.mdlutils
 import ie_utils
-from os import path
 from ie_utils import tobj
-import math
-from math import *
 from quarkpy.qdictionnary import Strings
 from quarkpy.qeditor import MapColor # Strictly needed for QuArK bones MapColor call.
 

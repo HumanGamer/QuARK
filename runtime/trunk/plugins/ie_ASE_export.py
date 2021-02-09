@@ -1,6 +1,6 @@
 """   QuArK  -  Quake Army Knife
 
-QuArK Model Editor importer for Quake 2 .md2 model files.
+QuArK Model Editor exporter for Doom 3 .ase model files.
 """
 #
 # THIS FILE IS PROTECTED BY THE GNU GENERAL PUBLIC LICENCE
@@ -9,13 +9,13 @@ QuArK Model Editor importer for Quake 2 .md2 model files.
 
 Info = {
    "plug-in":       "ie_ASE_exporter",
-   "desc":          "Export selected components to an ASE file and create its collition .cm file. Based on code from Blender, ASE_exporters, author - Goofos.",
+   "desc":          "Export selected components to an ASE file and create its collision .cm file. Based on code from Blender, ASE_exporters, author - Goofos.",
    "date":          "June 9 2009",
    "author":        "cdunde/DanielPharos",
    "author e-mail": "cdunde@sbcglobal.net",
    "quark":         "Version 6.6.0 Beta 2" }
 
-import time, math, os, os.path, struct, operator, sys as osSys, chunk
+import time, math, os, os.path, struct, sys
 import quarkx
 import quarkpy.qmacro
 import quarkpy.qtoolbar

@@ -15,14 +15,13 @@ Info = {
    "author e-mail": "cdunde@sbcglobal.net",
    "quark":         "Version 6.6.0 Beta 4" }
 
-import struct, sys, os, time, operator, math
+import struct, os, operator, math
 import quarkx
 import quarkpy.qutils
 from types import *
 import quarkpy.mdlutils
 import ie_utils
 from ie_utils import tobj
-from quarkpy.qdictionnary import Strings
 from quarkpy.qeditor import MapColor # Strictly needed for QuArK bones MapColor call.
 
 # Globals
@@ -351,7 +350,7 @@ class skb_obj:
         self.ComponentList = []
 
     def load(self, file):
-        global file_version, progressbar, Strings
+        global file_version, progressbar
         # file.name is the model file & full path, ex: C:\FAKK2\fakk\models\animal\edencow\edencow_base.skb
         # FullPathName is the full path and the full file name being imported with forward slashes.
         FullPathName = file.name.replace("\\", "/")
@@ -795,7 +794,7 @@ class ska_obj:
         self.bone_names = []
 
     def load(self, file, Components, QuArK_bones, Exist_Comps, anim_name):
-        global file_version, progressbar, Strings
+        global file_version, progressbar
         # file.name is the model file & full path, ex: C:\FAKK2\fakk\models\animal\edencow\walk_forwards.ska
         # FullPathName is the full path and the full file name being imported with forward slashes.
         FullPathName = file.name.replace("\\", "/")
@@ -1167,7 +1166,7 @@ def loadmodel(root, filename, gamename):
     #   for example:  C:\FAKK2\fakk\models\animal\edencow\edencow_base.skb
     #   gamename is None.
 
-    global editor, progressbar, tobj, logging, importername, textlog, Strings
+    global editor, progressbar, tobj, logging, importername, textlog
     import quarkpy.mdleditor
     editor = quarkpy.mdleditor.mdleditor
     # Step 1 to import model from QuArK's Explorer.

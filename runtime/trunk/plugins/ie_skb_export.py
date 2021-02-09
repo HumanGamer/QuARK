@@ -15,8 +15,7 @@ Info = {
    "author e-mail": "cdunde@sbcglobal.net",
    "quark":         "Version 6.6.0 Beta 4" }
 
-import struct, sys, os, operator, math
-from math import *
+import struct, os, math
 import quarkx
 import quarkpy.mdleditor
 from quarkpy.qutils import *
@@ -24,7 +23,6 @@ from types import *
 import quarkpy.mdlutils
 import ie_utils
 from ie_utils import tobj
-from quarkpy.qdictionnary import Strings
 
 # Globals
 SS_MODEL = 3
@@ -1087,7 +1085,7 @@ def savemodel(root, filename, gamename):
     #   for example:  C:\FAKK2\fakk\models\animal\edencow\edencow_base.skb
     #   gamename is None.
 
-    global editor, progressbar, tobj, logging, exportername, textlog, Strings, file_version, ModelFolder
+    global editor, progressbar, tobj, logging, exportername, textlog, file_version, ModelFolder
     import quarkpy.qutils
     editor = quarkpy.mdleditor.mdleditor
     # Step 1 to import model from QuArK's Explorer.

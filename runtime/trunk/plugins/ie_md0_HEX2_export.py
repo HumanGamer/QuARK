@@ -15,7 +15,7 @@ Info = {
    "author e-mail": "cdunde@sbcglobal.net",
    "quark":         "Version 6.6.0 Beta 6" }
 
-import struct, sys, os, time, operator, math
+import struct, os, math
 import quarkx
 from types import *
 import ie_utils
@@ -434,7 +434,7 @@ def animate_mdl(mdl, file, frames): # The Frames Group is made here & returned t
         tobj.logcon ("frame: frame name")
         tobj.logcon ("#####################################################################")
 
-	######### Process the verts from the QuArK Frames lists.
+    ######### Process the verts from the QuArK Frames lists.
     # Write the # of frames for the model.
     for i in xrange(0,mdl.num_frames):
         ### name is the frame name, ex: attack1

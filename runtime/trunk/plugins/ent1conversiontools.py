@@ -5,7 +5,7 @@ for new or added game support,
 using the actual game files and other .qrk files as templates.
 """
 
-import os, sys
+import os
 import quarkx
 import quarkpy.qmacro
 import quarkpy.qtoolbar

@@ -16,6 +16,7 @@ import dlgclasses
 from qeditor import ico_dict # Get the dictionary list of all icon image files available.
 import qtoolbar              # Get the toolbar functions to make buttons with.
 import qutils
+import os
 
 
 #
@@ -3005,7 +3006,6 @@ class SkinGroupType(EntityManager):
             skin = quarkx.newobj(skinname)
             # Gives the full current work directory (cwd) path up to the file name, need to add "\\" + filename, for example:
             #     E:\Program Files\Doom 3\base\models\monsters\cacodemon
-            import os
             cur_folder = os.getcwd()
             # Gives just the actual file name, for example: cacoeye.tga
             tex_file = skinname.split("/")[-1]
@@ -3074,7 +3074,6 @@ class SkinSubGroupType(EntityManager):
             skin = quarkx.newobj(skinname)
             # Gives the full current work directory (cwd) path up to the file name, need to add "\\" + filename, for example:
             #     E:\Program Files\Doom 3\base\models\monsters\cacodemon
-            import os
             cur_folder = os.getcwd()
             # Gives just the actual file name, for example: cacoeye.tga
             tex_file = skinname.split("/")[-1]
@@ -3134,7 +3133,6 @@ class SkinType(EntityManager):
                 skin = quarkx.newobj(skinname)
                 # Gives the full current work directory (cwd) path up to the file name, need to add "\\" + filename, for example:
                 #     E:\Program Files\Doom 3\base\models\monsters\cacodemon
-                import os
                 cur_folder = os.getcwd()
                 # Gives just the actual file name, for example: cacoeye.tga
                 tex_file = skinname.split("/")[-1]

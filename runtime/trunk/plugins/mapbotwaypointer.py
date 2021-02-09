@@ -16,7 +16,6 @@ Info = {
    "quark":         "Version 6.5"
 }
 
-import sys
 import struct
 import quarkx
 import quarkpy.qmacro
