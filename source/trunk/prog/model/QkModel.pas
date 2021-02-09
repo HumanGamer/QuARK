@@ -23,9 +23,8 @@ unit QkModel;
 interface
 
 uses
-  Windows, Messages, SysUtils, Classes, Graphics, Controls, QkObjects, QkFileObjects,
-  QkForm, QkImages, Python, Game, QkPCX, QkTextures, qkmodelroot, Forms,
-  PyForms;
+  SysUtils, Classes, QkObjects, QkFileObjects,
+  QkForm, QkImages, Python, Game, QkModelRoot, Forms, PyForms;
 
 type
   QModel = class(QFileObject)

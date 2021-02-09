@@ -24,7 +24,7 @@ interface
 
 uses
   SysUtils, Classes, QkObjects, QkFileObjects, QkImages, Python, Game, QkQkl, QMath,
-  Graphics, Windows, QkModelRoot, QkMdlObject, QkFrame, QkComponent, Logging;
+  Windows, QkModelRoot, QkMdlObject, QkFrame, QkComponent, Logging;
 
 type
   QMdlFile = class(QQkl)
