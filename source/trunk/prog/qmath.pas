@@ -94,6 +94,9 @@ function Vec3Diff(const V, W : vec3_t) : vec3_t;
 function ProjectPointToPlane(const Point, Along, PlanePoint, PlaneNorm : TVect) : TVect;
 function SolveForThreePoints(const V1, V2, V3: TVect5; var P1, P2, P3:TVect) : Boolean;
 
+procedure TranslateVecs(const vec: vec3_t; var vec_out: vec3_p; count: Integer);
+procedure ScaleVecs(var vec_out: vec3_p; count: Integer; scale: double);
+
 const
  {Origine}OriginVectorZero: TVect = (X:0; Y:0; Z:0);
  rien = 1E-5;
@@ -648,6 +651,36 @@ begin
   D2 := VecScale(Denom,D2);
   P3:=VecSum(P1,D2);
   Result:=True;
+end;
+
+ {------------------------}
+
+procedure TranslateVecs(const vec: vec3_t; var vec_out: vec3_p; count: Integer);
+var
+  p: vec3_p;
+  j,k: Integer;
+begin
+  p:=vec_out;
+  for j:=1 to count do
+  begin
+    for k:=0 to 2 do
+      p^[k]:=p^[k] + vec[k]{ + pos[k]};
+    inc(p);
+  end;
+end;
+
+procedure ScaleVecs(var vec_out: vec3_p; count: Integer; scale: double);
+var
+  p: vec3_p;
+  j,k: Integer;
+begin
+  p:=vec_out;
+  for j:=1 to count do
+  begin
+    for k:=0 to 2 do
+      p^[k]:=p^[k] * scale;
+    inc(p);
+  end;
 end;
 
 end.

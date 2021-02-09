@@ -1810,7 +1810,7 @@ begin
          begin
            for K:=0 to Count-1 do
            begin
-             VDest^:=Vec3Add(VectByMatrix(mRotationMatrix,VSrc^), ModelOrg);
+             VDest^:=Vec3Add(MatrixMultByVect(mRotationMatrix,VSrc^), ModelOrg);
              Inc(VSrc);
              Inc(VDest);
            end;

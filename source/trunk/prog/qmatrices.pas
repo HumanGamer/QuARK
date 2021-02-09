@@ -49,17 +49,18 @@ function mxtos(const M: TMatrixTransformation) : String;
 function stomx(const S: String) : TMatrixTransformation;
 function MatriceInverse(const M: TMatrixTransformation) : TMatrixTransformation;
 function MatriceTranspose(const M: TMatrixTransformation) : TMatrixTransformation;
-function MatrixMultByVect(const Matrice : TMatrixTransformation; const V: TVect) : TVect;
+function MatrixMultByVect(const Matrice : TMatrixTransformation; const V: TVect) : TVect; overload;
+function MatrixMultByVect(const Matrice : TMatrixTransformation; const V: vec3_t) : vec3_t; overload;
 function MatrixFromCols(const V1, V2, V3 : TVect) : TMatrixTransformation;
 function MatrixFromRows(const V1, V2, V3 : TVect) : TMatrixTransformation; overload;
 function MatrixFromRows(const V1, V2, V3 : vec3_t) : TMatrixTransformation; overload;
 function Determinant(const Matrice: TMatrixTransformation) : TDouble;
-function VectByMatrix(const Matrice : TMatrixTransformation; const V: TVect) : TVect; overload;
-function VectByMatrix(const Matrice : TMatrixTransformation; const V: vec3_t) : vec3_t; overload;
 
 function RotMatrixZ(V: TDouble; InMatrix:TMatrixTransformation) : TMatrixTransformation;
 function RotMatrixY(V: TDouble; InMatrix:TMatrixTransformation) : TMatrixTransformation;
 function RotMatrixPitchRoll(Pitch: TDouble; Roll: TDouble; InMatrix: TMatrixTransformation) : TMatrixTransformation;
+
+procedure RotateVecs(const Matrice: TMatrixTransformation; var vec_out: vec3_p; count: Integer);
 
  {------------------------}
 
@@ -333,16 +334,24 @@ end;
 
  {------------------------}
 
-function VectByMatrix(const Matrice : TMatrixTransformation; const V: TVect) : TVect;
-begin
-  Result:=MatrixMultByVect(Matrice, V);
-end;
-
-function VectByMatrix(const Matrice : TMatrixTransformation; const V: vec3_t) : vec3_t;
+function MatrixMultByVect(const Matrice : TMatrixTransformation; const V: vec3_t) : vec3_t;
 begin
    Result[0]:=Matrice[1,1]*V[0]+Matrice[1,2]*V[1]+Matrice[1,3]*V[2]{+Matrice[1,4]};
    Result[1]:=Matrice[2,1]*V[0]+Matrice[2,2]*V[1]+Matrice[2,3]*V[2]{+Matrice[2,4]};
    Result[2]:=Matrice[3,1]*V[0]+Matrice[3,2]*V[1]+Matrice[3,3]*V[2]{+Matrice[3,4]};
+end;
+
+procedure RotateVecs(const Matrice: TMatrixTransformation; var vec_out: vec3_p; count: Integer);
+var
+  p: vec3_p;
+  j: Integer;
+begin
+  p:=vec_out;
+  for j:=1 to count do
+  begin
+    p^:=MatrixMultByVect(Matrice, p^);
+    inc(p);
+  end;
 end;
 
 end.

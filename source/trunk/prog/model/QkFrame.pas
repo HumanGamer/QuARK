@@ -87,47 +87,6 @@ begin
   result:=o;
 end;
 
-procedure TranslateVecs(vec: vec3_t; var vec_out: vec3_p; count: Integer);
-var
-  p: vec3_p;
-  j,k: Integer;
-begin
-  p:=vec_out;
-  for j:=1 to count do
-  begin
-    for k:=0 to 2 do
-      p^[k]:=p^[k] + vec[k]{ + pos[k]};
-    inc(p);
-  end;
-end;
-
-procedure ScaleVecs(var vec_out: vec3_p; count: Integer; scale: double);
-var
-  p: vec3_p;
-  j,k: Integer;
-begin
-  p:=vec_out;
-  for j:=1 to count do
-  begin
-    for k:=0 to 2 do
-      p^[k]:=p^[k] * scale;
-    inc(p);
-  end;
-end;
-
-procedure RotateVecs(matrice: TMatrixTransformation; var vec_out: vec3_p; count: Integer);
-var
-  p: vec3_p;
-  j: Integer;
-begin
-  p:=vec_out;
-  for j:=1 to count do
-  begin
-    p^:=VectByMatrix(matrice, p^);
-    inc(p);
-  end;
-end;
-
 procedure QFrame.RotateFrame(matrice: TMatrixTransformation);
 var
   p, p_org: vec3_p;
@@ -143,7 +102,7 @@ begin
   PChar(Dest):=PChar(S)+Length(S0+'=');
   for j:=1 to c do
   begin
-    Dest^:=VectByMatrix(matrice, p^);
+    Dest^:=MatrixMultByVect(matrice, p^);
     inc(p);
     inc(Dest);
   end;
