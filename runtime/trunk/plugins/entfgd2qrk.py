@@ -1,6 +1,6 @@
 """   QuArK  -  Quake Army Knife
 
-Python macros available for direct call by QuArK
+Worldcraft .FGD file to .QRK file converter
 """
 # THIS FILE IS PROTECTED BY THE GNU GENERAL PUBLIC LICENCE
 # FOUND IN FILE "COPYING.TXT"
@@ -8,7 +8,7 @@ Python macros available for direct call by QuArK
 
 Info = {
    "plug-in":       "entfgd2qrk plugin",
-   "desc":          "Python macros available for direct call by QuArK",
+   "desc":          "Worldcraft .FGD file to .QRK file converter.",
    "date":          "2001/04/14",
    "author":        "decker",
    "author e-mail": "decker@planetquake.com",
@@ -23,8 +23,10 @@ Info = {
 #     forms for specific data types
 #
 
+import quarkpy.qutils
+import quarkx
+from quarkpy.qutils import *
 
-import time, sys
 
 class Key:
     def __init__(self):
@@ -78,10 +80,10 @@ class KeyInput(Key):
     def __init__(self):
         Key.__init__(self)
         self.m_kind='input'
-    	print 'create input',self.m_keyname
+        debug('create input: '+self.m_keyname)
 
     def GenerateForm(self, indent):
-    	print 'generate input',self.m_keyname
+        debug('generate input: '+self.m_keyname)
         s = quarkx.newobj(self.m_kind+'_'+self.m_keyname + ":")
         s["txt"] = "&"
         s["inp"] = self.m_keyname
@@ -93,10 +95,10 @@ class KeyOutput(Key):
     def __init__(self):
         Key.__init__(self)
         self.m_kind='output'
-    	print 'create output',self.m_keyname
+        debug('create output: '+self.m_keyname)
 
     def GenerateForm(self, indent):
-    	print 'generate output',self.m_keyname
+        debug('generate output: '+self.m_keyname)
         s = quarkx.newobj(self.m_kind+'_'+self.m_keyname + ":")
         s["txt"] = "&"
         s["outp"] = self.m_keyname
@@ -553,8 +555,8 @@ def EndKey(token):
     if (theKey is None or theEntity is None):
         raise "Failure in EndKey()"
     if (currentkeytype != None):
-    	print currentkeytype,currentkeyname
-    	theKey.m_keyname = currentkeytype+'#'+theKey.m_keyname
+        debug(currentkeytype+" "+currentkeyname)
+        theKey.m_keyname = currentkeytype+'#'+theKey.m_keyname
     theEntity.AddKey(theKey)
     currentkeyname = None
     currentkeytype = None
@@ -799,9 +801,6 @@ statediagram =                                                                  
 ,'STATE_CHOICES4'       :[(TYPE_STRING             ,'STATE_CHOICES2'       ,AddKeyChoiceDesc) ] \
 }
 
-import quarkpy.qutils
-import quarkx
-
 def makeqrk(root, filename, gamename, nomessage=0):
     global theEntities, theEntity, theKey, currentclassname, currentkeyname, currentkeytype, currentinherit, currentinheritargs, currentkeyflag, currentkeychoice
 
@@ -818,9 +817,9 @@ def makeqrk(root, filename, gamename, nomessage=0):
     state = 'STATE_UNKNOWN'
     while (len(srcstring) > 1):
         token, token_is, srcstring = getnexttoken(srcstring)
-        print "\ntoken:",token
-        print "token_is:",toktypes[token_is]
-        print "nextstring:",srcstring[:64]
+        #print "\ntoken:",token
+        #print "token_is:",toktypes[token_is]
+        #print "nextstring:",srcstring[:64]
         # Figure out, if the token_is type is expected or not
         expectedtypes = []
         newstate = None

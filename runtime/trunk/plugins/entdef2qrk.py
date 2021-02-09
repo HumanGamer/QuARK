@@ -1,12 +1,23 @@
 """   QuArK  -  Quake Army Knife
 
-Python macros available for direct call by QuArK
+QERadiant .DEF file to .QRK file converter
 """
+# THIS FILE IS PROTECTED BY THE GNU GENERAL PUBLIC LICENCE
+# FOUND IN FILE "COPYING.TXT"
+#
 
-import time, sys
-from quarkpy.qutils import *
+Info = {
+   "plug-in":       "entdef2qrk plugin",
+   "desc":          "QERadiant .DEF file to .QRK file converter.",
+   "date":          "2001/10/05",
+   "author":        "decker",
+   "author e-mail": "decker@planetquake.com",
+   "quark":         "Version 6.3"
+}
 
+import quarkpy.qutils
 import quarkx
+from quarkpy.qutils import *
 
 class Key:
     def __init__(self):
@@ -596,8 +607,6 @@ statediagram =                                                                  
 }
 
 ## --------
-
-import quarkpy.qutils
 
 def makeqrk(root, filename, gamename, nomessage=0):
     global theEntities, theEntity, theKey, theSpawnflag, currentclassname, currentsize, currentspawnflagbit, currentcomment
