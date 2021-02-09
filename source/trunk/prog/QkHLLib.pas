@@ -169,7 +169,7 @@ var
 
 implementation
 
-uses QkExceptions, Logging, QkApplPaths;
+uses QkExceptions, Logging, QkApplPaths, Quarkx;
 
 const RequiredGCFAPI = 3;
 
@@ -183,7 +183,7 @@ begin
   if Result=Nil then
   begin
     LogWindowsError(GetLastError(), 'GetProcAddress(DLLHandle, "'+APIFuncname+'")');
-    LogAndRaiseError('API Func "'+APIFuncname+ '" not found in the QuArKGCF library');
+    LogAndRaiseError(FmtLoadStr1(5743, [APIFuncname, 'HLLib']));
   end;
 end;
 
@@ -202,7 +202,7 @@ begin
       if HHLLib = 0 then
       begin
         LogWindowsError(GetLastError(), 'LoadLibrary("'+HLLibLibraryFilename+'")');
-        LogAndRaiseError('Unable to load the HLLib library');
+        LogAndRaiseError(FmtLoadStr1(5741, ['HLLib']));
       end;
 
       hlInitialize := InitDllPointer(HHLLib, 'hlInitialize');
@@ -210,7 +210,7 @@ begin
 
       hlGetUnsignedInteger := InitDllPointer(HHLLib, 'hlGetUnsignedInteger');
       if hlGetUnsignedInteger(HL_VERSION) < HL_VERSION_NUMBER then
-        LogAndRaiseError('HLLib version mismatch!');
+        LogAndRaiseError(FmtLoadStr1(5742, ['HLLib']));
 
       hlGetString := InitDllPointer(HHLLib, 'hlGetString');
 
@@ -265,7 +265,7 @@ begin
       if FreeLibrary(HHLLib)=false then
       begin
         LogWindowsError(GetLastError(), 'FreeLibrary(HHLLib)');
-        LogAndRaiseError('Unable to unload the HLLib library');
+        LogAndRaiseError(FmtLoadStr1(5748, ['HLLib']));
       end;
       HHLLib := 0;
 

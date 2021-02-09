@@ -115,7 +115,7 @@ begin
     else if LibraryToUse='FreeImage' then
       LoadFileFreeImage(F, FSize)
     else
-      LogAndRaiseError('Unable to load PNG file. No valid loading library selected.');
+      LogAndRaiseError(FmtLoadStr1(5813, [FormatName]));
   end;
   else
     inherited;
@@ -136,7 +136,7 @@ begin
     else if LibraryToUse='FreeImage' then
       SaveFileFreeImage(Info)
     else
-      LogAndRaiseError('Unable to save PNG file. No valid saving library selected.');
+      LogAndRaiseError(FmtLoadStr1(5814, [FormatName]));
   end
   else
     inherited;

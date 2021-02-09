@@ -265,7 +265,7 @@ begin
     //FIXME: First check if the Steam path exists at all!
 
     if FileExists(ConcatPaths([GetQPath(pQuArKDll), QuArKSASEXE])) = false then
-      LogAndRaiseError('Unable to extract file from Steam. dlls/'+QuArKSASEXE+' not found.');
+      LogAndRaiseError('Unable to extract file from Steam. dlls/'+QuArKSASEXE+' not found.'); //FIXME: Move to dict!
     if FileExists(QSASFile) = false then
     begin
       if CopyFile(PChar(ConcatPaths([GetQPath(pQuArKDll), QuArKSASEXE])), PChar(QSASFile), true) = false then

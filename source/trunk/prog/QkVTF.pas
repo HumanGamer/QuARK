@@ -185,14 +185,14 @@ begin
         vlSetInteger(VTFLIB_DXT_QUALITY, Flag);
 
         if vlCreateImage(@VTFImage)=vlFalse then
-          LogAndRaiseError(FmtLoadStr1(5720, ['vlCreateImage']));
+          LogAndRaiseError(FmtLoadStr1(5720, [FormatName, 'vlCreateImage']));
 
         try
           if vlBindImage(VTFImage)=vlFalse then
-            LogAndRaiseError(FmtLoadStr1(5720, ['vlBindImage']));
+            LogAndRaiseError(FmtLoadStr1(5720, [FormatName, 'vlBindImage']));
 
           if vlImageLoadLump(Pointer(RawBuffer), Length(RawBuffer), vlFalse)=vlFalse then
-            LogAndRaiseError('Unable to load VTF file. Call to vlImageLoadLump failed. Please make sure the file is a valid VTF file, and not damaged or corrupt.');
+            LogAndRaiseError(FmtLoadStr1(5736, [FormatName, 'vlImageLoadLump', FormatName]));
 
           HasAlpha := (vlImageGetFlags() and (TEXTUREFLAGS_ONEBITALPHA or TEXTUREFLAGS_EIGHTBITALPHA))<>0;
           if HasAlpha then
@@ -203,7 +203,7 @@ begin
           Height:=vlImageGetHeight();
           //DanielPharos: 46340 squared is just below the integer max value.
           if (Width>46340) or (Height>46340) then
-            LogAndRaiseError('Unable to load VTF file. Picture is too large.');
+            LogAndRaiseError(FmtLoadStr1(5737, [FormatName]));
           NumberOfPixels:=Width * Height;
           V[1]:=Width;
           V[2]:=Height;
@@ -212,7 +212,7 @@ begin
           try
             RawData2:=vlImageGetData(0, 0, 0, 0);
             if vlImageConvert(RawData2, RawData, Width, Height, vlImageGetFormat(), ImageFormat)=vlFalse then
-              LogAndRaiseError(FmtLoadStr1(5720, ['vlImageConvert']));
+              LogAndRaiseError(FmtLoadStr1(5720, [FormatName, 'vlImageConvert']));
 
             if HasAlpha then
             begin
@@ -285,7 +285,7 @@ begin
         end
       end
       else
-        LogAndRaiseError('Unable to load VTF file. No valid loading library selected.');
+        LogAndRaiseError(FmtLoadStr1(5813, [FormatName]));
     end;
     else
       inherited;
@@ -336,11 +336,11 @@ begin
       end;
 
       if vlCreateImage(@VTFImage)=vlFalse then
-        LogAndRaiseError(FmtLoadStr1(5721, ['vlCreateImage']));
+        LogAndRaiseError(FmtLoadStr1(5721, [FormatName, 'vlCreateImage']));
 
       try
         if vlBindImage(VTFImage)=vlFalse then
-          LogAndRaiseError(FmtLoadStr1(5721, ['vlBindImage']));
+          LogAndRaiseError(FmtLoadStr1(5721, [FormatName, 'vlBindImage']));
 
         TexFormat := IMAGE_FORMAT_DXT5;
 
@@ -401,7 +401,7 @@ begin
               GetMem(RawData, TexSize);
 
               if vlImageConvertToRGBA8888(RawData2, RawData, Width, Height, ImageFormat)=vlFalse then
-                LogAndRaiseError(FmtLoadStr1(5721, ['vlImageConvert']));
+                LogAndRaiseError(FmtLoadStr1(5721, [FormatName, 'vlImageConvert']));
               finally
                 FreeMem(RawData2);
               end;
@@ -443,7 +443,7 @@ begin
               GetMem(RawData, TexSize);
 
               if vlImageConvertToRGBA8888(RawData2, RawData, Width, Height, ImageFormat)=vlFalse then
-                LogAndRaiseError(FmtLoadStr1(5721, ['vlImageConvert']));
+                LogAndRaiseError(FmtLoadStr1(5721, [FormatName, 'vlImageConvert']));
             finally
               FreeMem(RawData2);
             end;
@@ -482,10 +482,10 @@ begin
         VTFOptions.ImageFormat:=TexFormat;
 
         if vlImageCreateSingle(Width, Height, RawData, @VTFOptions)=vlFalse then
-          LogAndRaiseError(FmtLoadStr1(5721, ['vlImageCreateSingle']));
+          LogAndRaiseError(FmtLoadStr1(5721, [FormatName, 'vlImageCreateSingle']));
         SetLength(RawBuffer, vlImageGetSize);
         if vlImageSaveLump(Pointer(RawBuffer), Length(RawBuffer), @OutputSize)=vlFalse then
-          LogAndRaiseError(FmtLoadStr1(5721, ['vlImageSaveLump']));
+          LogAndRaiseError(FmtLoadStr1(5721, [FormatName, 'vlImageSaveLump']));
 
         F.WriteBuffer(Pointer(RawBuffer)^,OutputSize);
         FreeMem(RawData); //FIXME: Put inside try..finally
@@ -494,7 +494,7 @@ begin
       end;
     end
     else
-      LogAndRaiseError('Unable to save VTF file. No valid saving library selected.');
+      LogAndRaiseError(FmtLoadStr1(5814, [FormatName]));
   end
   else
     inherited;

@@ -318,7 +318,7 @@ begin
       if FreeLibrary(HFreeImage) = false then
       begin
         LogWindowsError(GetLastError(), 'FreeLibrary(HFreeImage)');
-        LogAndRaiseError('Unable to unload the FreeImage library');
+        LogAndRaiseError(FmtLoadStr1(5748, ['FreeImage']));
       end;
       HFreeImage := 0;
 

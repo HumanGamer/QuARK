@@ -113,14 +113,14 @@ begin
   if filesize<> 0 then
   begin
     if hlFileCreateStream(vpkelement, @VPKStream) = hlFalse then
-      LogAndRaiseError(FmtLoadStr1(5726, ['hlPackageGetRoot', PChar(hlGetString(HL_ERROR))]));
+      LogAndRaiseError(FmtLoadStr1(5707, ['VPK', 'hlPackageGetRoot', PChar(hlGetString(HL_ERROR))]));
     try
       if hlStreamOpen(VPKStream, HL_MODE_READ) = hlFalse then
-        LogAndRaiseError(FmtLoadStr1(5726, ['hlStreamOpen', PChar(hlGetString(HL_ERROR))]));
+        LogAndRaiseError(FmtLoadStr1(5707, ['VPK', 'hlStreamOpen', PChar(hlGetString(HL_ERROR))]));
       try
         read := hlStreamRead(VPKStream, mem.Memory, filesize);
         if read<>filesize then
-          LogAndRaiseError(FmtLoadStr1(5726, ['hlStreamRead', 'Number of bytes read does not equal the file size!']));
+          LogAndRaiseError(FmtLoadStr1(5707, ['VPK', 'hlStreamRead', LoadStr1(5724)]));
       finally
         hlStreamClose(VPKStream);
       end;
@@ -143,7 +143,7 @@ begin
   if hlItemGetType(VPKDirectoryFile) = HL_ITEM_FOLDER then
   begin
     {handle a folder}
-    Folder:= QVPKFolder.Create( PChar(hlItemGetName(VPKDirectoryFile)), ParentFolder) ;
+    Folder:= QVPKFolder.Create( PChar(hlItemGetName(VPKDirectoryFile)), ParentFolder);
     Log(LOG_VERBOSE,'Made vpk folder object :'+Folder.name);
     ParentFolder.SubElements.Add( Folder );
     if root then
@@ -194,27 +194,27 @@ begin
          end;
 
          if hlCreatePackage(HL_PACKAGE_VPK, @uiPackage) = hlFalse then
-           LogAndRaiseError(FmtLoadStr1(5724, ['hlCreatePackage', PChar(hlGetString(HL_ERROR))]));
+           LogAndRaiseError(FmtLoadStr1(5722, ['VPK', 'hlCreatePackage', PChar(hlGetString(HL_ERROR))]));
          HasAPackage := true;
 
          if hlBindPackage(uiPackage) = hlFalse then
-           LogAndRaiseError(FmtLoadStr1(5724, ['hlBindPackage', PChar(hlGetString(HL_ERROR))]));
+           LogAndRaiseError(FmtLoadStr1(5722, ['VPK', 'hlBindPackage', PChar(hlGetString(HL_ERROR))]));
 
          (*//This code would load the entire file --> OutOfMemory!
          SetLength(RawBuffer, FSize);
          F.ReadBuffer(Pointer(RawBuffer)^, FSize);
 
          if hlPackageOpenMemory(Pointer(RawBuffer), Length(RawBuffer), HL_MODE_READ + HL_MODE_WRITE) = hlFalse then
-           LogAndRaiseError(FmtLoadStr1(5724, ['hlPackageOpenMemory', PChar(hlGetString(HL_ERROR))]));
+           LogAndRaiseError(FmtLoadStr1(5722, ['VPK', 'hlPackageOpenMemory', PChar(hlGetString(HL_ERROR))]));
 
          //so instead, do this:*)
 
          if hlPackageOpenFile(PhlChar(LoadName), HL_MODE_READ) = hlFalse then //+ HL_MODE_WRITE
-           LogAndRaiseError(FmtLoadStr1(5724, ['hlPackageOpenFile', PChar(hlGetString(HL_ERROR))]));
+           LogAndRaiseError(FmtLoadStr1(5722, ['VPK', 'hlPackageOpenFile', PChar(hlGetString(HL_ERROR))]));
 
          VPKRoot := hlPackageGetRoot();
          if VPKRoot=nil then
-           LogAndRaiseError(FmtLoadStr1(5726, ['hlPackageGetRoot', 'Root element not found!']));
+           LogAndRaiseError(FmtLoadStr1(5707, ['VPK', 'hlPackageGetRoot', LoadStr1(5725)]));
 
          Nsubelements := hlFolderGetCount(VPKRoot);
          if Nsubelements > 0 then //Prevent underflow by -1 in for-loop 

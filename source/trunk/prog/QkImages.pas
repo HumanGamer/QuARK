@@ -297,7 +297,7 @@ begin
     if ilLoadL(FileTypeDevIL, Pointer(RawBuffer), FSize)=IL_FALSE then
     begin
       CheckDevILError(ilGetError);
-      LogAndRaiseError(FmtLoadStr1(5736, [FormatName, FormatName]));
+      LogAndRaiseError(FmtLoadStr1(5736, [FormatName, 'ilLoadL', FormatName]));
     end;
     CheckDevILError(ilGetError);
 

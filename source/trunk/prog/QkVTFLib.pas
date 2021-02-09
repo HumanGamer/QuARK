@@ -398,7 +398,7 @@ begin
   if Result = Nil then
   begin
     LogWindowsError(GetLastError(), 'GetProcAddress(DLLHandle, "'+APIFuncname+'")');
-    LogAndRaiseError('API Func "'+APIFuncname+ '" not found in the VTFLib library');
+    LogAndRaiseError(FmtLoadStr1(5743, [APIFuncname, 'VTFLib']));
   end;
 end;
 
@@ -417,7 +417,7 @@ begin
       if HVTFLib = 0 then
       begin
         LogWindowsError(GetLastError(), 'LoadLibrary("'+VTFLibLibraryFilename+'")');
-        LogAndRaiseError('Unable to load the VTFLib library');
+        LogAndRaiseError(FmtLoadStr1(5741, ['VTFLib']));
       end;
 
       vlGetVersion        := InitDllPointer(HVTFLib, 'vlGetVersion');
@@ -490,10 +490,10 @@ begin
       vlMaterialGetChildNode    := InitDllPointer(HVTFLib, 'vlMaterialGetChildNode');
 
       if vlGetVersion<131 then
-        LogAndRaiseError('VTFLib version mismatch!');
+        LogAndRaiseError(FmtLoadStr1(5742, ['VTFLib']));
 
       if vlInitialize=vlFalse then
-        LogAndRaiseError('Unable to initialize VTFLib!');
+        LogAndRaiseError(FmtLoadStr1(5749, ['VTFLib']));
 
       Log(LOG_VERBOSE, 'VTFLib loaded!');
     end;
@@ -520,8 +520,8 @@ begin
 
       if FreeLibrary(HVTFLib) = false then
       begin
-        LogWindowsError(GetLastError(), 'FreeLibrary(HVTFLib)');
-        LogAndRaiseError('Unable to unload the VTFLib library');
+        LogWindowsError(GetLastError(), 'FreeLibrary(VTFLib)');
+        LogAndRaiseError(FmtLoadStr1(5748, ['VTFLib']));
       end;
       HVTFLib := 0;
 

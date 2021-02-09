@@ -426,7 +426,7 @@ begin
       if FreeLibrary(HDevIL) = false then
       begin
         LogWindowsError(GetLastError(), 'FreeLibrary(HDevIL)');
-        LogAndRaiseError('Unable to unload the DevIL library');
+        LogAndRaiseError(FmtLoadStr1(5748, ['DevIL']));
       end;
       HDevIL := 0;
 

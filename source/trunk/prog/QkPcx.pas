@@ -237,7 +237,7 @@ begin
       finally ProgressIndicatorStop; end;
     end
     else
-      LogAndRaiseError('Unable to load PCX file. No valid loading library selected.');
+      LogAndRaiseError(FmtLoadStr1(5813, [FormatName]));
   end;
   else
     inherited;

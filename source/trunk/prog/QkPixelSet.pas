@@ -476,7 +476,7 @@ begin
   if DIBSection = 0 then
   begin
     LogWindowsError(GetLastError(), 'CreateDIBSection(DC, tagBITMAPINFO(BitmapInfo), DIB_RGB_COLORS, Bits, 0, 0)');
-    LogAndRaiseError('DrawToDC: CreateDIBSection failed!');
+    LogAndRaiseError('DrawToDC: CreateDIBSection failed!'); //FIXME: Move to dict!
   end;
   try
     Width:=TBitmapInfo(BitmapInfo).bmiHeader.biWidth;

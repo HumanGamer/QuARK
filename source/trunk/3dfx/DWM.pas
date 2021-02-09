@@ -38,7 +38,7 @@ procedure UnloadDWM(ForceUnload: boolean = false);
 
 implementation
 
-uses QkExceptions, ExtraFunctionality;
+uses QkExceptions, Quarkx, ExtraFunctionality;
 
 const
   DWMDLL_FuncList : array[0..1] of
@@ -109,7 +109,7 @@ begin
       if FreeLibrary(DWMLib) = false then
       begin
         LogWindowsError(GetLastError(), 'FreeLibrary(DWMLib)');
-        LogAndRaiseError('Unable to unload the DWM library');
+        LogAndRaiseError(FmtLoadStr1(5748, ['DWM']));
       end;
       DWMLib := 0;
     end;

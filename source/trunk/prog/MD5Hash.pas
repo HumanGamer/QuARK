@@ -50,7 +50,7 @@ begin
   if Result=Nil then
   begin
     LogWindowsError(GetLastError(), 'GetProcAddress(DLLHandle, "'+APIFuncname+'")');
-    LogAndRaiseError('API Func "'+APIFuncname+ '" not found in the MD5DLL library');
+    LogAndRaiseError(FmtLoadStr1(5743, [APIFuncname, 'MD5DLL']));
   end;
 end;
 
@@ -69,7 +69,7 @@ begin
       if HMd5Hash = 0 then
       begin
         LogWindowsError(GetLastError(), 'LoadLibrary("'+HMd5HashLibraryFilename+'")');
-        LogAndRaiseError('Unable to load the MD5DLL library');
+        LogAndRaiseError(FmtLoadStr1(5741, ['MD5DLL']));
       end;
 
       GetFileMd5        := InitDllPointer(HMd5Hash, 'GetFileMd5');
@@ -101,7 +101,7 @@ begin
       if FreeLibrary(HMd5Hash) = false then
       begin
         LogWindowsError(GetLastError(), 'FreeLibrary(HMd5Hash)');
-        LogAndRaiseError('Unable to unload the MD5DLL library');
+        LogAndRaiseError(FmtLoadStr1(5748, ['MD5DLL']));
       end;
       HMd5Hash := 0;
 
