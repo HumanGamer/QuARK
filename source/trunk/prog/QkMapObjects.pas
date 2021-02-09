@@ -2076,7 +2076,7 @@ var
  IsRestrictor: Boolean;
 begin
  {$IFDEF PyProfiling}
- LogProfiling('TTreeMapGroup, Dessiner', ['Scene'], nil);
+ LogProfiling('TTreeMapGroup, Dessiner', [], nil);
  {$ENDIF}
  NewPen:=0;
  DeletePen:=0;

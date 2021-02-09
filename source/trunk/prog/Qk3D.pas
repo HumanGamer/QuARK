@@ -37,8 +37,8 @@ type
              protected
                procedure ResultatAnalyseClic(Liste: PyObject; P: TPointProj; Extra: PyObject);
              public
-               procedure Dessiner; virtual;
-               procedure PreDessinerSel; virtual;
+               procedure Dessiner; virtual; abstract;
+               procedure PreDessinerSel; virtual; //Could be abstract, but then we'd have many identical empty functions
               {procedure PostDessinerSel; virtual;}
                procedure AddTo3DScene(Scene: TObject); virtual; //actually a EdSceneObject
                function GetOrigin(var Pt: TVect) : Boolean; virtual;
@@ -160,20 +160,19 @@ end;*)
 
  {------------------------}
 
-procedure Q3DObject.Dessiner;
+procedure Q3DObject.PreDessinerSel;
 begin
  {$IFDEF PyProfiling}
- LogProfiling('Q3DObject, Dessiner', [], nil);
+ LogProfiling('Q3DObject, PreDessinerSel', [], nil);
  {$ENDIF}
 end;
 
-procedure Q3DObject.PreDessinerSel;
+(*procedure Q3DObject.PostDessinerSel;
 begin
-end;
-
-{procedure Q3DObject.PostDessinerSel;
-begin
-end;}
+ {$IFDEF PyProfiling}
+ LogProfiling('Q3DObject, PostDessinerSel', [], nil);
+ {$ENDIF}
+end;*)
 
 procedure Q3DObject.AddTo3DScene(Scene: TObject);
 begin

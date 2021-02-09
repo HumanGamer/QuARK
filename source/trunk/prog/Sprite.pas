@@ -30,6 +30,7 @@ type
   public
     class function TypeInfo: String; override;
     procedure ObjectState(var E: TEtatObjet); override;
+    procedure Dessiner; override;
     Function GetSkinDescr: String;
     Function Skin0: QImage;
     procedure AddTo3DScene(Scene: TObject); override;
@@ -41,7 +42,7 @@ type
 
 implementation
 
-uses EdSceneObject, PyMapView, QkObjectClassList;
+uses EdSceneObject, PyMapView, QkObjectClassList{$IFDEF PyProfiling}, Logging{$ENDIF};
 
 class function QSprite.TypeInfo;
 begin
@@ -52,6 +53,14 @@ procedure QSprite.ObjectState(var E: TEtatObjet);
 begin
   inherited;
   E.IndexImage:=iiSpriteFile;
+end;
+
+procedure QSprite.Dessiner;
+begin
+ {$IFDEF PyProfiling}
+ LogProfiling('QSprite, Dessiner', [], nil);
+ {$ENDIF}
+  //FIXME: Implement something
 end;
 
 procedure QSprite.BuildRefList(L: TQList);

@@ -335,6 +335,7 @@ end;
 
 const
   SpriteName: String = 'Sprite';
+
 Function QSprFile.CreateSpriteObject: QSprite;
 begin
   result:=QSprite.Create(SpriteName,Self);
