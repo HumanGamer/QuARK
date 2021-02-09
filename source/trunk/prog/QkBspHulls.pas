@@ -341,8 +341,8 @@ begin
     Inc(PChar(Faces), Pred(FirstFace) * SurfaceSize);
     cLEdges  :=FBsp.GetBspEntryData(FBsp.FileHandler.GetLumpSurfEdges(), LEdges) div SizeOf(TLEdge);
     cEdges   :=FBsp.GetBspEntryData(FBsp.FileHandler.GetLumpEdges(), Edges) div SizeOf(TEdge);
-    Log(LOG_INFO, 'Loading BSP file: Got %d surf edges!', [cLEdges]); //FIXME: Dictionary!
-    Log(LOG_INFO, 'Loading BSP file: Got %d edges!', [cEdges]); //FIXME: Dictionary!
+    Log(LOG_INFO, LoadStr1(5468), [cLEdges]);
+    Log(LOG_INFO, LoadStr1(5469), [cEdges]);
   end else
   begin
     SurfaceSize:=Sizeof(TbQ3Surface);
@@ -361,9 +361,9 @@ begin
   Vertices:=PChar(FBsp.FVertices);
   cVertices:=FBsp.VertexCount;
 
-  Log(LOG_INFO, 'Loading BSP file: Got %d texinfos!', [cTexInfo]); //FIXME: Dictionary!
-  Log(LOG_INFO, 'Loading BSP file: Got %d planes!', [cPlanes]); //FIXME: Dictionary!
-  Log(LOG_INFO, 'Loading BSP file: Got %d vertices!', [cVertices]); //FIXME: Dictionary!
+  Log(LOG_INFO, LoadStr1(5470), [cTexInfo]);
+  Log(LOG_INFO, LoadStr1(5471), [cPlanes]);
+  Log(LOG_INFO, LoadStr1(5472), [cVertices]);
 
   Size1:=0;
   { for each face in the brush, reserve space for a Surface }

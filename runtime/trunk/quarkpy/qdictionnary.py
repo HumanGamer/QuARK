@@ -750,6 +750,11 @@ Strings = {
     5465: "Could not load texture %s; cannot unwrap texture coordinates!",
     5466: "Loading BSP file: Going to load index %d...",
     5467: "Could not load texture %s; texture coordinates may be wrong!",
+    5468: "Loading BSP file: Got %d surf edges!",
+    5469: "Loading BSP file: Got %d edges!",
+    5470: "Loading BSP file: Got %d texinfos!",
+    5471: "Loading BSP file: Got %d planes!'",
+    5472: "Loading BSP file: Got %d vertices!",
 
     5502: "Sprite object not found!",
     5503: "'%s' is a Half-Life Model which cannot be read (yet)",
