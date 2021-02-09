@@ -1124,7 +1124,7 @@ begin
   while I>0 do
   begin
     Ext:=MidStr(S, OldPos+1, I - OldPos - 1);
-    Log(LOG_VERBOSE, FmtLoadStr1(6316, [Ext]));
+    Log(LOG_VERBOSE, LoadStr1(6316), [Ext]);
     GLExtensions.Add(Ext);
     OldPos:=I;
     I:=PosEx(' ', S, OldPos + 1);
@@ -1133,7 +1133,7 @@ begin
   if (OldPos<>Length(S)) and (OldPos<>0) then
   begin
     Ext := RightStr(S, Length(S) - OldPos);
-    Log(LOG_VERBOSE, FmtLoadStr1(6316, [Ext]));
+    Log(LOG_VERBOSE, LoadStr1(6316), [Ext]);
     GLExtensions.Add(Ext);
   end;
   Result:=True;
