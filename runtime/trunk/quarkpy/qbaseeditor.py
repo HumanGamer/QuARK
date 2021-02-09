@@ -1516,10 +1516,6 @@ class BaseEditor:
                                 self.dragobject = mdlhandles.RectSelDragObject(view, x, y, RED, None)
                                 self.dragobject.view = view
                                 return
-                            try:
-                                skindrawobject = self.Root.currentcomponent.currentskin
-                            except:
-                                skindrawobject = None
                         else:
                             if (isinstance(self.dragobject, mdlhandles.BoneCenterHandle) or isinstance(self.dragobject, mdlhandles.BoneCornerHandle)) and (flagsmouse == 520 or flagsmouse == 524):
                                 from mdleditor import NewSellist
