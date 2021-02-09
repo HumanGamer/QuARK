@@ -22,8 +22,7 @@ unit QkMdlObject;
 
 interface
 
-uses Windows, SysUtils, Classes, QkObjects, Qk3D, QkForm, Graphics,
-     qmath, PyMath, Python;
+uses Windows, SysUtils, Classes, QkObjects, Qk3D, qmath, Python;
 
 type
   dstvert_p = ^dstvert_t;
