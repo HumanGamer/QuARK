@@ -313,7 +313,7 @@ QQRKSRC1
       Func_* entities.qtxfolder =
       {
         func_breakable:b =     { health="7" weapon="weapon_dynamite" ;desc="Breakable brush." ;incl="defpoly" }
-        func_door:b =          { angle="360" ;desc="A standard door"  t_funcpoly=! }
+        func_door:b =          { angle="360" ;desc="A standard door" ;incl = "defpoly" }
         func_door_rotating:b = { ;desc="A rotating door." ;incl="defpoly" }
         func_flare:b =         { color="1 1 1" minsize="30" maxsize="120" radius="20" trans="0.6" ;desc="Generates a Flare effect on a certain brush." ;incl="defpoly" }
         func_smoke:b =         { ;desc="Generates Smoke." ;incl="defpoly" }
