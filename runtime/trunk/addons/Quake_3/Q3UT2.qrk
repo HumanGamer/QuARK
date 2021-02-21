@@ -2739,12 +2739,6 @@ QQRKSRC1
       }
     }
   }
-  Entityforms.qctx =
-  {
-    Game = "Quake 3"
-    SourceDir = ""
-    GameDir = ""
-  }
   Q3UrbanTerror directory infos.qctx =
   {
     Game = "Quake 3"
