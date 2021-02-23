@@ -291,9 +291,7 @@ class Rotate3DHandle(GenericHandle):
         if editor is None:
             quarkx.clickform = view.owner
             editor = mapeditor()
-        if self.MODE == SS_MODEL:
-            pass # To allow Eye ball handle to draw when needed.
-        elif editor.layout is not None:
+        if (self.MODE == SS_MAP) and (editor.layout is not None) and ("tb_terrmodes" in editor.layout.toolbars):
             tb2 = editor.layout.toolbars["tb_terrmodes"]
             if view.info["type"] == "3D":
                 if view.info["viewname"] == "editors3Dview" and quarkx.setupsubset(SS_MAP, "Options")["Options3Dviews_noicons1"] == "1":
@@ -1053,7 +1051,7 @@ class RedImageDragObject(DragObject):
                             view.drawmap(r, mode, rectanglecolor)
         else:
 ## Deals with Terrain Selector 3D face drawing, movement is in ok section
-            if (editor is not None) and (editor.layout.toolbars["tb_terrmodes"] is not None):
+            if (editor is not None) and ("tb_terrmodes" in editor.layout.toolbars):
                 tb2 = editor.layout.toolbars["tb_terrmodes"]
                 for b in tb2.tb.buttons:
                     if b.state == 2:
@@ -1125,27 +1123,28 @@ class RedImageDragObject(DragObject):
 
 ## Deals with Terrain Selector 2D face drawing, movement is in ok section and
 ## Deals with Standard Selector 2D face drawing, movement is in ok section
-                        elif editor.layout.toolbars["tb_terrmodes"] is not None:
-                            tb2 = editor.layout.toolbars["tb_terrmodes"]
-                            for b in tb2.tb.buttons:
-                                if b.state == 2:
-                                    if len(editor.layout.explorer.sellist) > 1:
-                                        for r in self.redimages:
-                                            if r.name != ("redbox:p"):
-                                             #   TG goes here AFTER mouse release
-                                             #   for multi faces drag in 3D view
-                                                view.update()
-                                                import qbaseeditor
-                                                qbaseeditor.BaseEditor.finishdrawing = newfinishdrawing
-                                                return
-                                            else:
-                                                view.drawmap(r, mode, self.redcolor)
-                                          #      self.view.invalidate()
-                                                import qbaseeditor
-                                                qbaseeditor.BaseEditor.finishdrawing = newfinishdrawing
-                                                return
-                                        if self.handle is not None:
-                                            self.redhandledata = self.handle.drawred(self.redimages, view, self.redcolor)
+                        else:
+                            if "tb_terrmodes" in editor.layout.toolbars:
+                                tb2 = editor.layout.toolbars["tb_terrmodes"]
+                                for b in tb2.tb.buttons:
+                                    if b.state == 2:
+                                        if len(editor.layout.explorer.sellist) > 1:
+                                            for r in self.redimages:
+                                                if r.name != ("redbox:p"):
+                                                 #   TG goes here AFTER mouse release
+                                                 #   for multi faces drag in 3D view
+                                                    view.update()
+                                                    import qbaseeditor
+                                                    qbaseeditor.BaseEditor.finishdrawing = newfinishdrawing
+                                                    return
+                                                else:
+                                                    view.drawmap(r, mode, self.redcolor)
+                                              #      self.view.invalidate()
+                                                    import qbaseeditor
+                                                    qbaseeditor.BaseEditor.finishdrawing = newfinishdrawing
+                                                    return
+                                            if self.handle is not None:
+                                                self.redhandledata = self.handle.drawred(self.redimages, view, self.redcolor)
 
                             for r in self.redimages:
                                 view.drawmap(r, mode, self.redcolor)
@@ -1202,7 +1201,7 @@ class RedImageDragObject(DragObject):
 
 ## This section added for Terrain Generator - stops broken faces - cdunde 05-19-05
 
-        if editor.MODE == SS_MAP:
+        if (editor.MODE == SS_MAP) and ("tb_terrmodes" in editor.layout.toolbars):
             tb2 = editor.layout.toolbars["tb_terrmodes"]
 ## Deals with Terrain Selector movement, face drawing is in drawredimages section
             for b in tb2.tb.buttons:
