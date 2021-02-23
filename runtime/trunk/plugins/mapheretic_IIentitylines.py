@@ -16,9 +16,10 @@ Info = {
    "quark":         "Version 6.0 Beta 1" }
 
 
+import quarkx
 from quarkpy.maputils import *
 import quarkpy.mapentities
-from quarkpy.qeditor import MapColor
+import quarkpy.qeditor
 
 DefaultDrawEntityLines = quarkpy.mapentities.DefaultDrawEntityLines
 ObjectOrigin = quarkpy.mapentities.ObjectOrigin
@@ -52,8 +53,8 @@ class Heretic_IIDrawEntityLines(DefaultDrawEntityLines):
    def drawentitylines(self, entity, org, view, entities, processentities):
         # Draw the default target/targetname/killtarget/light/_light arrows/ellipse
         DefaultDrawEntityLines.drawentitylines(self, entity, org, view, entities, processentities)
-        # From here its Quake-2 special
-        axiscolor = MapColor("Axis")
+        # From here its Heretic-2 special
+        axiscolor = quarkpy.qeditor.MapColor("Axis")
         rotcolor = 0xff00ff     # (magenta) rotation axis
         org1 = view.proj(org)
         if org1.visible:

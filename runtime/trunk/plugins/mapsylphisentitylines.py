@@ -13,10 +13,9 @@ Info = {
    "quark":         "Version 6.4" }
 
 
+import quarkx
 from quarkpy.maputils import *
 import quarkpy.mapentities
-import quarkpy.qeditor
-import quarkpy.qhandles
 
 DefaultDrawEntityLines = quarkpy.mapentities.DefaultDrawEntityLines
 ObjectOrigin = quarkpy.mapentities.ObjectOrigin

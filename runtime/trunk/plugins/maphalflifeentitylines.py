@@ -19,9 +19,10 @@ Info = {
    "quark":         "Version 5.10" }
 
 
+import quarkx
 from quarkpy.maputils import *
 import quarkpy.mapentities
-from quarkpy.qeditor import MapColor
+import quarkpy.qeditor
 
 DefaultDrawEntityLines = quarkpy.mapentities.DefaultDrawEntityLines
 
@@ -55,8 +56,8 @@ class HalfLifeDrawEntityLines(DefaultDrawEntityLines):
     def drawentitylines(self, entity, org, view, entities, processentities):
         # Draw the default target/targetname/killtarget/light/_light arrows/ellipse
         DefaultDrawEntityLines.drawentitylines(self, entity, org, view, entities, processentities)
-        # From here its Half-Life special
-        axiscolor = MapColor("Axis")
+        # From here it's Half-Life special
+        axiscolor = quarkpy.qeditor.MapColor("Axis")
         stopcolor = 0x808080    # (grey) when firing an Stop/End/Close action
         passcolor = 0x0080ff    # (orange) when firing an Pass-this-point action
         branchcolor = 0xff8000  # (blue) alternate path-route

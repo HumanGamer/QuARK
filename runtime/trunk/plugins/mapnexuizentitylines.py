@@ -15,6 +15,7 @@ Info = {
    "quark":         "Version 6.0 Beta 1" }
 
 
+import quarkx
 import math
 from quarkpy.maputils import *
 import quarkpy.mapentities

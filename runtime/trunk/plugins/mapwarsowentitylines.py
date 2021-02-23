@@ -18,6 +18,7 @@ Info = {
 
 
 import math
+import quarkx
 from quarkpy.maputils import *
 import quarkpy.mapentities
 import quarkpy.qeditor

@@ -18,16 +18,18 @@ Info = {
     "quark":         "Version 6.3"
 }
 
+
+import quarkx
 from quarkpy.maputils import *
 import quarkpy.mapduplicator
 import quarkpy.qmacro
-from quarkpy.qeditor import mapeditor
+import quarkpy.qeditor
 
 StandardDuplicator = quarkpy.mapduplicator.StandardDuplicator
 
 
 def macro_hlradfilemaker_apply(self):
-    editor = mapeditor()
+    editor = quarkpy.qeditor.mapeditor()
     if editor is None:
         return
     dup = editor.layout.explorer.uniquesel
@@ -67,11 +69,11 @@ class HalfLifeRADFileMaker(StandardDuplicator):
 
         if (filename is None or filename == ""):
             # build .RAD filename
-            editor = mapeditor(SS_MAP)
+            editor = quarkpy.qeditor.mapeditor(SS_MAP)
             if (editor is None):    # Make sure there IS a editor available
                 return []
             filename = checkfilename(editor.fileobject.shortname or editor.fileobject["FileName"]) + ".RAD"
-	    filename = filename.lower()
+        filename = filename.lower()
 
         radfilename = quarkx.outputfile(quarkx.getmapdir()+"//"+filename)
 

@@ -15,6 +15,7 @@ Info = {
    "author e-mail": "mac.@gmx.net",
    "quark":         "Version 6.0" }
 
+import quarkx
 from quarkpy.maputils import *
 import quarkpy.mapduplicator
 
