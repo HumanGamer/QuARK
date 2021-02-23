@@ -1487,31 +1487,35 @@ def BuildHandles(editor, ex, view):
 
 ## This section to setup for Terrain handels - cdunde 04-23-05
 
-            if editor.layout.toolbars["tb_dragmodes"] is not None:
+            manager = None
+
+            if "tb_dragmodes" in editor.layout.toolbars:
                 tb1 = editor.layout.toolbars["tb_dragmodes"]
                 for b in tb1.tb.buttons:
                     if b.state == 2:
                         manager = qhandles.LinHandlesManager(MapColor("Linear"), box, list)
-                        h = manager.BuildHandles(editor.interestingpoint())
 
 
-            if editor.layout.toolbars["tb_terrmodes"] is not None:
+            if "tb_terrmodes" in editor.layout.toolbars:
                 tb2 = editor.layout.toolbars["tb_terrmodes"]
                 for b in tb2.tb.buttons:
                     if b.state == 2:
                         manager = plugins.mapterrainmodes.TerrainLinHandlesManager(MapColor("Duplicator"), box, list, view)
-                        h = manager.BuildHandles(editor.interestingpoint())
 ## End of above section for Terrain handels
 
 ## This section to setup for Objectmodes handels - cdunde 12-21-05
 
-            if editor.layout.toolbars["tb_objmodes"] is not None:
+            if "tb_objmodes" in editor.layout.toolbars:
                 tb3 = editor.layout.toolbars["tb_objmodes"]
                 for b in tb3.tb.buttons:
                     if b.state == 2:
                         manager = qhandles.LinHandlesManager(MapColor("Linear"), box, list)
-                        h = manager.BuildHandles(editor.interestingpoint())
 ## End of above section for Objectmodes handels
+
+            if manager is None:
+                manager = qhandles.LinHandlesManager(MapColor("Linear"), box, list)
+
+            h = manager.BuildHandles(editor.interestingpoint())
 
     else:
         #
