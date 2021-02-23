@@ -18,9 +18,10 @@ Info = {
 
 
 import quarkx
+import quarkpy.mapeditor
 import quarkpy.mapoptions
-from quarkpy.maputils import *
-from quarkpy.qhandles import *
+import quarkpy.qeditor
+import quarkpy.qhandles
 from quarkpy.qutils import *
 
 
@@ -99,9 +100,8 @@ def newfinishdrawing(editor, view, oldfinish=quarkpy.mapeditor.MapEditor.finishd
     #
 
 
-    if not MapOption("AxisXYZ"):return
+    if not quarkpy.qeditor.MapOption("AxisXYZ"):return
 
-    import quarkpy.qhandles
     def MyMakeScroller(layout, view):
         sbviews = [None, None]
         for ifrom, linkfrom, ito, linkto in layout.sblinks:
@@ -119,7 +119,7 @@ def newfinishdrawing(editor, view, oldfinish=quarkpy.mapeditor.MapEditor.finishd
                     vlink[1].scrollto(None, y)
                 else:
                     vlink[1].scrollto(y, None)
-            if not MapOption("AxisXYZ"):
+            if not quarkpy.qeditor.MapOption("AxisXYZ"):
                 view.update()
             else:
                 view.repaint()
