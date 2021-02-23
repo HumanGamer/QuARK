@@ -13,8 +13,6 @@ from qdictionnary import Strings
 import qmenu
 import qhandles
 from maputils import *
-import plugins.map1addonsamendmenu
-import plugins.map1addonsmenu
 import mapselection
 import mapbtns
 
@@ -96,6 +94,11 @@ def BuildMenuBar(editor):
     import mapquakemenu
     import maptools
     import mapoptions
+
+    import plugins.map1addonsamendmenu #FIXME: Remove dependency!
+    import plugins.map1addonsmenu #FIXME: Remove dependency!
+    import plugins.mapgridscale #FIXME: Remove dependency!
+    import plugins.maptools #FIXME: Remove dependency!
 
     if IsBsp(editor):
         File1, sc1 = qmenu.DefaultFileMenuBsp()
