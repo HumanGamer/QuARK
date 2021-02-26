@@ -36,14 +36,8 @@ Info = {
 
 
 import quarkx
-import quarkpy.mapmenus
 import quarkpy.mapentities
-import quarkpy.mapeditor
-import quarkpy.mapcommands
-import quarkpy.mapoptions
 import quarkpy.qhandles
-import quarkpy.maphandles
-#import quarkpy.dlgclasses
 import quarkpy.mapduplicator
 StandardDuplicator = quarkpy.mapduplicator.StandardDuplicator
 from quarkpy.maputils import *
