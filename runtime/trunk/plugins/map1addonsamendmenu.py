@@ -24,7 +24,7 @@ import quarkpy.qtoolbar
 # ****************** Add Menu Items Dialog ******************
 
 
-class AddonsDlg (quarkpy.qmacro .dialogbox):
+class AddonsDlg (quarkpy.qmacro.dialogbox):
     #
     # dialog layout
     #
