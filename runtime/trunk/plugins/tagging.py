@@ -16,7 +16,6 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 import quarkx
-import quarkpy.qbaseeditor
 from quarkpy.maputils import *
 from quarkpy import tagging as nt
 from plugins.mapgeomtags import *
@@ -195,22 +194,6 @@ def removefromtaggedfaces(face, editor):
 #
 # -------- map drawing routines --------
 # These have got to stay the same, they're used elsewhere (WTF?)
-
-def drawsquare(cv, o, side):
-  "function to draw a square around o"
-  if o.visible:
-    dl = side/2
-    dl = int(dl)
-    cv.brushstyle = BS_CLEAR
-    cv.rectangle(int(o.x)+dl, int(o.y)+dl, int(o.x)-dl, int(o.y)-dl)
-
-def drawredface(view, cv, face):
-    for vtx in face.vertices: # is a list of lists
-      sum = quarkx.vect(0, 0, 0)
-      p2 = view.proj(vtx[-1])  # the last one
-      for v in vtx:
-        p1 = p2
-        p2 = view.proj(v)
-        sum = sum + p2
-        cv.line(p1,p2)
-      drawsquare(cv, sum/len(vtx), 8)
+import quarkpy.drawutils
+drawsquare = quarkpy.drawutils.drawsquare
+drawredface = quarkpy.drawutils.drawredface

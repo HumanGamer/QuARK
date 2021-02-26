@@ -9,6 +9,7 @@ Management of Bezier patches
 #
 
 import quarkx
+import drawutils
 from maputils import *
 import qhandles
 import maphandles
@@ -1132,7 +1133,6 @@ class CenterHandle(maphandles.CenterHandle):
 
 import mapeditor
 def pickfinishdrawing(editor, view, oldmore=mapeditor.MapEditor.finishdrawing):
-    import plugins.tagging
     cv = view.canvas()
     cv.pencolor = MapColor("Duplicator")
     for item in editor.layout.explorer.sellist:
@@ -1141,7 +1141,7 @@ def pickfinishdrawing(editor, view, oldmore=mapeditor.MapEditor.finishdrawing):
             for p in item["picked"]:
                 i, j = cpPos(p, item)
                 p1 = view.proj(cp[i][j])
-                plugins.tagging.drawsquare(cv,p1,10)
+                drawutils.drawsquare(cv,p1,10)
     oldmore(editor,view)
 
 mapeditor.MapEditor.finishdrawing = pickfinishdrawing

@@ -44,6 +44,7 @@ Info = {
 __all__ = ['FACE', 'PLANE', 'POINT', 'VTXEDGE', 'FACEEDGE', 'B2CP']
 
 import quarkx
+from quarkpy.drawutils import drawsquare, drawredface
 from quarkpy.maputils import checktree, BS_CLEAR
 from quarkpy.qeditor import mapeditor
 import quarkpy.tagging as nt
@@ -73,31 +74,11 @@ nt.tagchangefunc(POINT, _POINT_ccb)
 # -- Drawing tagged items ------------------------------------------ #
 #   ======================
 
-# FIXME These next two shouldn't really be in this plugin
-def _drawsquare(cv, o, side):
-  "function to draw a square around o"
-  if o.visible:
-    dl = side/2
-    cv.brushstyle = BS_CLEAR
-    cv.rectangle(int(o.x)+dl, int(o.y)+dl, int(o.x)-dl, int(o.y)-dl)
-
-def _drawhighlightface(view, cv, face):
-    for vtx in face.vertices: # is a list of lists
-      sum = quarkx.vect(0, 0, 0)
-      p2 = view.proj(vtx[-1])  # the last one
-      for v in vtx:
-        p1 = p2
-        p2 = view.proj(v)
-        sum = sum + p2
-        cv.line(p1,p2)
-      _drawsquare(cv, sum/len(vtx), 8)
-
-
 # Draw CallBack functions for drawing tags
 
 def _FACE_dcb(e,v,cv,face):
     if checktree(e.Root, face):
-        _drawhighlightface(v,cv,face)
+        drawredface(v,cv,face)
     else:
         nt.cleartags(e, FACE)
 
@@ -113,14 +94,14 @@ def _FACEEDGE_dcb(e,v,cv,obj):
   cv.penwidth = oldwidth
 
 def _POINT_dcb(e,v,cv,obj):
-  _drawsquare(cv, v.proj(obj), 8)
+  drawsquare(cv, v.proj(obj), 8)
 
 def _VTXEDGE_dcb(e,v,cv,obj):
   pt1, pt2 = obj
   p1 = v.proj(pt1)
   p2 = v.proj(pt2)
   cv.line(p1,p2)
-  _drawsquare(cv, (p1+p2)/2, 8)
+  drawsquare(cv, (p1+p2)/2, 8)
 
 def _PLANE_dcb(e,v,cv,obj):
   p1, p2, p3 = obj
@@ -132,7 +113,7 @@ def _PLANE_dcb(e,v,cv,obj):
 
 def _B2CP_dcb(e,v,cv,obj):
     _POINT_dcb(e,v,cv,obj.pos)
-        
+
 nt.tagdrawfunc(_FACE_dcb, FACE)
 nt.tagdrawfunc(_FACEEDGE_dcb, FACEEDGE)
 nt.tagdrawfunc(_POINT_dcb, POINT)
