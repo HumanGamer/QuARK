@@ -1,16 +1,26 @@
-# QuArK  -  Quake Army Knife
+"""   QuArK  -  Quake Army Knife
+
+Plug-in which can reload the map.
+"""
 #
-# Copyright (C) 2001 The QuArK Community
+# Copyright (C) 1996-99 Armin Rigo
 # THIS FILE IS PROTECTED BY THE GNU GENERAL PUBLIC LICENCE
 # FOUND IN FILE "COPYING.TXT"
 #
 
+Info = {
+   "plug-in":       "Map reload",
+   "desc":          "Reloads the map",
+   "author":        "Armin Rigo",
+   "author e-mail": "arigo@planetquake.com",
+   "author e-mail": "",
+   "quark":         "" }
+
+
 import quarkx
-import quarkpy.mapmenus
 import quarkpy.mapcommands
 import quarkpy.qmacro
 import quarkpy.qtoolbar
-import quarkpy.mapoptions
 
 from quarkpy.maputils import *
 
