@@ -246,7 +246,7 @@ def LookAtMe(m):
 
 ForceAngle1 = quarkpy.qmenu.item("&Adjust angle", ForceAngle,"|Adjust angle:\n\nThis is only active when you have selected a face. This will bring the angle of the face on the polyhedron, to the nearest angle by which you specified in the 'Building'.|intro.mapeditor.menu.html#orientation")
 
-Orientation1 = quarkpy.qmenu.item("&Orientation...", Orientation,"|Orientation:\n\nThis is only active when you have selected a face. It will bring up a window where you can edit some attribures about the face.\n\nHowever, its not recommended that you do it this way, unless you know what you're doing!|intro.mapeditor.menu.html#orientation")
+Orientation1 = quarkpy.qmenu.item("&Orientation...", Orientation,"|Orientation:\n\nThis is only active when you have selected a face. It will bring up a window where you can edit some attributes about the face.\n\nHowever, its not recommended that you do it this way, unless you know what you're doing!|intro.mapeditor.menu.html#orientation")
 
 DeleteSide1 = quarkpy.qmenu.item("&Delete face", deleteside,"|Delete face:\n\nAs it says. However, deleting a face will very likely make a polyhedron invalid.|intro.mapeditor.menu.html#orientation")
 
