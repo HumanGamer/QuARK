@@ -8,6 +8,15 @@ Heap debugging functions.
 # FOUND IN FILE "COPYING.TXT"
 #
 
+Info = {
+   "plug-in":       "Heap debugging functions",
+   "desc":          "Heap debugging functions",
+   "date":          "8 Jan 2002",
+   "author":        "tiglari",
+   "author e-mail": "tiglari@hexenworld.net",
+   "quark":         "Version 6.3" }
+
+
 import quarkx
 import quarkpy.mapmenus
 import quarkpy.mapcommands
@@ -110,7 +119,7 @@ class HeapStatus(quarkpy.dlgclasses.placepersistent_dialogbox):
             pass
         editor.oldalloc = totalalloc
         self.form = form
-          
+
     #
     # Create the dialog form and the buttons
     #
