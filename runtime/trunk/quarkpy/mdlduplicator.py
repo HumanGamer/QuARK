@@ -16,6 +16,7 @@ Model Duplicator abstract classes.
 #
 
 
+import quarkx
 from qeditor import *
 from qutils import *
 import mdlhandles
@@ -261,7 +262,7 @@ class StandardDuplicator(DuplicatorManager):
         if tex_sub:
             try:
                 tex_dict=Dup_Tex_Dicts[tex_sub]
-            except:
+            except (KeyError):
                 quarkx.msgbox('no tex_dict found', MT_INFORMATION, MB_OK)
         if self.dup["item center"]:
             try:
@@ -304,17 +305,17 @@ class StandardDuplicator(DuplicatorManager):
                     surfs=item.findallsubitems("",":f")+item.findallsubitems("",":b2")
                     for surf in surfs:
                         if not surf["notexsub"]:
+                            if i==0:
+                                orig_tex=surf["orig_tex"]=surf.texturename
+                            else:
+                                orig_tex=surf["orig_tex"]
                             try:
-                                if i==0:
-                                    orig_tex=surf["orig_tex"]=surf.texturename
-                                else:
-                                    orig_tex=surf["orig_tex"]
                                 texlist=tex_dict[orig_tex]
-#                                debug(' i: '+`i`)
-                                surf.texturename = texlist[(i+1)%len(texlist)]
-#                                debug('   '+surf.texturename)
-                            except:
-                                pass
+                            except (KeyError):
+                                continue
+#                            debug(' i: '+`i`)
+                            surf.texturename = texlist[(i+1)%len(texlist)]
+#                            debug('   '+surf.texturename)
 
             if self.dup["increment suffix"]:
                 if i==count-1:
