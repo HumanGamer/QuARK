@@ -173,33 +173,6 @@ def navTreePopup(o,editor):
     return buildParentPopup(o,parentSelPop,navTreePopupItems,editor)
 
 
-# For templates
-
-def refreshTemplateClick(m):
-    editor=m.editor
-    item=m.item
-    editor.layout.explorer.uniquesel = item.parent
-    newitem = item.copy()
-    undo = quarkx.action()
-    undo.exchange(item, newitem)
-    undo.ok(editor.Root, "")
-
-def RefreshTemplate(item, editor):
-    if item is None:
-        return
-
-    if item.type != ":d":
-        return
-
-    if item["macro"] is None or item["macro"]!="Template":
-        return
-
-    m = qmenu.item
-    m.editor = editor
-    m.item = item
-    refreshTemplateItem = qmenu.item("Refresh &Template", refreshTemplateClick, "|If a template is changed, clicking this function will update those changes to your current map where that template is used.\n\nIt may also update other templates in this same map if they have been changed also.\n\nPress F1 once more to see more details about updating templates in the Infobase.|intro.mapeditor.misctools.html#refreshtemplate")
-    return refreshTemplateItem
-
 def RestrictByMe(m):
   editor = mapeditor()
   if editor is None:
@@ -228,7 +201,7 @@ def ZoomToMe(m):
 quarkpy.mapoptions.items.append(quarkpy.mapoptions.toggleitem("Look and Zoom in 3D views", "3Dzoom", (1,1),
       hint="|Look and Zoom in 3D views:\n\nIf this menu item is checked, it will zoom in and center on the selection(s) in all of the 3D views when the 'Zoom to selection' button on the 'Selection Toolbar' is clicked.\n\nIf a face is selected and the 'Shift' key is held down, it will look at the other side of the face and strive to center it in the view.\n\nIf this menu item is unchecked, it will only look in the selection(s) direction from the current camera position.|intro.mapeditor.menu.html#optionsmenu"))
 
-        
+
 def zoomToMeFunc(editor,object):
     #
     #  regular views
@@ -577,7 +550,7 @@ quarkpy.mapentities.PolyhedronType.menu = madpolymenu
 #
 
 
-    
+
 def madgroupmenu(o, editor, oldmenu=quarkpy.mapentities.GroupType.menu.im_func):
   "the new right-mouse menu for groups"
   menu = oldmenu(o, editor)
@@ -595,7 +568,7 @@ quarkpy.mapentities.GroupType.menu = madgroupmenu
 #
 
 
-    
+
 def madbezmenu(o, editor, oldmenu=quarkpy.mapentities.BezierType.menu.im_func):
   "the new right-mouse menu for groups"
   menu = oldmenu(o, editor)
@@ -610,16 +583,9 @@ quarkpy.mapentities.BezierType.menu = madbezmenu
 def madentmenu(o, editor, oldmenu=quarkpy.mapentities.EntityType.menu.im_func):
   "point entity menu"
   menu = oldmenu(o, editor)
-  if o["macro"] is None or o["macro"]!="Template":
-    menu[:0] = [navTreePopup(o, editor),
+  menu[:0] = [navTreePopup(o, editor),
               restructurepopup(o),
 #              menrestsel,
-              qmenu.sep]
-  else:
-    menu[:0] = [navTreePopup(o, editor),
-              restructurepopup(o),
-#              menrestsel,
-              RefreshTemplate(o, editor),
               qmenu.sep]
   return menu
 
