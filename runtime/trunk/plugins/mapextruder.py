@@ -22,13 +22,12 @@ from quarkpy.qdictionnary import Strings
 import quarkpy.qhandles
 import quarkpy.qtoolbar
 import quarkpy.mapduplicator
+import quarkpy.mapentities
 import quarkpy.maphandles
-import quarkpy.maputils
 StandardDuplicator = quarkpy.mapduplicator.StandardDuplicator
 DuplicatorManager = quarkpy.mapduplicator.DuplicatorManager
 RotMat = quarkpy.maputils.ArbRotationMatrix
 from quarkpy.qeditor import deg2rad
-from quarkpy.maphandles import MapRotateHandle
 #from mapmadsel import getstashed
 from quarkpy.maputils import *
 from tagging import *
@@ -36,7 +35,6 @@ from tagging import *
 from quarkpy.dlgclasses import placepersistent_dialogbox
 from quarkpy.qeditor import matrix_rot_z
 from quarkpy.qeditor import matrix_rot_y
-from quarkpy.qhandles import aligntogrid
 from quarkpy import b2utils
 
 #
@@ -75,12 +73,12 @@ from quarkpy import b2utils
 # Global
 view2D = None
 
-class AxisHandle(MapRotateHandle):
+class AxisHandle(quarkpy.maphandles.MapRotateHandle):
   "a rotating handle that controls a normalized vector spec"
 
   def __init__(self, center, dup, spec, scale1):
     axis = quarkx.vect(dup[spec])
-    MapRotateHandle.__init__(self, center, axis, scale1, quarkpy.qhandles.mapicons[11])
+    quarkpy.maphandles.MapRotateHandle.__init__(self, center, axis, scale1, quarkpy.qhandles.mapicons[11])
     self.dup = dup
     self.spec = spec
 
@@ -280,13 +278,15 @@ class ExtruderDupData:
  #     return []
  #   else:
 
-      return self.dup.findname("spine:g").subitems
+      path = self.Path()
+      if path is None:
+        return []
+      return path.subitems
 
 
-    
   def PathLen(self):
     return len(self.PathPoints())
-  
+
   def PathPoint(self, j):
     if j==0:
       return None
@@ -302,7 +302,7 @@ class ExtruderDupData:
     else:
       loc = j
     if loc is not None:
-      loc = quarkx.vect(loc["location"]) 
+      loc = quarkx.vect(loc["location"])
     return loc
 
   def Org(self):
@@ -321,10 +321,15 @@ class ExtruderDupData:
     return pos
 
   def Circ(self):
-   return self.dup.findname("spine:g").subitems[0]
-   
+   spine = self.dup.findname("spine:g")
+   if spine is None:
+     return None
+   return spine.subitems[0]
+
   def CircPoints(self):
     spine = self.dup.findname("spine:g")
+    if spine is None:
+      return []
     return spine.subitems[0].subitems
 
   #
@@ -570,7 +575,9 @@ def set_path_pos(dup, k, pos):
    if k==0:
      return
    if type(k)==type(0):
-     spine = dup.findname("spine:g")
+     spine = get_spine(dup)
+     if spine is None:
+       return
      ribs = spine.subitems
      if k < len(ribs):
        point=ribs[k]
@@ -943,7 +950,7 @@ class ExtruderPathHandle(quarkpy.maphandles.CenterHandle):
         data = ExtruderDupData(dup)
         pos0 = data.PathPos(j)
         if flags&MB_CTRL:
-            newpos = aligntogrid(pos0+delta,1)
+            newpos = quarkpy.qhandles.aligntogrid(pos0+delta,1)
         else:
             delta = quarkpy.qhandles.aligntogrid(delta,1)
             newpos = pos0+delta
@@ -1187,6 +1194,8 @@ def autobox(input, data):
 #
 def pipeify(input, data):
 #  squawk("convexifying %s"%input)
+  if len(input) == 0:
+    return [], []
   length = len(input)
   cycle = input[:]
   cycle.append(input[0])
@@ -1675,7 +1684,7 @@ class ExtruderCircHandle(quarkpy.maphandles.CenterHandle):
         k = self.k
         pos0 = data.CircPos(k)
         if flags&MB_CTRL:
-            newpos = aligntogrid(pos0+delta,1)
+            newpos = quarkpy.qhandles.aligntogrid(pos0+delta,1)
         else:
             delta = quarkpy.qhandles.aligntogrid(delta, 1)
             newpos = pos0+delta
@@ -1705,9 +1714,9 @@ def insert_point(dup, k, editor=None):
             # This option when we're inserting into a new thing
             #
             if editor is None:
- #             spine = dup.findname("spine:g")
- #             spine.subitems[0].insertitem(k, new)
-              data.Circ().insertitem(k, new)
+              circ = data.Circ()
+              if circ is not None:
+                circ.insertitem(k, new)
               return
             undo = quarkx.action()
             undo.put(data.Circ(), new, point2)
@@ -1877,8 +1886,8 @@ def gettaggedcordup(editor):
       return cor
   except (AttributeError):
     return None
-    
-  
+
+
 def extrudermenu(o, editor, oldmenu=quarkpy.mapentities.DuplicatorType.menu.im_func):
   "duplicator entity menu"
 
