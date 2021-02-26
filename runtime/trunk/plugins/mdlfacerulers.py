@@ -9,7 +9,7 @@ Plug-in to show distance of selected faces in 2D views.
 #
 
 Info = {
-   "plug-in":       "Model tools",
+   "plug-in":       "Display face rulers",
    "desc":          "Shows distance of selected faces in 2D views",
    "date":          "October 6 2007",
    "author":        "cdunde",

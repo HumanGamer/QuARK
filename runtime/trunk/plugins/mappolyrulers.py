@@ -9,7 +9,7 @@ Plug-in to show distance of selected polys in 2D views.
 #
 
 Info = {
-   "plug-in":       "Map tools",
+   "plug-in":       "Display poly rulers",
    "desc":          "Shows distance of selected polys in 2D views",
    "date":          "November 15 2005",
    "author":        "cdunde",
