@@ -70,9 +70,6 @@ from quarkpy import b2utils
 #  places, and ought to be cleaned up.
 #
 
-# Global
-view2D = None
-
 class AxisHandle(quarkpy.maphandles.MapRotateHandle):
   "a rotating handle that controls a normalized vector spec"
 
@@ -268,21 +265,10 @@ class ExtruderDupData:
     return self.dup.findname("spine:g")
 
   def PathPoints(self):
-
- # cdunde 10/25/06: un-commenting this section will cause the 2D Extruder Window to close,
- #       if something is selected in another view, but it will also cause an Access Violation error,
- #   global view2D
- #   if self.dup.findname("spine:g") is None:
- #     m = None
- #     plugins.mapextruder.new2dclick(view2D, m)
- #     return []
- #   else:
-
-      path = self.Path()
-      if path is None:
-        return []
-      return path.subitems
-
+    path = self.Path()
+    if path is None:
+      return []
+    return path.subitems
 
   def PathLen(self):
     return len(self.PathPoints())
@@ -2608,8 +2594,6 @@ def n2dfinishdrawing(editor, view, oldmore=quarkpy.mapeditor.MapEditor.finishdra
 quarkpy.mapeditor.MapEditor.finishdrawing = n2dfinishdrawing
 
 def new2dclick(self, m):
-      global view2D
-      view2D = self
       n2d = self.new2dwin
       if n2d is not None:
         self.new2dwin.close()
