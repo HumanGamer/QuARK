@@ -17,18 +17,12 @@ Info = {
    "quark":         "Version 6" }
 
 
-import quarkpy.mapoptions
+import quarkx
+import quarkpy.mapeditor
+import quarkpy.qhandles
+import quarkpy.qmenu
 from quarkpy.maputils import *
 
-
-#
-# -------- grid numbering routines
-#
-
-def NumberGrid(cv, view, text):
-    "function to place numbers on grid"
-    editor = mapeditor()
-    cv.textout(view.y, view.z, text)
 
 #
 # This part is a magical incantation.
