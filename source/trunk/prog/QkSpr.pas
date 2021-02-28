@@ -475,7 +475,7 @@ begin
     Self.Specifics.Add(Format('SPR_FRAME%d_WIDTH=%d',[i,frame.w]));
     Self.Specifics.Add(Format('SPR_FRAME%d_HEIGHT=%d',[i,frame.h]));
     Self.Specifics.Add(Format('SPR_FRAME%d_IDATASIZE=%s',[i,'N / A']));
-//    Loaded_FrameFile(self, fStr);// Doesn't Work. Wonder Why??
+//    Loaded_FrameFile(self, fStr); //FIXME: Doesn't Work. Wonder Why??
   end;
 end;
 
