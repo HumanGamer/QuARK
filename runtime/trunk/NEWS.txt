@@ -14,6 +14,8 @@
 
 6.6.0 Beta 7
 ============
+* [DanielPharos]: Added support for loading and saving of new KMQuake2 surface color data.
+
 * [DanielPharos]: Improved the software renderer to use 16-bit floating point depth buffering.
 
 * [DanielPharos]: Added experimental Genesis3D .bsp file loading and saving support.
