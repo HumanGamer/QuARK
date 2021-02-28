@@ -420,7 +420,7 @@ var
  NumericValue: Double;
  V: array[1..3] of TVect;
  P: TPolyhedron;
- I, J, K, NumericValue1, ContentsFlags: Integer;
+ I, J, K: Integer;
  WorldSpawn: Boolean;
  Entite, EntitePoly: TTreeMapSpec;
  L: TSpecificsList;
@@ -1133,7 +1133,7 @@ expected one.
  end;
 
 
- procedure ReadSquareTex4 (var Axis : TVect; var Shift : Double);
+ procedure ReadSquareTex4(var Axis : TVect; var Shift : Double);
  begin
    ReadSymbol(sSquareBracketLeft);
    Axis.X:=NumericValue;
@@ -1297,8 +1297,8 @@ expected one.
      FreeMem(MeshBuf1.CP);
    end;
  end;
- 
- 
+
+
  procedure ReadPatchDef3;
  var
    I, J: Integer;
@@ -1573,6 +1573,7 @@ expected one.
    Surface: TFace;
    tmpReorder: TDouble;
    Size: TPoint;
+   NumericValue1, NumericValue2, ContentsFlags: Integer;
  begin
   P:=TPolyhedron.Create(LoadStr1(138), EntitePoly);
   EntitePoly.SubElements.Add(P);
@@ -1650,7 +1651,8 @@ expected one.
       Params[5]:=Params[5] / Size.Y;
 
       //FIXME: What is this 6th number...?
-      NumericValue1:=Round(NumericValue);
+      //NumericValue;
+
       ReadSymbol(sNumValueToken);
 
       ReadCOD2SurfaceParams(Surface);
@@ -1682,11 +1684,24 @@ expected one.
             Result:=mjMOHAA;
             ReadMohaaSurfaceParms(Surface);
           end
-          else if SymbolType=sNumValueToken then //CoD1
+          else if SymbolType=sNumValueToken then //CoD1 or KMQuake2
           begin
-            Result:=mjCoD;
+            NumericValue1:=Round(NumericValue);
             ReadSymbol(sNumValueToken);
-            Surface.Specifics.Add('CoD_samplesize='+IntToStr(Round(NumericValue)));
+
+            if SymbolType=sNumValueToken then //KMQuake2
+             begin
+              //Result:=mjKMQuake2;
+              NumericValue2:=Round(NumericValue);
+              ReadSymbol(sNumValueToken);
+              Surface.Specifics.Values['KMQuake2_color']:=IntToStr(NumericValue1) + ' ' + IntToStr(NumericValue2) + ' ' + IntToStr(Round(NumericValue));
+              ReadSymbol(sNumValueToken);
+             end
+            else
+             begin
+              Result:=mjCoD;
+              Surface.Specifics.Add('CoD_samplesize='+IntToStr(NumericValue1));
+             end;
           end;
          end;
        end
@@ -1732,6 +1747,7 @@ expected one.
    Matrix : TMatrixTransformation;
    Surface: TFace;
    TexPath: String;
+   NumericValue1: Integer;
  begin
   //Initialize ZVect
   ZVect.X:=0;
@@ -1742,7 +1758,6 @@ expected one.
   ReadSymbol(sCurlyBracketLeft); // data follows lbrace
   P:=TPolyhedron.Create(LoadStr1(138), EntitePoly);
   EntitePoly.SubElements.Add(P);
-  ContentsFlags:=0;
   while SymbolType <> sCurlyBracketRight do  { read the faces }
   begin
     TxCommand:=#0; { Reset the QuArK-special '//TX1' '//TX2' indicator to not-found }
@@ -1810,7 +1825,6 @@ expected one.
     begin
       NumericValue1:=Round(NumericValue);
       ReadSymbol(sNumValueToken);
-      ContentsFlags:=NumericValue1;
       Surface.Specifics.Values['Contents']:=IntToStr(NumericValue1);
       Surface.Specifics.Values['Flags']:=IntToStr(Round(NumericValue));
       ReadSymbol(sNumValueToken);
@@ -1844,7 +1858,6 @@ expected one.
   ReadSymbol(sCurlyBracketLeft); // texture follows lbrace
   P:=TPolyhedron.Create(LoadStr1(138), EntitePoly);
   EntitePoly.SubElements.Add(P);
-  ContentsFlags:=0;
   while SymbolType <> sCurlyBracketRight do  { read the faces }
   begin
     TxCommand:=#0; { Reset the QuArK-special '//TX1' '//TX2' indicator to not-found }
@@ -4016,8 +4029,10 @@ begin
       if MapSaveSettings.GameCode=mjMOHAA then
         MohaaSurfaceParms(F, S)
       else if (MapSaveSettings.GameCode=mjCOD) then
-        S:=S+' '+F.Specifics.Values['CoD_samplesize'];
-  
+        S:=S+' '+F.Specifics.Values['CoD_samplesize']
+      else if F.Specifics.Values['KMQuake2_color']<>'' then //if (MapSaveSettings.GameCode=mjKMQuake2) then
+        S:=S+' '+F.Specifics.Values['KMQuake2_color'];
+
     end;
   end;
 
