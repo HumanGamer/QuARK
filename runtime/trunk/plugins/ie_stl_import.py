@@ -18,8 +18,6 @@ Info = {
 import struct
 import quarkx
 import quarkpy.qutils
-import quarkpy.qhandles
-import quarkpy.mdlhandles
 import quarkpy.mdlutils
 import ie_utils
 from ie_utils import tobj
@@ -272,7 +270,7 @@ def loadmodel(root, filename, gamename, nomessage=0):
 
         # Set it up in the ModelComponentList.
         editor.ModelComponentList[Component.name] = {'bonevtxlist': {}, 'colorvtxlist': {}, 'weightvtxlist': {}}
-    
+
         editor = None   #Reset the global again
 
 ### To register this Python plugin and put it on the importers menu.
