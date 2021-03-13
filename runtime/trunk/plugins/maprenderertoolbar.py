@@ -98,7 +98,7 @@ class RendererBar(quarkpy.qeditor.ToolBar):
 # for each icon in the icon.bmp file.
 # and "infobaselink" (the infobase HTML page address and anchor,
 # which is a locator for a specific place on the page)
- 
+
 
         btnSoftware = quarkpy.qtoolbar.button(RendererClick, "Software renderer||Software renderer:\n\nUse the software renderer for separate views.", icons, 0, infobaselink="maped.plugins.renderer.html") #@
 

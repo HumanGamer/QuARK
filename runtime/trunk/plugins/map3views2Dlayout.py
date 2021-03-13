@@ -205,7 +205,7 @@ class ThreeViews2DLayout(MapLayout):
         x1,y1,x2,y2 = self.ViewXY.redlinesrect
         corner1 = self.ViewXY.space(x1, y1, 0.0)
         corner2 = self.ViewXY.space(x2, y2, 0.0)
-        
+
         xzdepth = (self.ViewXZ.proj(corner2).z,
                    self.ViewXZ.proj(corner1).z)
 

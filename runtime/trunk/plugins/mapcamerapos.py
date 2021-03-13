@@ -4,7 +4,7 @@
 # THIS FILE IS PROTECTED BY THE GNU GENERAL PUBLIC LICENCE
 # FOUND IN FILE "COPYING.TXT"
 #
- 
+
 Info = {
    "plug-in":       "Camera Position Duplicator",
    "desc":          "storeable camera positions",
@@ -37,7 +37,7 @@ from quarkpy import mapmenus
 import mapmadsel
 
 #
-# and because of this, things from maphhandles can be used
+# and because of this, things from maphandles can be used
 #  w/o qualification
 #
 from quarkpy.maphandles import *
@@ -306,7 +306,7 @@ class FindCameraPosDlg(dlgclasses.LiveEditDlg):
     endcolor = AQUA
     size = (220,160)
     dfsep = 0.35
-    dlgflags = qutils.FWF_KEEPFOCUS 
+    dlgflags = qutils.FWF_KEEPFOCUS
 
     dlgdef = """
         {
@@ -321,7 +321,6 @@ class FindCameraPosDlg(dlgclasses.LiveEditDlg):
           Hint = "These are the camera positions.  Pick one," $0D " then push buttons on row below for action."
         }
 
-          
         sep: = { Typ="S" Txt=""}
 
         buttons: = {

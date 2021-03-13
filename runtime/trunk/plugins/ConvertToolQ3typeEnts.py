@@ -21,7 +21,7 @@ def Q3typeEntList(root, QuArKpath, gamename, gamefileslocation,
  #   entitiesfiletype = ".cpp"  ### Set the entitiesfiletype to scan here.
     OutPutList = (gamename + "Entities")  ### Change the output list name here to what you want.
 
-    OutPutList = OutPutList + ".def" 
+    OutPutList = OutPutList + ".def"
     dirname = entitiesfolder
     o = open(QuArKpath + '\\' + gamename + '\\' + OutPutList, "w")
     SpcList = OutPutList.replace(".def" , ".spf")

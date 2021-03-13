@@ -88,7 +88,7 @@ def gettaggedfaces(editor):
   for f in faces:
     if not checktree(editor.Root, f):
       nt.untag(editor, FACE, f)
-      
+
   return nt.gettaglist(editor, FACE)
 
 #

@@ -5,7 +5,7 @@
             - cdunde Aug. 31, 2010
             - This file is used by the QuArK ConvertionTool on the QuArK Explorer main Files menu.
             - The completed file will be created in the game's folder in QuArK's main folder
-            - along with a .log file (opened with any text editor) giving entity summery detail. 
+            - along with a .log file (opened with any text editor) giving entity summery detail.
             - This program will go one sub-folder deep and looks for the 'classname' key in the .bsp file.
 """
 
@@ -31,7 +31,7 @@ def BSPtypeEntList(root, QuArKpath, gamename, gamefileslocation,
     entitiy_count = 0
     form_count = 0
 
-    OutPutList = OutPutList + ".log" 
+    OutPutList = OutPutList + ".log"
     dirname = entitiesfolder
     o = open(QuArKpath + '\\' + gamename + '\\' + OutPutList, "w")
     QRKfile = OutPutList.replace(".log" , ".qrk")

@@ -22,12 +22,16 @@ Info = {
    "quark":         "Version 5.1" }
 
 
+import quarkx
 from quarkpy.maputils import *
 import quarkpy.mapduplicator
 import quarkpy.maphandles
 import quarkpy.mapcommands
-StandardDuplicator = quarkpy.mapduplicator.StandardDuplicator
+import quarkpy.mapentities
+import quarkpy.qmenu
 
+
+StandardDuplicator = quarkpy.mapduplicator.StandardDuplicator
 
 
 class BasicDuplicator(StandardDuplicator):
@@ -334,11 +338,6 @@ DissociateGroupItem = quarkpy.qmenu.item("Dissociate Duplicator images", dissoci
 # Add item to the Commands menu.
 #
 
-import quarkpy.qmenu
-import quarkpy.mapcommands
-import quarkpy.mapentities
-
-
 def commands1click(menu, oldclick = quarkpy.mapcommands.onclick):
     oldclick(menu)
     editor = mapeditor()
@@ -363,7 +362,7 @@ def DuplicatorMenu(o, editor, oldmenu = quarkpy.mapentities.DuplicatorType.menub
 
 quarkpy.mapentities.DuplicatorType.menubegin = DuplicatorMenu
 
-def DupGroupMenu(o, editor, oldmenu = quarkpy.mapentities.GroupType.menubegin.im_func):	
+def DupGroupMenu(o, editor, oldmenu = quarkpy.mapentities.GroupType.menubegin.im_func):
     return oldmenu(o, editor) + [DissociateGroupItem, quarkpy.qmenu.sep]
 
 quarkpy.mapentities.GroupType.menubegin = DupGroupMenu

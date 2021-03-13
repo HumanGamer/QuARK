@@ -92,7 +92,7 @@ class FindTargetDlg (quarkpy.dlgclasses.LiveEditDlg):
           Txt = "value:"
           Hint = "Things with value of the specific above are to be found"
         }
-        
+
         sep: = { Typ="S" Txt=""}
 
         exit:py = {Txt="" }
@@ -113,7 +113,7 @@ class FindTargetDlg (quarkpy.dlgclasses.LiveEditDlg):
         #
         Spec1 = qmenu.item("", quarkpy.mapmenus.set_mpp_page, "")
         Spec1.page = 1 # specifics page
-        quarkpy.mapmenus.set_mpp_page(Spec1) 
+        quarkpy.mapmenus.set_mpp_page(Spec1)
 
 
 #

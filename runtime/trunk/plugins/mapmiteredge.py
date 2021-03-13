@@ -428,7 +428,7 @@ def setViewFlag(group, flag):
 def buildwallmakerimages(self, singleimage=None):
         if not (self.dup["miter"] or self.dup["extrude"] or self.dup["solid"]):
             return mapdups.DepthDuplicator.buildimages(self,singleimage)
-            
+
         if singleimage is not None and singleimage>0:
             return []
         try:
@@ -597,7 +597,7 @@ def buildwallmakerimages(self, singleimage=None):
                             return 0
                     donefaces[(face, vi)]=new[i]
                     return 1
-                
+
                 faces = (face1, face2)
                 #
                 # Now we try to specify the replacements we want, avoiding
@@ -623,7 +623,7 @@ def buildwallmakerimages(self, singleimage=None):
                         poly.rebuildall()
                         if poly.broken:
                             debug('rats, still busted')
- 
+
             #
             # Now generate the caulk hull if wanted
             #
@@ -693,7 +693,7 @@ def buildwallmakerimages(self, singleimage=None):
                            polygroup = quarkx.newobj(poly.shortname+':g')
                            for bit in polybits:
                                polygroup.appenditem(bit.copy())
-                               
+
                            parent = poly.parent
                            parent.removeitem(poly)
                            parent.appenditem(polygroup)
@@ -702,7 +702,7 @@ def buildwallmakerimages(self, singleimage=None):
                    #
                    if plug['neg']!=1:
                       parent.appenditem(plug.copy())
-        
+
         #
         # if relevant, build the hull and detail groups
         #
@@ -745,7 +745,7 @@ def groupmenu(o, editor, oldmenu=quarkpy.mapentities.GroupType.menu.im_func):
     menu = oldmenu(o, editor)
     sourcegroup = o.findname("source:g")
     if sourcegroup is not None and sourcegroup['macro']=='wall maker':
-    
+
         def revertClick(m, o=o,editor=editor,source=sourcegroup):
             #
             # reversion adds ' (1)' to the name, so we drop the
@@ -760,7 +760,7 @@ def groupmenu(o, editor, oldmenu=quarkpy.mapentities.GroupType.menu.im_func):
             undo=quarkx.action()
             undo.exchange(o, newdup)
             editor.ok(undo,'revert to wall maker')
-        
+
         revertitem = qmenu.item('Revert Walls to Duplicator',revertClick,"|This group was created from a wall maker duplicator.\nThis menu item will restore the original ducplicator and its data,\nfor convenient editing")
         menu = [revertitem]+menu
 

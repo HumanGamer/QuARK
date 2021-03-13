@@ -30,7 +30,7 @@ Info = {
    "date":          "Jan 26 2003",
    "author":        "tiglari",
    "author e-mail": "tiglari@planetquake.com",
-   "quark":         "Version 6.3" 
+   "quark":         "Version 6.3"
 }
 
 #
@@ -89,7 +89,7 @@ def polymenu(o, editor, oldmenu=quarkpy.mapentities.PolyhedronType.menu.im_func)
         # fancy Python list-management to put the item where we want it
         #
         menu.insert(menu.index(texitem)+1,caulkItem)
-    
+
     return menu
 
 quarkpy.mapentities.PolyhedronType.menu=polymenu

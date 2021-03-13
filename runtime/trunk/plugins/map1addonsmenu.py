@@ -19,6 +19,7 @@ Info = {
 
 from quarkpy.maputils import *   # Need this
 import quarkpy.mapcommands   # Need this for sub-menu appending
+import quarkpy.qmenu
 
 
 # ************************************************************
@@ -43,12 +44,9 @@ def AddonsMenuCmds():       # AddonsMenuCmds used in quarkpy/mapmenus.py
     return quarkpy.qmenu.popup("&Addons", AddonsMenu, hint="|Addons:\n\nThis Main menu category was added for 3rd party, outside programs that can be ran from within QuArK.\n\nEach item through out this menu has its own help dialog. Just high light the menu item and press F1 for further help and a link to the infobase for further details if an 'InfoBase' link button exist in the help window.\n\nHistory:\n\nThis was originally intended to be the MGS file menu:\n\n With the MGS addon program, you can create several different types of shape items to be used in you maps.\n\nYou can also give your personal input to change these shapes as well as their size.\n\nIn addition, you can create plugins for the MGS program, to enhance its abilities to create shapes and/or common standard shapes and sizes to make your own library.\n\nBut the Addons menu function has now gone well beyond that. It demonstrates how a Main menu category can be added with a plugin file. The file name is map1addonsmenu.py and it also demonstrates how even a Main menu button can have an F1 help popup window and link to the infobase pages. The only difference is that one of the buttons of the Main menu has to be activated (clicked on) to initiate this feature. One other feature of this menu category, is the sub-menu drop down buttons. All these functions can be studied by reviewing the map1addonsmenu file in the plugins folder, and the mapmenus.py file located in the quarkpy folder (to see how the 'Addons' Main menu category is done).", infobaselink="intro.mapeditor.menu.html#addonsmenu"), AddonsMenuShortcuts
 
 
-### Use another .py file to add items to the menu categories ### 
+### Use another .py file to add items to the menu categories ###
 
 def Func1Click(self):
- 
-#Put the function code here
-    pass
     editor = mapeditor()
     import map1loadanymap
     plugins.map1loadanymap.LoadMapClick(self)

@@ -227,7 +227,7 @@ class SelectModesBar(ToolBar):
 # for each icon in the icon.bmp file.
 # and "infobaselink" (the infobase HTML page address and anhcor,
 # which is a locator for a specific place on the page)
- 
+
 
         btn0 = quarkpy.qtoolbar.button(quarkpy.mapselection.EscClick, "Cancel Selections||Cancel Selections:\n\n'Cancel Selections', or by pressing its HotKey, will unselect all objects that are currently selected, even frozen ones, and you are sent back to the 1st page, the treeview, if you are not already there.", icons, 0, infobaselink="intro.mapeditor.menu.html#selectionmenu")
 

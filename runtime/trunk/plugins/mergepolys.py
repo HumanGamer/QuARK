@@ -16,7 +16,6 @@
 #
 
 import quarkx
-import quarkpy.mapentities
 from tagging import *
 from faceutils import *
 
@@ -75,7 +74,7 @@ def mergeable(tagged, poly1, o):
     for face in o.faces:
         if len(face.faceof)!=1 or not coplanar(face,tagged): continue
         if face.normal*tagged.normal>0: continue
-        if same_vertices(face,tagged): 
+        if same_vertices(face,tagged):
             new = quarkx.newobj(o.name)
             for oldface in o.subitems: # not faces, we don't mess with shared faces
                 if oldface==face or oldface.type!=":f": continue
@@ -90,7 +89,7 @@ def mergeable(tagged, poly1, o):
                     new.appenditem(tagface.copy())
                     #
                     # If it can be added to o and still be used by
-                    # o, then it changes the shape of o and merger 
+                    # o, then it changes the shape of o and merger
                     # should not be enabled
                     #
           #          squawk("testing useability")

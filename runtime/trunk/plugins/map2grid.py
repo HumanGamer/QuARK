@@ -25,7 +25,7 @@ import quarkpy.qmacro
 import quarkpy.qtoolbar
 
 
-class TFTGDlg (quarkpy.qmacro.dialogbox):
+class TFTGDlg(quarkpy.qmacro.dialogbox):
 
     #
     # dialog layout
@@ -165,8 +165,8 @@ class TFTGDlg (quarkpy.qmacro.dialogbox):
         self.close()
 
 
-def TFTGclick (m):
-    editor = mapeditor ()
+def TFTGclick(m):
+    editor = mapeditor()
     if editor is None: return
     TFTGDlg(quarkx.clickform, editor)
 

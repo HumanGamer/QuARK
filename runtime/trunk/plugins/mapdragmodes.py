@@ -91,7 +91,7 @@ class EverythingRectSelDragObject(parent):
                 else: # the point is inside the polyhedron
                     o.selected = 1
                     lastsel = o
-        
+
         #
         # add groups & brush entities whose selectable
         #  subitems are all selected

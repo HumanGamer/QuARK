@@ -20,6 +20,7 @@ Info = {
 from quarkpy.maputils import *
 import quarkpy.dlgclasses
 import quarkpy.mapsearch
+import quarkpy.qmacro
 import mapmadsel
 import quarkx
 
@@ -36,7 +37,7 @@ import quarkx
 #   In principle, this could be fixed.
 #
 
-class MicroKillDlg (quarkpy.dlgclasses.LiveEditDlg):
+class MicroKillDlg(quarkpy.dlgclasses.LiveEditDlg):
     #
     # dialog layout
     #
@@ -58,7 +59,6 @@ class MicroKillDlg (quarkpy.dlgclasses.LiveEditDlg):
           Hint = "These are the brushes that are too thin.  Pick one," $0D " then push buttons on row below for action."
         }
 
-          
         sep: = { Typ="S" Txt=""}
 
         buttons: = {
@@ -82,7 +82,7 @@ class MicroKillDlg (quarkpy.dlgclasses.LiveEditDlg):
           Txt = "too thin: "
           Hint = "Brushes thinner than this will be nominated for removal"
         }
-        
+
         sep: = { Typ="S" Txt=""}
 
         exit:py = {Txt="" }
@@ -208,7 +208,7 @@ def thinClick(m):
         # Cleaned up in onclosing below.
         #
         editor.microbrushdlg=self
-        
+
         #
         # Names and list-indexes of thin brushes
         #

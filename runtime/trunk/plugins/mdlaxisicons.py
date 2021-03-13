@@ -43,7 +43,7 @@ from quarkpy.qutils import *
 #"AxisXYZ", (1,1),
 #      hint="|Display the X Y or Z indicator letter per view to associate #the rotation menu buttons. These are for reference only and are not #selectable with the mouse."))""
 
-# But I don't think that would be worthwhile, 
+# But I don't think that would be worthwhile,
 #  so we'll just use the long version below instead:
 #
 

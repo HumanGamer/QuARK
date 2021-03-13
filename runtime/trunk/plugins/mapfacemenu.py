@@ -25,9 +25,7 @@ import quarkpy.qtoolbar
 import quarkpy.qhandles
 import quarkpy.mapcommands
 import quarkpy.mapentities
-import quarkpy.maphandles
 import quarkpy.qmacro
-
 
 
 def ForceAngle(m):
@@ -214,7 +212,7 @@ def LookAtMe(m):
         reverse = 1
     else:
         reverse = 0
-    clickview = quarkx.clickform.focus 
+    clickview = quarkx.clickform.focus
     #
     # clickform doesn't seem to work for floating 3d windows
     #  so we just take the first.
@@ -240,7 +238,7 @@ def LookAtMe(m):
     pitch, yaw = vec2rads(-norm)
     view.cameraposition = newpos, yaw, pitch
     editor.invalidateviews()
-    
+
 
 #--- add the new menu items into the "Commands" menu ---
 

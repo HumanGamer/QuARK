@@ -11,7 +11,7 @@
        #####
         #####    Quake Army Knife Gamecodes
 
-As covered in the infobase\adv.newgame.html page this is a detailed 
+As covered in the infobase\adv.newgame.html page this is a detailed
 listing of New Games supported by QuArK and their categories.
 Please review the above page before proceeding.
 

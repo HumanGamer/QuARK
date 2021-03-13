@@ -69,7 +69,7 @@ class HeapStatus(quarkpy.dlgclasses.placepersistent_dialogbox):
     size = (250,120)
     dfsep = 0.50
     flags = FWF_KEEPFOCUS
-    
+
     dlgdef = """
         {
         Style = "9"
@@ -132,7 +132,7 @@ class HeapStatus(quarkpy.dlgclasses.placepersistent_dialogbox):
             "Cancel"))
 
     def cancel(self, dlg):
-        self.src = None 
+        self.src = None
         qmacro.dialogbox.close(self, dlg)
 
 

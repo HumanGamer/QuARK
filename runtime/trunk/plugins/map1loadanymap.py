@@ -30,7 +30,7 @@ class LoadMapDlg(quarkpy.qmacro.dialogbox):
     size = (400,120)
     dfsep = 0.35
     flags = FWF_KEEPFOCUS
-    
+
     dlgdef = """
         {
         Style = "9"
@@ -99,7 +99,7 @@ class LoadMapDlg(quarkpy.qmacro.dialogbox):
         qmacro.dialogbox.onclose(self, dlg)
 
     def cancel(self, dlg):
-        self.src = None 
+        self.src = None
         qmacro.dialogbox.close(self, dlg)
 
 #        ********** FUNCTION Starts Here **********
