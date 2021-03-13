@@ -1,5 +1,6 @@
-"""   QuArK  -  Quake Army Knife Bezier shape makers
+"""   QuArK  -  Quake Army Knife
 
+Mitered Edge Plugin
 
 """
 
@@ -17,12 +18,11 @@ Info = {
    "quark":         "Quark 6.3" }
 
 
-
 import quarkx
 from quarkpy.maputils import *
 import quarkpy.mapentities
 import quarkpy.qmovepal
-import quarkpy.mapduplicator
+#import quarkpy.mapduplicator
 import mapdups
 import mapextruder
 import tagging
@@ -224,7 +224,7 @@ def miterEdgeFaces(f1, f2, ((poly1, i1), (poly2, i2)), local_faces=[]):
     #
     # Try a technique which will line up the back faces nicely
     #
-    
+
     if oppface1 is not None and oppface2 is not None:
         sharedvtx = findSharedVertex(face1, oppface1, poly1)
         if sharedvtx is not None:
@@ -366,7 +366,6 @@ def makePrism(f, p, wallwidth):
 # copied from plugins.csg, with modifications
 #
 def wallsFromPoly(plist, wallwidth=None):
-    import quarkpy.qmovepal
     if wallwidth is None:
         wallwidth, = quarkpy.qmovepal.readmpvalues("WallWidth", SS_MAP)
     if wallwidth > 0:           #DECKER
@@ -537,7 +536,7 @@ def buildwallmakerimages(self, singleimage=None):
                                 # face-order gets messed up by subtraction
                                 #
                                 break
-                newwalls = newwalls+wallbits   
+                newwalls = newwalls+wallbits
             for hole in negatives:
                 newwalls=hole.subtractfrom(newwalls)
             newgroup=quarkx.newobj(polys[i].shortname+':g')
@@ -715,7 +714,7 @@ def buildwallmakerimages(self, singleimage=None):
             detail = quarkx.newobj('detail:g')
             for item in wallgroup_detail.subitems:
                 wallgroup_detail.removeitem(item)
-                detail.appenditem(item) 
+                detail.appenditem(item)
             if self.dup['showcaulk']=='1':
                 setViewFlag(detail,VF_HIDEON3DVIEW)
             else:
