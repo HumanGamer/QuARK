@@ -8,6 +8,7 @@ The Movement Toolbar Palette.
 # FOUND IN FILE "COPYING.TXT"
 #
 
+import quarkx
 import qtoolbar
 import qmacro
 from qeditor import *
