@@ -521,7 +521,7 @@ QQRKSRC1
         CDDir = "Setup\Main"   // hidden setting
 
         MapLimit = '65536 65536 65536'
-        
+
         Console = "1"                  // "Run these build-programs..." setting
         BuildPgmsDir = "C:\Program Files\Call of Duty\Tools\bin"
         MapCommentsPrefix = "//"
@@ -1820,7 +1820,7 @@ QQRKSRC1
         Form = "GameQuake3"
         LightEntityScale = '0.9'
         3DLight = '512'
-        LightIntensityScale = '500.0'
+        LightIntensityScale = '150.0'
         PakExtra1 = ".aas"  // PAK extra files into pak file (ie maps/mapname.aas)
         DecimalPlaces = '5'
       }
