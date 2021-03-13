@@ -1186,7 +1186,15 @@ begin
  ChangeGameMode(NeededGame, True);
  if GameBuffer1=Nil then
  begin
-   FillChar(Lmp, SizeOf(Lmp), 0);
+   //DanielPharos: Instead of all-black, let's default to a grey-scale palette
+   //so games with no palette defined still have a working checkerboard texture.
+   //FillChar(Lmp, SizeOf(Lmp), 0);
+   for I:=0 to 255 do
+   begin
+     Lmp[I,0]:=I;
+     Lmp[I,1]:=I;
+     Lmp[I,2]:=I;
+   end;
    {PaletteFile:=Nil;}
    S:=SetupGameSet.Specifics.Values['Palette'];
    if S<>'' then
