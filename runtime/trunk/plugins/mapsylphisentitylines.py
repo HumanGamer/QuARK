@@ -28,7 +28,7 @@ class SylphisDrawEntityLines(DefaultDrawEntityLines):
         # Draw the default target/targetname/killtarget/light/_light arrows/ellipse
         DefaultDrawEntityLines.drawentitylines(self, entity, org, view, entities, processentities)
         rad = entity['radius']
-        
+
         if rad:
             o = entity['radius'].split()
             if len(o) == 1: o = (o[0], o[0], o[0])
@@ -39,9 +39,7 @@ class SylphisDrawEntityLines(DefaultDrawEntityLines):
                 radius = quarkx.vect(10.0, 10.0, 10.0)
 
             lightentityscale, = quarkx.setupsubset()['LightEntityScale']
-            radius.x = radius.x * lightentityscale
-            radius.y = radius.y * lightentityscale
-            radius.z = radius.z * lightentityscale
+            radius = radius * lightentityscale
 
             cx, cy = [], []
             up = view.proj(quarkx.vect(org.x, org.y, org.z + radius.z))
