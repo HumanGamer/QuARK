@@ -35,6 +35,12 @@ type
                Brightness: scalar_t;
                Color: TColorRef;
               end;
+ TLightParams = record
+                 ZeroLight: scalar_t; //Minimum lighting (ambient)
+                 BrightnessSaturation: scalar_t; //Maximum brightness cut-off for software lighting
+                 SoftwareRange: scalar_t; //Range for software lighting (starting at 0, which is ambient)
+                 IntensityScale: scalar_t; //Game-dependent multiplication factor for the 'light' specific
+                end;
 
  TTextureFiltering = (tfNone, tfBilinear, tfTrilinear, tfAnisotropic);
 
@@ -61,6 +67,7 @@ type
    MaxLights: GLint;
    maxAnisotropyTextureFiltering: GLfloat;
    LightingQuality: Integer;
+   NearDistance: GLdouble;
    OpenGLDisplayLists: array[0..2] of GLuint;
    PixelFormat: PPixelFormatDescriptor;
    Extensions: TGLExtensionList;
@@ -80,7 +87,6 @@ type
    procedure BuildTexture(Texture: PTexture3); override;
    procedure ChangedViewDC; override;
  public
-   NearDistance: TDouble;
    constructor Create;
    destructor Destroy; override;
    procedure Init(nCoord: TCoordinates;
@@ -111,6 +117,7 @@ uses SysUtils, Quarkx, QkExceptions, Setup, Python, Logging, {Math,}
 const
  kScaleCos = 0.5;
  cFaintLightFactor = 0.05;
+ Invalid_value = 1E111; //Borrowed from QkMapPoly's RechercheAdjacents
 
 type
  PVertex3D = ^TVertex3D;
@@ -243,7 +250,7 @@ var
  light: GLfloat4;
  NormalVector: packed array[0..2] of GLfloat;
 begin
-  if LP=nil then
+  if Dist = Invalid_value then
   begin
     glBegin(GL_QUADS);
     try
@@ -284,36 +291,6 @@ begin
   end
   else
   begin
-    SubList:=Nil;
-    LPP:=@SubList;
-    while Assigned(LP) do
-    begin
-      with LP^ do
-      begin
-        if Position[0]*NormalePlan[0] + Position[1]*NormalePlan[1] + Position[2]*NormalePlan[2] > Dist then
-        begin
-          if ((PV1^.xyz[0]>Min[0]) and (PV1^.xyz[0]<Max[0])
-          and (PV1^.xyz[1]>Min[1]) and (PV1^.xyz[1]<Max[1])
-          and (PV1^.xyz[2]>Min[2]) and (PV1^.xyz[2]<Max[2]))
-          or ((PV2^.xyz[0]>Min[0]) and (PV2^.xyz[0]<Max[0])
-          and (PV2^.xyz[1]>Min[1]) and (PV2^.xyz[1]<Max[1])
-          and (PV2^.xyz[2]>Min[2]) and (PV2^.xyz[2]<Max[2]))
-          or ((PV3^.xyz[0]>Min[0]) and (PV3^.xyz[0]<Max[0])
-          and (PV3^.xyz[1]>Min[1]) and (PV3^.xyz[1]<Max[1])
-          and (PV3^.xyz[2]>Min[2]) and (PV3^.xyz[2]<Max[2]))
-          or ((PV4^.xyz[0]>Min[0]) and (PV4^.xyz[0]<Max[0])
-          and (PV4^.xyz[1]>Min[1]) and (PV4^.xyz[1]<Max[1])
-          and (PV4^.xyz[2]>Min[2]) and (PV4^.xyz[2]<Max[2])) then
-          begin
-            LPP^:=LP;
-            LP^.SubLightList:=Nil;
-            LPP:=@LP^.SubLightList;
-          end;
-        end;
-      end;
-      LP:=LP^.Next;
-    end;
-
     Points[0,        0        ].v:=PV4^;
     Points[0,        SectionsI].v:=PV3^;
     Points[SectionsJ,SectionsI].v:=PV2^;
@@ -407,16 +384,66 @@ begin
       Inc(J, StepJ);
     end;
 
-    J:=0;
-    while J<=SectionsJ do
+    if LP<>nil then
     begin
-      I:=0;
-      while I<=SectionsI do
+      SubList:=Nil;
+      LPP:=@SubList;
+      while Assigned(LP) do
       begin
-        LightAtPoint(Points[J,I], SubList, Currentf, LightParams, NormalePlan);
-        Inc(I, StepI);
+        with LP^ do
+        begin
+          if Position[0]*NormalePlan[0] + Position[1]*NormalePlan[1] + Position[2]*NormalePlan[2] > Dist then
+          begin
+            if ((PV1^.xyz[0]>Min[0]) and (PV1^.xyz[0]<Max[0])
+            and (PV1^.xyz[1]>Min[1]) and (PV1^.xyz[1]<Max[1])
+            and (PV1^.xyz[2]>Min[2]) and (PV1^.xyz[2]<Max[2]))
+            or ((PV2^.xyz[0]>Min[0]) and (PV2^.xyz[0]<Max[0])
+            and (PV2^.xyz[1]>Min[1]) and (PV2^.xyz[1]<Max[1])
+            and (PV2^.xyz[2]>Min[2]) and (PV2^.xyz[2]<Max[2]))
+            or ((PV3^.xyz[0]>Min[0]) and (PV3^.xyz[0]<Max[0])
+            and (PV3^.xyz[1]>Min[1]) and (PV3^.xyz[1]<Max[1])
+            and (PV3^.xyz[2]>Min[2]) and (PV3^.xyz[2]<Max[2]))
+            or ((PV4^.xyz[0]>Min[0]) and (PV4^.xyz[0]<Max[0])
+            and (PV4^.xyz[1]>Min[1]) and (PV4^.xyz[1]<Max[1])
+            and (PV4^.xyz[2]>Min[2]) and (PV4^.xyz[2]<Max[2])) then
+            begin
+              LPP^:=LP;
+              LP^.SubLightList:=Nil;
+              LPP:=@LP^.SubLightList;
+            end;
+          end;
+        end;
+        LP:=LP^.Next;
       end;
-      Inc(J, StepJ);
+
+      J:=0;
+      while J<=SectionsJ do
+      begin
+        I:=0;
+        while I<=SectionsI do
+        begin
+          LightAtPoint(Points[J,I], SubList, Currentf, LightParams, NormalePlan);
+          Inc(I, StepI);
+        end;
+        Inc(J, StepJ);
+      end;
+    end
+    else
+    begin
+      J:=0;
+      while J<=SectionsJ do
+      begin
+        I:=0;
+        while I<=SectionsI do
+        begin
+          Points[J,I].light_rgb[0]:=Currentf[0];
+          Points[J,I].light_rgb[1]:=Currentf[1];
+          Points[J,I].light_rgb[2]:=Currentf[2];
+          Points[J,I].light_rgb[3]:=Currentf[3];
+          Inc(I, StepI);
+        end;
+        Inc(J, StepJ);
+      end;
     end;
 
     J:=0;
@@ -1230,7 +1257,7 @@ begin
           begin
             Distance2:=(OpenGLAveragePosition[0]-PL.Position[0])*(OpenGLAveragePosition[0]-PL.Position[0])+(OpenGLAveragePosition[1]-PL.Position[1])*(OpenGLAveragePosition[1]-PL.Position[1])+(OpenGLAveragePosition[2]-PL.Position[2])*(OpenGLAveragePosition[2]-PL.Position[2]);
             //Distance2 = distance squared.
-            Brightness:=(PL.Brightness * PL.Brightness) / Distance2; //FIXME: Not sure if this is right!
+            Brightness:=PL.Brightness / Distance2; //FIXME: Not sure if this is right!
             for LightNR:=0 to MaxLights-1 do
             begin
               if TempLightList[LightNR].LightBrightness < 0 then
@@ -1274,8 +1301,8 @@ begin
                 break;
               // If this light is fainter than cFaintLightFactor times the brightest light: stop
               // This is to reduce the amount of lights used per surface in a consistent manner
-              if TempLightList[LightNR].LightBrightness < TempLightList[0].LightBrightness * cFaintLightFactor then
-                break;
+              //if TempLightList[LightNR].LightBrightness < TempLightList[0].LightBrightness * cFaintLightFactor then
+              //  break;
               // Found a light we want; add it to the list
               LightListIndex^:=TempLightList[LightNR].LightNumber;
               NumberOfLightsInList:=NumberOfLightsInList+1;
@@ -2132,9 +2159,6 @@ begin
           LightParam[2]:=PL.Position[2];
           LightParam[3]:=1.0;
 
-          glDisable(GL_LIGHT0+LightNR);
-          CheckOpenGLError('RenderPList: glDisable: GL_LIGHT0+LightNR');
-
           glLightfv(GL_LIGHT0+LightNR, GL_POSITION, @LightParam);
           CheckOpenGLError('RenderPList: glLightfv: GL_POSITION');
 
@@ -2231,15 +2255,19 @@ begin
           If Byte(Ptr(LongWord(@AlphaColor)+3)^)<>0 then
             Case TextureMode of
             trmNormal:
-              if Lighting and (LightingQuality<>2) then
+              if Lighting and (LightingQuality=0) then
+                RenderQuad(PVBase, PV2, PV3, PV, Currentf, nil, Normale, Dist, LightParams, GLLightingQuality)
+              else if Lighting and (LightingQuality=1) then
                 RenderQuad(PVBase, PV2, PV3, PV, Currentf, Lights, Normale, Dist, LightParams, GLLightingQuality)
               else
-                RenderQuad(PVBase, PV2, PV3, PV, Currentf, nil, Normale, Dist, FullBright, 0);
+                RenderQuad(PVBase, PV2, PV3, PV, Currentf, nil, Normale, Invalid_value, FullBright, 0);
             trmSolid:
-              if Lighting and (LightingQuality<>2) then
+              if Lighting and (LightingQuality=0) then
+                RenderQuad(PVBase, PV2, PV3, PV, Currentf, nil, Normale, Dist, LightParams, GLLightingQuality)
+              else if Lighting and (LightingQuality=1) then
                 RenderQuad(PVBase, PV2, PV3, PV, Currentf, Lights, Normale, Dist, LightParams, GLLightingQuality)
               else
-                RenderQuad(PVBase, PV2, PV3, PV, Currentf, nil, Normale, Dist, FullBright, 0);
+                RenderQuad(PVBase, PV2, PV3, PV, Currentf, nil, Normale, Invalid_value, FullBright, 0);
             else
             begin
               if TextureMode=trmAdditive then
@@ -2248,17 +2276,19 @@ begin
                 Currentf[1]:=Currentf[0];
                 Currentf[2]:=Currentf[0];
               end;
-              if Lighting and (LightingQuality<>2) then
+              if Lighting and (LightingQuality=0) then
+                RenderQuad(PVBase, PV2, PV3, PV, Currentf, nil, Normale, Dist, LightParams, GLLightingQuality)
+              else if Lighting and (LightingQuality=1) then
                 RenderQuad(PVBase, PV2, PV3, PV, Currentf, Lights, Normale, Dist, LightParams, GLLightingQuality)
               else
-                RenderQuad(PVBase, PV2, PV3, PV, Currentf, nil, Normale, Dist, FullBright, 0);
+                RenderQuad(PVBase, PV2, PV3, PV, Currentf, nil, Normale, Invalid_value, FullBright, 0);
             end;
           end;
         end;
       end
       else
       begin { strip }
-        if Lighting and (LightingQuality<>2) then
+        if Lighting and (LightingQuality=1) then
           RenderQuadStrip(PV, -VertexCount, Currentf, Lights, Normale, LightParams)
         else
           RenderQuadStrip(PV, -VertexCount, Currentf, nil, Normale, FullBright);

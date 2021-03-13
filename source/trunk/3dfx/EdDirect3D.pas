@@ -56,6 +56,7 @@ type
     NumberOfLights: DWORD;
     SwapChain: IDirect3DSwapChain9;
     DepthStencilSurface: IDirect3DSurface9;
+    NearDistance: Single;
     procedure RenderPList(PList: PSurfaces; TransparentFaces: Boolean; SourceCoord: TCoordinates);
   protected
     ScreenResized: Boolean;
@@ -74,7 +75,6 @@ type
     procedure ChangedViewWnd; override;
     function CheckDeviceState : Boolean;
   public
-    NearDistance: TDouble;
     constructor Create;
     destructor Destroy; override;
     procedure Init(nCoord: TCoordinates;
@@ -775,7 +775,7 @@ begin
           begin
             Distance2:=(OpenGLAveragePosition[0]-PL.Position[0])*(OpenGLAveragePosition[0]-PL.Position[0])+(OpenGLAveragePosition[1]-PL.Position[1])*(OpenGLAveragePosition[1]-PL.Position[1])+(OpenGLAveragePosition[2]-PL.Position[2])*(OpenGLAveragePosition[2]-PL.Position[2]);
             //Distance2 = distance squared.
-            Brightness:=PL.Brightness/Distance2; //FIXME: Not sure if this is right!
+            Brightness:=PL.Brightness / Distance2; //FIXME: Not sure if this is right!
             for LightNR:=0 to MaxLights-1 do
             begin
               if TempLightList[LightNR].LightBrightness < 0 then
@@ -867,6 +867,7 @@ var
   m_World, m_View, m_Projection: TD3DXMatrix;
   light: D3DLIGHT9;
   LightCurrent: DWORD;
+  LightIntensityScale: Single;
   PL: PLightList;
   PList: PSurfaces;
 begin
@@ -1045,6 +1046,7 @@ begin
 
     PL:=Lights;
     LightCurrent:=0;
+    LightIntensityScale:=SetupGameSet.GetFloatSpec('LightIntensityScale', 7500.0);
     while Assigned(PL) do
     begin
       light._Type := Direct3D9.D3DLIGHT_POINT;
@@ -1057,7 +1059,7 @@ begin
       light.Falloff := 0.0;
       light.Attenuation0 := 0.0;
       light.Attenuation1 := 0.0;
-      light.Attenuation2 := 1.0 / (SetupGameSet.GetFloatSpec('LightIntensityScale', 7500.0) * PL^.Brightness);
+      light.Attenuation2 := 1.0 / (LightIntensityScale * PL^.Brightness);
       light.Theta := 0.0;
       light.Phi := 0.0;
 

@@ -106,14 +106,6 @@ type
 
  {------------------------}
 
-type
- TLightParams = record
-                 ZeroLight: scalar_t; //Minimum lighting (ambient)
-                 BrightnessSaturation: scalar_t; //Maximum brightness cut-off for software lighting
-                 SoftwareRange: scalar_t; //Range for software lighting (starting at 0, which is ambient)
-                 IntensityScale: scalar_t; //Game-dependent multiplication factor for the 'light' specific
-                end;
-
  TBuildMode = (bmSoftware, bmGlide, bmOpenGL, bmDirect3D);
 
  TSceneObject = class
@@ -237,7 +229,7 @@ procedure GetwhForTexture(const info: GrTexInfo; var w,h: Integer);
 
 implementation
 
-uses SysUtils, DWM, Logging, ExtraFunctionality,
+uses SysUtils, Math, DWM, Logging, ExtraFunctionality,
      Travail, Quarkx, QkExceptions, Setup,
      QkMdlObject, QkTextures, QkImages, QkFileObjects,
      EdSoftware, EdGlide, EdOpenGL, EdDirect3D;
@@ -1377,24 +1369,11 @@ begin
   end;
   if (MapLimit.X=OriginVectorZero.X) and (MapLimit.Y=OriginVectorZero.Y) and (MapLimit.Z=OriginVectorZero.Z) then
    begin
-    MapLimit.X:=4096; //FIXME: Some game-dependent default instead?
+    MapLimit.X:=4096;
     MapLimit.Y:=4096;
     MapLimit.Z:=4096;
    end;
-  if (MapLimit.X > MapLimit.Y) then
-   begin
-    if (MapLimit.X > MapLimit.Z) then
-     Result:=MapLimit.X
-    else
-     Result:=MapLimit.Z;
-   end
-  else
-   begin
-    if (MapLimit.Y > MapLimit.Z) then
-     Result:=MapLimit.Y
-    else
-     Result:=MapLimit.Z;
-   end;
+  Result:=Max(MapLimit.X, max(MapLimit.Y, MapLimit.Z));
 end;
 
 procedure TSceneObject.SetDrawRect(NewRect: TRect);
