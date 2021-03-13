@@ -8,15 +8,12 @@ The model editor's "Toolbars" menu (to be extended by plug-ins)
 # FOUND IN FILE "COPYING.TXT"
 #
 
-import qmenu
 import qtoolbar
 from mdlutils import *
 import qeditor
 import qhandles
 import mdleditor
 import mdlhandles
-
-parent = qhandles.RectangleDragObject
 
 
 class DisplayBar(qeditor.ToolBar):
@@ -305,13 +302,13 @@ def Subdivide4Click(m):
     SubdivideFaces(editor, 4)
 
 
-class FaceCutter(parent):
+class FaceCutter(qhandles.RectangleDragObject):
     "Cuts selected faces into parts along the line drawn."
 
     Hint = hintPlusInfobaselink("Cut selected faces in two||Cut selected faces in two:\n\nAfter you click this button, you can draw lines on the map with the mouse, and any polyhedron touching this line will be cut in two parts along it. This is a quick way to make complex shapes out of a single polyhedron. You can for example draw 3 lines in a wall to make the contour of a passage, and then just delete the middle polyhedron to actually make the hole.\n\nAdvanced features : if you select a face, it will be cut in two but not the other faces of the polyhedron (using \"face sharing\" techniques); and if you select a group, instead of cutting each polyhedron in two individually, QuArK will give you the option of making two copies of the whole group with the cutting plane as a shared face in each group. This lets you consider the cutting plane as a unique face and later move or rotate it to reshape all polyhedrons in the group at once.", "intro.mapeditor.toolpalettes.mousemodes.html#polycutter")
 
     def __init__(self, view, x, y, redcolor, todo):
-        parent.__init__(self, view, x, y, redcolor, todo)
+        qhandles.RectangleDragObject.__init__(self, view, x, y, redcolor, todo)
         self.pt0 = qhandles.aligntogrid(self.pt0, 1)
         p = view.proj(self.pt0)
         if p.visible:
