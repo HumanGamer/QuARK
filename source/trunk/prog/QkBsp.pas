@@ -304,6 +304,7 @@ const
 
  cVersionBspQ2     = $00000026; {Quake-2 .BSP}
  cVersionBspDK     = $00000029; {Daikatana .BSP}
+ cVersionKMQuake2  = $0000002A; {KMQuake2 .BSP}
  cVersionBspQ3     = $0000002E; {Quake-3 or STVEF or Nexuiz .BSP}
  cVersionBspSOF    = $0000002E; {Soldier of Fortune .BSP} //Raven Software didn't talk to id Software about claiming this version number, did they?
  cVersionBspQL     = $0000002F; {Quake Live .BSP}
@@ -374,6 +375,7 @@ type
  {------------------------}
 
 Function StringListFromEntityLump(const e_lump: String; ExistingAddons: QFileObject; var Found: TStringList): Integer;
+function DetermineIfSiN(F: TStream; FSize: Integer) : Boolean;
 
 implementation
 
@@ -564,6 +566,69 @@ begin
       Raise EErrorFmt(5509, [84]);
 end;
 
+function DetermineIfSiN(F: TStream; FSize: Integer) : Boolean;
+type
+ TBspEntries = record
+               EntryPosition: LongInt;
+               EntrySize: LongInt;
+              end;
+var
+ Origine: LongInt;
+ LumpHeader: TBspEntries;
+ LumpAt168: Boolean;
+ I: Integer;
+begin
+  { determine if this is a SiN map, which are badly versioned }
+
+  //If there no enough space for the right number of lumps, this cannot be a SiN BSP file.
+  if FSize < (20 * SizeOf(LumpHeader)) + (2 * SizeOf(LongInt)) then
+  begin
+    Result:=False;
+    Exit;
+  end;
+
+  //Save the current stream offset, so we can restore it later.
+  Origine:=F.Position;
+  try
+    //Jump the signature and version.
+    F.Seek(2*SizeOf(LongInt), soFromCurrent);
+
+    //From reverse engineering, it seems that SiN BSP files have a different number of lumps.
+    //We assume there's no padding between the header and the first lump.
+    LumpAt168:=False; //The SiN BSP header ends at Byte 168, so that's where we expect the first lump.
+    for I:=0 to 19 do
+    begin
+      F.ReadBuffer(LumpHeader, SizeOf(LumpHeader));
+      if LumpHeader.EntrySize = 0 then
+      begin
+        //This lump is empty; skip it.
+        continue;
+      end;
+      if LumpHeader.EntryPosition < 168 then
+      begin
+        //This lump starts in what would be the SiN header! In other words, this cannot be a valid SiN BSP file.
+        Result:=False;
+        Exit;
+      end
+      else if LumpHeader.EntryPosition = 168 then
+        LumpAt168:=True;
+    end;
+    if not LumpAt168 then
+    begin
+      //Didn't find a lump at 168. This could indicate padding, but let's be safe and not assume it's a SiN BSP file...
+      Result:=False;
+    end
+    else
+    begin
+      //This most likely is a SiN BSP file. It would be rare to find a Q3 BSP file with 8 bytes padding between the header and the first lump.
+      Result:=True;
+    end;
+  finally
+    //Restore the old stream position.
+    F.Position:=Origine;
+  end;
+end;
+
 procedure QBsp.LoadFile(F: TStream; StreamSize: Integer);
 { (Comment by Decker 2001-01-21)
  Loads 4 bytes of signature, and 4 bytes of version, to determine what type of
@@ -611,6 +676,26 @@ begin
               FFileHandler.LoadBsp(F, StreamSize);
             end;
 
+            cVersionBspDK: { Daikatana }
+            begin
+(*
+              ObjectGameCode := mjDaikatana;
+              FFileHandler:=QBsp3FileHandler.Create(Self);
+              FFileHandler.LoadBsp(F, StreamSize);
+*)
+              Raise EErrorFmt(5602, [LoadName, Version, cVersionBspDK]);
+            end;
+
+            cVersionKMQuake2: { KMQuake 2 }
+            begin
+(*
+              ObjectGameCode := mjKMQuake2;
+              FFileHandler:=QBsp3FileHandler.Create(Self);
+              FFileHandler.LoadBsp(F, StreamSize);
+*)
+              Raise EErrorFmt(5602, [LoadName, Version, cVersionKMQuake2]);
+            end;
+
             cVersionBspQ3: { Quake 3 or Soldier of Fortune }
             begin
               { Somebody should be shot; SOF has the same Sig/Vers as Q3 (!!) }
@@ -622,7 +707,7 @@ begin
               end
               else
               begin
-                if (CharModeJeu <> mjQ3A) and (CharModeJeu <> mjSTVEF)  and (CharModeJeu <> mjNexuiz) then
+                if (CharModeJeu <> mjQ3A) and (CharModeJeu <> mjSTVEF) and (CharModeJeu <> mjNexuiz) then
                   ObjectGameCode := mjQ3A
                 else
                   ObjectGameCode := CharModeJeu;
@@ -631,14 +716,14 @@ begin
               end;
             end;
 
-            cVersionBspQL: { Quake Live or Return to Castle Wolfenstein}
+            cVersionBspQL: { Quake Live or Return to Castle Wolfenstein or Return To Castle Wolfenstein - Enemy Territory }
             begin
-(*
-              ObjectGameCode := mjRTCW;
+
+              ObjectGameCode := mjRTCW; //mjRTCWET //mjQL
               FFileHandler:=QBsp3FileHandler.Create(Self);
               FFileHandler.LoadBsp(F, StreamSize);
-*)
-              Raise EErrorFmt(5602, [LoadName, Version, cVersionBspQL]);
+
+              //Raise EErrorFmt(5602, [LoadName, Version, cVersionBspQL]);
             end;
 
             cVersionBspIG: { Iron Grip: Warlord }
@@ -669,23 +754,27 @@ begin
         cSignatureBspRaven:
         begin
           case Version of
-//            cVersionBspSin: { SiN }
-//            begin
-//              Raise EErrorFmt(5602, [LoadName, Version, cVersionBspSin]);
-//(*              ObjectGameCode := mjSin;
-//                FFileHandler:=QBsp2FileHandler.Create(Self);
-//                FFileHandler.LoadBsp(F, StreamSize);
-//*)
-//            end;
-
-            cVersionBspJK2: { Jedi Knight II or Soldier of Fortune 2 or Jedi Academy }
+            cVersionBspSin: { SiN } (*or cVersionBspJK2:*) { Jedi Knight II or Soldier of Fortune 2 or Jedi Academy }
             begin
-              if (CharModeJeu <> mjJK2) and (CharModeJeu <> mjJA)  and (CharModeJeu <> mjSoF2) then
-                ObjectGameCode := mjJK2
+              if DetermineIfSiN(F, StreamSize) then
+              begin
+                Raise EErrorFmt(5602, [LoadName, Version, cVersionBspSin]);
+                //If you dump SiN's qbsp3 strings, you'll find the lump-names. ;)
+(* Non functional
+                ObjectGameCode := mjSin;
+                FFileHandler:=QBsp2FileHandler.Create(Self);
+                FFileHandler.LoadBsp(F, StreamSize);
+*)
+              end
               else
-                ObjectGameCode := CharModeJeu;
-              FFileHandler:=QBsp3FileHandler.Create(Self); {Decker - try using the Q3 .BSP loader}
-              FFileHandler.LoadBsp(F, StreamSize);
+              begin
+                if (CharModeJeu <> mjJK2) and (CharModeJeu <> mjJA) and (CharModeJeu <> mjSoF2) then
+                  ObjectGameCode := mjJK2
+                else
+                  ObjectGameCode := CharModeJeu;
+                FFileHandler:=QBsp3FileHandler.Create(Self); {Decker - try using the Q3 .BSP loader}
+                FFileHandler.LoadBsp(F, StreamSize);
+              end;
             end;
 
             else {version unknown}
