@@ -14,6 +14,8 @@
 
 6.6.0 Beta 7
 ============
+* [DanielPharos]: Also cache texture sizes during brushdef loading for a big speed improvement.
+
 * [DanielPharos]: Vast improvements to the OpenGL lighting quality and performance.
 
 * [DanielPharos]: Added support for loading and saving of new KMQuake2 surface color data.

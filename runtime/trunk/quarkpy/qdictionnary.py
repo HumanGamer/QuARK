@@ -1036,7 +1036,7 @@ Strings = {
     # 5769: reserved
 
     5770: "There were errors reading the map; please check the console.",
-    5771: "Couldn't load texture '%s'; brushDef2 or brushDef3 texture scales may be incorrect!",
+    #5771: "Couldn't load texture '%s'; brushDef2 or brushDef3 texture scales may be incorrect!",
     5772: "Could not load shaderlist file '%s', even though it exists.",
     5773: "Half Life Sprite Signature = %d, Should be: %d",
     5774: "Half Life Sprite Version = %d, Should be: %d",

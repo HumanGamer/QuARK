@@ -1747,6 +1747,7 @@ expected one.
    Matrix : TMatrixTransformation;
    Surface: TFace;
    TexPath: String;
+   Size: TPoint;
    NumericValue1: Integer;
  begin
   //Initialize ZVect
@@ -1819,7 +1820,14 @@ expected one.
     Q2Tex:=Q2Tex or (Pos('/',S)<>0);
 
     Surface.NomTex:=S;   { here we get the texture-name }
-    Surface.SetThreePointsUserTex(P0,P1,P2,nil);
+    Size:=TextureSizes.GetSize(Surface.NomTex);
+    if (Size.X=0) and (Size.Y=0) then
+    begin
+      Log(LOG_WARNING, LoadStr1(5467), [Surface.NomTex]);
+      Size.X:=EchelleTexture;
+      Size.Y:=EchelleTexture;
+    end;
+    Surface.SetThreePointsUserTexWithSize(P0,P1,P2,Size);
     ReadSymbol(sTokenForcedToString);
     if SymbolType=sNumValueToken then
     begin
@@ -1847,7 +1855,7 @@ expected one.
    Matrix : TMatrixTransformation;
    Surface: TFace;
    TexPath: String;
-   QTmp: QPixelSet;
+   Size: TPoint;
  begin
   //Initialize ZVect
   ZVect.X:=0;
@@ -1936,10 +1944,14 @@ expected one.
     Q2Tex:=Q2Tex or (Pos('/',S)<>0);
 
     Surface.NomTex:=S;   { here we get the texture-name }
-    QTmp:=GlobalFindTexture(S, Nil);
-    if QTmp = nil then
-      Log(LOG_WARNING,LoadStr1(5771),[S]);
-    Surface.SetThreePointsUserTex(P0,P1,P2, QTmp);
+    Size:=TextureSizes.GetSize(Surface.NomTex);
+    if (Size.X=0) and (Size.Y=0) then
+    begin
+      Log(LOG_WARNING, LoadStr1(5467), [Surface.NomTex]);
+      Size.X:=EchelleTexture;
+      Size.Y:=EchelleTexture;
+    end;
+    Surface.SetThreePointsUserTexWithSize(P0,P1,P2,Size);
   end;
   ReadSymbol(sCurlyBracketRight);    { rbrace which finishes the brushDef3 }
   ReadSymbol(sCurlyBracketRight);    { rbrace which finishes the brush }
@@ -2352,13 +2364,13 @@ begin
                ReadCOD2Flags;
                if Result=mjQuake then
                  Result:=mjCOD2;
-               ReadBrush;
+               ReadBrush();
              end
              else
                raise EErrorFmt(254, [LineNoBeingParsed, LoadStr1(260)]);
            end
           else
-           ReadBrush;
+           ReadBrush();
          end;
 
        if (OriginBrush<>Nil) and (EntitePoly<>MapStructure) then

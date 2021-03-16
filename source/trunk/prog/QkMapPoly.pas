@@ -183,6 +183,7 @@ type
                function GetThreePointsT(var V1, V2, V3: TVect) : Boolean;
                function GetThreePointsUserTex(var V1, V2, V3: TVect; AltTexSrc: QObject) : Boolean;
                procedure SetThreePointsUserTex(const V1, V2, V3: TVect; AltTexSrc: QObject);
+               procedure SetThreePointsUserTexWithSize(const V1, V2, V3: TVect; const Size: TPoint);
                function GetThreePointsUserTexNoRecenter(var V1, V2, V3: TVect; AltTexSrc: QObject) : Boolean;
                function SetThreePointsEx(const V1, V2, V3, nNormale: TVect) : Boolean;
                function SetThreePointsEnhEx(const V1, V2, V3, nNormale: TVect) : Boolean;
@@ -2885,8 +2886,25 @@ begin
  SetThreePointsEx(V1, P2, P3, Normale);
 end;
 
+procedure TFace.SetThreePointsUserTexWithSize(const V1, V2, V3: TVect; const Size: TPoint);
+var
+ CorrW, CorrH: TDouble;
+ P2, P3: TVect;
+begin
+ if not LoadData then Exit;
+ CorrW:=Size.X*(1/EchelleTexture);
+ CorrH:=Size.Y*(1/EchelleTexture);
+ P2.X:=(V2.X-V1.X)/CorrW + V1.X;
+ P2.Y:=(V2.Y-V1.Y)/CorrW + V1.Y;
+ P2.Z:=(V2.Z-V1.Z)/CorrW + V1.Z;
+ P3.X:=(V3.X-V1.X)/CorrH + V1.X;
+ P3.Y:=(V3.Y-V1.Y)/CorrH + V1.Y;
+ P3.Z:=(V3.Z-V1.Z)/CorrH + V1.Z;
+ SetThreePointsEx(V1, P2, P3, Normale);
+end;
+
 (* original etp version, kept for comparison, note call of
-   SetThreePointsEx_etp, which was SetThreePOintsEx
+   SetThreePointsEx_etp, which was SetThreePointsEx
 procedure TFace.SetThreePointsUserTex_etp(const V1, V2, V3: TVect; AltTexSrc: QObject);
 var
  CorrW, CorrH: TDouble;
