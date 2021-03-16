@@ -2137,16 +2137,10 @@ begin
 
       if Lighting and (LightingQuality=0) then
       begin
-        //
-        //DanielPharos: This line fixes a subtle bug. LightNR is a cardinal, so if it's
-        //zero, the max bound of the for-loop overflows into max_int. -> The loop isn't
-        //skipped!
-        if OpenGLLights <> 0 then
-        //
-        for LightNR := 0 to OpenGLLights-1 do
+        LightNR:=0;
+        PO:=OpenGLLightList;
+        while LightNR < Cardinal(OpenGLLights) do
         begin
-          PO:=OpenGLLightList;
-          Inc(PO, LightNR);
           PL:=Lights;
           LightNR2:=0;
           while LightNR2<PO^ do
@@ -2180,6 +2174,9 @@ begin
 
           glEnable(GL_LIGHT0+LightNR);
           CheckOpenGLError('RenderPList: GL_LIGHT');
+
+          LightNR:=LightNR+1;
+          Inc(PO);
         end;
         for LightNR := OpenGLLights to MaxLights-1 do
         begin
