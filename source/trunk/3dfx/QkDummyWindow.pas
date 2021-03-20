@@ -59,12 +59,18 @@ begin
     DummyWindowClass.lpfnWndProc:=@WndMessageProc;
     DummyWindowClassAtom:=RegisterClassEx(DummyWindowClass);
     if DummyWindowClassAtom = 0 then
+    begin
+      LogWindowsError(GetLastError(), 'RegisterClassEx(DummyWindowClass)');
       Raise EErrorFmt(6014, ['RegisterClassEx']);
+    end;
   end;
 
   Result := CreateWindow(DummyWindowClass.lpszClassName, PChar(Caption), WS_CLIPCHILDREN or WS_CLIPSIBLINGS or WS_DISABLED, Integer(CW_USEDEFAULT), Integer(CW_USEDEFAULT), Integer(CW_USEDEFAULT), Integer(CW_USEDEFAULT), 0, 0, hInstance, nil);
   if Result = 0 then
+  begin
+    LogWindowsError(GetLastError(), 'CreateWindow(DummyWindowClass)');
     Raise EErrorFmt(6014, ['CreateWindow']);
+  end;
 
   WindowsLoaded:=WindowsLoaded+1;
 end;
@@ -74,12 +80,18 @@ begin
   if DummyWindow<>0 then
     if IsWindow(DummyWindow)=True then
       if DestroyWindow(DummyWindow) = false then
+      begin
+        LogWindowsError(GetLastError(), 'DestroyWindow(DummyWindow)');
         Raise EErrorFmt(6014, ['DestroyWindow']);
+      end;
 
   if WindowsLoaded = 1 then
   begin
-    if Windows.UnregisterClass(DummyWindowClass.lpszClassName, hInstance) = false then
+    if UnregisterClass(DummyWindowClass.lpszClassName, hInstance) = false then
+    begin
+      LogWindowsError(GetLastError(), 'UnregisterClass(DummyWindowClass)');
       Raise EErrorFmt(6014, ['UnregisterClass']);
+    end;
     DummyWindowClassAtom := 0;
 
     WindowsLoaded := 0;
