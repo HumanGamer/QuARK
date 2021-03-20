@@ -119,8 +119,8 @@ type
  PTexInfo = ^TTexInfo;
  TTexInfo = record
              vecs: TTexInfoVecs;     // [s/t][xyz offset]
-             miptex: Cardinal;
-             flags: Cardinal;
+             miptex: Integer;
+             flags: Integer;
             end;
  PTexInfoQ2 = ^TTexInfoQ2; //@Also used by SOF!
  TTexInfoQ2 = record
@@ -421,7 +421,9 @@ begin
       Surface1^.prvVertexCount:=Faces^.ledge_num;
       if Faces^.Plane_id >= cPlanes then
       begin
-        Inc(InvFaces); LastError:='Err Plane_id'; Continue;
+        Inc(InvFaces);
+        LastError:='Err Plane_id';
+        Continue;
       end;
       with PQ1Plane(Planes + Faces^.Plane_id * SizeOf(TQ1Plane))^ do
       begin
@@ -533,9 +535,11 @@ begin
         with PTexInfo(TexInfo + Faces^.TexInfo_id * SizeOf(TTexInfo))^ do
         begin
           BspVecs:=@vecs;
-          if miptex>=Cardinal(TextureList.SubElements.Count) then
+          if miptex>=TextureList.SubElements.Count then
           begin
-            Inc(InvFaces); LastError:=FmtLoadStr1(5639,[miptex]); Continue;
+            Inc(InvFaces);
+            LastError:=FmtLoadStr1(5639,[miptex]);
+            Continue;
           end;
           S:=TextureList.SubElements[miptex].Name;
         end;
@@ -655,7 +659,9 @@ begin
     if not Face.SetThreePointsEx(P1, P2, P3, Face.Normale) then
     begin
       SubElements.Remove(Face);
-      Inc(InvFaces); LastError:='Err degenerate'; Continue;
+      Inc(InvFaces);
+      LastError:='Err degenerate';
+      Continue;
     end;
     Face.NomTex:=S;
     if not q12surf then
