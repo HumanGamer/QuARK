@@ -20,6 +20,12 @@ http://quark.sourceforge.net/ - Contact information in AUTHORS.TXT
 **************************************************************************)
 unit QkObjects;
 
+{$IFDEF DEBUG}
+{$DEFINE StreamRefDEBUG}
+{$ENDIF}
+
+ {-------------------}
+
 interface
 
 {$I DelphiVer.inc}
@@ -351,6 +357,7 @@ type
   TQStream = class(TStream)
   protected
     FHandle: Integer;   { we cannot use TFileStream because this is private :-(  }
+    RefCount1: Integer;
   public
     constructor Create(const FileName: string; Mode: Word);
     destructor Destroy; override;
@@ -360,7 +367,6 @@ type
     property Handle: Integer read FHandle;
   public
     { --- start of the QuArK-specific part --- }
-    RefCount1: Integer;
     Temporary: Boolean;
     DisableDelayLoading: Boolean;
    {Root: QObject;  { actually a QFileObject }
@@ -370,6 +376,7 @@ type
     function AddRefNode(a_StreamSize: Longint): PQStreamRef;
     procedure TemporaryClose;
     function ReopenAs(const FileName: String) : Boolean;
+    function HasMultipleRefs: Boolean;
   end;
 
   TRawDataStream = class(TCustomMemoryStream)
@@ -434,6 +441,11 @@ const
 
 {$IFDEF Debug}
 var g_MemQObject: TList; //Cannot be TQList, as that uses QObject.AddRef
+{$ENDIF}
+
+{$IFDEF StreamRefDEBUG}
+const
+  StreamRefDumpFile = 'DebugStreamRef.log';
 {$ENDIF}
 
  {------------------------}
@@ -645,6 +657,10 @@ end;
  {------------------------}
 
 constructor TQStream.Create(const FileName: string; Mode: Word);
+{$IFDEF StreamRefDEBUG}
+var
+  StreamRefFile: TextFile;
+{$ENDIF}
 begin
   if Mode=fmCreate then
   begin
@@ -658,10 +674,26 @@ begin
     if FHandle<0 then
       raise EErrorFmt(385, [FileName]);
   end;
+  {$IFDEF StreamRefDEBUG}
+  AssignFile(StreamRefFile, StreamRefDumpFile);
+  Append(StreamRefFile);
+  WriteLn(StreamRefFile, Format('Open %d: %s', [Self.FHandle, FileName]));
+  CloseFile(StreamRefFile);
+  {$ENDIF}
 end;
 
 destructor TQStream.Destroy;
+{$IFDEF StreamRefDEBUG}
+var
+  StreamRefFile: TextFile;
+{$ENDIF}
 begin
+  {$IFDEF StreamRefDEBUG}
+  AssignFile(StreamRefFile, StreamRefDumpFile);
+  Append(StreamRefFile);
+  WriteLn(StreamRefFile, Format('Close %d', [Self.FHandle]));
+  CloseFile(StreamRefFile);
+  {$ENDIF}
   { I'm assuming here that valid filehandles will be greater
     than zero, since TemporaryClose sets fhandle to 0 }
   if FHandle>0 then
@@ -688,7 +720,17 @@ begin
 end;
 
 procedure TQStream.AddRef;
+{$IFDEF StreamRefDEBUG}
+var
+  StreamRefFile: TextFile;
+{$ENDIF}
 begin
+  {$IFDEF StreamRefDEBUG}
+  AssignFile(StreamRefFile, StreamRefDumpFile);
+  Append(StreamRefFile);
+  WriteLn(StreamRefFile, Format('AddRef %d: %d (about to +1)', [Self.FHandle, RefCount1]));
+  CloseFile(StreamRefFile);
+  {$ENDIF}
   Inc(RefCount1);
 end;
 
@@ -702,7 +744,17 @@ begin
 end;
 
 function TQStream.AddRefNode(a_StreamSize: Longint): PQStreamRef;
+{$IFDEF StreamRefDEBUG}
+var
+  StreamRefFile: TextFile;
+{$ENDIF}
 begin
+  {$IFDEF StreamRefDEBUG}
+  AssignFile(StreamRefFile, StreamRefDumpFile);
+  Append(StreamRefFile);
+  WriteLn(StreamRefFile, Format('AddRefNode %d: %d (about to +1)', [Self.FHandle, RefCount1]));
+  CloseFile(StreamRefFile);
+  {$ENDIF}
   Inc(RefCount1);
   New(Result);
   Result^.Self:=Self;
@@ -714,7 +766,16 @@ end;
 procedure TQStream.Release;
 var
   I: Integer;
+{$IFDEF StreamRefDEBUG}
+  StreamRefFile: TextFile;
+{$ENDIF}
 begin
+  {$IFDEF StreamRefDEBUG}
+  AssignFile(StreamRefFile, StreamRefDumpFile);
+  Append(StreamRefFile);
+  WriteLn(StreamRefFile, Format('Release %d: %d (about to -1)', [Self.FHandle, RefCount1]));
+  CloseFile(StreamRefFile);
+  {$ENDIF}
   Dec(RefCount1);
   if RefCount1<=0 then
   begin
@@ -812,6 +873,11 @@ begin
  if aTemp<>'' then
   DeleteFile(PChar(aTemp));
 end;}
+
+function TQStream.HasMultipleRefs: Boolean;
+begin
+  Result:=(RefCount1 > 1);
+end;
 
 (*procedure QStreamCopying(var Ref: TTreeNode; F: TStream);
 var

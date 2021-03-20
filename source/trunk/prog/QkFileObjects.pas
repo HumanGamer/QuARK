@@ -1119,7 +1119,7 @@ begin
       end;
      S:=AlternateFile;
     finally
-     if F.RefCount1 > 1 then
+     if F.HasMultipleRefs then
       try  { don't bother reopening the file if no other references are pending }
        if not F.ReopenAs(S) then
         Abort;  { throw an exception }
