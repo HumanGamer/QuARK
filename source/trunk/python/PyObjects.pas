@@ -872,12 +872,12 @@ begin
    N:=PyObject_Length(value);
    if N<0 then Abort;
    SetLength(Result, N*4);   { SizeOf(Single) and SizeOf(Integer) }
-   if IsTupleNotList then
+(*   if IsTupleNotList then //FIXME: This fails if the list has zero entries!
     obj:=PyTuple_GetItem(value, 0)
    else
     obj:=PyList_GetItem(value, 0);
    if obj=Nil then Abort;
-(*   if obj^.ob_type = PyInt_Type then
+   if obj^.ob_type = PyInt_Type then
     begin
      PChar(PI):=PChar(Result);
      for I:=0 to N-1 do
