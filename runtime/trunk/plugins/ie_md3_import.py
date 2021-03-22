@@ -408,8 +408,10 @@ def Import(editor, basepath, filename):
     if quarkx.setupsubset(SS_MODEL, "Options")['IEMaxTagFrames'] != "1":
         old_torso_tag_frames = None
 
+    framesNbr = 0
     for k in xrange(md3.numSurfaces):
         surface = md3.surfaces[k]
+        framesNbr = surface.numFrames
         ### Create the Frames:fg group and each "name:mf" frame.
         framesgroup = quarkx.newobj('Frames:fg')
         if surface.numFrames > 1 : # Make the animation frames if they exist for this model.
@@ -772,6 +774,28 @@ def Import(editor, basepath, filename):
         Component.appenditem(framesgroup)
         ComponentList = ComponentList + [Component]
 
+    # We need at least one component, so let's create a dummy one if needed.
+    if ComponentList == []:
+        Component = quarkx.newobj(ModelFolder + '_' + "Import Component " + str(CompNbr) + ':mc')
+        CompNbr = CompNbr + 1
+        CompNames.append(Component.shortname)
+        # Set it up in the ModelComponentList.
+        editor.ModelComponentList[Component.name] = {'bonevtxlist': {}, 'colorvtxlist': {}, 'weightvtxlist': {}}
+        Component['skinsize'] = (256, 256)
+        Component['Tris'] = ''
+        Component['show'] = chr(0)
+        sdogroup = quarkx.newobj('SDO:sdo')
+        Component.appenditem(sdogroup)
+        skingroup = quarkx.newobj('Skins:sg')
+        skingroup['type'] = chr(2)
+        Component.appenditem(skingroup)
+        framesgroup = quarkx.newobj('Frames:fg')
+        frame = quarkx.newobj('baseframe:mf')
+        frame['Vertices'] = ()
+        framesgroup.appenditem(frame)
+        Component.appenditem(framesgroup)
+        ComponentList = ComponentList + [Component]
+
     # create tags
     tagsgroup = []
     tag_comp = ComponentList[len(ComponentList)-1]
@@ -828,7 +852,7 @@ def Import(editor, basepath, filename):
         else:
             tag_comp['Tags'] = tag_comp.dictspec['Tags'] + ", " + tag.name
 
-        if surface.numFrames > 0 :
+        if framesNbr > 0:
             for j in xrange(md3.numFrames):
                 try:
                     tag = md3.tags[j * md3.numTags + i]
@@ -850,7 +874,7 @@ def Import(editor, basepath, filename):
                 if j == 0:
                     baseframe = tagframe.copy()
                     baseframe.shortname = "Tag baseframe"
-                    if surface.numFrames == 1:
+                    if framesNbr == 1:
                         newtag.appenditem(baseframe)
                         continue
                 newtag.appenditem(tagframe)
@@ -867,11 +891,6 @@ def Import(editor, basepath, filename):
                         newtag.appenditem(baseframe)
 
     ie_utils.default_end_logging(filename, "IM", starttime) ### Use "EX" for exporter text, "IM" for importer text.
-
-    if ComponentList == []:
-        if logging == 1:
-            tobj.logcon ("Can't read file %s" % filename)
-        return None, None, "", None, None, ""
 
     ### Use the 'ModelRoot' below to test opening the QuArK's Model Editor with, needs to be qualified with main menu item.
     ModelRoot = quarkx.newobj('Model:mr')
