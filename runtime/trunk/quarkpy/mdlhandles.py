@@ -3142,12 +3142,13 @@ def BuildCommonHandles(editor, explorer, option=1):
                         tag_frame_index = tag_frame_index + 1
                     break
 
-            if len(item.subitems)-1 >= tag_frame_index:
-                tag_frame = item.subitems[tag_frame_index]
-                th = th + mdlentities.CallManager("handlesopt", tag_frame, editor)
-            else:
-                tag_frame = item.subitems[0]
-                th = th + mdlentities.CallManager("handlesopt", tag_frame, editor)
+            if len(item.subitems) != 0:
+                if len(item.subitems)-1 >= tag_frame_index:
+                    tag_frame = item.subitems[tag_frame_index]
+                    th = th + mdlentities.CallManager("handlesopt", tag_frame, editor)
+                else:
+                    tag_frame = item.subitems[0]
+                    th = th + mdlentities.CallManager("handlesopt", tag_frame, editor)
 
     bh = th
     if quarkx.setupsubset(SS_MODEL, "Options")['AnimationActive'] == "1" or quarkx.setupsubset(SS_MODEL, "Options")['AnimationCFGActive'] == "1":
