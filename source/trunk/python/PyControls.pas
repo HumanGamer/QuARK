@@ -383,7 +383,7 @@ begin
     'c': if StrComp(attr, 'clientarea')=0 then
           begin
            with GetRect(grClientRect) do
-            Result:=Py_BuildValueX('ii', [Right, Bottom]);
+            Result:=Py_BuildValueX('ii', [Right, Bottom]); //Note: ClientRect always has zero Top and Left.
            Exit;
           end;
    {'f': if StrComp(attr, 'flags')=0 then
