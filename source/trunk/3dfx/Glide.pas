@@ -1576,6 +1576,7 @@ const
  SoftMultiplePalettes = 20;
  SoftTexFmt565        = 30;
  SoftFullRangeW       = 31;
+ SoftFog              = 32;
 
 function GlideTimesLoaded : Cardinal;
 function LoadGlide(const LibName, SearchDir: String) : Boolean;
@@ -1597,52 +1598,53 @@ const
       FuncPtr: Pointer;
       FuncReq: TFuncRequirement;
       FuncName: PChar;
+      AcceptMissingSoftG: boolean;
     end =
-  ({(FuncPtr: @@grDrawPlanarPolygonVertexList;  FuncReq: inGlide;  FuncName: '_grDrawPlanarPolygonVertexList@8' )}
-  {,(FuncPtr: @@grDrawPolygonVertexList;        FuncReq: inGlide;  FuncName: '_grDrawPolygonVertexList@8'       )}
-    (FuncPtr: @@grDrawTriangle;                 FuncReq: inBoth;   FuncName: '_grDrawTriangle@12'               )
-   ,(FuncPtr: @@grBufferClear;                  FuncReq: inBoth;   FuncName: '_grBufferClear@12'                )
-   ,(FuncPtr: @@grBufferSwap;                   FuncReq: inGlide;  FuncName: '_grBufferSwap@4'                  )
-   ,(FuncPtr: @@grSstIdle;                      FuncReq: inGlide;  FuncName: '_grSstIdle@0'                     )
-   ,(FuncPtr: @@grSstWinOpen;                   FuncReq: inBoth;   FuncName: '_grSstWinOpen@28'                 )
-   ,(FuncPtr: @@grSstWinClose;                  FuncReq: inBoth;   FuncName: '_grSstWinClose@0'                 )
-   ,(FuncPtr: @@grSstControl;                   FuncReq: inGlide;  FuncName: '_grSstControl@4'                  )
-   ,(FuncPtr: @@grSstQueryHardware;             FuncReq: inGlide;  FuncName: '_grSstQueryHardware@4'            )
-   ,(FuncPtr: @@grSstSelect;                    FuncReq: inGlide;  FuncName: '_grSstSelect@4'                   )
-   ,(FuncPtr: @@grAlphaBlendFunction;           FuncReq: inGlide;  FuncName: '_grAlphaBlendFunction@16'         )
-   ,(FuncPtr: @@grAlphaCombine;                 FuncReq: inGlide;  FuncName: '_grAlphaCombine@20'               )
-   ,(FuncPtr: @@grClipWindow;                   FuncReq: inBoth;   FuncName: '_grClipWindow@16'                 )
-   ,(FuncPtr: @@grColorMask;                    FuncReq: inGlide;  FuncName: '_grColorMask@8'                   )
-   ,(FuncPtr: @@grCullMode;                     FuncReq: inGlide;  FuncName: '_grCullMode@4'                    )
-   ,(FuncPtr: @@grConstantColorValue;           FuncReq: inBoth;   FuncName: '_grConstantColorValue@4'          )
-   ,(FuncPtr: @@grDepthBufferFunction;          FuncReq: inGlide;  FuncName: '_grDepthBufferFunction@4'         )
-   ,(FuncPtr: @@grDepthBufferMode;              FuncReq: inGlide;  FuncName: '_grDepthBufferMode@4'             )
-   ,(FuncPtr: @@grDepthMask;                    FuncReq: inGlide;  FuncName: '_grDepthMask@4'                   )
-   ,(FuncPtr: @@grDitherMode;                   FuncReq: inGlide;  FuncName: '_grDitherMode@4'                  )
-   ,(FuncPtr: @@grFogColorValue;                FuncReq: inGlide;  FuncName: '_grFogColorValue@4'               )
-   ,(FuncPtr: @@grFogMode;                      FuncReq: inGlide;  FuncName: '_grFogMode@4'                     )
-   ,(FuncPtr: @@grFogTable;                     FuncReq: inGlide;  FuncName: '_grFogTable@4'                    )
-   ,(FuncPtr: @@grGammaCorrectionValue;         FuncReq: inGlide;  FuncName: '_grGammaCorrectionValue@4'        )
-   ,(FuncPtr: @@grTexTextureMemRequired;        FuncReq: inGlide;  FuncName: '_grTexTextureMemRequired@8'       )
-   ,(FuncPtr: @@grTexMinAddress;                FuncReq: inGlide;  FuncName: '_grTexMinAddress@4'               )
-   ,(FuncPtr: @@grTexMaxAddress;                FuncReq: inGlide;  FuncName: '_grTexMaxAddress@4'               )
-   ,(FuncPtr: @@grTexSource;                    FuncReq: inBoth ;  FuncName: '_grTexSource@16'                  )
-   ,(FuncPtr: @@grTexClampMode;                 FuncReq: inGlide;  FuncName: '_grTexClampMode@12'               )
-   ,(FuncPtr: @@grTexCombineFunction;           FuncReq: inGlide;  FuncName: '_grTexCombineFunction@8'          )
-   ,(FuncPtr: @@grTexFilterMode;                FuncReq: inGlide;  FuncName: '_grTexFilterMode@12'              )
-   ,(FuncPtr: @@grTexLodBiasValue;              FuncReq: inGlide;  FuncName: '_grTexLodBiasValue@8'             )
-   ,(FuncPtr: @@grTexDownloadMipMap;            FuncReq: inGlide;  FuncName: '_grTexDownloadMipMap@16'          )
-   ,(FuncPtr: @@grTexDownloadTable;             FuncReq: inBoth;   FuncName: '_grTexDownloadTable@12'           )
-   ,(FuncPtr: @@grTexMipMapMode;                FuncReq: inGlide;  FuncName: '_grTexMipMapMode@12'              )
-   ,(FuncPtr: @@grLfbLock;                      FuncReq: inGlide;  FuncName: '_grLfbLock@24'                    )
-   ,(FuncPtr: @@grLfbUnlock;                    FuncReq: inGlide;  FuncName: '_grLfbUnlock@8'                   )
-  {,(FuncPtr: @@grLfbReadRegion;                FuncReq: inGlide;  FuncName: '_grLfbReadRegion@28'              )}
-   ,(FuncPtr: @@grGlideInit;                    FuncReq: inBoth;   FuncName: '_grGlideInit@0'                   )
-   ,(FuncPtr: @@grGlideShutdown;                FuncReq: inGlide;  FuncName: '_grGlideShutdown@0'               )
-   ,(FuncPtr: @@grHints;                        FuncReq: inBoth;   FuncName: '_grHints@8'                       )
-   ,(FuncPtr: @@guColorCombineFunction;         FuncReq: inBoth;   FuncName: '_guColorCombineFunction@4'        )
-   ,(FuncPtr: @@guFogGenerateExp2;              FuncReq: inGlide;  FuncName: '_guFogGenerateExp2@8'             )
-   ,(FuncPtr: @@softgLoadFrameBuffer;           FuncReq: inSoftG;  FuncName: '_softgLoadFrameBuffer@8'          ) );
+  ({(FuncPtr: @@grDrawPlanarPolygonVertexList;  FuncReq: inGlide;  FuncName: '_grDrawPlanarPolygonVertexList@8' ; AcceptMissingSoftG: False)}
+  {,(FuncPtr: @@grDrawPolygonVertexList;        FuncReq: inGlide;  FuncName: '_grDrawPolygonVertexList@8'       ; AcceptMissingSoftG: False)}
+    (FuncPtr: @@grDrawTriangle;                 FuncReq: inBoth;   FuncName: '_grDrawTriangle@12'               ; AcceptMissingSoftG: False)
+   ,(FuncPtr: @@grBufferClear;                  FuncReq: inBoth;   FuncName: '_grBufferClear@12'                ; AcceptMissingSoftG: False)
+   ,(FuncPtr: @@grBufferSwap;                   FuncReq: inGlide;  FuncName: '_grBufferSwap@4'                  ; AcceptMissingSoftG: False)
+   ,(FuncPtr: @@grSstIdle;                      FuncReq: inGlide;  FuncName: '_grSstIdle@0'                     ; AcceptMissingSoftG: False)
+   ,(FuncPtr: @@grSstWinOpen;                   FuncReq: inBoth;   FuncName: '_grSstWinOpen@28'                 ; AcceptMissingSoftG: False)
+   ,(FuncPtr: @@grSstWinClose;                  FuncReq: inBoth;   FuncName: '_grSstWinClose@0'                 ; AcceptMissingSoftG: False)
+   ,(FuncPtr: @@grSstControl;                   FuncReq: inGlide;  FuncName: '_grSstControl@4'                  ; AcceptMissingSoftG: False)
+   ,(FuncPtr: @@grSstQueryHardware;             FuncReq: inGlide;  FuncName: '_grSstQueryHardware@4'            ; AcceptMissingSoftG: False)
+   ,(FuncPtr: @@grSstSelect;                    FuncReq: inGlide;  FuncName: '_grSstSelect@4'                   ; AcceptMissingSoftG: False)
+   ,(FuncPtr: @@grAlphaBlendFunction;           FuncReq: inGlide;  FuncName: '_grAlphaBlendFunction@16'         ; AcceptMissingSoftG: False)
+   ,(FuncPtr: @@grAlphaCombine;                 FuncReq: inGlide;  FuncName: '_grAlphaCombine@20'               ; AcceptMissingSoftG: False)
+   ,(FuncPtr: @@grClipWindow;                   FuncReq: inBoth;   FuncName: '_grClipWindow@16'                 ; AcceptMissingSoftG: False)
+   ,(FuncPtr: @@grColorMask;                    FuncReq: inGlide;  FuncName: '_grColorMask@8'                   ; AcceptMissingSoftG: False)
+   ,(FuncPtr: @@grCullMode;                     FuncReq: inGlide;  FuncName: '_grCullMode@4'                    ; AcceptMissingSoftG: False)
+   ,(FuncPtr: @@grConstantColorValue;           FuncReq: inBoth;   FuncName: '_grConstantColorValue@4'          ; AcceptMissingSoftG: False)
+   ,(FuncPtr: @@grDepthBufferFunction;          FuncReq: inGlide;  FuncName: '_grDepthBufferFunction@4'         ; AcceptMissingSoftG: False)
+   ,(FuncPtr: @@grDepthBufferMode;              FuncReq: inGlide;  FuncName: '_grDepthBufferMode@4'             ; AcceptMissingSoftG: False)
+   ,(FuncPtr: @@grDepthMask;                    FuncReq: inGlide;  FuncName: '_grDepthMask@4'                   ; AcceptMissingSoftG: False)
+   ,(FuncPtr: @@grDitherMode;                   FuncReq: inGlide;  FuncName: '_grDitherMode@4'                  ; AcceptMissingSoftG: False)
+   ,(FuncPtr: @@grFogColorValue;                FuncReq: inBoth;   FuncName: '_grFogColorValue@4'               ; AcceptMissingSoftG: True )
+   ,(FuncPtr: @@grFogMode;                      FuncReq: inBoth;   FuncName: '_grFogMode@4'                     ; AcceptMissingSoftG: True )
+   ,(FuncPtr: @@grFogTable;                     FuncReq: inBoth;   FuncName: '_grFogTable@4'                    ; AcceptMissingSoftG: True )
+   ,(FuncPtr: @@grGammaCorrectionValue;         FuncReq: inGlide;  FuncName: '_grGammaCorrectionValue@4'        ; AcceptMissingSoftG: False)
+   ,(FuncPtr: @@grTexTextureMemRequired;        FuncReq: inGlide;  FuncName: '_grTexTextureMemRequired@8'       ; AcceptMissingSoftG: False)
+   ,(FuncPtr: @@grTexMinAddress;                FuncReq: inGlide;  FuncName: '_grTexMinAddress@4'               ; AcceptMissingSoftG: False)
+   ,(FuncPtr: @@grTexMaxAddress;                FuncReq: inGlide;  FuncName: '_grTexMaxAddress@4'               ; AcceptMissingSoftG: False)
+   ,(FuncPtr: @@grTexSource;                    FuncReq: inBoth ;  FuncName: '_grTexSource@16'                  ; AcceptMissingSoftG: False)
+   ,(FuncPtr: @@grTexClampMode;                 FuncReq: inGlide;  FuncName: '_grTexClampMode@12'               ; AcceptMissingSoftG: False)
+   ,(FuncPtr: @@grTexCombineFunction;           FuncReq: inGlide;  FuncName: '_grTexCombineFunction@8'          ; AcceptMissingSoftG: False)
+   ,(FuncPtr: @@grTexFilterMode;                FuncReq: inGlide;  FuncName: '_grTexFilterMode@12'              ; AcceptMissingSoftG: False)
+   ,(FuncPtr: @@grTexLodBiasValue;              FuncReq: inGlide;  FuncName: '_grTexLodBiasValue@8'             ; AcceptMissingSoftG: False)
+   ,(FuncPtr: @@grTexDownloadMipMap;            FuncReq: inGlide;  FuncName: '_grTexDownloadMipMap@16'          ; AcceptMissingSoftG: False)
+   ,(FuncPtr: @@grTexDownloadTable;             FuncReq: inBoth;   FuncName: '_grTexDownloadTable@12'           ; AcceptMissingSoftG: False)
+   ,(FuncPtr: @@grTexMipMapMode;                FuncReq: inGlide;  FuncName: '_grTexMipMapMode@12'              ; AcceptMissingSoftG: False)
+   ,(FuncPtr: @@grLfbLock;                      FuncReq: inGlide;  FuncName: '_grLfbLock@24'                    ; AcceptMissingSoftG: False)
+   ,(FuncPtr: @@grLfbUnlock;                    FuncReq: inGlide;  FuncName: '_grLfbUnlock@8'                   ; AcceptMissingSoftG: False)
+  {,(FuncPtr: @@grLfbReadRegion;                FuncReq: inGlide;  FuncName: '_grLfbReadRegion@28'              ; AcceptMissingSoftG: False)}
+   ,(FuncPtr: @@grGlideInit;                    FuncReq: inBoth;   FuncName: '_grGlideInit@0'                   ; AcceptMissingSoftG: False)
+   ,(FuncPtr: @@grGlideShutdown;                FuncReq: inGlide;  FuncName: '_grGlideShutdown@0'               ; AcceptMissingSoftG: False)
+   ,(FuncPtr: @@grHints;                        FuncReq: inBoth;   FuncName: '_grHints@8'                       ; AcceptMissingSoftG: False)
+   ,(FuncPtr: @@guColorCombineFunction;         FuncReq: inBoth;   FuncName: '_guColorCombineFunction@4'        ; AcceptMissingSoftG: False)
+   ,(FuncPtr: @@guFogGenerateExp2;              FuncReq: inBoth;   FuncName: '_guFogGenerateExp2@8'             ; AcceptMissingSoftG: True )
+   ,(FuncPtr: @@softgLoadFrameBuffer;           FuncReq: inSoftG;  FuncName: '_softgLoadFrameBuffer@8'          ; AcceptMissingSoftG: False) );
 
 var
   TimesLoaded : Cardinal;
@@ -1707,7 +1709,8 @@ begin
         begin
           P:=GetProcAddress(GlideLib, GlideDLL_FuncList[I].FuncName);
           if (P=Nil) then
-            Exit;
+            if (Hardware3DFX) or (not GlideDLL_FuncList[I].AcceptMissingSoftG) then
+              Exit;
           PPointer(GlideDLL_FuncList[I].FuncPtr)^:=P;
         end;
       end;

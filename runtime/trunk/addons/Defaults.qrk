@@ -106,6 +106,7 @@ QQRKSRC1
         ResolutionY = '-1'
         StillQuality = "0"
         MovingQuality = "2"
+        Fog = "1"
         Form = "GeneralSoftware3D"
       }
       Glide (3Dfx):config =
@@ -7989,6 +7990,7 @@ QQRKSRC1
         Values =     "0"        $0D     "1"       $0D     "2"
         Hint = "Slowest: High details   Fastest: Low details"
       }
+      Fog: = {Typ="X" Txt="Fade" Cap="Enabled"}
     }
     GeneralGlide:form =
     {

@@ -202,8 +202,6 @@ begin
 end;*)
 
 procedure TGlideState.NeedTex(PTex: PTexture3);
-const
- TEXMEM_2MB_EDGE = 2097152;
 var
  TextureManager: TTextureManager;
 begin
@@ -228,9 +226,6 @@ begin
 end;
 
 procedure TGlideState.SetPerspectiveMode(nPerspectiveMode: Byte);
-{var
- I: Integer;
- FogTable2D: GrFogTable_t;}
 begin
  if PerspectiveMode<>nPerspectiveMode then
   begin
@@ -242,23 +237,14 @@ begin
      grHints(GR_HINT_STWHINT, GR_STWHINT_W_DIFF_TMU0)
     else
      grHints(GR_HINT_STWHINT, 0);
-   (*if Assigned(guFogGenerateExp2)
-   and Assigned(grFogTable) then
-  if nPerspectiveMode=2 then  { flat display }
-     begin
-     {for I:=0 to GR_FOG_TABLE_SIZE-1 do
-       FogTable2D[I]:=I*(256 div GR_FOG_TABLE_SIZE);}
-      guFogGenerateExp2(FogTable2D, 0.003);
-      grFogTable(FogTable2D);
-     end
-    else
-     Result:=True;*)
   end;
 end;
 
 procedure TGlideState.Init;
 begin
  SetPerspectiveMode(0);
+ if Assigned(grFogMode) then
+   grFogMode(GR_FOG_WITH_TABLE);
 end;
 
  {------------------------}
@@ -358,29 +344,21 @@ begin
   RendererSizeY:=200;
  if (DisplayMode=dmWindow) or (DisplayMode=dmFullScreen) then
  begin
-   Fog:=Setup.Specifics.Values['Fog']<>'';   //DanielPharos: This is not an option at the moment
+   Fog:=Setup.Specifics.Values['Fog']<>'';
  end
  else
  begin
    Fog:=False;
  end;
 
+ if (RendererVersion<SoftFog) then
+  Fog:=False;
+
  if Fog=True then
  begin
    ReallocMem(FogTableCache, SizeOf(GrFogTable_t));
-   if Assigned(guFogGenerateExp2) then
-   begin
-     guFogGenerateExp2(FogTableCache^, FogDensity/(50*FarDistance));
-   end;
-  {if Assigned(guFogGenerateExp2)
-   and Assigned(grFogTable) then
-    begin
-     guFogGenerateExp2(FogTable, FogDensity);
-     grFogTable(FogTable);
-    end;}
-
-   if Assigned(grFogColorValue) then
-    grFogColorValue(FogColor);
+   guFogGenerateExp2(FogTableCache^, FogDensity/MaxW);
+   grFogColorValue(FogColor);
  end;
 end;
 
@@ -803,10 +781,7 @@ begin
    qrkGlideState.SetPerspectiveMode(Ord(CCoord.FlatDisplay)+1);
  end;
  if Fog=True then
- begin
-   if Assigned(grFogTable) then
-     grFogTable(FogTableCache^);
- end;
+   grFogTable(FogTableCache^);
 
  grClipWindow(ViewRect.R.Left-SOFTMARGIN, ViewRect.R.Top-SOFTMARGIN, ViewRect.R.Right+SOFTMARGIN, ViewRect.R.Bottom+SOFTMARGIN);
 
@@ -828,10 +803,7 @@ begin
  FProjInfo:=@ProjInfo;}
 
  if Fog=True then
- begin
-   if Assigned(grFogMode) then
-     grFogMode(GR_FOG_WITH_TABLE);
- end
+   grFogMode(GR_FOG_WITH_TABLE)
  else
  begin
    if Assigned(grFogMode) then

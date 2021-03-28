@@ -226,9 +226,6 @@ begin
 end;
 
 procedure TGlideState.SetPerspectiveMode(nPerspectiveMode: Byte);
-{var
- I: Integer;
- FogTable2D: GrFogTable_t;}
 begin
  if PerspectiveMode<>nPerspectiveMode then
   begin
@@ -239,15 +236,6 @@ begin
     grHints(GR_HINT_STWHINT, GR_STWHINT_W_DIFF_TMU0)
    else
     grHints(GR_HINT_STWHINT, 0);
-   (*if nPerspectiveMode=2 then  { flat display }
-     begin
-     {for I:=0 to GR_FOG_TABLE_SIZE-1 do
-       FogTable2D[I]:=I*(256 div GR_FOG_TABLE_SIZE);}
-      guFogGenerateExp2(FogTable2D, 0.003);
-      grFogTable(FogTable2D);
-     end
-    else
-     Result:=True;*)
   end;
 end;
 
