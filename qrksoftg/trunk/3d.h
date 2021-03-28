@@ -20,8 +20,8 @@ typedef FxI32 GrChipID_t;
 typedef FxI32 GrCombineFunction_t;
 typedef FxI32 GrColorCombineFunction_t;
 typedef FxI32 GrAspectRatio_t;
-//typedef FxU8  GrFog_t;
-//typedef FxI32 GrFogMode_t;
+typedef FxU8  GrFog_t;
+typedef FxI32 GrFogMode_t;
 typedef FxI32 GrColorFormat_t;
 typedef FxI32 GrOriginLocation_t;
 typedef FxI32 GrLOD_t;
@@ -66,7 +66,7 @@ typedef struct { //__declspec(align(4))?
 
 // --- Glide ---
 
-//#define GR_FOG_TABLE_SIZE      64
+#define GR_FOG_TABLE_SIZE      64
 
 //GrTextureFormat_t
 //#define GR_TEXFMT_P_8      5
@@ -75,7 +75,7 @@ typedef struct { //__declspec(align(4))?
 
 //GrFogMode_t
 //#define GR_FOG_DISABLE     0
-//#define GR_FOG_WITH_TABLE  2
+#define GR_FOG_WITH_TABLE  2
 
 //GrHint_t
 #define GR_HINT_STWHINT  0
@@ -101,10 +101,12 @@ FxBool __declspec(dllexport) __stdcall grSstWinOpen(FxU32 hwnd, GrScreenResoluti
 void __declspec(dllexport) __stdcall grSstWinClose(void);
 int  __declspec(dllexport) __stdcall softgQuArK(void);
 void __declspec(dllexport) __stdcall grConstantColorValue(GrColor_t color);
-//void __declspec(dllexport) __stdcall grFogMode(GrFogMode_t mode);
-//void __declspec(dllexport) __stdcall grFogColorValue(GrColor_t color);
-//void __declspec(dllexport) __stdcall guFogGenerateExp2(GrFog_t fogTable[GR_FOG_TABLE_SIZE], float density);
-//void __declspec(dllexport) __stdcall grFogTable(const GrFog_t table[GR_FOG_TABLE_SIZE]);
+void __declspec(dllexport) __stdcall grFogMode(GrFogMode_t mode);
+void __declspec(dllexport) __stdcall grFogColorValue(GrColor_t color);
+void __declspec(dllexport) __stdcall guFogGenerateExp2(GrFog_t fogTable[GR_FOG_TABLE_SIZE], float density);
+//void __declspec(dllexport) __stdcall guFogGenerateLinear(GrFog_t fogTable[GR_FOG_TABLE_SIZE], float nearW, float farW);
+void __declspec(dllexport) __stdcall grFogTable(const GrFog_t table[GR_FOG_TABLE_SIZE]);
+float __declspec(dllexport) __stdcall guFogTableIndexToW(int i);
 void __declspec(dllexport) __stdcall guColorCombineFunction(GrColorCombineFunction_t func);
 void __declspec(dllexport) __stdcall grHints(GrHint_t type, FxU32 hintMask);
 
