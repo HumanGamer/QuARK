@@ -1372,6 +1372,9 @@ def loadmodel(root, filename, gamename, nomessage=0):
                 texturename = texturename.rsplit("/", 1)[1]
             texturename = check_skin_name(texturename)
             skin = quarkx.newobj(texturename)
+            if not skin.type in ('.pcx', '.tga', '.dds', '.png', '.jpg', '.bmp', '.ftx', '.vtf', '.m8'):
+                del skin
+                skin = quarkx.newobj(texturename+".pcx")
             skin['Image1'] = current_texture.imagedata
             skin['Size'] = (float(current_texture.width), float(current_texture.height))
             result += [skin]
