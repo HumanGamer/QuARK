@@ -14,6 +14,8 @@
 
 6.6.0 Beta 7
 ============
+* [DanielPharos]: Added Urban Terror 4 addon.
+
 * [DanielPharos]: Improved fog/fade of the software renderer to match Glide more closely.
 
 * [DanielPharos]: Also cache texture sizes during brushdef loading for a big speed improvement.
