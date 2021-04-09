@@ -162,7 +162,6 @@ type
                  Canvas: TControlCanvas;
                  procedure ResizeViewport(Sender: TObject);
                  procedure wmMove(var Msg: TMessage); message wm_Move;
-                 procedure wmPaint(var Msg: TMessage); message wm_Paint;
                 {procedure wmCaptureChanged(var Msg: TMessage); message wm_CaptureChanged;}
                  procedure MouseDown(Button: TMouseButton; Shift: TShiftState; X, Y: Integer); override;
                  procedure MouseMove(Shift: TShiftState; X, Y: Integer); override;
@@ -175,6 +174,7 @@ type
                  procedure SetViewType(Vt: TMapViewType);
                  procedure DragOver(Source: TObject; X,Y: Integer; State: TDragState; var Accept: Boolean); override;
                  procedure SetRedLines;
+                 procedure DoPaint(DC: HDC; const PaintInfo: TPaintStruct); override;
                public
                  MapViewObject: PyControlF;
                  BoxColor, CouleurFoncee: TColor;
@@ -249,6 +249,7 @@ begin
     Screen.Cursors[I]:=LoadCursor(HInstance, MakeIntResource(I));
    CurrentMapView:=Nil;
   end;
+ Self.DoubleBuffered:=true;
  inherited;
  PressingMouseButton:=mbNotPressing;
  OnPaint:=Paint;
@@ -1047,29 +1048,16 @@ begin
  SetRedLines;
 end;
 
-procedure TPyMapView.wmPaint;
-var
- PaintInfo: TPaintStruct;
- DC: HDC;
+procedure TPyMapView.DoPaint(DC: HDC; const PaintInfo: TPaintStruct);
 begin
- //Note: This overrides the original wmPaint...!
- DC:=BeginPaint(Handle, PaintInfo);
+ FPainting:=True;
  try
-  if DC<>0 then
-   begin
-    FPainting:=True;
-    try
-     if (Scene<>Nil) then
-      Scene.SetViewWnd(Handle);
-     if not (csDesigning in ComponentState) then
-      if Assigned(OnPaint) then
-       OnPaint(Self, PaintInfo.hDC, PaintInfo.rcPaint);
-    finally
-     FPainting:=False;
-    end;
-  end;
+  if (Scene<>Nil) then
+   Scene.SetViewWnd(Handle);
+  if Assigned(OnPaint) then
+   OnPaint(Self, PaintInfo.hDC, PaintInfo.rcPaint);
  finally
-  EndPaint(Handle, PaintInfo);
+  FPainting:=False;
  end;
 end;
 

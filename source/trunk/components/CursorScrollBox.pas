@@ -45,7 +45,8 @@ type
     procedure wmPaint(var Msg: TMessage); message wm_Paint;
     procedure wmHScroll(var Msg: TWMScroll); message wm_HScroll;
     procedure wmVScroll(var Msg: TWMScroll); message wm_VScroll;
-    procedure cmMouseLeave(var Msg: TMessage); message cm_MouseLeave; 
+    procedure cmMouseLeave(var Msg: TMessage); message cm_MouseLeave;
+    procedure DoPaint(DC: HDC; const PaintInfo: TPaintStruct); virtual;
   public
    {procedure PreCoord(var X,Y: Integer);
     procedure PostCoord(var X,Y: Integer);
@@ -142,23 +143,30 @@ procedure TCursorScrollBox.wmPaint;
 var
  PaintInfo: TPaintStruct;
  DC: HDC;
-{H: Integer;}
 begin
+ //Note: This replaces the original wmPaint.
  DC:=BeginPaint(Handle, PaintInfo);
  try
+  if (csDesigning in ComponentState) then
+   Exit;
   if DC<>0 then
-   begin
-    {if FDisplayHPos=0 then
-     H:=HorzScrollBar.Position
-    else
-     H:=FDisplayHPos;
-    SetWindowOrgEx(PaintInfo.hDC, H, VertScrollBar.Position, Nil);}
-    if Assigned(FOnPaint) and not (csDesigning in ComponentState) then
-     FOnPaint(Self, PaintInfo.hDC, PaintInfo.rcPaint);
-   end;
+   DoPaint(DC, PaintInfo);
  finally
   EndPaint(Handle, PaintInfo);
  end;
+end;
+
+procedure TCursorScrollBox.DoPaint(DC: HDC; const PaintInfo: TPaintStruct);
+{var
+ H: Integer;}
+begin
+ {if FDisplayHPos=0 then
+  H:=HorzScrollBar.Position
+ else
+  H:=FDisplayHPos;
+ SetWindowOrgEx(PaintInfo.hDC, H, VertScrollBar.Position, Nil);}
+ if Assigned(FOnPaint) then
+  FOnPaint(Self, PaintInfo.hDC, PaintInfo.rcPaint);
 end;
 
 (*function TCursorScrollBox.ComputeDC : HDC;
