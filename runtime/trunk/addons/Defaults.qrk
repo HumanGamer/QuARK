@@ -57,6 +57,7 @@ QQRKSRC1
         Lib = "qrksoftg.dll"   //Default library. Currently set to Software for compatibility.
         WndRect = '0 0 640 480'
         Entities = "1"
+        DoubleBuffered = "1"
         EntityBoxes = ""
         NearDistance = '1.0'  // minimum render distance (OpenGL, Direct3D)
         FarDistance = '1500'  // maximum render distance
@@ -7915,6 +7916,7 @@ QQRKSRC1
       WndRect: = {Typ="EF4" Txt="Position/size of window" Hint="Position and size in pixels of the 3D view window"}
       Entities: = {Txt="Entities in 3D" Cap="Display entities" Typ="X" Hint="Show entities in the 3D view"}
       //EntityBoxes: = {Txt="`Entity Boxes`" Cap="as bounding boxes only" Typ="X" Hint="If not checked, entities are displayed as 3D Models when available"}
+      DoubleBuffered: = {Txt="Double buffered" Cap="Enabled" Typ="X" Hint="Use double buffering to reduce flickering"}
       FarDistance: = {Txt="``Far´´ distance" Typ="EF1" Min="50" Hint="How far you can view before objects disappear (lower numbers accelerate rendering because there is less to display)"}
       FogDensity: = {Txt="Fade density" Typ="EF1" Min='1' Hint="Sets the density of the fade."}
       VAngle: = {Txt="Vertical view angle" Typ="EF1" Min="5" Max="80" Hint="Angle between the horizon and the higher and lower points you can see - larger numbers mean smaller image"}

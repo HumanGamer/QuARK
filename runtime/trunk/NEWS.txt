@@ -14,6 +14,9 @@
 
 6.6.0 Beta 7
 ============
+* [DanielPharos]: Implemented double buffering for the wireframe renderer, which results
+          - in a very large performance improvement on modern operating systems.
+
 * [DanielPharos]: Added Urban Terror 4 addon.
 
 * [DanielPharos]: Improved fog/fade of the software renderer to match Glide more closely.

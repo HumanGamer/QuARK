@@ -249,7 +249,6 @@ begin
     Screen.Cursors[I]:=LoadCursor(HInstance, MakeIntResource(I));
    CurrentMapView:=Nil;
   end;
- Self.DoubleBuffered:=true;
  inherited;
  PressingMouseButton:=mbNotPressing;
  OnPaint:=Paint;
@@ -281,6 +280,9 @@ begin
  Hint:=BlueHintPrefix;
  TabStop:=True;
  Renderer:='';
+ DoubleBuffered:=(ConfigSrc.Specifics.Values['DoubleBuffered']<>'');
+ ViewMode:=vmWireframe;
+ ViewType:=vtEditor;
  DrawMode:=dmFull;
 end;
 
@@ -461,6 +463,7 @@ begin
   Invalidate;
  with ConfigSrc do
   begin
+   DoubleBuffered:=(Specifics.Values['DoubleBuffered']<>'') and (ViewMode = vmWireframe); //FIXME: Currently only works properly for wireframe mode, due to SetViewDC.
    if MapViewProj is TCameraCoordinates then
     DisplayType:=dt3D
    else if MapViewProj is T3DCoordinates then
@@ -1055,7 +1058,7 @@ begin
   if (Scene<>Nil) then
    Scene.SetViewWnd(Handle);
   if Assigned(OnPaint) then
-   OnPaint(Self, PaintInfo.hDC, PaintInfo.rcPaint);
+   OnPaint(Self, DC, PaintInfo.rcPaint);
  finally
   FPainting:=False;
  end;
@@ -1735,6 +1738,7 @@ begin
    SetAnimation(False);
    DeleteScene;
    ViewMode:=Vm;
+   DoubleBuffered:=(ConfigSrc.Specifics.Values['DoubleBuffered']<>'') and (ViewMode = vmWireframe); //FIXME: Currently only works properly for wireframe mode, due to SetViewDC.
    if Vm=vmWireframe then
     Color:=BoxColor
    else

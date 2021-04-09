@@ -142,15 +142,36 @@ end;
 procedure TCursorScrollBox.wmPaint;
 var
  PaintInfo: TPaintStruct;
- DC: HDC;
+ DC, MemDC: HDC;
+ MemBitmap, OldBitmap: HBITMAP;
 begin
- //Note: This replaces the original wmPaint.
+ //Note: This replaces the original wmPaint, because we don't want to lose
+ //the rcPaint information, which Delphi drops in PaintHandler. So we're
+ //duplicating some of the original wmPaint here.
  DC:=BeginPaint(Handle, PaintInfo);
  try
   if (csDesigning in ComponentState) then
    Exit;
-  if DC<>0 then
-   DoPaint(DC, PaintInfo);
+  if not FDoubleBuffered then
+  begin
+   if DC<>0 then
+    DoPaint(DC, PaintInfo);
+  end
+  else
+  begin
+    MemBitmap := CreateCompatibleBitmap(DC, ClientRect.Right, ClientRect.Bottom);
+    MemDC := CreateCompatibleDC(DC);
+    OldBitmap := SelectObject(MemDC, MemBitmap);
+    try
+      Perform(WM_ERASEBKGND, MemDC, MemDC);
+      DoPaint(MemDC, PaintInfo);
+      BitBlt(DC, 0, 0, ClientRect.Right, ClientRect.Bottom, MemDC, 0, 0, SRCCOPY);
+    finally
+      SelectObject(MemDC, OldBitmap);
+      DeleteDC(MemDC);
+      DeleteObject(MemBitmap);
+    end;
+  end;
  finally
   EndPaint(Handle, PaintInfo);
  end;
@@ -166,7 +187,7 @@ begin
   H:=FDisplayHPos;
  SetWindowOrgEx(PaintInfo.hDC, H, VertScrollBar.Position, Nil);}
  if Assigned(FOnPaint) then
-  FOnPaint(Self, PaintInfo.hDC, PaintInfo.rcPaint);
+  FOnPaint(Self, DC, PaintInfo.rcPaint);
 end;
 
 (*function TCursorScrollBox.ComputeDC : HDC;
