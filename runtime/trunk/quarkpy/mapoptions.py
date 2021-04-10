@@ -68,13 +68,9 @@ def StartConsoleLogClick(m):
         quarkx.stopconsolelog()
         consolelog.state = qmenu.normal
 
-
 def ClearConsoleLogClick(m):
     "Clears the Console.txt file."
-    try:
-        quarkx.clearconsolelog()
-    except:
-        pass
+    quarkx.clearconsolelog()
 
 def Config1Click(item):
     "Configuration Dialog Box."
@@ -101,7 +97,6 @@ def Plugins1Click(item):
             pass
         group.appenditem(ci)
     quarkx.openconfigdlg("List of Plug-ins", group)
-
 
 def Options1Click(menu):
     for item in menu.items:

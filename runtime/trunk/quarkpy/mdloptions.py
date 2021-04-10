@@ -111,19 +111,13 @@ def StartConsoleLogClick(m):
         quarkx.stopconsolelog()
         consolelog.state = qmenu.normal
 
-
 def ClearConsoleLogClick(m):
     "Clears the Console.txt file."
-    try:
-        quarkx.clearconsolelog()
-    except:
-        pass
-
+    quarkx.clearconsolelog()
 
 def Config1Click(item):
     "Configuration Dialog Box."
     quarkx.openconfigdlg()
-
 
 def Plugins1Click(item):
     "Lists the loaded plug-ins."
@@ -146,7 +140,6 @@ def Plugins1Click(item):
             pass
         group.appenditem(ci)
     quarkx.openconfigdlg("List of Plug-ins", group)
-
 
 def Options1Click(menu):
     editor = mdleditor.mdleditor
@@ -177,7 +170,6 @@ def Options1Click(menu):
         if item == lineThicknessItem:
             item.thick = getLineThickness()
             item.text = "Set Line Thickness (%1.0f)"%item.thick
-
 
 def toggleitem(txt, toggle, sendupdate=(1,1), sset=(SS_MODEL,"Options"), hint=None):
     item = qmenu.item(txt, ToggleOption, hint)
