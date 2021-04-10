@@ -17,6 +17,9 @@ width and height of the window, also counted in pixels.
 <i>Entities in 3D</i>. Whether or not QuArK should draw entities (3D-models) in
 the 3D-windows.
 
+<i>Double buffered</i>. Use double buffering to reduce flickering. This uses up
+more memory.
+
 <i>"Far" distance</i>. How deep QuArK should draw in the 3D-windows. Lower
 values will speed up drawing.
 
