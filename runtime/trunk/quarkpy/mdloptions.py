@@ -849,6 +849,16 @@ def OptionsMenu():
     PlugIns = qmenu.item("List of Plug-ins...", Plugins1Click)
     Config1 = qmenu.item("Confi&guration...", Config1Click,  hint = "|Configuration...:\n\nThis leads to the Configuration-Window where all elements of QuArK are setup. From the way the Editor looks and operates to Specific Game Configuration and Mapping or Modeling variables.\n\nBy pressing the F1 key one more time, or clicking the 'InfoBase' button below, you will be taken directly to the Infobase section that covers all of these areas, which can greatly assist you in setting up QuArK for a particular game you wish to map or model for.|intro.configuration.html")
     Options1 = qmenu.popup("&Options", [RotationOptions, dhwr, et3dmode, ft3dmode, qmenu.sep]+[maiv, dbf, lineThicknessItem, qmenu.sep, BoneOptions, FaceSelOptions, VertexSelOptions, SkinViewOptions, AutoFrameRenaming, qmenu.sep]+items+[qmenu.sep, PlugIns, Config1, qmenu.sep, consolelog, clearconsolelog], Options1Click)
+
+    import plugins.mdlgridscale  #FIXME: Remove dependency!
+    import plugins.mdlfacerulers  #FIXME: Remove dependency!
+    l1 = plugins.mdlgridscale.GridMenuCmds
+    l2 = [qmenu.sep]
+    l3 = plugins.mdlfacerulers.RulerMenuCmds
+    l4 = [qmenu.sep]
+    if len(l1):
+        Options1.items = l1 + l2 + l3 + l4 + Options1.items
+
     return Options1, shortcuts
 
 

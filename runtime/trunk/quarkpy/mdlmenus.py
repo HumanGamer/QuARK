@@ -65,9 +65,6 @@ def BuildMenuBar(editor):
     import mdltoolbars
     import mdloptions
 
-    import plugins.mdlgridscale  #FIXME: Remove dependency!
-    import plugins.mdlfacerulers  #FIXME: Remove dependency!
-
     def modelimporters():
         from qmacro import mdlimport, mdlimportmenuorder
         mdlimportmenu = []
@@ -144,13 +141,6 @@ def BuildMenuBar(editor):
 
     Options1, sc2 = mdloptions.OptionsMenu()
     sc1.update(sc2)   # merge shortcuts
-    l1 = plugins.mdlgridscale.GridMenuCmds
-    l2 = [qmenu.sep]
-    l3 = plugins.mdlfacerulers.RulerMenuCmds
-    l4 = [qmenu.sep]
-    if len(l1):
-        Options1.items = l1 + l2 + l3 + l4 + Options1.items
-        sc1.update(sc2)   # merge shortcuts
 
     return [File1, Layout1, Edit1, quarkx.toolboxmenu, Search1, Commands1, Tools1, Options1], sc1
 

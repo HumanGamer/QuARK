@@ -97,8 +97,6 @@ def BuildMenuBar(editor):
 
     import plugins.map1addonsamendmenu #FIXME: Remove dependency!
     import plugins.map1addonsmenu #FIXME: Remove dependency!
-    import plugins.mapgridscale #FIXME: Remove dependency!
-    import plugins.mappolyrulers #FIXME: Remove dependency!
 
     if IsBsp(editor):
         File1, sc1 = qmenu.DefaultFileMenuBsp()
@@ -158,13 +156,6 @@ def BuildMenuBar(editor):
 
     Options1, sc2 = mapoptions.OptionsMenu()
     sc1.update(sc2)   # merge shortcuts
-    l1 = plugins.mapgridscale.GridMenuCmds
-    l2 = [qmenu.sep]
-    l3 = plugins.mappolyrulers.RulerMenuCmds
-    l4 = [qmenu.sep]
-    if len(l1):
-        Options1.items = l1 + l2 + l3 + l4 + Options1.items
-        sc1.update(sc2)   # merge shortcuts
 
     return [File1, Layout1, Edit1, quarkx.toolboxmenu,
      Search1, Commands1, Addons1, Selection1, Quake1, Tools1, Options1], sc1
