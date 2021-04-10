@@ -57,11 +57,8 @@ def IgnoreDupClick(item):
 def StartConsoleLogClick(m):
     "Start and stop console logging output to Console.txt file."
     if not MapOption("ConsoleLog"):
+        quarkx.startconsolelog()
         quarkx.setupsubset(SS_MAP, "Options")['ConsoleLog'] = "1"
-        try:
-            quarkx.startconsolelog()
-        except:
-            pass
         consolelog.state = qmenu.checked
     else:
         quarkx.setupsubset(SS_MAP, "Options")['ConsoleLog'] = None
@@ -177,17 +174,17 @@ class LineThickDlg(SimpleCancelDlgBox):
                 quarkx.setupsubset(SS_MAP,"Options")['linethickness']="%4.2f"%thick
 
 def getLineThickness():
-     thick = quarkx.setupsubset(SS_MAP,"Options")['linethickness']
-     if thick:
-         return float(thick)
-     else:
-         return 3
+    thick = quarkx.setupsubset(SS_MAP,"Options")['linethickness']
+    if thick:
+        return float(thick)
+    else:
+        return 3
 
 def getThinLineThickness():
-     thick = getLineThickness()
-     if thick > 1:
-         thick = thick-1
-     return thick
+    thick = getLineThickness()
+    if thick > 1:
+        thick = thick-1
+    return thick
 
 def setLineThick(m):
     editor = mapeditor()

@@ -100,11 +100,8 @@ def ToggleOption(item):
 def StartConsoleLogClick(m):
     "Start and stop console logging output to Console.txt file."
     if not MdlOption("ConsoleLog"):
+        quarkx.startconsolelog()
         quarkx.setupsubset(SS_MODEL, "Options")['ConsoleLog'] = "1"
-        try:
-            quarkx.startconsolelog()
-        except:
-            pass
         consolelog.state = qmenu.checked
     else:
         quarkx.setupsubset(SS_MODEL, "Options")['ConsoleLog'] = None
@@ -231,21 +228,18 @@ class LineThickDlg(SimpleCancelDlgBox):
                 if view.viewmode != "tex":
                     view.repaint()
 
-
 def getLineThickness():
-     thick = quarkx.setupsubset(SS_MODEL,"Options")['linethickness']
-     if thick:
-         return float(thick)
-     else:
-         return 2
-
+    thick = quarkx.setupsubset(SS_MODEL,"Options")['linethickness']
+    if thick:
+        return float(thick)
+    else:
+        return 2
 
 def setLineThick(m):
     editor = mdleditor.mdleditor
     if editor is None:
         return
     LineThickDlg(quarkx.clickform, editor, m)
-
 
 lineThicknessItem = qmenu.item("Set Line Thickness (2)",setLineThick,"|Set Line Thickness:\n\nThis lets you set the thickness of certain lines that are drawn on the Editor's views, such as the outlining of selected model mesh faces and the models axis lines.|intro.modeleditor.menu.html#optionsmenu")
 
