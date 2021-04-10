@@ -433,7 +433,7 @@ def facelift(o):
     editor = mapeditor()
     marked = getstashed(editor)
     help = "|Lifts face to marked group, removing coplanar faces within that group."
-    item = qmenu.item("&Lift to marked group",LiftMe,help)  
+    item = qmenu.item("&Lift to marked group",LiftMe,help)
     if marked is None:
         item.state = qmenu.disabled
         item.hint = item.hint+"\n\nFor this item to be enabled, there must be a marked group containing the face (Navigate tree|<some containing group>|Mark)."
@@ -678,7 +678,7 @@ def getmadsel(obj):
   except (AttributeError): return None
 
 
-def madfinishdrawing(self, view): 
+def madfinishdrawing(self, view):
   "the new finishdrawning routine"
   Madsel.oldfinishdrawing(self, view)
   editor = mapeditor()
@@ -691,7 +691,7 @@ def madfinishdrawing(self, view):
   if editor.layout.explorer.sellist == [editor.madsel.neworig]:
     editor.madsel.orig = editor.madsel.neworig
     editor.madsel.extra = editor.madsel.newextra
-  if not editor.layout.explorer.sellist == [editor.madsel.orig]: 
+  if not editor.layout.explorer.sellist == [editor.madsel.orig]:
     editor.madsel = None
     return
   cv = view.canvas()
@@ -768,7 +768,7 @@ def madclick(editor, view, x, y, oldclick=quarkpy.maphandles.ClickOnView):
       return view.clicktarget(restrictor, x, y)
   return oldclick(editor, view, x, y)
 
-quarkpy.maphandles.ClickOnView = madclick  
+quarkpy.maphandles.ClickOnView = madclick
 
 def maddrawview(view, mapobj, mode, olddraw=quarkpy.qbaseeditor.drawview):
   if menrestsel.state == qmenu.checked:
@@ -789,7 +789,7 @@ def RestSelClick(m):
   if editor==None: return
   setrestrictor(editor, editor.layout.explorer.uniquesel)
   editor.invalidateviews(1)
-    
+
 def NoSelClick(m):
   editor=mapeditor()
   if editor==None: return
@@ -925,7 +925,7 @@ def linredmenu(self, editor, view):
     item = qmenu.item('&Browse Selection',browseSelClick,browseHelpString)
     return [item]
 
-quarkpy.qhandles.LinRedHandle.menu=linredmenu    
+quarkpy.qhandles.LinRedHandle.menu=linredmenu
 
 def multreemenu(sellist, editor, oldmenu=quarkpy.mapmenus.MultiSelMenu):
 
