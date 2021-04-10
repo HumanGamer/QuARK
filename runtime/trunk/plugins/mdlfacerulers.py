@@ -17,7 +17,10 @@ Info = {
    "quark":         "Version 6.5" }
 
 
+import quarkx
+import quarkpy.mdleditor
 import quarkpy.mdloptions
+import quarkpy.qmenu
 from quarkpy.mdlutils import *
 
 #

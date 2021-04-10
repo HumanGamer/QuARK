@@ -17,7 +17,11 @@ Info = {
    "quark":         "Version 6.5" }
 
 
+import quarkx
+import quarkpy.mapeditor
 import quarkpy.mapoptions
+import quarkpy.qhandles
+import quarkpy.qmenu
 from quarkpy.maputils import *
 
 #
