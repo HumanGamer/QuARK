@@ -313,6 +313,11 @@ begin
  if (Source=Nil) and (I>=0) then
   begin
    Source:=L[I];
+   if Source.Flags and ofTreeViewExpanded = 0 then
+    begin
+     Result:=Source;
+     Exit;
+    end;
    L:=Source.SubElements;
    I:=L.Count-1;
   end;
