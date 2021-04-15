@@ -769,7 +769,7 @@ Strings = {
 
     5514: "'%s' : structure invalid for a Quake %d-like texture",
     5515: "The file has been correctly saved to '%s' but QuArK cannot reopen it. You can't continue editing the file.\n\nQuit QuArK now, find this temporary file and rename it '%s'",
-    5516: "Could not save the file '%s'. The file is maybe read-only or opened in another application.//The file has been correctly saved to :\n\n%s\n\nbut QuArK failed to move it to the correct location. You can look for this temporary file and rename it '%s' yourself",
+    5516: "Could not save the file '%s'. The file is maybe read-only or opened in another application.//The file has been correctly saved to:\n%s\n\nbut QuArK failed to move it to the correct location. You can look for this temporary file and rename it '%s' yourself",
     5517: "Could not save the file. The disk is maybe full or read-only.//%s",
     5518: "Invalid texture link - no link !",
     5519: "No data - the file is empty",
@@ -917,7 +917,7 @@ Strings = {
     5655: "'%s' is not a M8 texture file//%d should be %d",
     5656: "This directory is not valid.\n\nYour path: %s\nRequired path: %s",
     5657: "Cannot save the setup file",
-    5658: "QuArK could not save your configuration :\n\n %s",
+    5658: "QuArK could not save your configuration:\n%s",
     5659: "QuArK cannot save any file because your system's temporary directory is invalid.",
     5660: "No texture found in '%s'",
     5661: "The Heretic II texture sizes stored in '%s' seem invalid//%d x %d  should be  %d x %d",
