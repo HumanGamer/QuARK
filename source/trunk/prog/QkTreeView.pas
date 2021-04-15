@@ -74,6 +74,7 @@ type
     EditInfo: PTVEditing;
     DropTarget: QObject;
     MaxPixelWidth: Integer; //DanielPharos: A workaround to get the horizontal scrollbar working
+    RightButtonDrag: Boolean;
     procedure WMPaint(var Message: TMessage); message WM_PAINT;
     procedure Expanding(Q: QObject); dynamic;
     procedure Accessing(Q: QObject); dynamic;
@@ -95,7 +96,6 @@ type
     {procedure ClearSelection;}
   public
     AllowEditing: (aeNo, aeUndo, aeFree);
-    RightButtonDrag: Boolean;
     NoKeyboardDelay: Boolean;
     property Roots: TQList read FRoots;
     constructor Create(AOwner: TComponent); override;

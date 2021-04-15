@@ -43,6 +43,7 @@ type
   TQkExplorer = class(TMyTreeView)
   private
     CuttedNodes: TQList;
+    HasRootSpec: Boolean;
   (*function SetSelection1(nSelection: QObject; Spec: Integer) : QObject;
     procedure SetTMFocus(nSelection: QObject);
     function GetSelUnique: QObject;
@@ -64,6 +65,8 @@ type
     procedure DeplacerIci1(Sender: TObject);
     procedure SplitterResizedEvt(Sender: TObject; nPosition: Integer);
   protected
+    FSelection1: QObject;
+   {FDragTag: ShortInt;}
    {FDropTarget: QObject;}
    {FObjMenu: TPopupMenu;}
    {procedure DispInfo(Sender: TObject; Node: TTreeNode;
@@ -96,9 +99,7 @@ type
     procedure DisplayDetails(ParentSel: Boolean; Item: QObject; var Etat: TDisplayDetails); override;
     function CopyFromOutside(SourceQ: QObject) : Boolean; dynamic;
   public
-    FSelection1: QObject;
-   {FDragTag: ShortInt;}
-    HasRootSpec, LoadAllAuto: Boolean;
+    LoadAllAuto: Boolean;
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
     procedure AddRoot(Q: QObject);
