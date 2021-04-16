@@ -92,9 +92,7 @@ begin
           PositionInt:=nPos;
           ProgressBar1.Position:=nPos;
           Label1.Caption:=IntToStr(nPos)+'%';
-          BringToFront;
           Update;
-          GdiFlush;
         end;
       end;
     end;
