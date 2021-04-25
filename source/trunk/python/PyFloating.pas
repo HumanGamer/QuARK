@@ -121,7 +121,9 @@ begin
  WndObject^.Close;
  {$IFDEF Debug} WndObject:=PyControlF($CCCCCCCC); {$ENDIF}
  Py_DECREF(FOnMove);
+ //FOnMove:=Nil;
  Py_DECREF(FOnClose);
+ FOnClose:=Nil; //To prevent double-calling
  inherited;
 end;
 
