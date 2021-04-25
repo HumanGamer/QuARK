@@ -73,7 +73,6 @@ type
   protected
     EditInfo: PTVEditing;
     DropTarget: QObject;
-    MaxPixelWidth: Integer; //DanielPharos: A workaround to get the horizontal scrollbar working
     RightButtonDrag: Boolean;
     procedure WMPaint(var Message: TMessage); message WM_PAINT;
     procedure Expanding(Q: QObject); dynamic;
@@ -192,7 +191,6 @@ begin
   HorzScrollBar.Increment:=MyTVLineStep;
   VertScrollBar.Tracking:=True;
   VertScrollBar.Increment:=MyTVLineStep;
-  MaxPixelWidth:=0;
 end;
 
 destructor TMyTreeView.Destroy;
@@ -368,8 +366,9 @@ var
  PlusBmp1, MinusBmp1: HBitmap;
  FocusItem: QObject;
  DotColors: array[Boolean] of TColorRef;
+ MaxPixelWidth: Longint; //DanielPharos: A workaround to get the horizontal scrollbar working
 
-  procedure UpdateMaxPixelWidth(NewWidth: Integer);
+  procedure UpdateMaxPixelWidth(NewWidth: Longint);
   begin
     if (NewWidth > MaxPixelWidth) then MaxPixelWidth := NewWidth;
   end;
@@ -717,6 +716,11 @@ begin
   DeleteObject(Brush);
  end;
  finally EndPaint(Handle, PaintInfo); end;
+
+ //DanielPharos: Now that we've figured out MaxPixelWidth,
+ //let's set it.
+ if HorzScrollBar.Range <> MaxPixelWidth then
+  HorzScrollBar.Range:=MaxPixelWidth;
 end;
 
 procedure TMyTreeView.WMEraseBkgnd(var Message: TMessage);
@@ -1204,14 +1208,6 @@ begin
      Inv1:=False;
      VertScrollBar.Range:=CountVisibleItems(Roots, ofTreeViewSubElement)*MyTVLineStep;
      Invalidate;
-     if HorzScrollBar.Range <> MaxPixelWidth then
-     begin
-       Repaint;
-       HorzScrollBar.Range:=MaxPixelWidth;
-       Invalidate;
-       //DanielPharos: Double invalidate, because repaint recalcs the MaxPixelWidth,
-       //and now we need to draw the changes.
-     end;
     end;
   wp_InPlaceEditClose:
     if EditInfo<>Nil then
