@@ -359,7 +359,6 @@ object ConfigDlg: TConfigDlg
   end
   object Timer1: TTimer
     Enabled = False
-    Interval = 200
     OnTimer = Timer1Timer
     Left = 392
     Top = 184

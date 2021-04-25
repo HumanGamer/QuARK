@@ -63,7 +63,6 @@ type
     FormCfg1: TFormCfg;
     AncienSel: String;
     IsModal, ClickedOk: Boolean;
-    DisableTimer: Boolean;
    {InternalOnly: Boolean;}
     procedure FormCfg1Change(Sender: TObject);
     procedure MAJAffichage(T: QObject);
@@ -184,6 +183,7 @@ end;
 
 procedure TConfigDlg.FormCreate(Sender: TObject);
 begin
+ Timer1.Interval:=GetDoubleClickTime;
  Explorer:=TConfigExplorer.Create(Self);
  Explorer.Parent:=Self;
  Explorer.Width:=166;
@@ -274,10 +274,7 @@ end;
 
 procedure TConfigDlg.Timer1Timer(Sender: TObject);
 begin
-  if not DisableTimer then
-    MAJAffichage(Explorer.TMSelUnique)
-  else
-    Timer1.Enabled:=False;
+  MAJAffichage(Explorer.TMSelUnique);
 end;
 
 procedure TConfigDlg.MAJAffichage(T: QObject);
@@ -330,7 +327,10 @@ end;
 
 procedure TConfigDlg.FormDestroy(Sender: TObject);
 begin
- DisableTimer:=true;
+ //DanielPharos: There can still be WM_TIMER's in the queue;
+ //neutralize them!
+ Timer1.OnTimer:=nil;
+
  MAJAffichage(Nil);
  SetupQrk.AddRef(-1);
  SetupQrk:=Nil;
@@ -437,24 +437,16 @@ end;
 procedure TConfigDlg.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
  GlobalDoAccept{(Self)};
- { DanielPharos: Another brave attempt to fix a sometimes-happening
- crash-on-exit bug. The ApplyBtn might already have been destroyed
- by the time we try to check it. My first attempt (counting my try-
- statement as attempt zero :)  ) was with Timer1, so I'm going to
- use the same variable here: DisableTimer.}
- if not DisableTimer then
+ if ApplyBtn.Enabled then
   begin
-   if ApplyBtn.Enabled then
-    begin
-     ActivateNow(Self);
-     case MessageDlg(LoadStr1(5642), mtConfirmation, mbYesNoCancel, 0) of
-      mrYes: ApplyBtnClick(Nil);
-      mrNo: CancelNow;
-      else Abort;
-     end;
-    end;
-   MAJAffichage(Nil);
+   ActivateNow(Self);
+   case MessageDlg(LoadStr1(5642), mtConfirmation, mbYesNoCancel, 0) of
+    mrYes: ApplyBtnClick(Nil);
+    mrNo: CancelNow;
+    else Abort;
+   end;
   end;
+ MAJAffichage(Nil);
 end;
 
 procedure TConfigDlg.OkBtnClick(Sender: TObject);
