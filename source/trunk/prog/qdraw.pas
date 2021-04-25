@@ -22,7 +22,7 @@ unit qdraw;
 
 interface
 
-uses Windows, Messages, SysUtils, Graphics;
+uses Windows, SysUtils, Graphics;
 
 var
  PointVisible95: function(const P: TPoint) : Boolean;

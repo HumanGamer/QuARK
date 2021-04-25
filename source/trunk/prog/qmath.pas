@@ -22,7 +22,7 @@ unit qmath;
 
 interface
 
-uses Windows, Messages, SysUtils, Graphics;
+uses Windows, SysUtils, Graphics;
 
 type
  TInteger = Integer;
