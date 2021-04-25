@@ -77,9 +77,6 @@ type
 
  {------------------------}
 
-var
-  g_ConfigDlg: TConfigDlg;
-
 procedure ShowConfigDlg(const Source: String);
 function LatestConfigInfo(T: TSetupSet): QObject;
 function ShowAltConfigDlg(Racine: QObject; const Titre: String; NewObjList: TQList) : Boolean;
@@ -91,6 +88,9 @@ implementation
 uses Qk1, Game, Quarkx, QkGroup, QkTreeView, QkFormCfg;
 
 {$R *.DFM}
+
+var
+  g_ConfigDlg: TConfigDlg;
 
  {------------------------}
 
@@ -326,9 +326,7 @@ begin
  SetupQrk:=Nil;
  if not IsModal then
   begin
-   g_ConfigDlg.Panel1.Free;
    g_ConfigDlg:=Nil;
-//   g_ConfigDlg.Free;
    SavePositionTb('Config', False, Explorer);
   end;
 end;
