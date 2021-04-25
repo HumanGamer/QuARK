@@ -380,7 +380,7 @@ asm
 	PUSHFD			        //back to stack
 	POP     EAX		      //get back to EAX
 	XOR     EAX,EDX		  //check if ID bit affected
-	JZ      @exit		    //no, CPUID not availavle
+	JZ      @exit		    //no, CPUID not available
 	MOV     AL,True		  //Result=True
 @exit:
 end;
@@ -726,7 +726,7 @@ begin
   result.LowPart:=GetTimeStampLo;
 end;
 
-function GetTicksPerSecond(Iterations :Word) :Comp;
+function GetTicksPerSecond(Iterations :Word) :Comp; //FIXME: This seems like an awful waste of CPU cycles!
 var
   Freq ,PerfCount,Target :int64;
   StartTime, EndTime, Elapsed :TLargInt;
@@ -1395,7 +1395,7 @@ end;
 procedure TWorkstation.GetInfo;
 var
   bdata: pchar;
-  KeyState: TKeyBoardState;
+  //KeyState: TKeyBoardState;
 const
   bdatasize = 255;
 
@@ -1450,10 +1450,10 @@ begin
     FBIOSCopyright:=string(pchar(ptr(cBIOSCopyright)));
     FBIOSExtendedInfo:=string(pchar(ptr(cBIOSExtInfo)));
   end;
-  GetKeyboardState(KeyState);
-  //FCapsLock:=KeyState[VK_CAPITAL]=1;
-  //FNumLock:=KeyState[VK_NUMLOCK]=1;
-  //FScrollLock:=KeyState[VK_SCROLL]=1;
+  //GetKeyboardState(KeyState);
+  //FCapsLock:=(KeyState[VK_CAPITAL] and $1)=1;
+  //FNumLock:=(KeyState[VK_NUMLOCK] and $1)=1;
+  //FScrollLock:=(KeyState[VK_SCROLL] and $1)=1;
 end;
 
 procedure TWorkstation.Report(var sl: TStringList);
