@@ -193,7 +193,7 @@ class CamPosDuplicator(mdlduplicator.StandardDuplicator):
                 if view is None:
                     view, action = get3DView(self.dup, editor)
                 if view is None:
-                    return
+                    return []
                 org = quarkx.vect(self.dup["screencenter"])
                 org = org - ((~(quarkx.matrix(self.dup["matrix"])) * quarkx.vect(0.0, 0.0, 500.0))) #Step the camera back
         hndl = CamPosHandle(org, self.dup)

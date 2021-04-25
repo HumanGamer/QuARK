@@ -701,7 +701,7 @@ class PathDuplicator(StandardDuplicator):
             self.readvalues()
         except:
             print "Note: Invalid Duplicator Specific/Args."
-            return
+            return []
         def makehandle(item,self=self):
             return PathPointHandle(item.origin, item, self)
         pathHandles=map(makehandle,plugins.deckerutils.GetEntityChain(self.target, self.sourcelist2()))
