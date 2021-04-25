@@ -1937,15 +1937,31 @@ begin
       MouseUpTimer(Nil);
       Key:=0;
      end;
-  vk_Up: Step(-1);
-  vk_Down: Step(+1);
+  vk_Up:
+    if (GetKeyState(VK_SCROLL) and $1)=1 then
+     VertScrollBar.Position := VertScrollBar.Position - MyTVLineStep
+    else
+     Step(-1);
+  vk_Down:
+    if (GetKeyState(VK_SCROLL) and $1)=1 then
+     VertScrollBar.Position := VertScrollBar.Position + MyTVLineStep
+    else
+     Step(+1);
   vk_Prior: Step(-(ClientHeight div MyTVLineStep - 1));
   vk_Next: Step(+(ClientHeight div MyTVLineStep - 1));
   vk_Home: Step(-MaxInt);
   vk_End: Step(+MaxInt);
-  vk_Left: Left(True);
+  vk_Left:
+    if (GetKeyState(VK_SCROLL) and $1)=1 then
+     HorzScrollBar.Position := HorzScrollBar.Position - MyTVLineStep
+    else
+     Left(True);
   vk_Subtract: Left(False);
-  vk_Right: Right(True);
+  vk_Right:
+    if (GetKeyState(VK_SCROLL) and $1)=1 then
+     HorzScrollBar.Position := HorzScrollBar.Position + MyTVLineStep
+    else
+     Right(True);
   vk_Add: Right(False);
   vk_Multiply: ExpandAll;
   vk_Return: begin
