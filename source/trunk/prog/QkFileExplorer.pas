@@ -35,8 +35,6 @@ type
                   FViewPanel: TPanel;
                   DefaultEndColor: TColor;
                   MarsColors: TQkForm;
-                 {Timer1: TTimer;
-                  procedure Timer1Timer(Sender: TObject);}
                   procedure ObjectModified(Q: QObject);
                   procedure ObjectRemoved(Q: QObject);
                 protected
@@ -45,7 +43,6 @@ type
                   procedure wmDropFiles(var Msg: TMessage); message wm_DropFiles;
                   function ReopensWindow(Q: QFileObject) : Boolean;
                  {function VisibleInExplorer(Q: QObject) : Boolean;}
-                 {procedure Click; override;}
                   procedure CreateWnd; override;
                   function GetExplorerMenu : TPopupMenu; override;
                 public
@@ -61,16 +58,12 @@ type
                   procedure DoubleClic(Gr: QExplorerGroup); override;
                   procedure InvalidatePaintBoxes(ModifSel: Integer); override;
                   procedure SelectObject(Q: QObject);
-                 {procedure UpdateView;}
                 end;
  TFileExplorer = class(TQkExplorer2)
                  private
                   {FNoFile: Boolean;}
-                 protected
-                  {procedure InvalidatePaintBoxes(ModifSel: Integer); override;}
                  public
                    procedure RootChanging(Root: QObject); override;
-                  {procedure MAJAffichage(Q: QFileObject); override;}
                   {procedure ClearView; override;
                    function ProcessMessage(nParent: TForm; var Msg: TMessage) : Boolean; override;}
                  end;
@@ -170,8 +163,6 @@ procedure TQkExplorer2.MAJAffichage(Q: QFileObject);
  OBTV, SetOBTV: Boolean;}
 begin
  CancelMouseClicking(False);
-{if Timer1<>Nil then
-  Timer1.Enabled:=False;}
  GlobalDoAccept{(Self)};
  if (Q<>Nil) and ReopensWindow(Q) then
   Exit;  { maximized window reopened, don't show anything right here }
@@ -232,19 +223,6 @@ begin
  end;}
 end;
 
-(*procedure TQkExplorer2.Click;
-begin
- inherited;
- UpdateView;
-end;
-
-procedure TQkExplorer2.UpdateView;
-begin
-{if (Timer1<>Nil) and Timer1.Enabled then
-  DisplayCurrentObject;}
- CancelMouseClicking(True);
-end;*)
-
 procedure TQkExplorer2.wmInternalMessage;
 begin
  case Msg.wParam of
@@ -270,6 +248,11 @@ end;
 begin
  MessageInterne(wp_AfficherObjet, 0);
 end;}
+
+procedure {TFileExplorer}TQkExplorer2.InvalidatePaintBoxes(ModifSel: Integer);
+begin
+ DisplayCurrentObject;
+end;
 
 (*function TQkExplorer2.VisibleInExplorer(Q: QObject) : Boolean;
 var
@@ -424,38 +407,6 @@ begin
   end;
 end;
 
-procedure {TFileExplorer}TQkExplorer2.InvalidatePaintBoxes(ModifSel: Integer);
-{var
- KbdDelay: Integer;}
-begin
-(*if Timer1=Nil then
-  begin
-  {if not SystemParametersInfo(SPI_GETKEYBOARDDELAY, 0, @KbdDelay, 0) then
-    KbdDelay:=GetDoubleClickTime;}
-   Timer1:=TTimer.Create(Self);
-   Timer1.Interval:=GetDoubleClickTime; {KbdDelay;}
-   Timer1.OnTimer:=Timer1Timer;
-  end;
- with Timer1 do
-  begin
-   Enabled:=False;
-   Enabled:=True;
-  end;*)
- DisplayCurrentObject;
-end;
-
-(*procedure {TFileExplorer}TQkExplorer2.Timer1Timer(Sender: TObject);
-begin
- DisplayCurrentObject;
-end;*)
-
-{procedure TFileExplorer.MAJAffichage(Q: QFileObject);
-begin
- if Timer1<>Nil then
-  Timer1.Enabled:=False;
- inherited;
-end;}
-
 procedure TQkExplorer2.CreateWnd;
 begin
  inherited;
@@ -465,7 +416,6 @@ end;
 
 function TQkExplorer2.GetExplorerMenu : TPopupMenu;
 begin
- {Timer1Timer(Nil);}
  DisplayCurrentObject;
  Result:=inherited GetExplorerMenu;
 end;

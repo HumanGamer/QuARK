@@ -748,8 +748,7 @@ begin
                 if Exp<>Nil then
                  begin
                   Exp.TMSelUnique:=Q;
-                  if Exp is TQkExplorer2 then
-                   TQkExplorer2(Exp).UpdateView;
+                  Exp.InvalidatePaintBoxes(0);
                   Msg.Result:=edOk;
                  end;
                end;
