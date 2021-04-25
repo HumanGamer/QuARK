@@ -23,7 +23,7 @@ unit Travail;
 interface
 
 uses
-  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+  Windows, Messages, SysUtils, Classes, Controls, Forms,
   ComCtrls, StdCtrls, ExtCtrls;
 
 type
