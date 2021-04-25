@@ -124,7 +124,6 @@ begin
  WndObject^.Close;
  {$IFDEF Debug} WndObject:=PyControlF($CCCCCCCC); {$ENDIF}
  Py_DECREF(FOnClose);
- OnClose:=Nil;
  inherited;
 end;
 

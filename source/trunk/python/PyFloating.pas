@@ -122,7 +122,6 @@ begin
  {$IFDEF Debug} WndObject:=PyControlF($CCCCCCCC); {$ENDIF}
  Py_DECREF(FOnMove);
  Py_DECREF(FOnClose);
- OnClose:=Nil;
  inherited;
 end;
 
