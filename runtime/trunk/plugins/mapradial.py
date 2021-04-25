@@ -123,6 +123,7 @@ class RadialDuplicator(StandardDuplicator):
                 group.translate(shift)
         except:
             # Catch math-computation errors and return nothing if so
+            print "Note: math-computation errors"
             result = []
 
         return result

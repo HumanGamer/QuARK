@@ -190,6 +190,7 @@ class TerrainDuplicator2(StandardDuplicator):
       if singleimage is not None and singleimage>0:
           return []
       editor = mapeditor()
+
       wedges, sameheight, detailmesh = map(lambda spec, self=self: self.dup[spec],
           ("wedgeunits", "sameheight", "detailmesh"))
       list = self.sourcelist()
@@ -197,6 +198,7 @@ class TerrainDuplicator2(StandardDuplicator):
           facelist = o.dictitems
           if o.type==":p": # just grab the first one, who cares
               return self.makeTerrain2(loops, wedges, o, int(wedges), sameheight, detailmesh)
+      return []
 
 quarkpy.mapduplicator.DupCodes.update({"dup terrain2":  TerrainDuplicator2,})
 
@@ -561,7 +563,6 @@ class TerrainDuplicator2X(StandardDuplicator):
 
 
   def buildimages(self, singleimage=None):
-
       loops = 0
       wedges = 0
       if singleimage is not None and singleimage>0:
@@ -575,7 +576,7 @@ class TerrainDuplicator2X(StandardDuplicator):
           facelist = o.dictitems
           if o.type==":p": # just grab the first one, who cares
               return self.makeTerrain2X(loops, wedges, o, int(wedges), sameheight, detailmesh)
-
+      return []
 
 quarkpy.mapduplicator.DupCodes.update({"dup terrain2X":  TerrainDuplicator2X,})
 
@@ -811,7 +812,6 @@ class TerrainDuplicator4(StandardDuplicator):
           return result
 
   def buildimages(self, singleimage=None):
-
       loops = 0
       wedges = 0
       if singleimage is not None and singleimage>0:
@@ -825,6 +825,7 @@ class TerrainDuplicator4(StandardDuplicator):
           facelist = o.dictitems
           if o.type==":p": # just grab the first one, who cares
               return self.makeTerrain4(loops, wedges, o, int(wedges), sameheight, detailmesh)
+      return []
 
 quarkpy.mapduplicator.DupCodes.update({"dup terrain4":  TerrainDuplicator4,})
 

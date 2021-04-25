@@ -87,13 +87,13 @@ class HalfLifeRADFileMaker(StandardDuplicator):
                     # print texturename, self.dup[texturename]
                     f.write("%s\t%s\n" % (texturename, self.dup[texturename]))
 
-            f.close
+            f.close()
         except:
-            f.close
+            f.close()
             squawk("Can't write the file "+radfilename)
 
         return []
 
 quarkpy.mapduplicator.DupCodes.update({
-  "dup hlradfilemaker":      HalfLifeRADFileMaker,
+  "dup hlradfilemaker": HalfLifeRADFileMaker,
 })

@@ -31,38 +31,38 @@ StandardDuplicator = quarkpy.mapduplicator.StandardDuplicator
 #}
 
 def checkfilename(filename):
-   filename = filter(lambda c: c in r"0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ$%'-_@{}~`!#()", filename)
-   return filename or Strings[180]
+    filename = filter(lambda c: c in r"0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ$%'-_@{}~`!#()", filename)
+    return filename or Strings[180]
 
 
 class ArenaFileMaker(StandardDuplicator):
 
     def readvalues(self):
-	StandardDuplicator.readvalues(self)
+        StandardDuplicator.readvalues(self)
 
-	s = self.dup["bots"]
-	if s:
-	   self.bots = s
-	else:
-	   self.bots = None
+        s = self.dup["bots"]
+        if s:
+           self.bots = s
+        else:
+           self.bots = None
 
-	s = self.dup["longname"]
-	if s:
-	   self.longname = s
-	else:
-	   self.longname = None
+        s = self.dup["longname"]
+        if s:
+            self.longname = s
+        else:
+            self.longname = None
 
-	s = self.dup["fraglimit"]
-	if s:
-	   self.fraglimit = s
-	else:
-	   self.fraglimit = None
+        s = self.dup["fraglimit"]
+        if s:
+            self.fraglimit = s
+        else:
+            self.fraglimit = None
 
-	s = self.dup["type"]
-	if s:
-	   self.type = s
-	else:
-	   self.type = "ffa"
+        s = self.dup["type"]
+        if s:
+            self.type = s
+        else:
+            self.type = "ffa"
 
     def do(self, item):
         print "do", item
@@ -73,7 +73,7 @@ class ArenaFileMaker(StandardDuplicator):
             self.readvalues()
         except:
             print "Note: Invalid Arenafilemaker Specific/Args."
-            return
+            return []
 
         # build arena script name
         editor = mapeditor(SS_MAP)
@@ -87,13 +87,13 @@ class ArenaFileMaker(StandardDuplicator):
             f.write("""  longname "%s"\n"""  % self.longname)
             f.write("""  fraglimit %s\n"""   % self.fraglimit)
             f.write("""  type "%s"\n}\n"""   % self.type)
-            f.close
+            f.close()
         except:
-            f.close
+            f.close()
             squawk("Can't write the file "+scriptname)
 
         return []
 
 quarkpy.mapduplicator.DupCodes.update({
-  "dup arenafilemaker":	     ArenaFileMaker,
+  "dup arenafilemaker": ArenaFileMaker,
 })

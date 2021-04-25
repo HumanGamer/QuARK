@@ -734,7 +734,7 @@ class BotWaypointerPointHandle(CenterHandle):
 class BotWaypointerPoint(DuplicatorManager):
 
     def buildimages(self, singleimage=None):
-        pass
+        return []
 
     def handles(self, editor, view):
         myparent = self.dup.treeparent

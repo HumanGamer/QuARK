@@ -468,7 +468,7 @@ class BrushCapDuplicator(StandardDuplicator):
            o.rebuildall()
            fdict = faceDict(o)
            if fdict is None:
-               return
+               return []
            pd = pointdict(vtxlistdict(fdict,o))
            mtf = (pd["trf"]+pd["tlf"])/2
            mtb = (pd["trb"]+pd["tlb"])/2
@@ -500,7 +500,7 @@ class BrushCapDuplicator(StandardDuplicator):
                im2 = im2[1:]
                pass
            return im1+im2
-    return None # DECKER 2002-08-09: Always return something, even if we're never supposed to end here!
+    return [] # DECKER 2002-08-09: Always return something, even if we're never supposed to end here!
 
 class BrushBevelDuplicator(StandardDuplicator):
 
@@ -518,6 +518,7 @@ class BrushBevelDuplicator(StandardDuplicator):
     for o in list:
         if o.type==":p": # just grab the first one, who cares
             return images(bevelImages, (o, editor, inverse, left, lower, standup, grid, thick, inner, subdivide))
+    return [] # DECKER 2002-08-09: Always return something, even if we're never supposed to end here!
 
 
 quarkpy.mapduplicator.DupCodes.update({

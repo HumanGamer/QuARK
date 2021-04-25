@@ -97,9 +97,9 @@ class HalfLifeInfodecalHelper(StandardDuplicator):
             self.readvalues()
         except:
             print "Note: Invalid HL-InfoDecal Specific/Args."
-            return
+            return []
         if not self.text:
-            return
+            return []
         thissingleimage = singleimage
         newobjs = []
         for i in range(len(self.text)):

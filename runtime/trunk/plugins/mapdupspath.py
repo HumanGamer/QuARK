@@ -21,7 +21,6 @@ import quarkpy.mapduplicator
 import quarkpy.maphandles
 import quarkpy.mapentities
 import quarkpy.qhandles
-import quarkpy.mapbtns
 import quarkpy.dlgclasses
 import math
 StandardDuplicator = quarkpy.mapduplicator.StandardDuplicator
@@ -470,7 +469,7 @@ class PathDuplicatorPoint(DuplicatorManager):
     Icon = (ico_dict['ico_mapdups'], 2)
 
     def buildimages(self, singleimage=None):
-        pass
+        return []
 
     def handles(self, editor, view):
         hndl = PathDuplicatorPointHandle(self.dup.origin, self.dup)
@@ -486,8 +485,6 @@ class PathDuplicatorPoint(DuplicatorManager):
         return list
 
 class PathDuplicator(StandardDuplicator):
-
-    #cuberadius = 3096
 
     def readvalues(self):
         self.origin = self.dup.origin
@@ -532,7 +529,7 @@ class PathDuplicator(StandardDuplicator):
             self.readvalues()
         except:
             print "Note: Invalid Duplicator Specific/Args."
-            return
+            return []
 
         pathlist = plugins.deckerutils.GetEntityChain(self.target, self.sourcelist2())
         #pathlist.insert(0, self.dup)
@@ -727,14 +724,13 @@ class InstanceDuplicator(PathDuplicator):
     def buildimages(self, singleimage=None):
 
         if len(self.dup.subitems)==0:
-            return
-
+            return []
 
         try:
             self.readvalues()
         except:
             print "Note: Invalid Duplicator Specific/Args."
-            return
+            return []
 
         pathlist = plugins.deckerutils.GetEntityChain(self.target, self.sourcelist2())
         #pathlist.insert(0, self.dup)

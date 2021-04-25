@@ -120,10 +120,11 @@ class StairDuplicator(StandardDuplicator):
     for o in list:
       if o.type==":p": # just grab the first one, who cares
         return self.makeStairs(o, int(steps), sameheight, oldstyle)
+    return []
 
 
 quarkpy.mapduplicator.DupCodes.update({
-  "dup stair":  StairDuplicator,
+  "dup stair": StairDuplicator,
 })
 
 #

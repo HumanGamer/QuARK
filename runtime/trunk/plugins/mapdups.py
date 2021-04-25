@@ -25,7 +25,6 @@ Info = {
 import quarkx
 from quarkpy.maputils import *
 import quarkpy.mapduplicator
-import quarkpy.maphandles
 import quarkpy.mapcommands
 import quarkpy.mapentities
 import quarkpy.qmenu
@@ -319,7 +318,9 @@ def dissociateGroupClick(m):
                     image = 0
                     insertbefore = obj.nextingroup()
                     while 1:
+                        print repr(mgr), type(mgr)
                         objlist = mgr.buildimages(image)
+                        print repr(objlist), type(objlist)
                         if len(objlist)==0:
                             break
                         image = image + 1

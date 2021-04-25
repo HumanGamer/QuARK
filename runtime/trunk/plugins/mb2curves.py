@@ -602,6 +602,7 @@ class CapDuplicator(StandardDuplicator):
       if o.type==":p": # just grab the first one, who cares
          return images(capImages, (o, editor, inverse, lower, onside, open, thick,
            faceonly, stretchtex, nofront, noback, noinner, noouter, subdivide))
+    return []
 
 
 class BevelDuplicator(StandardDuplicator):
@@ -622,6 +623,7 @@ class BevelDuplicator(StandardDuplicator):
       if o.type==":p": # just grab the first one, who cares
            return images(bevelImages, (o, editor, inverse, lower, left, standup, open, thick,
               faceonly, stretchtex, notop, nobottom, noinner, noouter, subdivide))
+    return []
 
 class ColumnDuplicator(StandardDuplicator):
 
@@ -640,6 +642,7 @@ class ColumnDuplicator(StandardDuplicator):
       if o.type==":p": # just grab the first one, who cares
            return images(columnImages, (o, editor, inverse, open, thick, stretchtex, bulge,funnel,
              faceonly,notop,nobottom, noinner, noouter, circle,subdivide))
+    return []
 
 quarkpy.mapduplicator.DupCodes.update({
   "dup cap":     CapDuplicator,

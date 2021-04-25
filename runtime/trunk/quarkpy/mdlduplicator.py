@@ -35,6 +35,7 @@ class DuplicatorManager:
         if type(s)!=type(""):
             s = "(void)"
         print "Note: Unknown Duplicator macro '%s'" % s
+        return []
 
     def applylinear(self, matrix, direct=0):
         pass    # abstract
@@ -244,7 +245,7 @@ class StandardDuplicator(DuplicatorManager):
             self.readvalues()
         except:
             print "Note: Invalid Duplicator Specific/Args."
-            return
+            return []
         list = self.sourcelist()
         list = map(lambda item:item.copy(), list)
         newobjs = []

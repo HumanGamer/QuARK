@@ -51,7 +51,7 @@ class ArgReplacer(quarkpy.mapduplicator.DuplicatorManager):
 
     def buildimages(self, singleimage=None):
         items = []
-        if ((singleimage is None) or (singleimage == 0)):
+        if (singleimage is None) or (singleimage == 0):
            if (self.dup.subitems is not None):
               # why wont a "items = self.dup.subitems.copy()" work?
               for i in self.dup.subitems:
@@ -61,5 +61,5 @@ class ArgReplacer(quarkpy.mapduplicator.DuplicatorManager):
         return items
 
 quarkpy.mapduplicator.DupCodes.update({
-  "arg replacer":            ArgReplacer,
+  "arg replacer": ArgReplacer,
 })
