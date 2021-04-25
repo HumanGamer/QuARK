@@ -314,11 +314,6 @@ begin
  inherited;
 end;
 
-{procedure TPyMapView.InvalidatePaintBoxes(ModifSel: Integer);
-begin
- CallNotifyEvent(ExplorerObject, FOnSelChange);
-end;}
-
 procedure TPyMapView.CameraMoved;
 begin
  CallNotifyEvent(MapViewObject, FOnCameraMove, False);
