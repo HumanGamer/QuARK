@@ -23,7 +23,7 @@ unit Running;
 interface
 
 uses
-  Windows, Messages, SysUtils, ExtraFunctionality, Classes, Graphics, Controls, Forms, Dialogs, ShellAPI,
+  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs, ShellAPI,
   StdCtrls, ExtCtrls, TB97, QkObjects, QkFileObjects, QkForm;
 
 type
@@ -59,7 +59,7 @@ procedure ExternalEdit(Q: QObject);
 
 implementation
 
-uses qmath, Config, Undo, Setup, Quarkx, QkExceptions, Logging;
+uses qmath, Config, Undo, Setup, Quarkx, QkExceptions, Logging, ExtraFunctionality;
 
 {$R *.DFM}
 
