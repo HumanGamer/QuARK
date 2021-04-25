@@ -21,9 +21,8 @@ http://quark.sourceforge.net/ - Contact information in AUTHORS.TXT
 unit DispFace;
 
 interface
-uses SysUtils, Windows, Classes, Graphics,
-     QkObjects, Qk3D, QkMapObjects, qmath, qmatrices,
-     QkExplorer, Setup, QkTextures, Python, PyMath,QkMappoly;
+uses SysUtils, qmath, Python, QkObjects, QkMappoly;
+
 type
  TControlPoints3 = {array of} vec3_t;
  PControlPoints3 = {^TBezierControlPoints3;} vec3_p;
@@ -32,7 +31,7 @@ type
    CP: PControlPoints3;
  end;
 
- TDispFace     = class(TFace)
+ TDispFace = class(TFace)
    normals : array of array of tvect;
    dists : array of array of double;
    disppower: integer;
@@ -42,7 +41,7 @@ type
      procedure setpower(pwr: integer);
      procedure addnormals(normalpoints : array of double);
      procedure adddists(row : integer; distances : array of double);
-     function PyGetAttr(attr: PChar) : PyObject;    override;
+     function PyGetAttr(attr: PChar) : PyObject; override;
  end;
 
 
