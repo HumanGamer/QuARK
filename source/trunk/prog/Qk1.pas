@@ -1530,8 +1530,11 @@ begin
  and (MessageDlg(LoadStr1(5681), mtConfirmation, [mbYes, mbNo], 0) = mrNo) then
   begin
    OpenClipboard(0);
-   EmptyClipboard;
-   CloseClipboard;
+   try
+    EmptyClipboard;
+   finally
+    CloseClipboard;
+   end;
   end;
 
  SavePendingFiles(True);
