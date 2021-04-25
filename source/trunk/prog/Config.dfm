@@ -357,10 +357,4 @@ object ConfigDlg: TConfigDlg
       OnClick = Button2Click
     end
   end
-  object Timer1: TTimer
-    Enabled = False
-    OnTimer = Timer1Timer
-    Left = 392
-    Top = 184
-  end
 end

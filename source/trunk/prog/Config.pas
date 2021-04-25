@@ -35,7 +35,6 @@ type
   end;
 
   TConfigDlg = class(TQkForm)
-    Timer1: TTimer;
     Panel1: TPanel;
     CancelBtn: TToolbarButton97;
     OkBtn: TToolbarButton97;
@@ -45,7 +44,6 @@ type
     Button2: TButton;
     TrashBtn: TToolbarButton97;
     procedure FormCreate(Sender: TObject);
-    procedure Timer1Timer(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure ApplyBtnClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -66,6 +64,7 @@ type
    {InternalOnly: Boolean;}
     procedure FormCfg1Change(Sender: TObject);
     procedure MAJAffichage(T: QObject);
+    procedure DisplayCurrentObject;
     procedure FillExplorer(Empty: Boolean);
     procedure CancelOn;
     procedure CancelOff;
@@ -109,7 +108,7 @@ begin
   end;
  g_ConfigDlg.FillExplorer(False);
  ActivateNow(g_ConfigDlg);
- g_ConfigDlg.Timer1Timer(Nil);
+ g_ConfigDlg.DisplayCurrentObject;
 end;
 
 function LatestConfigInfo(T: TSetupSet): QObject;
@@ -173,17 +172,13 @@ end;*)
 procedure TConfigExplorer.InvalidatePaintBoxes(ModifSel: Integer);
 begin
  with (ValidParentForm(Self) as TConfigDlg) do
-  begin
-   Timer1.Enabled:=False;
-   Timer1.Enabled:=True;
-  end;
+  DisplayCurrentObject;
 end;
 
  {------------------------}
 
 procedure TConfigDlg.FormCreate(Sender: TObject);
 begin
- Timer1.Interval:=GetDoubleClickTime;
  Explorer:=TConfigExplorer.Create(Self);
  Explorer.Parent:=Self;
  Explorer.Width:=166;
@@ -272,11 +267,6 @@ begin
  finally Gr.AddRef(-1); end;
 end;
 
-procedure TConfigDlg.Timer1Timer(Sender: TObject);
-begin
-  MAJAffichage(Explorer.TMSelUnique);
-end;
-
 procedure TConfigDlg.MAJAffichage(T: QObject);
 var
 {nFormCfg: TFormCfg;}
@@ -284,7 +274,6 @@ var
  Q: QObject;
  L: TQList;
 begin
- Timer1.Enabled:=False;
 {nFormCfg:=Nil;}
  if T<>Nil then
   begin
@@ -325,12 +314,13 @@ begin
  ResetBtn.Enabled:=False;
 end;
 
+procedure TConfigDlg.DisplayCurrentObject;
+begin
+ MAJAffichage(Explorer.TMSelUnique);
+end;
+
 procedure TConfigDlg.FormDestroy(Sender: TObject);
 begin
- //DanielPharos: There can still be WM_TIMER's in the queue;
- //neutralize them!
- Timer1.OnTimer:=nil;
-
  MAJAffichage(Nil);
  SetupQrk.AddRef(-1);
  SetupQrk:=Nil;
@@ -346,8 +336,6 @@ end;
 procedure TConfigDlg.FormCfg1Change(Sender: TObject);
 begin
 {PostMessage(Handle, wm_InternalMessage, wp_AfficherInfos, 0);}
-{Timer1.Enabled:=False;
- Timer1.Enabled:=True;}
  if FormCfg1.Modified or FormCfg1.InternalEditing then
   CancelOn
  else
@@ -362,16 +350,16 @@ end;
 procedure TConfigDlg.wmInternalMessage(var Msg: TMessage);
 begin
  case Msg.wParam of
- {wp_AfficherInfos: Timer1Timer(Nil);}
+ {wp_AfficherInfos: DisplayCurrentObject;}
   wp_FormButton:
-    Timer1Timer(Nil);
+    DisplayCurrentObject;
   (*case Msg.lParam of
      Ord('g'):
        begin
         ApplyBtnClick(Nil);
         GameCfgDlg;
        end;
-    else Timer1Timer(Nil);
+    else DisplayCurrentObject;
     end;*)
   wp_SetupChanged:
     if Msg.lParam<>scConfigDlg then
@@ -401,7 +389,7 @@ begin
      UpdateSetup(scConfigDlg);
     end;
    CancelOff;
-  {Timer1Timer(Nil);}
+  {DisplayCurrentObject;}
   end;
 end;
 
