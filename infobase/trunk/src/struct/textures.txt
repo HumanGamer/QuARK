@@ -1,0 +1,22 @@
+title: Textures
+author: DanielPharos
+
+Texture objects in QuArK are structed as follows:
+
+<ol><li>QFileObject
+    <ol><li>QTexture
+        <ol><li>QTextureFile
+            <ol><li>QTexture1</li>
+                <li>QTexture2</li>
+                <li>QTextureSin</li>
+                <li>QTextureKP</li>
+            </ol></li>
+        </ol></li>
+    </li>
+    <li>QImage
+        <ol><li>QBmp</li>
+            <li>QPcx</li>
+            <li>QTga</li>
+        </ol></li>
+    </ol></li>
+</ol>

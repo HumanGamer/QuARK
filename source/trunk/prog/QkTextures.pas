@@ -28,11 +28,6 @@ uses
   EnterEditCtrl, QkForm, Python, QkPixelSet;
 
 const
- {CouleurGrise  = 3;}
-  CouleurNoire  = 0;
-  CouleurGrille = 0;
-
-const
   cp4MipIndexes  = 4;    { 4 images scaled down. 1/1, 1/2, 1/4 and 1/8 }
   cp16MipIndexes = 16;   { 16 images? - Heretic II .M8 texture-format }
   cpIndexesMax   = $0FF;
@@ -42,23 +37,6 @@ const
   cpFixedOpacity = $800;
   MaxImgCount  = 16;
   ImgCodes     : array[0..MaxImgCount-1] of Char = '123456789ABCDEFG';
-
- {TEX_FLAGS_TRANSPARENT33 = 16;
-  TEX_FLAGS_TRANSPARENT66 = 32;}
-
-{
-  QFileObject
-   +-- QTexture
-   |    +-- QTextureFile
-   |         +-- QTexture1
-   |         +-- QTexture2
-   |         +-- QTextureSin
-   |         +-- QTextureKP
-   +-- QImage
-        +-- QBmp
-        +-- QPcx
-        +-- QTga
-}
 
 type
 {TTexture3D = record
