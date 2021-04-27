@@ -16,6 +16,9 @@ The QuArK Developers would like to thank
 the following donators for their support:
 ----------------------------------------
 
+- crystallize
+                                           "For double buffering"
+
 - Hipshot
 
 - Jim G.
