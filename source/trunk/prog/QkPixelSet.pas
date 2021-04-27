@@ -463,7 +463,7 @@ begin
   Height:=TBitmapInfo(BitmapInfo).bmiHeader.biHeight;
   Result:=CreateCompatibleBitmap(DC, Width, Height);
   if SetDiBits(DC, Result, 0, Height, Data, tagBITMAPINFO(BitmapInfo), DIB_RGB_COLORS) = 0 then
-    Log(LOG_WARNING, 'SetDiBits: Returned zero!');
+    Log(LOG_WARNING, LoadStr1(5819));
 end;
 
 procedure DrawToDC(DC: HDC; var BitmapInfo; Data: Pointer; Left, Top: Integer);
@@ -476,7 +476,7 @@ begin
   if DIBSection = 0 then
   begin
     LogWindowsError(GetLastError(), 'CreateDIBSection(DC, tagBITMAPINFO(BitmapInfo), DIB_RGB_COLORS, Bits, 0, 0)');
-    LogAndRaiseError('DrawToDC: CreateDIBSection failed!'); //FIXME: Move to dict!
+    LogAndRaiseError(LoadStr1(5820));
   end;
   try
     Width:=TBitmapInfo(BitmapInfo).bmiHeader.biWidth;
@@ -486,7 +486,7 @@ begin
     CopyMemory(Bits, Data, ScanWidth * Height);
     if SetDIBitsToDevice(DC, Left, Top, Width, Height, 0, 0, 0, Height, Bits,
      tagBITMAPINFO(BitmapInfo), DIB_RGB_COLORS) = 0 then
-      Log(LOG_WARNING, 'SetDIBitsToDevice: Returned zero!');
+      Log(LOG_WARNING, LoadStr1(5821));
   finally
     DeleteObject(DIBSection);
   end;

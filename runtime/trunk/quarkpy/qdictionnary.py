@@ -1084,6 +1084,9 @@ Strings = {
     5816: "Problem with texture scale of face %d in brush %d",
     5817: "Invalid texture render mode\nDefaulting to normal",
     5818: "Unable to load pixelset from %s",
+    5819: "CreateToDC: Call to SetDiBits failed",
+    5820: "DrawToDC: Call to CreateDIBSection failed",
+    5821: "DrawToDC: Call to SetDIBitsToDevice failed",
 
     # DanielPharos would like to reserve 6000 .. 6099 for all renderers
     6000: "Unable to create SceneObject//%s",
