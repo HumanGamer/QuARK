@@ -504,6 +504,8 @@ begin
  MarsCap.ActiveEndColor:=clNavy;
  SetFormIcon(iiQuArK);
 
+ ProcessRegistration;
+
  Explorer:=TQrkExplorer.Create(Self);
 {Explorer.Visible:=False;}
  Explorer.Parent:=Panel3;

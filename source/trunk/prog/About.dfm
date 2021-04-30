@@ -233,6 +233,22 @@ object AboutBox: TAboutBox
       Height = 13
       Caption = 'Compiled with:'
     end
+    object Registration: TLabel
+      Left = 16
+      Top = 256
+      Width = 361
+      Height = 24
+      Alignment = taCenter
+      AutoSize = False
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clRed
+      Font.Height = -19
+      Font.Name = 'MS Sans Serif'
+      Font.Style = []
+      ParentFont = False
+      Transparent = True
+      Visible = False
+    end
     object Memo1: TMemo
       Left = 408
       Top = 67
@@ -245,7 +261,7 @@ object AboutBox: TAboutBox
     end
   end
   object OKButton: TButton
-    Left = 511
+    Left = 535
     Top = 312
     Width = 75
     Height = 24

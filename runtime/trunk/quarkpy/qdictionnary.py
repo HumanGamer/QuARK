@@ -1087,6 +1087,8 @@ Strings = {
     5819: "CreateToDC: Call to SetDiBits failed",
     5820: "DrawToDC: Call to CreateDIBSection failed",
     5821: "DrawToDC: Call to SetDIBitsToDevice failed",
+    5822: "Registered to %s",
+    5823: "%s on %s",
 
     # DanielPharos would like to reserve 6000 .. 6099 for all renderers
     6000: "Unable to create SceneObject//%s",

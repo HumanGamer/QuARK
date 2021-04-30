@@ -51,6 +51,7 @@ type
     Label2: TLabel;
     Label4: TLabel;
     Label5: TLabel;
+    Registration: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure OKButtonClick(Sender: TObject);
     procedure FormActivate(Sender: TObject);
@@ -64,10 +65,11 @@ type
 function OpenSplashScreen : TForm;
 procedure OpenAboutBox;
 function DisclaimerThread(F: TForm): THandle;
+procedure ProcessRegistration;
 
 implementation
 
-uses Quarkx, PyProcess, QkConsts, ExtraFunctionality;
+uses Qk1, Quarkx, PyProcess, QkConsts, ExtraFunctionality;
 
 type
   PDisclaimerInfo = ^TDisclaimerInfo;
@@ -88,8 +90,12 @@ type
 const
   MAX_DELAY = 10;
   MIN_FLASH_COUNT = 2; //Must be larger than zero!
+  RegistrationKey = '\Software\Armin Rigo\QuakeMap';
+  RegistrationValueName = 'Registered';
 
-var RedrawDisclaimer: Boolean;
+var
+  RedrawDisclaimer: Boolean;
+  RegisteredTo: String;
 
 {$R *.DFM}
 
@@ -115,8 +121,31 @@ begin
     if (Code2 = 21) and (Code = 7) then
     begin
       SetLength(S, Length(S) - 2);
-      DecodeEnregistrement := True;
+      Result := True;
     end;
+  end;
+end;
+
+procedure ProcessRegistration;
+var
+  S: String;
+  Reg: TRegistry;
+begin
+  if RegisteredTo<>'' then
+    Exit;
+  Reg := TRegistry.Create;
+  try
+    Reg.RootKey := HKEY_CURRENT_USER;
+    Reg.OpenKey(RegistrationKey, False);
+    S:=Reg.ReadString(RegistrationValueName);
+  finally
+    Reg.Free;
+  end;
+  if DecodeEnregistrement(S) then
+  begin
+    RegisteredTo:=S;
+    if g_Form1.Caption = 'QuArK Explorer' then
+      g_Form1.Caption:=g_Form1.Caption+' [Registered]';
   end;
 end;
 
@@ -282,7 +311,7 @@ var
 begin
   Version.Caption := QuarkVersion + ' ' + QuArKMinorVersion;
   {*GetLocaleFormatSettings(LOCALE_SYSTEM_DEFAULT, DateFormat);}
-  UsedCompilerLabel.Caption := QuArKUsedCompiler + ' on ' + DateToStr(QuArKCompileDate{*, DateFormat});
+  UsedCompilerLabel.Caption := FmtLoadStr1(5823, [QuArKUsedCompiler, DateToStr(QuArKCompileDate{*, DateFormat})]);
   Copyright.Caption := QuArKCopyright;
   {$IFDEF Debug}
   Version.Caption := Version.Caption + '  DEBUG VERSION';
@@ -298,6 +327,11 @@ begin
   MarsCap.ActiveEndColor := clYellow;
   SetFormIcon(iiQuArK);
 
+  if RegisteredTo<>'' then
+  begin
+    Registration.Caption:=FmtLoadStr1(5822, [RegisteredTo]);
+    Registration.Visible:=true;
+  end;
   Memo1.Text :=
       'QuArK comes with ABSOLUTELY NO WARRANTY; for details, see below. '
     + 'This is free software, and you are welcome to redistribute it under certain conditions; '
@@ -344,20 +378,16 @@ begin
   S := Edit1.Text;
   if DecodeEnregistrement(S) then
   begin
-    {with g_Form1 do
-      begin
-       PanelQM1.Free;
-       PanelQM1:=Nil;
-      end;}
     MessageDlg(FmtLoadStr1(226, [S]), mtInformation, [mbOk], 0);
     Reg := TRegistry.Create;
     try
       Reg.RootKey := HKEY_CURRENT_USER;
-      Reg.OpenKey('\Software\Armin Rigo\QuakeMap', True);
-      Reg.WriteString('Registered', Edit1.Text);
+      Reg.OpenKey(RegistrationKey, True);
+      Reg.WriteString(RegistrationValueName, Edit1.Text);
     finally
       Reg.Free;
     end;
+    ProcessRegistration;
   end;
 end;
 
