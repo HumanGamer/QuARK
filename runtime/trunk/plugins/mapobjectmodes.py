@@ -550,11 +550,10 @@ def DialogClick(m):
 
 def objectruler(editor, view, poly):
     rulerlist = poly
-    if quarkx.boundingboxof(rulerlist) is not None:
-        bbox = quarkx.boundingboxof(rulerlist)
-        bmin, bmax = bbox
-    else:
+    bbox = quarkx.boundingboxof(rulerlist)
+    if bbox is None:
         return
+    bmin, bmax = bbox
     x1 = bmin.tuple[0]
     y1 = bmin.tuple[1]
     z1 = bmin.tuple[2]
