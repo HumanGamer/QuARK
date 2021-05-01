@@ -15,25 +15,24 @@ Info = {
 
 
 from quarkpy.maputils import *
-from quarkpy.qdictionnary import Strings
 import quarkpy.qhandles
+import quarkpy.qmacro
 import quarkpy.mapduplicator
 import quarkpy.maphandles
 StandardDuplicator = quarkpy.mapduplicator.StandardDuplicator
 DuplicatorManager = quarkpy.mapduplicator.DuplicatorManager
-from quarkpy.maphandles import MapRotateHandle
 
 
-class AxisHandle(MapRotateHandle):
-  "a rotating handle that controls a normalized vector spec"
+class AxisHandle(quarkpy.maphandles.MapRotateHandle):
+    "a rotating handle that controls a normalized vector spec"
 
-  def __init__(self, center, dup, spec, scale1):
-      axis = quarkx.vect(dup[spec])
-      MapRotateHandle.__init__(self, center, axis, scale1, quarkpy.qhandles.mapicons[11])
-      self.dup = dup
-      self.spec = spec
+    def __init__(self, center, dup, spec, scale1):
+        axis = quarkx.vect(dup[spec])
+        quarkpy.maphandles.MapRotateHandle.__init__(self, center, axis, scale1, quarkpy.qhandles.mapicons[11])
+        self.dup = dup
+        self.spec = spec
 
-  def dragop(self, flags, av):
+    def dragop(self, flags, av):
         new = None
         if av is not None:
             new = self.dup.copy()
@@ -100,7 +99,7 @@ class RadialDuplicator(StandardDuplicator):
         if self.dup["linear"] is not None:
             dupmat = self.dup["linear"]
         else:
-           dupmat = '1 0 0 0 1 0 0 0 1'
+            dupmat = '1 0 0 0 1 0 0 0 1'
         dupmat = quarkx.matrix(dupmat)
         cummat = quarkx.matrix('1 0 0 0 1 0 0 0 1')
         try:
@@ -121,6 +120,14 @@ class RadialDuplicator(StandardDuplicator):
                 radvec = matrix*radvec
                 shift = -i*outward*radvec
                 group.translate(shift)
+                #The call to origin triggered the creation of some caches,
+                #and since this poly isn't going through the undo-system,
+                #this cache never gets invalidated. Let's clear them ourselves.
+                for item in group.subitems:
+                    try:
+                        item.changedfaces()
+                    except:
+                        pass
         except:
             # Catch math-computation errors and return nothing if so
             print "Note: math-computation errors"
