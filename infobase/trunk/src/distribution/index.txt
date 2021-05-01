@@ -1,5 +1,4 @@
 title: Snapshots & Distributions
-desc: policy snapshot dist
+desc: policy snapshot dist installer webmaster
 
-This section describes QuArK distribution policy, tools and
-methodology.
+This section describes QuArK distribution policy, tools and methodology.
