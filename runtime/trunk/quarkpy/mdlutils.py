@@ -1759,10 +1759,7 @@ def UpdateBBoxPoly(poly, bpos, brot, bbox):
             face["tex"] = None
             poly.appenditem(face)
 
-    try: # In case a previous QuArK.exe is used before adding the function call below.
-        poly.changedfaces() # Makes the Delphi code add + sign to poly without going through undo code.
-    except:
-        pass
+    poly.changedfaces() # Makes the Delphi code add + sign to poly without going through undo code.
 
 #
 # Updates the poly bboxes (hit boxes if any) and editor explorer.
