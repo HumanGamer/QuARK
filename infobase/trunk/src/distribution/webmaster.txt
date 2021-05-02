@@ -6,6 +6,7 @@ There are some steps only the webmaster can perform, because it involves modifyi
 <ol>
 <li>Make sure there's a news-announcement on the SourceForge-page.</li>
 <li>If this is the new recommended build, mark it as such in SourceForge downloads.</li>
+<li>If new game support was added, update the description on SourceForge to reflect the new number of games supported.</li>
 <li>Add the new QuArK release to the website's database.</li>
 <li>If this is the new recommended build, make sure that indicated on the website download page as well.</li>
 <li>Copy the news-announcement to the website, and publish it there too. Make sure to link to the correct download.</li>
