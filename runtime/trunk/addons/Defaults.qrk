@@ -187,7 +187,7 @@ QQRKSRC1
         SingleInstance = "1"
         BugCheck = ""
         Form = "GeneralStartup"
-        Notification_Main = "6" //Hidden: Start-index for this version
+        Notification_Main = "7" //Hidden: Start-index for this version
       }
       QuakeC:config =
       {
