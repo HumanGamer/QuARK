@@ -30,5 +30,7 @@ http://quark.sourceforge.net/download/quark-src-20070831.zip
 http://quark.sourceforge.net/download/quark-win32-20070831.zip
 </code>
 
+Read through and summarize the NEWS.txt file to compile a changelog.
+
 It's also a good idea only to have four snapshots on the site at a time, so as to be sure not to exceed the storage quota.  So delete the oldest snapshots if you need to.
 </ol>
