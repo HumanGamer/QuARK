@@ -11,7 +11,7 @@ Dictionary of all strings used within the program
 # FIXME: The filename has a typo in it! :|
 
 Strings = {
-    0: "QuArK 6.6 Beta 7", #This is also used for version number checks between executable and Python scripts
+    0: "QuArK 6.6 Beta 8", #This is also used for version number checks between executable and Python scripts
     1: "  QuArK - Quake Army Knife      %s    by Armin Rigo     -  logo McKay & Brian",
 
     2: "&New %s",
