@@ -88,7 +88,7 @@ begin
   try
     try
       TotalFileNumber:=0;
-      for I:=0 to UpdatePackagesNR-1 do
+      for I:=Low(UpdatePackages) to High(UpdatePackages) do
         with UpdatePackages[I] do
           if Install then
             TotalFileNumber:=TotalFileNumber+FileNR;
@@ -103,7 +103,7 @@ begin
           UpdateConnection.ConnectTo(QuArKUpdateSite);
 
           //Download new files
-          for I:=0 to UpdatePackagesNR-1 do
+          for I:=Low(UpdatePackages) to High(UpdatePackages) do
           begin
             with UpdatePackages[I] do
               if Install then
@@ -131,7 +131,7 @@ begin
         end;
 
         //Install new files
-        for I:=0 to UpdatePackagesNR-1 do
+        for I:=Low(UpdatePackages) to High(UpdatePackages) do
         begin
           with UpdatePackages[I] do
             if Install then

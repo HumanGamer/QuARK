@@ -116,12 +116,7 @@ type
   end;
 
 var
-  UpdateIndexFile: TUpdateIndexFile;
-  UpdateNotificationsNR: Cardinal;
-  UpdateNotifications: array of TUpdateNotificationFile;
-  UpdatePackagesNR: Cardinal;
   UpdatePackages: array of TUpdatePackageFile;
-  UpdatesFound: Boolean;
 
 procedure DoUpdate(AllowOnline: Boolean; AutomaticCheck: Boolean);
 
@@ -131,6 +126,11 @@ implementation
 
 uses StrUtils, SysUtils, DateUtils, QkObjects, QkConsts, Setup, Logging, Travail,
   QkExceptions, AutoUpdateInstaller, QkTextBoxForm;
+
+var
+  UpdateIndexFile: TUpdateIndexFile;
+  UpdateNotifications: array of TUpdateNotificationFile;
+  UpdatesFound: Boolean;
 
 function GetLine(FileData: TMemoryStream; var OutputLine: String) : Boolean; forward;
 
@@ -325,11 +325,13 @@ var
   Setup: QObject;
   UpdateWindow: TAutoUpdater;
   FileData: TMemoryStream;
-  I, J: Cardinal;
+  I: Cardinal;
+  K: Integer;
   Dummy: String;
   AddThisNotification, AddThisPackage: Boolean;
   ProgressIndicatorMax: Integer;
   Notifications: TStringList;
+  NewIndex: Integer;
 begin
   Result := false;
   UpdateIndexFile := TUpdateIndexFile.Create;
@@ -386,22 +388,22 @@ begin
 
               if AddThisNotification then
               begin
-                UpdateNotificationsNR := UpdateNotificationsNR + 1;
-                SetLength(UpdateNotifications, UpdateNotificationsNR);
-                UpdateNotifications[UpdateNotificationsNR - 1] := TUpdateNotificationFile.Create;
-                UpdateNotifications[UpdateNotificationsNR - 1].NotificationIndex := I;
-                UpdateNotifications[UpdateNotificationsNR - 1].FileName := UpdateIndexFile.Notifications[I].FileName;
+                NewIndex := High(UpdateNotifications) + 1;
+                SetLength(UpdateNotifications, NewIndex + 1);
+                UpdateNotifications[NewIndex] := TUpdateNotificationFile.Create;
+                UpdateNotifications[NewIndex].NotificationIndex := I;
+                UpdateNotifications[NewIndex].FileName := UpdateIndexFile.Notifications[I].FileName;
 
                 ProgressIndicatorMax:=ProgressIndicatorMax+2;
                 ProgressIndicatorChangeMax(-1, ProgressIndicatorMax);
                 FileData := TMemoryStream.Create;
                 try
-                  UpdateConnection.GetFile(UpdateNotifications[UpdateNotificationsNR - 1].FileName, FileData);
+                  UpdateConnection.GetFile(UpdateNotifications[NewIndex].FileName, FileData);
                   ProgressIndicatorIncrement;
 
                   FileData.Seek(0, soFromBeginning);
 
-                  ParseNotificationFile(UpdateNotifications[UpdateNotificationsNR - 1], FileData);
+                  ParseNotificationFile(UpdateNotifications[NewIndex], FileData);
                   ProgressIndicatorIncrement;
                 finally
                   FileData.Free;
@@ -436,22 +438,22 @@ begin
 
               if AddThisPackage then
               begin
-                UpdatePackagesNR := UpdatePackagesNR + 1;
-                SetLength(UpdatePackages, UpdatePackagesNR);
-                UpdatePackages[UpdatePackagesNR - 1] := TUpdatePackageFile.Create;
-                UpdatePackages[UpdatePackagesNR - 1].PackageIndex := I;
-                UpdatePackages[UpdatePackagesNR - 1].FileName := UpdateIndexFile.Packages[I].FileName;
+                NewIndex := High(UpdatePackages) + 1;
+                SetLength(UpdatePackages, NewIndex + 1);
+                UpdatePackages[NewIndex] := TUpdatePackageFile.Create;
+                UpdatePackages[NewIndex].PackageIndex := I;
+                UpdatePackages[NewIndex].FileName := UpdateIndexFile.Packages[I].FileName;
 
                 ProgressIndicatorMax:=ProgressIndicatorMax+2;
                 ProgressIndicatorChangeMax(-1, ProgressIndicatorMax);
                 FileData := TMemoryStream.Create;
                 try
-                  UpdateConnection.GetFile(UpdatePackages[UpdatePackagesNR - 1].FileName, FileData);
+                  UpdateConnection.GetFile(UpdatePackages[NewIndex].FileName, FileData);
                   ProgressIndicatorIncrement;
 
                   FileData.Seek(0, soFromBeginning);
 
-                  ParsePackageFile(UpdatePackages[UpdatePackagesNR - 1], FileData);
+                  ParsePackageFile(UpdatePackages[NewIndex], FileData);
                   ProgressIndicatorIncrement;
                 finally
                   FileData.Free;
@@ -468,53 +470,51 @@ begin
       end;
 
       //Display notifications
-      if UpdateNotificationsNR>0 then
-        for I:=0 to UpdateNotificationsNR-1 do
-          with UpdateNotifications[I] do
+      for K:=Low(UpdateNotifications) to High(UpdateNotifications) do
+        with UpdateNotifications[K] do
+        begin
+          if MessageNR>0 then
           begin
-            if MessageNR>0 then
-            begin
-              Notifications:=TStringList.Create;
-              try
-                for J:=0 to MessageNR-1 do
-                  if Messages[J].DisplayIndex > UpdateIndexFile.Notifications[NotificationIndex].InternalBuildNumber then
-                  begin
-                    UpdatesFound:=True;
-                    Notifications.Add(Messages[J].Text);
-                  end;
-                ShowTextBox('QuArK Notification', 'There are new update notifications:', Notifications);
-              finally
-                Notifications.Free;
-              end;
+            Notifications:=TStringList.Create;
+            try
+              for I:=0 to MessageNR-1 do
+                if Messages[I].DisplayIndex > UpdateIndexFile.Notifications[NotificationIndex].InternalBuildNumber then
+                begin
+                  UpdatesFound:=True;
+                  Notifications.Add(Messages[I].Text);
+                end;
+              ShowTextBox('QuArK Notification', 'There are new update notifications:', Notifications);
+            finally
+              Notifications.Free;
             end;
-            Setup.Specifics.Values['Notification_'+UpdateIndexFile.Notifications[NotificationIndex].InternalName] := Format('%u', [BuildNumber]);
           end;
+          Setup.Specifics.Values['Notification_'+UpdateIndexFile.Notifications[NotificationIndex].InternalName] := Format('%u', [BuildNumber]);
+        end;
 
       //Process packages
-      if UpdatePackagesNR>0 then
+      if Length(UpdatePackages)>0 then
       begin
         if Setup.Specifics.Values['AutomaticInstall'] = '' then
         begin
           UpdateWindow := TAutoUpdater.Create(nil);
           try
-            if UpdatePackagesNR>0 then
-              for I:=0 to UpdatePackagesNR-1 do
-                with UpdateWindow.CheckListBox1 do
+            for I:=Low(UpdatePackages) to High(UpdatePackages) do
+              with UpdateWindow.CheckListBox1 do
+              begin
+                AddItem(UpdatePackages[I].Name, nil);
+(*                case UpdatePackages[I].Priority of
+                upCritical:  Checked[I] := true;
+                upImportant: Checked[I] := true;
+                upOptional:  Checked[I] := false;
+                upBeta:      Checked[I] := false;
+                else
                 begin
-                  AddItem(UpdatePackages[I].Name, nil);
-(*                  case UpdatePackages[I].Priority of
-                  upCritical:  Checked[I] := true;
-                  upImportant: Checked[I] := true;
-                  upOptional:  Checked[I] := false;
-                  upBeta:      Checked[I] := false;
-                  else
-                  begin
-                    //Shouldn't happen!
-                    //@
-                    Checked[I] := true;
-                  end;
-                  end; *)
+                  //Shouldn't happen!
+                  //@
+                  Checked[I] := true;
                 end;
+                end; *)
+              end;
             UpdatesFound:=True;
             UpdateWindow.ShowModal;
             //@
@@ -540,20 +540,12 @@ begin
     end;
   finally
     UpdateIndexFile.Free;
-    if UpdateNotificationsNR>0 then
-    begin
-      for I:=0 to UpdateNotificationsNR-1 do
-        UpdateNotifications[I].Free;
-      SetLength(UpdateNotifications, 0);
-      UpdateNotificationsNR := 0;
-    end;
-    if UpdatePackagesNR>0 then
-    begin
-      for I:=0 to UpdatePackagesNR-1 do
-        UpdatePackages[I].Free;
-      SetLength(UpdatePackages, 0);
-      UpdatePackagesNR := 0;
-    end;
+    for K:=Low(UpdateNotifications) to High(UpdateNotifications) do
+      UpdateNotifications[K].Free;
+    SetLength(UpdateNotifications, 0);
+    for K:=Low(UpdatePackages) to High(UpdatePackages) do
+      UpdatePackages[K].Free;
+    SetLength(UpdatePackages, 0);
   end;
 end;
 
