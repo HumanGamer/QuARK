@@ -71,6 +71,7 @@ bugs.</li>
 Again: no fancy zip-compressions!</li>
 <li>Now create the release in SourceForge (see <ref>src/distribution/snapshot</ref>
 for more details about this).</li>
+<li>Don't forget to add the README.txt file to the release files as well!</li>
 <li>Create a news-announcement on the SourceForge-page.</li>
 <li>Tell the webmaster of the QuArK website to do the same. (It's probably
 smart to have similar text in both.)</li>
