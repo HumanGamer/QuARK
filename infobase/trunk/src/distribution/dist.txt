@@ -45,6 +45,11 @@ First, do steps 1 to 3 of <ref>src/distribution/snapshot</ref>, with
 the difference that you name the files with the '6.4.1beta3' instead
 of the date, so <tt>quark-win32-20070831</tt> becomes
 <tt>quark-win32-6.4.1beta3</tt>.</li>
+<li>For official releases, the update checker will probably get a
+new notification so that QuArK will tell people to update. Increasing
+the <tt>Notification_Main</tt> number under <tt>Startup:config</tt>
+in the Defaults.qrk file will prevent people that install the new
+version from receiving this notification too.</li>
 <li>Open up your local copy of <tt>QuArK.nsi</tt>. You'll need to
 make some changes there:
 <ol>

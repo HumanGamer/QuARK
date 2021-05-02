@@ -13,6 +13,7 @@ There are some steps only the webmaster can perform, because it involves modifyi
 <li>And publish it on the quark-news mailing list as well.</li>
 <li>If needed, update the random-news-blurb about the latest release on the forums.</li>
 <li>Update the online copy of the Infobase hosted on the website.</li>
+<li>Add a message to the update-data on the website, so people using older QuArK version will receive a notification.</li>
 <li>Contact any mirror-sites, so they can update their downloads.</li>
 <li>Consider updating the release information on QuArK's Wikipedia page.</li>
 </ol>
