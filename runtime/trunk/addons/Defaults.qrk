@@ -31,7 +31,7 @@ QQRKSRC1
   {
     General:config =     // ":config" objects are displayed in the Configuration dialog box
     {
-      Version = "QuArK 6.6 Beta 7"
+      Version = "QuArK 6.6 Beta 8"
       InternalVersion = '6.6'
       TextureBrowser = "Texture Browser..."
       NewMapItems = "New Map Items..."
