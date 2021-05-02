@@ -6,7 +6,7 @@ to use the 'version' setting, the variable is called "QK_PERLEXE" and is
 near the top of the file. If you put a "Readme.txt" and/or "Patch.txt" in the same
 directory as this batch file, then they will be included in the main zip file.
 if you use NOVERSION as the version then it will the files produced will be called
-"QuArK.zip", & "QuArK-Help.zip", if you specifiy a version then the files produced
+"QuArK.zip", & "QuArK-Help.zip", if you specify a version then the files produced
 will be called "(version).zip" and "(version)-Help.zip". this batch file must
 be placed in the same directory as the "Source","Runtime", "Infobase", and "Utils"
 directories.
