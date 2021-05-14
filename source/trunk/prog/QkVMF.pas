@@ -667,7 +667,7 @@ expected one.
    parentgroup.SubElements.Add(group);
 
    if LowerCase(s)='hidden' then
-     group.Specifics.Values[';view']:=IntToStr(2);
+     group.Specifics.Values[';view']:=IntToStr(vfHidden);
 
    ReadSymbol(sStringToken);
    ReadSymbol(sCurlyBracketLeft);
