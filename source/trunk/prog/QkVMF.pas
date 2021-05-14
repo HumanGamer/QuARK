@@ -510,6 +510,7 @@ expected one.
 
  end;
 
+ procedure ReadHL2Group(parentgroup: TTreeMapSpec); forward;
 
  procedure ReadHL2Entity(parentgroup: TTreeMapSpec);
  var
@@ -596,12 +597,25 @@ expected one.
          else
            if (SymbolType = sStringToken) and (LowerCase(s)='solid') then
            begin
-             Entity:=TTreeMapBrush.Create(classname, parentgroup);
-             parentgroup.SubElements.Add(Entity);
+             if Entity = nil then
+             begin
+               Entity:=TTreeMapBrush.Create(classname, parentgroup);
+               parentgroup.SubElements.Add(Entity);
+             end;
              ReadHL2Solid(Entity);
            end
            else
-             raise EErrorFmt(254, [LineNoBeingParsed, 'unknown thing']);
+             if (SymbolType = sStringToken) and (LowerCase(s)='hidden') then
+             begin
+               if Entity = nil then
+               begin
+                 Entity:=TTreeMapBrush.Create(classname, parentgroup);
+                 parentgroup.SubElements.Add(Entity);
+               end;
+               ReadHL2Group(Entity);
+             end
+             else
+               raise EErrorFmt(254, [LineNoBeingParsed, 'unknown thing']);
 
    end; //while SymbolType<>sCurlyBracketRight
 
@@ -651,6 +665,9 @@ expected one.
  begin
    group:=TTreeMapGroup.Create(S, parentgroup);
    parentgroup.SubElements.Add(group);
+
+   if LowerCase(s)='hidden' then
+     group.Specifics.Values[';view']:=IntToStr(2);
 
    ReadSymbol(sStringToken);
    ReadSymbol(sCurlyBracketLeft);
@@ -912,7 +929,13 @@ begin
        Dest.Add('}');
        MapSaveSettings:=GetDefaultMapSaveSettings;
        MapSaveSettings.GameCode := ObjectGameCode;
-       SaveAsMapText(TTreeMap(Root), MapSaveSettings, List, Dest, saveflags, HxStrings);
+
+       InitTextureSizes;
+       try
+         SaveAsMapText(TTreeMap(Root), MapSaveSettings, List, Dest, saveflags, HxStrings);
+       finally
+         FreeTextureSizes;
+       end;
        Dest.SaveToStream(F);
        if HxStrings<>Nil then
         Specifics.Values['hxstrings']:=HxStrings.Text;
