@@ -112,6 +112,8 @@ procedure SaveAsMapTextTPolygon(ObjectToSave: QObject; MapSaveSettings: TMapSave
 procedure SaveAsMapTextTFace(ObjectToSave: QObject; MapSaveSettings: TMapSaveSettings; Brush: TStrings; OriginBrush: PVect; Flags2: Integer);
 procedure SaveAsMapTextTMesh(ObjectToSave: QObject; MapSaveSettings: TMapSaveSettings; Target: TStrings);
 procedure SaveAsMapTextTDuplicator(ObjectToSave: QObject; MapSaveSettings: TMapSaveSettings; Negatif: TQList; Texte: TStrings; Flags2: Integer; HxStrings: TStrings);
+procedure InitTextureSizes;
+procedure FreeTextureSizes;
 
  {------------------------}
 
@@ -129,7 +131,25 @@ uses
 
 var
   EntityNoCounting: Integer;
-  TextureSizes: TPixelSetSizeCache;
+  TextureSizes: TPixelSetSizeCache = nil;
+  TextureSizesRefCount: Integer = 0;
+
+procedure InitTextureSizes;
+begin
+  Inc(TextureSizesRefCount);
+  if TextureSizes=nil then
+    TextureSizes:=TPixelSetSizeCache.Create(nil);
+end;
+
+procedure FreeTextureSizes;
+begin
+  Dec(TextureSizesRefCount);
+  if TextureSizesRefCount = 0 then
+  begin
+    TextureSizes.Free;
+    TextureSizes:=nil;
+  end;
+end;
 
 function GetFirstEntityNo: Integer;
 begin
@@ -444,7 +464,6 @@ var
  SpecIndex: integer; {Decker}
  UAxis, VAxis : TVect;
  UShift, VShift: Double;
- TextureSizesFree: Boolean;
 
  { tiglari, for sin stuff }
  ThreeSing: array[0..2] of Single;
@@ -2101,13 +2120,7 @@ expected one.
  end;
 
 begin
-  if TextureSizes=nil then
-  begin
-    TextureSizes:=TPixelSetSizeCache.Create(nil);
-    TextureSizesFree:=True;
-  end
-  else
-    TextureSizesFree:=False;
+  InitTextureSizes;
   ProgressIndicatorStart(5451, Length(SourceFile) div Granularite);
   try
     Source:=PChar(SourceFile);
@@ -2447,11 +2460,7 @@ begin
     Racine.FixupAllReferences;
   finally
     ProgressIndicatorStop;
-    if TextureSizesFree then
-    begin
-      TextureSizes.Free;
-      TextureSizes:=nil;
-    end;
+    FreeTextureSizes;
   end;
 
   if (Result=mjQuake) and Q2Tex then
@@ -2539,7 +2548,6 @@ var
  saveflags : Integer;
  MapOptionSpecs : TSpecificsList;
  MapSaveSettings: TMapSaveSettings;
- TextureSizesFree: Boolean;
 begin
  with Info do case Format of
   rf_Default: begin  { as stand-alone file }
@@ -2610,23 +2618,13 @@ begin
        saveflags:=saveflags or IntSpec['saveflags']; {merge in selonly}
 
        //FIXME: ObjectGameCode is not always defined...
-       if TextureSizes=nil then
-       begin
-         TextureSizes:=TPixelSetSizeCache.Create(nil);
-         TextureSizesFree:=True;
-       end
-       else
-         TextureSizesFree:=False;
+       InitTextureSizes;
        try
          SaveAsMapText(Root, MapSaveSettings, List, Dest, saveflags, HxStrings);
-         Dest.SaveToStream(F);
        finally
-         if TextureSizesFree then
-         begin
-           TextureSizes.Free;
-           TextureSizes:=nil;
-         end;
+         FreeTextureSizes;
        end;
+       Dest.SaveToStream(F);
        if HxStrings<>Nil then
         Specifics.Values['hxstrings']:=HxStrings.Text;
       finally
@@ -3183,7 +3181,6 @@ var
  Mirror, EtpMirror: Boolean;
  DecimalPlaces: Integer;
  tmpReorder: TDouble;
- TextureSizesFree: Boolean;
 
  type
    FlagDef = record
@@ -3603,13 +3600,7 @@ begin
  idea was to force threepoints to integers with less distortion, in aid
  of easier commerce between QuArK and Radiant, but it's just a Bad Idea. }
 
- if TextureSizes=nil then
- begin
-   TextureSizes:=TPixelSetSizeCache.Create(nil);
-   TextureSizesFree:=True;
- end
- else
-   TextureSizesFree:=False;
+ InitTextureSizes;
  try
 
  F:=TFace(ObjectToSave);
@@ -4066,11 +4057,7 @@ begin
   Brush.Add(S);
 
   finally
-    if TextureSizesFree then
-    begin
-      TextureSizes.Free;
-      TextureSizes:=nil;
-    end;
+    FreeTextureSizes;
   end;
 end;
 
