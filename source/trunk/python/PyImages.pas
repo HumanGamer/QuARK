@@ -172,10 +172,16 @@ begin
      Handle:=ImageList_Create(cx, IHeight, ILC_COLORDDB or ILC_MASK, IWidth div cx, 2);
      {BkgndColor:=Bitmap.Canvas.Pixels[MaskX, MaskY];}
      DC:=CreateCompatibleDC(0);
-     OldBmp:=SelectObject(DC, Bitmap.Handle);
-     BkgndColor:=GetPixel(DC, MaskX, MaskY);
-     SelectObject(DC, OldBmp);
-     DeleteDC(DC);
+     try
+      OldBmp:=SelectObject(DC, Bitmap.Handle);
+      try
+       BkgndColor:=GetPixel(DC, MaskX, MaskY);
+      finally
+       SelectObject(DC, OldBmp);
+      end;
+     finally      
+      DeleteDC(DC);
+     end;
      ImageList_AddMasked(Handle, Bitmap.Handle, BkgndColor);
     end;
 
@@ -575,27 +581,43 @@ begin
    Dest.Y:=GetSystemMetrics(sm_CyMenuCheck);
 
    DC:=GetDC(0);
-   TempBmp:=CreateCompatibleBitmap(DC, P.X, P.Y);
-   MemDC:=CreateCompatibleDC(DC);
-   OldBmp:=SelectObject(MemDC, TempBmp);
+   try
+    TempBmp:=CreateCompatibleBitmap(DC, P.X, P.Y);
+    try
+     MemDC:=CreateCompatibleDC(DC);
+     try
+      OldBmp:=SelectObject(MemDC, TempBmp);
+      try
 
-   B:=CreateSolidBrush({ColorToRGB(clMenu)}clWhite);
-   FillRect(MemDC, Rect(0,0,P.X,P.Y), B);
-   DeleteObject(B);
-   Draw(MemDC, 0,0, {ColorToRGB(clMenu)}clWhite);
+       B:=CreateSolidBrush({ColorToRGB(clMenu)}clWhite);
+       try
+        FillRect(MemDC, Rect(0,0,P.X,P.Y), B);
+       finally
+        DeleteObject(B);
+       end;
+       Draw(MemDC, 0,0, {ColorToRGB(clMenu)}clWhite);
 
-   BitmapCopy:=CreateCompatibleBitmap(DC, Dest.X, Dest.Y);
-   MemDC2:=CreateCompatibleDC(DC);
-   OldBmp2:=SelectObject(MemDC2, BitmapCopy);
-   StretchBlt(MemDC2, 0, 0, Dest.X, Dest.Y, MemDC, 0, 0, P.X, P.Y, srcCopy);
-   SelectObject(MemDC2, OldBmp2);
-   DeleteDC(MemDC2);
-
-   SelectObject(MemDC, OldBmp);
-   DeleteDC(MemDC);
-   DeleteObject(TempBmp);
-
-   ReleaseDC(0, DC);
+       BitmapCopy:=CreateCompatibleBitmap(DC, Dest.X, Dest.Y);
+       MemDC2:=CreateCompatibleDC(DC);
+       try
+        OldBmp2:=SelectObject(MemDC2, BitmapCopy);
+        StretchBlt(MemDC2, 0, 0, Dest.X, Dest.Y, MemDC, 0, 0, P.X, P.Y, srcCopy);
+        SelectObject(MemDC2, OldBmp2);
+       finally
+        DeleteDC(MemDC2);
+       end;
+      finally
+       SelectObject(MemDC, OldBmp);
+      end;
+     finally
+      DeleteDC(MemDC);
+     end;
+    finally
+     DeleteObject(TempBmp);
+    end;
+   finally
+    ReleaseDC(0, DC);
+   end;
   end;
  Result:=BitmapCopy;
 end;
