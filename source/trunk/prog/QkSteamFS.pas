@@ -141,7 +141,7 @@ begin
     FillChar(SteamStartupInfo, SizeOf(SteamStartupInfo), 0);
     FillChar(SteamProcessInformation, SizeOf(SteamProcessInformation), 0);
     SteamStartupInfo.cb:=SizeOf(SteamStartupInfo);
-    SteamDirectory:=Setup.Specifics.Values['Directory'];
+    SteamDirectory:=QuickResolveFilename(Setup.Specifics.Values['Directory']);
     if Windows.CreateProcess(nil, PChar(ConcatPaths([SteamDirectory, SteamEXEName])), nil, nil, false, 0, nil, nil, SteamStartupInfo, SteamProcessInformation)=true then
     begin
       CloseHandle(SteamProcessInformation.hThread);
