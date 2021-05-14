@@ -2876,20 +2876,21 @@ begin
          Break;
         end;
 
-     if (Flags2 and soOutsideWorldspawn = 0) then
-      ProgressIndicatorStart(5464, Polyedres.Count);
-     try
-      for I:=0 to Polyedres.Count-1 do
-       begin
-        if (Flags2 and soOutsideWorldspawn = 0) then
-         ProgressIndicatorIncrement;
-        Texte.Add(CommentMapLine('Brush '+IntToStr(I)));
-        SaveAsMapTextTPolygon(TPolyedre(Polyedres[I]), MapSaveSettings, Texte, OriginBrush, Flags2);
-       end;
-      finally
+    if (Flags2 and soOutsideWorldspawn = 0) then
+     ProgressIndicatorStart(5464, Polyedres.Count); //FIXME: Also for beziers, meshes, etc... and worldspawn-group at the end!
+    try
+     for I:=0 to Polyedres.Count-1 do
+      begin
        if (Flags2 and soOutsideWorldspawn = 0) then
-        ProgressIndicatorStop;
+        ProgressIndicatorIncrement;
+       Texte.Add(CommentMapLine('Brush '+IntToStr(I)));
+       SaveAsMapTextTPolygon(TPolyedre(Polyedres[I]), MapSaveSettings, Texte, OriginBrush, Flags2);
       end;
+    finally
+     if (Flags2 and soOutsideWorldspawn = 0) then
+      ProgressIndicatorStop;
+    end;
+
     { proceed with Bezier patches }
     I:=Polyedres.Count-1;
     Polyedres.Clear;
@@ -2900,7 +2901,8 @@ begin
      Texte.Add(CommentMapLine('Bezier '+IntToStr(J)+' (Brush '+IntToStr(I)+')'));
      SaveAsMapTextTMesh(TBezier(Polyedres[J]), MapSaveSettings, Texte);
     end;
-    { proceed with meshes } //@@@@@@MapStructure: Make configurable... Brushes, entities, beziers, meshes, etc.
+
+    { proceed with meshes } //FIXME: MapStructure: Make configurable... Brushes, entities, beziers, meshes, etc.
     I:=Polyedres.Count-1;
     Polyedres.Clear;
     ListeMeshes(Polyedres, Flags2);
@@ -2914,7 +2916,8 @@ begin
     Polyedres.Free;
    end;
   end;
-  // Does 6DX support work correctly?
+
+  //FIXME: Does 6DX support work correctly?
   if ((Flags2 and soWrite6DXHierarky) <> 0) then
   begin
    { For 6DX support }
@@ -3080,6 +3083,14 @@ begin
  with TTreeMapGroup(ObjectToSave) do
  begin
 
+ if MapSaveSettings.MapFormat=HL2Type then
+  if (Name='hidden') and (ViewFlags and vfHidden <> 0) then
+  begin
+   Texte.Add('hidden');
+   Texte.Add('{');
+   //FIXME: This doesn't work properly yet. SaveAsMapTextTTreeMapBrush will save ALL children brushes, no matter how deep, so all hidden's not an immediate child of worldspawn will have all their brushes stolen by the above entity/brush.
+  end;
+
  if (Flags2 and soIgnoreToBuild <> 0)
  and (ViewFlags and vfIgnoreToBuildMap <> 0) then
   Exit;
@@ -3088,12 +3099,14 @@ begin
  for I:=0 to SubElements.Count-1 do
   begin
    T:=TTreeMap(SubElements[I]);
-   // Is this right?
+   //FIXME: Is this right?
    if not ((Flags2 and soSelOnly <> 0) and ControleSelection(T)) then
-   begin
     SaveAsMapText(T, MapSaveSettings, Negatif, Texte, Flags2, HxStrings);
-   end;
   end;
+
+ if MapSaveSettings.MapFormat=HL2Type then
+  if (Name='hidden') and (ViewFlags and vfHidden <> 0) then
+   Texte.Add('}');
 
  end;
 end;
