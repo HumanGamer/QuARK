@@ -477,7 +477,10 @@ begin
       Exit;
     end
     else
+    begin
+      LogWindowsError(GetLastError(), 'GetShortPathName("'+FullName+'")');
       Raise EErrorFmt(5188, [FullName]);
+    end;
   end;
   SetString(FullName, Z, StrLen(Z));
 
