@@ -741,6 +741,8 @@ begin
 end;
 
 procedure QMd3File.SaveFile(Info: TInfoEnreg1);
+const
+  DefTexSize = 64;
 var
   head: TMD3Header;
   tag: TMD3Tag;
@@ -935,8 +937,8 @@ begin
            mesh.Skin_Start:=F.Position-Position1;
 
            try
-             Size.X:=128;
-             Size.Y:=128;
+             Size.X:=DefTexSize;
+             Size.Y:=DefTexSize;
              mesh.Skin_num:=Skins.Count;
              for J:=0 to Skins.Count-1 do
              begin
