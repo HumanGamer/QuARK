@@ -214,7 +214,7 @@ implementation
 
 uses qdraw, Setup, QkMapPoly, Undo, FormCfg, Game, QkMacro, Quarkx, QkExceptions,
      PyMath, PyMapView, PyObjects, QkImages, Bezier, EdSceneObject, Logging,
-     StrUtils, QkObjectClassList, QkMD3, QkQkl, QkModelRoot, ExtraFunctionality;
+     StrUtils, QkObjectClassList, QkMD3, QkModelFile, QkModelRoot, ExtraFunctionality;
 
  {------------------------}
 
@@ -1677,9 +1677,9 @@ begin
 
    S:=Q.Specifics.Values['mdlframe'];
    if S<>'' then
-     QQkl(Mdl).getRoot.setFramesByName(S)
+     QModelFile(Mdl).getRoot.setFramesByName(S)
    else
-     QQkl(Mdl).getRoot.setFrames(Round(Q.GetFloatSpec('mdlframe', 0)));
+     QModelFile(Mdl).getRoot.setFrames(Round(Q.GetFloatSpec('mdlframe', 0)));
 
    // Check for auto-link tagging for .md3 files and derivatives
    if Q.Specifics.Values['md3_autolink']='1' then

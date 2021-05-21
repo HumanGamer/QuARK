@@ -23,12 +23,12 @@ unit QkMd3;
 interface
 
 uses Windows, SysUtils, StrUtils, Classes, QkObjects, QkForm, Graphics,
-     QkImages, qmath, QkTextures, QkFileObjects, QkPcx,
-     QkQkl, QkModelRoot, QkFrame, QkComponent, QkMdlObject, QkModelTag,
+     QkImages, qmath, QkTextures, QkFileObjects,
+     QkModelFile, QkModelRoot, QkFrame, QkComponent, QkMdlObject, QkModelTag,
      QkTagFrame, QkBoundFrame, QkMiscGroup, {QkFrameGroup,} qmatrices;
 
 type
-  QMd3File = class(QQkl)
+  QMd3File = class(QModelFile)
     protected
       procedure LoadFile(F: TStream; Taille: Integer); override;
       procedure SaveFile(Info: TInfoEnreg1); override;
@@ -37,7 +37,7 @@ type
       class function TypeInfo: String; override;
       class procedure FileObjectClassInfo(var Info: TFileObjectClassInfo); override;
       function Loaded_ShaderFile(Comp: QComponent; tex_name: string): QImage;
-      function AttachModelToTag(const Tag_Name: string; model: QQkl): boolean;
+      function AttachModelToTag(const Tag_Name: string; model: QModelFile): boolean;
       function AttachModelToTagFromFileName(const Tag_Name: string; const Filename: string): boolean;
       function TryAutoLoadParts: boolean;
       Function GetFullFilename: string;
@@ -49,7 +49,7 @@ type
 implementation
 
 uses QuarkX, QkExceptions, Setup, QkObjectClassList, Game, QkQ3, QkPixelset,
-     QkApplPaths, Logging, Travail;
+     QkPcx, QkApplPaths, Logging, Travail;
 
 const
  MAX_QPATH = 64;
@@ -604,13 +604,13 @@ begin
     if FileObj2 = nil then
       exit;
   end;
-  if not(FileObj2 is QQkl) then
+  if not(FileObj2 is QModelFile) then
     exit;
   FileObj2.Acces;
-  Result:=AttachModelToTag(Tag_Name, QQkl(FileObj2));
+  Result:=AttachModelToTag(Tag_Name, QModelFile(FileObj2));
 end;
 
-function QMd3File.AttachModelToTag(const Tag_Name: string; model: QQkl): boolean;
+function QMd3File.AttachModelToTag(const Tag_Name: string; model: QModelFile): boolean;
 var
   other_root: QModelRoot;
 begin

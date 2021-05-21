@@ -24,7 +24,7 @@ interface
 
 {$IFDEF 3DS_MAX_DEBUG}
 uses
-  SysUtils, Classes, QkObjects, QkFileObjects, QkImages, Python, Game, QkQkl,
+  SysUtils, Classes, QkObjects, QkFileObjects, QkImages, Python, Game, QkModelFile,
   Graphics, Windows, QkModelRoot, QkMdlObject, QkFrame, QkComponent;
 
 const
@@ -42,7 +42,7 @@ type
     Tag: Word;
     Length: DWord;
   end;
-  Q3DSFile = class(QQkl)
+  Q3DSFile = class(QModelFile)
   private
     BeginOfFile: Longint; // Can put here as it doesn't get saved.
     Procedure ReadMainChunk(F: TStream; FSize: Integer; org: Longint; Root: QModelRoot);

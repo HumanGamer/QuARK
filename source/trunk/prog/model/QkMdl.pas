@@ -23,11 +23,11 @@ unit QkMdl;
 interface
 
 uses
-  SysUtils, Classes, QkObjects, QkFileObjects, QkImages, Python, Game, QkQkl, QMath,
-  Windows, QkModelRoot, QkMdlObject, QkFrame, QkComponent, Logging;
+  SysUtils, Classes, QkObjects, QkFileObjects, QkImages, Python, Game, QkModelFile, QMath,
+  Windows, QkMdlObject, QkFrame, QkComponent, Logging;
 
 type
-  QMdlFile = class(QQkl)
+  QMdlFile = class(QModelFile)
   private
 //    procedure LoadHLModel(F: TStream; FSize: Integer);
       Procedure ReadHL2Model(F: TStream; FileSize: Integer);
@@ -99,7 +99,7 @@ type
 
 implementation
 
-uses QuarkX, QkExceptions, Setup, Travail, QkObjectClassList,QkPcx;
+uses QuarkX, QkExceptions, QkModelRoot, Setup, Travail, QkObjectClassList, QkPcx;
 
 class function QMdlFile.TypeInfo;
 begin

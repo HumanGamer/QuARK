@@ -207,8 +207,8 @@ function MakeTempFileName(const Tag: String) : String;
 implementation
 
 uses Qk1, Undo, QkExplorer, Setup, qmath, QkGroup, Travail, QkOwnExplorer,
-  QkFileExplorer, QkUnknown, Toolbar1, Quarkx, QkExceptions, QkInclude, PyObjects,
-  QkModel, QkMap, QkQkl, QkConsts, Logging, SystemDetails,
+  QkFileExplorer, QkUnknown, Toolbar1, Quarkx, QkExceptions, QkInclude,
+  PyObjects, QkConsts, Logging, SystemDetails,
   PyForms, QkTreeView, Game, QkObjectClassList, QkApplPaths, ExtraFunctionality;
 
 {$R *.DFM}
@@ -1805,18 +1805,10 @@ begin
        end;
       Inc(I);
      until False;
-     if FFileObject is QModel then
-       { workaround to get .qkl file saving to work right }
-       FileName:='qkl'
-     else if Info.QuArKFileObject then
+     if Info.QuArKFileObject then
       FileName:=Info.DefaultExt  { can save directly as text }
      else
-      if FFileObject is QModel then
-       FileName:='qkl'
-      else if FFileObject is QMap then
-       FileName:='qkm'
-      else
-       FileName:='qrk';   { must wrap into a .qrk to save as text }
+      FileName:='qrk';   { must wrap into a .qrk to save as text }
      S:=S+FmtLoadStr1(769, [FileName]);
      SaveDialog1:=TSaveDialog.Create(Application); try
      SaveDialog1.Title:=LoadStr1(770);

@@ -25,7 +25,7 @@ interface
 uses
   SysUtils, Classes, QkObjects, QkFileObjects, QkImages, Python, Game, QkMdl, QMath,
   Graphics, Windows, QkModelRoot, QkMdlObject, QkComponent, QkFrame,
-  Logging, Console, QkQkl;
+  Logging, Console, QkModelFile;
 
 (***********  Quake 2 .md2 format  ***********)
 
@@ -71,7 +71,7 @@ type
     ofs_glcmds: LongInt;       // offset OpenGL command data
     ofs_end: LongInt;          // offset end of file (end of file)
   end;
-  QMd2File = class(QQkl)
+  QMd2File = class(QModelFile)
   protected
     procedure LoadFile(F: TStream; FSize: Integer); override;
     procedure SaveFile(Info: TInfoEnreg1); override;
