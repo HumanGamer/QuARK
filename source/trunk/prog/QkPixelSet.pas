@@ -22,7 +22,7 @@ unit QkPixelSet;
 
 interface
 
-uses SysUtils, Windows, Classes, Graphics, Game, Python, QkObjects, PyObjects,
+uses SysUtils, Windows, Classes, Graphics, Game, Python, QkObjects,
      QkFileObjects;
 
 type
@@ -109,7 +109,7 @@ procedure DrawToDC(DC: HDC; var BitmapInfo; Data: Pointer; Left, Top: Integer);
 implementation
 
 uses Controls, Dialogs, Quarkx, QkExceptions, QkTextures, CCode, QkExplorer,
-     Setup, Logging, ExtraFunctionality;
+     PyObjects, Setup, Logging, ExtraFunctionality;
 
  {------------------------}
 

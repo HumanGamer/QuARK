@@ -29,7 +29,7 @@ interface
 
 uses
   Windows, Messages, QkObjects, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
-  TB97, StdCtrls, ExtCtrls, QkForm, QkZip2;
+  TB97, StdCtrls, ExtCtrls, QkForm;
 
 type
   TQuickWalParser = class(TQkForm)
@@ -66,7 +66,7 @@ function ListPakFiles(const Path: String) : TStringList;
 
 implementation
 
-uses QkGroup, Game, QkTextures, QkWad, QkExplorer,
+uses QkGroup, Game, QkTextures, QkWad, QkExplorer, QkZip2,
   Quarkx, QkExceptions, Travail, ToolBox1, QkPak, QkFileObjects, QkHL, ToolBoxGroup,
   Setup, Logging, QkQ3, OsFolder, QkD3, QkApplPaths;
 

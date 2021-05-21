@@ -24,8 +24,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
-  QkObjects, QkFileObjects, TB97, QkFileExplorer, ExtCtrls,
-  QkForm;
+  QkObjects, QkFileExplorer, ExtCtrls, QkForm, QkFileObjects, TB97;
 
 type
   TQFormExplorer = class(TQForm1)

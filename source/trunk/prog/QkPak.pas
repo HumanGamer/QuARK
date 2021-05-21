@@ -24,7 +24,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
-  QkObjects, QkFileObjects, TB97, QkFileExplorer, QkListView, BrowseForFolder,
+  QkObjects, QkFileObjects, TB97, QkFileExplorer, QkListView,
   ComCtrls, QkForm, QkGroup, Python;
 
 type
@@ -108,7 +108,7 @@ implementation
 
 uses Travail, QkExplorer, Quarkx, QkExceptions, PyObjects, Game, QkSin,
  Qkzip2, QkQ3, QkD3, QkCoD2, QkSylphis, QkObjectClassList, QkBsp,
- Logging, ExtraFunctionality;
+ BrowseForFolder, Logging, ExtraFunctionality;
 
 {$R *.DFM}
 

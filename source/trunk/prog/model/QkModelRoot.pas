@@ -22,8 +22,7 @@ unit QkModelRoot;
 
 interface
 
-uses Windows, SysUtils, Classes, QkObjects, Qk3D, QkForm, Graphics,
-     QkImages, QkTextures, PyMath, Python, QkMdlObject,
+uses Windows, SysUtils, Classes, QkObjects, Python, QkMdlObject,
      QkMiscGroup, QkBoneGroup, QkComponent, QkFrameGroup, QkFrame;
 
 type
