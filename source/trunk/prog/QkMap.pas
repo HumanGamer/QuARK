@@ -3136,7 +3136,7 @@ procedure SaveAsMapTextTPolygon(ObjectToSave: QObject; MapSaveSettings: TMapSave
 var
  J: Integer;
  Q: QObject;
- { BrushPrim, Valve220Map : Boolean }
+ { BrushPrim : Boolean }
  MapFormat: TMapFormatTypes;
 begin
  ResolveMapSaveSettings(MapSaveSettings);
@@ -3751,32 +3751,32 @@ begin
        P[3]:=VecSum(P[1],VecScale(100,VecDiff(P[3],P[1])));
      end;
     end;
-   end
-  else
-   begin
-    if not F.LoadData then
-     begin
-      Log(LOG_WARNING, LoadStr1(5785));
-      exit;
-     end;
+  end
+ else
+  begin
+   if not F.LoadData then
+    begin
+     Log(LOG_WARNING, LoadStr1(5785));
+     exit;
+    end;
 
-    if OriginBrush<>Nil then
-     begin
-      Delta1:=OriginBrush^;
-      Facteur:=Dot(F.Normale, Delta1);
-      Delta1.X:=Delta1.X - F.Normale.X*Facteur;
-      Delta1.Y:=Delta1.Y - F.Normale.Y*Facteur;    { force Delta1 in the plane of the face }
-      Delta1.Z:=Delta1.Z - F.Normale.Z*Facteur;
+   if OriginBrush<>Nil then
+    begin
+     Delta1:=OriginBrush^;
+     Facteur:=Dot(F.Normale, Delta1);
+     Delta1.X:=Delta1.X - F.Normale.X*Facteur;
+     Delta1.Y:=Delta1.Y - F.Normale.Y*Facteur;    { force Delta1 in the plane of the face }
+     Delta1.Z:=Delta1.Z - F.Normale.Z*Facteur;
 
-      //Make a temporary clone that we move about
-      F:=F.CloneFaceTmp;
-      F.GetThreePoints(V, V2, V3);
-      VecSum(V, Delta1);
-      VecSum(V2, Delta1);
-      VecSum(V3, Delta1);
-      F.SetThreePoints(V, V2, V3);
-      F.LoadData; //Refresh the Normale and Dist
-     end;
+     //Make a temporary clone that we move about
+     F:=F.CloneFaceTmp;
+     F.GetThreePoints(V, V2, V3);
+     VecSum(V, Delta1);
+     VecSum(V2, Delta1);
+     VecSum(V3, Delta1);
+     F.SetThreePoints(V, V2, V3);
+     F.LoadData; //Refresh the Normale and Dist
+    end;
   end;
 
  {start writing out a face}
