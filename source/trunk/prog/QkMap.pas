@@ -1593,6 +1593,7 @@ expected one.
    tmpReorder: TDouble;
    Size: TPoint;
    NumericValue1, NumericValue2, ContentsFlags: Integer;
+   PolyError: String;
  begin
   P:=TPolyhedron.Create(LoadStr1(138), EntitePoly);
   EntitePoly.SubElements.Add(P);
@@ -1751,8 +1752,12 @@ expected one.
 
   ReadSymbol(sCurlyBracketRight);
 
-  if not P.CheckPolyhedron then
-   Inc(InvPoly)
+  PolyError:=P.GetPolyhedronError();
+  if PolyError<>'' then
+   begin
+    Inc(InvPoly);
+    Log(LOG_WARNING, LoadStr1(5824), [PolyError]);
+   end
   else
    if ContentsFlags and ContentsOrigin <> 0 then
     OriginBrush:=P;
@@ -1768,6 +1773,7 @@ expected one.
    TexPath: String;
    Size: TPoint;
    NumericValue1: Integer;
+   PolyError: String;
  begin
   //Initialize ZVect
   ZVect.X:=0;
@@ -1862,6 +1868,13 @@ expected one.
   end;
   ReadSymbol(sCurlyBracketRight);    { rbrace which finishes the brushDef }
   ReadSymbol(sCurlyBracketRight);    { rbrace which finishes the brush }
+
+  PolyError:=P.GetPolyhedronError();
+  if PolyError<>'' then
+   begin
+    Inc(InvPoly);
+    Log(LOG_WARNING, LoadStr1(5824), [PolyError]);
+   end
  end;
 
  procedure ReadBrushDef2or3;
@@ -1875,6 +1888,7 @@ expected one.
    Surface: TFace;
    TexPath: String;
    Size: TPoint;
+   PolyError: String;
  begin
   //Initialize ZVect
   ZVect.X:=0;
@@ -1974,6 +1988,13 @@ expected one.
   end;
   ReadSymbol(sCurlyBracketRight);    { rbrace which finishes the brushDef3 }
   ReadSymbol(sCurlyBracketRight);    { rbrace which finishes the brush }
+
+  PolyError:=P.GetPolyhedronError();
+  if PolyError<>'' then
+   begin
+    Inc(InvPoly);
+    Log(LOG_WARNING, LoadStr1(5824), [PolyError]);
+   end
  end;
 
  //FIXME: This is more or less a dummy procedure...
