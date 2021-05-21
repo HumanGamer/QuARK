@@ -284,27 +284,24 @@ var
   tex: QFileObject;
 begin
   Result:=nil;
+  Log(LOG_VERBOSE,'attempting to load '+tex_name);
   try
-    Log(LOG_VERBOSE,'attempting to load '+tex_name);
-    try
-      tex:=NeedGameFile(tex_name, '');
-    except
-      tex:=nil;  { file not found, silently ignore }
-    end;
-    if tex = nil then
-      exit;
-    tex.acces;
-    Result:=QPcx.Create(tex_name, Comp.SkinGroup);
-    try
-      Result.ConversionFrom(tex);
-    except
-      Result.Free;
-      Result:=nil;
-      Exit;
-    end;
-    Comp.SkinGroup.Subelements.Add(result);
-  finally
+    tex:=NeedGameFile(tex_name, '');
+  except
+    tex:=nil;  { file not found, silently ignore }
   end;
+  if tex = nil then
+    exit;
+  tex.acces;
+  Result:=QPcx.Create(tex_name, Comp.SkinGroup);
+  try
+    Result.ConversionFrom(tex);
+  except
+    Result.Free;
+    Result:=nil;
+    Exit;
+  end;
+  Comp.SkinGroup.Subelements.Add(result);
 end;
 
 
@@ -518,7 +515,7 @@ type
     szanimblocknameindex: Longint;
     numanimblocks: Longint;
     animblockindex: Longint;
-    animblockModel:Pointer;
+    animblockModel: Pointer;
     bonetablebynameindex: Longint;
     // used by tools only that don't cache, but persist mdl's peer data
     // engine uses virtualModel to back link to cache pointers
@@ -575,12 +572,12 @@ var
   TexCoord: PVertxArray;
   Vertexes, Vertexes2: PMD3Vertex;
 
-  vtxbox: array[0..7] of  TMD3Vertex;
-  xbounds: array[0..1]of single;
-  ybounds: array[0..1]of single;
-  zbounds: array[0..1]of single;
-  tribox: array[0..11]of TMD3Triangle;
-  texbox: array[0..35] of  TMD3TexVec;
+  vtxbox: array[0..7] of TMD3Vertex;
+  xbounds: array[0..1] of single;
+  ybounds: array[0..1] of single;
+  zbounds: array[0..1] of single;
+  tribox: array[0..11] of TMD3Triangle;
+  texbox: array[0..35] of TMD3TexVec;
 
   procedure setuptripoints(var tri:TMD3Triangle; point1:integer; point2:integer; point3:integer);
   begin

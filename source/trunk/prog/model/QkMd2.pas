@@ -488,10 +488,9 @@ begin
              end;
           finally
             skins.free;
+          end;
          end;
-     end;
      finally
-       Components.Clear;
        Components.free;
      end;
     end;
