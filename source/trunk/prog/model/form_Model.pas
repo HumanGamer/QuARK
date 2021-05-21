@@ -24,9 +24,8 @@ interface
 
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
-  QkObjects, QkFileObjects, TB97, QkForm, QkImages, Python, PyMapView,
-  StdCtrls, EnterEditCtrl, ExtCtrls, PyMath, qmatrices, qmath, QkMdlObject,
-  QkTextures, QkSin, CursorScrollBox;
+  QkObjects, QkFileObjects, TB97, Python, PyMapView,
+  StdCtrls, EnterEditCtrl, ExtCtrls, QkForm, QkMdlObject;
 
 type
   TFQMdl = class(TQForm1)
@@ -53,7 +52,8 @@ type
 
 implementation
 
-uses QuarkX, Setup, PyForms, Undo, QkModel, QkMapObjects, Qk3D;
+uses QuarkX, Setup, PyForms, Undo, QkModel, QkMapObjects, Qk3D, qmath, PyMath,
+  qmatrices;
 
 {$R *.dfm}
 
@@ -117,8 +117,8 @@ begin
     M:=MatriceIdentite;
     // Change To YZ View ie rotate around x axis by 90 deg.
     M[1,1]:=D.X;
-    M[2,2]:=cos(90*(pi / 180))*D.X;
-    M[3,2]:=sin(90*(pi / 180))*D.X;
+    M[2,2]:=cos(90*Deg2Rad)*D.X;
+    M[3,2]:=sin(90*Deg2Rad)*D.X;
     M[2,3]:=-M[3,2];
     M[3,3]:=M[2,2];
     ScrollBox1.MapViewProj:=GetMatrixCoordinates(M);
