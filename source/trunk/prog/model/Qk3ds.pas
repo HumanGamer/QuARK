@@ -24,7 +24,7 @@ interface
 
 {$IFDEF 3DS_MAX_DEBUG}
 uses
-  SysUtils, Classes, QkObjects, QkFileObjects, QkImages, Python, Game, QkModelFile, QMath,
+  SysUtils, Classes, QkObjects, QkFileObjects, QkImages, Python, Game, QkQkl,
   Graphics, Windows, QkModelRoot, QkMdlObject, QkFrame, QkComponent;
 
 const
@@ -42,7 +42,7 @@ type
     Tag: Word;
     Length: DWord;
   end;
-  Q3DSFile = class(QModelFile)
+  Q3DSFile = class(QQkl)
   private
     BeginOfFile: Longint; // Can put here as it doesn't get saved.
     Procedure ReadMainChunk(F: TStream; FSize: Integer; org: Longint; Root: QModelRoot);
@@ -64,7 +64,7 @@ type
 
 implementation
 
-uses QuarkX, Setup, Travail, QkObjectClassList;
+uses QuarkX, qmath, Setup, Travail, QkObjectClassList;
 
 class function Q3DSFile.TypeInfo;
 begin
@@ -74,8 +74,8 @@ end;
 class procedure Q3DSFile.FileObjectClassInfo(var Info: TFileObjectClassInfo);
 begin
   inherited;
-  g_DrawInfo.FileObjectDescriptionText:=LoadStr1(5178);
-  g_DrawInfo.FileExt:=807;
+  Info.FileObjectDescriptionText:=LoadStr1(5178);
+  Info.FileExt:=807;
 end;
 
 Procedure Q3dsFile.SkipChunk(var s: TStream; Chunk: TChunkHeader);
@@ -252,7 +252,7 @@ begin
       end;
       inc(CTris);
     end;
-    comp.SpecificsAdd(s);
+    comp.Specifics.Add(s);
   finally
     freemem(texvert, num_texvert * sizeof(ttexvert))
   end;
