@@ -1187,32 +1187,32 @@ end;
 
 function InterieurArrete(Faces: TList; const Org, Arr: TVect; var Min, Max: TDouble; F1,F2: Integer) : Boolean;
 var
- K: Integer;
- Alpha, Beta: TDouble;
+ I: Integer;
+ Denom, Alpha: TDouble;
 begin
  Min:=-1E11;
  Max:=1E11;
- for K:=0 to Faces.Count-1 do
-  if (K<>F1) and (K<>F2) then
-   with TFace(Faces[K]) do
+ for I:=0 to Faces.Count-1 do
+  if (I<>F1) and (I<>F2) then
+   with TFace(Faces[I]) do
     begin
-     Alpha:=Dot(Arr, Normale);
-     Beta:=Dist - Dot(Org, Normale);
-     if Abs(Alpha)>rien then
+     Denom:=Dot(Arr, Normale);
+     Alpha:=Dist - Dot(Org, Normale); //Note: This is a projection, but the divide-by-square disappears because Normale is normalized
+     if Abs(Denom)>rien then //Is there an intersection between the three planes?
       begin
-       Beta:=Beta / Alpha;
-       if Alpha>0 then
+       Alpha:=Alpha / Denom;
+       if Denom>0 then
         begin
-         if Beta < Max then
-          Max:=Beta;
+         if Alpha < Max then
+          Max:=Alpha;
         end
        else
-        if Beta > Min then
-         Min:=Beta;
+        if Alpha > Min then
+         Min:=Alpha;
       end
      else
-      if (Beta < -rien)
-     {or ((Beta < rien) and not Limite)} then
+      if (Alpha < -rien)
+     {or ((Alpha < rien) and not Limite)} then
        begin  { l'arrête considérée est entièrement derrière ce plan }
         Result:=False;
         Exit;
@@ -1847,12 +1847,13 @@ end;*)
 
 
 function CoordShift(const P, texO, texS, texT : TVect) : TVect;
-var D: TVect;
+var
+ D: TVect;
 begin
-   D:=VecDiff(P,texO);
-   Result.X:=Dot(D,texS);
-   Result.Y:=Dot(D,texT);
-   Result.Z:=0.0;
+ D:=VecDiff(P,texO);
+ Result.X:=Dot(D,texS);
+ Result.Y:=Dot(D,texT);
+ Result.Z:=0.0;
 end;
 
 { algorithm from Q3R as provided by Timothee Besset }
@@ -1870,7 +1871,7 @@ begin
   Normal.Y:=0.0;
  if Abs(Normal.Z)<1e-6 then
   Normal.Z:=0.0;
- RotY:=-ArcTan2(Normal.Z,sqrt(Normal.Y*Normal.Y+Normal.X*Normal.X));
+ RotY:=-ArcTan2(Normal.Z,sqrt(Sqr(Normal.Y)+Sqr(Normal.X)));
  RotZ:=ArcTan2(Normal.Y,Normal.X);
  { rotate (0,1,0) and (0,0,1) to compute texS and texT  }
  texS.X:=-Sin(RotZ);
