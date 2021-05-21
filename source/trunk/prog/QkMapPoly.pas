@@ -1304,7 +1304,7 @@ begin
             FJ:=TFace(FaceList[J]);
             Arr:=Cross(FI.Normale, FJ.Normale);
             if (Abs(Arr.X)<rien) and (Abs(Arr.Y)<rien) and (Abs(Arr.Z)<rien) then
-            begin   { plans parallèles }
+            begin   { planes are parallel }
                { do they point to the same direction ? }
               Opposite:=Dot(FI.Normale, FJ.Normale) < 0;
               if Opposite then
@@ -1467,7 +1467,6 @@ begin
       GetMem(DescFaces, K + Vertices.Count*SizeOf(TUnSommet));
       PChar(Base):=PChar(DescFaces)+K;
       Surface:=PSurface(DescFaces);
-      //there
       try // 3
         for J:=0 to FaceList.Count-1 do
         begin
@@ -1597,7 +1596,6 @@ begin
 
       NbAretes2:=(PChar(Surface)-PChar(DescFaces)) div SizeOf(PVertex);
     finally // 2
-   // here
       Aretes.Free;
     end;
   finally  // 1
