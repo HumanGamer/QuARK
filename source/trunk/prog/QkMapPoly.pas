@@ -3644,22 +3644,11 @@ begin
    M[N2,N1]:=-L;
    M[N1,N2]:=L;
    M[N2,N2]:=M[N1,N1];
-   Base[1,1]:=Normale.X;
-   Base[2,1]:=Normale.Y;
-   Base[3,1]:=Normale.Z;
    L:=1/L;
    Axe.X:=Axe.X*L;
    Axe.Y:=Axe.Y*L;
    Axe.Z:=Axe.Z*L;
-   Base[1,3]:=Axe.X;
-   Base[2,3]:=Axe.Y;
-   Base[3,3]:=Axe.Z;
-   with Cross(Normale, Axe) do
-    begin
-     Base[1,2]:=X;
-     Base[2,2]:=Y;
-     Base[3,2]:=Z;
-    end;
+   Base:=MatrixFromCols(Normale, Cross(Normale, Axe), Axe);
    g_DrawInfo.Matrice:=MultiplieMatrices(MultiplieMatrices(
     Base, M), MatriceInverse(Base));
   end;
@@ -3676,28 +3665,15 @@ var
 begin
  if GetThreePoints(Pt[1], Pt[2], Pt[3]) then
   begin
-   V1.X:=Fix2.X-Fix1.X;  Base[1,1]:=V1.X;
-   V1.Y:=Fix2.Y-Fix1.Y;  Base[2,1]:=V1.Y;
-   V1.Z:=Fix2.Z-Fix1.Z;  Base[3,1]:=V1.Z;
-   V2.X:=Src.X-Fix1.X;   Base[1,2]:=V2.X;
-   V2.Y:=Src.Y-Fix1.Y;   Base[2,2]:=V2.Y;
-   V2.Z:=Src.Z-Fix1.Z;   Base[3,2]:=V2.Z;
-   with Cross(V1, V2) do
-    begin
-     Base[1,3]:=X;
-     Base[2,3]:=Y;
-     Base[3,3]:=Z;
-    end;
+   V1:=VecDiff(Fix2, Fix1);
+   V2:=VecDiff(Src, Fix1);
+   Base:=MatrixFromCols(V1, V2, Cross(V1, V2));
    g_DrawInfo.ModeDeplacement:=mdLinear;
    g_DrawInfo.Matrice:=MatriceInverse(Base);
-   V2.X:=Dest.X-Src.X;
-   V2.Y:=Dest.Y-Src.Y;
-   V2.Z:=Dest.Z-Src.Z;
+   V2:=VecDiff(Dest, Src);
    for I:=1 to 3 do
     begin
-     V1.X:=Pt[I].X-Fix1.X;
-     V1.Y:=Pt[I].Y-Fix1.Y;
-     V1.Z:=Pt[I].Z-Fix1.Z;
+     V1:=VecDiff(Pt[I], Fix1);
      TransformationLineaire(V1);   { V1 = vector Pt[I] in base Base }
      Pt[I].X:=Pt[I].X + V2.X*V1.Y;
      Pt[I].Y:=Pt[I].Y + V2.Y*V1.Y;

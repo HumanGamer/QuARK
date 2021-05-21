@@ -990,9 +990,7 @@ begin
        PrevL:=2;
        L:=0;
       repeat
-        W1.X:=V[L].X-V[PrevL].X;
-        W1.Y:=V[L].Y-V[PrevL].Y;
-        W1.Z:=V[L].Z-V[PrevL].Z;
+        W1:=VecDiff(V[L], V[PrevL]);
         Normale:=Cross(W1, W2);
         if Dot(V[L], Normale) <= Dot(g_DrawInfo.Clic, Normale) then
           Break;
