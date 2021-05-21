@@ -46,7 +46,6 @@ from quarkpy.perspective import *
 #import quarkpy.mapbezier
 #from quarkpy.b2utils import *
 
-halfpi = math.pi/2.0
 
 #############################
 #
@@ -111,7 +110,7 @@ def innerArcLine(n, p0, p1, p2):
     mat = matrix_u_v(p0-p1, p2-p1)
     points = [quarkx.vect(1,0,0)]
     for i in range(n):
-        a = halfpi*(i+1)/n
+        a = .5*math.pi*(i+1)/n
         next = quarkx.vect(1.0-math.sin(a), 1.0-math.cos(a), 0)
         points.append(next)
     points = map (lambda v,mat=mat,d=p1:d+mat*v, points)
@@ -131,7 +130,7 @@ def outerArcLine(n, p0, p1, p2):
             current = quarkx.vect(0,1,0)
             currdir = quarkx.vect(0,-1,0)
         else:
-            a = halfpi*(i+1)/(n+1)
+            a = .5*math.pi*(i+1)/(n+1)
             current = quarkx.vect(1.0-math.sin(a), 1.0-math.cos(a), 0)
             currdir = quarkx.vect(-math.cos(a), math.sin(a), 0)
         mid = intersectionPoint2d(prev,prevdir, current, currdir)

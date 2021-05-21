@@ -14,7 +14,6 @@ import math
 import quarkx
 from maputils import *
 
-halfpi = math.pi/2.0
 
 #
 # Here should go things of general utility for managing
@@ -537,7 +536,7 @@ def arcSubdivideLine(n, p0, p1, p2):
     last = points[0]
     lastdir = quarkx.vect(-1,0,0)
     for i in range(n):
-        a = halfpi*(i+1)/n
+        a = .5*math.pi*(i+1)/n
         next = quarkx.vect(1.0-math.sin(a), 1.0-math.cos(a), 0)
         nextdir = quarkx.vect(-math.cos(a), math.sin(a), 0)
         mid = intersectionPoint2d(last,lastdir, next, nextdir)
