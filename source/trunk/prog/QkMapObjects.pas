@@ -853,7 +853,7 @@ end;
  and VecteurNormalDirection(V) then
   begin
    TransformationLineaire(V);
-   AnglePlat:=Round(Round(AngleXY(V.X,V.Y) * (180/pi)));
+   AnglePlat:=Round(Round(AngleXY(V.X,V.Y) * Rad2Deg));
    case ModeAngle(Spec) of
     1: begin
         if Sqr(V.Z) > Sqr(V.X)+Sqr(V.Y) then
@@ -869,7 +869,7 @@ end;
     3: begin
         Chaine:=Specifics.Values[Spec];
         Dest:=ReadVector(Chaine);
-        Dest.X:=Round(AngleXY(Sqrt(Sqr(V.X)+Sqr(V.Y)), V.Z) * (-180/pi));
+        Dest.X:=Round(AngleXY(Sqrt(Sqr(V.X)+Sqr(V.Y)), V.Z) * -Rad2Deg);
         Dest.Y:=AnglePlat;
         Specifics.Values[Spec]:=vtos(Dest);
        end;

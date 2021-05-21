@@ -102,6 +102,7 @@ const
  rien = 1E-5;
  rien2 = 3E-3;
  Deg2Rad = Pi/180;
+ Rad2Deg = 180/Pi;
 
 type
  TModeProj = (VueXY, VueXZ, Vue3D);

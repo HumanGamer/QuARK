@@ -1461,8 +1461,8 @@ begin
 
         glMatrixMode(GL_MODELVIEW);
         glLoadIdentity;
-        glRotated(PitchAngle * (180/pi), -1,0,0);
-        glRotated(HorzAngle * (180/pi), 0,-1,0);
+        glRotated(PitchAngle * Rad2Deg, -1,0,0);
+        glRotated(HorzAngle * Rad2Deg, 0,-1,0);
         glRotated(120, -1,1,1);
         TransX:=-Camera.X;
         TransY:=-Camera.Y;
