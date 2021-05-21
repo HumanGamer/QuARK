@@ -846,12 +846,7 @@ def OptionsMenu():
 
     import plugins.mdlgridscale  #FIXME: Remove dependency!
     import plugins.mdlfacerulers  #FIXME: Remove dependency!
-    l1 = plugins.mdlgridscale.GridMenuCmds
-    l2 = [qmenu.sep]
-    l3 = plugins.mdlfacerulers.RulerMenuCmds
-    l4 = [qmenu.sep]
-    if len(l1):
-        Options1.items = l1 + l2 + l3 + l4 + Options1.items
+    Options1.items = plugins.mdlgridscale.GridMenuCmds + plugins.mdlfacerulers.RulerMenuCmds + [qmenu.sep] + Options1.items
 
     return Options1, shortcuts
 

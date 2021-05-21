@@ -249,11 +249,6 @@ def OptionsMenu():
 
     import plugins.mapgridscale #FIXME: Remove dependency!
     import plugins.mappolyrulers #FIXME: Remove dependency!
-    l1 = plugins.mapgridscale.GridMenuCmds
-    l2 = [qmenu.sep]
-    l3 = plugins.mappolyrulers.RulerMenuCmds
-    l4 = [qmenu.sep]
-    if len(l1):
-        Options1.items = l1 + l2 + l3 + l4 + Options1.items
+    Options1.items = plugins.mapgridscale.GridMenuCmds + plugins.mappolyrulers.RulerMenuCmds + [qmenu.sep] + Options1.items
 
     return Options1, shortcuts
