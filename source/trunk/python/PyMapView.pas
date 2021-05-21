@@ -2343,11 +2343,7 @@ begin
    Exit;
   Root:=QkObjFromPyObj(rootobj);
   if not (Root is Q3DObject) then
-   {Raise EErrorFmt(4438, ['3DObject']);}
-    begin
-     Result:=PyNoResult;
-     Exit;
-    end;
+   Raise EErrorFmt(4438, ['3DObject']);
   { tiglari }
   Restr:=QkObjFromPyObj(restrobj);
   g_DrawInfo.Restrictor:=Nil;
