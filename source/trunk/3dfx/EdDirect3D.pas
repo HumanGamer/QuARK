@@ -773,7 +773,7 @@ begin
           PL:=Lights;
           while Assigned(PL) do
           begin
-            Distance2:=(OpenGLAveragePosition[0]-PL.Position[0])*(OpenGLAveragePosition[0]-PL.Position[0])+(OpenGLAveragePosition[1]-PL.Position[1])*(OpenGLAveragePosition[1]-PL.Position[1])+(OpenGLAveragePosition[2]-PL.Position[2])*(OpenGLAveragePosition[2]-PL.Position[2]);
+            Distance2:=Sqr(OpenGLAveragePosition[0]-PL.Position[0])+Sqr(OpenGLAveragePosition[1]-PL.Position[1])+Sqr(OpenGLAveragePosition[2]-PL.Position[2]);
             //Distance2 = distance squared.
             Brightness:=PL.Brightness / Distance2; //FIXME: Not sure if this is right!
             for LightNR:=0 to MaxLights-1 do
