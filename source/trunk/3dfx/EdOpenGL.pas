@@ -69,7 +69,7 @@ type
    LightingQuality: Integer;
    NearDistance: GLdouble;
    OpenGLDisplayLists: array[0..2] of GLuint;
-   PixelFormat: PPixelFormatDescriptor;
+   PixelFormat: TPixelFormatDescriptor;
    Extensions: TGLExtensionList;
    procedure RenderPList(PList: PSurfaces; TransparentFaces: Boolean; SourceCoord: TCoordinates);
  protected
@@ -535,8 +535,8 @@ end;
 
 procedure TGLSceneObject.ChangedViewDC;
 begin
-  if (ViewDC<>0) and (PixelFormat<>Nil) then
-    SetPixelFormatOnDC(ViewDC, PixelFormat^);
+  if (ViewDC<>0) and (PixelFormat.nSize<>0) then
+    SetPixelFormatOnDC(ViewDC, PixelFormat);
 end;
 
 function TGLSceneObject.ChangeQuality(nQuality: Integer) : Boolean;
@@ -681,15 +681,13 @@ constructor TGLSceneObject.Create;
 begin
   inherited;
   RC:=0;
-  PixelFormat:=nil;
+  FillChar(PixelFormat, SizeOf(PixelFormat), 0);
   ResetExtensionList(Extensions);
 end;
 
 destructor TGLSceneObject.Destroy;
 begin
   ReleaseResources;
-  if PixelFormat<>Nil then
-    FreeMem(PixelFormat);
   inherited;
   if OpenGLLoaded then
     UnloadOpenGl;
@@ -801,13 +799,12 @@ begin
 
   SetViewDC(True);
   try
-    GetMem(PixelFormat, SizeOf(TPixelFormatDescriptor));
-    PixelFormat^:=FillPixelFormat(ViewDC);
+    PixelFormat:=FillPixelFormat(ViewDC);
     if ExtensionSupported('GL_WIN_swap_hint') then
       if (DisplayMode=dmFullScreen) then //@ Why? Also, disable AllowsGDI for fullscreen?
-        PixelFormat^.dwFlags:=PixelFormat^.dwFlags or PFD_SWAP_EXCHANGE
+        PixelFormat.dwFlags:=PixelFormat.dwFlags or PFD_SWAP_EXCHANGE
       else
-        PixelFormat^.dwFlags:=PixelFormat^.dwFlags or PFD_SWAP_COPY;
+        PixelFormat.dwFlags:=PixelFormat.dwFlags or PFD_SWAP_COPY;
     ChangedViewDC; //To set the pixelformat //@Need to changed base on WorkaroundGDI!!!
 
     if RC = 0 then
@@ -1366,6 +1363,7 @@ begin
     FLDCW [FPControl]
     FWAIT
   end;
+  try
 
   SetViewDC(True);
   try
@@ -1622,18 +1620,21 @@ begin
 
     glFinish();
     CheckOpenGLError('Render3DView: glFinish');
-  finally
-    wglMakeCurrent(0, 0);
-  end;
+
+    finally
+      wglMakeCurrent(0, 0);
+    end;
   finally
     SetViewDC(False);
   end;
 
-  if WorkaroundFPExceptions then
-  asm
-    FNCLEX
-    FLDCW [OldFPControl]
-    FWAIT
+  finally
+    if WorkaroundFPExceptions then
+    asm
+      FNCLEX
+      FLDCW [OldFPControl]
+      FWAIT
+    end;
   end;
 end;
 
