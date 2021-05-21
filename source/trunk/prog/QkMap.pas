@@ -3590,7 +3590,7 @@ var
       C:=Cos(A);
      {PX[2]:=Sqrt(Sqr(PX[2])+Sqr(PY[2]));}
       PX[2]:=PX[2]*C + PY[2]*S;
-      Params[3]:=A*(180/pi);
+      Params[3]:=A*Rad2Deg;
 
       PX[3]:=PX[3]-PX[1];
       PY[3]:=PY[3]*C - PX[3]*S;
