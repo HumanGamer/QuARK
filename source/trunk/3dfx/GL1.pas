@@ -617,6 +617,7 @@ const
 
 type
   TMatrix4f = packed array[0..3, 0..3] of GLdouble;
+  GLfloat2 = packed array[0..1] of GLfloat;
   GLfloat4 = packed array[0..3] of GLfloat;
 
 var

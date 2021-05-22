@@ -122,7 +122,7 @@ const
 type
  PVertex3D = ^TVertex3D;
  TVertex3D = record
-              st: packed array[0..1] of Single;
+              st: GLfloat2;
               xyz: vec3_t;
              end;
 
