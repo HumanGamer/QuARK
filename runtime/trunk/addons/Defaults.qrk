@@ -142,7 +142,7 @@ QQRKSRC1
         //Bilinear = "1" OLD SETTING, use TextureFiltering instead!
         TextureFiltering = "1"
         Ambient = '0.2'
-        LightingQuality = "4"
+        LightingQuality = "3"
         StillQuality = "0"
         MovingQuality = "2"
         DisableDWM = ""
