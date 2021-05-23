@@ -644,7 +644,7 @@ class TagHandle(qhandles.GenericHandle):
                 new_frame['origin'] = (quarkx.vect(new_frame.dictspec['origin']) + movediff).tuple
                 undo.exchange(frame, new_frame)
             undo.exchange(old_tag, new_tag)
-            self.editor.ok(undo, new_tag.shortname + ' snapped to grid')
+            editor.ok(undo, new_tag.shortname + ' snapped to grid')
 
         def delete_tag_click(m, self=self, editor=editor, view=view):
             import mdlmgr
