@@ -214,6 +214,36 @@ begin
 end;
 
 {$IFDEF PyProfiling}
+function AddressInfo(X: Cardinal): String;
+begin
+  Result:=IntToHex(X, 8);
+end;
+
+//Based on: https://stackoverflow.com/questions/15890029/delphi-obtain-stack-trace-after-exception
+function GetStackReport: AnsiString;
+var
+  retaddr, walker: ^pointer;
+begin
+  //FIXME: Start using jclDebug's GetLocationInfo for this?
+
+  // History of stack, ignore esp frame
+  asm
+    mov walker, ebp
+  end;
+
+  // assume return address is present above ebp
+  while Cardinal(walker^) <> 0 do
+  begin
+    if Cardinal(walker^)=1 then Exit;
+    retaddr := walker;
+    Inc(retaddr);
+    if result<>'' then
+      result := result + #13#10;
+    result := result + AddressInfo(Cardinal(retaddr^));
+    walker := walker^;
+  end;
+end;
+
 //Based on: https://stackoverflow.com/a/46523477
 function JoinArgs(const s: array of string): string;
 var
@@ -242,9 +272,9 @@ begin
   Timestamp := Now;
   {$I-}
   if PythonStackTrace<>nil then
-   WriteLn(LogProfileFile, Format('[%s %s] Thread %d, Location %s'#13#10'Arguments: %s'#13#10'Python stack trace:'#13#10'%s', [DateToStr(Timestamp), TimeToStr(Timestamp), GetCurrentThreadId, Location, JoinArgs(Args), PythonStackTrace.Text]))
+   WriteLn(LogProfileFile, Format('[%s %s] Thread %d, Location %s'#13#10'Arguments: %s'#13#10'Delphi stack trace:#13#10%s'#13#10'Python stack trace:'#13#10'%s', [DateToStr(Timestamp), TimeToStr(Timestamp), GetCurrentThreadId, Location, JoinArgs(Args), GetStackReport(), PythonStackTrace.Text]))
   else
-   WriteLn(LogProfileFile, Format('[%s %s] Thread %d, Location %s'#13#10'Arguments: %s'#13#10, [DateToStr(Timestamp), TimeToStr(Timestamp), GetCurrentThreadId, Location, JoinArgs(Args)]));
+   WriteLn(LogProfileFile, Format('[%s %s] Thread %d, Location %s'#13#10'Arguments: %s'#13#10'Delphi stack trace:#13#10%s'#13#10, [DateToStr(Timestamp), TimeToStr(Timestamp), GetCurrentThreadId, Location, JoinArgs(Args), GetStackReport()]));
   Flush(LogProfileFile);
   {$I+}
 end;
