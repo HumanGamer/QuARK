@@ -405,7 +405,7 @@ class ModelLayout(BaseLayout):
   ###  Settings for these specifics are read directly from the model file when it is imported.
     def bs_dataform(self, panel):
         ico_maped=ico_dict['ico_maped']
-        self.fp = panel.newpanel()
+        fp = panel.newpanel()
         sfskills = mdltypes  # The model type control list, see the "### globals" section above.
         for mdl in mdltypes:
             s = mdl
@@ -422,9 +422,9 @@ class ModelLayout(BaseLayout):
         helpbtn = qtoolbar.button(self.helpbtnclick, "", ico_maped, 13)
         helpbtn.local = 1
         self.buttons.update({"help": helpbtn, "sf": sfbtn})
-        self.bb = self.fp.newtoppanel(ico_maped_y,0).newbtnpanel([sfbtn, qtoolbar.widegap, helpbtn])
+        self.bb = fp.newtoppanel(ico_maped_y,0).newbtnpanel([sfbtn, qtoolbar.widegap, helpbtn])
         self.bb.margins = (0,0)
-        df = self.fp.newdataform()
+        df = fp.newdataform()
         df.allowedit = 1
         df.addremaining = 0
         # Lines below causes triple drawing and loss of selection.
@@ -437,7 +437,7 @@ class ModelLayout(BaseLayout):
         self.dataform = df
         self.dataform.onchange = self.filldataform # Causes form to reload the currently selected object to update
                                                    # any selection changes correctly, mainly for color selection.
-        return self.fp
+        return fp
 
 
     def bs_additionalpages(self, panel):
