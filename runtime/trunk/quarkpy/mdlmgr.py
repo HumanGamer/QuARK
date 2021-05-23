@@ -86,6 +86,7 @@ class ModelLayout(BaseLayout):
         lastmodelfaceremovedlist = []
         SkinView1 = None
         BaseLayout.clearrefs(self)
+        self.dataform = None
         self.skinform = None
         self.skinview = None
 
