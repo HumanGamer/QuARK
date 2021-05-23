@@ -558,8 +558,6 @@ class TagHandle(qhandles.GenericHandle):
         self.tagframe = tagframe
         self.cursor = CR_CROSSH
         self.undomsg = "mesh tag move"
-        import mdleditor
-        self.editor = mdleditor.mdleditor
         if not ico_dict.has_key('ico_objects'):
             ico_dict['ico_objects'] = LoadIconSet("images\\objects", 16)
 
@@ -666,7 +664,7 @@ class TagHandle(qhandles.GenericHandle):
 
 
     def draw(self, view, cv, draghandle=None):
-        editor = self.editor
+        editor = mapeditor()
         from qbaseeditor import flagsmouse
 
         # This stops the drawing of all the vertex handles during a Linear drag to speed drawing up.
