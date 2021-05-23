@@ -1734,6 +1734,8 @@ expected one.
     end;
     if not Surface.LoadData then
      Inc(InvFaces)
+    else if VecLength(Surface.Normale)< rien then
+     Inc(InvFaces)
     else
      case TxCommand of   { "//TX#" means that the three points already define the texture params themselves }
       '1': ;
@@ -1801,32 +1803,39 @@ expected one.
     P.SubElements.Add(Surface);
     Surface.SetThreePoints(V[1], V[3], V[2]);
     if not Surface.LoadData then
-      ShowMessage('LoadData failure');
-     { set relevant attributes }
-    { get 3points expressed in AxisBase coordinates
-       (see infobase|Src|Topics|Scale|Brush primitives) }
-    Denom:=R1.X*R2.Y-R1.Y*R2.X;
-    if Denom=0 then
+     Inc(InvFaces)
+    else if VecLength(Surface.Normale)< rien then
+     Inc(InvFaces)
+    else
     begin
-      g_MapError.AddText(Format(LoadStr1(5794), [FaceNum, BrushNum, HullNum+1]));
-      Denom := 0.000001;
+      { get 3points expressed in AxisBase coordinates
+         (see infobase|Src|Topics|Scale|Brush primitives) }
+      Denom:=R1.X*R2.Y-R1.Y*R2.X;
+      if Denom=0 then
+      begin
+        g_MapError.AddText(Format(LoadStr1(5794), [FaceNum, BrushNum, HullNum+1]));
+        Inc(InvFaces);
+      end
+      else
+      begin
+        P0.X:=(-R1.Z*R2.Y+R1.Y*R2.Z)/Denom;      {-a13*a22+a12*a23}
+        P0.Y:=-(R1.X*R2.Z-R1.Z*R2.X)/Denom;       {-(a11*a23-a13*a21)}
+        P0.Z:=0.0;
+        P1.X:=(-R1.Z*R2.Y+R2.Y+R1.Y*R2.Z)/Denom; {-a13*a22+a22+a12*a23}
+        P1.Y:=-(R1.X*R2.Z-R1.Z*R2.X+R2.X)/Denom;  {-(a11*a23-a13*a21+a21)}
+        P1.Z:=0.0;
+        P2.X:=(R1.Y*R2.Z+R1.Y-R1.Z*R2.Y)/Denom;  {a12*a23+a12-a13*a22}
+        P2.Y:=-(-R1.Z*R2.X+R1.X*R2.Z+R1.X)/Denom; {-(-a13*a21+a11*a23+a11)}
+        P2.Z:=0.0;
+        { Convert to map space }
+        GetAxisBase(Surface.Normale, TexS, TexT);
+        Tex0:=VecScale(Surface.Dist, Surface.Normale);
+        Matrix:=MatrixFromCols(TexS, TexT, ZVect);
+        P0:=VecSum(MatrixMultByVect(Matrix,P0),Tex0);
+        P1:=VecSum(MatrixMultByVect(Matrix,P1),Tex0);
+        P2:=VecSum(MatrixMultByVect(Matrix,P2),Tex0);
+      end;
     end;
-    P0.X:=(-R1.Z*R2.Y+R1.Y*R2.Z)/Denom;      {-a13*a22+a12*a23}
-    P0.Y:=-(R1.X*R2.Z-R1.Z*R2.X)/Denom;       {-(a11*a23-a13*a21)}
-    P0.Z:=0.0;
-    P1.X:=(-R1.Z*R2.Y+R2.Y+R1.Y*R2.Z)/Denom; {-a13*a22+a22+a12*a23}
-    P1.Y:=-(R1.X*R2.Z-R1.Z*R2.X+R2.X)/Denom;  {-(a11*a23-a13*a21+a21)}
-    P1.Z:=0.0;
-    P2.X:=(R1.Y*R2.Z+R1.Y-R1.Z*R2.Y)/Denom;  {a12*a23+a12-a13*a22}
-    P2.Y:=-(-R1.Z*R2.X+R1.X*R2.Z+R1.X)/Denom; {-(-a13*a21+a11*a23+a11)}
-    P2.Z:=0.0;
-    { Convert to map space }
-    GetAxisBase(Surface.Normale, TexS, TexT);
-    Tex0:=VecScale(Surface.Dist, Surface.Normale);
-    Matrix:=MatrixFromCols(TexS, TexT, ZVect);
-    P0:=VecSum(MatrixMultByVect(Matrix,P0),Tex0);
-    P1:=VecSum(MatrixMultByVect(Matrix,P1),Tex0);
-    P2:=VecSum(MatrixMultByVect(Matrix,P2),Tex0);
 
     { DanielPharos: We've got a problem here...
     Map versions 2 and higher explicitly put 'textures/' in front
@@ -1934,31 +1943,38 @@ expected one.
 
     Surface.SetFaceFromParams(normal, dist, StandardFaceParams); //DanielPharos: Using default texture params...
     if not Surface.LoadData then
-      ShowMessage('LoadData failure');
-
-    Denom:=R1.X*R2.Y-R1.Y*R2.X;
-    if Denom=0 then
+     Inc(InvFaces)
+    else if VecLength(Surface.Normale)< rien then
+     Inc(InvFaces)
+    else
     begin
-      g_MapError.AddText(Format(LoadStr1(5794), [FaceNum, BrushNum, HullNum+1]));
-      Denom := 0.000001;
+      Denom:=R1.X*R2.Y-R1.Y*R2.X;
+      if Denom=0 then
+      begin
+        g_MapError.AddText(Format(LoadStr1(5794), [FaceNum, BrushNum, HullNum+1]));
+        Inc(InvFaces);
+      end
+      else
+      begin
+        P0.X:=(-R1.Z*R2.Y+R1.Y*R2.Z)/Denom;      {-a13*a22+a12*a23}
+        P0.Y:=-(R1.X*R2.Z-R1.Z*R2.X)/Denom;       {-(a11*a23-a13*a21)}
+        P0.Z:=0.0;
+        P1.X:=(-R1.Z*R2.Y+R2.Y+R1.Y*R2.Z)/Denom; {-a13*a22+a22+a12*a23}
+        P1.Y:=-(R1.X*R2.Z-R1.Z*R2.X+R2.X)/Denom;  {-(a11*a23-a13*a21+a21)}
+        P1.Z:=0.0;
+        P2.X:=(R1.Y*R2.Z+R1.Y-R1.Z*R2.Y)/Denom;  {a12*a23+a12-a13*a22}
+        P2.Y:=-(-R1.Z*R2.X+R1.X*R2.Z+R1.X)/Denom; {-(-a13*a21+a11*a23+a11)}
+        P2.Z:=0.0;
+        { Convert to map space }
+        GetAxisBase(Surface.Normale, TexS, TexT);
+        {GetAxisBase(normal, TexS, TexT);    }
+        Tex0:=VecScale(Surface.Dist, Surface.Normale);
+        Matrix:=MatrixFromCols(TexS, TexT, ZVect);
+        P0:=VecSum(MatrixMultByVect(Matrix,P0),Tex0);
+        P1:=VecSum(MatrixMultByVect(Matrix,P1),Tex0);
+        P2:=VecSum(MatrixMultByVect(Matrix,P2),Tex0);
+        end;
     end;
-    P0.X:=(-R1.Z*R2.Y+R1.Y*R2.Z)/Denom;      {-a13*a22+a12*a23}
-    P0.Y:=-(R1.X*R2.Z-R1.Z*R2.X)/Denom;       {-(a11*a23-a13*a21)}
-    P0.Z:=0.0;
-    P1.X:=(-R1.Z*R2.Y+R2.Y+R1.Y*R2.Z)/Denom; {-a13*a22+a22+a12*a23}
-    P1.Y:=-(R1.X*R2.Z-R1.Z*R2.X+R2.X)/Denom;  {-(a11*a23-a13*a21+a21)}
-    P1.Z:=0.0;
-    P2.X:=(R1.Y*R2.Z+R1.Y-R1.Z*R2.Y)/Denom;  {a12*a23+a12-a13*a22}
-    P2.Y:=-(-R1.Z*R2.X+R1.X*R2.Z+R1.X)/Denom; {-(-a13*a21+a11*a23+a11)}
-    P2.Z:=0.0;
-    { Convert to map space }
-    GetAxisBase(Surface.Normale, TexS, TexT);
-    {GetAxisBase(normal, TexS, TexT);    }
-    Tex0:=VecScale(Surface.Dist, Surface.Normale);
-    Matrix:=MatrixFromCols(TexS, TexT, ZVect);
-    P0:=VecSum(MatrixMultByVect(Matrix,P0),Tex0);
-    P1:=VecSum(MatrixMultByVect(Matrix,P1),Tex0);
-    P2:=VecSum(MatrixMultByVect(Matrix,P2),Tex0);
 
     { DanielPharos: We've got a problem here...
     Map versions 2 and higher explicitly put 'textures/' in front
@@ -2738,6 +2754,17 @@ begin
      respectively (note sign swap) }
 
    D:=InvertDenom(P0, P1, P2);
+   if D=0.0 then
+   begin
+     Log(LOG_WARNING, LoadStr1(5825));
+     PX[1]:=0;
+     PX[2]:=0;
+     PX[3]:=0;
+     PY[1]:=0;
+     PY[2]:=0;
+     PY[3]:=0;
+     Exit;
+   end;
 
    PX[1]:=(P2.Y-P0.Y)/D;
    PX[2]:=(P0.X-P2.X)/D;

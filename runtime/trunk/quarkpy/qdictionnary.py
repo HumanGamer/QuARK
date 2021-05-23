@@ -1090,6 +1090,7 @@ Strings = {
     5822: "Registered to %s",
     5823: "%s on %s",
     5824: "Failed to parse poly: %s",
+    5825: "Invalid face data",
 
     # DanielPharos would like to reserve 6000 .. 6099 for all renderers
     6000: "Unable to create SceneObject//%s",
