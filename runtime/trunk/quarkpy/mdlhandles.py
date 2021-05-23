@@ -1930,9 +1930,7 @@ class VertexHandle(qhandles.GenericHandle):
             Xapv_m2.state = quarkx.setupsubset(SS_MODEL,"Options").getint("APVexs_Method2")
             return menulist
 
-        def align_vert_ops_click(m):
-            import mdleditor
-            editor = mdleditor.mdleditor
+        def align_vert_ops_click(m, editor=editor):
             m.items = AlignVertOpsMenu(editor)
 
         if len(editor.ModelVertexSelList) > 2:
