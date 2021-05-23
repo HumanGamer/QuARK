@@ -27,14 +27,13 @@ CompList = ""
 camsel = None
 
 
-def defCompList():
+def defCompList(root):
     global CompList
-    editor = mdleditor.mdleditor
 
     items = []
     values = []
     comps = []
-    for item in editor.Root.subitems:
+    for item in root.subitems:
         if item.name.endswith(":mc"):
             items = items + ['"' + item.shortname + '"' + "$0D"]
             values = values + ['"' + item.name + '"' + "$0D"]
@@ -67,7 +66,7 @@ def find_vertices_click(m):
     editor = mdleditor.mdleditor
 
     # Calls for the global list "CompList" to be created.
-    defCompList()
+    defCompList(editor.Root)
 
     # This loads the relevant data into the dialog, gets
     #  recalled after changes.
@@ -148,7 +147,7 @@ def find_faces_click(m):
     editor = mdleditor.mdleditor
 
     # Calls for the global list "CompList" to be created.
-    defCompList()
+    defCompList(editor.Root)
 
     # This loads the relevant data into the dialog, gets
     #  recalled after changes.
@@ -229,7 +228,7 @@ def find_skin_vertices_click(m):
     editor = mdleditor.mdleditor
 
     # Calls for the global list "CompList" to be created.
-    defCompList()
+    defCompList(editor.Root)
 
     # This loads the relevant data into the dialog, gets
     #  recalled after changes.
@@ -335,7 +334,7 @@ def find_skin_faces_click(m):
     editor = mdleditor.mdleditor
 
     # Calls for the global list "CompList" to be created.
-    defCompList()
+    defCompList(editor.Root)
 
     # This loads the relevant data into the dialog, gets
     #  recalled after changes.
