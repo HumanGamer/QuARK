@@ -1212,7 +1212,7 @@ procedure T2DCoordinates.InitProjVar;
 begin
  inherited;
 {Facteur:=1/Sqr(pProjZ);}
- FastDisplay:=CheckWindowsNT or (pProjZ<=2);
+ FastDisplay:=CheckWindowsNT or (pProjZ<=2); //FIXME: Why pProjZ here?
  FlatDisplay:=True;
  HiddenRegions:=os_Left or os_Right or os_Top or os_Bottom;
 end;
