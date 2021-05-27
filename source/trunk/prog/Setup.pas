@@ -36,6 +36,7 @@ between gamemodes.}
  mjHexen        = '2';
  mjHalfLife     = '3';
  mjGenesis3D    = '4';
+ mjCoF          = '5';
  {..up to '9' Quake-style games may exist..}
 
  mjQuake2       = 'A';

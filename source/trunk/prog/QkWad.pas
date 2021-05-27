@@ -301,7 +301,7 @@ begin
       Repertoire:=TMemoryStream.Create;
       try
         Header.NoOfFileEntries:=0;
-        if CharModeJeu=mjHalfLife then
+        if (CharModeJeu=mjHalfLife) or (CharModeJeu=mjCoF) then
           HalfLifeWad3:=True {If selected gamemode is HalfLife, the user is most likely to save it as WAD3 format}
         else
           HalfLifeWad3:=False;
@@ -502,7 +502,7 @@ begin
            Q:=OpenFileObjectData(F, S, Size, Self)
           end
          else
-          if (CharModeJeu = mjHalfLife) then
+          if (CharModeJeu = mjHalfLife) or (CharModeJeu = mjCoF) then
            {Decker - If we're in Half-Life gamemode, then load as '.wad3_C' type}
            Q:=OpenFileObjectData(F, S+'.wad3_C', Size, Self)
           else
