@@ -2521,7 +2521,7 @@ begin
         Result:=mjSylphis;
 
     end;
-    mjQ3A:
+  mjQ3A:
     { FIXME:  barf coding, the idea is that  if Q3a mode
       is detected, we stay in the current game mode if it's
       one of the Q3A-format games, otherwise switch to Q3A }
