@@ -664,7 +664,7 @@ QQRKSRC1
         Game = "Cry of Fear"
         Code = "5" // Hardcoded value in Setup.PAS
 
-        Program = "cof.EXE -console -dev -nointro +set sv_cheats 1"
+        Program = "cof.EXE -basedir %basedir% -console -dev -nointro +set sv_cheats 1"
         Directory = "\Cry of Fear"
         CheckDirectory = "cof.EXE"
 
@@ -3977,8 +3977,8 @@ QQRKSRC1
       Program: = {
         Typ = "C"     // combo box
         Txt = "Cry of Fear command-line"
-        Items = "cof.EXE"
-             $0D"cof.EXE -console -dev -nointro +set sv_cheats 1"
+        Items = "cof.EXE -basedir %basedir%"
+             $0D"cof.EXE -basedir %basedir% -console -dev -nointro +set sv_cheats 1"
         t_ProgramHint=!
       }
       Directory: =
