@@ -673,15 +673,15 @@ QQRKSRC1
         ForceFaceFlags = ""
 
         BuildPgm1  = "HLCSG.EXE"
-        BuildArgs1 = ""
+        BuildArgs1 = "-nowadtextures -texdata 16000"
         BuildCheck1= "+BSP"
         BuildPgm2  = "HLBSP.EXE"
-        BuildArgs2 = ""
+        BuildArgs2 = "-texdata 16000"
         BuildCheck2= "+BSP,+PRT,-PTS{LoadLinFile}"
         BuildPgm3  = "HLVIS.EXE"
-        BuildArgs3 = ""
-        BuildPgm4  = "HLRAD.EXE"
-        BuildArgs4 = ""
+        BuildArgs3 = "-texdata 16000"
+        BuildPgm4  = "bumprad.EXE"
+        BuildArgs4 = "-texdata 16000"
 
         DefaultTexture = "c2_wall5"
         DefaultTextureTrigger = "AAATRIGGER"
@@ -698,7 +698,7 @@ QQRKSRC1
         TextureWriteFormat = ".wad3_C"
 
         BaseDir = "cryoffear"
-        tmpQuArK = "tmpQuArK"
+        tmpQuArK = "cryoffear"
 
         MapHoles = ".pts"
         Palette = "gfx/palette.lmp"
