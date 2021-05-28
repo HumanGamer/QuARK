@@ -36,43 +36,46 @@ def EscClick(m):
 
 def DetailClick(m):
     editor = mapeditor(SS_MAP)
-    if editor is not None:
-        undo = quarkx.action()
-        items = editor.layout.explorer.sellist
+    if editor is None: return
 
-        # Quickly defined function within function.
-        def SwapFlag(ContentsString, flagvalue=134217728):
-            if (ContentsString == None):
-                contents_integer = 0
-            else:
-                contents_integer = int(ContentsString)
+    undo = quarkx.action()
+    items = editor.layout.explorer.sellist
 
-            if ((contents_integer & flagvalue) == flagvalue):
-                contents_integer = (contents_integer - flagvalue)
-            else:
-                contents_integer = (contents_integer | flagvalue)
-            return str(contents_integer)
+    # Quickly defined function within function.
+    def SwapFlag(ContentsString, flagvalue=134217728):
+        if (ContentsString == None):
+            contents_integer = 0
+        else:
+            contents_integer = int(ContentsString)
 
-        # Loop through all items, one by one
-        for item in items:
-            if item.type == ":f":
-                # The item is a single face, so swap its flag
-                undo.setspec(item, 'Contents', SwapFlag(item['Contents']))
-            elif item.type == ":p":
-                # The item is a polyhedron, which may consist of several faces (or other stuff)
-                for subitem in item.faces:
-                    if subitem.type == ":f":
-                        undo.setspec(subitem, 'Contents', SwapFlag(subitem['Contents']))
+        if ((contents_integer & flagvalue) == flagvalue):
+            contents_integer = (contents_integer - flagvalue)
+        else:
+            contents_integer = (contents_integer | flagvalue)
+        return str(contents_integer)
 
-        undo.ok(editor.Root, "swap detail flag")
-        editor.layout.explorer.sellist = items
+    # Loop through all items, one by one
+    for item in items:
+        if item.type == ":f":
+            # The item is a single face, so swap its flag
+            undo.setspec(item, 'Contents', SwapFlag(item['Contents']))
+        elif item.type == ":p":
+            # The item is a polyhedron, which may consist of several faces (or other stuff)
+            for subitem in item.faces:
+                if subitem.type == ":f":
+                    undo.setspec(subitem, 'Contents', SwapFlag(subitem['Contents']))
+
+    undo.ok(editor.Root, "swap detail flag")
+    editor.layout.explorer.sellist = items
 
 def UnfreezeClick(m):
     editor = mapeditor(SS_MAP)
+    if editor is None: return
     delAttr(editor, 'frozenselection')
 
 def FreezeClick(m):
     editor = mapeditor(SS_MAP)
+    if editor is None: return
     editor.frozenselection = 1
 
 
