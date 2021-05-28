@@ -572,19 +572,19 @@ def MakeUserDataFile(root, QuArKpath, gamename, gameenginetype, gamefileslocatio
     newfilesfolderpath = QuArKpath + '\\' + gamename
 
     if gameenginetype == "Half-Life":
-        input = open(QuArKpath + '\\addons\\Half-Life\\UserData Half-Life.qrk')
+        input = open(QuArKpath + '\\addons\\Half-Life\\UserData Half-Life.qrk', "r")
     elif gameenginetype == "Half-Life2":
-        input = open(QuArKpath + '\\addons\\Half-Life2\\UserData Half-Life2.qrk')
+        input = open(QuArKpath + '\\addons\\Half-Life2\\UserData Half-Life2.qrk', "r")
     elif gameenginetype == "Quake 1":
-        input = open(QuArKpath + '\\addons\\Quake_1\\UserData Quake 1.qrk')
+        input = open(QuArKpath + '\\addons\\Quake_1\\UserData Quake 1.qrk', "r")
     elif gameenginetype == "Quake 2":
-        input = open(QuArKpath + '\\addons\\Quake_2\\UserData Quake 2.qrk')
+        input = open(QuArKpath + '\\addons\\Quake_2\\UserData Quake 2.qrk', "r")
     elif gameenginetype == "Quake 3":
-        input = open(QuArKpath + '\\addons\\Quake_3\\UserData Quake 3.qrk')
+        input = open(QuArKpath + '\\addons\\Quake_3\\UserData Quake 3.qrk', "r")
     elif gameenginetype == "Doom 3":
-        input = open(QuArKpath + '\\addons\\Doom_3\\UserData Doom 3.qrk')
+        input = open(QuArKpath + '\\addons\\Doom_3\\UserData Doom 3.qrk', "r")
     else:
-        input = open(QuArKpath + '\\addons\\Quake_3\\UserData Quake 3.qrk')
+        input = open(QuArKpath + '\\addons\\Quake_3\\UserData Quake 3.qrk', "r")
     output = open(newfilesfolderpath + '\\' + ('UserData ' + gamename + '.qrk'), "w")
 
     while 1:

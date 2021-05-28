@@ -245,7 +245,7 @@ def AddItemClick(m):
             text = ""
 
             try:
-                f = open(quarkx.exepath + "plugins\map1AddonsMenuEdit.py")
+                f = open(quarkx.exepath + "plugins\map1AddonsMenuEdit.py", "r")
             except (IOError):
 
 
@@ -296,7 +296,7 @@ def AddItemClick(m):
             mapfile = self.src["mapfile"]
             objfile = mapfile.replace("\\", "/")
 
-            f = open(quarkx.exepath + "plugins\map1AddonsMenuEdit.py")
+            f = open(quarkx.exepath + "plugins\map1AddonsMenuEdit.py", "r")
 
             while 1:
                 line = f.readline()
@@ -426,7 +426,7 @@ class DeleteDlg(quarkpy.qmacro.dialogbox):
         othertext = ''
 
         try:
-            f = open(quarkx.exepath + "plugins\map1AddonsMenuEdit.py")
+            f = open(quarkx.exepath + "plugins\map1AddonsMenuEdit.py", "r")
 
         except (IOError):
             quarkx.msgbox("No custom items have been\nadded to the Category menus\n\n    Nothing To Do", MT_INFORMATION, MB_OK)
@@ -612,7 +612,7 @@ def RemoveItemClick(m):
 # ******** If map1AddonsMenuEdit.py file exists but no items ********
 
     try:
-        f = open(quarkx.exepath + "plugins\map1AddonsMenuEdit.py")
+        f = open(quarkx.exepath + "plugins\map1AddonsMenuEdit.py", "r")
 
         NbrOfBoxes = 0
 
@@ -675,7 +675,7 @@ def RemoveItemClick(m):
 # Opens the data file and starts rewrite function
 # Data input file
 
-        f = open(quarkx.exepath + "plugins\map1AddonsMenuEdit.py")
+        f = open(quarkx.exepath + "plugins\map1AddonsMenuEdit.py", "r")
         while 1:
             file = f.readline()
             if file == '': # completely empty line means end-of-file
@@ -721,7 +721,7 @@ def RemoveItemClick(m):
         DulLines = ""
         holdLFs = ""
         SpacerWord = ""
-        f = open(quarkx.exepath + "plugins\map1AddonsMenuEdit.py")
+        f = open(quarkx.exepath + "plugins\map1AddonsMenuEdit.py", "r")
         while 1:
             file = f.readline()
             if file == '': # completely empty line means end-of-file
@@ -805,7 +805,7 @@ def RemoveItemClick(m):
         text = ""
         flag = 0
         DulLines = "#===========================================\n"
-        f = open(quarkx.exepath + "plugins\map1AddonsMenuEdit.py")
+        f = open(quarkx.exepath + "plugins\map1AddonsMenuEdit.py", "r")
         while 1:
             file = f.readline()
             if file == '': # completely empty line means end-of-file

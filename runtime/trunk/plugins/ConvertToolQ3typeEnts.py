@@ -198,7 +198,7 @@ def Q3typeEntList(root, QuArKpath, gamename, gamefileslocation,
                 continue
             for name in filenames:
                 if name.endswith(entitiesfiletype) and name != OutPutList:
-                    input = open(os.path.join(foldername, name))
+                    input = open(os.path.join(foldername, name), "r")
                     HandleInput(input)
 
     o.close()

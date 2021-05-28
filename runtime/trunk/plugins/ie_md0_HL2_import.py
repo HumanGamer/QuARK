@@ -301,9 +301,9 @@ def LookForSkins(skin_names, skins_group, materials_group, folder_name, mdl_name
             material = dir + '/' + material
         else:
             material = cur_dir + '/' + material
-        i = open(material)
+        input = open(material, "r")
         while 1:
-            s = i.readline()
+            s = input.readline()
             if s == '':
                 break
             if s.find('$basetexture') != -1:
@@ -335,7 +335,7 @@ def LookForSkins(skin_names, skins_group, materials_group, folder_name, mdl_name
                             break
             if texture is not None:
                 break
-        i.close()
+        input.close()
         return texture, material
 
     for skin_name in range(len(skin_names)):
