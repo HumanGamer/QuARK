@@ -8,6 +8,7 @@ There are some steps only the webmaster can perform, because it involves modifyi
 <li>If this is the new recommended build, mark it as such in SourceForge downloads.</li>
 <li>If new game support was added, update the description on SourceForge to reflect the new number of games supported.</li>
 <li>If the description was updated, also update it in the website code's META-tag.</li>
+<li>If the description was updated, also update it in the main/index-page's text.</li>
 <li>Add the new QuArK release to the website's database.</li>
 <li>If this is the new recommended build, make sure that indicated on the website download page as well.</li>
 <li>Update the download link to the Infobase files on the download page, if needed.</li>
