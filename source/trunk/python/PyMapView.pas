@@ -863,25 +863,30 @@ end;
 procedure ScreenCrossCursor(DeltaX, DeltaY: Integer);
 var
  C: HCursor;
- Bits: PChar;
+ BitsAND, BitsXOR: PChar;
  W, H, I: Integer;
 begin
+ //This creates a 17x17 cross cursor with a hotspot-offset so that the
+ //center of the cross aligns perfectly with the center of (for example)
+ //a handle.
  Screen.Cursor:=crCross;
  W:=GetSystemMetrics(sm_CxCursor) div 8;
  if W<3 then W:=4;
  H:=GetSystemMetrics(sm_CyCursor);
  if H<17 then H:=32;
- GetMem(Bits, W*H*2); try
- FillChar(Bits^, W*H, 0);
- FillChar(Bits[W*H], W*H, $FF);
- Bits[W*8]:=#$FF;
+ GetMem(BitsXOR, W*H); try
+ GetMem(BitsAND, W*H); try
+ FillChar(BitsXOR^, W*H, 0);
+ FillChar(BitsAND^, W*H, $FF);
+ BitsXOR[W*8]:=#$FF;
  for I:=0 to 16 do
-  Bits[W*I+1]:=#$80;
- Bits[W*8+1]:=#$FF;
- Bits[W*8+2]:=#$80;
- C:=CreateCursor(HInstance, 8-DeltaX, 8-DeltaY, W*8,H, Bits+W*H, Bits);
- Screen.Cursors[crCrossHS]:=C;
- finally FreeMem(Bits); end;
+  BitsXOR[W*I+1]:=#$80;
+ BitsXOR[W*8+1]:=#$FF;
+ BitsXOR[W*8+2]:=#$80;
+ C:=CreateCursor(HInstance, 8-DeltaX, 8-DeltaY, W*8,H, BitsAND, BitsXOR);
+ Screen.Cursors[crCrossHS]:=C; //Note: Delphi will call the DestroyCursor function.
+ finally FreeMem(BitsAND); end;
+ finally FreeMem(BitsXOR); end;
  if C<>0 then
   Screen.Cursor:=crCrossHS;
 end;
