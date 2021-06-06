@@ -75,6 +75,8 @@ var
   SetDllDirectory: function (lpPathName : LPCTSTR) : BOOL; stdcall;
   IsWow64Process: function (hProcess : THandle; var Wow64Process : BOOL): BOOL; stdcall;
 
+function CopyCursor(pcur: HCursor): HCursor; // This is a macro that wasn't converted
+
 {$ifndef Delphi7orNewerCompiler} // Pre-dates Delphi 7
 const
   SM_CXVIRTUALSCREEN = 78;
@@ -159,6 +161,11 @@ type
   ssize_t = Integer;  //This appears to be true in (32-bit) Delphi
 
 implementation
+
+function CopyCursor(pcur: HCursor): HCursor;
+begin
+  Result:=HCURSOR(CopyIcon(HICON(pcur)));
+end;
 
 {$ifndef Delphi5orNewerCompiler}
 function CompareMem(P1, P2: Pointer; Length: Integer): Boolean; assembler;
