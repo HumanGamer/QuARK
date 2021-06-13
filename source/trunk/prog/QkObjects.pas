@@ -1101,11 +1101,11 @@ var
   I: Integer;
  {F: TSearchRec;}
 begin
-  Result:=SizeOf(QObject)+QObject.InstanceSize;
+  Result:=QObject.InstanceSize;
 
   { adds the size of the loaded data }
   for I:=0 to Specifics.Count-1 do
-    Inc(Result, SizeOf(String)+Length(Specifics[I]));
+    Inc(Result, SizeOf(String)+Length(Specifics[I])*SizeOf(Char));
 
   for I:=0 to SubElements.Count-1 do
     Inc(Result, SubElements[I].GetObjectSize(Loaded, LoadNow));
