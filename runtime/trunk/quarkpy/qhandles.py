@@ -1437,6 +1437,7 @@ class FreeZoomDragObject(DragObject):
                 if editor is None:
                     quarkx.clickform = self.view.owner
                     editor = mapeditor()
+                import mdleditor
                 mdleditor.commonhandles(editor)
             else:
                 self.view.repaint()
