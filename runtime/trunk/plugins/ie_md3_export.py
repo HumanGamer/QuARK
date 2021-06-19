@@ -19,7 +19,6 @@ import time, os, struct, math
 import quarkx
 import quarkpy.qtoolbar
 from quarkpy.qutils import *
-import quarkpy.mdleditor
 import ie_utils
 from ie_utils import tobj
 from quarkpy.qdictionnary import Strings
@@ -528,6 +527,8 @@ def save_md3(self):
 # For example:  C:\Quake 3 Arena\baseq3\models\players\sarge\head.md3.
 # gamename is None.
 def savemodel(root, filename, gamename, nomessage=0):
+    global editor
+    import quarkpy.mdleditor
     editor = quarkpy.mdleditor.mdleditor
     if editor is None:
         return

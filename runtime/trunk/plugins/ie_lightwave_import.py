@@ -2518,6 +2518,7 @@ quarkpy.qmdlbase.RegisterMdlImporter(".lwo LightWave Importer", ".lwo file", "*.
 def vtxcolorclick(btn):
     global editor
     if editor is None:
+        import quarkpy.mdleditor
         editor = quarkpy.mdleditor.mdleditor # Get the editor.
     if quarkx.setupsubset(SS_MODEL, "Options")["LinearBox"] == "1":
         editor.ModelVertexSelList = []
@@ -2531,6 +2532,7 @@ def vtxcolorclick(btn):
 def colorclick(btn):
     global editor
     if editor is None:
+        import quarkpy.mdleditor
         editor = quarkpy.mdleditor.mdleditor # Get the editor.
     if not quarkx.setupsubset(SS_MODEL, "Options")['VertexUVColor'] or quarkx.setupsubset(SS_MODEL, "Options")['VertexUVColor'] == "0":
         quarkx.setupsubset(SS_MODEL, "Options")['VertexUVColor'] = "1"
@@ -2596,6 +2598,7 @@ def dataformname(o):
 
     global editor
     if editor is None:
+        import quarkpy.mdleditor
         editor = quarkpy.mdleditor.mdleditor # Get the editor.
     from quarkpy.qeditor import ico_dict # Get the dictionary list of all icon image files available.
     ico_mdlskv = ico_dict['ico_mdlskv']  # Just to shorten our call later.
@@ -2635,6 +2638,7 @@ def dataforminput(o):
 
     global editor
     if editor is None:
+        import quarkpy.mdleditor
         editor = quarkpy.mdleditor.mdleditor # Get the editor.
     DummyItem = Item = o
     while (DummyItem.type != ":mc"): # Gets the object's model component.

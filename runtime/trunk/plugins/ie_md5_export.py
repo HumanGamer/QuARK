@@ -20,7 +20,6 @@ import quarkx
 import quarkpy.qmacro
 import quarkpy.qtoolbar
 from quarkpy.qutils import *
-import quarkpy.mdleditor
 from types import *
 import ie_utils
 from ie_utils import tobj
@@ -929,6 +928,7 @@ def save_md5(self):
 # For example:  C:Program Files\Doom 3\base\models\md5\monsters\archvile\archvile.md5mesh or attack1.md5anim.
 # gamename is None.
 def savemodel(root, filename, gamename, nomessage=0):
+    import quarkpy.mdleditor
     editor = quarkpy.mdleditor.mdleditor
     if editor is None:
         return

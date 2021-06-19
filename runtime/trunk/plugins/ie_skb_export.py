@@ -17,7 +17,6 @@ Info = {
 
 import struct, os, math
 import quarkx
-import quarkpy.mdleditor
 from quarkpy.qutils import *
 from types import *
 import quarkpy.mdlutils
@@ -1085,6 +1084,7 @@ def savemodel(root, filename, gamename):
     #   gamename is None.
 
     global editor, progressbar, tobj, logging, exportername, textlog, file_version, ModelFolder
+    import quarkpy.mdleditor
     editor = quarkpy.mdleditor.mdleditor
     # Step 1 to import model from QuArK's Explorer.
     if editor is None:

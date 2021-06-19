@@ -19,7 +19,6 @@ import struct, os, math
 import quarkx
 import quarkpy.qtoolbar
 from quarkpy.qutils import *
-import quarkpy.mdleditor
 from types import *
 import ie_utils
 from ie_utils import tobj
@@ -2479,6 +2478,7 @@ def save_mdl(dlg):
 def savemodel(root, filename, gamename, nomessage=0):
     global editor
     editor = quarkpy.mdleditor.mdleditor
+    import quarkpy.mdleditor
     if editor is None:
         return
 

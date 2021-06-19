@@ -22,7 +22,6 @@ import struct, os, Lib, Lib.base64
 from quarkpy.qutils import *
 from quarkpy.qeditor import MapColor # Strictly needed for QuArK bones MapColor call.from types import *
 import quarkpy.mdlutils
-import quarkpy.mdleditor
 import ie_utils
 from ie_utils import tobj
 import math
@@ -1176,6 +1175,7 @@ def LoadGR2MSFile(MSfilename):
 
 def loadmodel(root, filename, gamename, nomessage=0):
     global editor, used_skin_names, Strings
+    import quarkpy.mdleditor
     editor = quarkpy.mdleditor.mdleditor
     # Step 1 to import model from QuArK's Explorer.
     if editor is None:
@@ -2198,6 +2198,7 @@ quarkpy.qmdlbase.RegisterMdlImporter(".gr2 Importer", ".gr2 mesh or anim file", 
 def vtxcolorclick(btn):
     global editor
     if editor is None:
+        import quarkpy.mdleditor
         editor = quarkpy.mdleditor.mdleditor # Get the editor.
     if quarkx.setupsubset(SS_MODEL, "Options")["LinearBox"] == "1":
         editor.ModelVertexSelList = []
@@ -2213,6 +2214,7 @@ def colorclick(btn):
     global editor
     import quarkpy.qtoolbar # Get the toolbar functions to make the button with.
     if editor is None:
+        import quarkpy.mdleditor
         editor = quarkpy.mdleditor.mdleditor # Get the editor.
     if not quarkx.setupsubset(SS_MODEL, "Options")['VertexUVColor'] or quarkx.setupsubset(SS_MODEL, "Options")['VertexUVColor'] == "0":
         quarkx.setupsubset(SS_MODEL, "Options")['VertexUVColor'] = "1"
@@ -2286,6 +2288,7 @@ def dataformname(o):
 
     from quarkpy.qeditor import ico_dict # Get the dictionary list of all icon image files available.
     import quarkpy.qtoolbar              # Get the toolbar functions to make the button with.
+    import quarkpy.mdleditor
     editor = quarkpy.mdleditor.mdleditor # Get the editor.
     ico_mdlskv = ico_dict['ico_mdlskv']  # Just to shorten our call later.
     icon_btns = {}                       # Setup our button list, as a dictionary list, to return at the end.

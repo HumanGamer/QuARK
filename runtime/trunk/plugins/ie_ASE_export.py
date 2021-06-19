@@ -20,7 +20,6 @@ import quarkx
 import quarkpy.qmacro
 import quarkpy.qtoolbar
 from quarkpy.qutils import *
-import quarkpy.mdleditor
 from types import *
 import ie_utils
 from ie_utils import tobj
@@ -1444,6 +1443,7 @@ def save_ASE(self):
 # For example:  C:Program Files\Doom 3\base\models\mapobjects\washroom\toilet.ase
 # gamename is None.
 def savemodel(root, filename, gamename, nomessage=0):
+    import quarkpy.mdleditor
     editor = quarkpy.mdleditor.mdleditor
     if editor is None:
         return

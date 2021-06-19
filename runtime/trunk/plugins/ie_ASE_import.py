@@ -1422,6 +1422,7 @@ def dataformname(o):
 
     from quarkpy.qeditor import ico_dict # Get the dictionary list of all icon image files available.
     import quarkpy.qtoolbar              # Get the toolbar functions to make the button with.
+    import quarkpy.mdleditor
     editor = quarkpy.mdleditor.mdleditor # Get the editor.
     ico_mdlskv = ico_dict['ico_mdlskv']  # Just to shorten our call later.
     icon_btns = {}                       # Setup our button list, as a dictionary list, to return at the end.
@@ -1981,7 +1982,7 @@ def dataformname(o):
 
 def dataforminput(o):
     "Returns the default settings or input data for this type of object 'o' (a model component & others) to use for the Specific/Args page."
-
+    import quarkpy.mdleditor
     editor = quarkpy.mdleditor.mdleditor # Get the editor.
 
     # This section just for o objects that are skin textures.

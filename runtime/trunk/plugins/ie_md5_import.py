@@ -1407,6 +1407,7 @@ def import_md5_model(basepath, md5_filename):
 
     # basepath just the path to the "game" folder.
     # md5_filename is the full path and file name.
+    import quarkpy.mdleditor
     editor = quarkpy.mdleditor.mdleditor
     pth, actionname = os.path.split(md5_filename)
     if md5_filename.endswith(".md5mesh"): # Calls to load the .md5_mesh file.
@@ -1591,6 +1592,7 @@ quarkpy.qmdlbase.RegisterMdlImporter(".md5anim Doom3\Quake4 Importer", ".md5anim
 def vtxcolorclick(btn):
     global editor
     if editor is None:
+        import quarkpy.mdleditor
         editor = quarkpy.mdleditor.mdleditor # Get the editor.
     if quarkx.setupsubset(SS_MODEL, "Options")["LinearBox"] == "1":
         editor.ModelVertexSelList = []
@@ -1604,6 +1606,7 @@ def vtxcolorclick(btn):
 def colorclick(btn):
     global editor
     if editor is None:
+        import quarkpy.mdleditor
         editor = quarkpy.mdleditor.mdleditor # Get the editor.
     if not quarkx.setupsubset(SS_MODEL, "Options")['VertexUVColor'] or quarkx.setupsubset(SS_MODEL, "Options")['VertexUVColor'] == "0":
         quarkx.setupsubset(SS_MODEL, "Options")['VertexUVColor'] = "1"
@@ -1665,6 +1668,7 @@ def dataformname(o):
 
     global editor
     if editor is None:
+        import quarkpy.mdleditor
         editor = quarkpy.mdleditor.mdleditor # Get the editor.
     from quarkpy.qeditor import ico_dict # Get the dictionary list of all icon image files available.
     ico_mdlskv = ico_dict['ico_mdlskv']  # Just to shorten our call later.

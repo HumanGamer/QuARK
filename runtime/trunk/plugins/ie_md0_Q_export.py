@@ -460,6 +460,7 @@ def animate_mdl(mdl, file, frames): # The Frames Group is made here & returned t
 ######################################################
 def save_mdl(filename):
     global editor, tobj, logging, exportername, textlog, Strings
+    import quarkpy.mdleditor
     editor = quarkpy.mdleditor.mdleditor
     if editor is None:
         return

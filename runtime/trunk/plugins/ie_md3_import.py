@@ -1364,6 +1364,7 @@ def dataformname(o):
     }
     """
 
+    import quarkpy.mdleditor
     editor = quarkpy.mdleditor.mdleditor # Get the editor.
     icon_btns = {}                       # Setup our button list, as a dictionary list, to return at the end.
 
@@ -1387,6 +1388,7 @@ def dataformname(o):
 def dataforminput(o):
     "Returns the default settings or input data for this type of object 'o' (a model component & others) to use for the Specific/Args page."
 
+    import quarkpy.mdleditor
     editor = quarkpy.mdleditor.mdleditor # Get the editor.
     DummyItem = Item = o
     while (DummyItem.type != ":mc"): # Gets the object's model component.

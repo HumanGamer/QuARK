@@ -17,7 +17,6 @@ Info = {
 
 import struct, chunk, os, time
 import quarkx
-import quarkpy.mdleditor
 from types import *
 import ie_utils
 from ie_utils import tobj
@@ -1005,6 +1004,7 @@ def build_GL_commands(mdx, component):
 ######################################################
 def save_mdx(filename):
     global editor, tobj, logging, exportername, textlog, Strings
+    import quarkpy.mdleditor
     editor = quarkpy.mdleditor.mdleditor
     if editor is None:
         return

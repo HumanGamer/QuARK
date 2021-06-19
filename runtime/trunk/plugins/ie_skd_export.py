@@ -17,7 +17,6 @@ Info = {
 
 import struct, os, math
 import quarkx
-import quarkpy.mdleditor
 from quarkpy.qutils import *
 from types import *
 import ie_utils
@@ -1335,7 +1334,7 @@ def savemodel(root, filename, gamename):
     #   gamename is None.
 
     global editor, progressbar, tobj, logging, exportername, textlog, ModelFolder, bonelist
-    import quarkpy.qutils
+    import quarkpy.mdleditor
     editor = quarkpy.mdleditor.mdleditor
     # Step 1 to import model from QuArK's Explorer.
     if editor is None:

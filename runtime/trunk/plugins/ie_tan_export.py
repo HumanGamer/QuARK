@@ -17,7 +17,6 @@ Info = {
 
 import struct, math
 import quarkx
-import quarkpy.mdleditor
 import quarkpy.qutils
 from quarkpy.qutils import *
 from types import *
@@ -589,6 +588,7 @@ def savemodel(root, filename, gamename, nomessage=0):
     #   gamename is None.
 
     global editor, progressbar, tobj, logging, exportername, textlog, Strings
+    import quarkpy.mdleditor
     editor = quarkpy.mdleditor.mdleditor
     if editor is None:
         return

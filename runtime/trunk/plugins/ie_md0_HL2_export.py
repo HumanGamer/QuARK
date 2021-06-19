@@ -89,7 +89,6 @@ import struct, os, math
 import quarkx
 import quarkpy.qtoolbar
 from quarkpy.qutils import *
-import quarkpy.mdleditor
 from types import *
 import ie_utils
 from ie_utils import tobj

@@ -27,11 +27,10 @@ Info = {
 import struct, chunk, os, cStringIO, time, operator
 from quarkpy.qutils import *
 import quarkx
-import quarkpy.mdleditor
 import ie_utils
 from ie_utils import tobj
 from quarkpy.qdictionnary import Strings
-quarkpy.qutils
+import quarkpy.qutils
 
 # Globals
 logging = 0
@@ -65,6 +64,7 @@ months = [
 # ==============================
 def writefile(filename):
     global progressbar, tobj, Strings, MeshValid
+    import quarkpy.mdleditor
     editor = quarkpy.mdleditor.mdleditor
     if editor is None:
         MeshValid = 0
@@ -907,7 +907,7 @@ def write_header(file, chunks):
 # For example:  C:\Doom 3\base\models\mapobjects\chairs\kitchenchair\kitchenchair.lwo
 def savemodel(root, filename, gamename, nomessage=0):
     global tobj, logging, exportername, textlog, MeshValid
-    import quarkpy.qutils
+    import quarkpy.mdleditor
     editor = quarkpy.mdleditor.mdleditor
     if editor is None:
         return

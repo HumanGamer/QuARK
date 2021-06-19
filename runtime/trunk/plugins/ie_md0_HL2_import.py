@@ -4921,6 +4921,7 @@ def dataformname(o):
     dlgdef = dlgdef + """""" + vertex_weights_specifics_plugin + """
     """ + Shader_dialog_plugin + """}"""
 
+    import quarkpy.mdleditor
     editor = quarkpy.mdleditor.mdleditor # Get the editor.
     ico_mdlskv = ico_dict['ico_mdlskv']  # Just to shorten our call later.
     icon_btns = {}                       # Setup our button list, as a dictionary list, to return at the end.
