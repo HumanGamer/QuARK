@@ -41,7 +41,6 @@ type
       function AttachModelToTagFromFileName(const Tag_Name: string; const Filename: string): boolean;
       function TryAutoLoadParts: boolean;
       Function GetFullFilename: string;
-      procedure ChangeGameMode; virtual;
     end;
 
 {--------------------------}
@@ -632,11 +631,6 @@ begin
     end;
   end;}
   result:=true;
-end;
-
-procedure QMD3File.ChangeGameMode;
-begin
-  ObjectGameCode:=mjQ3A;
 end;
 
 procedure QMd3File.LoadFile(F: TStream; Taille: Integer);
