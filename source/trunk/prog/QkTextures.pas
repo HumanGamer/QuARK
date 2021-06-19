@@ -1303,7 +1303,6 @@ var
   Data, Data1, Pal: String;
 begin
   Acces;
-  ChangeGameMode(BaseGame, True);
   cp:=CustomParams;
   NewPSD.Init;
   try
@@ -1311,7 +1310,7 @@ begin
     if cp and cpPalette = 0 then
     begin
       NewPSD.Palette:=pspFixed;
-      NewPSD.ColorPalette:=@GameBuffer(mjAny)^.PaletteLmp;
+      NewPSD.ColorPalette:=@GameBuffer(BaseGame)^.PaletteLmp;
       Pal:='';
     end
     else
