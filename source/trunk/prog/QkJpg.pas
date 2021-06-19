@@ -37,7 +37,6 @@ type
           procedure SaveFile(Info: TInfoEnreg1); override;
           procedure LoadFile(F: TStream; FSize: Integer); override;
         public
-          class function CustomParams : Integer;
           class function TypeInfo: String; override;
           class procedure FileObjectClassInfo(var Info: TFileObjectClassInfo); override;
         end;
@@ -64,11 +63,6 @@ begin
  Info.FileObjectDescriptionText:=LoadStr1(5172);
  Info.FileExt:=801;
  Info.WndInfo:=[wiWindow];
-end;
-
-class function QJpeg.CustomParams : Integer;
-begin
- Result:=cpAnyHeight;
 end;
 
 class function QJpeg.FileTypeDevIL : DevILType;
