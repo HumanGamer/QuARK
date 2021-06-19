@@ -86,10 +86,10 @@ def snapObjectToPlane(face, object, tagged, separation, doswivel=1, dotilt=1, do
     #
     facehoriz=face.axisbase()[0]
     taggedhoriz=tagged.axisbase()[0]
-    
+
     if math.fabs(face.normal*Z_axis)==1 :
         doswivel=0
-    
+
     face2, object2 = face.copy(), object.copy()
     idmat = quarkx.matrix(X_axis, Y_axis, Z_axis)
     if doswivel:
@@ -168,7 +168,7 @@ class SnapObjectDlg (quarkpy.dlgclasses.LiveButtonDlg):
           Typ = "EF00001"
           Hint = "The separation from the tagged face that the object is moved to, if shift is checked"
         }
-        
+
         sep: = { Typ="S" Txt=""}
 
         buttons: = {
@@ -197,8 +197,7 @@ class SnapObjectDlg (quarkpy.dlgclasses.LiveButtonDlg):
         undo.exchange(pack.current, newobj)
         pack.editor.ok(undo,'snap object to plane')
         pack.face, pack.current = newface, newobj
-        
-         
+
 
 
 def macro_snapobject(self, index=0):
@@ -220,7 +219,7 @@ def readFlippedSetupCheckVal(attr):
         return ""
     else:
         return "1"
-        
+
 def writeFlippedSetupCheckVal(attr, val):
     if val=="1":
         quarkx.setupsubset(SS_MAP, "Options")[attr]=""
@@ -233,17 +232,15 @@ def readWithDefault(attr,default):
     if val is None:
         return default
     return val
-     
+
 def writeWithDefault(attr, val, default):
     if val==default:
         quarkx.setupsubset(SS_MAP, "Options")[attr]=""
     else:
         quarkx.setupsubset(SS_MAP, "Options")[attr]=val
 
-SMALL = .0001
-
 def snapFunc(o, current, editor):
-    
+
     class pack:
         "stick stuff here"
     pack.current=current
@@ -253,12 +250,11 @@ def snapFunc(o, current, editor):
     pack.separation,=readWithDefault('snapobject_separation',(1,))
 
     def setup(self, pack=pack, editor=editor):
-        
         src = self.src
         self.pack=pack
         for (dattr, oattr) in (('swivel','snapobject_noswivel'), ('orient','snapobject_noorient'), ('shift','snapobject_noshift' )):
             src[dattr]=readFlippedSetupCheckVal(oattr)
-        
+
         src['separation']=readWithDefault('snapobject_separation',(1,))
         src['separation'] = pack.separation,
         pack.doswivel=pack.dotilt=pack.doshift=0
@@ -269,29 +265,29 @@ def snapFunc(o, current, editor):
             pack.doswivel=1
         if src['shift']:
             pack.doshift=1
-        
+
     def action(self, pack=pack, editor=editor):
         src = self.src
         for (dattr, oattr) in (('swivel','snapobject_noswivel'), ('orient','snapobject_noorient'), ('shift','snapobject_noshift' )):
             writeFlippedSetupCheckVal(oattr,src[dattr])
-        
+
         writeWithDefault('snapobject_separation',src['separation'], (1,))
         pack.separation,=src['separation']
 
     SnapObjectDlg('snapobject',editor,setup,action)
-    
+
 #
 # Build the 'select a parent' menu
 #
 def snapItems(current, editor, restricted):
     name = current.shortname
-    
+
     def snapClick(m, current=current, editor=editor):
         snapFunc(editor.layout.explorer.sellist[0], current, editor)
-    
+
     snapItem=qmenu.item("Snap to tagged",snapClick)
     snapItem.state=qmenu.default
-    
+
     item = qmenu.popup(name,[snapItem],None,"|This is the name of some group or brush entity that contains what you have selected.\n\nLook at its submenu for stuff you can do!\n\nIf there's a bar in the menu, then the `Restrict Selections' menu item is checked, and you can only select stuff above the bar.")
     item.menuicon = current.geticon(1)
     item.object = current
@@ -317,6 +313,6 @@ def parentSnapPopup(o, editor):
 #    menu[:0] = [parentSnapPopup(o,editor),
 #
 #                quarkpy.qmenu.sep]
-#    return menu  
+#    return menu
 
 #quarkpy.mapentities.FaceType.menu = snapfacemenu
