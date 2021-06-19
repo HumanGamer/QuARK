@@ -10,7 +10,6 @@ Routines to execute Quake, Hexen II, or Quake 2
 
 import quarkx
 from qdictionnary import Strings
-from maputils import *
 import qconsole
 import qutils
 
@@ -23,7 +22,7 @@ class BatchConsole(qconsole.console):
     "StdOut console for programs that run in batch."
 
     def __init__(self, cmdline, currentdir, next):
-        qconsole.console.__init__(self, SILVER)
+        qconsole.console.__init__(self, qutils.SILVER)
         self.cmdline = cmdline
         self.currentdir = currentdir
         self.next = next
@@ -79,7 +78,7 @@ class GameConsole(BatchConsole):
         program = setup["Program"]
         if not dir or not program:
             quarkx.openconfigdlg(":")
-            raise "Invalid configuration of the game executable"
+            raise RuntimeError(Strings[5828])
 
         if map is self.DONT_RUN:
             cmdline = ""
@@ -95,9 +94,9 @@ class GameConsole(BatchConsole):
                 if runMapCmdLine:
                     cmdline = cmdline + " " + runMapCmdLine
 
-                cmdline, dir = quarkx.resolvefilename(cmdline, FT_GAME, map)
+                cmdline, dir = quarkx.resolvefilename(cmdline, qutils.FT_GAME, map)
             else:
-                cmdline = quarkx.resolvefilename(cmdline, FT_PATH)[0]
+                cmdline = quarkx.resolvefilename(cmdline, qutils.FT_PATH)[0]
 
         BatchConsole.__init__(self, cmdline, dir, next)
 
@@ -113,16 +112,16 @@ class GameConsole(BatchConsole):
                 if nopak:
                     qname = qname[1:]
                 fname = quarkx.outputfile(qname)
-                err = ": ready"
+                err = Strings[5830]
                 if qobj is None:
                     try:
                         qobj = quarkx.openfileobj(fname)
                     except:
-                        err = ": ignored"
+                        err = Strings[5831]
                 if qobj is not None:
                     if nopak:
                         if quarkx.getfileattr(fname)>-1: #DECKER - do not overwrite something that already is there!
-                            err = ": exists"             #DECKER
+                            err = Strings[5832]          #DECKER
                         else:                            #DECKER
                             qobj.savefile(fname)
                     else:
@@ -130,7 +129,7 @@ class GameConsole(BatchConsole):
                         if type1:
                             type2 = qname[-len(type1):].upper()
                             if type1 != type2:
-                                raise "Invalid file types : %s should be of type %s" % (qname,type1)
+                                raise RuntimeError(Strings[5829] % (qname,type1))
                             qname = qname[:-len(type1)]
                         i = len(qname)
                         while i and not (qname[i-1] in ("/", "\\")):
@@ -138,7 +137,7 @@ class GameConsole(BatchConsole):
                         folder = pak.getfolder(qname[:i])
                         qobj.shortname = qname[i:]
                         folder.appenditem(qobj)
-                print "/" + qname + err
+                print err % ("/" + qname)
             pak.filename = writeto
             pak.savefile()
         else:
@@ -147,21 +146,21 @@ class GameConsole(BatchConsole):
                 if qname[:1]=='*':
                     qname = qname[1:]
                 fname = quarkx.outputfile(qname)
-                err = ": ready"
+                err = Strings[5830]
                 if qobj is None:
                     if quarkx.getfileattr(fname)==-1:
-                        err = ": ignored"
+                        err = Strings[5831]
                 else:
                     if quarkx.getfileattr(fname)>-1:    #DECKER - do not overwrite something that already is there!
-                        err = ": exists"                #DECKER
+                        err = Strings[5832]             #DECKER
                     else:                               #DECKER
                         qobj.savefile(fname)
-                print "/" + qname + err
-        print "Files stored in %s" % writeto
+                print err % ("/" + qname)
+        print Strings[5826] % writeto
         del self.filelistdata
 
         if not self.cmdline:
-            print "Operation finished."
+            print Strings[5827]
         else:
             #
             # Run Quake !

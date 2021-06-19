@@ -1091,6 +1091,13 @@ Strings = {
     5823: "%s on %s",
     5824: "Failed to parse poly: %s",
     5825: "Invalid face data",
+    5826: "Files stored in %s",
+    5827: "Operation finished.",
+    5828: "Invalid configuration of the game executable",
+    5829: "Invalid file types : %s should be of type %s",
+    5830: "%s: ready",
+    5831: "%s: ignored",
+    5832: "%s: exists",
 
     # DanielPharos would like to reserve 6000 .. 6099 for all renderers
     6000: "Unable to create SceneObject//%s",
