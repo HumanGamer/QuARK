@@ -1596,7 +1596,7 @@ def UpdateBBoxList(editor, newpoly, count=None):
             bonelist_frame_name = frame_name
 
         # Updates the bboxlist.
-        poly = quarkx.newobj("dummy:p");
+        poly = quarkx.newobj("dummy:p")
         poly['show'] = (1.0,)
         bone_data = bonelist[bonename]
         if not bboxlist.has_key(newpoly.name):
@@ -1883,12 +1883,12 @@ def MakeEditorVertexPolyObject(editor, option=0, otherlist=None, name=None):
         scale = currentview.info["scale"]*2
         polylist = []
         if name is None:
-            group = quarkx.newobj("selected:g");
+            group = quarkx.newobj("selected:g")
         else:
             if name.find(":mc-b-") != -1:
                 thiscomp = name.split("-b-")[0]
                 comp = editor.Root.dictitems[thiscomp]
-            group = quarkx.newobj(name + ":g");
+            group = quarkx.newobj(name + ":g")
         if comp.currentframe is None:
             return []
         else:
@@ -1897,7 +1897,7 @@ def MakeEditorVertexPolyObject(editor, option=0, otherlist=None, name=None):
             for ver_index in range (len(VertexList)):
                 if vtx == VertexList[ver_index]:
                     vertex = vertices[vtx]
-                    p = quarkx.newobj(str(vtx)+":p");
+                    p = quarkx.newobj(str(vtx)+":p")
                     face = quarkx.newobj("east:f")
                     vtx0X, vtx0Y, vtx0Z = (vertex + quarkx.vect(1.0,0.0,0.0)/scale).tuple
                     vtx1X, vtx1Y, vtx1Z = (vertex + quarkx.vect(1.0,1.0,0.0)/scale).tuple
@@ -1951,7 +1951,7 @@ def MakeEditorVertexPolyObject(editor, option=0, otherlist=None, name=None):
         scale = SkinView1.info["scale"]*2
         VertexList = editor.SkinVertexSelList
         polylist = []
-        group = quarkx.newobj("selected:g");
+        group = quarkx.newobj("selected:g")
         for vtx in range (len(SkinView1.handles)):
             if (isinstance(SkinView1.handles[vtx], mdlhandles.LinRedHandle)) or (isinstance(SkinView1.handles[vtx], mdlhandles.LinSideHandle)) or (isinstance(SkinView1.handles[vtx], mdlhandles.LinCornerHandle)):
                 continue
@@ -1961,7 +1961,7 @@ def MakeEditorVertexPolyObject(editor, option=0, otherlist=None, name=None):
                 handlevtx = (tri_index * 3) + ver_index
                 if vtx == handlevtx:
                     vertex = SkinView1.handles[vtx].pos
-                    p = quarkx.newobj(str(tri_index)+","+str(ver_index)+":p");
+                    p = quarkx.newobj(str(tri_index)+","+str(ver_index)+":p")
                     face = quarkx.newobj("east:f")
                     vtx0X, vtx0Y, vtx0Z = (vertex + quarkx.vect(1.0,0.0,0.0)/scale).tuple
                     vtx1X, vtx1Y, vtx1Z = (vertex + quarkx.vect(1.0,1.0,0.0)/scale).tuple

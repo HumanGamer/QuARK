@@ -543,7 +543,7 @@ class BasicPoly2:
         undo=quarkx.action()
         undo.exchange(dup, face)
 
-        p = quarkx.newobj("cube:p");
+        p = quarkx.newobj("cube:p")
 
         face = quarkx.newobj("up:f")
         face["v"] = (0,0,32, 128,0,32, 0,128,32)
@@ -601,7 +601,7 @@ class BasicPoly2X:
         undo=quarkx.action()
         undo.exchange(dup, face)
 
-        p = quarkx.newobj("cube:p");
+        p = quarkx.newobj("cube:p")
 
         face = quarkx.newobj("up:f")
         face["v"] = (0,0,32, 128,0,32, 0,128,32)
@@ -659,7 +659,7 @@ class BasicPoly4:
         undo=quarkx.action()
         undo.exchange(dup, face)
 
-        p = quarkx.newobj("cube:p");
+        p = quarkx.newobj("cube:p")
 
         face = quarkx.newobj("up:f")
         face["v"] = (0,0,32, 128,0,32, 0,128,32)

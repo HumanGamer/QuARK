@@ -282,7 +282,7 @@ def MACRO_makeaddon(self):
         i = i + 1
         if i == len(a):
             raise "No GameDir found"
-    a[i].makeentitiesfromqctx();
+    a[i].makeentitiesfromqctx()
 
 def MACRO_makeaddon_tex(self):
     import qutils
@@ -293,7 +293,7 @@ def MACRO_makeaddon_tex(self):
         i = i + 1
         if i == len(a):
             raise "No GameDir found"
-    a[i].maketexturesfromqctx();
+    a[i].maketexturesfromqctx()
 
 def MACRO_loadentityplugins(self):
     import plugins

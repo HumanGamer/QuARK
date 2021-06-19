@@ -16,7 +16,7 @@ def FindOriginTexPolyPos(entity):
     "Find origin by searching for poly under entity which has the ORIGIN texture"
     subpolys = entity.findallsubitems("", ":p", ":g")
     for i in subpolys:
-        subfaces = i.findallsubitems("",":f",":g");
+        subfaces = i.findallsubitems("",":f",":g")
         # Make sure that all faces on poly contains the ORIGIN texture
         foundoriginpoly=1
         for j in subfaces:
@@ -31,7 +31,7 @@ def FindOriginTexPolyPos2(entity):
     "Find origin by searching for poly under entity which has the common/origin texture"
     subpolys = entity.findallsubitems("", ":p", ":g")
     for i in subpolys:
-        subfaces = i.findallsubitems("",":f",":g");
+        subfaces = i.findallsubitems("",":f",":g")
         # Make sure that all faces on poly contains the common/origin texture
         foundoriginpoly=1
         for j in subfaces:
@@ -46,7 +46,7 @@ def FindOriginFlagPolyPos(entity):
     "Find origin by searching for poly under entity which has the Origin-texture-flag set"
     subpolys = entity.findallsubitems("", ":p", ":g")
     for i in subpolys:
-        subfaces = i.findallsubitems("",":f",":g");
+        subfaces = i.findallsubitems("",":f",":g")
         # Make sure that all faces on poly contains the Origin-texture-flag
         foundoriginpoly, flags = 1, 0
         for j in subfaces:

@@ -519,7 +519,7 @@ class BezierType(EntityManager):
 
         def swapclick(m, o=o, editor=editor):
             new = o.copy()
-            new.swapsides();
+            new.swapsides()
             undo=quarkx.action()
             undo.exchange(o, new)
             editor.ok(undo, "Swap Sides")

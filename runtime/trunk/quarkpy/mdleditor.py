@@ -259,7 +259,7 @@ class ModelEditor(BaseEditor):
 
         # Creates a dictionary list of the Used Skin Textures name and image to display in the Texture Browser for the model that is opened in the editor.
         import qutils
-        tbx_list = quarkx.findtoolboxes("Texture Browser...");
+        tbx_list = quarkx.findtoolboxes("Texture Browser...")
         ToolBoxName, ToolBox, flag = tbx_list[0]
         UsedTexturesList = {}
         for item in self.Root.subitems:

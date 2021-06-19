@@ -283,8 +283,8 @@ class PathDuplicatorPointHandle(quarkpy.qhandles.IconHandle):
             who_targets_me = self.findpathdupcornerwith(self.centerof.parent.subitems, "target", self.centerof["targetname"])
             if who_targets_me is not None:
                 undo.setspec(who_targets_me, "target", what_is_my_target)
-            undo.exchange(self.centerof, None);
-            editor.ok(undo, "Remove PathDuplicator corner");
+            undo.exchange(self.centerof, None)
+            editor.ok(undo, "Remove PathDuplicator corner")
 
         def speeddraw1click(m, self=self, editor=editor, view=view):
             #
@@ -506,7 +506,7 @@ class PathDuplicator(StandardDuplicator):
 
     def sourcelist(self):
         list = StandardDuplicator.sourcelist(self)
-        group = quarkx.newobj("group:g");
+        group = quarkx.newobj("group:g")
         for item in list:
            group.appenditem(item.copy())
         evaluateDuplicators(group)

@@ -135,7 +135,7 @@ class MakeHLXTreeDlg(MakeXTreeDlg):
     else:
       nulltex = "NULL"
     # Create the tree
-    g = quarkx.newobj(self.treename+":g");
+    g = quarkx.newobj(self.treename+":g")
     aface = quarkx.newobj("null:f")
     aface["v"] = (-self.twidth/2,-self.twidth/2,self.theight, self.twidth/2,-self.twidth/2,self.theight, -self.twidth/2,self.twidth/2,self.theight)
     aface["tex"] = nulltex
@@ -149,12 +149,12 @@ class MakeHLXTreeDlg(MakeXTreeDlg):
     addang=pi/self.planes/2
     addlen=sin(addang)/cos(addang)*self.twidth/2
     for j in range(2):
-      e = quarkx.newobj("func_illusionary:b");
+      e = quarkx.newobj("func_illusionary:b")
       e["rendermode"] = "4"
       e["renderamt"] = "127"
       g.appenditem(e)
       for i in range(self.planes):
-        p = quarkx.newobj("tree-side:p");
+        p = quarkx.newobj("tree-side:p")
         aface = quarkx.newobj("tree:f")
         sx1=cos(ang*i)*self.twidth/2
         sy1=sin(ang*i)*self.twidth/2
@@ -222,7 +222,7 @@ class MakeSinXTreeDlg(MakeXTreeDlg):
     self.AcceptDialog()
     self.nulltex = "generic/misc/skip"
     # Create the tree
-    g = quarkx.newobj(self.treename+":g");
+    g = quarkx.newobj(self.treename+":g")
     aface = self.MakeFace(0)
     aface["v"] = (-self.twidth/2,-self.twidth/2,self.theight, self.twidth/2,-self.twidth/2,self.theight, -self.twidth/2,self.twidth/2,self.theight)
     g.appenditem(aface)
@@ -234,10 +234,10 @@ class MakeSinXTreeDlg(MakeXTreeDlg):
     addang=pi/self.planes/2
     addlen=sin(addang)/cos(addang)*self.twidth/2
     for j in range(2):
-      e = quarkx.newobj("func_illusionary:b");
+      e = quarkx.newobj("func_illusionary:b")
       g.appenditem(e)
       for i in range(self.planes):
-        p = quarkx.newobj("tree-side:p");
+        p = quarkx.newobj("tree-side:p")
         aface = self.MakeFace(1)
         sx1=cos(ang*i)*self.twidth/2
         sy1=sin(ang*i)*self.twidth/2
@@ -295,7 +295,7 @@ class MakeQ2XTreeDlg(MakeXTreeDlg):
       quarkx.msgbox("Sorry, but in Quake2 you must enter even numbers for 'wings'.",MT_INFORMATION, MB_OK)
       return
     # Create the tree
-    g = quarkx.newobj(self.treename+":g");
+    g = quarkx.newobj(self.treename+":g")
     ang=pi*2/self.planes
     n=1
     aface = self.MakeFace()
@@ -304,7 +304,7 @@ class MakeQ2XTreeDlg(MakeXTreeDlg):
                    self.twidth/2,-self.twidth/2,0)
     g.appenditem(aface)
     for k in range(self.planes / 2):
-      p = quarkx.newobj("poly:p");
+      p = quarkx.newobj("poly:p")
       x1 = self.twidth/2 * cos(k*ang)
       y1 = self.twidth/2 * sin(k*ang)
       x2 = n * sin(k*ang)

@@ -564,7 +564,7 @@ def updateUsedTextures(reserved=None):
     if editor is None:
         seltex = None
     elif editor.Root.currentcomponent is not None and editor.Root.currentcomponent.currentskin is not None:
-        tbx_list = quarkx.findtoolboxes("Texture Browser...");
+        tbx_list = quarkx.findtoolboxes("Texture Browser...")
         ToolBoxName, ToolBox, flag = tbx_list[0]
         UsedTexturesList = {}
         for item in editor.Root.subitems:
@@ -597,7 +597,7 @@ def texturebrowser(reserved=None):
         # Updates the "Used Skin Textures.qtxfolder" to display in the Texture Browser.
         updateUsedTextures()
 
-        tbx_list = quarkx.findtoolboxes("Texture Browser...");
+        tbx_list = quarkx.findtoolboxes("Texture Browser...")
         ToolBoxName, ToolBox, flag = tbx_list[0]
 
         try:

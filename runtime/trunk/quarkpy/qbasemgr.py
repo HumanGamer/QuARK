@@ -430,7 +430,7 @@ class BaseLayout:
                 # See also qbaseeditor.BaseEditor.initquickkeys
                 #
                 # Split up the hint, into its components delimited by a "|".
-                hintstrings = btn.hint.split("|");
+                hintstrings = btn.hint.split("|")
                 # Then alter the first flyover-hint, suffix with a "(keyboard shortcut..)" string.
                 hintstrings[0] = "%s\n(keyboard shortcut: '%d')" % (hintstrings[0], count) # To indicate what is a shortcut-key
                 # Put it all together again as a string, with the "|" delimiter

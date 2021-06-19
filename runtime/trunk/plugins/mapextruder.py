@@ -1232,7 +1232,7 @@ def adjust_points(data, points, j, names):
     elif name[:5]=="inner":
       k = int(names[i-1][5:])+1
 #    if name[:5]!='outer':
-#       k = decodeName(name);
+#       k = decodeName(name)
     else: # eeks, it's outer, so bail
       newpoints2 = range(len(points))
       scale = get_path_scale(data.dup, j)

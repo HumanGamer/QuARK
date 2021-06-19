@@ -340,7 +340,7 @@ def MenuTexFlags(editor):
 
 
                 def makeflagsclick(form, label, title, help="", editor=editor):
-                   item = qmenu.item(label, editor.layout.flagsclick2, help);
+                   item = qmenu.item(label, editor.layout.flagsclick2, help)
                    item.whatform = form
                    item.floattitle= title
                    return item

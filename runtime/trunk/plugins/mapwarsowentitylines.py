@@ -42,7 +42,7 @@ class WarsowDrawEntityLines(DefaultDrawEntityLines):
    #            height = apex_vec.z - start_vec.z
    #            if (height <= 0 or gravity <= 0):
    #                raise "Problem!"
-   #            time = math.sqrt( height / ( 0.5 * gravity ) );
+   #            time = math.sqrt( height / ( 0.5 * gravity ) )
    #            if (time <= 0):
    #                raise "Problem!"
    #            direction_vec = apex_vec - start_vec

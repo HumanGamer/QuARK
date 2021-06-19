@@ -210,7 +210,8 @@ def writefile(filename):
     write_chunk(file, "TEXT", text)
     write_chunk(file, "DESC", desc)
     write_chunk(file, "TAGS", tags)
-    file.write(meshdata.getvalue()); meshdata.close()
+    file.write(meshdata.getvalue())
+    meshdata.close()
     for surf in surfs:
         write_chunk(file, "SURF", surf)
     write_chunk(file, "DATE", date_chunk)

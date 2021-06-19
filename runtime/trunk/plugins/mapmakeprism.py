@@ -295,9 +295,9 @@ class MakePrismDlg(quarkpy.qmacro.dialogbox):
 
         # Create the prism
         if slice:
-            p = quarkx.newobj("n-prism:g");
+            p = quarkx.newobj("n-prism:g")
         else:
-            p = quarkx.newobj("n-prism:p");
+            p = quarkx.newobj("n-prism:p")
 
         # Create the top and bottom face
         up = quarkx.newobj("up:f")
@@ -333,7 +333,7 @@ class MakePrismDlg(quarkpy.qmacro.dialogbox):
             if not slice:
                 p.appenditem(f)
             else:
-                p1 = quarkx.newobj("prism-slice:p");
+                p1 = quarkx.newobj("prism-slice:p")
                 p1.appenditem(f)
 
                 v5 = self.ComputePoint(angle,       dirx, diry, gridsize, -height)
@@ -371,8 +371,8 @@ class MakePrismDlg(quarkpy.qmacro.dialogbox):
                     f["tex"] = tex
                     p1.appenditem(f)
 
-                    p.appenditem(p1);
-                    p1 = quarkx.newobj("prism-slice:p");
+                    p.appenditem(p1)
+                    p1 = quarkx.newobj("prism-slice:p")
 
                     f = quarkx.newobj("nearside:f")
                     f["v"] = (v6.x,v6.y,v6.z, v2.x,v2.y,v2.z, v8.x+offsetX,v8.y+offsetY,v8.z)
@@ -407,7 +407,7 @@ class MakePrismDlg(quarkpy.qmacro.dialogbox):
                     p1.appenditem(f)
 
 
-                p.appenditem(p1);
+                p.appenditem(p1)
 
 
             # Next point

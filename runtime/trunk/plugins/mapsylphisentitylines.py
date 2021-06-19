@@ -50,12 +50,12 @@ class SylphisDrawEntityLines(DefaultDrawEntityLines):
             back = view.proj(quarkx.vect(org.x - radius.x, org.y, org.z))
 
             cx.append(up.x); cx.append(down.x); cx.append(left.x); cx.append(right.x)
-            cx.append(front.x); cx.append(back.x);
+            cx.append(front.x); cx.append(back.x)
             maxX = max(cx)
             minX = min(cx)
 
             cy.append(up.y); cy.append(down.y); cy.append(left.y); cy.append(right.y)
-            cy.append(front.y); cy.append(back.y);
+            cy.append(front.y); cy.append(back.y)
             maxY = max(cy)
             minY = min(cy)
 

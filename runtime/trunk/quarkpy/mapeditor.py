@@ -56,7 +56,7 @@ class MapEditor(BaseEditor):
             Root = self.fileobject['Root']
             if Root is not None:
                 self.Root = self.fileobject.findname(Root)
-        errors = quarkx.getmaperror();
+        errors = quarkx.getmaperror()
         if errors:
             errors = errors.split('\\n')
             debug('Map Reading Errors: face and brush numbering starting from 0, hulls from 1:')

@@ -653,7 +653,7 @@ def loadmodel(root, filename, gamename, nomessage=0):
             comp.currentskin = None
 
     # Updates the Texture Browser's "Used Skin Textures" for all imported skins.
-    tbx_list = quarkx.findtoolboxes("Texture Browser...");
+    tbx_list = quarkx.findtoolboxes("Texture Browser...")
     ToolBoxName, ToolBox, flag = tbx_list[0]
     if flag == 2:
         quarkpy.mdlbtns.texturebrowser() # If already open, reopens it after the update.

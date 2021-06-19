@@ -23,7 +23,7 @@ from quarkpy.maputils import *
 
 def tex_search(s):
     s = s.upper()
-    tbxs = quarkx.findtoolboxes("Texture Browser...");
+    tbxs = quarkx.findtoolboxes("Texture Browser...")
     result = []
     for tbx in tbxs:
         txlist = tbx[1].findallsubitems("", ".wl")
@@ -48,7 +48,7 @@ def tex_doit(s):
         tbx.removeitem(tex)
     tex = tex_search(s)
     for t in tex:
-        x = t.copy();
+        x = t.copy()
         x.flags = x.flags | qutils.OF_TVSUBITEM
         tbx.appenditem(x)
     quarkx.opentoolbox("Texture Browser...", None)
