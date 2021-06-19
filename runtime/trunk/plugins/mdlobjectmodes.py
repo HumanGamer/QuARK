@@ -4648,7 +4648,7 @@ def selectmode(btn):
     quarkx.setupsubset(SS_MODEL, "Building").setint("PaintMode", 0)
     quarkx.setupsubset(SS_MODEL, "Options")["FaceCutTool"] = None
     quarkx.setupsubset(SS_MODEL, "Options")["MakeBBox"] = None
-    from quarkpy.mdlanimation import playlist, playNR
+    import quarkpy.mdlanimation
     if quarkpy.mdlanimation.playlist != []:
         editor.layout.explorer.sellist = quarkpy.mdlanimation.playlist
         quarkpy.mdlanimation.playNR = 0

@@ -2384,7 +2384,6 @@ class TagType(EntityManager):
 
         if MdlOption("AnimationCFGActive"):
             import mdlanimation
-            from mdlanimation import playNR, playlist
             mdlanimation.playNR = 0
             mdlanimation.playlist = [o]
             mdlanimation.UpdateplaylistPerComp(None)

@@ -5504,7 +5504,7 @@ def selectmode(btn):
     quarkx.setupsubset(SS_MODEL, "Options")["FaceCutTool"] = None
     quarkx.setupsubset(SS_MODEL, "Options")["MakeBBox"] = None
     editor.MouseDragMode = quarkpy.mdlhandles.RectSelDragObject
-    from quarkpy.mdlanimation import playlist, playNR
+    import quarkpy.mdlanimation
     if quarkpy.mdlanimation.playlist != []:
         editor.layout.explorer.sellist = quarkpy.mdlanimation.playlist
         quarkpy.mdlanimation.playNR = 0
