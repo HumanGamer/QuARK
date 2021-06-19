@@ -316,7 +316,7 @@ def MenuTexFlags(editor):
                 def makelist(formname, sep1, flag1click=flag1click):
                   flist =  quarkx.getqctxlist(":form", formname)
                   if not len(flist):
-                    raise formname+" form not found"
+                    raise RuntimeError(formname+" form not found")
                   form = flist[-1]
                   l1 = []
                   for p in form.subitems:

@@ -43,7 +43,7 @@ def findsearchtoolbox():
 def tex_doit(s):
     tbx = findsearchtoolbox()
     if tbx is None:
-        raise "Searched.qtxfolder not found!"
+        raise RuntimeError("Searched.qtxfolder not found!")
     for tex in tbx.subitems:
         tbx.removeitem(tex)
     tex = tex_search(s)

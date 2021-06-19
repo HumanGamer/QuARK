@@ -1092,10 +1092,10 @@ class BaseEditor:
                 if list[1]==list[4]: tag = tag + 2
                 if list[2]==list[5]: tag = tag + 4
                 if self.MODE == SS_MAP:
+                    # Show width(x)/depth(y)/height(z) of selected polyhedron(s),
+                    # but only when the mousepointer is inside the selection
+                    mousepoint = quarkx.vect(float(list[0]), float(list[1]), float(list[2]))
                     try:
-                        # Show width(x)/depth(y)/height(z) of selected polyhedron(s),
-                        # but only when the mousepointer is inside the selection
-                        mousepoint = quarkx.vect(float(list[0]), float(list[1]), float(list[2]))
                         objlist = self.layout.explorer.sellist
                         if (len(objlist) == 1) and (objlist[0].type == ":f"):
                             # if is single face selected, then use parent poly
@@ -1103,7 +1103,7 @@ class BaseEditor:
                         polylistlist = map(lambda x: x.findallsubitems("", ":p", ":g"), objlist)
                         polylist = reduce(lambda a,b: a+b, polylistlist)
                         if (len(polylist) < 1):
-                            raise
+                            raise RuntimeError("No poly")
                         box = quarkx.boundingboxof(polylist)
                         if   tag==6: point = quarkx.vect(box[0].x, mousepoint.y, mousepoint.z)
                         elif tag==5: point = quarkx.vect(mousepoint.x, box[0].y, mousepoint.z)
@@ -1125,7 +1125,7 @@ class BaseEditor:
                             elif tag==5: s = s + " (" + list[0] + "," + list[2] + ")"
                             elif tag==3: s = s + " (" + list[0] + "," + list[1] + ")"
                         else:
-                            raise
+                            raise RuntimeError("No poly")
                     except:
                             s = view.info["type"] + " view"
                             if   tag==6: s = "Xview y:" + " y:" + list[1] + " z:" + list[2]

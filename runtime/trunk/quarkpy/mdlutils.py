@@ -933,7 +933,7 @@ def LinearInterpolation(editor, AnimFrames, Factor=0.0):
     FrameIndex = int(floor(Factor))
     if (Factor < 0.0) or (FrameIndex > len(AnimFrames)-1):
         # Somebody send me a bad Factor! Bad programmer! Bad!
-        raise "LinearInterpolation: Factor out of range! (%f)" % Factor
+        raise RuntimeError("LinearInterpolation: Factor out of range! (%f)" % Factor)
     PrevFrame = AnimFrames[FrameIndex]
     if FrameIndex < len(AnimFrames)-1:
         NextFrame = AnimFrames[FrameIndex+1]
@@ -943,7 +943,7 @@ def LinearInterpolation(editor, AnimFrames, Factor=0.0):
     NextVertices = NextFrame.vertices
     if len(PrevVertices) != len(NextVertices):
         # Somebody send me frames with different numbers of vertices! Bad programmer! Bad!
-        raise "LinearInterpolation: Incompatible frames!"
+        raise RuntimeError("LinearInterpolation: Incompatible frames!")
     ReducedFactor = Factor - floor(Factor)
     newframe = PrevFrame.copy()
     newframe.shortname = "AnimFrame"
@@ -989,12 +989,12 @@ def PolynomialInterpolation(editor, AnimFrames, Factor=0.0):
     FrameIndex = int(floor(Factor))
     if (Factor < 0.0) or (FrameIndex > len(AnimFrames)-1):
         # Somebody send me a bad Factor! Bad programmer! Bad!
-        raise "PolynomialInterpolation: Factor out of range! (%f)" % Factor
+        raise RuntimeError("PolynomialInterpolation: Factor out of range! (%f)" % Factor)
     # Uses gaussian elimination: [A]*{x}={B}
     NumberFrames = len(AnimFrames)
     if NumberFrames > 1000:
         # Can't have the float-cast loose precision
-        raise "PolynomialInterpolation: Too many frames!"
+        raise RuntimeError("PolynomialInterpolation: Too many frames!")
     newframe = AnimFrames[0].copy()
     newframe.shortname = "AnimFrame"
     newvertices = []
