@@ -37,7 +37,6 @@ type
           procedure SaveFile(Info: TInfoEnreg1); override;
           procedure LoadFile(F: TStream; FSize: Integer); override;
         public
-          function BaseGame : Char;
           class function CustomParams : Integer;
           class function TypeInfo: String; override;
           class procedure FileObjectClassInfo(var Info: TFileObjectClassInfo); override;
@@ -70,11 +69,6 @@ end;
 class function QJpeg.CustomParams : Integer;
 begin
  Result:=cpAnyHeight;
-end;
-
-function QJpeg.BaseGame : Char;
-begin
- Result:=mjQ3A;
 end;
 
 class function QJpeg.FileTypeDevIL : DevILType;
