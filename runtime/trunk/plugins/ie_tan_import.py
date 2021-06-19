@@ -709,7 +709,7 @@ def CreateTagObject(ModelFolder, tagName, curTag):
 # CALL TO IMPORT MESH (.tan) FILE
 ############################
 def load_tan(filename):
-    global progressbar, tobj, logging
+    global logging
     #read the file in
     file = open(filename, "rb")
     tan = tan_obj()
@@ -719,7 +719,6 @@ def load_tan(filename):
         tan.dump() # Writes the file Header last to the log for comparison reasons.
     if MODEL is None:
         return None
-    
     return MODEL.ComponentList, message
 
 
@@ -814,7 +813,7 @@ def loadmodel(root, filename, gamename, nomessage=0):
     # Updates the Texture Browser's "Used Skin Textures" for all imported skins.
     tbx_list = quarkx.findtoolboxes("Texture Browser...")
     ToolBoxName, ToolBox, flag = tbx_list[0]
-    if flag == 2:
+    if flag == quarkpy.qutils.TB_OPEN:
         quarkpy.mdlbtns.texturebrowser() # If already open, reopens it after the update.
     else:
         quarkpy.mdlbtns.updateUsedTextures()

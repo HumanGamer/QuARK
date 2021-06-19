@@ -74,6 +74,9 @@ function MiddleColor(c1, c2: TColorRef; const f: Single) : TColorRef;
 {procedure GetStdMenus(var HelpMenu: PyObject);}
 procedure ClickForm(nForm: TForm);
 procedure HTMLDoc(const URL: String);
+
+ {-------------------}
+
 //QuarkXWorkaroundNameChange
 procedure QuarkXWorkaroundNameChange(const OldName, NewName: String);
 
@@ -90,8 +93,16 @@ uses Classes, Dialogs, Graphics, CommCtrl, ExtCtrls, Controls,
      Console, Game, {$IFDEF CompiledWithDelphi2} ShellObj, {$ELSE} ShlObj, {$ENDIF}
      PakFiles, Reg2, SearchHoles, QkMapPoly, HelpPopup1, QkFullScreenWindow,
      PyForms, QkPixelSet, Bezier, Logging, QkObjectClassList, QkTextBoxForm,
-     QkApplPaths, MapError, StrUtils, QkImages, QkGCF, QkExceptions,
+     QkApplPaths, MapError, StrUtils, QkImages, QkExceptions,
      SystemDetails, ExtraFunctionality;
+
+const
+ ToolBoxClosed = 0;
+ ToolBoxHidden = 1;  { is currently open, but hidden }
+ ToolBoxOpen   = 2;  { is currently open }
+
+var
+  PythonLoaded: Boolean;
 
  {-------------------}
 
@@ -99,9 +110,6 @@ uses Classes, Dialogs, Graphics, CommCtrl, ExtCtrls, Controls,
 var
   QuarkXWorkaroundNameChangeListOld: array of String;
   QuarkXWorkaroundNameChangeListNew: array of String;
-
-var
-  PythonLoaded: Boolean;
 
  {-------------------}
 
@@ -2697,16 +2705,16 @@ begin
      if T=Nil then Continue;   { no data }
      S:=Q.Specifics.Values['ToolBox'];
 
-     AlreadyOpen:=0;
+     AlreadyOpen:=ToolBoxClosed;
      for J:=0 to Screen.FormCount-1 do
       begin
        ToolBox1:=Screen.Forms[J];
        if (ToolBox1 is TToolBoxForm) and (CompareText(TToolBoxForm(ToolBox1).GetToolBoxSingleName, S)=0) then
        begin
          if (ToolBox1.Visible) then
-           AlreadyOpen:=2  { is currently open }
+           AlreadyOpen:=ToolBoxOpen
          else
-           AlreadyOpen:=1;  { is currently open, but hidden }
+           AlreadyOpen:=ToolBoxHidden;
          break;
        end;
      end;

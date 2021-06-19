@@ -4811,7 +4811,7 @@ def FinishImport(file, editor, filename, ComponentList, QuArK_bones, hitboxsets,
     # Updates the Texture Browser's "Used Skin Textures" for all imported skins.
     tbx_list = quarkx.findtoolboxes("Texture Browser...")
     ToolBoxName, ToolBox, flag = tbx_list[0]
-    if flag == 2:
+    if flag == TB_OPEN:
         quarkpy.mdlbtns.texturebrowser() # If already open, reopens it after the update.
     else:
         quarkpy.mdlbtns.updateUsedTextures()

@@ -23,6 +23,7 @@ import ie_utils
 from ie_utils import tobj
 from quarkpy.qdictionnary import Strings
 from quarkpy.qeditor import MapColor # Strictly needed for QuArK bones MapColor call.
+import quarkpy.qutils
 
 # Globals
 SkipAnimation = 0 # 0 = makes animation frames, 1 = does not.
@@ -2568,7 +2569,7 @@ def loadmodel(root, filename, gamename, nomessage=0):
     # Updates the Texture Browser's "Used Skin Textures" for all imported skins.
     tbx_list = quarkx.findtoolboxes("Texture Browser...")
     ToolBoxName, ToolBox, flag = tbx_list[0]
-    if flag == 2:
+    if flag == quarkpy.qutils.TB_OPEN:
         quarkpy.mdlbtns.texturebrowser() # If already open, reopens it after the update.
     else:
         quarkpy.mdlbtns.updateUsedTextures()

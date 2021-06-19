@@ -1081,7 +1081,7 @@ class md5anim:
         md5anim_bones = []
         baseframe = []
         framedata = []
-        
+
     def load_md5anim(self, md5_filename, bones, actionname): # bones = A list of all the  bones in the QuArK's "Skeleton:bg" folder, in their proper tree-view order, to get our current bones from.
         file=open(md5_filename,"r")
         lines=file.readlines()
@@ -1573,7 +1573,7 @@ def loadmodel(root, filename, gamename, nomessage=0):
     # Updates the Texture Browser's "Used Skin Textures" for all imported skins.
     tbx_list = quarkx.findtoolboxes("Texture Browser...")
     ToolBoxName, ToolBox, flag = tbx_list[0]
-    if flag == 2:
+    if flag == quarkpy.qutils.TB_OPEN:
         quarkpy.mdlbtns.texturebrowser() # If already open, reopens it after the update.
     else:
         quarkpy.mdlbtns.updateUsedTextures()

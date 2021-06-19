@@ -98,24 +98,29 @@ SO_DISABLEFPCOORD  = 8    # don't write floating-point coordinates in .map files
 SO_USEINTEGRALVERTICES = 64 # use integral vertices as threepoints if possible
 
 # values of the saveflags for savefileobj (must be same as in QkFileObjects.pas!)
-FM_Save           = 1;
-FM_SaveAsFile     = 2;
-FM_SaveIfModif    = 3;
-FM_SaveTagOnly    = 4;
+FM_Save           = 1
+FM_SaveAsFile     = 2
+FM_SaveIfModif    = 3
+FM_SaveTagOnly    = 4
 
 # values of FileType parameter for resolvefilename (must be same as in QuarkX.pas!)
-FT_ANY  = 0;
-FT_GAME = 1;
-FT_TOOL = 2;
-FT_PATH = 3;
+FT_ANY  = 0
+FT_GAME = 1
+FT_TOOL = 2
+FT_PATH = 3
+
+# values of the flag for findtoolboxes
+TB_CLOSED = 0
+TB_HIDDEN = 1
+TB_OPEN = 2
 
 # log constants
 # !! Must match the constants in Logging.PAS !!
-LOG_ALWAYS   = 0;
-LOG_CRITICAL = 10;
-LOG_WARNING  = 20;
-LOG_INFO     = 30;
-LOG_VERBOSE  = 40;
+LOG_ALWAYS   = 0
+LOG_CRITICAL = 10
+LOG_WARNING  = 20
+LOG_INFO     = 30
+LOG_VERBOSE  = 40
 
 # icon indexes of internal objects (to be used with quarkx.seticons; must be same as in QkObjects.pas!)
 iiUnknownFile           = 0
