@@ -88,7 +88,7 @@ class function QTextureKP.CustomParams : Integer;
 begin
   {this really sucks, but the texture display code
   requires multiple texure images, and we need to fake them}
-  Result:=4 or cpAnyHeight;
+  Result:=cp4MipIndexes or cpAnyHeight;
 end;
 
 function QTextureKP.BaseGame : Char;
@@ -157,7 +157,7 @@ begin
       {is the image there ?}
       if length(s) = Length(spec1) then
       begin
-        source_image :=QTGA.Create(self.NomFichier,self);
+        source_image :=QTGA.Create(self.NomFichier,self); try
         source_image.ReadFormat := ReadFormat;
         SourceStream:=AccesFichierQ(self.NomFichier, []);
         SourceStream.AddRef;
@@ -245,7 +245,7 @@ begin
         Specifics.Add('Value='+IntToStr(0));}
 
         {free the temporary image object}
-        source_image.destroy;
+        finally source_image.destroy; end;
       end;{if image specific not exists}
      end; {read format = 1}
     else {case read format}
