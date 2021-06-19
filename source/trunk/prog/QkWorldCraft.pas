@@ -489,7 +489,10 @@ begin
       Racine:=TTreeMapBrush.Create('', Self);
       Racine.AddRef(+1);
       try
-        ModeJeu:=mjHalfLife;
+        if CharModeJeu=mjCoF then
+         ModeJeu:=mjCoF
+        else
+         ModeJeu:=mjHalfLife;
         g_MapError.Clear;
 
         MapStructure:=TTreeMapGroup.Create(LoadStr1(137), Racine);
