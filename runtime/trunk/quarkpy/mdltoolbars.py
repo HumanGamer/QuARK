@@ -12,7 +12,6 @@ import qtoolbar
 from mdlutils import *
 import qeditor
 import qhandles
-import mdleditor
 import mdlhandles
 
 
@@ -52,6 +51,7 @@ class DisplayBar(qeditor.ToolBar):
 
 # Extrude selected faces in the ModelFaceSelList without bulkheads function.
 def extrudeclick(m):
+    import mdleditor
     editor = mdleditor.mdleditor
     qtoolbar.toggle(m)
     tb1 = editor.layout.toolbars["tb_edittools"]
@@ -177,6 +177,7 @@ def extrudeclick(m):
 
 # Extrude selected faces in the ModelFaceSelList with bulkheads function.
 def extrudebulkheadsclick(m):
+    import mdleditor
     editor = mdleditor.mdleditor
     qtoolbar.toggle(m)
     tb1 = editor.layout.toolbars["tb_edittools"]
@@ -280,24 +281,28 @@ def extrudebulkheadsclick(m):
 
 # Reverse selected faces direction in the ModelFaceSelList function.
 def ReverseFaceClick(m):
+    import mdleditor
     editor = mdleditor.mdleditor
     ReverseFaces(editor)
 
 
 # Splits up selected faces in the ModelFaceSelList into 2 new triangles function.
 def Subdivide2Click(m):
+    import mdleditor
     editor = mdleditor.mdleditor
     SubdivideFaces(editor, 2)
 
 
 # Splits up selected faces in the ModelFaceSelList into 3 new triangles function.
 def Subdivide3Click(m):
+    import mdleditor
     editor = mdleditor.mdleditor
     SubdivideFaces(editor, 3)
 
 
 # Splits up selected faces in the ModelFaceSelList into 4 new triangles function.
 def Subdivide4Click(m):
+    import mdleditor
     editor = mdleditor.mdleditor
     SubdivideFaces(editor, 4)
 
@@ -357,6 +362,7 @@ class FaceCutter(qhandles.RectangleDragObject):
         def redrawview(editor=editor, view=view):
             from qbaseeditor import flagsmouse
             qbaseeditor.flagsmouse = 1032
+            import mdleditor
             mdleditor.setsingleframefillcolor(editor, view)
             view.repaint()
             if editor.ModelFaceSelList != []:
@@ -930,6 +936,7 @@ class FaceCutter(qhandles.RectangleDragObject):
 
 # Splits up each selected face in the ModelFaceSelList, that the cut line crosses, into 3 new triangles, something like in the map editor.
 def FaceCutToolClick(m):
+    import mdleditor
     editor = mdleditor.mdleditor
     qtoolbar.toggle(m)
     tb1 = editor.layout.toolbars["tb_edittools"]
@@ -967,6 +974,7 @@ def FaceCutToolClick(m):
 
 # Option button for FaceCutTool above.
 def KeepDupeVertexesClick(m):
+    import mdleditor
     editor = mdleditor.mdleditor
     qtoolbar.toggle(m)
     tb1 = editor.layout.toolbars["tb_edittools"]
