@@ -869,7 +869,7 @@ def export_anim(self, file, filename, exp_list):
 # CALL TO SAVE MESH (.md5mesh) FILE (called from dialog section below)
 ######################################################
 def save_md5(self):
-    global tobj, logging, exportername, textlog, Strings, exp_list, Tab, worldTable
+    global tobj, logging, exportername, textlog, Strings, exp_list
     editor = self.editor
     if editor is None:
         return
@@ -877,7 +877,6 @@ def save_md5(self):
 
     objects = editor.layout.explorer.sellist
     exp_list = []
-    Tab = "\t"
     worldTable = {'mat_type': 0} #default
 
     logging, tobj, starttime = ie_utils.default_start_logging(exportername, textlog, filename, "EX") ### Use "EX" for exporter text, "IM" for importer text.
