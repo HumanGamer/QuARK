@@ -450,8 +450,6 @@ def AddKeyType(token):
     elif (token == "string" \
        or token == "target_source" \
        or token == "target_destination" \
-       or token == "color1" \ # FIXME: We want to use LN, but there can be a fourth value...
-       or token == "color255" \ # FIXME: We want to use L, but there can be a fourth value...
        or token == "sound" \
        or token == "sprite" \
        or token == "angle" \
@@ -462,6 +460,12 @@ def AddKeyType(token):
        or token == "pointentityclass" \
        or token == "scene"):
 #       or token == "decal"):
+        theKey = KeyString()
+    elif token == "color1":
+        # FIXME: We want to use LN, but there can be a fourth value...
+        theKey = KeyString()
+    elif token == "color255":
+        # FIXME: We want to use L, but there can be a fourth value...
         theKey = KeyString()
     elif (token == "flags"):
         theKey = KeyFlags()
