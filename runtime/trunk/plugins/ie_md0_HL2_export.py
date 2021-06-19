@@ -459,7 +459,7 @@ def find_strip_length(mesh, start_tri, start_vert):
 
     m1=m2=0
     st1=st2=0
-    
+
     used[start_tri]=2
 
     last=start_tri
@@ -479,10 +479,10 @@ def find_strip_length(mesh, start_tri, start_vert):
     st1=mesh.faces[last].texture_uv[(start_vert+2)%3]
     m2=mesh.faces[last].vertex_index[(start_vert+1)%3]
     st2=mesh.faces[last].texture_uv[(start_vert+1)%3]
-    
+
     #look for matching triangle
     check=start_tri+1
-    
+
     for tri_counter in range(start_tri+1, mesh.numtris):
         
         for k in range(0,3):
@@ -494,7 +494,7 @@ def find_strip_length(mesh, start_tri, start_vert):
                 continue
             if str(mesh.faces[check].texture_uv[(k+1)%3])!=str(st2):
                 continue
-            
+
             #if we can't use this triangle, this tri_strip is done
             if (used[tri_counter]!=0):
                 for clear_counter in range(start_tri+1, mesh.numtris):
@@ -514,7 +514,7 @@ def find_strip_length(mesh, start_tri, start_vert):
             strip_st[strip_count+2]=mesh.faces[tri_counter].texture_uv[(k+2)%3]
             strip_tris[strip_count]=tri_counter
             strip_count+=1
-    
+
             used[tri_counter]=2
         check+=1
     return strip_count
@@ -530,7 +530,7 @@ def find_fan_length(mesh, start_tri, start_vert):
 
     m1=m2=0
     st1=st2=0
-    
+
     used[start_tri]=2
 
     last=start_tri
@@ -538,7 +538,7 @@ def find_fan_length(mesh, start_tri, start_vert):
     strip_vert[0]=mesh.faces[last].vertex_index[start_vert%3]
     strip_vert[1]=mesh.faces[last].vertex_index[(start_vert+1)%3]
     strip_vert[2]=mesh.faces[last].vertex_index[(start_vert+2)%3]
-    
+
     strip_st[0]=mesh.faces[last].texture_uv[start_vert%3]
     strip_st[1]=mesh.faces[last].texture_uv[(start_vert+1)%3]
     strip_st[2]=mesh.faces[last].texture_uv[(start_vert+2)%3]
@@ -551,7 +551,7 @@ def find_fan_length(mesh, start_tri, start_vert):
     m2=mesh.faces[last].vertex_index[(start_vert+2)%3]
     st2=mesh.faces[last].texture_uv[(start_vert+2)%3]
 
-    #look for matching triangle    
+    #look for matching triangle
     check=start_tri+1
     for tri_counter in range(start_tri+1, mesh.numtris):
         for k in range(0,3):
@@ -563,7 +563,7 @@ def find_fan_length(mesh, start_tri, start_vert):
                 continue
             if str(mesh.faces[check].texture_uv[(k+1)%3])!=str(st2):
                 continue
-            
+
             #if we can't use this triangle, this tri_strip is done
             if (used[tri_counter]!=0):
                 for clear_counter in range(start_tri+1, mesh.numtris):
@@ -574,12 +574,12 @@ def find_fan_length(mesh, start_tri, start_vert):
             #new edge
             m2=mesh.faces[check].vertex_index[(k+2)%3]
             st2=mesh.faces[check].texture_uv[(k+2)%3]
-            
+
             strip_vert[strip_count+2]=m2
             strip_st[strip_count+2]=st2
             strip_tris[strip_count]=tri_counter
             strip_count+=1
-    
+
             used[tri_counter]=2
         check+=1
     return strip_count
@@ -1688,7 +1688,7 @@ class mdl_norm: # Gives each normal's x,y,z position.
         tmpData[2] = self.v[2]
         data = struct.pack(self.binary_format, tmpData[0], tmpData[1], tmpData[2])
         file.write(data)
-                        
+
     def dump(self):
         print "MDL Normal"
         print "v: ",self.v[0], self.v[1], self.v[2]
@@ -1850,8 +1850,8 @@ def CalcBonePosition(self, m_frame, s, pbone, panim, m_adj):
 ######################################################
 
 def fill_mdl(dlg):
+    global mdl
     # Fill the mdl_obj header values.
-    print "line 1705 dlg", dlg
     name = dlg.mdlfile.name.replace("\\", "/")
     name = name.split("/")
     name = name[len(name)-1]
@@ -2077,14 +2077,14 @@ def fill_mdl(dlg):
             if bbmin is not None:
                 if mdl.hull_min[0] == 0 and mdl.hull_min[1] == 0 and mdl.hull_min[2] == 0:
                     mdl.hull_min = bbmin
-                print "line 1914 hull_min", mdl.hull_min
+                #print "line 1914 hull_min", mdl.hull_min
             if bbmax is not None:
                 if mdl.hull_max[0] == 0 and mdl.hull_max[1] == 0 and mdl.hull_max[2] == 0:
                     mdl.hull_max = bbmax
-                print "line 1918 hull_max", mdl.hull_max
+                #print "line 1918 hull_max", mdl.hull_max
         else:
-            print "line 1920 SRCsList", len(ani_dlg.SRCsList)
-            print ani_dlg.SRCsList
+            #print "line 1920 SRCsList", len(ani_dlg.SRCsList)
+            #print ani_dlg.SRCsList
             mdl.numlocalanim = 0
             for i in xrange(0, len(comp_framesgroup)):
                 frame_name = comp_framesgroup[i].name
@@ -2116,7 +2116,7 @@ def fill_mdl(dlg):
         bone_min_max = [[]] * mdl.num_bones
         for anim_seq in mdl.sequence_descs:
             frames = mdl.QuArK_anim_seq_frames[anim_seq.label]
-            print "line 1953 anim_seq.label", anim_seq.label
+            #print "line 1953 anim_seq.label", anim_seq.label
             bbmin = None
             bbmax = None
             all_bone_data = []
@@ -2213,12 +2213,12 @@ def fill_mdl(dlg):
                 anim_seq.bbmin = bbmin
                 if mdl.hull_min[0] == 0 and mdl.hull_min[1] == 0 and mdl.hull_min[2] == 0:
                     mdl.hull_min = anim_seq.bbmin
-                print "line 2050 hull_min", mdl.hull_min
+                #print "line 2050 hull_min", mdl.hull_min
             if bbmax is not None:
                 anim_seq.bbmax = bbmax
                 if mdl.hull_max[0] == 0 and mdl.hull_max[1] == 0 and mdl.hull_max[2] == 0:
                     mdl.hull_max = anim_seq.bbmax
-                print "line 2055 hull_max", mdl.hull_max
+                #print "line 2055 hull_max", mdl.hull_max
 
         mdl.QuArK_anim_data = []
         for i in xrange(len(mdl.sequence_descs)):
@@ -2468,7 +2468,7 @@ def fill_mdl(dlg):
                 skin_info.flags = int(dlg.skins[i].dictspec['HL_skin_flags'])
             next_skin_offset = next_skin_offset + 124
           #  skin_info.dump()
-                
+
             mdl.skins_group.append(skin_info)
         mdl.length = mdl.textureindex + (mdl.num_textures * 128) # 128 = class HL2_TexturesInfo binary_format.
     mdl.dump()
@@ -3108,7 +3108,7 @@ class ExportSettingsDlg(quarkpy.qmacro.dialogbox):
             self.src['MakeAnimations'] = None
             self.src['MakeGestures'] = None
             self.src['dummy'] = "3"
-            
+
         df.setdata(self.src, self.f) # This line updates the dialog.
 
     def MakeFiles(self, btn):
@@ -3201,7 +3201,7 @@ class ExportSettingsDlg(quarkpy.qmacro.dialogbox):
 
         framescount = len(self.comp_list[0].dictitems['Frames:fg'].subitems)
         if framescount > 1 and (self.src['MakeAnimations'] is not None or self.src['MakeGestures'] is not None or self.src['MakePostures'] is not None):
-            print "line 3030 self.filename", self.filename
+            #print "line 3030 self.filename", self.filename
             for i in range(len(possible_files)):
                 if self.filename.find(possible_files[i]) != -1:
                     self.filename = self.filename.replace(possible_files[i], "")
@@ -3218,7 +3218,7 @@ class ExportSettingsDlg(quarkpy.qmacro.dialogbox):
 
         elif self.src['MakeMainMDL'] is not None:
             base_name = self.filename.rsplit(".", 1)[0]
-            print "line 3047 self.filename", self.filename, base_name
+            #print "line 3047 self.filename", self.filename, base_name
             # Opens the output files for writing the .mdl, .vtx and .vvd files to disk.
             self.mdlfile = open(self.filename,"wb")
             self.vtxfile = open(base_name + ".dx90.vtx","wb")
@@ -3263,8 +3263,8 @@ def DialogClick(MDL_DLG, editor, filename, ComponentList, folder_name):
     if editor is None: return
     # Opens animation files to use.
     file = None
-    print "line 3093 filename", filename
-    print "line 3094 MDL_DLG", MDL_DLG
+    #print "line 3093 filename", filename
+    #print "line 3094 MDL_DLG", MDL_DLG
 
     def setup(self, editor=editor, MDL_DLG=MDL_DLG, ComponentList=ComponentList):
         global SpecsList2, ani_dlg
@@ -3349,7 +3349,7 @@ def DialogClick(MDL_DLG, editor, filename, ComponentList, folder_name):
         LoadAnim = [] # List for which animation sequences to load.
         src = self.src
         cancel = 0
-        print "line 3179 in onclosing", self, MDL_DLG
+        #print "line 3179 in onclosing", self, MDL_DLG
         if src['all'] is not None:
             for name in self.SRCsList:
                 LoadAnim += [1]
@@ -3364,7 +3364,7 @@ def DialogClick(MDL_DLG, editor, filename, ComponentList, folder_name):
         if cancel != 0:
            # MDL_DLG, ComponentList, QuArK_bones = MDL_DLG.load_Animation(ComponentList, QuArK_bones, file, editor, folder_name, LoadAnim)
            # FinishImport(editor, filename, ComponentList, QuArK_bones)
-            print "line 3194 saving ani files animations = ", len(LoadAnim), MDL_DLG.mdlfile.name, MDL_DLG.src['MakeMainMDL']
+            #print "line 3194 saving ani files animations = ", len(LoadAnim), MDL_DLG.mdlfile.name, MDL_DLG.src['MakeMainMDL']
             ani_name = MDL_DLG.mdlfile.name.rsplit(".", 1)[0] + ".ani"
             self.anifile = open(ani_name,"wb")
             save_mdl(MDL_DLG) # This is the function above called to start exporting the model file.
@@ -3376,15 +3376,15 @@ def DialogClick(MDL_DLG, editor, filename, ComponentList, folder_name):
                 for i in range(len(possible_files)):
                     if MDL_DLG.filename.find(possible_files[i]) != -1:
                         MDL_DLG.filename = MDL_DLG.filename.replace(possible_files[i], "")
-                        print "line 3206 going to break", MDL_DLG.filename
+                        #print "line 3206 going to break", MDL_DLG.filename
                         break
                 base_name = MDL_DLG.filename.rsplit(".", 1)[0]
-                print "line 3209 MDL_DLG.filename", MDL_DLG.filename
+                #print "line 3209 MDL_DLG.filename", MDL_DLG.filename
                 # Opens the output files for writing the .mdl, .vtx and .vvd files to disk.
                 MDL_DLG.mdlfile = open(MDL_DLG.filename,"wb")
                 MDL_DLG.vtxfile = open(base_name + ".dx90.vtx","wb")
                 MDL_DLG.vvdfile = open(base_name + ".vvd","wb")
-                print "line 3214 saving BASE file", MDL_DLG.mdlfile.name
+                #print "line 3214 saving BASE file", MDL_DLG.mdlfile.name
                 save_mdl(MDL_DLG) # This is the function above called to start exporting the model file.
                 MDL_DLG.mdlfile.close()
                 MDL_DLG.vtxfile.close()
