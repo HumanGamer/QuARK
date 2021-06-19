@@ -18,11 +18,10 @@ and exporters to QuArK's Main Files - Import menu.
 def RegisterMdlImporter(Text, Ext, Desc, Proc, ImporterFile=None):
     import qmacro
     if ImporterFile is not None:
-        import mdlmgr
-        from mdlmgr import SFTexts, mdltypes, IEfile
-        mdlmgr.SFTexts = mdlmgr.SFTexts + [Desc.strip("*")]
-        mdlmgr.mdltypes = mdlmgr.mdltypes + [len(mdltypes)]
-        mdlmgr.IEfile = mdlmgr.IEfile + [ImporterFile]
+        import mdlutils
+        mdlutils.SFTexts.append(Desc.strip("*"))
+        mdlutils.mdltypes.append(len(mdlutils.mdltypes))
+        mdlutils.IEfile.append(ImporterFile)
     qmacro.mdlimport.update( { Text: ([Ext, Desc], Proc) } )
     MenuSortName = Proc.__module__
     if qmacro.mdlimportmenuorder.has_key(MenuSortName):
@@ -33,11 +32,10 @@ def RegisterMdlImporter(Text, Ext, Desc, Proc, ImporterFile=None):
 def RegisterMdlExporter(Text, Ext, Desc, Proc, ExporterFile=None):
     import qmacro
     if ExporterFile is not None:
-        import mdlmgr
-        from mdlmgr import SFTexts, mdltypes, IEfile
-        mdlmgr.SFTexts = mdlmgr.SFTexts + [Desc.strip("*")]
-        mdlmgr.mdltypes = mdlmgr.mdltypes + [len(mdltypes)]
-        mdlmgr.IEfile = mdlmgr.IEfile + [ExporterFile]
+        import mdlutils
+        mdlutils.SFTexts.append(Desc.strip("*"))
+        mdlutils.mdltypes.append(len(mdlutils.mdltypes))
+        mdlutils.IEfile.append(ExporterFile)
     qmacro.mdlexport.update( { Text: ([Ext, Desc], Proc) } )
     MenuSortName = Proc.__module__
     if qmacro.mdlexportmenuorder.has_key(MenuSortName):

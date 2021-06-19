@@ -37,9 +37,6 @@ treeviewselchanged = 0 ### This global is set to 1 when any new item is selected
                        ### 2) Test for its value of 0 or 1:     if treeviewselchanged == 1:
                        ### 3) After using be SURE to reset:         treeviewselchanged = 0
                        ### 4) Then complete your function :         return
-SFTexts   = ['default'] # Supported model types for import\exporting.
-mdltypes = [0] # Control list that corresponds with the "SFTexts" list above.
-IEfile = ['default'] # Actual imported .py Importer\Exporter file list that corresponds with the "SFTexts" list above.
 check_currentcomponent = None
 check_comp_list = None
 check_pos = None

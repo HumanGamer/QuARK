@@ -21,6 +21,7 @@ from quarkpy.qutils import *
 import ie_utils
 from ie_utils import tobj
 from quarkpy.qdictionnary import Strings
+import quarkpy.mdlutils
 
 # Globals
 logging = 0
@@ -1327,8 +1328,7 @@ def md3_menu_text():
         OldText = ".md3 Quake3 Importer - max. tag frames"
     return OldText, NewText
 
-import quarkpy.mdlentities
-quarkpy.mdlentities.RegisterMenuImporterChanged(md3_menu_text)
+quarkpy.mdlutils.RegisterMenuImporterChanged(md3_menu_text)
 
 def dataformname(o):
     "Returns the data form for this type of object 'o' (a model component & others) to use for the Specific/Args page."
