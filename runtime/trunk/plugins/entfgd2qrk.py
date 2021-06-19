@@ -450,8 +450,8 @@ def AddKeyType(token):
     elif (token == "string" \
        or token == "target_source" \
        or token == "target_destination" \
-       or token == "color1" \
-       or token == "color255" \
+       or token == "color1" \ # FIXME: We want to use LN, but there can be a fourth value...
+       or token == "color255" \ # FIXME: We want to use L, but there can be a fourth value...
        or token == "sound" \
        or token == "sprite" \
        or token == "angle" \
@@ -468,21 +468,21 @@ def AddKeyType(token):
     elif (token == "choices"):
         theKey = KeyChoices()
     elif (token == "void"):
-        theKey = KeyString()       #tbd 
+        theKey = KeyString()       #tbd
     elif (token == "vector"):
-        theKey = KeyString()       #tbd 
+        theKey = KeyString()       #tbd
     elif (token == "vecline"):
-        theKey = KeyString()       #tbd 
+        theKey = KeyString()       #tbd
     elif (token == "axis"):
-        theKey = KeyString()       #tbd 
+        theKey = KeyString()       #tbd
     elif (token == "sidelist"):
-        theKey = KeyString()       #tbd 
+        theKey = KeyString()       #tbd
     elif (token == "material"):
-        theKey = KeyTexture()       #tbd 
+        theKey = KeyTexture()       #tbd
     elif (token == "decal"):
-        theKey = KeyTexture()       #tbd 
+        theKey = KeyTexture()       #tbd
     elif (token == "bool"):
-        theKey = KeyBool()       #tbd 
+        theKey = KeyBool()       #tbd
     elif (token == "studio"):
         theKey = KeyStudio()
     else:
@@ -586,6 +586,7 @@ def readentirefile(file):
             filecontents = filecontents + line + "\n"
     f.close()
     return filecontents
+
 TYPE_UNKNOWN    = 0
 TYPE_NUMERIC    = 1
 TYPE_STRING     = 2
@@ -605,9 +606,9 @@ TYPE_OUTPUT             = 19    # 'output'
 TYPE_SPLITTER_PLUS      = 20    # '+'
 
 toktypes={
-0  :'TYPE_UNKNOWN',        
-1  :'TYPE_NUMERIC',        
-2  :'TYPE_STRING',        
+0  :'TYPE_UNKNOWN',
+1  :'TYPE_NUMERIC',
+2  :'TYPE_STRING',
 3  :'TYPE_SYMBOL',
 #Added 4/30/2008 to fix 'halfgridsnap' error ,
 4  :'TYPE_HALFGRIDSNAP',
