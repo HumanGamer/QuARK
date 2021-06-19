@@ -29,7 +29,6 @@ from quarkpy.qutils import *
 import quarkx
 import quarkpy.qtoolbar
 import ie_utils
-import quarkpy.mdlentities
 import quarkpy.mdlutils
 from ie_utils import tobj
 from quarkpy.qdictionnary import Strings
@@ -2548,6 +2547,7 @@ def colorclick(btn):
 
 def dataformname(o):
     "Returns the data form for this type of object 'o' (a model component & others) to use for the Specific/Args page."
+    import quarkpy.mdlentities
 
     # Next line calls for the Shader Module in mdlentities.py to be used.
     external_skin_editor_dialog_plugin = quarkpy.mdlentities.UseExternalSkinEditor()
