@@ -18,6 +18,7 @@ Info = {
 import struct, os, math
 import quarkx
 import quarkpy.qutils
+from quarkpy.qutils import *
 from types import *
 import quarkpy.mdlutils
 import ie_utils
@@ -26,7 +27,6 @@ from quarkpy.qeditor import MapColor # Strictly needed for QuArK bones MapColor 
 from quarkpy.qeditor import matrix_rot_x
 
 # Globals
-SS_MODEL = 3
 logging = 0
 importername = "ie_skd_import.py"
 textlog = "skc-skd_ie_log.txt"

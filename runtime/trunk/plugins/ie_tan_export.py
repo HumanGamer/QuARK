@@ -18,13 +18,14 @@ Info = {
 import struct, math
 import quarkx
 import quarkpy.mdleditor
+import quarkpy.qutils
+from quarkpy.qutils import *
 from types import *
 import ie_utils
 from ie_utils import tobj
 from quarkpy.qdictionnary import Strings
 
 # Globals
-SS_MODEL = 3
 editor = None
 logging = 0
 exportername = "ie_tan_export.py"
@@ -588,7 +589,6 @@ def savemodel(root, filename, gamename, nomessage=0):
     #   gamename is None.
 
     global editor, progressbar, tobj, logging, exportername, textlog, Strings
-    import quarkpy.qutils
     editor = quarkpy.mdleditor.mdleditor
     if editor is None:
         return

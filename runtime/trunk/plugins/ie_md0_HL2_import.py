@@ -23,9 +23,9 @@ import ie_utils
 from ie_utils import tobj
 from quarkpy.qdictionnary import Strings
 from quarkpy.qeditor import MapColor # Strictly needed for QuArK bones MapColor call.
+import quarkpy.qutils
 
 # Globals
-SS_MODEL = 3
 logging = 0
 importername = "ie_md0_HL2_import.py"
 textlog = "HL2mdl_ie_log.txt"

@@ -25,7 +25,6 @@ import ie_utils
 from ie_utils import tobj
 
 # Globals
-SS_MODEL = 3
 logging = 0
 exportername = "ie_skb_export.py"
 textlog = "ska-skb_ie_log.txt"
@@ -1086,7 +1085,6 @@ def savemodel(root, filename, gamename):
     #   gamename is None.
 
     global editor, progressbar, tobj, logging, exportername, textlog, file_version, ModelFolder
-    import quarkpy.qutils
     editor = quarkpy.mdleditor.mdleditor
     # Step 1 to import model from QuArK's Explorer.
     if editor is None:

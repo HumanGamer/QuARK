@@ -24,7 +24,8 @@ Info = {
 #    import mod_meshtools as my_meshtools
 
 #python specific modules import
-import struct, chunk, os, cStringIO, time, operator, math
+import struct, chunk, os, cStringIO, time, math
+from quarkpy.qutils import *
 import quarkx
 import quarkpy.qtoolbar
 import ie_utils
@@ -39,7 +40,6 @@ import quarkpy.qutils
 # ===========================================================
 
 # Globals
-SS_MODEL = 3
 logging = 0
 importername = "ie_lightwave_import.py"
 textlog = "lwo_ie_log.txt"

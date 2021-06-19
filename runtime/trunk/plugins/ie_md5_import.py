@@ -17,6 +17,7 @@ Info = {
 
 import struct, os, math
 from types import *
+from quarkpy.qutils import *
 import quarkx
 import quarkpy.qutils
 import quarkpy.qtoolbar
@@ -27,7 +28,6 @@ from quarkpy.qdictionnary import Strings
 from quarkpy.qeditor import MapColor # Strictly needed for QuArK bones MapColor call.
 
 # Globals
-SS_MODEL = 3
 md5_mesh_path = None
 md5_anim_path = None
 md5_model = None

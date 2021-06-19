@@ -29,7 +29,6 @@ import math
 from quarkpy.qdictionnary import Strings
 
 # Globals
-SS_MODEL = 3
 logging = 0
 importername = "ie_gr2_import.py"
 textlog = "gr2_ie_log.txt"

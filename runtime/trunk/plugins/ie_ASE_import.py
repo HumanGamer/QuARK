@@ -26,7 +26,6 @@ from ie_utils import tobj
 from quarkpy.qdictionnary import Strings
 
 # Globals
-SS_MODEL = 3
 logging = 0
 importername = "ie_ASE_import.py"
 textlog = "ase_ie_log.txt"

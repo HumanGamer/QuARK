@@ -15,7 +15,7 @@ Info = {
    "author e-mail": "cdunde@sbcglobal.net",
    "quark":         "Version 6.6.0 Beta 2" }
 
-import struct, chunk, os, time, operator
+import struct, chunk, os, time
 import quarkx
 import quarkpy.mdleditor
 from types import *

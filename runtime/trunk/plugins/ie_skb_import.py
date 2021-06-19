@@ -16,6 +16,7 @@ Info = {
    "quark":         "Version 6.6.0 Beta 4" }
 
 import struct, os, operator, math
+from quarkpy.qutils import *
 import quarkx
 import quarkpy.qutils
 from types import *
@@ -25,7 +26,6 @@ from ie_utils import tobj
 from quarkpy.qeditor import MapColor # Strictly needed for QuArK bones MapColor call.
 
 # Globals
-SS_MODEL = 3
 logging = 0
 importername = "ie_skb_import.py"
 textlog = "ska-skb_ie_log.txt"

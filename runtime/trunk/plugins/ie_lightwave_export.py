@@ -25,14 +25,15 @@ Info = {
 # +---------------------------------------------------------+
 
 import struct, chunk, os, cStringIO, time, operator
+from quarkpy.qutils import *
 import quarkx
 import quarkpy.mdleditor
 import ie_utils
 from ie_utils import tobj
 from quarkpy.qdictionnary import Strings
+quarkpy.qutils
 
 # Globals
-SS_MODEL = 3
 logging = 0
 exportername = "ie_lightwave_export.py"
 textlog = "lwo_ie_log.txt"

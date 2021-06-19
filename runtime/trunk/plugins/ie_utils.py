@@ -8,12 +8,11 @@ Various Model importer\exporter utility functions.
 # FOUND IN FILE "COPYING.TXT"
 #
 
-import os, os.path, time, operator
+import os, os.path, time
 import quarkx
 import quarkpy.qutils
 
 # Globals
-SS_MODEL = 3
 logging = 0
 textlog = "model_ie_log.txt"
 tobj = None
@@ -22,7 +21,7 @@ tobj = None
 NOTE: ALL IMPORTERS AND EXPORTERS SHOULD INCLUDE THIS LOGGING CODE.
 
 1) To add logging to an importer or exporter put these lines near the top, under the file header, in this order:
-import os, time, operator
+import os, time
 import ie_utils
 from ie_utils import tobj
 
@@ -202,7 +201,7 @@ class dotext:
     def write(self, wstring, maxlen=80):
         # Opens a text file in QuArK's main directory for logging to.
         # See QuArK's Defaults.qrk file for additional setup code for IELogging option.
-        if quarkx.setupsubset(SS_MODEL, "Options")['IELogging'] != "0":
+        if quarkx.setupsubset(quarkpy.qutils.SS_MODEL, "Options")['IELogging'] != "0":
             if self.txtobj == None or not os.path.exists(quarkx.exepath + self.textlog):
                 self.txtobj = open(quarkx.exepath + self.textlog, "w")
         if (self.txtobj==None):
@@ -212,7 +211,7 @@ class dotext:
             if (ll>maxlen):
                 self.txtobj.write((wstring[:maxlen]))
                 self.txtobj.write("\n")
-                if int(quarkx.setupsubset(SS_MODEL, "Options")['IELogging']) == 2:
+                if int(quarkx.setupsubset(quarkpy.qutils.SS_MODEL, "Options")['IELogging']) == 2:
                     print (wstring[:maxlen])
                 wstring = (wstring[maxlen:])
             else:
@@ -221,13 +220,13 @@ class dotext:
                 except:
                     self.txtobj = open(quarkx.exepath + self.textlog, "w")
                     self.txtobj.write(wstring)
-                if int(quarkx.setupsubset(SS_MODEL, "Options")['IELogging']) == 2:
+                if int(quarkx.setupsubset(quarkpy.qutils.SS_MODEL, "Options")['IELogging']) == 2:
                     if wstring != "\n":
                         print wstring
                 break
 
     def pstring(self, ppstring, where = _NO):
-        where = int(quarkx.setupsubset(SS_MODEL, "Options")['IELogging'])
+        where = int(quarkx.setupsubset(quarkpy.qutils.SS_MODEL, "Options")['IELogging'])
         if where == dotext._NO: where = self.dwhere
         self.write(ppstring)
         self.write("\n")

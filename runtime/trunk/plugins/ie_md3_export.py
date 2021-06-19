@@ -25,7 +25,6 @@ from ie_utils import tobj
 from quarkpy.qdictionnary import Strings
 
 # Globals
-SS_MODEL = 3
 logging = 0
 exportername = "ie_md3_export.py"
 textlog = "md3_ie_log.txt"

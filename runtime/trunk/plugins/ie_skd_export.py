@@ -25,7 +25,6 @@ from ie_utils import tobj
 from quarkpy.qeditor import matrix_rot_x
 
 # Globals
-SS_MODEL = 3
 logging = 0
 exportername = "ie_skd_export.py"
 textlog = "skc-skd_ie_log.txt"
