@@ -17,6 +17,7 @@ Info = {
 
 import struct, os, math
 import quarkx
+import quarkpy.dlgclasses
 import quarkpy.qtoolbar
 from quarkpy.qutils import *
 import ie_utils
