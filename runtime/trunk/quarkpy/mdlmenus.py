@@ -375,7 +375,7 @@ def MdlBackgroundMenu(editor, view=None, origin=None):
             AutoScaleSkinHandles.state = quarkx.setupsubset(SS_MODEL,"Options").getint("AutoScale_SkinHandles")
 
         # Add importer/exporter specific menu items
-        from mdlmgr import SFTexts, IEfile
+        from mdlutils import SFTexts, IEfile
         sfbtn = editor.layout.buttons["sf"]
         for filetype in range(len(SFTexts)):
             if sfbtn.caption == SFTexts[filetype]:
