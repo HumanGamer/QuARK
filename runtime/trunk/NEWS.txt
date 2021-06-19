@@ -14,6 +14,8 @@
 
 6.6.0 Beta 8
 ============
+* [DanielPharos]: Improvements to .rmf file loading: specifics are now also being loaded.
+
 * [DanielPharos]: Added Cry of Fear support.
 
 * [DanielPharos]: Cache texture sizes during the saving of .vmf files, and handle 'hidden'

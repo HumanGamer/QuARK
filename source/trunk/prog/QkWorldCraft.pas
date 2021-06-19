@@ -421,10 +421,12 @@ var
  end;
 
  procedure LoadKeyValue(var obj : TTreeMap);
+ var
+   Key, Value: String;
  begin
-   DummyString:=ReadRMFString(); //Key
-   DummyString:=ReadRMFString(); //Value
-   //@
+   Key:=ReadRMFString();
+   Value:=ReadRMFString();
+   obj.Specifics.Values[Key]:=Value;
  end;
 
  procedure LoadEditGameClass(var obj : TTreeMap);
