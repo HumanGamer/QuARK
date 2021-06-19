@@ -155,25 +155,24 @@ class PositionFollowingDlg (quarkpy.dlgclasses.LiveEditDlg):
         sep: = {Typ="S" Txt=" "}
 
         distance: =
-         {
-         Txt = "Distance"
-         Typ = "EU"
-         Hint = "Distance to next, in units"
-         }
+        {
+        Txt = "Distance"
+        Typ = "EU"
+        Hint = "Distance to next, in units"
+        }
 
-
-         sep: = {Typ="S" Txt=" "}
+        sep: = {Typ="S" Txt=" "}
 
         shifttail: =
-         {
-         Txt = "Shift Tail"
-         Typ = "X"
-         Hint = "If checked, remaining points are moved to retain distance w.r.t last in moved series"
-         }
+        {
+        Txt = "Shift Tail"
+        Typ = "X"
+        Hint = "If checked, remaining points are moved to retain distance w.r.t last in moved series"
+        }
 
-         sep: = {Typ="S" Txt=" "}
+        sep: = {Typ="S" Txt=" "}
 
-         exit:py = { Txt=""}
+        exit:py = { Txt=""}
     }
     """
 
@@ -184,7 +183,6 @@ class PathDuplicatorPointHandle(quarkpy.qhandles.IconHandle):
         quarkpy.qhandles.IconHandle.__init__(self, origin, centerof)
         self.pathdupmaster = pathdupmaster
         self.mainpathdup=self.centerof.parent.findname("Path Duplicator:d")
-
 
     def findpathdupcornerwith(self, list, entitykey, entitykeydata):
         for e in list:
@@ -445,7 +443,6 @@ class PathPointHandle(PathDuplicatorPointHandle):
         quarkpy.qhandles.IconHandle.__init__(self, origin, centerof)
         self.pathdupmaster = 0
         self.mainpathdup = mainpathdup
-
 
     #
     # called at end of drag, resets selection
