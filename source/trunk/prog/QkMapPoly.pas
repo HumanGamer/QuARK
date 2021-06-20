@@ -116,7 +116,7 @@ type
               {function AjouterRef(Liste: TList; Niveau: Integer) : Integer; override;
                procedure RefreshColor(Plan: Pointer); override;}
                procedure SetSelFocus; override;
-               procedure AjouteFace(FJ: TFace; Copie: Boolean);
+               procedure AddFace(FJ: TFace; Copy: Boolean);
                function EnumAretes(Sommet: PVertex; var nVertices: TFVertexTable) : Integer;
                function PyGetAttr(attr: PChar) : PyObject; override;
                procedure Deplacement(const PasGrille: TDouble); override;
@@ -224,20 +224,20 @@ const
 
 function CoordShift(const P, texO, texS, texT : TVect) : TVect;
 function CentreSurface(P: PSurface) : TVect;
-function SommetDeFace(Surface: PSurface; Sommet: PVertex) : Boolean;
+{function SommetDeFace(Surface: PSurface; Sommet: PVertex) : Boolean;}
 
-function PolyedreRencontrePolyedre(P1, P2: TPolyedre) : Boolean;
-function FaceRencontrePolyedre(F: PSurface; P: TPolyedre) : Boolean;
-function FaceRencontreFace(F1, F2: PSurface) : Boolean;
-{procedure SoustractionPolyedre(Anciens, Nouveaux: TQList; P: TPolyedre; SoustraitPolyMax: Boolean);}
+{function PolyedreRencontrePolyedre(P1, P2: TPolyedre) : Boolean;}
+{function FaceRencontrePolyedre(F: PSurface; P: TPolyedre) : Boolean;}
+{function FaceRencontreFace(F1, F2: PSurface) : Boolean;}
+{procedure SoustractionPolyedre(Old, New: TQList; P: TPolyedre; SoustraitPolyMax: Boolean);}
 {function VecteurNormalDe(const Centre, Normale: TVect) : TVect;}
-procedure AjusterNormale(var Normale: TVect);
+{procedure AjusterNormale(var Normale: TVect);}
 function PolyedreNonVide(nFaces: TList; ReloadData: Boolean) : Boolean;
 function PointsToPlane(const Normale: TVect) : Char;
 procedure ReplaceWithDefaultTex(Q: QObject; const Tex, Dest: String);
 procedure BuildPolyhedronsNow(Racine: QObject; var InvPoly, InvFaces: Integer);
-function AnalyseClicFace(S: PSurface; var nP: TPointProj; Arriere: Boolean) : Boolean;
-procedure DessinPolygoneFace(S: PSurface);
+{function AnalyseClicFace(S: PSurface; var nP: TPointProj; Arriere: Boolean) : Boolean;}
+{procedure DessinPolygoneFace(S: PSurface);}
 
 procedure RechercheAdjacents(Concerne, Source: PyObject; Simple, Double: Boolean);
 procedure GetAxisBase(const Normal0: TVect; var texS, texT: TVect);
@@ -479,7 +479,7 @@ end;
 
  {------------------------}
 
-function CentreSurface;
+function CentreSurface(P: PSurface) : TVect;
 var
  J, NbPts: Integer;
 begin
@@ -589,11 +589,11 @@ begin
  finally ListeFaces.Free; end;
 end;
 
-procedure SoustractionPolyedre(Anciens, Nouveaux: TQList; P: TPolyedre; SoustraitPolyMax: Boolean);
+procedure SoustractionPolyedre(Old, New: TQList; P: TPolyedre; SoustraitPolyMax: Boolean);
 type
  TFace1 = record
            Surface: PSurface;
-           Ecart: TDouble;
+           Distance: TDouble;
           end;
  PTableauFaces = ^TTableauFaces;
  TTableauFaces = array[0..0] of TFace1;
@@ -618,7 +618,7 @@ begin
      R:=Abs(Z)+2*rien2; if R>RMin then RMin:=R;
     end;
    J:=I;
-   while (J>0) and (RMin>ListeFaces^[J-1].Ecart) do
+   while (J>0) and (RMin>ListeFaces^[J-1].Distance) do
     begin
      ListeFaces^[J]:=ListeFaces^[J-1];
      Dec(J);
@@ -626,12 +626,12 @@ begin
    with ListeFaces^[J] do
     begin
      Surface:=PlanSel;
-     Ecart:=RMin;
+     Distance:=RMin;
     end;
   end;
- for I:=0 to Anciens.Count-1 do
+ for I:=0 to Old.Count-1 do
   begin
-   PolyedreSel:=TPolyedre(Anciens[I]);
+   PolyedreSel:=TPolyedre(Old[I]);
    if {(Test is TPolyedre) and} PolyedreRencontrePolyedre(P, {TPolyedre(Test)} PolyedreSel) then
     begin
     {PolyedreSel:=TPolyedre(Test);}
@@ -659,22 +659,22 @@ begin
             begin
              F:=PSurface(PolyedreSel.Faces[K]);
              if not SoustraitPolyMax then
-              Moitie1.AjouteFace(F^.F, True);
-             Moitie2.AjouteFace(F^.F, True);
+              Moitie1.AddFace(F^.F, True);
+             Moitie2.AddFace(F^.F, True);
             end;
            S:=PlanSel^.F;
            if not SoustraitPolyMax then
-            Moitie1.AjouteFace(S, True);
+            Moitie1.AddFace(S, True);
            S:=TFace(S.Clone(Moitie2, False));
            S.AddRef(+1); try
            if S.Retourner(False) then
-            Moitie2.AjouteFace(S, False);
+            Moitie2.AddFace(S, False);
            finally S.AddRef(-1); end;
            try
             if not SoustraitPolyMax then
              Moitie1.ConstruireReduire;
             Moitie2.ConstruireReduire;
-            Nouveaux.Add(Moitie2);
+            New.Add(Moitie2);
             if not SoustraitPolyMax then
              begin
              {Liberer.Free;
@@ -701,12 +701,12 @@ begin
      end;
     end
    else
-    Nouveaux.Add({Test}PolyedreSel);
+    New.Add({Test}PolyedreSel);
   end;
  finally FreeMem(ListeFaces); end;
 end;
 
-procedure AjusterNormale(var Normale: TVect);
+{procedure AjusterNormale(var Normale: TVect);
 var
  Norme: TDouble;
  Delta: TVect;
@@ -744,7 +744,7 @@ begin
  Test(Sin(Pi/4), Cos(Pi/4), 0);
  Test(Sin(-Pi/4), Cos(-Pi/4), 0);
  Normale:=Delta;
-end;
+end;}
 
 type
  PVertexEx = ^TVertexEx;
@@ -1768,7 +1768,7 @@ begin
   end;
 end;
 
-procedure TPolyhedron.AjouteFace(FJ: TFace; Copie: Boolean);
+procedure TPolyhedron.AddFace(FJ: TFace; Copy: Boolean);
 var
  I: Integer;
  FI: QObject;
@@ -1785,11 +1785,12 @@ begin
      and (Abs(Normale.Z-FJ.Normale.Z)<rien)
      and (Abs(Dist-FJ.Dist)<rien) then
       begin
+       //This face already exists in the poly
       {Result:=Nil;}
-       Exit;  { le plan existe déjà dans ce polyèdre-ci }
+       Exit;
       end;
   end;
- if Copie then
+ if Copy then
   SubElements.Add(FJ.Clone(Self, False))
  else
   SubElements.Add(FJ);
@@ -2221,7 +2222,7 @@ end;
 procedure TPolyhedron.ListePolyedres;
 var
  I, J: Integer;
- Anciens, Nouveaux, L: TQList;
+ Old, New, L: TQList;
  S: String;
 begin
  if not CheckPolyhedron then Exit;
@@ -2238,21 +2239,21 @@ begin
   Polyedres.Add(Self)
  else
   begin
-   Anciens:=TQList.Create; try
-   Nouveaux:=TQList.Create; try
-   Anciens.Add(Self);
+   Old:=TQList.Create; try
+   New:=TQList.Create; try
+   Old.Add(Self);
    for I:=0 to Negatif.Count-1 do
     begin
-     SoustractionPolyedre(Anciens, Nouveaux, TPolyedre(Negatif[I]), False);
-     L:=Anciens;
-     Anciens:=Nouveaux;
-     Nouveaux:=L;
-     Nouveaux.Clear;
+     SoustractionPolyedre(Old, New, TPolyedre(Negatif[I]), False);
+     L:=Old;
+     Old:=New;
+     New:=L;
+     New.Clear;
     end;
-   finally Nouveaux.Free; end;
-   for J:=0 to Anciens.Count-1 do
-    Polyedres.Add(Anciens[J]);
-   finally Anciens.Free; end;
+   finally New.Free; end;
+   for J:=0 to Old.Count-1 do
+    Polyedres.Add(Old[J]);
+   finally Old.Free; end;
   end;
 end;
 
@@ -3403,7 +3404,7 @@ begin
  VecteurNormal:=VecteurNormalDe(CentreFace, Normale);
 end;}
 
-function {TFace.}SommetDeFace(Surface: PSurface; Sommet: PVertex) : Boolean;
+(*function {TFace.}SommetDeFace(Surface: PSurface; Sommet: PVertex) : Boolean;
 var
  I: Integer;
 {P: PSurface;}
@@ -3420,7 +3421,7 @@ begin
   {P:=P^.NextF;
   end;}
  Result:=False;
-end;
+end;*)
 
 (*procedure TFace.UpdateSpecifics;
 begin

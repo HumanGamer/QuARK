@@ -104,7 +104,7 @@ var
 
   procedure Gonfler;
   var
-   Nouveau: TPolyedreEx;
+   New: TPolyedreEx;
    TamponInterne: PTableauInfo;
    I, J, K, N: Integer;
    F, F1: PSurface;
@@ -211,7 +211,7 @@ var
                Centre.P.Z:=P1.Z + D1*P2.Z - D2*P2.Y;
                Centre.P.X := (-Centre.P.Y*F^.F.Normale.Y
                 - Centre.P.Z*F^.F.Normale.Z + F^.F.Dist + rien2) / F^.F.Normale.X;
-               Centre.Poly:=Nouveau;
+               Centre.Poly:=New;
                Sources.Write(Centre, SizeOf(Centre));
               end;
             end;
@@ -292,7 +292,7 @@ var
                Centre.P.Z:=P1.Z + D1*P2.Z + D2*P2.X;
                Centre.P.Y := (-Centre.P.X*F^.F.Normale.X
                 - Centre.P.Z*F^.F.Normale.Z + F^.F.Dist + rien2) / F^.F.Normale.Y;
-               Centre.Poly:=Nouveau;
+               Centre.Poly:=New;
                Sources.Write(Centre, SizeOf(Centre));
               end;
             end;
@@ -373,7 +373,7 @@ var
                Centre.P.Y:=P1.Y + D1*P2.Y - D2*P2.X;
                Centre.P.Z := (-Centre.P.X*F^.F.Normale.X
                 - Centre.P.Y*F^.F.Normale.Y + F^.F.Dist + rien2) / F^.F.Normale.Z;
-               Centre.Poly:=Nouveau;
+               Centre.Poly:=New;
                Sources.Write(Centre, SizeOf(Centre));
               end;
             end;
@@ -407,8 +407,8 @@ var
      end;
    if N>1 then
     TrierTampon(0, N-1);
-   Nouveau:=TPolyedreEx.Create('', Nil);
-   Nouveau.AddRef(+1);
+   New:=TPolyedreEx.Create('', Nil);
+   New.AddRef(+1);
    try
     for I:=0 to N-1 do
      begin
@@ -430,25 +430,25 @@ var
        TamponInterne^[I].Face:=Nil
       else
        begin
-        nFace:=TFace(F1.F.Clone(Nouveau, False));
+        nFace:=TFace(F1.F.Clone(New, False));
         nFace.AddRef(+1); try
         if nFace.Retourner(False) then
-         Nouveau.AjouteFace(nFace, False)
+         New.AddFace(nFace, False)
         else
          {$IFDEF Debug}Abort{$ENDIF};
         finally nFace.AddRef(-1); end;
        end;
      end;
-    Nouveau.ConstructVertices;
+    New.ConstructVertices;
     Sources.Seek(0,soFromEnd);
-    for K:=0 to Nouveau.Faces.Count-1 do
+    for K:=0 to New.Faces.Count-1 do
      begin
-      F:=PSurface(Nouveau.Faces[K]);
+      F:=PSurface(New.Faces[K]);
       nCentre.P:=CentreSurface(F);
       nCentre.P.X:=nCentre.P.X + F^.F.Normale.X * rien2;
       nCentre.P.Y:=nCentre.P.Y + F^.F.Normale.Y * rien2;
       nCentre.P.Z:=nCentre.P.Z + F^.F.Normale.Z * rien2;
-      nCentre.Poly:=Nouveau;
+      nCentre.Poly:=New;
       Sources.Write(nCentre, SizeOf(nCentre));
       with F^.F.Normale do
        if Abs(X)>Abs(Y) then
@@ -462,11 +462,11 @@ var
         else
          DiviserZ(F^.prvVertexTable, F^.prvVertexCount, 0);
      end;
-    Nouveau.Precedent:=Sources0;
-    Info.Poly:=Nouveau;
+    New.Precedent:=Sources0;
+    Info.Poly:=New;
     Liste.Write(Info, SizeOf(Info));
    except
-    Nouveau.AddRef(-1);
+    New.AddRef(-1);
     Raise;
    end;
   end;
