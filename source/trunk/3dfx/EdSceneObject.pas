@@ -595,7 +595,7 @@ begin
        Inc(I); { Increment to get the next element }
      end;
 
-     //here the model is drawm
+     //here the model is drawn
      I:=0;  // process the models, haven't looked into this one yet
      while I<ModelInfo.Count do
      begin
