@@ -258,7 +258,7 @@ def matrix_rot_u2v(u,v):
     if axis:
       axis = axis.normalized
       import qhandles
-      return qhandles.UserRotationMatrix(axis, v, u, 0)
+      return qhandles.UserRotationMatrix(axis, v, u, 0, 0)
     else:
       matrix = quarkx.matrix("1 0 0 0 1 0 0 0 1")
       if v*u > 0:

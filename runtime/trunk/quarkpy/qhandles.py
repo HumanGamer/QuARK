@@ -799,11 +799,12 @@ def FilterHandles(handlelist, mode):
 # Function that computes a rotation matrix out of a mouse movement.
 #
 
-def UserRotationMatrix(normal, newpos, oldpos, g1):
+def UserRotationMatrix(normal, newpos, oldpos, snap1, snap2=1):
     # normal: normal vector for the view plane
     # newpos: new position of the reference vector oldpos
     # oldpos: reference vector (handle position minus rotation center)
-    # g1: if True, snap angle to grid
+    # snap1: if True, snap angle to grid
+    # snap2: if True, snap angle to 1.0, if close
     if not normal: return
     SNAP = 0.998
     if not oldpos: return
@@ -812,7 +813,7 @@ def UserRotationMatrix(normal, newpos, oldpos, g1):
     norme2 = abs(newpos)
     sinangle = (normal*(oldpos^newpos)) / (norme1*norme2)
     norme1 = sinangle*sinangle
-    if norme1 > SNAP:
+    if snap2 and (norme1 > SNAP):
         if sinangle>0:
             sinangle=1
         else:
@@ -820,7 +821,7 @@ def UserRotationMatrix(normal, newpos, oldpos, g1):
         cosangle=0
     else:
         cosangle=1-norme1
-        if cosangle > SNAP:
+        if snap2 and (cosangle > SNAP):
             sinangle, cosangle = 0, 1
         else:
             cosangle = math.sqrt(cosangle)
@@ -828,7 +829,7 @@ def UserRotationMatrix(normal, newpos, oldpos, g1):
             cosangle = -cosangle
         if cosangle == 1:
             return
-    if g1:
+    if snap1:
         if abs(cosangle)>abs(sinangle):
             sinangle = 0
             cosangle = (-1,1)[cosangle>0]
