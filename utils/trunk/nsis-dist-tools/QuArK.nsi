@@ -11,10 +11,10 @@ SetCompressor /SOLID lzma   ; We will use LZMA for best compression
 
 !define BUILDDIR "C:\QuArK_installer_files"
 !define SPLASHDIR "C:\QuArK_installer_splash_image"
-!define INSTALLER_EXENAME "quark-win32-6.6.0Beta7.exe"
+!define INSTALLER_EXENAME "quark-win32-6.6.0Beta8.exe"
 !define PRODUCT_NAME "QuArK"
 !define PRODUCT_NAME_FULL "Quake Army Knife"
-!define PRODUCT_VERSION "6.6.0 Beta 7"
+!define PRODUCT_VERSION "6.6.0 Beta 8"
 !define PRODUCT_WEB_SITE "http://quark.sourceforge.net/"
 !define PRODUCT_WEB_FORUM "http://quark.sourceforge.net/forums/"
 !define PRODUCT_INFOBASE "http://quark.sourceforge.net/infobase/"
