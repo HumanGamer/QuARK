@@ -86,11 +86,11 @@ def MakeLevelAxes(x):
     return x, y, (x^y).normalized
 
 def NewAxes(prevaxes, newx):
-    try:
-        mat=matrix_rot_u2v(prevaxes[0],newx)
-        return newx, mat*prevaxes[1], mat*prevaxes[2]
-    except:  # no angle
+    mat=matrix_rot_u2v(prevaxes[0],newx)
+    if mat is None:
+        # no angle
         return prevaxes
+    return newx, mat*prevaxes[1], mat*prevaxes[2]
 
 def MakeUniqueTargetname():
     import time
