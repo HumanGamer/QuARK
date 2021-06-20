@@ -60,11 +60,7 @@ def MACRO_duplicator(dup):
 
     qutils.loadmapeditor()
     import mapduplicator
-    import mapquakemenu
     items = mapduplicator.DupManager(dup).buildimages()
-    if (dup["MapObjectName"] is not None):
-        ObjectName = dup["MapObjectName"]
-        mapquakemenu.recursivelycreateierarchy(items, ObjectName)
     return items
 
 
