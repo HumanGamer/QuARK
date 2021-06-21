@@ -964,6 +964,8 @@ var
 begin
   if TimesLoaded = 0 then
   begin
+    Log(LOG_INFO, LoadStr1(6016), ['GL1']);
+
     Result := False;
     try
       if OpenGL32Lib = 0 then
@@ -1035,7 +1037,7 @@ var
 begin
   if TimesLoaded = 1 then
   begin
-    Log(LOG_INFO, LoadStr1(6015));
+    Log(LOG_INFO, LoadStr1(6015), ['GL1']);
 
     TGLSceneObject.ClearAllOpenGLTextures;
 

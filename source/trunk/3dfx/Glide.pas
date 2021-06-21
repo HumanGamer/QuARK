@@ -1675,6 +1675,8 @@ var
 begin
   if TimesLoaded = 0 then
   begin
+    Log(LOG_INFO, LoadStr1(6016), ['Glide']);
+
     Result := False;
     try
       Log(LOG_INFO, LoadStr1(6201), [LibName]);
@@ -1742,7 +1744,7 @@ var
 begin
   if TimesLoaded = 1 then
   begin
-    Log(LOG_INFO, LoadStr1(6015));
+    Log(LOG_INFO, LoadStr1(6015), ['Glide']);
 
     DeleteDummyWindow(DummyWindow);
     DummyWindow := 0;

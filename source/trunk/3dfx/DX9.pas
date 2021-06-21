@@ -63,6 +63,8 @@ var
 begin
   if TimesLoaded = 0 then
   begin
+    Log(LOG_INFO, LoadStr1(6016), ['DX9']);
+
     Result := False;
     try
       if LoadDirect3D9=false then
@@ -231,7 +233,7 @@ procedure UnloadDirect3D;
 begin
   if TimesLoaded = 1 then
   begin
-    Log(LOG_INFO, LoadStr1(6015));
+    Log(LOG_INFO, LoadStr1(6015), ['DX9']);
 
     TDirect3DSceneObject.ReleaseAllResources;
 
@@ -244,14 +246,17 @@ begin
     if not (D3DDevice=nil) then
       D3DDevice:=nil;
 
-    //Delete D3DCaps and others...
+    //Clear retrieved settings
+    FillChar(D3DCaps, SizeOf(D3DCaps), 0);
+    FillChar(RenderingType, SizeOf(RenderingType), 0);
+    BehaviorFlags := 0;
+    FillChar(PresParm, SizeOf(PresParm), 0);
 
     if not (D3D=nil) then
       D3D:=nil;
 
-    UnloadD3D9_31;
-    UnLoadDirect3D9;
-    //Ignoring failure here
+    UnloadD3D9_31; //Ignoring failure to free
+    UnLoadDirect3D9; //Ignoring failure to free
 
     TimesLoaded := 0;
   end
