@@ -276,6 +276,7 @@ def processtext(root, self, data):
     paragraph_tags_added = 0
     listing_tags_added = 0
     table_tags_added = 0
+    table_td_nesting = 0
     lastnonemptyline = -1
     flags = { }
     flags["prevlineempty"] = 1
@@ -296,7 +297,7 @@ def processtext(root, self, data):
                         data.append("</p>\n")
                     paragraph_tags_added = paragraph_tags_added - 1
                     lastnonemptyline = -1
-                if lastnonemptyline > -1:
+                if (lastnonemptyline > -1) and (table_td_nesting != 0):
                     data[lastnonemptyline] = data[lastnonemptyline].rstrip("\r\n") + "<br>\n"
         else:
             # Scan through the 'line' in search for "<tag's" to replace/perform actions on
@@ -353,6 +354,10 @@ def processtext(root, self, data):
                             elif tag.startswith("</code"):
                                 lastnonemptyline = -1 #Don't add breaks outside due to content inside
                                 flags["prevlineempty"] = 0 #Don't paragraph this line, even if the previous line was empty
+                            elif tag.startswith("<td"):
+                                table_td_nesting += 1
+                            elif tag.startswith("</td"):
+                                table_td_nesting -= 1
                             tag = (line[:endchar_tag_found]) #Don't lowercase, as this can break URLs
                             try:
                                 correctedappend, line, line_flags = perform_tag_action(tag, line[endchar_tag_found:], flags, root, self.kw)
