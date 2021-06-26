@@ -1367,7 +1367,7 @@ begin
   except
    MapLimit:=SetupSubSet(ssMap, 'Display').VectSpec['MapLimit'];
   end;
-  if (MapLimit.X=OriginVectorZero.X) and (MapLimit.Y=OriginVectorZero.Y) and (MapLimit.Z=OriginVectorZero.Z) then
+  if VecEqual(MapLimit, OriginVectorZero) then
    begin
     MapLimit.X:=4096;
     MapLimit.Y:=4096;
