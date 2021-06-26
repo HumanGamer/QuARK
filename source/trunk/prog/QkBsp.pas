@@ -382,7 +382,7 @@ implementation
 uses Travail, QkWad, Setup, QkMap, QkBspHulls, QkApplPaths,
      Undo, Quarkx, QkExceptions, PyForms, QkObjectClassList, ToolBox1,
      ToolBoxGroup, QkQuakeCtx, FormCFG, Logging, QkTextures, QkFormCfg,
-     QkQ1, QkQ2, QkQ3, QkG3D;
+     QkQ1, QkQ2, QkQ3, QkG3D, ExtraFunctionality;
 
 {$R *.DFM}
 
