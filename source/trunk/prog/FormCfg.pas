@@ -1353,8 +1353,7 @@ begin
            Title:=Specifics.Values['Append'];
            if (Title<>'') and (Path<>'') then
             begin
-             I:=Length(Path);
-             while (I>0) and (Path[I]<>PathDelim) do Dec(I);
+             I:=LastPos(PathDelim, Path);
              if (I=0) or (CompareText(Copy(Path, I+1, Length(Title)), Title)<>0) then
               begin
                Path:=IncludeTrailingPathDelimiter(Path);
