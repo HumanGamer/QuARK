@@ -3654,7 +3654,7 @@ begin
  if not InitializeQuarkx then FatalError(-9);
 
  S:=GetQPath(pQuArK);
- if (Length(S)>0) and (S[Length(S)]=PathDelim) then
+ if (Length(S)>0) and IsPathDelimiter(S, Length(S)) then
   SetLength(S, Length(S)-1);
  S:=Format(PythonSetupString, [StringReplace(S,'\','\\',[rfReplaceAll])]);
  { S will now be the python commands:
