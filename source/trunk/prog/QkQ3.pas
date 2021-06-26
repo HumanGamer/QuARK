@@ -741,7 +741,7 @@ begin
           begin
            Stage.Name:=Stage.Specifics.Values['animmap'];
            { jump over the number and take the first filename in the 'animmap' list }
-           Stage.Name:=Copy(Stage.Name, Pos(' ', Stage.Name)+1, 999);
+           Stage.Name:=Copy(Stage.Name, Pos(' ', Stage.Name)+1, MaxInt);
            SetLength(Stage.Name, Pos(' ', Stage.Name)-1);
           end;
          end
