@@ -2689,20 +2689,12 @@ begin
     Result:=false;
 end;
 
-function EqualVect(V1, V2 : TVect) : boolean; //FIXME: Move to qmath!
-begin
-  if (V1.X=V2.X) and (V1.Y=V2.Y) and (V1.Z=V2.Z) then
-    Result:=true
-  else
-    Result:=false;
-end;
-
 function CoLinear(V1, V2, V3: TVect) : boolean ;
 var
   D1, D2: TVect;
 begin
-  if EqualVect(V1,V2) or EqualVect(V2,V3) or
-      EqualVect(V1, V3) then
+  if VecEqual(V1,V2) or VecEqual(V2,V3) or
+      VecEqual(V1, V3) then
     Result:=true
   else
   begin
@@ -3725,7 +3717,7 @@ begin
          V:=FS^.prvVertexTable[J]^.P;  { an actual vertex }
          if AlmostIntegral(V,V2) then
          begin
-           if (K=2) and EqualVect(VT[1],V2) then
+           if (K=2) and VecEqual(VT[1],V2) then
              continue;
            if (K=3) and CoLinear(VT[1],VT[2],V2) then
              continue;
