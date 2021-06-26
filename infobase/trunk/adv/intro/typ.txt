@@ -3,8 +3,7 @@ author: cdunde
 
 Typ's are used in all kinds of forms but the most common are <a href="adv.quarkpy.gui.html#dialogs">Dialog Boxes</a>.
 These are placed within triple double quotes <tt>"""</tt> and ends with them also, because it's a multi-line string.<br>
-A <b>very important</b> thing to know and remember about this is how to use a Python defined variable within this
-triple double quotes area.
+A <b>very important</b> thing to know and remember about this is how to use a Python defined variable within this triple double quotes area.
 
 First the variable, which can also be a stored setting, must be defined before and outside of the above area like this:
 
@@ -30,40 +29,39 @@ Here is a list of the most common used Typ's in .QRK :form definitions.
 
 Almost all components have some standard specifics you can use:
 
-<u>Hint</u> - displays a help message when the cursor hovers over the item. You can have spread it on several lines.<br>A valid text can look like this:
+<u>Hint</u> - displays a help message when the cursor hovers over the item. You can have spread it on several lines.<br>
+A valid text can look like this:
 
 <code>
-Hint = "Help text"$ODOD"How to spr"
+Hint = "Help text"$0D0D"How to spr"
        "ead text on several lines."
 </code>
 
-The dollar sign is used to enter one or more special/invisible characters. In this case two new-line characters.<br>It is also valid to cut the text off and begin a new line if it becomes too long.<br>The above Hint will display:
+The dollar sign is used to enter one or more special/invisible characters. In this case two new-line characters.<br>
+It is also valid to cut the text off and begin a new line if it becomes too long.<br>
+The above Hint will display:
 
 <b>Help text<br>
 <br>
 How to spread text on several lines.</b>
 
-<u>Txt</u> - defines the label. Labels are special in QuArK. If you set their value to "&" they will display the name of the component.<br>So if you have defined a component like this:
+<u>Txt</u> - defines the label. Labels are special in QuArK. If you set their value to "&" they will display the name of the component.<br>
+So if you have defined a component like this:
 
 <code>
-name: = { Typ="E" Txt="&" } 
+name: = { Typ="E" Txt="&" }
 </code>
 
 you will get 'name' as caption for this entry field. This is often used for the labels of entity specifics.
 
-<u>SelectMe</u> - set this to one and the component will become selected when its window/dialog is displayed.<br>This should be used on the first
-component on a dialog only, as it may be confusing to have input directed<br>to a component in the middle from the beginning. 
+<u>SelectMe</u> - set this to one and the component will become selected when its window/dialog is displayed.<br>
+This should be used on the first component on a dialog only, as it may be confusing to have input directed to a component in the middle from the beginning.
 
-<b>Note:</b> The first character of Typ works as a flag. If you use a lower-case character the button/entry field will fill<br>all available space
-its caption (Txt) does not occupy.
+<b>Note:</b> The first character of Typ works as a flag. If you use a lower-case character the button/entry field will fill all available space its caption (Txt) does not occupy.
 
 <table border=1 cellpadding=2 cellspacing=0>
 
-<tr><td align=center>----</td>
-<td align=center><b>Entry fields</b></td>
-<td align=center><b>----</b></td></tr>
-
-<tr><th width="10%">Typ's</th><th width="40%">Description</th><th width="50%">Examples and Comments</th></tr>
+<tr><th width="10%">Typ's</th><th width="40%"><b>Entry fields</b><br>description</th><th width="50%">Examples and<br>Comments</th></tr>
 
 <tr><td align=center>
 E<br>
@@ -130,7 +128,7 @@ ED<br>
 EDL
 </td><td valign=top>
 <b>Entry field containing Directory-path (with browse button)</b>.<br>
-The last "L" (at third position) means only the last foldername of the path is to be used.<br>
+The last "L" (at third position) means only the last foldername of the path is to be used.
 </td><td>
 <pre>
 SourceDir: = {
@@ -145,14 +143,14 @@ GameMod: = {
     }
 </pre>
 <u><i>Specifics:</i></u> 
-CheckFile - set this and the dialog will only enable the Ok button if it finds this<br>file in the chosen directory. 
+CheckFile - set this and the dialog will only enable the Ok button if it finds this file in the chosen directory.
 </td></tr>
 
 <tr><td align=center>
-ET<br>
+ET
 </td><td valign=top>
 <b>Entry field containing Texture-name (with browse button)</b>.<br>
-Opens the texture-browser, if the browse button is pressed.<br>
+Opens the texture-browser, if the browse button is pressed.
 </td><td>
 <pre>
 Texture: = {
@@ -166,11 +164,11 @@ QuakeTexture: = {
     }
 </pre>
 <u><i>Specifics:</i></u> 
-GameCfg - set one of the short game names here to make QuArK switch to this game when the browse button is pressed. You can find these names in the Defaults.qrk 
+GameCfg - set one of the short game names here to make QuArK switch to this game when the browse button is pressed. You can find these names in the Defaults.qrk.
 </td></tr>
 
 <tr><td align=center>
-EP<br>
+EP
 </td><td valign=top>
 <b>Entry field containing Path and File-name (with browse button)</b>.<br>
 Opens a file-dialog, so the user can choose a filename.
@@ -193,8 +191,7 @@ soundfile: = {
 EP<br>
 specifics<br>
 </td><td valign=top>
-<b>This is a list of specifics that effect the path<br>
-handling for the Typ="EP" above</b>.
+<b>This is a list of specifics that effect the path handling for the Typ="EP" above</b>.
 </td><td>
 <pre>
 1) <b>Typ="EP"</b> opens the file browser window.
@@ -229,11 +226,10 @@ handling for the Typ="EP" above</b>.
 </td></tr>
 
 <tr><td align=center>
-EQ<br>
+EQ
 </td><td valign=top>
 <b>Entry field with direction button</b>.<br>
-Displays entry field for two floating point entries and 
-4-way directional button as pressed gives floating point entries.<br>
+Displays entry field for two floating point entries and 4-way directional button as pressed gives floating point entries.
 </td><td>
 <pre>
 <img align=left>EQ_btn.png</img>
@@ -243,11 +239,10 @@ offset: = { Txt = "Offset" Typ="EQ" Hint="x, y offsets" }
 </td></tr>
 
 <tr><td align=center>
-EU<br>
+EU
 </td><td valign=top>
 <b>Entry field with increase/decrease button</b>.<br>
-Displays entry field for single digit entry and 
-increase/decrease button as pressed gives single digit entry.<br>
+Displays entry field for single digit entry and increase/decrease button as pressed gives single digit entry.
 </td><td>
 <pre>
 <img align=left>EU_btn.png</img>
@@ -257,11 +252,10 @@ tilt: = { Txt = "Tilt" Typ="EU" Hint="`tilt' angle, in degrees." }
 </td></tr>
 
 <tr><td align=center>
-K<br>
+K
 </td><td valign=top>
 <b>Key entry field</b>.<br>
-Use this if you want to define keyboard shortcuts 
-or otherwise need info in form of a key.<br>
+Use this if you want to define keyboard shortcuts or otherwise need info in form of a key.
 </td><td>
 <pre>
 KeyLeft: = {Typ="K" Txt=" turn left"}
@@ -284,7 +278,7 @@ def macro_slider2(self, value):<br>
 &nbsp;&nbsp;&nbsp;&nbsp;editor.Root.currentcomponent['control_slider2'] = str(value)<br>
 
 quarkpy.qmacro.MACRO_slider = macro_slider<br>
-quarkpy.qmacro.MACRO_slider2 = macro_slider2<br>
+quarkpy.qmacro.MACRO_slider2 = macro_slider2
 </td><td valign=top>
 <img align=right>slider.png</img>
 &nbsp;<u><i>Specifics:</i></u><br>
@@ -296,7 +290,7 @@ quarkpy.qmacro.MACRO_slider2 = macro_slider2<br>
 &nbsp;TickFreq = "5" # number of 'Steps' between tick marks.<br>
 &nbsp;Labels = "1" # To display Min & Max settings above.<br>
 &nbsp;ShowValue = "1" # To display value below slider bar.<br>
-&nbsp;Macro="slider" # To use macro code (shown on left) for continuous value use as slider is moved.<br>
+&nbsp;Macro="slider" # To use macro code (shown on left) for continuous value use as slider is moved.
 </td></tr>
 
 <tr><td align=center>----</td>
@@ -331,7 +325,7 @@ CL
 A predefined list of choices and their values. To use this type, the <i>items</i> and <i>values</i> must also be set, as can be seen in the example.<br>
 Each choice in the list will be indicated by a newline ($0D), except for the last choice!<br>
 
-"CL" will create a list only without an entry field. You have to set items  here and you should also use values. 
+"CL" will create a list only without an entry field. You have to set items here and you should also use values.
 </td><td>
 <pre>
 mylist: = { Typ="C" Txt="&"
@@ -433,12 +427,12 @@ extedit:tbbtn = {
     }
 </pre>
 <u><i>Specifics:</i></u><br>
-<u>Msg</u> - Message to send.<br> 
+<u>Msg</u> - Message to send.<br>
 <u>Cap</u> - Caption of the button/menu.<br>
 <u>Icon</u> - Hex raw-data of a 16*16 pixel 16 colors icon (same as for Typ "I").<br>
 <u>Rows</u> - Set this to the string number value of rows of text to display at once (max:35, default: 3).<br>
 <u>Scrollbars</u> - Set this to add scrollbars to the control.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Three values are available: (default: No scrollbars)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Three values are available: (default: No scrollbars)
 <pre>
     -"H": The control will have a horizontal scrollbar.
     -"V": The control will have a vertical scrollbar.
@@ -493,7 +487,7 @@ buttons: = {
 <u>Count</u> - number of buttons<br>
 <u>Caps</u> - enter on character for each button here<br>
 <u>Hint1</u> - What button 1 does<br>
-<u>Hint2</u> - What button 2 does etc... 
+<u>Hint2</u> - What button 2 does etc...
 </td></tr>
 
 <tr><td align=center>
@@ -533,7 +527,7 @@ planes: = {
     }
 </pre>
 <u><i>Specifics:</i></u><br>
-<u>Icon</u> - 16x16 pixel icon. As in the example each character represents the hex. code of a pixel (16 colors). This is raw data, don't include any file header! 
+<u>Icon</u> - 16x16 pixel icon. As in the example each character represents the hex. code of a pixel (16 colors). This is raw data, don't include any file header!
 </td></tr>
 
 <tr><td align=center>
