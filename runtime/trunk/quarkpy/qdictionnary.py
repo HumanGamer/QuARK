@@ -1098,6 +1098,7 @@ Strings = {
     5830: "%s: ready",
     5831: "%s: ignored",
     5832: "%s: exists",
+    5833: "Dropping Python %s object from pool with non-one ref count of %d",
 
     # DanielPharos would like to reserve 6000 .. 6099 for all renderers
     6000: "Unable to create SceneObject//%s",

@@ -3698,7 +3698,7 @@ begin
   begin
     obj:=PyObject(Pool.Objects[I]);
     if obj^.ob_refcnt > 1 then
-      Log(LOG_INFO, 'Dropping Python %s object from pool with non-one ref count of %d.', [obj^.ob_type.tp_name, obj^.ob_refcnt]); //FIXME: Move to dict!
+      Log(LOG_INFO, LoadStr1(5833), [obj^.ob_type.tp_name, obj^.ob_refcnt]);
     Pool.Delete(I);
     Py_DECREF(obj);
   end;
