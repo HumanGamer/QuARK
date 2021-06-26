@@ -2683,7 +2683,7 @@ var
 begin
   V2:=MakeVect(Round(V.X), Round(V.Y), Round(V.Z));
   DV:=VecDiff(V, V2);
-  if sqr(DV.X)+sqr(DV.Y)+sqr(DV.Z)<0.0001 then
+  if sqr(DV.X)+sqr(DV.Y)+sqr(DV.Z)<rien*10.0 then
     Result:=true
   else
     Result:=false;
