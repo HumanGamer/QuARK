@@ -116,6 +116,10 @@ function IsPathDelimiter(const S: string; Index: Integer): Boolean;
   ('/' or '\') at the end.  This function is MBCS enabled. }
 function IncludeTrailingPathDelimiter(const S: string): string;
 
+{ ExcludeTrailingPathDelimiter returns the path without a PathDelimiter
+  ('\' or '/') at the end.  This function is MBCS enabled. }
+function ExcludeTrailingPathDelimiter(const S: string): string;
+
 const
   PathDelim  = {$IFDEF MSWINDOWS} '\'; {$ELSE} '/'; {$ENDIF}
   DriveDelim = {$IFDEF MSWINDOWS} ':'; {$ELSE} '';  {$ENDIF}
@@ -202,6 +206,13 @@ begin
   Result := S;
   if not IsPathDelimiter(Result, Length(Result)) then
     Result := Result + PathDelim;
+end;
+
+function ExcludeTrailingPathDelimiter(const S: string): string;
+begin
+  Result := S;
+  if IsPathDelimiter(Result, Length(Result)) then
+    SetLength(Result, Length(Result)-1);
 end;
 
 function StrToFloatDef(const S: String; const Default: Extended) : Extended;

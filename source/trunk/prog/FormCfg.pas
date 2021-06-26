@@ -1333,14 +1333,10 @@ begin
            Ok:=BrowseForFolderDlg(ValidParentForm(Self).Handle, Path, Title, Specifics.Values['CheckFile']);
            if Path<>'' then
            begin
-            I:=Length(Path);
-            {If ending with backslash, then remove it}
-            if Path[I]=PathDelim then
-            begin
-             SetLength(Path, I-1);
-             Dec(I);
-            end;
+            //If ending with backslash, then remove it
+            Path:=ExcludeTrailingPathDelimiter(Path);
             {Find last backslash}
+            I:=Length(Path);
             while (I>0) and (Path[I]<>PathDelim) do
              Dec(I);
             {Extract the _Last_ folder-name in path, without prefixing backslash}
