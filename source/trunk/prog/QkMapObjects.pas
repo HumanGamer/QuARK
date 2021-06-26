@@ -455,15 +455,11 @@ begin
   begin
    if g_DrawInfo.ModeDeplacement > mdDisplacementGrid then
     begin
-     Pt.X:=Pt.X-g_DrawInfo.Clic.X;
-     Pt.Y:=Pt.Y-g_DrawInfo.Clic.Y;
-     Pt.Z:=Pt.Z-g_DrawInfo.Clic.Z;
+     Pt:=VecDiff(Pt, g_DrawInfo.Clic);
      if g_DrawInfo.ModeDeplacement in [mdLinear, mdLineaireCompat] then
       TransformationLineaire(Pt);
     end;
-   Pt.X:=Pt.X+g_DrawInfo.Clic.X;
-   Pt.Y:=Pt.Y+g_DrawInfo.Clic.Y;
-   Pt.Z:=Pt.Z+g_DrawInfo.Clic.Z;
+   Pt:=VecSum(Pt, g_DrawInfo.Clic);
    if g_DrawInfo.ModeDeplacement in [mdDisplacementGrid, mdStrongDisplacementGrid] then
     AjusteGrille1(Pt, PasGrille);
    Origin:=Pt;
@@ -1121,6 +1117,8 @@ begin
 end;
 
 procedure TTreeMapEntity.AnalyseClic;
+const
+ ClickRange = 4;
 var
  Pts: TPointProj;
 begin
@@ -1128,7 +1126,7 @@ begin
   begin
    Pts:=CCoord.Proj(Origin);
    CCoord.CheckVisible(Pts);
-   if (Pts.OffScreen=0) and (Abs(g_DrawInfo.X-Pts.X) < 4) and (Abs(g_DrawInfo.Y-Pts.Y) < 4) then
+   if (Pts.OffScreen=0) and (Abs(g_DrawInfo.X-Pts.X) < ClickRange) and (Abs(g_DrawInfo.Y-Pts.Y) < ClickRange) then
     begin
    (*ModeProj:=TModeProj(1-Ord(ModeProj));
      Pts:=Proj(Origin);
@@ -1191,15 +1189,11 @@ begin
    Pt:=Origin;
    if g_DrawInfo.ModeDeplacement > mdDisplacementGrid then
     begin
-     Pt.X:=Pt.X-g_DrawInfo.Clic.X;
-     Pt.Y:=Pt.Y-g_DrawInfo.Clic.Y;
-     Pt.Z:=Pt.Z-g_DrawInfo.Clic.Z;
+     Pt:=VecDiff(Pt, g_DrawInfo.Clic);
      if g_DrawInfo.ModeDeplacement in [mdLinear, mdLineaireCompat] then
       TransformationLineaire(Pt);
     end;
-   Pt.X:=Pt.X+g_DrawInfo.Clic.X;
-   Pt.Y:=Pt.Y+g_DrawInfo.Clic.Y;
-   Pt.Z:=Pt.Z+g_DrawInfo.Clic.Z;
+   Pt:=VecSum(Pt, g_DrawInfo.Clic);
    if g_DrawInfo.ModeDeplacement in [mdDisplacementGrid, mdStrongDisplacementGrid] then
     AjusteGrille1(Pt, PasGrille);
    Origin:=Pt;
