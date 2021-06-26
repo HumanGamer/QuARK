@@ -310,8 +310,7 @@ spawnflags: = { Typ="X1" Cap="Ambush" Txt="&" }
 spawnflags: = { Typ="X2" Cap="On Trigger" Txt="&" }
 spawnflags: = { Typ="X128" Cap="X Axis" Txt="&" }
 option: = { Typ="X" Cap="on/off" Txt="An option:" }
-</pre><br>
-
+</pre>
 <u><i>Specifics:</i></u>
 Cap - Like Txt, but to the right of the checkbox. Clicking on the text will toggle the option. 
 </td></tr>
@@ -395,7 +394,7 @@ _lightbright: = { Typ="LN4" Txt="&" }
 //second spec/arg pair
 color: = { Txt="&" Typ="L" } //Pushbutton
 color: = { Txt="&" } //Entryfield
-</pre><br>
+</pre>
 
 <u><i>Typ = "LI"</i></u><br>
 The "LI" type works like "L", except that the values are stored in a single integer that can be directly used for canvas.pencolor functions and similars.
@@ -533,7 +532,7 @@ planes: = {
 <tr><td align=center>
 S
 </td><td valign=top>
-<b>Seperator</b>.
+<b>Separator</b>.
 </td><td>
 <pre>
 sep: = { Typ="S" }
