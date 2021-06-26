@@ -780,14 +780,18 @@ begin
 end;
 
 procedure TConsoleForm.MouseWheelDown(Sender: TObject; Shift: TShiftState; MousePos: TPoint; var Handled: Boolean);
+const
+ Step = 32;
 begin
-  Display.VertScrollBar.Position := Display.VertScrollBar.Position + 32;
+  Display.VertScrollBar.Position := Display.VertScrollBar.Position + Step;
   Handled := true;
 end;
 
 procedure TConsoleForm.MouseWheelUp(Sender: TObject; Shift: TShiftState; MousePos: TPoint; var Handled: Boolean);
+const
+ Step = 32;
 begin
-  Display.VertScrollBar.Position := Display.VertScrollBar.Position - 32;
+  Display.VertScrollBar.Position := Display.VertScrollBar.Position - Step;
   Handled := true;
 end;
 
