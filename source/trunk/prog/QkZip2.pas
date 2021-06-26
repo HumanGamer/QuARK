@@ -693,7 +693,7 @@ begin
   Result:=0;
   if PathBase<>'' then PathBase:=IncludeTrailingPathDelimiter(PathBase);
   for I:=1 to Length(PathBase) do
-    if PathBase[I]=PathDelim then begin
+    if IsPathDelimiter(PathBase, I) then begin
       PathBase[I]:=#0;
       CreateDirectory(PChar(PathBase), Nil);
       PathBase[I]:=PathDelim;
