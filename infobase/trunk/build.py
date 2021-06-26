@@ -313,7 +313,8 @@ def processtext(root, self, data):
                         line = line[endofcomment_found+len("-->"):]
                         flags["inhtmlcomment"] = 0
                 else:
-                    lastnonemptyline = len(data)
+                    if len(line.strip()) != 0:
+                        lastnonemptyline = len(data)
                     startchar_tag_found = line.find("<")
                     if startchar_tag_found == -1:
                         # No "<tag" were found, so just copy the entire line
@@ -341,13 +342,16 @@ def processtext(root, self, data):
                                 listing_tags_added += 1
                             elif tag.startswith("</ul") or tag.startswith("</ol") or tag.startswith("</dl"):
                                 listing_tags_added -= 1
-                                lastnonemptyline = -1
+                                lastnonemptyline = -1 #Don't add breaks outside due to content inside
                                 flags["prevlineempty"] = 0 #Don't paragraph this line, even if the previous line was empty
                             elif tag.startswith("<table"):
                                 table_tags_added += 1
                             elif tag.startswith("</table"):
                                 table_tags_added -= 1
-                                lastnonemptyline = -1
+                                lastnonemptyline = -1 #Don't add breaks outside due to content inside
+                                flags["prevlineempty"] = 0 #Don't paragraph this line, even if the previous line was empty
+                            elif tag.startswith("</code"):
+                                lastnonemptyline = -1 #Don't add breaks outside due to content inside
                                 flags["prevlineempty"] = 0 #Don't paragraph this line, even if the previous line was empty
                             tag = (line[:endchar_tag_found]) #Don't lowercase, as this can break URLs
                             try:
