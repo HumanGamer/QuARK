@@ -1325,7 +1325,7 @@ begin
 {Decker}
           if (Length(Title)>2) and (Title[3]='L') then
           begin
-           {Directory-Dialog, but only returns the _Last_ folder-name. Usefull for game-modification folders}
+           {Directory-Dialog, but only returns the _Last_ folder-name. Useful for game-modification folders}
            Title:=Specifics.Values['Txt'];
            if Title<>'' then
             Title:=#13#10+Title;
@@ -1335,10 +1335,8 @@ begin
            begin
             //If ending with backslash, then remove it
             Path:=ExcludeTrailingPathDelimiter(Path);
-            {Find last backslash}
-            I:=Length(Path);
-            while (I>0) and (Path[I]<>PathDelim) do
-             Dec(I);
+            //Find last backslash
+            I:=LastPos(PathDelim, Path);
             {Extract the _Last_ folder-name in path, without prefixing backslash}
             Path:=Copy(Path, I+1, 99);
            end;
