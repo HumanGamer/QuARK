@@ -1323,14 +1323,14 @@ begin
   While SlashCount<wSlashCount do
   begin
     Dec(I);
-    if F[I]=PathDelim then
+    if IsPathDelimiter(F, I) then
     begin
       Inc(SlashCount);
     end;
   end;
   Result:=Copy(F, I+1, length(F)-I+1);
-  SlashCount:=Pos(PathDelim, Result);
-  Result:=Copy(Result, 1, SlashCount-1);
+  I:=Pos(PathDelim, Result);
+  Result:=Copy(Result, 1, I-1);
 end;
 
 function ByName(Item1, Item2: Pointer) : Integer;
