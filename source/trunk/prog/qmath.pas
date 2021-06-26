@@ -86,7 +86,7 @@ function sWriteIntegers(Int: PLongInt; Count: Integer) : String;}
 function MakeVect(const X, Y, Z : Double) : TVect; overload;
 function MakeVect(const V: vec3_t) : TVect; overload;
 function MakeVect5(const V: vec5_t) : TVect5;
-function VecEqual(V1, V2 : TVect) : Boolean;
+function VecEqual(const V1, V2 : TVect) : Boolean;
 function VecDiff(const V, W : TVect) : TVect;
 function VecSum(const V, W : TVect) : TVect;
 function VecScale(const R: Double; const V: TVect) : TVect;
@@ -582,7 +582,7 @@ begin
   Result.T:=V[4];
 end;
 
-function VecEqual(V1, V2 : TVect) : Boolean;
+function VecEqual(const V1, V2 : TVect) : Boolean;
 begin
   if (V1.X=V2.X) and (V1.Y=V2.Y) and (V1.Z=V2.Z) then
     Result:=true
