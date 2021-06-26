@@ -227,6 +227,8 @@ begin
 end;
 
 procedure QExplorerGroup.CopierObjets(Complet: Boolean);
+const
+ DelaySizeThreshold = 16*1024;
 var
  H: THandle;
  M: TMemoryStream;
@@ -245,7 +247,7 @@ begin
  if SubElements.Count=1 then
   SubElements[0].CopyExtraData(HasText);
  if not HasText then
-  if Complet or (GetObjectSize(Nil, False) < 16*1024) then
+  if Complet or (GetObjectSize(Nil, False) < DelaySizeThreshold) then
    RenderAsText
   else
    begin
