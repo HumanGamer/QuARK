@@ -24,8 +24,7 @@ interface
 
 uses
   Windows, SysUtils, Classes, Dialogs,
-  QkFileObjects, QkObjects,
-  QkMapObjects, QkBsp,
+  QkFileObjects, QkObjects, QkMapObjects,
   qmatrices, QkMap;
 
 type
@@ -42,7 +41,7 @@ type
 implementation
 
 uses Qk1, QkQme, QkMapPoly, qmath, Travail, Setup,
-  Qk3D, QkBspHulls, Undo, Game, Quarkx, QkExceptions,
+  Qk3D, QkBsp, Undo, Game, Quarkx, QkExceptions,
   QkObjectClassList, MapError, Logging, DispFace, QkConsts;
 
 
