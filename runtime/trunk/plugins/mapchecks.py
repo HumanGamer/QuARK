@@ -47,16 +47,25 @@ def BasicCheck(menu=None):
         err["The map should not contain several info_player_start."] = 0
         errobj = errobj + test
 
+    MapLimits = quarkx.setupsubset(editor.MODE, "Display")["MapLimit"]
+    if (quarkx.setupsubset()["MapLimit"]<>None):    # games can overide default setting
+        MapLimits = quarkx.setupsubset()["MapLimit"]
+
+    beziersupport = quarkx.setupsubset()["BezierPatchSupport"]
+
     test = editor.Root.findallsubitems("", ':b')
-    if quarkx.setupsubset()["BezierPatchSupport"] == "1":
-      for obj in test:
-        if len(obj.findallsubitems("", ':p') + obj.findallsubitems("", ':b2'))==0:
-            err["Brush entities (e.g. doors and plats) are not valid without any attached polyhedron or bezier patch. Delete these empty entities in the tree view now or the game will crash."] = 0
-            errobj.append(obj)
-    else:
-      for obj in test:
-        if len(obj.findallsubitems("", ':p'))==0:
-            err["Brush entities (e.g. doors and plats) are not valid without any attached polyhedron. Delete these empty entities in the tree view now or the game will crash."] = 0
+    for obj in test:
+        if (beziersupport is not None) and (beziersupport == "1"):
+            if len(obj.findallsubitems("", ':p') + obj.findallsubitems("", ':b2'))==0:
+                err["Brush entities (e.g. doors and plats) are not valid without any attached polyhedron or bezier patch. Delete these empty entities in the tree view now or the game will crash."] = 0
+                errobj.append(obj)
+        else:
+            if len(obj.findallsubitems("", ':p'))==0:
+                err["Brush entities (e.g. doors and plats) are not valid without any attached polyhedron. Delete these empty entities in the tree view now or the game will crash."] = 0
+                errobj.append(obj)
+        bbox = quarkx.boundingboxof([obj])
+        if (bbox[0].x < -MapLimits[0]) or (bbox[1].x > MapLimits[0]) or (bbox[0].y < -MapLimits[1]) or (bbox[1].y > MapLimits[1]) or (bbox[0].z < -MapLimits[2]) or (bbox[1].z > MapLimits[2]):
+            err["Brush entities beyond the maplimit may not show in the game correctly."] = 0
             errobj.append(obj)
 
     import quarkpy.mapholes
