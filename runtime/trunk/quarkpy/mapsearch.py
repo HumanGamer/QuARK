@@ -37,6 +37,15 @@ def SearchResult(editor, list):
 
 
 #
+# Global variables to update from plug-ins.
+#
+
+items = []
+checkitems = []
+shortcuts = {}
+
+
+#
 # Search for Holes
 #
 
@@ -45,12 +54,6 @@ def sholes1click(m):
     if editor is None: return
     import mapholes
     mapholes.SearchForHoles(editor)
-
-
-
-#
-# Perform Checks on the map
-#
 
 def noproblem(menu):
     if menu is not None:
@@ -64,6 +67,11 @@ def problem(description, sellist=None):
             editor.layout.explorer.sellist = sellist
         return 0
 
+
+#
+# Perform Checks on the map
+#
+
 def CheckMap(menu=None):
     progr = quarkx.progressbar(501, len(checkitems))
     try:
@@ -75,15 +83,6 @@ def CheckMap(menu=None):
     finally:
         progr.close()
     return noproblem(menu)
-
-
-#
-# Global variables to update from plug-ins.
-#
-
-items = []
-checkitems = []
-shortcuts = {}
 
 def onclick(menu):
     pass
