@@ -1354,7 +1354,6 @@ def ToolsMenu(editor, toolbars):
 
 
 
-
 #
 # Icons for the layout of the Map/Model Editor
 #
@@ -1371,8 +1370,8 @@ ico_maped_y = ico_dict['ico_maped'][0][0].size[1] + 7
 #
 quarkx.redlinesicons = (ico_dict['ico_maped'][0][5],
   ico_dict['ico_maped'][1][5], ico_dict['ico_maped'][2][5],
-   ico_dict['ico_maped'][0][4], ico_dict['ico_maped'][1][4],
-   ico_dict['ico_maped'][2][4])
+  ico_dict['ico_maped'][0][4], ico_dict['ico_maped'][1][4],
+  ico_dict['ico_maped'][2][4])
 
 
 #
