@@ -74,7 +74,8 @@ type
     EditInfo: PTVEditing;
     DropTarget: QObject;
     RightButtonDrag: Boolean;
-    procedure WMPaint(var Message: TMessage); message WM_PAINT;
+    procedure WMPaint(var Message: TWMPaint); message WM_PAINT;
+    procedure DoPaint(DC: HDC; const PaintInfo: TPaintStruct); virtual;
     procedure Expanding(Q: QObject); dynamic;
     procedure Accessing(Q: QObject); dynamic;
     procedure CreateParams(var Params: TCreateParams); override;
@@ -353,10 +354,48 @@ begin
  Result:=CreateFont(8, 0, 0, 0, BoldFace, 0, 0, 0, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH or FF_DONTCARE, 'MS Sans Serif');
 end;
 
-procedure TMyTreeView.WMPaint(var Message: TMessage);
+//Pretty much a copy of TWinControl.WMPaint:
+procedure TMyTreeView.WMPaint(var Message: TWMPaint);
 var
- PaintInfo: TPaintStruct;
- DC: HDC;
+  DC, MemDC: HDC;
+  MemBitmap, OldBitmap: HBITMAP;
+  PS: TPaintStruct;
+begin
+  if not FDoubleBuffered then
+  begin
+    DC := BeginPaint(Handle, PS);
+    try
+      DoPaint(DC, PS);
+    finally
+      EndPaint(Handle, PS);
+    end;
+  end
+  else
+  begin
+    DC := GetDC(0);
+    MemBitmap := CreateCompatibleBitmap(DC, ClientRect.Right, ClientRect.Bottom);
+    ReleaseDC(0, DC);
+    MemDC := CreateCompatibleDC(0);
+    OldBitmap := SelectObject(MemDC, MemBitmap);
+    try
+      DC := BeginPaint(Handle, PS);
+      try
+        Perform(WM_ERASEBKGND, MemDC, MemDC);
+        DoPaint(MemDC, PS);
+        BitBlt(DC, 0, 0, ClientRect.Right, ClientRect.Bottom, MemDC, 0, 0, SRCCOPY);
+      finally
+        EndPaint(Handle, PS);
+      end;
+    finally
+      SelectObject(MemDC, OldBitmap);
+      DeleteDC(MemDC);
+      DeleteObject(MemBitmap);
+    end;
+  end;
+end;
+
+procedure TMyTreeView.DoPaint(DC: HDC; const PaintInfo: TPaintStruct);
+var
  VisibleRect: TRect;
  I, Y, IMin, IMax, IFocus: Integer;
  Font, BoldFont, OldFont: HFont;
@@ -663,7 +702,6 @@ begin
   FocusItem:=GetFocused1(True)
  else
   FocusItem:=Nil;
- DC:=BeginPaint(Handle, PaintInfo); try
  BkColor:=ColorToRGB(clWindow);
  GrayColor:=ColorToRGB(clGrayText);
  DotColors[False]:=BkColor;
@@ -715,7 +753,6 @@ begin
   SelectObject(DC, PrevBrush);
   DeleteObject(Brush);
  end;
- finally EndPaint(Handle, PaintInfo); end;
 
  //DanielPharos: Now that we've figured out MaxPixelWidth,
  //let's set it.
