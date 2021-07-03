@@ -254,7 +254,6 @@ def loadmapeditor(what=None):
     def reLoad(what=None):
         #---- import the bezier plug-ins if so stated in Defaults.QRK ----
         #---- and bsp support if we're editing a bsp
-        import quarkx
         if what=='bsp':
             plugins.LoadPlugins("BSP")
 
