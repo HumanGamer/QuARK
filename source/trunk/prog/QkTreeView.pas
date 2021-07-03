@@ -725,7 +725,8 @@ begin
  MinusBmp1:=SelectObject(MinusDC, MyTVMinusSign);
  try
   SetWindowOrgEx(DC, HorzScrollBar.Position, VertScrollBar.Position, Nil);
-  GetClipBox(DC, VisibleRect);
+  VisibleRect:=PaintInfo.rcPaint;
+  OffsetRect(VisibleRect, HorzScrollBar.Position, VertScrollBar.Position);
 
     //FillRect(DC, VisibleRect, GetStockObject(Black_Brush));  { for debug }
 
@@ -743,6 +744,7 @@ begin
   VisibleRect.Top:=Y;
   FillRect(DC, VisibleRect, Brush);
  finally
+  SetWindowOrgEx(DC, 0, 0, Nil); //Need to reset for the DoubleBuffered BitBlt.
   SelectObject(PlusDC, PlusBmp1);
   DeleteDC(PlusDC);
   SelectObject(MinusDC, MinusBmp1);
