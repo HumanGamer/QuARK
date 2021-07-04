@@ -37,24 +37,24 @@ from quarkpy.mdlhandles import *
 def giveMessage(o, view):
     if o.parent.name.startswith("Editor"):
         if quarkx.setupsubset(SS_MODEL, "Options")["EditorTrue3Dmode"] == "1" and o.parent.name.startswith("Editor Std 3D"):
-            quarkx.msgbox("You must uncheck the Options menu item\nEditor True 3D mode\nto use this camera view.",2,4)
+            quarkx.msgbox("You must uncheck the Options menu item\nEditor True 3D mode\nto use this camera view.", qutils.MT_INFORMATION, qutils.MB_OK)
             return
         if quarkx.setupsubset(SS_MODEL, "Options")["EditorTrue3Dmode"] != "1" and o.parent.name.startswith("Editor True 3D"):
-            quarkx.msgbox("You must check the Options menu item\nEditor True 3D mode\nto use this camera view.",2,4)
+            quarkx.msgbox("You must check the Options menu item\nEditor True 3D mode\nto use this camera view.", qutils.MT_INFORMATION, qutils.MB_OK)
             return
     else:
         if view is None:
             if o.parent.name.startswith("Full3D True 3D"):
-                quarkx.msgbox("You must open a 'Full 3D view'\nand check the Options menu item\nFull3D True 3D mode\nto use this camera view.",2,4)
+                quarkx.msgbox("You must open a 'Full 3D view'\nand check the Options menu item\nFull3D True 3D mode\nto use this camera view.", qutils.MT_INFORMATION, qutils.MB_OK)
                 return
             else:
-                quarkx.msgbox("You must open a 'Full 3D view'\nand uncheck the Options menu item\nFull3D True 3D mode\nif checked, to use this camera view.",2,4)
+                quarkx.msgbox("You must open a 'Full 3D view'\nand uncheck the Options menu item\nFull3D True 3D mode\nif checked, to use this camera view.", qutils.MT_INFORMATION, qutils.MB_OK)
                 return
         if quarkx.setupsubset(SS_MODEL, "Options")["Full3DTrue3Dmode"] == "1" and o.parent.name.startswith("Full3D Standard"):
-            quarkx.msgbox("You must uncheck the Options menu item\nFull3D True 3D mode\nto use this camera view.",2,4)
+            quarkx.msgbox("You must uncheck the Options menu item\nFull3D True 3D mode\nto use this camera view.", qutils.MT_INFORMATION, qutils.MB_OK)
             return
         if quarkx.setupsubset(SS_MODEL, "Options")["Full3DTrue3Dmode"] != "1" and o.parent.name.startswith("Full3D True 3D"):
-            quarkx.msgbox("You must check the Options menu item\nFull3D True 3D mode\nto use this camera view.",2,4)
+            quarkx.msgbox("You must check the Options menu item\nFull3D True 3D mode\nto use this camera view.", qutils.MT_INFORMATION, qutils.MB_OK)
             return
 
 #
@@ -313,10 +313,10 @@ def addPosition(view3D, editor, viewhandle):
 
 # And more menu redefinition, this time for the EyePosition handle defined in qhandles.py.
 def newEyePosMenu(self, editor, view):
-    
+
     def addClick(m, self=self, editor=editor):
         addPosition(self.view3D, editor, self)
-        
+
     item = qmenu.item('Add position', addClick)
     return [item]
 
@@ -330,8 +330,8 @@ class FindCameraPosDlg(dlgclasses.LiveEditDlg):
     endcolor = AQUA
     size = (330,160)
     dfsep = 0.35
-    dlgflags = qutils.FWF_KEEPFOCUS 
-    
+    dlgflags = qutils.FWF_KEEPFOCUS
+
     dlgdef = """
         {
         Style = "9"
@@ -374,36 +374,30 @@ class FindCameraPosDlg(dlgclasses.LiveEditDlg):
             index = eval(self.chosen)
             m = qmenu.item("",None)
             m.object = self.pack.cameras[index]
-            self.editor.layout.explorer.sellist = [m.object]
-            self.editor.layout.explorer.expand(m.object.parent)
         except:
-            quarkx.msgbox("You need to set or store a view first for this to work",2,4)
+            quarkx.msgbox("You need to set or store a view first for this to work", qutils.MT_INFORMATION, qutils.MB_OK)
             return
+        self.editor.layout.explorer.sellist = [m.object]
+        self.editor.layout.explorer.expand(m.object.parent)
 
     def setview(self):
-        editor = self.editor
-        if editor is None:
-            quarkx.msgbox('oops no editor',2,4)
         try:
             index = eval(self.chosen)
-            setView(self.pack.cameras[index],editor)
+            setView(self.pack.cameras[index],self.editor)
         except:
-            quarkx.msgbox("You need to set or store a view first for this to work",2,4)
+            quarkx.msgbox("You need to set or store a view first for this to work", qutils.MT_INFORMATION, qutils.MB_OK)
             return
-                
+
     def storeview(self):
-        editor = self.editor
-        if editor is None:
-            quarkx.msgbox('oops no editor',2,4)
         try:
             index = eval(self.chosen)
-            storeView(self.pack.cameras[index],editor)
+            storeView(self.pack.cameras[index],self.editor)
         except:
-            quarkx.msgbox("You need to set or store a view first for this to work",2,4)
+            quarkx.msgbox("You need to set or store a view first for this to work", qutils.MT_INFORMATION, qutils.MB_OK)
             return
 
 # Define the zapview macro here, put the definition into
-#  quarkpy.qmacro, which is where macros called from delphi live.
+#  quarkpy.qmacro, which is where macros called from Delphi live.
 def macro_camerapos(self, index=0):
     editor = mapeditor()
     if editor is None: return
@@ -421,7 +415,7 @@ def findClick(m):
 
     class pack:
         "stick stuff in this"
-    
+
     def setup(self, pack=pack, editor=editor):
         editor.cameraposdlg = self
         self.pack = pack

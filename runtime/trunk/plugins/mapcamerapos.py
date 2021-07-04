@@ -58,7 +58,7 @@ def get3DView(editor,makeone=0):
             views = filter(lambda v:v.info["type"]=="3D",editor.layout.views)
             return views[0]
         else:
-            quarkx.msgbox("Open a 3D view",2,4)
+            quarkx.msgbox("Open a 3D view", qutils.MT_INFORMATION, qutils.MB_OK)
             return
     elif len(views)==1:
         return views[0]
@@ -430,7 +430,7 @@ def camnextClick(m, editor=None, oldnext=mapselection.nextClick):
         try:
             current=editor.currentcampos
         except (AttributeError):
-            quarkx.msgbox("You need to set or store a view first for this to work",2,4)
+            quarkx.msgbox("You need to set or store a view first for this to work", qutils.MT_INFORMATION, qutils.MB_OK)
             return
         successor = m.succ(current) # succ=prev or next, depending on key
         #
