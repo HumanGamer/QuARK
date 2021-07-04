@@ -247,7 +247,7 @@ def mapbuttonclick(self):
         object=object.copy()
         scale = quarkx.setupsubset()["DefaultTextureScale"]
         if scale and not object["fixedscale"]:
-            scale = eval(scale)
+            scale = float(scale)
             for face in object.findallsubitems("",":f"):
                 texp = face.threepoints(2)
                 p0 = texp[0]

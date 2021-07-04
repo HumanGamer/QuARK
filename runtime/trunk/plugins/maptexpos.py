@@ -122,8 +122,8 @@ def PosTexClick(m):
     face = pack.o
     offsetx, offsety = read2vec(self.src["offset"])
     scalex, scaley = read2vec(self.src["scale"])
-    tilt = eval(self.src["tilt"])
-    shear = eval(self.src["shear"])
+    tilt = float(self.src["tilt"])
+    shear = float(self.src["shear"])
 
     anglex = tilt
     angley = anglex + 90 - shear
