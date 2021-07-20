@@ -1,7 +1,7 @@
 title: Garbage collection
 author: DanielPharos
 
-The core QuArK object (<a href="src.struct.html#objects">QObjects</a>) is reference counted, and will automatically be deleted when the last reference to it is released.
+The core QuArK object (<a href="src.struct.html#objects">QObjects</a>) is reference counted, and will automatically be deleted when the last reference to it is released. See its <tt>AddRef</tt> function.
 
 For game files, QuArK has a very basic Garbage Collector. When loading resources from games (textures, shaders, maps, models, ...), it first loads the file into memory, and then it interprets these loaded files, converting them to objects in the internal format QuArK uses. When these objects aren't needed anymore, they are immediately dropped from memory. When that object is needed again, it re-interprets it from the file that was loaded in memory. So more and more files are loaded from the harddisk into memory. After loading all different files, a lot of these files will be loaded into memory, eating up a lot of memory. The Garbage Collector drops these files from memory when it reaches certain (configurable) limits.
 
