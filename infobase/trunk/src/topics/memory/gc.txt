@@ -1,0 +1,12 @@
+title: Garbage collection
+author: DanielPharos
+
+The core QuArK object (<a href="src.struct.html#objects">QObjects</a>) is reference counted, and will automatically be deleted when the last reference to it is released.
+
+For game files, QuArK has a very basic Garbage Collector. When loading resources from games (textures, shaders, maps, models, ...), it first loads the file into memory, and then it interprets these loaded files, converting them to objects in the internal format QuArK uses. When these objects aren't needed anymore, they are immediately dropped from memory. When that object is needed again, it re-interprets it from the file that was loaded in memory. So more and more files are loaded from the harddisk into memory. After loading all different files, a lot of these files will be loaded into memory, eating up a lot of memory. The Garbage Collector drops these files from memory when it reaches certain (configurable) limits.
+
+The <a href="intro.configuration.general.html#memory">settings</a> in <tt>Configuration</tt> > <tt>General</tt> > <tt>Memory</tt> manage the behaviour of the Garbage Collector. When the loaded files take up an X amount of megabytes, it unloads files. Also, when it has more that X files loaded, it unloads them.
+
+There is no such thing as a single rule to determine the perfect settings. It totally depends on your PC, the game you're working with and the amount of resources you're trying to load. The default settings should be good enough to get you going, although you may want to adjust the total game file buffer. I think about 80% of your machine's RAM memory is an acceptable upper limit. When set too low, it may cause repetitive loading in (for instance) the texture browser, and if it is set too high, QuArK might start to eat up too much memory. Just fine-tune it the way you like.
+
+Note: QuArK doesn't use certain sized buffers for loading: it simply loads the files, and then when idling it sees if it needs to drop files from memory. That means QuArK can use more memory than set in the configuration for resources. Also, this also affects game files: any other resource or file doesn't count towards these limits. Thus, QuArK can (and will) take up more memory then set here.
