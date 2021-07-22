@@ -33,7 +33,7 @@ class Key:
         self.m_keyname = None
         self.m_desc = ""
         self.m_defaultvalue = None
-        self.m_kind =None
+        self.m_kind = None
 
     def SetKeyname(self, keyname):
         self.m_keyname = keyname
@@ -59,10 +59,10 @@ class Key:
     def GenerateForm(self, indent):
         return "This is pure virtual"
 
-    def AddKeyFlag(self, value, desc, selected):
+    def AddKeyFlag(self, value, desc, selected, hint):
         return "This is pure virtual"
 
-    def AddKeyChoice(self, value, desc):
+    def AddKeyChoice(self, value, desc, hint):
         return "This is pure virtual"
 
 class KeyString(Key):
@@ -161,8 +161,8 @@ class KeyFlags(Key):
         Key.__init__(self)
         self.m_flags = []
 
-    def AddKeyFlag(self, value, desc, selected):
-        self.m_flags = self.m_flags + [(value, desc)]
+    def AddKeyFlag(self, value, desc, selected, hint):
+        self.m_flags = self.m_flags + [(value, desc, hint)]
         if (int(selected) > 0):
             try:
                 oldvalue = int(self.GetDefaultValue())
@@ -173,10 +173,10 @@ class KeyFlags(Key):
     def GenerateForm(self, indent):
         s = ""
         nl = "" # no first newline
-        for value, desc in self.m_flags:
+        for value, desc, hint in self.m_flags:
           s = quarkx.newobj(self.m_keyname + ":")
           s["txt"] = "&"
-          s["hint"] = ""
+          s["hint"] = hint
           s["typ"] = "X"+value
           s["cap"] = desc
           indent.appenditem(s)
@@ -187,8 +187,8 @@ class KeyChoices(Key):
         Key.__init__(self)
         self.m_choices = []
 
-    def AddKeyChoice(self, value, desc):
-        self.m_choices = self.m_choices + [(value, desc)]
+    def AddKeyChoice(self, value, desc, hint):
+        self.m_choices = self.m_choices + [(value, desc, hint)]
 
     def GenerateForm(self, indent):
         s = quarkx.newobj(self.m_keyname + ":")
@@ -199,7 +199,7 @@ class KeyChoices(Key):
         it = ""
         vl = ""
         c = 0
-        for value, desc in self.m_choices:
+        for value, desc, hint in self.m_choices:
           it = it + desc
           vl = vl + value
           c = c + 1
@@ -222,6 +222,7 @@ class Entity:
         self.m_inherit = []
         self.m_size = None
         self.m_color = None
+        self.m_help = None #JackHammer dialect
 
     def Type(self):
         raise "This is pure virtual"
@@ -234,6 +235,9 @@ class Entity:
 
     def AddDesc(self, desc):
         self.m_desc += desc
+
+    def SetHelp(self, helpstring):
+        self.m_help = helpstring
 
     def SetSize(self, sizeargs):
         if (len(sizeargs) == 6):
@@ -417,6 +421,10 @@ def AddClassnameDesc(token):
     global theEntity
     theEntity.AddDesc(token)
 
+def SetClassnameHelp(token):
+    global theEntity
+    theEntity.SetHelp(token)
+
 def EndClassname(token):
     global currentclassname
     if (currentclassname is None):
@@ -456,7 +464,8 @@ def AddKeyType(token):
        or token == "npcclass" \
        or token == "target_name_or_class" \
        or token == "pointentityclass" \
-       or token == "scene"):
+       or token == "scene" \
+       or token == "sky"): #JackHammer dialect
 #       or token == "decal"):
         theKey = KeyString()
     elif token == "color1":
@@ -519,12 +528,21 @@ def AddKeyFlagDefa(token):
     value, desc = currentkeyflag
     currentkeyflag = (value, desc, token)
 
+def AddKeyFlagHelp(token):
+    global currentkeyflag
+    value, desc, selected = currentkeyflag
+    currentkeyflag = (value, desc, selected, token)
+
 def EndKeyFlag(token):
     global currentkeyflag, theKey
     if (currentkeyflag is None):
         return
-    value, desc, selected = currentkeyflag
-    theKey.AddKeyFlag(value, desc, selected)
+    if len(currentkeyflag) < 4:
+        value, desc, selected = currentkeyflag
+        hint = ""
+    else:
+        value, desc, selected, hint = currentkeyflag
+    theKey.AddKeyFlag(value, desc, selected, hint)
     currentkeyflag = None
 
 def AddKeyChoiceNum(token):
@@ -542,12 +560,21 @@ def AddKeyChoiceDesc(token):
     value = currentkeychoice
     currentkeychoice = (value, token)
 
+def AddKeyChoiceHelp(token):
+    global currentkeychoice
+    value, desc = currentkeychoice
+    currentkeychoice = (value, desc, token)
+
 def EndKeyChoice(token):
     global currentkeychoice, theKey
     if (currentkeychoice is None):
         return
-    value, desc = currentkeychoice
-    theKey.AddKeyChoice(value, desc)
+    if len(currentkeychoice) < 3:
+        value, desc = currentkeychoice
+        hint = ""
+    else:
+        value, desc, hint = currentkeychoice
+    theKey.AddKeyChoice(value, desc, hint)
     currentkeychoice = None
 
 def EndKey(token):
@@ -736,8 +763,12 @@ statediagram =                                                                  
                                                                                                 \
 ,'STATE_CLASSNAME3'     :[(TYPE_STRING             ,'STATE_CLASSNAME3'     ,AddClassnameDesc)   \
                          ,(TYPE_SPLITTER_PLUS      ,'STATE_CLASSNAME3'     ,None)               \
+                         ,(TYPE_SPLITTER_COLON     ,'STATE_CLASSNAME4'     ,None)               \
                          ,(TYPE_SPLITTER_SQUARE_B  ,'STATE_KEYSBEGIN'      ,None)             ] \
                                                                                                 \
+# JackHammer dialect:
+,'STATE_CLASSNAME4'     :[(TYPE_STRING             ,'STATE_CLASSNAME4'     ,SetClassnameHelp)   \
+                         ,(TYPE_SPLITTER_SQUARE_B  ,'STATE_KEYSBEGIN'      ,None)             ] \
                                                                                                 \
 ,'STATE_KEYSBEGIN'      :[(TYPE_SPLITTER_SQUARE_E  ,'STATE_UNKNOWN'        ,EndClassname)       \
                          ,(TYPE_SYMBOL             ,'STATE_KEYBEGIN'       ,BeginKey)           \
@@ -773,7 +804,12 @@ statediagram =                                                                  
                                                                                                 \
 ,'STATE_VALUEFLAG3'     :[(TYPE_SPLITTER_COLON     ,'STATE_VALUEFLAG4'     ,None)             ] \
                                                                                                 \
-,'STATE_VALUEFLAG4'     :[(TYPE_NUMERIC            ,'STATE_VALUEFLAGS2'    ,AddKeyFlagDefa)   ] \
+,'STATE_VALUEFLAG4'     :[(TYPE_NUMERIC            ,'STATE_VALUEFLAG5'     ,AddKeyFlagDefa)   ] \
+# JackJammer dialect:
+,'STATE_VALUEFLAG5'     :[(TYPE_SPLITTER_COLON     ,'STATE_VALUEFLAG6'     ,None)               \
+                         ,(TYPE_SPLITTER_SQUARE_E  ,'STATE_KEYSBEGIN'      ,EndKeyFlags)        \
+                         ,(TYPE_NUMERIC            ,'STATE_VALUEFLAG'      ,AddKeyFlagNum)    ] \
+,'STATE_VALUEFLAG6'     :[(TYPE_STRING             ,'STATE_VALUEFLAGS2'    ,AddKeyFlagHelp)   ] \
                                                                                                 \
 ,'STATE_VALUE'          :[(TYPE_STRING             ,'STATE_VALUE'          ,AddKeyDesc)         \
                          ,(TYPE_SPLITTER_PLUS      ,'STATE_VALUE'          ,None)               \
@@ -810,7 +846,13 @@ statediagram =                                                                  
                                                                                                 \
 ,'STATE_CHOICES3'       :[(TYPE_SPLITTER_COLON     ,'STATE_CHOICES4'       ,None)             ] \
                                                                                                 \
-,'STATE_CHOICES4'       :[(TYPE_STRING             ,'STATE_CHOICES2'       ,AddKeyChoiceDesc) ] \
+,'STATE_CHOICES4'       :[(TYPE_STRING             ,'STATE_CHOICES5'       ,AddKeyChoiceDesc) ] \
+# JackHammer dialect:
+,'STATE_CHOICES5'       :[(TYPE_SPLITTER_COLON     ,'STATE_CHOICES6'       ,None)               \
+                         ,(TYPE_SPLITTER_SQUARE_E  ,'STATE_KEYSBEGIN'      ,EndKeyChoices)      \
+                         ,(TYPE_STRING             ,'STATE_CHOICES3'       ,AddKeyChoiceStr)    \
+                         ,(TYPE_NUMERIC            ,'STATE_CHOICES3'       ,AddKeyChoiceNum)  ] \
+,'STATE_CHOICES6'       :[(TYPE_STRING             ,'STATE_CHOICES2'       ,AddKeyChoiceHelp) ] \
 }
 
 def makeqrk(root, filename, gamename, nomessage=0):
