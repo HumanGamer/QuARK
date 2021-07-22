@@ -453,6 +453,8 @@ def AddKeyType(token):
     token = token.lower()
     if (token == "integer" or token =='float' or token == 'node_dest'):
         theKey = KeyNumeric()
+    elif (token == "scale"): #JackHammer dialect
+        theKey = KeyNumeric()
     elif (token == "string" \
        or token == "target_source" \
        or token == "target_destination" \
