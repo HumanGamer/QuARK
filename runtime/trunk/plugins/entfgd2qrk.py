@@ -371,8 +371,6 @@ def CreateClass(token):
         theEntity = PointEntity()
     elif (token.lower() == "moveclass"):
         theEntity = PointEntity()
-    elif (token.lower() == "pointclass"):
-        theEntity = PointEntity()
     elif (token.lower() == "filterclass"):
         theEntity = PointEntity()
     elif (token.lower() == "npcclass"):
@@ -576,19 +574,28 @@ def EndKeyChoices(token):
 ## ------------
 
 def readentirefile(file):
-    f = open(file, "r")
     filecontents = ""
-    while 1:
-        line = f.readline()
-        if not line:
-            break
-        line = line.strip()
-        line = line.split("//")[0] # Remove end-of-line comments
-        line = line.split("@include")[0] # Added 4/30/2008 - Remove @include statements
-        line = line.split("@mapsize")[0] # Added 4/30/2008 - Remove @mapsize statements
-        if line:
-            filecontents = filecontents + line + "\n"
-    f.close()
+    f = open(file, "r")
+    try:
+        for line in f.readlines():
+            line = line.strip()
+
+            # Remove end-of-line comments, but not from within strings (which are always double-quoted)
+            index = line.find("//")
+            while index != -1:
+                nr_quotes = line[:index].count("\"")
+                if nr_quotes % 2 == 0:
+                    line = line[:index].rstrip()
+                index = line.find("//", index + len("//"))
+
+            # Added 4/30/2008 - Remove @include and @mapsize statements
+            if line.startswith("@include") or line.startswith("@mapsize"): 
+                continue
+
+            if line:
+                filecontents = filecontents + line + "\n"
+    except:
+        f.close()
     return filecontents
 
 TYPE_UNKNOWN    = 0
