@@ -40,8 +40,6 @@ type
      TLargInt = _LARGE_INTEGER;
   {$ELSE}
      TLargInt = TLargeInteger;
-     Int64 = TLargeInteger;
-     LongWord = DWORD;
   {$ENDIF}
 
   TCPUID = packed record

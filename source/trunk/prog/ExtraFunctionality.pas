@@ -83,6 +83,14 @@ const
   SM_CYVIRTUALSCREEN = 79;
 {$endif}
 
+{$ifndef Delphi4orNewerCompiler}
+type
+   Int64 = TLargeInteger;
+   PInt64 = ^Int64;
+   LongWord = DWORD;
+   PLongWord = ^LongWord;
+{$ENDIF}
+
 {$ifndef Delphi4orNewerCompiler} // FIXME: I'm not sure when this was introduced;
                                  // but it at least exists in Delphi 4
 const
