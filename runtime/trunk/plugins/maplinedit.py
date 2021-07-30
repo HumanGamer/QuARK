@@ -4,7 +4,7 @@
 # THIS FILE IS PROTECTED BY THE GNU GENERAL PUBLIC LICENCE
 # FOUND IN FILE "COPYING.TXT"
 #
- 
+
 Info = {
    "plug-in":       "Linear Matrix Editor",
    "desc":          "Edit matrix in linear specific",
@@ -45,7 +45,7 @@ class LinEditDlg (quarkpy.dlgclasses.LiveEditDlg):
         Hint = "Scale X, Y, Z dimensions"
         }
 
-        sep: = {Typ="S" Txt=" "} 
+        sep: = {Typ="S" Txt=" "}
 
         angles: =
         {
@@ -62,7 +62,7 @@ class LinEditDlg (quarkpy.dlgclasses.LiveEditDlg):
         Hint = "Mirror in XZ plane.  Mirror effects can also be produced" $0D " with negative scale values"
         }
 
-        sep: = {Typ="S" Txt=" "} 
+        sep: = {Typ="S" Txt=" "}
 
         shear: = {
         Txt = "Shear"
@@ -108,7 +108,7 @@ def macro_linedit(self):
         # get scale
         #
         src["scale"]=tuple(map(lambda v:abs(v), cols))
-        cols = tuple(map(lambda v:v.normalized, cols))    
+        cols = tuple(map(lambda v:v.normalized, cols))
         #
         # get rotations, cols[0] is 'rotated X axis, compute the others
         #
@@ -171,7 +171,7 @@ def macro_linedit(self):
             linear = None
         undo.setspec(pack.sel, 'linear', linear)
         editor.ok(undo,"Set matrix scale")
-        
+
 
     LinEditDlg(quarkx.clickform, 'linedit', editor, setup, action)
 
