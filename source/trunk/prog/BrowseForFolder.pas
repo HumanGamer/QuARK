@@ -31,7 +31,7 @@ function CheckFileExists(const Path, CheckFile: String) : Boolean;
 
 implementation
 
-uses SysUtils, {$IFDEF CompiledWithDelphi2} ShellObj, OLE2; {$ELSE} ShlObj, ActiveX; {$ENDIF}
+uses SysUtils, SystemDetails, {$IFDEF CompiledWithDelphi2} ShellObj, OLE2; {$ELSE} ShlObj, ActiveX; {$ENDIF}
 
 function CheckFileExists(const Path, CheckFile: String) : Boolean;
 var
@@ -127,6 +127,8 @@ begin
   S:=S+'\';
  S:=S+#0+CheckFile;
  BrowseInfo.lParam:=LongInt(PChar(S));
+ if CheckWindowsMEAnd2000 then //FIXME: And if Internet Explorer 5 is installed
+  BrowseInfo.ulFlags:=BIF_NEWDIALOGSTYLE;
  pidlFolder:=SHBrowseForFolder( {$IFDEF CompiledWithDelphi2} @ {$ENDIF} BrowseInfo);
  try
   S:='';

@@ -29,6 +29,7 @@ uses
 
 function CheckWindowsNT: Boolean;
 function CheckWindows98And2000: Boolean;
+function CheckWindowsMEAnd2000: Boolean;
 function ProcessExists(const exeFileName: String): Boolean;
 function WindowExists(const WindowName: String): Boolean;
 function RetrieveModuleFilename(ModuleHandle: HMODULE): String;
@@ -302,8 +303,8 @@ uses {$IFDEF CompiledWithDelphi2}ShellObj, OLE2, {$ELSE}ShlObj, ActiveX, {$ENDIF
 
 type
   TPlatformType = (osWin95Comp, osWinNTComp);
-  TPlatform = (osWin95, osWin98, osWin98SE, osWinME, osWinNT4, osWin2000, osWinXP, osWin2003, osWinVista, osWin7, osWin8, osWin81, osWin2008, osWin2008R2, osWin2012, osWin2012R2, osWin10, osWin2016); //Note: Not all are currently detected!
-  //FIXME: See: https://docs.microsoft.com/en-gb/windows/desktop/api/winnt/ns-winnt-_osversioninfoexa
+  TPlatform = (osWin95, osWin98, osWin98SE, osWinME, osWinNT4, osWin2000, osWinXP, osWin2003, osWinVista, osWin7, osWin8, osWin81, osWin2008, osWin2008R2, osWin2012, osWin2012R2, osWin10, osWin2016, osWin2019, osWin2022, osWin11); //Note: Not all are currently detected!
+  //FIXME: See: https://docs.microsoft.com/en-us/windows/win32/api/winnt/ns-winnt-osversioninfoexa
 
   TStrBuf = array[0..11] of char;
 
@@ -2340,6 +2341,11 @@ end;
 function CheckWindows98And2000: Boolean;
 begin
   Result:=(WindowsPlatform<>osWin95) and (WindowsPlatform<>osWinNT4);
+end;
+
+function CheckWindowsMEAnd2000: Boolean;
+begin
+  Result:=(WindowsPlatform<>osWin95) and (WindowsPlatform<>osWin98) and (WindowsPlatform<>osWin98SE) and (WindowsPlatform<>osWinNT4);
 end;
 
 procedure WarnDriverBugs;

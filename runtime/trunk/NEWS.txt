@@ -14,6 +14,9 @@
 
 6.6.0 Beta 8
 ============
+* [DanielPharos]: Made the "browse for folder" window resizable and added the "Create
+          - new folder" button (only supported on Windows ME, Windows 2000, and higher).
+
 * [DanielPharos]: Fixed a bug where path duplicators would be missing pieces when one
           - section was almost an extension of the previous one, but not quite.
 
