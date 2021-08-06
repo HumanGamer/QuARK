@@ -793,11 +793,13 @@ begin
        GetDir(0, Path);
        Result:=BrowseForFolderDlg(Handle, Path, LoadStr1(5662), '');
        if Result then
+       begin
          Update;
          ProgressIndicatorStart(0,0); try
          Count:=QPakFolder(FileObject).ExtractEntitiesTo(Path);
          finally ProgressIndicatorStop; end;
          MessageDlg(FmtLoadStr1(5663, [Count, Path]), mtInformation, [mbOk], 0);
+       end;
      end;
   end;
 end;
