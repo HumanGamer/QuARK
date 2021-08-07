@@ -1686,19 +1686,23 @@ begin
     else if S = 'CSS' then
       Result := 'counter-strike source'
     else if S = 'HL:S' then
-      Result := 'half-life source'
+      //Result := 'half-life source'
+      Result := 'half-life 2'
     else if S = 'HL2:DM' then
       Result := 'half-life 2 deathmatch'
     else if S = 'HL2:LC' then
       Result := 'half-life 2 lostcoast'
     else if S = 'HL:DM:S' then
-      Result := 'half-life deathmatch source'
+      //Result := 'half-life deathmatch source'
+      Result := 'Half-Life 1 Source Deathmatch'
     else if S = 'HL2:EP1' then
-      Result := 'half-life 2 episode one'
+      //Result := 'half-life 2 episode one'
+      Result := 'half-life 2'
     else if S = 'Portal' then
       Result := 'portal'
     else if S = 'HL2:EP2' then
-      Result := 'half-life 2 episode two'
+      //Result := 'half-life 2 episode two'
+      Result := 'half-life 2'
     else if S = 'TF2' then
       Result := 'team fortress 2'
     else
@@ -1797,7 +1801,8 @@ begin
     else if S = 'CSS' then
       Result := 'orangebox'
     else if S = 'HL:S' then
-      Result := 'source2006'
+      //Result := 'source2006'
+      Result := 'source2013sp'
     else if S = 'HL2:DM' then
       Result := 'source2006'
     else if S = 'HL2:LC' then
@@ -1805,11 +1810,13 @@ begin
     else if S = 'HL:DM:S' then
       Result := 'source2006'
     else if S = 'HL2:EP1' then
-      Result := 'source2009'
+      //Result := 'source2009'
+      Result := 'source2013sp'
     else if S = 'Portal' then
       Result := 'source2009'
     else if S = 'HL2:EP2' then
-      Result := 'source2009'
+      //Result := 'source2009'
+      Result := 'source2013sp'
     else if S = 'TF2' then
       Result := 'orangebox'
     else
