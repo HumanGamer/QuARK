@@ -217,7 +217,7 @@ begin
   end;
 
   //Copy QSAS if it's not in the Steam directory yet
-  QSASPath := QuickResolveFilename(ConcatPaths([Setup.Specifics.Values['Directory'], Setup.Specifics.Values['SteamAppsDirectory'], Setup.Specifics.Values['SteamUser'], SourceSDKDir]));
+  QSASPath := QuickResolveFilename(SourceSDKDir);
   QSASFile := ConcatPaths([QSASPath, QuArKSASEXE]);
   if CheckQuArKSAS then
   begin

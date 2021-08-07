@@ -1128,7 +1128,7 @@ QQRKSRC1
         AddOns = "DataHL2.qrk"$0D"textures-base.qrk"$0D"entities-base.qrk"$0D"models-hl2.qrk"$0D
         "soundscapes-hl2.qrk"$0D"gamesounds-hl2.qrk"$0D"prefabs-hl2.qrk"$0D"entities-hl2.qrk"
 
-        BuildPgmsDir="%steampath%\SteamApps\%steamuser%\%sourcesdkdir%"
+        BuildPgmsDir="%sourcesdkdir%"
         BuildPgm1  = "vbsp.exe"
         BuildArgs1 = "-game "$22"%basepath%\%gamedir%"$22" "$22"%mapfile%"$22
         BuildCheck1= "+BSP"
@@ -2315,7 +2315,6 @@ QQRKSRC1
         Directory = "%steampath%"
         SteamEXEName = "steam.exe"
         SteamAppsDirectory = "steamapps"
-        //SourceSDKDirectory = "sourcesdk\bin" // Not used
         CommonDirectory = "common"
         QuArKSASEXENameOld = "QuArKSAS.exe"
         QuArKSASEXENameSource2006 = "QuArKSAS_source2006.exe"
@@ -4703,15 +4702,38 @@ QQRKSRC1
       }
       SourceSDKDir: =
       {
-        Txt = "Source SDK Bin directory"
+        Txt = "Source SDK tools path"
         Typ = "C"   // combo box
         Hint = "Set this to the directory containing the compilers"
         Items = "*auto*"
-             $0D"sourcesdk\bin"
-             $0D"sourcesdk\bin\ep1\bin"
-             $0D"sourcesdk\bin\source2007\bin"
-             $0D"sourcesdk\bin\source2009\bin"
-             $0D"sourcesdk\bin\orangebox\bin"
+             $0D"%basepath%\bin"
+             $0D"%basepath%\..\Source SDK Base\bin"
+             $0D"%basepath%\..\Source SDK Base 2007\bin"
+             $0D"%basepath%\..\Source SDK Base 2013 Singleplayer\bin"
+             $0D"%basepath%\..\Source SDK Base 2013 Multiplayer\bin"
+             $0D"%basepath%\..\SourceSDK\bin"
+             $0D"%basepath%\..\SourceSDK\bin\ep1\bin"
+             $0D"%basepath%\..\SourceSDK\bin\source2007\bin"
+             $0D"%basepath%\..\SourceSDK\bin\source2009\bin"
+             $0D"%basepath%\..\SourceSDK\bin\orangebox\bin"
+             $0D"%steampath%\steamapps\%steamcommon%\Source SDK Base\bin"
+             $0D"%steampath%\steamapps\%steamcommon%\Source SDK Base 2007\bin"
+             $0D"%steampath%\steamapps\%steamcommon%\Source SDK Base 2013 Singleplayer\bin"
+             $0D"%steampath%\steamapps\%steamcommon%\Source SDK Base 2013 Multiplayer\bin"
+             $0D"%steampath%\steamapps\%steamcommon%\SourceSDK\bin"
+             $0D"%steampath%\steamapps\%steamcommon%\SourceSDK\bin\ep1\bin"
+             $0D"%steampath%\steamapps\%steamcommon%\SourceSDK\bin\source2007\bin"
+             $0D"%steampath%\steamapps\%steamcommon%\SourceSDK\bin\source2009\bin"
+             $0D"%steampath%\steamapps\%steamcommon%\SourceSDK\bin\orangebox\bin"
+             $0D"%steampath%\steamapps\%steamuser%\..\Source SDK Base\bin"
+             $0D"%steampath%\steamapps\%steamuser%\..\Source SDK Base 2007\bin"
+             $0D"%steampath%\steamapps\%steamuser%\..\Source SDK Base 2013 Singleplayer\bin"
+             $0D"%steampath%\steamapps\%steamuser%\..\Source SDK Base 2013 Multiplayer\bin"
+             $0D"%steampath%\steamapps\%steamuser%\..\SourceSDK\bin"
+             $0D"%steampath%\steamapps\%steamuser%\..\SourceSDK\bin\ep1\bin"
+             $0D"%steampath%\steamapps\%steamuser%\..\SourceSDK\bin\source2007\bin"
+             $0D"%steampath%\steamapps\%steamuser%\..\SourceSDK\bin\source2009\bin"
+             $0D"%steampath%\steamapps\%steamuser%\..\SourceSDK\bin\orangebox\bin"
       }
       Compiler: =
       {

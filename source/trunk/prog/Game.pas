@@ -1754,26 +1754,32 @@ begin
   Result := SetupGameSet.Specifics.Values['SourceSDKDir'];
   if Result = '*auto*' then
   begin
-    S := GetSteamCompiler;
-    if S = 'old' then
-      Result := 'sourcesdk\bin'
-    else if S = 'source2006' then
-      Result := 'sourcesdk\bin\ep1\bin'
-    else if S = 'source2007' then
-      Result := 'sourcesdk\bin\source2007\bin'
-    else if S = 'source2009' then
-      Result := 'sourcesdk\bin\source2009\bin'
-    else if S = 'orangebox' then
-      Result := 'sourcesdk\bin\orangebox\bin'
-    else if S = 'source2013sp' then
-      Result := 'sourcesdk\bin\source2013sp\bin' //Untested
-    else if S = 'source2013mp' then
-      Result := 'sourcesdk\bin\source2013mp\bin' //Untested
+    S := SetupGameSet.Specifics.Values['SteamGame'];
+    if (S = 'HL2') or (S = 'CSS') or (S = 'HL2:DM') or (S = 'HL:DM:S') or (S = 'Portal') or (S = 'TF2') then
+      Result := '%basepath%\bin'
     else
     begin
-      //Shouldn't happen!
-      Log(LOG_WARNING, 'SourceSDKDir: Unknown SteamGame value!');
-      Result := '';
+      S := GetSteamCompiler; //Recycling variable
+      if S = 'old' then
+        Result := '%basepath%\..\SourceSDK\bin'
+      else if S = 'source2006' then
+        Result := '%basepath%\..\SourceSDK\bin\ep1\bin'
+      else if S = 'source2007' then
+        Result := '%basepath%\..\SourceSDK\bin\source2007\bin'
+      else if S = 'source2009' then
+        Result := '%basepath%\..\SourceSDK\bin\source2009\bin'
+      else if S = 'orangebox' then
+        Result := '%basepath%\..\SourceSDK\bin\orangebox\bin'
+      else if S = 'source2013sp' then
+        Result := '%basepath%\..\Source SDK Base 2013 Singleplayer\bin'
+      else if S = 'source2013mp' then
+        Result := '%basepath%\..\Source SDK Base 2013 Multiplayer\bin'
+      else
+      begin
+        //Shouldn't happen!
+        Log(LOG_WARNING, 'SourceSDKDir: Unknown SteamGame value!');
+        Result := '';
+      end;
     end;
   end;
 end;
@@ -1809,7 +1815,7 @@ begin
     else
     begin
       //Shouldn't happen!
-      Log(LOG_WARNING, 'Compiler: Unknown SteamGame value!');
+      Log(LOG_WARNING, 'GetSteamCompiler: Unknown SteamGame value!');
       Result := '';
     end;
   end;

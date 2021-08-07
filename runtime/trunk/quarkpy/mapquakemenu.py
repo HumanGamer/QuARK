@@ -9,6 +9,7 @@ Implementation of QuArK Map editor's "Quake" menu
 #
 
 import quarkx
+import os
 from qdictionnary import Strings
 from maputils import *
 import qmenu
@@ -412,7 +413,7 @@ def RebuildAndRun(maplist, editor, runquake, text, forcepak, extracted, cfgfile,
                 if setup["BuildPgmsDir"] is None:
                    cmdline2 = cmdline
                 else:
-                   cmdline2 = setup["BuildPgmsDir"] + "\\" + cmdline
+                   cmdline2 = os.path.join(quarkx.resolvefilename(setup["BuildPgmsDir"], FT_TOOL)[0], cmdline)
                 if (not quarkx.getfileattr(cmdline2)==FA_FILENOTFOUND):
                     # Success, use this build-tool!
                     cmdline = cmdline2
@@ -563,8 +564,7 @@ def prepAuxFileMenuItem(item,extkey,defext):
     editor=item.editor
     mapfileobject = editor.fileobject
     map = checkfilename(mapfileobject["FileName"] or mapfileobject.shortname)
-    map = map.lower()
-    mapfilename = "%s%s\\%s" % (quarkx.outputfile(''), quarkx.getmapdir(), map)
+    mapfilename = os.path.join(quarkx.outputfile(''), quarkx.getmapdir(), map.lower())
     auxextension = quarkx.setupsubset()[extkey]
     if not auxextension:
         auxextension=defext
