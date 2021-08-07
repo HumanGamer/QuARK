@@ -36,8 +36,7 @@ uses ShellAPI, SysUtils, StrUtils, Quarkx, Game, Setup, Logging, SystemDetails,
      QkObjects, Md5Hash, ExtraFunctionality, QkApplPaths, QkExceptions, QkFileObjects;
 
 const
-  SteamDelay: Integer = 30000; //How long (in ms) to wait for Steam to start up
-  QSASDelay: Integer = 30000; //How long (in ms) to wait for QSAS to run
+  QSASDelay: DWORD = 30000; //How long (in ms) to wait for QSAS to run
 
 var
   ClearCacheNeeded: Boolean = false;
@@ -126,12 +125,8 @@ var
   SteamDirectory: String;
   SteamStartupInfo: StartUpInfo;
   SteamProcessInformation: Process_Information;
-  SteamWindowName: String;
-  WaitForSteam: Boolean;
-  I: Integer;
 begin
   Setup := SetupSubSet(ssGames, 'Steam');
-  WaitForSteam := False;
   SteamEXEName := Setup.Specifics.Values['SteamEXEName'];
   if SteamEXEName = '' then
     SteamEXEName := 'steam.exe';
@@ -145,30 +140,11 @@ begin
     if Windows.CreateProcess(nil, PChar(ConcatPaths([SteamDirectory, SteamEXEName])), nil, nil, false, 0, nil, nil, SteamStartupInfo, SteamProcessInformation)=true then
     begin
       CloseHandle(SteamProcessInformation.hThread);
+      WaitForInputIdle(SteamProcessInformation.hProcess, INFINITE);
       CloseHandle(SteamProcessInformation.hProcess);
       Result := true;
-      WaitForSteam := true;
-      SteamWindowName := 'STEAM - '+Setup.Specifics.Values['SteamUser'];
     end;
   end;
-  I:=0;
-  while WaitForSteam do
-  begin
-    Sleep(200);  //Let's give the system a little bit of time to boot Steam...
-    WaitForSteam:=not WindowExists(SteamWindowName);
-    if I>=(SteamDelay/200) then
-    begin
-      //We've been waiting for quite some time now! Let's assume something went terribly wrong...!
-      if Application.MessageBox(PChar(LoadStr1(5718)), PChar(LoadStr1(400)), MB_ICONEXCLAMATION or MB_YESNO) = IDNO then
-      begin
-        Result:=False;
-        WaitForSteam:=False;
-      end;
-    end
-    else
-      I:=I+1;
-  end;
-  //FIXME: Do we also need to check if Steam is running in this USER ACCOUNT?!?
 end;
 
 function RunSteamExtractor(const Filename : String) : Boolean;
