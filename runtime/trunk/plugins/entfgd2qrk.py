@@ -289,7 +289,7 @@ class Entity:
             k = key.GenerateFolder(s)
 
     def GenerateForm(self, indent): # Changed 4/30/2008 - creates :incl with :form data so mods can build on top of all entities
-        if (self.m_classname.find("t_") == 0):                                    #Modified 4/30/2008 - If t_ exists dont put another
+        if self.m_classname.startswith("t_"):                                     #Modified 4/30/2008 - If t_ exists dont put another
             s = quarkx.newobj(self.m_classname + self.TypeIncl())                 #                     And put :incl instead of :form
         else:                                                                     #Modified 4/30/2008 - Add t_ if it doesn't exist
             s = quarkx.newobj(INHERITPREFIX + self.m_classname + self.TypeIncl()) #                     And put :incl instead of :form
@@ -303,7 +303,7 @@ class Entity:
         indent.appenditem(s)
 
     def GenerateRealForm(self, indent):                            # Function added 4/30/2008
-        if (self.m_classname.find("t_") is not 0):                 #Adds the new :form -   entityname: =
+        if not self.m_classname.startswith("t_"):                  #Adds the new :form -   entityname: =
             s = quarkx.newobj(self.m_classname + self.TypeForm())  #(just link to :incl)   {
             s[INHERITPREFIX + self.m_classname] = "!"              #                         t_entityname = !
             indent.appenditem(s)                                   #                       }
@@ -451,7 +451,7 @@ def AddKeyType(token):
     global currentkeyname, theKey
     # Determine what type this key is, so the correct object can be created
     token = token.lower()
-    if (token == "integer" or token =='float' or token == 'node_dest'):
+    if (token == "integer") or (token =='float') or (token == 'node_dest') or (token == 'node_id'):
         theKey = KeyNumeric()
     elif (token == "scale"): #JackHammer dialect
         theKey = KeyNumeric()
@@ -461,6 +461,7 @@ def AddKeyType(token):
        or token == "sound" \
        or token == "sprite" \
        or token == "angle" \
+       or token == "angle_negative_pitch" \
        or token == "origin" \
        or token == "filterclass" \
        or token == "npcclass" \
@@ -489,6 +490,18 @@ def AddKeyType(token):
     elif (token == "axis"):
         theKey = KeyString()       #tbd
     elif (token == "sidelist"):
+        theKey = KeyString()       #tbd
+    elif (token == "instance_file"):
+        theKey = KeyString()       #tbd
+    elif (token == "instance_parm"):
+        theKey = KeyString()       #tbd
+    elif (token == "instance_variable"):
+        theKey = KeyString()       #tbd
+    elif (token == "particlesystem"):
+        theKey = KeyString()       #tbd
+    elif (token == "script"):
+        theKey = KeyString()       #tbd
+    elif (token == "scriptlist"):
         theKey = KeyString()       #tbd
     elif (token == "material"):
         theKey = KeyTexture()       #tbd
