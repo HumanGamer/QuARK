@@ -114,7 +114,6 @@ function GameMapPath : String;
 function GameModelPath : String;
 function GameShaderList : String;
 function SteamAppID : String;
-function GetSteamQuakeDir : String;
 function GetSteamGameDir : String;
 function GetSteamBaseDir : String;
 function SourceSDKDir : String;
@@ -367,10 +366,28 @@ begin
 end;
 
 function QuakeDir : String;
+var
+  SteamLibraryPath: String;
+  S: String;
 begin
  Result:=SetupGameSet.Specifics.Values['Directory']; //This should have been called GameExecutablePath
  if Result='*auto*' then
-   Result:=GetSteamQuakeDir;
+ begin
+   SteamLibraryPath := SetupGameSet.Specifics.Values['SteamLibraryPath'];
+   if SteamLibraryPath='' then
+     SteamLibraryPath:='%steampath%';
+   S := SetupGameSet.Specifics.Values['GameFileLayout'];
+   if S = 'username' then
+     Result := SteamLibraryPath + '\SteamApps\%steamuser%\%steamgamedir%'
+   else if S = 'common' then
+     Result := SteamLibraryPath + '\SteamApps\%steamcommon%\%steamgamedir%'
+   else
+   begin
+     //Shouldn't happen!
+     Log(LOG_WARNING, 'QuakeDir: Unknown GameFileLayout value!');
+     Result := '';
+   end;
+ end;
  if Result='' then
   Result:='.'; //FIXME: What should we do...?
  Result:=ConvertPath(Result);
@@ -1661,27 +1678,6 @@ begin
     begin
       //Shouldn't happen!
       Log(LOG_WARNING, 'SourceSDKDir: Unknown SteamGame value!');
-      Result := '';
-    end;
-  end;
-end;
-
-function GetSteamQuakeDir : String;
-var
-  S: String;
-begin
-  Result := SetupGameSet.Specifics.Values['Directory'];
-  if Result = '*auto*' then
-  begin
-    S := SetupGameSet.Specifics.Values['GameFileLayout'];
-    if S = 'username' then
-      Result := '%steampath%\SteamApps\%steamuser%\%steamgamedir%'
-    else if S = 'common' then
-      Result := '%steampath%\SteamApps\%steamcommon%\%steamgamedir%'
-    else
-    begin
-      //Shouldn't happen!
-      Log(LOG_WARNING, 'GetSteamQuakeDir: Unknown GameFileLayout value!');
       Result := '';
     end;
   end;

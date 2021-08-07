@@ -1113,6 +1113,7 @@ QQRKSRC1
 
         Program = "%steampath%\steam.exe -applaunch %steamappid% -dev -console -window -width 800 -height 600"
         Directory = "*auto*"
+        SteamLibraryPath = ""
         SteamGame = "HL2"
         SteamAppID = "*auto*"
         GameDir = "*auto*"
@@ -4597,6 +4598,13 @@ QQRKSRC1
         t_ProgramHint=!
         Items = "%steampath%\steam.exe -applaunch %steamappid% -dev -console"
                 $0D"%steampath%\steam.exe -applaunch %steamappid% -dev -console -window -width 800 -height 600"
+      }
+      SteamLibraryPath: =
+      {
+        Txt = "Directory of Steam Library"
+        Typ = "ED"
+        Hint = "Path to the Steam Library folder containing the SteamApps-folder where the game is installed (leave empty for default Steam location)"
+        CheckFile = "STEAM.DLL"
       }
       SteamGame: =
       {
