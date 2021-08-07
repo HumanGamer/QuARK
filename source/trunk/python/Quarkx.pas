@@ -2007,11 +2007,11 @@ begin
   if nstderr=Nil then
    nstderr:=nstdout;
   FillChar(SI, SizeOf(SI), 0);
+  SI.cb:=SizeOf(SI);
   FillChar(PI, SizeOf(PI), 0);
   try
    if nstdout<>Nil then
     begin
-     SI.cb:=SizeOf(SI);
      SI.dwFlags:=STARTF_USESTDHANDLES;
      SI.hStdInput:=EmptyInputPipe;
      SI.hStdOutput:=ProcessPipe(nstdout);
