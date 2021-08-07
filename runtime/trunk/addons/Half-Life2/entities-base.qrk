@@ -7,7 +7,7 @@ QQRKSRC1
 {
   Description = "Common Source Entities"
   t_player_size:incl = { bbox = '-16 -16 -24 16 16 32' }
-  
+
 // custom polys for use with specific brush entities
 
   trigger_tex:incl= {tex = "tools/toolstrigger"}
