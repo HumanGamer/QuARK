@@ -141,11 +141,11 @@ class GameConsole(BatchConsole):
             pak.filename = writeto
             pak.savefile()
         else:
-            writeto = quarkx.outputfile("")
+            writeto = quarkx.resolvefilename(quarkx.outputfile(""), qutils.FT_PATH)[0]
             for qname, qobj in self.filelistdata:
                 if qname[:1]=='*':
                     qname = qname[1:]
-                fname = quarkx.outputfile(qname)
+                fname = quarkx.resolvefilename(quarkx.outputfile(qname), qutils.FT_PATH)[0]
                 err = Strings[5830]
                 if qobj is None:
                     if quarkx.getfileattr(fname)==-1:
