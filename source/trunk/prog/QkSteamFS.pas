@@ -39,8 +39,6 @@ const
   QSASDelay: DWORD = 30000; //How long (in ms) to wait for QSAS to run
 
 var
-  ClearCacheNeeded: Boolean = false;
-  ClearGCFCacheNeeded: Boolean = false;
   CheckQuArKSAS: Boolean = true;
 
 //FIXME: Not used anymore... More somewhere else? CONST certain parameters?
@@ -145,15 +143,11 @@ begin
   end;
 end;
 
+//This function uses QuArKSAS to extract files from Steam
 function RunSteamExtractor(const Filename : String) : Boolean;
 var
   Setup: QObject;
-  SteamDirectory: String;
-  SteamProgramDirectory: String;
-  SteamGameDir: String;
-  SteamUser: String;
   SteamCompiler: String;
-  GameDirectory: String;
   GameIDDir: String;
   FullFilename: String;
   TmpDirectory: String;
@@ -167,9 +161,6 @@ var
 begin
   Result:=False;
 
-  //This function uses QuArKSAS to extract files from Steam
-  ClearCacheNeeded:=true;
-
   Setup:=SetupSubSet(ssGames, 'Steam');
 
   if not (Setup.Specifics.Values['UseQuArKSAS'] <> '') then
@@ -178,11 +169,7 @@ begin
     Exit;
   end;
 
-  SteamDirectory:=Setup.Specifics.Values['Directory'];
-  SteamGameDir:=GetSteamBaseDir;
-  SteamUser:=Setup.Specifics.Values['SteamUser'];
   QSASAdditionalParameters:=Setup.Specifics.Values['ExtractorParameters'];
-  GameDirectory:=SetupGameSet.Specifics.Values['Directory'];
 
   SteamCompiler:=GetSteamCompiler;
   if (SteamCompiler = 'old') or (SteamCompiler = 'source2006') then
@@ -230,8 +217,7 @@ begin
   end;
 
   //Copy QSAS if it's not in the Steam directory yet
-  SteamProgramDirectory:=Setup.Specifics.Values['ProgramDirectory'];
-  QSASPath := QuickResolveFilename(ConcatPaths([SteamDirectory, SteamProgramDirectory, SteamUser, SourceSDKDir]));
+  QSASPath := QuickResolveFilename(ConcatPaths([Setup.Specifics.Values['Directory'], Setup.Specifics.Values['SteamAppsDirectory'], Setup.Specifics.Values['SteamUser'], SourceSDKDir]));
   QSASFile := ConcatPaths([QSASPath, QuArKSASEXE]);
   if CheckQuArKSAS then
   begin
@@ -268,7 +254,7 @@ begin
       LogAndRaiseError('Unable to extract file from Steam. Cannot create cache directory.');
 
   //No trailing slashes in paths allowed for QuArKSAS!
-  QSASParameters:='-g '+SteamAppID+' -gamedir "'+RemoveTrailingSlash(SteamGameDir)+'" -o "'+TmpDirectory+'" -overwrite';
+  QSASParameters:='-g '+SteamAppID+' -gamedir "'+RemoveTrailingSlash(GetSteamBaseDir)+'" -o "'+TmpDirectory+'" -overwrite';
   if Length(QSASAdditionalParameters)<>0 then
     QSASParameters:=QSASParameters+' '+QSASAdditionalParameters;
 
