@@ -2308,7 +2308,7 @@ QQRKSRC1
         SteamUser = "<Your Steam Account Username>"
         ExtractorParameters = ""
         Autostart = "1"
-        UseQuArKSAS = "1"
+        UseQuArKSAS = ""
 
         // hidden settings:
         Directory = "%steampath%"
