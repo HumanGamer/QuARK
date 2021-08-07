@@ -1,0 +1,6409 @@
+QQRKSRC1
+// This file has been written by QuArK 6.6
+// It's the text version of file: entities-hl1s.qrk
+
+{
+  Description = "HL1:Source Entities"
+  Toolbox Folders.qtx =
+  {
+    Toolbox = "New map items..."
+    Root = "Entities for Half-Life Source.fgd.qtxfolder"
+    Entities for Half-Life Source.fgd.qtxfolder =
+    {
+      ;desc = "Created from Half-Life Source.fgd"
+      ai_* entities.qtxfolder =
+      {
+        ai_ally_manager:e =
+        {
+          origin = "0 0 0"
+          ;desc = "AI Ally Manager"
+          maxallies = "5"
+          maxmedics = "1"
+        }
+        ai_battle_line:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Battle line"
+          Active = "0"
+          Strict = "1"
+        }
+        ai_changehintgroup:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Change Hint Group"
+          SearchType = "0"
+          Radius = "0.0"
+          hintlimiting = "0"
+        }
+        ai_changetarget:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Change Target"
+        }
+        ai_citizen_response_system:e =
+        {
+          origin = "0 0 0"
+          ;desc = "If placed in the level, will manage citizens responses to p"
+           "layer's actions."
+        }
+        ai_goal_actbusy:e =
+        {
+          origin = "0 0 0"
+          ;desc = "AI Goal Act Busy"
+          seeentitytimeout = "1"
+          sightmethod = "0"
+          type = "0"
+          allowteleport = "0"
+        }
+        ai_goal_actbusy_queue:e =
+        {
+          origin = "0 0 0"
+          ;desc = "AI Goal Act Busy Queue"
+          mustreachfront = "0"
+        }
+        ai_goal_assault:e =
+        {
+          origin = "0 0 0"
+          ;desc = "AI Goal Assault"
+          SearchType = "0"
+          StartActive = "0"
+          AssaultCue = "1"
+          RallySelectMethod = "0"
+        }
+        ai_goal_follow:e =
+        {
+          origin = "0 0 0"
+          ;desc = "AI Goal Follow"
+        }
+        ai_goal_injured_follow:e =
+        {
+          origin = "0 0 0"
+          ;desc = "AI Goal Injured Follow"
+        }
+        ai_goal_lead:e =
+        {
+          origin = "0 0 0"
+          ;desc = "AI Goal Lead"
+          SearchType = "0"
+        }
+        ai_goal_lead_weapon:e =
+        {
+          origin = "0 0 0"
+          ;desc = "AI Goal Lead (Weapon). A version of the ai_goal_lead entity"
+           " that requires the player to have the specified weapon before the "
+           "Actor(s) will lead the player to their target."
+          WeaponName = "weapon_bugbait"
+          SearchType = "0"
+        }
+        ai_goal_police:e =
+        {
+          origin = "0 0 0"
+          ;desc = "AI Goal Police"
+          policeradius = "512"
+        }
+        ai_goal_standoff:e =
+        {
+          origin = "0 0 0"
+          ;desc = "AI Goal Standoff"
+          SearchType = "0"
+          StartActive = "0"
+          HintGroupChangeReaction = "1"
+          Aggressiveness = "2"
+          PlayerBattleline = "1"
+          StayAtCover = "0"
+          AbandonIfEnemyHides = "0"
+        }
+        ai_npc_eventresponsesystem:e =
+        {
+          origin = "0 0 0"
+          ;desc = "An entity that allows you to generate events for nearby fri"
+           "endly NPCs to respond to."
+        }
+        ai_relationship:e =
+        {
+          origin = "0 0 0"
+          ;desc = "AI Relationship - Sets relationships between groups of NPCs"
+           " in the AI."
+          disposition = "3"
+          radius = "0"
+          rank = "0"
+          StartActive = "0"
+          Reciprocal = "0"
+        }
+        ai_script_conditions:e =
+        {
+          origin = "0 0 0"
+          ;desc = "AI Script Conditions"
+          StartDisabled = "1"
+          MinimumState = "1"
+          MaximumState = "3"
+          ScriptStatus = "2"
+          RequiredTime = "0"
+          MinTimeout = "0"
+          MaxTimeout = "0"
+          ActorSeePlayer = "2"
+          PlayerActorProximity = "0"
+          PlayerActorFOV = "360"
+          PlayerActorFOVTrueCone = "0"
+          PlayerActorLOS = "2"
+          ActorSeeTarget = "2"
+          ActorTargetProximity = "0"
+          PlayerTargetProximity = "0"
+          PlayerTargetFOV = "360"
+          PlayerTargetFOVTrueCone = "0"
+          PlayerTargetLOS = "2"
+          PlayerBlockingActor = "2"
+          ActorInPVS = "2"
+          ActorInVehicle = "2"
+          PlayerInVehicle = "2"
+        }
+        ai_sound:e =
+        {
+          origin = "0 0 0"
+          ;desc = "This entity makes sounds or smells that can be sensed by NP"
+           "Cs, but not by the player. This can be used to cause reactions in "
+           "nearby NPCs.\n\nSound Types\n  Combat: Will cause most NPCs to bec"
+           "ome alert\n  World: Will cause most NPCs to become alert\n  Danger"
+           ": Will cause most NPCs to move away from the position of the sound"
+           "\n  Bullet Impact: \n  Carcass: \n  Meat: \n  Garbage: \n  Thumper"
+           ": causes antlions to run away briefly\n  Readiness: (Low, Medium, "
+           "High) Causes player companions that can hear this sound to change "
+           "readiness\n"
+          soundtype = "0"
+        }
+      }
+      aiscripted_* entities.qtxfolder =
+      {
+        aiscripted_schedule:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Issues a command to an NPC without taking the NPC out of it"
+           "s AI. This does not seize control of the NPC as a scripted_sequenc"
+           "e does"
+          m_flRadius = "0"
+          graball = "0"
+          spawnflags = "4"
+          forcestate = "0"
+          schedule = "1"
+          interruptability = "0"
+        }
+      }
+      ammo_* entities.qtxfolder =
+      {
+        ammo_357:e =
+        {
+          origin = "0 0 0"
+          ;desc = "357 Ammo"
+        }
+        ammo_9mmAR:e =
+        {
+          origin = "0 0 0"
+          ;desc = "9mm Assault Rifle Ammo"
+        }
+        ammo_9mmbox:e =
+        {
+          origin = "0 0 0"
+          ;desc = "box of 200 9mm shells"
+        }
+        ammo_9mmclip:e =
+        {
+          origin = "0 0 0"
+          ;desc = "9mm Pistol Ammo"
+        }
+        ammo_ARgrenades:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Assault Grenades"
+        }
+        ammo_buckshot:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Shotgun Ammo"
+        }
+        ammo_crossbow:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Crossbow Ammo"
+        }
+        ammo_gaussclip:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Gauss Gun Ammo"
+        }
+        ammo_glockclip:e =
+        {
+          origin = "0 0 0"
+          ;desc = "9mm Pistol Ammo"
+        }
+        ammo_rpgclip:e =
+        {
+          origin = "0 0 0"
+          ;desc = "RPG Ammo"
+        }
+      }
+      assault_* entities.qtxfolder =
+      {
+        assault_assaultpoint:e =
+        {
+          origin = "0 0 0"
+          ;desc = "(Assault) assault point"
+          assaulttimeout = "3.0"
+          clearoncontact = "0"
+          allowdiversion = "0"
+          allowdiversionradius = "0"
+          nevertimeout = "0"
+          strict = "0"
+          forcecrouch = "0"
+          urgent = "0"
+          assaulttolerance = "36"
+        }
+        assault_rallypoint:e =
+        {
+          origin = "0 0 0"
+          ;desc = "(Assault) rally point"
+          assaultdelay = "0"
+          priority = "1"
+          forcecrouch = "0"
+          urgent = "0"
+        }
+      }
+      cycler_* entities.qtxfolder =
+      {
+        cycler_actor:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Actor Cycler"
+        }
+      }
+      env_* entities.qtxfolder =
+      {
+        env_funnel:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Large Portal Funnel"
+        }
+        env_global:e =
+        {
+          origin = "0 0 0"
+          ;desc = "An entity to control a game-specific global states."
+        }
+        env_glow:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Light Glow/Haze"
+          model = "sprites/glow01.spr"
+          scale = "1"
+        }
+        env_gunfire:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Gunfire Effect"
+          minburstsize = "2"
+          maxburstsize = "7"
+          minburstdelay = "2"
+          maxburstdelay = "5"
+          rateoffire = "10"
+          spread = "5"
+          bias = "1"
+          collisions = "0"
+          shootsound = "Weapon_AR2.NPC_Single"
+          tracertype = "AR2TRACER"
+        }
+        env_laser:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Laser Beam Effect"
+          renderamt = "100"
+          rendercolor = "0 0 0"
+          width = "20"
+          NoiseAmplitude = "0"
+          texture = "sprites/laserbeam.spr"
+          TextureScroll = "35"
+          framestart = "0"
+          damage = "100"
+        }
+        env_muzzleflash:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Muzzle Flash"
+          scale = "1"
+        }
+        env_render:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Render Controls"
+        }
+        env_sound:e =
+        {
+          origin = "0 0 0"
+          ;desc = "DSP Sound"
+          radius = "128"
+          roomtype = "0"
+        }
+        env_terrainmorph:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Morphs terrain by pulling vertices along a normal.\n\nPlace"
+           " this entity the desired distance from a terrain surface and set A"
+           "NGLES to the normal along which you want to pull the surface's ver"
+           "tices. If you set the INSTANT spawnflag, the morph will take place"
+           " instantly instead of over time.\n"
+          startradius = "500"
+          goalradius = "100"
+          duration = "3"
+          fraction = "1"
+        }
+      }
+      func_* entities.qtxfolder =
+      {
+        func_friction:b =
+        {
+          ;incl = "defpoly"
+          modifier = "100"
+        }
+        func_healthcharger:b =
+        {
+          ;incl = "defpoly"
+          ;desc = "Wall health recharger"
+        }
+        func_ladder:b =
+        {
+          ;incl = "defpoly"
+          ;desc = "Ladder. Players will be able to freely move along this brus"
+           "h, as if it was a ladder. If you are using a model prop for the vi"
+           "sual representation of the ladder in the map, apply the toolsinvis"
+           "ibleladder material to the func_ladder brush."
+        }
+        func_lookdoor:b =
+        {
+          ;incl = "defpoly"
+          ;desc = "A door that moves either when looked by a targeted object o"
+           "r when a target object comes near the door.  Behavior can be eithe"
+           "r based on viewing direction or proximity alone, or on a combinati"
+           "on of both.  If inverted the doors behavior will be the opposite."
+          ProximityDistance = "0.0"
+          ProximityOffset = "0.0"
+          FieldOfView = "0.0"
+        }
+        func_monitor:b =
+        {
+          ;incl = "defpoly"
+          ;desc = "A monitor that renders the view from a given point_camera e"
+           "ntity."
+        }
+        func_mortar_field:b =
+        {
+          ;incl = "defpoly"
+          ;desc = "Mortar field"
+          m_fControl = "0"
+          m_flSpread = "0"
+          m_iCount = "1"
+        }
+        func_pushable:b =
+        {
+          ;incl = "defpoly"
+          ;desc = "Pushable object"
+          size = "0"
+          friction = "50"
+          buoyancy = "20"
+        }
+        func_recharge:b =
+        {
+          ;incl = "defpoly"
+          ;desc = "Battery recharger"
+        }
+        func_tank:b =
+        {
+          ;incl = "defpoly"
+          ;desc = "Brush Gun Turret"
+          bullet = "0"
+        }
+        func_tanklaser:b =
+        {
+          ;incl = "defpoly"
+          ;desc = "Brush Laser Turret"
+        }
+        func_tankmortar:b =
+        {
+          ;incl = "defpoly"
+          ;desc = "Brush Mortar Turret"
+          iMagnitude = "100"
+          firedelay = "2"
+          warningtime = "1"
+          firevariance = "0"
+        }
+        func_tankphyscannister:b =
+        {
+          ;incl = "defpoly"
+          ;desc = "PhysCannister Turret"
+        }
+        func_tankpulselaser:b =
+        {
+          ;incl = "defpoly"
+          ;desc = "Brush Pulse Laser"
+          PulseSpeed = "1000"
+          PulseColor = "255 0 0"
+          PulseWidth = "20"
+          PulseLife = "2"
+          PulseLag = "0.05"
+        }
+        func_tankrocket:b =
+        {
+          ;incl = "defpoly"
+          ;desc = "Brush Rocket Turret"
+          rocketspeed = "800"
+        }
+        func_vehicleclip:b =
+        {
+          ;incl = "defpoly"
+          ;desc = "Vehicle Clip"
+        }
+        func_wall:b =
+        {
+          ;incl = "defpoly"
+          ;desc = "Legacy support. Use func_brush instead."
+        }
+      }
+      generic_* entities.qtxfolder =
+      {
+        generic_actor:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Generic Actor NPC"
+          hull_name = "Human"
+        }
+      }
+      info_* entities.qtxfolder =
+      {
+        info_player_deathmatch:e =
+        {
+          origin = "0 0 0"
+          ;desc = "This entity indicates the position and facing direction at "
+           "which the player will spawn during a Half-Life Deathmatch: Source "
+           "game. Any number of info_player_deathmatch entities may be placed "
+           "in a map."
+        }
+      }
+      item_* entities.qtxfolder =
+      {
+        item_battery:e =
+        {
+          origin = "0 0 0"
+          ;desc = "HEV battery"
+        }
+        item_healthkit:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Health Kit"
+        }
+        item_longjump:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Long Jump Item"
+        }
+        item_suit:e =
+        {
+          origin = "0 0 0"
+          ;desc = "HEV Suit"
+        }
+      }
+      logic_* entities.qtxfolder =
+      {
+        logic_choreographed_scene:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Manages a choreographed scene of one or more actors."
+          busyactor = "0"
+        }
+      }
+      monster_* entities.qtxfolder =
+      {
+        monster_alien_grunt:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Alien Grunt"
+        }
+        monster_alien_slave:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Vortigaunt"
+        }
+        monster_apache:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Apache"
+        }
+        monster_babycrab:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Baby Headcrab"
+        }
+        monster_barnacle:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Barnacle"
+        }
+        monster_barney:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Barney"
+        }
+        monster_bigmomma:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Big Mamma"
+        }
+        monster_bullchicken:e =
+        {
+          origin = "0 0 0"
+          ;desc = "BullChicken"
+        }
+        monster_cockroach:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Cockroach"
+        }
+        monster_flyer_flock:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Flock of Flyers"
+          iFlockSize = "8"
+          flFlockRadius = "128"
+        }
+        monster_furniture:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Monster Furniture"
+        }
+        monster_gargantua:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Gargantua"
+        }
+        monster_generic:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Generic Script NPC"
+          body = "0"
+        }
+        monster_gman:e =
+        {
+          origin = "0 0 0"
+          ;desc = "G-Man"
+        }
+        monster_headcrab:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Headcrab"
+        }
+        monster_hgrunt_dead:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Dead Human Grunt"
+          sequence = "44"
+          pose = "0"
+          body = "0"
+        }
+        monster_houndeye:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Houndeye"
+        }
+        monster_human_assassin:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Human Assassin"
+        }
+        monster_human_grunt:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Human Grunt"
+        }
+        monster_ichthyosaur:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Ichthyosaur"
+        }
+        monster_leech:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Leech"
+        }
+        monster_miniturret:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Mini Auto Turret"
+          orientation = "0"
+        }
+        monster_nihilanth:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Nihilanth"
+        }
+        monster_scientist:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Scientist"
+          body = "-1"
+        }
+        monster_scientist_dead:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Dead Scientist"
+        }
+        monster_sentry:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Sentry Turret Gun"
+        }
+        monster_tentacle:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Tentacle Arm"
+          sweeparc = "130"
+          sound = "-1"
+        }
+        monster_zombie:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Zombie"
+        }
+      }
+      multi_* entities.qtxfolder =
+      {
+        multi_manager:e =
+        {
+          origin = "0 0 0"
+          ;desc = "MultiTarget Manager"
+        }
+      }
+      other entities.qtxfolder =
+      {
+        monstermaker:e =
+        {
+          origin = "0 0 0"
+          ;desc = "NPC Maker"
+          monstercount = "-1"
+          delay = "5"
+          m_imaxlivechildren = "5"
+        }
+        multisource:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Multisource"
+        }
+        speaker:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Announcement Speaker"
+          preset = "0"
+          health = "5"
+        }
+        weaponbox:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Weapon/Ammo Container"
+        }
+      }
+      path_* entities.qtxfolder =
+      {
+        path_corner:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Generic path point"
+          wait = "0"
+          speed = "0"
+          yaw_speed = "0"
+        }
+        path_corner_crash:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Helicopter Crash Path"
+        }
+        path_track:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Train Track Path"
+          speed = "0"
+        }
+      }
+      phys_* entities.qtxfolder =
+      {
+        phys_constraintsystem:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Used to manage a group of interacting constraints and keep "
+           "them stable."
+        }
+      }
+      player_* entities.qtxfolder =
+      {
+        player_loadsaved:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Load Auto-Saved game"
+          duration = "2"
+          holdtime = "0"
+          renderamt = "255"
+          rendercolor = "0 0 0"
+          loadtime = "0"
+        }
+        player_speedmod:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Speeds up or slows down player velocity over time (slow mo/"
+           "fast forward)"
+        }
+        player_weaponstrip:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Strips player's weapons"
+        }
+      }
+      point_* entities.qtxfolder =
+      {
+        point_camera:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Camera"
+          FOV = "90"
+          UseScreenAspectRatio = "0"
+          fogEnable = "0"
+          fogColor = "0 0 0"
+          fogStart = "2048"
+          fogEnd = "4096"
+        }
+      }
+      prop_* entities.qtxfolder =
+      {
+        prop_vehicle:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Studiomodel vehicle that can be driven via inputs."
+        }
+        prop_vehicle_driveable:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Generic driveable studiomodel vehicle."
+        }
+      }
+      scripted_* entities.qtxfolder =
+      {
+        scripted_sentence:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Scripted Sentence"
+          spawnflags = "21"
+          delay = "0"
+          radius = "512"
+          refire = "3"
+          volume = "10"
+          attenuation = "0"
+        }
+        scripted_sequence:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Grabs an NPC and makes them play a specified set of animati"
+           "ons. The NPC can be told to move to the scripted sequence position"
+           " or can be told to play the script wherever they currently are. Mu"
+           "ltiple scripted sequences of the same name will frame-synchronize "
+           "in the action animation once all the actors have moved to position"
+           ". This allows tight interaction between actors (one actor grabbing"
+           " another, hitting them, etc.) The flow is as follows:\n\n1) Move t"
+           "o position using the specified movement animation. If 'Move to Pos"
+           "ition' is set to NONE, skip to step 2.\n2) If forced to wait for a"
+           "nother actor to move to position, play the pre-action idle animati"
+           "on, otherwise skip to step 3. If there is no pre-action idle speci"
+           "fied, ACT_IDLE is used.\n3) Fire the OnBeginSequence output.\n4) P"
+           "lay the action animation. If no action animation is specified, ski"
+           "p to step 5.\n5) Play the post-action idle animation. If none is s"
+           "pecified, skip to step 6. If the 'Loop in Post Idle' spawnflag is "
+           "set, keep playing the post-action idle until the script is cancell"
+           "ed. If no post-action idle animation is specified, ACT_IDLE is use"
+           "d.\n6) Fire the OnEndSequence output.\n7) If a next script to play"
+           " is specified, hand the NPC to the next script and repeat this pro"
+           "cess for that script.\n\nThe MoveToPosition input runs steps 1 and"
+           " 2, then waits while playing the pre-action idle animation until t"
+           "he BeginSequence input is received.\n\nIf the sequence has motion "
+           "extraction in it, set the 'Don't Teleport NPC On End' spawnflag."
+          onplayerdeath = "0"
+        }
+        scripted_target:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Scripted Target"
+          StartDisabled = "1"
+          m_flRadius = "0"
+          MoveSpeed = "5"
+          PauseDuration = "0"
+          EffectDuration = "2"
+        }
+      }
+      target_* entities.qtxfolder =
+      {
+        target_cdaudio:e =
+        {
+          origin = "0 0 0"
+          ;desc = "CD Audio Target"
+          health = "-1"
+        }
+      }
+      trigger_* entities.qtxfolder =
+      {
+        trigger_auto:e =
+        {
+          origin = "0 0 0"
+          ;desc = "AutoTrigger"
+          spawnflags = "1"
+          triggerstate = "0"
+        }
+        trigger_autosave:b =
+        {
+          ;incl = "defpoly"
+          ;desc = "AutoSave Trigger"
+        }
+        trigger_cdaudio:b =
+        {
+          ;incl = "defpoly"
+          ;desc = "Trigger CD Audio"
+          health = "-1"
+        }
+        trigger_changelevel:b =
+        {
+          ;incl = "defpoly"
+          ;desc = "Trigger: Change level"
+          changedelay = "0"
+        }
+        trigger_changetarget:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Trigger Change Target"
+        }
+        trigger_counter:b =
+        {
+          ;incl = "defpoly"
+          ;desc = "Trigger counter"
+          count = "2"
+        }
+        trigger_endsection:b =
+        {
+          ;incl = "defpoly"
+          ;desc = "EndSection Trigger"
+        }
+        trigger_gravity:b =
+        {
+          ;incl = "defpoly"
+          ;desc = "Trigger Gravity"
+          gravity = "1"
+        }
+        trigger_relay:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Trigger Relay"
+          triggerstate = "0"
+        }
+        trigger_transition:b =
+        {
+          ;incl = "defpoly"
+          ;desc = "Trigger: Select Transition Area"
+        }
+        trigger_vphysics_motion:b =
+        {
+          ;incl = "defpoly"
+          ;desc = "A volumetric trigger that affects the motion of vphysics ob"
+           "jects that touch it."
+          StartDisabled = "0"
+          SetGravityScale = "1.0"
+          SetAdditionalAirDensity = "0"
+          SetVelocityLimit = "0.0"
+          SetVelocityLimitDelta = "0.0"
+          SetVelocityScale = "1.0"
+          SetAngVelocityLimit = "0.0"
+          SetAngVelocityScale = "1.0"
+          SetLinearForce = "0.0"
+          SetLinearForceAngles = "0 0 0"
+          ParticleTrailLifetime = "4"
+          ParticleTrailStartSize = "2"
+          ParticleTrailEndSize = "3"
+        }
+      }
+      weapon_* entities.qtxfolder =
+      {
+        weapon_357:e =
+        {
+          origin = "0 0 0"
+          ;desc = "357 Handgun"
+        }
+        weapon_crossbow:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Crossbow"
+          sequence = "0"
+        }
+        weapon_crowbar:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Crowbar"
+        }
+        weapon_egon:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Egon Gun"
+        }
+        weapon_gauss:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Gauss Gun"
+        }
+        weapon_glock:e =
+        {
+          origin = "0 0 0"
+          ;desc = "9mm Handgun"
+        }
+        weapon_handgrenade:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Handgrenade Ammo"
+        }
+        weapon_hornetgun:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Hornet Gun"
+        }
+        weapon_mp5:e =
+        {
+          origin = "0 0 0"
+          ;desc = "9mm Assault Rifle"
+        }
+        weapon_rpg:e =
+        {
+          origin = "0 0 0"
+          ;desc = "RPG"
+        }
+        weapon_satchel:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Satchel Charge Ammo"
+        }
+        weapon_shotgun:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Shotgun"
+        }
+        weapon_snark:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Squeak Grenade"
+        }
+        weapon_tripmine:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Tripmine Ammo"
+        }
+      }
+      world_* entities.qtxfolder =
+      {
+        world_items:e =
+        {
+          origin = "0 0 0"
+          ;desc = "World Items"
+          type = "42"
+        }
+      }
+      xen_* entities.qtxfolder =
+      {
+        xen_hair:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Xen Hair"
+        }
+        xen_plantlight:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Xen Plant Light"
+        }
+        xen_spore_large:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Xen Spore (large)"
+        }
+        xen_spore_medium:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Xen Spore (medium)"
+        }
+        xen_spore_small:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Xen Spore (small)"
+        }
+        xen_tree:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Xen Tree"
+        }
+      }
+    }
+  }
+  Entity Forms.fctx =
+  {
+    t_TalkNPC:incl =
+    {
+      t_BaseNPC = "!"
+      UseSentence: =
+      {
+        txt = "&"
+        hint = "Use Sentence"
+      }
+      UnUseSentence: =
+      {
+        txt = "&"
+        hint = "Un-Use Sentence"
+      }
+    }
+    t_RappelNPC:incl =
+    {
+      t_BaseNPC = "!"
+      waitingtorappel: =
+      {
+        txt = "&"
+        hint = "Waiting to Rappel?"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
+      }
+      input#BeginRappel: =
+      {
+        txt = "&"
+        hint = "BeginRappel"
+      }
+      output#OnRappelTouchdown: =
+      {
+        txt = "&"
+        hint = "Fires when done rappelling"
+      }
+    }
+    t_monster_ichthyosaur:incl =
+    {
+      t_BaseNPC = "!"
+    }
+    monster_ichthyosaur:form =
+    {
+      t_monster_ichthyosaur = "!"
+    }
+    t_func_wall:incl =
+    {
+      t_Targetname = "!"
+      t_RenderFields = "!"
+      t_Global = "!"
+      t_Shadow = "!"
+      _minlight: =
+      {
+        txt = "&"
+        hint = "Minimum Light Level"
+      }
+      input#Use: =
+      {
+        txt = "&"
+        hint = "Toggle Skin"
+      }
+    }
+    func_wall:form =
+    {
+      t_func_wall = "!"
+    }
+    t_func_pushable:incl =
+    {
+      t_Breakable = "!"
+      t_RenderFields = "!"
+      size: =
+      {
+        txt = "&"
+        hint = "Hull Size"
+        typ = "C"
+        items = "Point size"$0D"Player size"$0D"Big Size"$0D"Player duck"
+        values = "0"$0D"1"$0D"2"$0D"3"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X128"
+        cap = "Breakable"
+      }
+      friction: =
+      {
+        txt = "&"
+        hint = "Friction (0-400)"
+      }
+      buoyancy: =
+      {
+        txt = "&"
+        hint = "Buoyancy"
+      }
+      _minlight: =
+      {
+        txt = "&"
+        hint = "Minimum light level"
+      }
+    }
+    func_pushable:form =
+    {
+      t_func_pushable = "!"
+    }
+    t_func_ladder:incl =
+    {
+    }
+    func_ladder:form =
+    {
+      t_func_ladder = "!"
+    }
+    t_func_mortar_field:incl =
+    {
+      t_Targetname = "!"
+      t_Origin = "!"
+      m_fControl: =
+      {
+        txt = "&"
+        hint = "Position"
+        typ = "C"
+        items = "Random"$0D"Above activator"$0D"X/Y Controller"
+        values = "0"$0D"1"$0D"2"
+      }
+      m_flSpread: =
+      {
+        txt = "&"
+        hint = "Spread"
+      }
+      m_iCount: =
+      {
+        txt = "&"
+        hint = "Count"
+      }
+      m_iszXController: =
+      {
+        txt = "&"
+        hint = "X Controller"
+      }
+      m_iszYController: =
+      {
+        txt = "&"
+        hint = "Y Controller"
+      }
+      input#Trigger: =
+      {
+        txt = "&"
+        hint = "Trigger"
+      }
+    }
+    func_mortar_field:form =
+    {
+      t_func_mortar_field = "!"
+    }
+    t_info_player_deathmatch:incl =
+    {
+      t_PlayerClass = "!"
+      t_Angles = "!"
+    }
+    info_player_deathmatch:form =
+    {
+      t_info_player_deathmatch = "!"
+    }
+    t_BaseHeadcrab:incl =
+    {
+      t_BaseNPC = "!"
+      startburrowed: =
+      {
+        txt = "&"
+        hint = "Start burrowed"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X65536"
+        cap = "Start hidden"
+      }
+    }
+    t_monster_headcrab:incl =
+    {
+      t_BaseHeadcrab = "!"
+      t_Parentname = "!"
+    }
+    monster_headcrab:form =
+    {
+      t_monster_headcrab = "!"
+    }
+    t_monster_tentacle:incl =
+    {
+      t_BaseNPC = "!"
+      sweeparc: =
+      {
+        txt = "&"
+        hint = "Sweep Arc"
+      }
+      sound: =
+      {
+        txt = "&"
+        hint = "Tap Sound"
+        typ = "C"
+        items = "None"$0D"Silo"$0D"Dirt"$0D"Water"
+        values = "-1"$0D"0"$0D"1"$0D"2"
+      }
+    }
+    monster_tentacle:form =
+    {
+      t_monster_tentacle = "!"
+    }
+    t_monster_barney:incl =
+    {
+      t_BaseNPC = "!"
+      UseSentence: =
+      {
+        txt = "&"
+        hint = "Use Sentence"
+      }
+      UnUseSentence: =
+      {
+        txt = "&"
+        hint = "Un-Use Sentence"
+      }
+    }
+    monster_barney:form =
+    {
+      t_monster_barney = "!"
+    }
+    t_monster_sentry:incl =
+    {
+      t_BaseNPC = "!"
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X32"
+        cap = "Autostart"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X64"
+        cap = "Start Inactive"
+      }
+    }
+    monster_sentry:form =
+    {
+      t_monster_sentry = "!"
+    }
+    t_func_friction:incl =
+    {
+      t_Trigger = "!"
+      modifier: =
+      {
+        txt = "&"
+        hint = "Friction Percent"
+      }
+    }
+    func_friction:form =
+    {
+      t_func_friction = "!"
+    }
+    t_env_gunfire:incl =
+    {
+      t_Targetname = "!"
+      t_Parentname = "!"
+      t_Targetname = "!"
+      t_EnableDisable = "!"
+      target: =
+      {
+        txt = "&"
+        hint = "Target"
+      }
+      minburstsize: =
+      {
+        txt = "&"
+        hint = "Min Burst Size"
+      }
+      maxburstsize: =
+      {
+        txt = "&"
+        hint = "Max Burst Size"
+      }
+      minburstdelay: =
+      {
+        txt = "&"
+        hint = "Min Delay Between Bursts"
+      }
+      maxburstdelay: =
+      {
+        txt = "&"
+        hint = "Max Delay Between Bursts"
+      }
+      rateoffire: =
+      {
+        txt = "&"
+        hint = "Rate of fire"
+      }
+      spread: =
+      {
+        txt = "&"
+        hint = "Bullet spread"
+        typ = "C"
+        items = "1 Degree"$0D"5 Degrees"$0D"10 Degrees"$0D"15 Degrees"
+        values = "1"$0D"5"$0D"10"$0D"15"
+      }
+      bias: =
+      {
+        txt = "&"
+        hint = "Bullet distribution should be..."
+        typ = "C"
+        items = "Evenly distributed"$0D"Biased towards the outside"
+        values = "1"$0D"-1"
+      }
+      collisions: =
+      {
+        txt = "&"
+        hint = "Collision detection"
+        typ = "C"
+        items = "None. Cheap for performance."$0D"Normal collision detection."
+        values = "0"$0D"1"
+      }
+      shootsound: =
+      {
+        txt = "&"
+        hint = "Shoot Sound"
+        typ = "C"
+        items = "AR2"$0D"SMG1"
+        values = "Weapon_AR2.NPC_Single"$0D"Weapon_SMG1.NPC_Single"
+      }
+      tracertype: =
+      {
+        txt = "&"
+        hint = "Tracer"
+        typ = "C"
+        items = "Default"$0D"AR2"
+        values = $0D"AR2TRACER"
+      }
+    }
+    env_gunfire:form =
+    {
+      t_env_gunfire = "!"
+    }
+    t_monster_alien_slave:incl =
+    {
+      t_BaseNPC = "!"
+      netname: =
+      {
+        txt = "&"
+        hint = "Squad Name"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X32"
+        cap = "SquadLeader"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X64"
+        cap = "IgnorePlayer"
+      }
+    }
+    monster_alien_slave:form =
+    {
+      t_monster_alien_slave = "!"
+    }
+    t_env_laser:incl =
+    {
+      bbox = '-16 -16 -16 16 16 16'
+      t_Targetname = "!"
+      t_RenderFxChoices = "!"
+      t_Angles = "!"
+      LaserTarget: =
+      {
+        txt = "&"
+        hint = "Target of Laser"
+      }
+      renderamt: =
+      {
+        txt = "&"
+        hint = "Brightness (1 - 255)"
+      }
+      rendercolor: =
+      {
+        txt = "&"
+        hint = "Beam Color (R G B)"
+      }
+      width: =
+      {
+        txt = "&"
+        hint = "Width of beam (pixels*0.1 0-255)"
+      }
+      NoiseAmplitude: =
+      {
+        txt = "&"
+        hint = "Amount of noise (0-255)"
+      }
+      texture: =
+      {
+        txt = "&"
+        hint = "Sprite Name"
+      }
+      EndSprite: =
+      {
+        txt = "&"
+        hint = "End Sprite"
+      }
+      TextureScroll: =
+      {
+        txt = "&"
+        hint = "Texture Scroll Rate (0-100)"
+      }
+      framestart: =
+      {
+        txt = "&"
+        hint = "Starting Frame"
+      }
+      damage: =
+      {
+        txt = "&"
+        hint = "Damage / second"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X1"
+        cap = "Start On"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X16"
+        cap = "StartSparks"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X32"
+        cap = "EndSparks"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X64"
+        cap = "Decal End"
+      }
+    }
+    env_laser:form =
+    {
+      t_env_laser = "!"
+    }
+    t_multi_manager:incl =
+    {
+      t_Targetname = "!"
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X1"
+        cap = "multithreaded"
+      }
+      input#Trigger: =
+      {
+        txt = "&"
+        hint = "Trigger the manager."
+      }
+      output#OnTrigger: =
+      {
+        txt = "&"
+        hint = "Fired when the manager is triggered."
+      }
+    }
+    multi_manager:form =
+    {
+      t_multi_manager = "!"
+    }
+    t_multisource:incl =
+    {
+      t_Targetname = "!"
+      target: =
+      {
+        txt = "&"
+        hint = "Target"
+      }
+      globalstate: =
+      {
+        txt = "&"
+        hint = "Global State Master"
+      }
+    }
+    multisource:form =
+    {
+      t_multisource = "!"
+    }
+    t_env_render:incl =
+    {
+      bbox = '-16 -16 -16 16 16 16'
+      t_Targetname = "!"
+      t_RenderFields = "!"
+      target: =
+      {
+        txt = "&"
+        hint = "Target"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X1"
+        cap = "No Renderfx"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X2"
+        cap = "No Renderamt"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X4"
+        cap = "No Rendermode"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X8"
+        cap = "No Rendercolor"
+      }
+      input#Activate: =
+      {
+        txt = "&"
+        hint = "Activate"
+      }
+      input#Use: =
+      {
+        txt = "&"
+        hint = "Use"
+      }
+    }
+    env_render:form =
+    {
+      t_env_render = "!"
+    }
+    t_env_glow:incl =
+    {
+      bbox = '-4 -4 -4 4 4 4'
+      t_Targetname = "!"
+      t_RenderFields = "!"
+      model: =
+      {
+        txt = "&"
+        hint = "Sprite Name"
+      }
+      scale: =
+      {
+        txt = "&"
+        hint = "Scale"
+      }
+    }
+    env_glow:form =
+    {
+      t_env_glow = "!"
+    }
+    t_env_sound:incl =
+    {
+      radius: =
+      {
+        txt = "&"
+        hint = "Radius"
+      }
+      roomtype: =
+      {
+        txt = "&"
+        hint = "Room Type"
+        typ = "C"
+        items = "Normal (off)"$0D"Generic"$0D"Metal Small"$0D"Metal Medium"$0D
+         "Metal Large"$0D"Tunnel Small"$0D"Tunnel Medium"$0D"Tunnel Large"$0D"C"
+         "hamber Small"$0D"Chamber Medium"$0D"Chamber Large"$0D"Bright Small"$0D
+         "Bright Medium"$0D"Bright Large"$0D"Water 1"$0D"Water 2"$0D"Water 3"$0D
+         "Concrete Small"$0D"Concrete Medium"$0D"Concrete Large"$0D"Big 1"$0D"B"
+         "ig 2"$0D"Big 3"$0D"Cavern Small"$0D"Cavern Medium"$0D"Cavern Large"$0D
+         "Weirdo 1"$0D"Weirdo 2"$0D"Weirdo 3"
+        values = "0"$0D"1"$0D"2"$0D"3"$0D"4"$0D"5"$0D"6"$0D"7"$0D"8"$0D"9"$0D"1"
+         "0"$0D"11"$0D"12"$0D"13"$0D"14"$0D"15"$0D"16"$0D"17"$0D"18"$0D"19"$0D
+         "20"$0D"21"$0D"22"$0D"23"$0D"24"$0D"25"$0D"26"$0D"27"$0D"28"
+      }
+      output#OnPlay: =
+      {
+        txt = "&"
+        hint = "OnPlay"
+      }
+      input#Enable: =
+      {
+        txt = "&"
+        hint = "Enable"
+      }
+      input#Disable: =
+      {
+        txt = "&"
+        hint = "Disable"
+      }
+      input#ToggleEnabled: =
+      {
+        txt = "&"
+        hint = "ToggleEnabled"
+      }
+    }
+    env_sound:form =
+    {
+      t_env_sound = "!"
+    }
+    t_env_funnel:incl =
+    {
+      bbox = '-16 -16 -16 16 16 16'
+      t_Targetname = "!"
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X1"
+        cap = "Reverse"
+      }
+    }
+    env_funnel:form =
+    {
+      t_env_funnel = "!"
+    }
+    t_monster_houndeye:incl =
+    {
+      t_BaseNPC = "!"
+      netname: =
+      {
+        txt = "&"
+        hint = "Squad Name"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X32"
+        cap = "SquadLeader"
+      }
+    }
+    monster_houndeye:form =
+    {
+      t_monster_houndeye = "!"
+    }
+    t_monster_scientist_dead:incl =
+    {
+      t_BaseNPC = "!"
+      netname: =
+      {
+        txt = "&"
+        hint = "Squad Name"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X32"
+        cap = "SquadLeader"
+      }
+    }
+    monster_scientist_dead:form =
+    {
+      t_monster_scientist_dead = "!"
+    }
+    t_monster_leech:incl =
+    {
+      t_BaseNPC = "!"
+    }
+    monster_leech:form =
+    {
+      t_monster_leech = "!"
+    }
+    t_monster_barnacle:incl =
+    {
+      t_BaseNPC = "!"
+    }
+    monster_barnacle:form =
+    {
+      t_monster_barnacle = "!"
+    }
+    t_monster_apache:incl =
+    {
+      t_BaseNPC = "!"
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X8"
+        cap = "NoWreckage"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X64"
+        cap = "Start Inactive"
+      }
+    }
+    monster_apache:form =
+    {
+      t_monster_apache = "!"
+    }
+    t_monster_zombie:incl =
+    {
+      t_BaseNPC = "!"
+    }
+    monster_zombie:form =
+    {
+      t_monster_zombie = "!"
+    }
+    t_monster_flyer_flock:incl =
+    {
+      t_BaseNPC = "!"
+      iFlockSize: =
+      {
+        txt = "&"
+        hint = "Flock Size"
+      }
+      flFlockRadius: =
+      {
+        txt = "&"
+        hint = "Flock Radius"
+      }
+    }
+    monster_flyer_flock:form =
+    {
+      t_monster_flyer_flock = "!"
+    }
+    t_monster_alien_grunt:incl =
+    {
+      t_BaseNPC = "!"
+      netname: =
+      {
+        txt = "&"
+        hint = "Squad Name"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X32"
+        cap = "SquadLeader"
+      }
+    }
+    monster_alien_grunt:form =
+    {
+      t_monster_alien_grunt = "!"
+    }
+    t_monster_bigmomma:incl =
+    {
+      t_BaseNPC = "!"
+      netname: =
+      {
+        txt = "&"
+        hint = "First node"
+      }
+    }
+    monster_bigmomma:form =
+    {
+      t_monster_bigmomma = "!"
+    }
+    t_monster_bullchicken:incl =
+    {
+      t_BaseNPC = "!"
+    }
+    monster_bullchicken:form =
+    {
+      t_monster_bullchicken = "!"
+    }
+    t_monster_babycrab:incl =
+    {
+      t_BaseNPC = "!"
+    }
+    monster_babycrab:form =
+    {
+      t_monster_babycrab = "!"
+    }
+    t_monster_gargantua:incl =
+    {
+      t_BaseNPC = "!"
+    }
+    monster_gargantua:form =
+    {
+      t_monster_gargantua = "!"
+    }
+    t_monster_gman:incl =
+    {
+      t_BaseNPC = "!"
+    }
+    monster_gman:form =
+    {
+      t_monster_gman = "!"
+    }
+    t_monster_human_assassin:incl =
+    {
+      t_BaseNPC = "!"
+    }
+    monster_human_assassin:form =
+    {
+      t_monster_human_assassin = "!"
+    }
+    t_monster_human_grunt:incl =
+    {
+      t_BaseNPC = "!"
+    }
+    monster_human_grunt:form =
+    {
+      t_monster_human_grunt = "!"
+    }
+    t_monster_hgrunt_dead:incl =
+    {
+      t_Targetname = "!"
+      t_RenderFields = "!"
+      t_Angles = "!"
+      sequence: =
+      {
+        txt = "&"
+        hint = "Sequence"
+      }
+      pose: =
+      {
+        txt = "&"
+        hint = "Pose"
+        typ = "C"
+        items = "On stomach"$0D"On side"$0D"Seated"
+        values = "0"$0D"1"$0D"2"
+      }
+      body: =
+      {
+        txt = "&"
+        hint = "Body"
+        typ = "C"
+        items = "Grunt with Gun"$0D"Commander with Gun"$0D"Grunt no Gun"$0D"Co"
+         "mmander no Gun"
+        values = "0"$0D"1"$0D"2"$0D"3"
+      }
+    }
+    monster_hgrunt_dead:form =
+    {
+      t_monster_hgrunt_dead = "!"
+    }
+    t_monster_miniturret:incl =
+    {
+      t_BaseNPC = "!"
+      orientation: =
+      {
+        txt = "&"
+        hint = "Orientation"
+        typ = "C"
+        items = "Floor Mount"$0D"Ceiling Mount"
+        values = "0"$0D"1"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X32"
+        cap = "Autostart"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X64"
+        cap = "Start Inactive"
+      }
+    }
+    monster_miniturret:form =
+    {
+      t_monster_miniturret = "!"
+    }
+    t_monster_nihilanth:incl =
+    {
+      t_BaseNPC = "!"
+    }
+    monster_nihilanth:form =
+    {
+      t_monster_nihilanth = "!"
+    }
+    t_monster_furniture:incl =
+    {
+      t_BaseNPC = "!"
+      model: =
+      {
+        txt = "&"
+        hint = "model"
+        typ = "B"
+        Cap = "models..."
+        form = "t_models_hl2_form:form"
+      }
+    }
+    monster_furniture:form =
+    {
+      t_monster_furniture = "!"
+    }
+    t_monster_cockroach:incl =
+    {
+      t_BaseNPC = "!"
+    }
+    monster_cockroach:form =
+    {
+      t_monster_cockroach = "!"
+    }
+    t_xen_plantlight:incl =
+    {
+      t_Targetname = "!"
+      t_RenderFields = "!"
+      t_Angles = "!"
+    }
+    xen_plantlight:form =
+    {
+      t_xen_plantlight = "!"
+    }
+    t_xen_hair:incl =
+    {
+      t_Targetname = "!"
+      t_RenderFields = "!"
+      t_Angles = "!"
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X1"
+        cap = "Sync Movement"
+      }
+    }
+    xen_hair:form =
+    {
+      t_xen_hair = "!"
+    }
+    t_xen_tree:incl =
+    {
+      t_Targetname = "!"
+      t_RenderFields = "!"
+      t_Angles = "!"
+    }
+    xen_tree:form =
+    {
+      t_xen_tree = "!"
+    }
+    t_xen_spore_small:incl =
+    {
+      t_Targetname = "!"
+      t_RenderFields = "!"
+      t_Angles = "!"
+    }
+    xen_spore_small:form =
+    {
+      t_xen_spore_small = "!"
+    }
+    t_xen_spore_medium:incl =
+    {
+      t_Targetname = "!"
+      t_RenderFields = "!"
+      t_Angles = "!"
+    }
+    xen_spore_medium:form =
+    {
+      t_xen_spore_medium = "!"
+    }
+    t_xen_spore_large:incl =
+    {
+      t_Targetname = "!"
+      t_RenderFields = "!"
+      t_Angles = "!"
+    }
+    xen_spore_large:form =
+    {
+      t_xen_spore_large = "!"
+    }
+    t_monster_scientist:incl =
+    {
+      t_BaseNPC = "!"
+      body: =
+      {
+        txt = "&"
+        hint = "Body"
+      }
+    }
+    monster_scientist:form =
+    {
+      t_monster_scientist = "!"
+    }
+    t_monster_generic:incl =
+    {
+      t_BaseNPC = "!"
+      t_RenderFields = "!"
+      t_Shadow = "!"
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X65536"
+        cap = "Not solid"
+      }
+      model: =
+      {
+        txt = "&"
+        hint = "Model"
+        typ = "B"
+        Cap = "models..."
+        form = "t_models_hl2_form:form"
+      }
+      body: =
+      {
+        txt = "&"
+        hint = "Body"
+      }
+    }
+    monster_generic:form =
+    {
+      t_monster_generic = "!"
+    }
+    t_generic_actor:incl =
+    {
+      t_BaseNPC = "!"
+      t_Parentname = "!"
+      t_RenderFields = "!"
+      t_Shadow = "!"
+      model: =
+      {
+        txt = "&"
+        hint = "Model"
+        typ = "B"
+        Cap = "models..."
+        form = "t_models_hl2_form:form"
+      }
+      hull_name: =
+      {
+        txt = "&"
+        hint = "Hull type"
+        typ = "C"
+        items = "Human"$0D"Wide"$0D"Tiny"$0D"Medium"$0D"Large"
+        values = "HUMAN_HULL"$0D"WIDE_HUMAN_HULL"$0D"TINY_HULL"$0D"MEDIUM_HULL"
+         $0D"LARGE_HULL"
+      }
+    }
+    generic_actor:form =
+    {
+      t_generic_actor = "!"
+    }
+    t_cycler_actor:incl =
+    {
+      t_BaseNPC = "!"
+      t_RenderFields = "!"
+      t_Shadow = "!"
+      model: =
+      {
+        txt = "&"
+        hint = "Model"
+        typ = "B"
+        Cap = "models..."
+        form = "t_models_hl2_form:form"
+      }
+      Sentence: =
+      {
+        txt = "&"
+        hint = "Sentence Group"
+      }
+      input#Alpha: =
+      {
+        txt = "&"
+        hint = "Set Alpha Value"
+      }
+    }
+    cycler_actor:form =
+    {
+      t_cycler_actor = "!"
+    }
+    t_monstermaker:incl =
+    {
+      t_Angles = "!"
+      t_BaseNPCMaker = "!"
+      target: =
+      {
+        txt = "&"
+        hint = "Target On Release"
+      }
+      monstertype: =
+      {
+        txt = "&"
+        hint = "Monster Type"
+      }
+      netname: =
+      {
+        txt = "&"
+        hint = "Childrens' Name"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X1"
+        cap = "Start ON"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X4"
+        cap = "Cyclic"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X8"
+        cap = "MonsterClip"
+      }
+      monstercount: =
+      {
+        txt = "&"
+        hint = "Number of Monsters"
+      }
+      delay: =
+      {
+        txt = "&"
+        hint = "Frequency"
+      }
+      m_imaxlivechildren: =
+      {
+        txt = "&"
+        hint = "Max live children"
+      }
+    }
+    monstermaker:form =
+    {
+      t_monstermaker = "!"
+    }
+    t_player_control:incl =
+    {
+      bbox = '-10 -10 -10 10 10 10'
+      t_Targetname = "!"
+      input#Activate: =
+      {
+        txt = "&"
+        hint = "Turns on"
+      }
+      input#Deactivate: =
+      {
+        txt = "&"
+        hint = "Turns off"
+      }
+      input#SetThrust: =
+      {
+        txt = "&"
+        hint = "Set Thrust"
+      }
+      input#SetSideThrust: =
+      {
+        txt = "&"
+        hint = "Set Side Thrust"
+      }
+    }
+    t_BaseScripted:incl =
+    {
+      t_Targetname = "!"
+      t_Parentname = "!"
+      t_Angles = "!"
+      m_iszEntity: =
+      {
+        txt = "&"
+        hint = "Target NPC"
+      }
+      m_iszIdle: =
+      {
+        txt = "&"
+        hint = "Pre Action Idle Animation"
+      }
+      m_iszEntry: =
+      {
+        txt = "&"
+        hint = "Entry Animation"
+      }
+      m_iszPlay: =
+      {
+        txt = "&"
+        hint = "Action Animation"
+      }
+      m_iszPostIdle: =
+      {
+        txt = "&"
+        hint = "Post Action Idle Animation"
+      }
+      m_iszCustomMove: =
+      {
+        txt = "&"
+        hint = "Custom Move Animation"
+      }
+      m_bLoopActionSequence: =
+      {
+        txt = "&"
+        hint = "Loop Action Animation?"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
+      }
+      m_bSynchPostIdles: =
+      {
+        txt = "&"
+        hint = "Synch Post Idles?"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
+      }
+      m_flRadius: =
+      {
+        txt = "&"
+        hint = "Search Radius (0=everywhere)"
+      }
+      m_flRepeat: =
+      {
+        txt = "&"
+        hint = "Repeat Rate ms"
+      }
+      m_fMoveTo: =
+      {
+        txt = "&"
+        hint = "Move to Position"
+        typ = "C"
+        items = "No"$0D"Walk"$0D"Run"$0D"Custom movement"$0D"Instantaneous"$0D
+         "No - Turn to Face"
+        values = "0"$0D"1"$0D"2"$0D"3"$0D"4"$0D"5"
+      }
+      m_iszNextScript: =
+      {
+        txt = "&"
+        hint = "Next Script"
+      }
+      m_bIgnoreGravity: =
+      {
+        txt = "&"
+        hint = "Ignore Gravity on NPC during script"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
+      }
+      m_bDisableNPCCollisions: =
+      {
+        txt = "&"
+        hint = "Disable NPC collisions during script"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
+      }
+      input#BeginSequence: =
+      {
+        txt = "&"
+        hint = "Summons an NPC to act out the scripted sequence."
+      }
+      input#MoveToPosition: =
+      {
+        txt = "&"
+        hint = "Summons an NPC to the script location. They will play their sc"
+         "ripted idle (or ACT_IDLE if none is specified) until BeginSequence i"
+         "s triggered."
+      }
+      input#CancelSequence: =
+      {
+        txt = "&"
+        hint = "Stops the scripted sequence. If fired after a sequence starts,"
+         " this input will not take effect until the NPC finishes playing the "
+         "scripted action animation."
+      }
+      output#OnBeginSequence: =
+      {
+        txt = "&"
+        hint = "Fires when the action animation begins playing."
+      }
+      output#OnEndSequence: =
+      {
+        txt = "&"
+        hint = "Fires when the action animation completes."
+      }
+      output#OnCancelSequence: =
+      {
+        txt = "&"
+        hint = "Fires when the sequence is cancelled."
+      }
+      output#OnCancelFailedSequence: =
+      {
+        txt = "&"
+        hint = "Fires when the sequence is cancelled without ever playing (OnC"
+         "ancelSequence will also fire)."
+      }
+      output#OnScriptEvent01: =
+      {
+        txt = "&"
+        hint = "Fires when a 'trigger' anim event occurs while playing the scr"
+         "ipt. Use { event 1003 framenum 1 } in the QC."
+      }
+      output#OnScriptEvent02: =
+      {
+        txt = "&"
+        hint = "Fires when a 'trigger' anim event occurs while playing the scr"
+         "ipt. Use { event 1003 framenum 2 } in the QC."
+      }
+      output#OnScriptEvent03: =
+      {
+        txt = "&"
+        hint = "Fires when a 'trigger' anim event occurs while playing the scr"
+         "ipt. Use { event 1003 framenum 3 } in the QC."
+      }
+      output#OnScriptEvent04: =
+      {
+        txt = "&"
+        hint = "Fires when a 'trigger' anim event occurs while playing the scr"
+         "ipt. Use { event 1003 framenum 4 } in the QC."
+      }
+      output#OnScriptEvent05: =
+      {
+        txt = "&"
+        hint = "Fires when a 'trigger' anim event occurs while playing the scr"
+         "ipt. Use { event 1003 framenum 5 } in the QC."
+      }
+      output#OnScriptEvent06: =
+      {
+        txt = "&"
+        hint = "Fires when a 'trigger' anim event occurs while playing the scr"
+         "ipt. Use { event 1003 framenum 6 } in the QC."
+      }
+      output#OnScriptEvent07: =
+      {
+        txt = "&"
+        hint = "Fires when a 'trigger' anim event occurs while playing the scr"
+         "ipt. Use { event 1003 framenum 7 } in the QC."
+      }
+      output#OnScriptEvent08: =
+      {
+        txt = "&"
+        hint = "Fires when a 'trigger' anim event occurs while playing the scr"
+         "ipt. Use { event 1003 framenum 8 } in the QC."
+      }
+    }
+    t_scripted_sentence:incl =
+    {
+      t_Targetname = "!"
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X1"
+        cap = "Fire Once"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X2"
+        cap = "Followers Only"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X4"
+        cap = "Interrupt Speech"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X8"
+        cap = "Concurrent"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X16"
+        cap = "Speak to Activator"
+      }
+      sentence: =
+      {
+        txt = "&"
+        hint = "Sentence Name"
+      }
+      entity: =
+      {
+        txt = "&"
+        hint = "Speaker Type"
+      }
+      delay: =
+      {
+        txt = "&"
+        hint = "Additional Sentence Time"
+      }
+      radius: =
+      {
+        txt = "&"
+        hint = "Search Radius"
+      }
+      refire: =
+      {
+        txt = "&"
+        hint = "Delay Before Refire"
+      }
+      listener: =
+      {
+        txt = "&"
+        hint = "Listener Type"
+      }
+      volume: =
+      {
+        txt = "&"
+        hint = "Volume 0-10"
+      }
+      attenuation: =
+      {
+        txt = "&"
+        hint = "Sound Radius"
+        typ = "C"
+        items = "Small Radius"$0D"Medium Radius"$0D"Large  Radius"$0D"Play Eve"
+         "rywhere"
+        values = "0"$0D"1"$0D"2"$0D"3"
+      }
+      input#BeginSentence: =
+      {
+        txt = "&"
+        hint = "Starts the scripted sentence."
+      }
+      output#OnBeginSentence: =
+      {
+        txt = "&"
+        hint = "Fires when the sentence begins"
+      }
+      output#OnEndSentence: =
+      {
+        txt = "&"
+        hint = "Fires when the sentence ends"
+      }
+    }
+    scripted_sentence:form =
+    {
+      t_scripted_sentence = "!"
+    }
+    t_scripted_target:incl =
+    {
+      t_Targetname = "!"
+      t_Parentname = "!"
+      StartDisabled: =
+      {
+        txt = "&"
+        hint = "Start Disabled"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
+      }
+      m_iszEntity: =
+      {
+        txt = "&"
+        hint = "Target NPC"
+      }
+      m_flRadius: =
+      {
+        txt = "&"
+        hint = "Search Radius (0=everywhere)"
+      }
+      MoveSpeed: =
+      {
+        txt = "&"
+        hint = "Move Speed"
+      }
+      PauseDuration: =
+      {
+        txt = "&"
+        hint = "Pause Duration"
+      }
+      EffectDuration: =
+      {
+        txt = "&"
+        hint = "Effect Duration"
+      }
+      target: =
+      {
+        txt = "&"
+        hint = "Next Target"
+      }
+      input#Enable: =
+      {
+        txt = "&"
+        hint = "Enable this entity"
+      }
+      input#Disable: =
+      {
+        txt = "&"
+        hint = "Disable this entity"
+      }
+      output#AtTarget: =
+      {
+        txt = "&"
+        hint = "Fires when NPC reaches this target"
+      }
+      output#LeaveTarget: =
+      {
+        txt = "&"
+        hint = "Fires when NPC leaves this target"
+      }
+    }
+    scripted_target:form =
+    {
+      t_scripted_target = "!"
+    }
+    t_ai_relationship:incl =
+    {
+      t_Targetname = "!"
+      subject: =
+      {
+        txt = "&"
+        hint = "Subject(s)"
+      }
+      target: =
+      {
+        txt = "&"
+        hint = "Target(s)"
+      }
+      disposition: =
+      {
+        txt = "&"
+        hint = "Disposition"
+        typ = "C"
+        items = "Hate"$0D"Fear"$0D"Like"$0D"Neutral"
+        values = "1"$0D"2"$0D"3"$0D"4"
+      }
+      radius: =
+      {
+        txt = "&"
+        hint = "Radius for subject"
+      }
+      rank: =
+      {
+        txt = "&"
+        hint = "Disposition Priority"
+      }
+      StartActive: =
+      {
+        txt = "&"
+        hint = "Start Active"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
+      }
+      Reciprocal: =
+      {
+        txt = "&"
+        hint = "Reciprocal"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X1"
+        cap = "Notify subject of target's location"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X2"
+        cap = "Notify target of subject's location"
+      }
+      input#ApplyRelationship: =
+      {
+        txt = "&"
+        hint = "Apply relationship changes. This will change all Subject entit"
+         "ies' relationships to all Target entities. \n\nIMPORTANT: Once you A"
+         "pplyRelationships, this entity is then 'ALWAYS ON' until you send a "
+         "Disable input or RevertRelationship input. During the time this enti"
+         "ty is 'ON', any entities that spawn who match the Subject or Target "
+         "names will be affected. \n\nIMPORTANT: Unpredictable results may occ"
+         "ur when two ai_relationship entities refer to the same set or subset"
+         " of target or subject entities. This situation should be avoided."
+      }
+      input#RevertRelationship: =
+      {
+        txt = "&"
+        hint = "Revert relationship changes. This will return the relationship"
+         " to what it was at the time the ApplyRelationship input was called ("
+         "or when this ai_relationship was spawned if StartActive is set)."
+      }
+      input#RevertToDefaultRelationship: =
+      {
+        txt = "&"
+        hint = "Revert relationship changes to the default relationship, which"
+         " may have changed since this ai_relationship was applied. This retur"
+         "ns control of the entity relationship to the code."
+      }
+    }
+    ai_relationship:form =
+    {
+      t_ai_relationship = "!"
+    }
+    t_ai_ally_manager:incl =
+    {
+      t_Targetname = "!"
+      maxallies: =
+      {
+        txt = "&"
+        hint = "Maximum number of allies"
+      }
+      maxmedics: =
+      {
+        txt = "&"
+        hint = "Maximum number of medics"
+      }
+      input#SetMaxAllies: =
+      {
+        txt = "&"
+        hint = "Set maximum number of allies"
+      }
+      input#SetMaxMedics: =
+      {
+        txt = "&"
+        hint = "Set maximum number of medic allies"
+      }
+      input#Replenish: =
+      {
+        txt = "&"
+        hint = "Replenish player allies"
+      }
+      output#SpawnMedicAlly: =
+      {
+        txt = "&"
+        hint = "Spawn Medic Ally"
+      }
+      output#SpawnAlly0: =
+      {
+        txt = "&"
+        hint = "Spawn Ally 0"
+      }
+      output#SpawnAlly1: =
+      {
+        txt = "&"
+        hint = "Spawn Ally 1"
+      }
+      output#SpawnAlly2: =
+      {
+        txt = "&"
+        hint = "Spawn Ally 2"
+      }
+      output#SpawnAlly3: =
+      {
+        txt = "&"
+        hint = "Spawn Ally 3"
+      }
+      output#SpawnAlly4: =
+      {
+        txt = "&"
+        hint = "Spawn Ally 4"
+      }
+      output#SpawnAlly5: =
+      {
+        txt = "&"
+        hint = "Spawn Ally 5"
+      }
+      output#SpawnAlly6: =
+      {
+        txt = "&"
+        hint = "Spawn Ally 6"
+      }
+      output#SpawnAlly7: =
+      {
+        txt = "&"
+        hint = "Spawn Ally 7"
+      }
+      output#SpawnAlly8: =
+      {
+        txt = "&"
+        hint = "Spawn Ally 8"
+      }
+      output#SpawnAlly9: =
+      {
+        txt = "&"
+        hint = "Spawn Ally 9"
+      }
+      output#OnZeroAllies: =
+      {
+        txt = "&"
+        hint = "Fires when there are no more allies"
+      }
+      output#OnZeroMedicAllies: =
+      {
+        txt = "&"
+        hint = "Fires when there are no more allies"
+      }
+    }
+    ai_ally_manager:form =
+    {
+      t_ai_ally_manager = "!"
+    }
+    t_LeadGoalBase:incl =
+    {
+      t_Targetname = "!"
+      actor: =
+      {
+        txt = "&"
+        hint = "Actor(s) to affect"
+      }
+      goal: =
+      {
+        txt = "&"
+        hint = "Target Entity"
+      }
+      WaitPointName: =
+      {
+        txt = "&"
+        hint = "Point to wait at if the target's not visible"
+      }
+      WaitDistance: =
+      {
+        txt = "&"
+        hint = "Wait until player gets this close"
+      }
+      LeadDistance: =
+      {
+        txt = "&"
+        hint = "Lead Distance"
+      }
+      RetrieveDistance: =
+      {
+        txt = "&"
+        hint = "Retrieve Distance"
+      }
+      SuccessDistance: =
+      {
+        txt = "&"
+        hint = "Success Distance"
+      }
+      Run: =
+      {
+        txt = "&"
+        hint = "Run instead of Walk"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
+      }
+      Retrieve: =
+      {
+        txt = "&"
+        hint = "Retrieve player?"
+        typ = "C"
+        items = "No, just idle and wait"$0D"Yes, move to retrieve"
+        values = "0"$0D"1"
+      }
+      ComingBackWaitForSpeak: =
+      {
+        txt = "&"
+        hint = "Before Coming Back, Wait for speech?"
+        typ = "C"
+        items = "No, come back while speaking"$0D"Yes, wait for speech to fini"
+         "sh"
+        values = "0"$0D"1"
+      }
+      RetrieveWaitForSpeak: =
+      {
+        txt = "&"
+        hint = "On Retrieve, Wait for speech?"
+        typ = "C"
+        items = "No, start leading while speaking"$0D"Yes, wait for speech to "
+         "finish"
+        values = "0"$0D"1"
+      }
+      DontSpeakStart: =
+      {
+        txt = "&"
+        hint = "Speak start greeting?"
+        typ = "C"
+        items = "Yes, speak the start greeting"$0D"No, don't speak the greetin"
+         "g"
+        values = "0"$0D"1"
+      }
+      LeadDuringCombat: =
+      {
+        txt = "&"
+        hint = "Lead during combat?"
+        typ = "C"
+        items = "No. Stop to fight, resume leading when safe."$0D"Yes, lead wh"
+         "ile fighting."
+        values = "0"$0D"1"
+      }
+      GagLeader: =
+      {
+        txt = "&"
+        hint = "Gag Leader?"
+        typ = "C"
+        items = "No. Speak lead concepts normally, respecting other lead speec"
+         "h settings."$0D"Yes, don't speak any lead concepts at all, overridin"
+         "g all other lead speech settings."
+        values = "0"$0D"1"
+      }
+      AttractPlayerConceptModifier: =
+      {
+        txt = "&"
+        hint = "Attract player concept modifier"
+      }
+      WaitOverConceptModifier: =
+      {
+        txt = "&"
+        hint = "Player wait over concept modifier"
+      }
+      ArrivalConceptModifier: =
+      {
+        txt = "&"
+        hint = "Arrival concept modifier"
+      }
+      PostArrivalConceptModifier: =
+      {
+        txt = "&"
+        hint = "Post-arrival concepts modifier"
+      }
+      SuccessConceptModifier: =
+      {
+        txt = "&"
+        hint = "Success concept modifier"
+      }
+      FailureConceptModifier: =
+      {
+        txt = "&"
+        hint = "Failure concept modifier"
+      }
+      ComingBackConceptModifier: =
+      {
+        txt = "&"
+        hint = "Coming Back concept modifier"
+      }
+      RetrieveConceptModifier: =
+      {
+        txt = "&"
+        hint = "Retrieve concept modifier"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X1"
+        cap = "No def success"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X2"
+        cap = "No def failure"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X4"
+        cap = "Use goal facing"
+      }
+      input#Activate: =
+      {
+        txt = "&"
+        hint = "Begin the leading behavior"
+      }
+      input#Deactivate: =
+      {
+        txt = "&"
+        hint = "Stop the leading behavior"
+      }
+      input#SetSuccess: =
+      {
+        txt = "&"
+        hint = "Notify success of leading"
+      }
+      input#SetFailure: =
+      {
+        txt = "&"
+        hint = "Notify failure of leading"
+      }
+      output#OnArrival: =
+      {
+        txt = "&"
+        hint = "Fires when NPC reaches the lead point"
+      }
+      output#OnArrivalDone: =
+      {
+        txt = "&"
+        hint = "Fires when NPC has played out any arrival speech"
+      }
+      output#OnSuccess: =
+      {
+        txt = "&"
+        hint = "Fires when NPC achieves the goal"
+      }
+      output#OnFailure: =
+      {
+        txt = "&"
+        hint = "Fires when NPC fails to achieves the goal"
+      }
+      output#OnDone: =
+      {
+        txt = "&"
+        hint = "Fires when NPC completes behavior (any post-success or fail ac"
+         "ting is complete)"
+      }
+    }
+    t_ai_goal_lead:incl =
+    {
+      t_LeadGoalBase = "!"
+      SearchType: =
+      {
+        txt = "&"
+        hint = "Search Type"
+        typ = "C"
+        items = "Entity Name"$0D"Classname"
+        values = "0"$0D"1"
+      }
+    }
+    ai_goal_lead:form =
+    {
+      t_ai_goal_lead = "!"
+    }
+    t_ai_goal_lead_weapon:incl =
+    {
+      t_LeadGoalBase = "!"
+      WeaponName: =
+      {
+        txt = "&"
+        hint = "Weapon"
+        typ = "C"
+        items = "Bugbait"$0D"SMG1"$0D"AR2"
+        values = "weapon_bugbait"$0D"weapon_smg1"$0D"weapon_ar2"
+      }
+      MissingWeaponConceptModifier: =
+      {
+        txt = "&"
+        hint = "Missing weapon concept modifier"
+      }
+      SearchType: =
+      {
+        txt = "&"
+        hint = "Search Type"
+        typ = "C"
+        items = "Entity Name"$0D"Classname"
+        values = "0"$0D"1"
+      }
+    }
+    ai_goal_lead_weapon:form =
+    {
+      t_ai_goal_lead_weapon = "!"
+    }
+    t_FollowGoal:incl =
+    {
+      t_Targetname = "!"
+      actor: =
+      {
+        txt = "&"
+        hint = "Actor(s) to affect"
+      }
+      goal: =
+      {
+        txt = "&"
+        hint = "Target Entity"
+      }
+      SearchType: =
+      {
+        txt = "&"
+        hint = "Search Type"
+        typ = "C"
+        items = "Entity Name"$0D"Classname"
+        values = "0"$0D"1"
+      }
+      StartActive: =
+      {
+        txt = "&"
+        hint = "Start Active"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
+      }
+      MaximumState: =
+      {
+        txt = "&"
+        hint = "Maximum state"
+        typ = "C"
+        items = "Idle"$0D"Alert"$0D"Combat"
+        values = "1"$0D"2"$0D"3"
+      }
+      Formation: =
+      {
+        txt = "&"
+        hint = "Formation"
+        typ = "C"
+        items = "Close circle"$0D"Wide circle"$0D"Medium circle"$0D"Sidekick"$0D
+         "Vortigaunt"
+        values = "0"$0D"1"$0D"5"$0D"6"$0D"8"
+      }
+      input#Activate: =
+      {
+        txt = "&"
+        hint = "Begin the follow behavior"
+      }
+      input#Deactivate: =
+      {
+        txt = "&"
+        hint = "Cease the follow behavior"
+      }
+    }
+    t_ai_goal_follow:incl =
+    {
+      t_FollowGoal = "!"
+    }
+    ai_goal_follow:form =
+    {
+      t_ai_goal_follow = "!"
+    }
+    t_ai_goal_injured_follow:incl =
+    {
+      t_FollowGoal = "!"
+    }
+    ai_goal_injured_follow:form =
+    {
+      t_ai_goal_injured_follow = "!"
+    }
+    t_ai_battle_line:incl =
+    {
+      bbox = '-4 -4 -4 4 4 4'
+      t_Targetname = "!"
+      t_Angles = "!"
+      t_Parentname = "!"
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X1"
+        cap = "Use parent's orientation"
+      }
+      actor: =
+      {
+        txt = "&"
+        hint = "Actor(s) or squad to affect"
+      }
+      Active: =
+      {
+        txt = "&"
+        hint = "Active"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
+      }
+      Strict: =
+      {
+        txt = "&"
+        hint = "Strict"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
+      }
+      input#Activate: =
+      {
+        txt = "&"
+      }
+      input#Activate: =
+      {
+        txt = "&"
+      }
+      Deactivate: =
+      {
+        txt = "&"
+      }
+    }
+    ai_battle_line:form =
+    {
+      t_ai_battle_line = "!"
+    }
+    t_ai_goal_standoff:incl =
+    {
+      t_Targetname = "!"
+      actor: =
+      {
+        txt = "&"
+        hint = "Actor(s) to affect"
+      }
+      SearchType: =
+      {
+        txt = "&"
+        hint = "Search Type"
+        typ = "C"
+        items = "Entity Name"$0D"Classname"
+        values = "0"$0D"1"
+      }
+      StartActive: =
+      {
+        txt = "&"
+        hint = "Start Active"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
+      }
+      HintGroupChangeReaction: =
+      {
+        txt = "&"
+        hint = "Reaction to tactical change"
+        typ = "C"
+        items = "Move when ready (default AI)"$0D"Move when seek cover"$0D"Mov"
+         "e immediately"
+        values = "0"$0D"1"$0D"2"
+      }
+      Aggressiveness: =
+      {
+        txt = "&"
+        hint = "Aggressiveness"
+        typ = "C"
+        items = "Very low"$0D"Low"$0D"Medium"$0D"High"$0D"Very High"
+        values = "0"$0D"1"$0D"2"$0D"3"$0D"4"
+      }
+      PlayerBattleline: =
+      {
+        txt = "&"
+        hint = "Player battleline"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
+      }
+      StayAtCover: =
+      {
+        txt = "&"
+        hint = "Stay at cover location"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
+      }
+      AbandonIfEnemyHides: =
+      {
+        txt = "&"
+        hint = "Abandon if enemies hide"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
+      }
+      input#Activate: =
+      {
+        txt = "&"
+        hint = "Begin contesting position"
+      }
+      input#Deactivate: =
+      {
+        txt = "&"
+        hint = "Cease contesting position"
+      }
+      input#SetAggressiveness: =
+      {
+        txt = "&"
+        hint = "Set aggressiveness"
+      }
+    }
+    ai_goal_standoff:form =
+    {
+      t_ai_goal_standoff = "!"
+    }
+    t_ai_goal_police:incl =
+    {
+      t_Targetname = "!"
+      t_Parentname = "!"
+      t_Angles = "!"
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X2"
+        cap = "Knock-out target past crossing plane"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X4"
+        cap = "Do not leave post"
+      }
+      policeradius: =
+      {
+        txt = "&"
+        hint = "Radius"
+      }
+      policetarget: =
+      {
+        txt = "&"
+        hint = "Target"
+      }
+      input#EnableKnockOut: =
+      {
+        txt = "&"
+        hint = "Tells the goal to make the active policing NPC knock out its t"
+         "arget"
+      }
+      input#DisableKnockOut: =
+      {
+        txt = "&"
+        hint = "Stop the active policing NPC from trying to knock out its targ"
+         "et"
+      }
+      output#OnFirstWarning: =
+      {
+        txt = "&"
+        hint = "Fires the first time a policing cop warns a target"
+      }
+      output#OnSecondWarning: =
+      {
+        txt = "&"
+        hint = "Fires the second time a policing cop warns a target"
+      }
+      output#OnLastWarning: =
+      {
+        txt = "&"
+        hint = "Fires when a policing cop warns a target for the last time"
+      }
+      output#OnSupressingTarget: =
+      {
+        txt = "&"
+        hint = "Fires when a policing cop starts to suppress (ie. beat) a targ"
+         "et"
+      }
+      output#OnKnockOut: =
+      {
+        txt = "&"
+        hint = "Fires when a target has been knocked out"
+      }
+    }
+    ai_goal_police:form =
+    {
+      t_ai_goal_police = "!"
+    }
+    t_assault_rallypoint:incl =
+    {
+      t_Targetname = "!"
+      t_Parentname = "!"
+      t_Angles = "!"
+      assaultpoint: =
+      {
+        txt = "&"
+        hint = "Assault Point"
+      }
+      assaultdelay: =
+      {
+        txt = "&"
+        hint = "Assault Delay"
+      }
+      rallysequence: =
+      {
+        txt = "&"
+        hint = "Rally Sequence"
+      }
+      priority: =
+      {
+        txt = "&"
+        hint = "Priority"
+      }
+      forcecrouch: =
+      {
+        txt = "&"
+        hint = "Force Crouch"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
+      }
+      urgent: =
+      {
+        txt = "&"
+        hint = "Urgent"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
+      }
+      output#OnArrival: =
+      {
+        txt = "&"
+        hint = "Fires when the NPC reaches this rally point"
+      }
+    }
+    assault_rallypoint:form =
+    {
+      t_assault_rallypoint = "!"
+    }
+    t_assault_assaultpoint:incl =
+    {
+      t_Targetname = "!"
+      t_Parentname = "!"
+      t_Angles = "!"
+      assaultgroup: =
+      {
+        txt = "&"
+        hint = "Assault Hint Group"
+      }
+      nextassaultpoint: =
+      {
+        txt = "&"
+        hint = "Next assault point (optional)"
+      }
+      assaulttimeout: =
+      {
+        txt = "&"
+        hint = "Assault time out"
+      }
+      clearoncontact: =
+      {
+        txt = "&"
+        hint = "Clear on contact with enemies"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
+      }
+      allowdiversion: =
+      {
+        txt = "&"
+        hint = "Allow diversion"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
+      }
+      allowdiversionradius: =
+      {
+        txt = "&"
+        hint = "Diversion Proximity"
+      }
+      nevertimeout: =
+      {
+        txt = "&"
+        hint = "Never Timeout"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
+      }
+      strict: =
+      {
+        txt = "&"
+        hint = "Strict?"
+        typ = "C"
+        items = "No, NPC may move from point to attack"$0D"Yes, NPC may not mo"
+         "ve to attack"
+        values = "0"$0D"1"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X1"
+        cap = "Clear this point upon arrival, UNCONDITIONALLY"
+      }
+      forcecrouch: =
+      {
+        txt = "&"
+        hint = "Force Crouch"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
+      }
+      urgent: =
+      {
+        txt = "&"
+        hint = "Urgent"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
+      }
+      assaulttolerance: =
+      {
+        txt = "&"
+        hint = "Attack Tolerance"
+        typ = "C"
+        items = "Tight (3ft)"$0D"Medium (6ft)"$0D"Large (10ft)"
+        values = "36"$0D"72"$0D"120"
+      }
+      input#SetClearOnContact: =
+      {
+        txt = "&"
+        hint = "Set the clear on contact flag. NPCs who spot enemies while run"
+         "ning to the assault point, or while waiting at it, will immediately "
+         "Clear it."
+      }
+      input#SetAllowDiversion: =
+      {
+        txt = "&"
+        hint = "Set the allow diversion flag. NPCs who spot enemies whil runni"
+         "ng to the assault point, or while waiting on it, will divert away (l"
+         "eave Assault mode) to deal with the enemies. Upon losing enemies, th"
+         "ey'll go back to Assault mode, and return to this assault point."
+      }
+      input#SetForceClear: =
+      {
+        txt = "&"
+        hint = "Set the Force Clear flag. NPCs who are currently running to th"
+         "e assault point will Clear it immediately. NPCs who acquire it in th"
+         "e future will Clear it automatically."
+      }
+      output#OnArrival: =
+      {
+        txt = "&"
+        hint = "Fires when the NPC reaches this assault point"
+      }
+      output#OnAssaultClear: =
+      {
+        txt = "&"
+        hint = "Fires when this assault point is cleared of enemies"
+      }
+    }
+    assault_assaultpoint:form =
+    {
+      t_assault_assaultpoint = "!"
+    }
+    t_ai_goal_assault:incl =
+    {
+      t_Targetname = "!"
+      actor: =
+      {
+        txt = "&"
+        hint = "Actor(s) to affect"
+      }
+      rallypoint: =
+      {
+        txt = "&"
+        hint = "Rally Point Set"
+      }
+      SearchType: =
+      {
+        txt = "&"
+        hint = "Search Type"
+        typ = "C"
+        items = "Entity Name"$0D"Classname"
+        values = "0"$0D"1"
+      }
+      StartActive: =
+      {
+        txt = "&"
+        hint = "Start Active"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
+      }
+      AssaultCue: =
+      {
+        txt = "&"
+        hint = "Assault Cue"
+        typ = "C"
+        items = "Entity System Input"$0D"Gunfire"$0D"Don't wait for a cue."
+        values = "1"$0D"2"$0D"3"
+      }
+      RallySelectMethod: =
+      {
+        txt = "&"
+        hint = "Rally Point Selection Method"
+        typ = "C"
+        items = "Priority, Distance (default)"$0D"Random"
+        values = "0"$0D"1"
+      }
+      input#Activate: =
+      {
+        txt = "&"
+        hint = "Begin the assault behavior"
+      }
+      input#Deactivate: =
+      {
+        txt = "&"
+        hint = "Cease the assault behavior"
+      }
+      input#BeginAssault: =
+      {
+        txt = "&"
+        hint = "Begin assault phase"
+      }
+    }
+    ai_goal_assault:form =
+    {
+      t_ai_goal_assault = "!"
+    }
+    t_BaseActBusy:incl =
+    {
+      t_Targetname = "!"
+      actor: =
+      {
+        txt = "&"
+        hint = "Actor(s) to affect"
+      }
+      StartActive: =
+      {
+        txt = "&"
+        hint = "Start Active"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
+      }
+      SearchType: =
+      {
+        txt = "&"
+        hint = "Search Type"
+        typ = "C"
+        items = "Entity Name"$0D"Classname"
+        values = "0"$0D"1"
+      }
+      busysearchrange: =
+      {
+        txt = "&"
+        hint = "Search Range for Busy Hints"
+      }
+      visibleonly: =
+      {
+        txt = "&"
+        hint = "Visible Busy Hints Only"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
+      }
+      input#Activate: =
+      {
+        txt = "&"
+        hint = "Begin acting busy"
+      }
+      input#Deactivate: =
+      {
+        txt = "&"
+        hint = "Cease acting busy"
+      }
+      input#SetBusySearchRange: =
+      {
+        txt = "&"
+        hint = "Update the busy search range for all actors."
+      }
+      input#ForceNPCToActBusy: =
+      {
+        txt = "&"
+        hint = "Force an NPC to act busy. Takes parameters, separated by space"
+         "s: <Targetname> <hint node targetname> <optional:teleport> <optional"
+         ":$customactivityorsequence> <maximum time to actbusy>. If no hint no"
+         "de targetname is specified, it'll search for a random one. If no max"
+         " time is specified, it'll use the default. Specifying 0 as the max t"
+         "ime will make the NPC act busy until disturbed. If the optional tele"
+         "port parameter is specified, the NPC will teleport to the act busy p"
+         "oint. A custom move animation can be specified by prepending $ to th"
+         "e name of it. i.e. $ACT_RUN will make the NPC Run. Sequence names ca"
+         "n be used instead of activities."
+      }
+      input#ForceThisNPCToActBusy: =
+      {
+        txt = "&"
+        hint = "Force an NPC outputted from another entity to act busy. (only "
+         "usable from an output that specifies an entity)"
+      }
+      input#ForceThisNPCToLeave: =
+      {
+        txt = "&"
+        hint = "Force an NPC outputted from another entity to find a HINT_NPC_"
+         "EXIT_POINT hintnode and vanish."
+      }
+      output#OnNPCStartedBusy: =
+      {
+        txt = "&"
+        hint = "Fired when an NPC targeted by this goal starts an ActBusy anim"
+         "ation."
+      }
+      output#OnNPCFinishedBusy: =
+      {
+        txt = "&"
+        hint = "Fired when an NPC targeted by this goal finishes an ActBusy."
+      }
+      output#OnNPCLeft: =
+      {
+        txt = "&"
+        hint = "Fired when an NPC target by this goal finishes a forced Leave."
+      }
+    }
+    t_ai_goal_actbusy:incl =
+    {
+      t_BaseActBusy = "!"
+      seeentity: =
+      {
+        txt = "&"
+        hint = "Sight Entity"
+      }
+      seeentitytimeout: =
+      {
+        txt = "&"
+        hint = "Sight Entity Timeout"
+      }
+      sightmethod: =
+      {
+        txt = "&"
+        hint = "Sight Enemy Method"
+        typ = "C"
+        items = "Default. LOS -and- Viewcone"$0D"LOS Only. Disregard Viewcone"
+        values = "0"$0D"1"
+      }
+      type: =
+      {
+        txt = "&"
+        hint = "Actbusy Type"
+        typ = "C"
+        items = "Default (Standard)"$0D"Combat"
+        values = "0"$0D"1"
+      }
+      safezone: =
+      {
+        txt = "&"
+        hint = "Combat Safe Zone"
+      }
+      allowteleport: =
+      {
+        txt = "&"
+        hint = "Allow actor to teleport?"
+        typ = "C"
+        items = "No"$0D"Yes (Only for Combat Actbusy)"
+        values = "0"$0D"1"
+      }
+      output#OnNPCLostSeeEntity: =
+      {
+        txt = "&"
+        hint = "Fired when the NPC loses sight of the see entity (if one is sp"
+         "ecified)."
+      }
+      output#OnNPCSeeEnemy: =
+      {
+        txt = "&"
+        hint = "Fired when this NPC leaves his actbusy because of sighting an "
+         "enemy."
+      }
+    }
+    ai_goal_actbusy:form =
+    {
+      t_ai_goal_actbusy = "!"
+    }
+    t_ai_goal_actbusy_queue:incl =
+    {
+      t_BaseActBusy = "!"
+      node_exit: =
+      {
+        txt = "&"
+        hint = "Exit Node"
+      }
+      node01: =
+      {
+        txt = "&"
+        hint = "Node 1"
+      }
+      node02: =
+      {
+        txt = "&"
+        hint = "Node 2"
+      }
+      node03: =
+      {
+        txt = "&"
+        hint = "Node 3"
+      }
+      node04: =
+      {
+        txt = "&"
+        hint = "Node 4"
+      }
+      node05: =
+      {
+        txt = "&"
+        hint = "Node 5"
+      }
+      node06: =
+      {
+        txt = "&"
+        hint = "Node 6"
+      }
+      node07: =
+      {
+        txt = "&"
+        hint = "Node 7"
+      }
+      node08: =
+      {
+        txt = "&"
+        hint = "Node 8"
+      }
+      node09: =
+      {
+        txt = "&"
+        hint = "Node 9"
+      }
+      node10: =
+      {
+        txt = "&"
+        hint = "Node 10"
+      }
+      node11: =
+      {
+        txt = "&"
+        hint = "Node 11"
+      }
+      node12: =
+      {
+        txt = "&"
+        hint = "Node 12"
+      }
+      node13: =
+      {
+        txt = "&"
+        hint = "Node 13"
+      }
+      node14: =
+      {
+        txt = "&"
+        hint = "Node 14"
+      }
+      node15: =
+      {
+        txt = "&"
+        hint = "Node 15"
+      }
+      node16: =
+      {
+        txt = "&"
+        hint = "Node 16"
+      }
+      node17: =
+      {
+        txt = "&"
+        hint = "Node 17"
+      }
+      node18: =
+      {
+        txt = "&"
+        hint = "Node 18"
+      }
+      node19: =
+      {
+        txt = "&"
+        hint = "Node 19"
+      }
+      node20: =
+      {
+        txt = "&"
+        hint = "Node 20"
+      }
+      mustreachfront: =
+      {
+        txt = "&"
+        hint = "Must Reach Front"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
+      }
+      input#PlayerStartedBlocking: =
+      {
+        txt = "&"
+        hint = "Tell the queue manager that the player has started blocking a "
+         "spot in the queue."
+      }
+      input#PlayerStoppedBlocking: =
+      {
+        txt = "&"
+        hint = "Tell the queue manager that the player has stopped blocking a "
+         "spot in the queue."
+      }
+      input#MoveQueueUp: =
+      {
+        txt = "&"
+        hint = "Force the queue to move up, sending the front-most NPC out of "
+         "the queue."
+      }
+      output#OnQueueMoved: =
+      {
+        txt = "&"
+        hint = "Fired when the queue moves. Outputs the number of NPCs left in"
+         " the queue."
+      }
+      output#OnNPCStartedLeavingQueue: =
+      {
+        txt = "&"
+        hint = "Fired when the NPC at the head of the queue starts to leave. T"
+         "he activator is the NPC, and the string is the name of the NPC."
+      }
+      output#OnNPCLeftQueue: =
+      {
+        txt = "&"
+        hint = "Fired when the NPC at the head of the queue leaves. The activa"
+         "tor is the NPC, and the string is the name of the NPC."
+      }
+    }
+    ai_goal_actbusy_queue:form =
+    {
+      t_ai_goal_actbusy_queue = "!"
+    }
+    t_ai_changetarget:incl =
+    {
+      bbox = '-8 -8 -8 8 8 8'
+      t_Targetname = "!"
+      target: =
+      {
+        txt = "&"
+        hint = "Target entity"
+      }
+      m_iszNewTarget: =
+      {
+        txt = "&"
+        hint = "New Target"
+      }
+      input#Kill: =
+      {
+        txt = "&"
+        hint = "Removes this entity from the world"
+      }
+      input#Activate: =
+      {
+        txt = "&"
+        hint = "Changes the entities target"
+      }
+    }
+    ai_changetarget:form =
+    {
+      t_ai_changetarget = "!"
+    }
+    t_ai_npc_eventresponsesystem:incl =
+    {
+      bbox = '-8 -8 -8 8 8 8'
+      t_Targetname = "!"
+      input#TriggerResponseEvent: =
+      {
+        txt = "&"
+        hint = "Fire an NPC Response Event. The parameter should match the res"
+         "ponse rules concept that any nearby friendly NPCs will try to speak."
+      }
+      input#ForceTriggerResponseEvent: =
+      {
+        txt = "&"
+        hint = "Fire an NPC Response Event, and force the first available NPC "
+         "to speak the response (breaking them out of any scene they're in). T"
+         "he parameter should match the response rules concept that any nearby"
+         " friendly NPCs will try to speak."
+      }
+      input#ForceTriggerResponseEventNoCancel: =
+      {
+        txt = "&"
+        hint = "Fire an NPC Response Event, and force the first available NPC "
+         "to speak the response (but don't break them out of any scene they're"
+         " in). The parameter should match the response rules concept that any"
+         " nearby friendly NPCs will try to speak."
+      }
+    }
+    ai_npc_eventresponsesystem:form =
+    {
+      t_ai_npc_eventresponsesystem = "!"
+    }
+    t_ai_changehintgroup:incl =
+    {
+      bbox = '-8 -8 -8 8 8 8'
+      t_Targetname = "!"
+      SearchType: =
+      {
+        txt = "&"
+        hint = "Search Type"
+        typ = "C"
+        items = "Entity Name"$0D"Classname"$0D"Old Hint Group"
+        values = "0"$0D"1"$0D"2"
+      }
+      SearchName: =
+      {
+        txt = "&"
+        hint = "Name to search for"
+      }
+      NewHintGroup: =
+      {
+        txt = "&"
+        hint = "New Hint Group"
+      }
+      Radius: =
+      {
+        txt = "&"
+        hint = "Search Radius"
+      }
+      hintlimiting: =
+      {
+        txt = "&"
+        hint = "Hint Limit Nav"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
+      }
+      input#Kill: =
+      {
+        txt = "&"
+        hint = "Removes this entity from the world"
+      }
+      input#Activate: =
+      {
+        txt = "&"
+        hint = "Change the Hint Group"
+      }
+    }
+    ai_changehintgroup:form =
+    {
+      t_ai_changehintgroup = "!"
+    }
+    t_ai_script_conditions:incl =
+    {
+      t_Targetname = "!"
+      Actor: =
+      {
+        txt = "&"
+        hint = "Actor"
+      }
+      StartDisabled: =
+      {
+        txt = "&"
+        hint = "Start Disabled"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
+      }
+      MinimumState: =
+      {
+        txt = "&"
+        hint = "Minimum state"
+        typ = "C"
+        items = "Idle"$0D"Alert"$0D"Combat"
+        values = "1"$0D"2"$0D"3"
+      }
+      MaximumState: =
+      {
+        txt = "&"
+        hint = "Maximum state"
+        typ = "C"
+        items = "Idle"$0D"Alert"$0D"Combat"
+        values = "1"$0D"2"$0D"3"
+      }
+      ScriptStatus: =
+      {
+        txt = "&"
+        hint = "Actor is running a script?"
+        typ = "C"
+        items = "No"$0D"Yes"$0D"Don't care"
+        values = "0"$0D"1"$0D"2"
+      }
+      RequiredTime: =
+      {
+        txt = "&"
+        hint = "Required Time"
+      }
+      MinTimeout: =
+      {
+        txt = "&"
+        hint = "Minimum time out"
+      }
+      MaxTimeout: =
+      {
+        txt = "&"
+        hint = "Maximum time out"
+      }
+      ActorSeePlayer: =
+      {
+        txt = "&"
+        hint = "Actor Sees Player"
+        typ = "C"
+        items = "No"$0D"Yes"$0D"Don't care"
+        values = "0"$0D"1"$0D"2"
+      }
+      PlayerActorProximity: =
+      {
+        txt = "&"
+        hint = "Player distance"
+      }
+      PlayerActorFOV: =
+      {
+        txt = "&"
+        hint = "Player FOV for Actor "
+      }
+      PlayerActorFOVTrueCone: =
+      {
+        txt = "&"
+        hint = "Play FOV to Actor is a true view cone"
+        typ = "C"
+        items = "No - Tall pie slice"$0D"Yes - True view cone"
+        values = "0"$0D"1"
+      }
+      PlayerActorLOS: =
+      {
+        txt = "&"
+        hint = "Player has LOS to Actor"
+        typ = "C"
+        items = "No"$0D"Yes"$0D"Don't care"
+        values = "0"$0D"1"$0D"2"
+      }
+      target: =
+      {
+        txt = "&"
+        hint = "Target (Optional)"
+      }
+      ActorSeeTarget: =
+      {
+        txt = "&"
+        hint = "Actor Sees Target"
+        typ = "C"
+        items = "No"$0D"Yes"$0D"Don't care"
+        values = "0"$0D"1"$0D"2"
+      }
+      ActorTargetProximity: =
+      {
+        txt = "&"
+        hint = "Target distance"
+      }
+      PlayerTargetProximity: =
+      {
+        txt = "&"
+        hint = "Player distance from Target"
+      }
+      PlayerTargetFOV: =
+      {
+        txt = "&"
+        hint = "Player FOV for Target"
+      }
+      PlayerTargetFOVTrueCone: =
+      {
+        txt = "&"
+        hint = "Play FOV to Target is a true view cone"
+        typ = "C"
+        items = "No - Tall pie slice"$0D"Yes - True view cone"
+        values = "0"$0D"1"
+      }
+      PlayerTargetLOS: =
+      {
+        txt = "&"
+        hint = "Player has LOS to Target"
+        typ = "C"
+        items = "No"$0D"Yes"$0D"Don't care"
+        values = "0"$0D"1"$0D"2"
+      }
+      PlayerBlockingActor: =
+      {
+        txt = "&"
+        hint = "Player blocking Actor"
+        typ = "C"
+        items = "No"$0D"Yes"$0D"Don't care"
+        values = "0"$0D"1"$0D"2"
+      }
+      ActorInPVS: =
+      {
+        txt = "&"
+        hint = "Actor in Player's PVS"
+        typ = "C"
+        items = "No"$0D"Yes"$0D"Don't care"
+        values = "0"$0D"1"$0D"2"
+      }
+      ActorInVehicle: =
+      {
+        txt = "&"
+        hint = "Actor in a vehicle"
+        typ = "C"
+        items = "No"$0D"Yes"$0D"Don't care"
+        values = "0"$0D"1"$0D"2"
+      }
+      PlayerInVehicle: =
+      {
+        txt = "&"
+        hint = "Player in a vehicle"
+        typ = "C"
+        items = "No"$0D"Yes"$0D"Don't care"
+        values = "0"$0D"1"$0D"2"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X1"
+        cap = "Fire outputs with the Actor as Activator"
+      }
+      input#Enable: =
+      {
+        txt = "&"
+        hint = "Enable this entity"
+      }
+      input#Disable: =
+      {
+        txt = "&"
+        hint = "Disable this entity"
+      }
+      output#OnConditionsSatisfied: =
+      {
+        txt = "&"
+        hint = "Fires when AI conditions satisfied"
+      }
+      output#OnConditionsTimeout: =
+      {
+        txt = "&"
+        hint = "Fires when AI conditions timed out"
+      }
+      output#NoValidActor: =
+      {
+        txt = "&"
+        hint = "Fires if/when there are no matching actors in the map."
+      }
+    }
+    ai_script_conditions:form =
+    {
+      t_ai_script_conditions = "!"
+    }
+    t_scripted_sequence:incl =
+    {
+      t_BaseScripted = "!"
+      t_Angles = "!"
+      t_DXLevelChoice = "!"
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X4"
+        cap = "Repeatable"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X8"
+        cap = "Leave Corpse"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X16"
+        cap = "Start on Spawn"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X32"
+        cap = "No Interruptions"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X64"
+        cap = "Override AI"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X128"
+        cap = "Don't Teleport NPC On End"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X256"
+        cap = "Loop in Post Idle"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X512"
+        cap = "Priority Script"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X4096"
+        cap = "Allow actor death"
+      }
+      onplayerdeath: =
+      {
+        txt = "&"
+        hint = "On player death"
+        typ = "C"
+        items = "Do Nothing"$0D"Cancel Script and return to AI"
+        values = "0"$0D"1"
+      }
+    }
+    scripted_sequence:form =
+    {
+      t_scripted_sequence = "!"
+    }
+    t_aiscripted_schedule:incl =
+    {
+      t_Targetname = "!"
+      m_iszEntity: =
+      {
+        txt = "&"
+        hint = "Target NPC"
+      }
+      m_flRadius: =
+      {
+        txt = "&"
+        hint = "Search Radius (0=everywhere)"
+      }
+      graball: =
+      {
+        txt = "&"
+        hint = "All in radius"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X4"
+        cap = "Repeatable"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X1024"
+        cap = "Search Cyclically"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X2048"
+        cap = "Don't Complain"
+      }
+      forcestate: =
+      {
+        txt = "&"
+        hint = "AI state to set"
+        typ = "C"
+        items = "<None>"$0D"Set state to IDLE"$0D"Set state to ALERT"$0D"Set s"
+         "tate to COMBAT"
+        values = "0"$0D"1"$0D"2"$0D"3"
+      }
+      schedule: =
+      {
+        txt = "&"
+        hint = "Schedule to run"
+        typ = "C"
+        items = "<None>"$0D"Walk to Goal Entity"$0D"Run to Goal Entity"$0D"Set"
+         " enemy to Goal Entity"$0D"Walk Goal Path"$0D"Run Goal Path"$0D"Set e"
+         "nemy to Goal Entity AND Run to Goal Entity"
+        values = "0"$0D"1"$0D"2"$0D"3"$0D"4"$0D"5"$0D"6"
+      }
+      interruptability: =
+      {
+        txt = "&"
+        hint = "Interruptability"
+        typ = "C"
+        items = "General"$0D"Damage or Death"$0D"Death"
+        values = "0"$0D"1"$0D"2"
+      }
+      goalent: =
+      {
+        txt = "&"
+        hint = "Goal entity"
+      }
+      input#StartSchedule: =
+      {
+        txt = "&"
+        hint = "Starts the scripted schedule. This will first locate an NPC th"
+         "at matches the given target, then tell the NPC to run the specified "
+         "schedule."
+      }
+    }
+    aiscripted_schedule:form =
+    {
+      t_aiscripted_schedule = "!"
+    }
+    t_ai_citizen_response_system:incl =
+    {
+      t_Targetname = "!"
+      input#ResponseVitalNPC: =
+      {
+        txt = "&"
+        hint = "Fire the VitalNPC Died response."
+      }
+    }
+    ai_citizen_response_system:form =
+    {
+      t_ai_citizen_response_system = "!"
+    }
+    t_func_healthcharger:incl =
+    {
+      t_EnableDisable = "!"
+      t_Parentname = "!"
+      t_Origin = "!"
+      t_Global = "!"
+      _minlight: =
+      {
+        txt = "&"
+        hint = "Minimum light level"
+      }
+      output#OutRemainingHealth: =
+      {
+        txt = "&"
+        hint = "Remaining Health."
+      }
+      output#OnPlayerUse: =
+      {
+        txt = "&"
+        hint = "Fired when the player +USEs the charger."
+      }
+    }
+    func_healthcharger:form =
+    {
+      t_func_healthcharger = "!"
+    }
+    t_func_recharge:incl =
+    {
+      t_Targetname = "!"
+      t_Parentname = "!"
+      t_Origin = "!"
+      _minlight: =
+      {
+        txt = "&"
+        hint = "Minimum light level"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X8192"
+        cap = "Citadel recharger"
+      }
+      input#Recharge: =
+      {
+        txt = "&"
+        hint = "Recharge to full"
+      }
+      output#OutRemainingCharge: =
+      {
+        txt = "&"
+        hint = "Remaining Charge."
+      }
+      output#OnHalfEmpty: =
+      {
+        txt = "&"
+        hint = "Half-Empty"
+      }
+      output#OnEmpty: =
+      {
+        txt = "&"
+        hint = "Empty"
+      }
+      output#OnFull: =
+      {
+        txt = "&"
+        hint = "Recharged to full."
+      }
+      output#OnPlayerUse: =
+      {
+        txt = "&"
+        hint = "Fired when the player +USEs the charger."
+      }
+    }
+    func_recharge:form =
+    {
+      t_func_recharge = "!"
+    }
+    t_func_vehicleclip:incl =
+    {
+      t_Parentname = "!"
+      t_Targetname = "!"
+      t_Global = "!"
+      input#Kill: =
+      {
+        txt = "&"
+        hint = "Removes this entity from the world"
+      }
+    }
+    func_vehicleclip:form =
+    {
+      t_func_vehicleclip = "!"
+    }
+    t_func_lookdoor:incl =
+    {
+      t_func_movelinear = "!"
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X8192"
+        cap = "LookDoor Threshold"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X16384"
+        cap = "LookDoor Invert"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X32768"
+        cap = "LookDoor From Open"
+      }
+      ProximityDistance: =
+      {
+        txt = "&"
+        hint = "Proximity Distance"
+      }
+      ProximityOffset: =
+      {
+        txt = "&"
+        hint = "Proximity Offset"
+      }
+      FieldOfView: =
+      {
+        txt = "&"
+        hint = "FieldOfView"
+      }
+      input#InvertOn: =
+      {
+        txt = "&"
+        hint = "InvertOn - when set behavior of door is inverted."
+      }
+      input#InvertOff: =
+      {
+        txt = "&"
+        hint = "InvertOff - when set behavior of door is normal."
+      }
+    }
+    func_lookdoor:form =
+    {
+      t_func_lookdoor = "!"
+    }
+    t_env_global:incl =
+    {
+      bbox = '-8 -8 -8 8 8 8'
+      t_EnvGlobal = "!"
+      globalstate: =
+      {
+        txt = "&"
+        hint = "Global State to Set"
+        typ = "C"
+        items = "Gordon pre-criminal"$0D"Antlions are player allies"$0D"Suit s"
+         "print function not yet enabled"$0D"Super phys gun is enabled"$0D"Fri"
+         "endly encounter sequence (lower weapons, etc.)"$0D"Gordon is invulne"
+         "rable"$0D"Don't spawn seagulls on the jeep"
+        values = "gordon_precriminal"$0D"antlion_allied"$0D"suit_no_sprint"$0D
+         "super_phys_gun"$0D"friendly_encounter"$0D"gordon_invulnerable"$0D"no"
+         "_seagulls_on_jeep"
+      }
+    }
+    env_global:form =
+    {
+      t_env_global = "!"
+    }
+    t_BaseTank:incl =
+    {
+      t_Targetname = "!"
+      t_Parentname = "!"
+      t_Origin = "!"
+      t_Angles = "!"
+      t_RenderFields = "!"
+      t_Global = "!"
+      t_Shadow = "!"
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X1"
+        cap = "Active"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X16"
+        cap = "Only Direct"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X32"
+        cap = "Controllable"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X64"
+        cap = "Damage Kick"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X1024"
+        cap = "NPC Controllable"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X2048"
+        cap = "NPC Set Controller"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X4096"
+        cap = "Allow friendlies to hit player"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X32768"
+        cap = "Non-solid."
+      }
+      control_volume: =
+      {
+        txt = "&"
+        hint = "Control Volume"
+      }
+      master: =
+      {
+        txt = "&"
+        hint = "(Team) Master"
+      }
+      yawrate: =
+      {
+        txt = "&"
+        hint = "Yaw rate"
+      }
+      yawrange: =
+      {
+        txt = "&"
+        hint = "Yaw range"
+      }
+      yawtolerance: =
+      {
+        txt = "&"
+        hint = "Yaw tolerance"
+      }
+      pitchrate: =
+      {
+        txt = "&"
+        hint = "Pitch rate"
+      }
+      pitchrange: =
+      {
+        txt = "&"
+        hint = "Pitch range"
+      }
+      pitchtolerance: =
+      {
+        txt = "&"
+        hint = "Pitch tolerance"
+      }
+      barrel: =
+      {
+        txt = "&"
+        hint = "Barrel Length"
+      }
+      barrely: =
+      {
+        txt = "&"
+        hint = "Barrel Horizontal"
+      }
+      barrelz: =
+      {
+        txt = "&"
+        hint = "Barrel Vertical"
+      }
+      spritesmoke: =
+      {
+        txt = "&"
+        hint = "Smoke Sprite"
+      }
+      spriteflash: =
+      {
+        txt = "&"
+        hint = "Flash Sprite"
+      }
+      spritescale: =
+      {
+        txt = "&"
+        hint = "Sprite scale"
+      }
+      rotatestartsound: =
+      {
+        txt = "&"
+        hint = "Rotate Start Sound"
+      }
+      rotatesound: =
+      {
+        txt = "&"
+        hint = "Rotate Loop Sound"
+      }
+      rotatestopsound: =
+      {
+        txt = "&"
+        hint = "Rotate Stop Sound"
+      }
+      firerate: =
+      {
+        txt = "&"
+        hint = "Rate of Fire"
+      }
+      bullet_damage: =
+      {
+        txt = "&"
+        hint = "Damage Per Bullet"
+      }
+      bullet_damage_vs_player: =
+      {
+        txt = "&"
+        hint = "Damage Per Bullet Vs Player"
+      }
+      persistence: =
+      {
+        txt = "&"
+        hint = "Firing persistence"
+      }
+      persistence2: =
+      {
+        txt = "&"
+        hint = "Firing persistence2"
+      }
+      firespread: =
+      {
+        txt = "&"
+        hint = "Bullet accuracy"
+        typ = "C"
+        items = "Perfect Shot"$0D"Small cone"$0D"Medium cone"$0D"Large cone"$0D
+         "Extra-large cone"
+        values = "0"$0D"1"$0D"2"$0D"3"$0D"4"
+      }
+      minRange: =
+      {
+        txt = "&"
+        hint = "Minimum target range"
+      }
+      maxRange: =
+      {
+        txt = "&"
+        hint = "Maximum target range"
+      }
+      _minlight: =
+      {
+        txt = "&"
+        hint = "Minimum light level"
+      }
+      gun_base_attach: =
+      {
+        txt = "&"
+        hint = "Gun Base Attachment"
+      }
+      gun_barrel_attach: =
+      {
+        txt = "&"
+        hint = "Gun Barrel Attachment"
+      }
+      gun_yaw_pose_param: =
+      {
+        txt = "&"
+        hint = "Gun Yaw Pose Param"
+      }
+      gun_yaw_pose_center: =
+      {
+        txt = "&"
+        hint = "Gun Yaw Pose Center"
+      }
+      gun_pitch_pose_param: =
+      {
+        txt = "&"
+        hint = "Gun Pitch Pose Param"
+      }
+      gun_pitch_pose_center: =
+      {
+        txt = "&"
+        hint = "Gun Pitch Pose Center"
+      }
+      ammo_count: =
+      {
+        txt = "&"
+        hint = "Ammunition Count"
+      }
+      LeadTarget: =
+      {
+        txt = "&"
+        hint = "Lead Target"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
+      }
+      npc_man_point: =
+      {
+        txt = "&"
+        hint = "NPC Man Point"
+      }
+      playergraceperiod: =
+      {
+        txt = "&"
+        hint = "Post-NPC Attack Grace Period"
+      }
+      ignoregraceupto: =
+      {
+        txt = "&"
+        hint = "Ignore Grace Upto"
+      }
+      playerlocktimebeforefire: =
+      {
+        txt = "&"
+        hint = "Player Lock Time"
+      }
+      effecthandling: =
+      {
+        txt = "&"
+        hint = "Effect Handling"
+        typ = "C"
+        items = "Use Individual Settings."$0D"AR2"
+        values = "0"$0D"1"
+      }
+      input#Activate: =
+      {
+        txt = "&"
+        hint = "Turn the tank on"
+      }
+      input#Deactivate: =
+      {
+        txt = "&"
+        hint = "Turn the tank off (go dormant)"
+      }
+      input#SetFireRate: =
+      {
+        txt = "&"
+        hint = "How fast to fire (0 = don't fire)"
+      }
+      input#SetDamage: =
+      {
+        txt = "&"
+        hint = "Set the Damage Per Bullet"
+      }
+      input#SetTargetPosition: =
+      {
+        txt = "&"
+        hint = "World position that I should aim at"
+      }
+      input#SetTargetDir: =
+      {
+        txt = "&"
+        hint = "Direction to aim at."
+      }
+      input#SetTargetEntityName: =
+      {
+        txt = "&"
+        hint = "Name of entity I should follow/attack"
+      }
+      input#SetTargetEntity: =
+      {
+        txt = "&"
+        hint = "Entity I should follow/attack (output from other entity only)"
+      }
+      input#ClearTargetEntity: =
+      {
+        txt = "&"
+        hint = "Clear the entity I should be attacking."
+      }
+      input#FindNPCToManTank: =
+      {
+        txt = "&"
+        hint = "Find a nearby NPC to man this func_tank."
+      }
+      input#StartFindingNPCs: =
+      {
+        txt = "&"
+        hint = "Start searching for NPCs to man this func_tank."
+      }
+      input#StopFindingNPCs: =
+      {
+        txt = "&"
+        hint = "Stop searching for NPCs to man this func_tank."
+      }
+      input#ForceNPCOff: =
+      {
+        txt = "&"
+        hint = "Force the NPC manning this func_tank (if any) to leave."
+      }
+      input#SetMaxRange: =
+      {
+        txt = "&"
+        hint = "Set the max range of the func_tank."
+      }
+      output#OnFire: =
+      {
+        txt = "&"
+        hint = "Fires when the tank fires its bullets"
+      }
+      output#OnAquireTarget: =
+      {
+        txt = "&"
+        hint = "Fires when target is newly in range and can be shot"
+      }
+      output#OnLoseTarget: =
+      {
+        txt = "&"
+        hint = "Fires when when target goes out of range"
+      }
+      output#OnAmmoDepleted: =
+      {
+        txt = "&"
+        hint = "Fires when tank runs out of ammo"
+      }
+      output#OnGotController: =
+      {
+        txt = "&"
+        hint = "Fires when an NPC starts to control this tank. Players do NOT "
+         "fire this input."
+      }
+      output#OnLostController: =
+      {
+        txt = "&"
+        hint = "Fires when the NPC controller of the tank stops controlling it"
+         ". Players do NOT fire this input."
+      }
+      output#OnGotPlayerController: =
+      {
+        txt = "&"
+        hint = "Fires when a Player starts to control this tank. NPCs do NOT f"
+         "ire this input."
+      }
+      output#OnLostPlayerController: =
+      {
+        txt = "&"
+        hint = "Fires when the Player controller of the tank stops controlling"
+         " it. NPCs do NOT fire this input."
+      }
+      output#OnReadyToFire: =
+      {
+        txt = "&"
+        hint = "Fires once when the tank is done waiting to fire between round"
+         "s"
+      }
+    }
+    t_func_tank:incl =
+    {
+      t_BaseTank = "!"
+      bullet: =
+      {
+        txt = "&"
+        hint = "Bullets"
+        typ = "C"
+        items = "None"$0D"Pistol"$0D"SMG1"$0D"AR2"$0D"Laser"
+        values = "0"$0D"1"$0D"2"$0D"3"$0D"4"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X8192"
+        cap = "Ignore range when making viewcone checks"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X256"
+        cap = "Aiming Assistance (Player Only)"
+      }
+    }
+    func_tank:form =
+    {
+      t_func_tank = "!"
+    }
+    t_func_tankpulselaser:incl =
+    {
+      t_BaseTank = "!"
+      PulseSpeed: =
+      {
+        txt = "&"
+        hint = "Pulse Speed"
+      }
+      PulseColor: =
+      {
+        txt = "&"
+        hint = "Pulse Color"
+      }
+      PulseWidth: =
+      {
+        txt = "&"
+        hint = "Pulse Width"
+      }
+      PulseLife: =
+      {
+        txt = "&"
+        hint = "Pulse Life"
+      }
+      PulseLag: =
+      {
+        txt = "&"
+        hint = "Pulse Lag"
+      }
+      PulseFireSound: =
+      {
+        txt = "&"
+        hint = "Pulse Fire Sound"
+      }
+    }
+    func_tankpulselaser:form =
+    {
+      t_func_tankpulselaser = "!"
+    }
+    t_func_tanklaser:incl =
+    {
+      t_BaseTank = "!"
+      laserentity: =
+      {
+        txt = "&"
+        hint = "env_laser Entity"
+      }
+    }
+    func_tanklaser:form =
+    {
+      t_func_tanklaser = "!"
+    }
+    t_func_tankrocket:incl =
+    {
+      t_BaseTank = "!"
+      rocketspeed: =
+      {
+        txt = "&"
+        hint = "Projectile speed"
+      }
+    }
+    func_tankrocket:form =
+    {
+      t_func_tankrocket = "!"
+    }
+    t_func_tankmortar:incl =
+    {
+      t_BaseTank = "!"
+      iMagnitude: =
+      {
+        txt = "&"
+        hint = "Explosion Magnitude"
+      }
+      firedelay: =
+      {
+        txt = "&"
+        hint = "Shell travel time"
+      }
+      firestartsound: =
+      {
+        txt = "&"
+        hint = "Firing start sound"
+      }
+      fireendsound: =
+      {
+        txt = "&"
+        hint = "Firing end sound"
+      }
+      incomingsound: =
+      {
+        txt = "&"
+        hint = "Incoming Shell Sound"
+      }
+      warningtime: =
+      {
+        txt = "&"
+        hint = "Incoming warning time"
+      }
+      firevariance: =
+      {
+        txt = "&"
+        hint = "Fire time variance"
+      }
+      input#FireAtWill: =
+      {
+        txt = "&"
+        hint = "Allow tank to fire next shot as soon as ready."
+      }
+    }
+    func_tankmortar:form =
+    {
+      t_func_tankmortar = "!"
+    }
+    t_func_tankphyscannister:incl =
+    {
+      t_BaseTank = "!"
+      barrel_volume: =
+      {
+        txt = "&"
+        hint = "Barrel Volume"
+      }
+    }
+    func_tankphyscannister:form =
+    {
+      t_func_tankphyscannister = "!"
+    }
+    t_Item:incl =
+    {
+      t_Targetname = "!"
+      t_Angles = "!"
+      t_Shadow = "!"
+      output#OnPlayerTouch: =
+      {
+        txt = "&"
+        hint = "Fires when the player touches this object"
+      }
+    }
+    t_ammo_9mmclip:incl =
+    {
+      t_Item = "!"
+    }
+    ammo_9mmclip:form =
+    {
+      t_ammo_9mmclip = "!"
+    }
+    t_ammo_glockclip:incl =
+    {
+      t_Item = "!"
+    }
+    ammo_glockclip:form =
+    {
+      t_ammo_glockclip = "!"
+    }
+    t_ammo_9mmAR:incl =
+    {
+      t_Item = "!"
+    }
+    ammo_9mmAR:form =
+    {
+      t_ammo_9mmAR = "!"
+    }
+    t_ammo_9mmbox:incl =
+    {
+      t_Item = "!"
+    }
+    ammo_9mmbox:form =
+    {
+      t_ammo_9mmbox = "!"
+    }
+    t_ammo_ARgrenades:incl =
+    {
+      t_Item = "!"
+    }
+    ammo_ARgrenades:form =
+    {
+      t_ammo_ARgrenades = "!"
+    }
+    t_ammo_buckshot:incl =
+    {
+      t_Item = "!"
+    }
+    ammo_buckshot:form =
+    {
+      t_ammo_buckshot = "!"
+    }
+    t_ammo_357:incl =
+    {
+      t_Item = "!"
+    }
+    ammo_357:form =
+    {
+      t_ammo_357 = "!"
+    }
+    t_ammo_rpgclip:incl =
+    {
+      t_Item = "!"
+    }
+    ammo_rpgclip:form =
+    {
+      t_ammo_rpgclip = "!"
+    }
+    t_ammo_gaussclip:incl =
+    {
+      t_Item = "!"
+    }
+    ammo_gaussclip:form =
+    {
+      t_ammo_gaussclip = "!"
+    }
+    t_ammo_crossbow:incl =
+    {
+      t_Item = "!"
+    }
+    ammo_crossbow:form =
+    {
+      t_ammo_crossbow = "!"
+    }
+    t_item_battery:incl =
+    {
+      t_Item = "!"
+    }
+    item_battery:form =
+    {
+      t_item_battery = "!"
+    }
+    t_item_longjump:incl =
+    {
+      t_Item = "!"
+    }
+    item_longjump:form =
+    {
+      t_item_longjump = "!"
+    }
+    t_item_healthkit:incl =
+    {
+      t_Item = "!"
+    }
+    item_healthkit:form =
+    {
+      t_item_healthkit = "!"
+    }
+    t_item_suit:incl =
+    {
+      t_Item = "!"
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X1"
+        cap = "Short Logon"
+      }
+    }
+    item_suit:form =
+    {
+      t_item_suit = "!"
+    }
+    t_Weapon:incl =
+    {
+      t_Targetname = "!"
+      t_Angles = "!"
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X1"
+        cap = "Start constrained"
+      }
+      output#OnPlayerUse: =
+      {
+        txt = "&"
+        hint = "Fires when the player +uses this weapon"
+      }
+      output#OnPlayerPickup: =
+      {
+        txt = "&"
+        hint = "Fires when the player picks up this weapon"
+      }
+      output#OnNPCPickup: =
+      {
+        txt = "&"
+        hint = "Fires when an NPC picks up this weapon"
+      }
+    }
+    t_weapon_crowbar:incl =
+    {
+      t_Weapon = "!"
+    }
+    weapon_crowbar:form =
+    {
+      t_weapon_crowbar = "!"
+    }
+    t_weapon_mp5:incl =
+    {
+      t_Weapon = "!"
+    }
+    weapon_mp5:form =
+    {
+      t_weapon_mp5 = "!"
+    }
+    t_weapon_glock:incl =
+    {
+      t_Weapon = "!"
+    }
+    weapon_glock:form =
+    {
+      t_weapon_glock = "!"
+    }
+    t_weapon_357:incl =
+    {
+      t_Weapon = "!"
+    }
+    weapon_357:form =
+    {
+      t_weapon_357 = "!"
+    }
+    t_weapon_shotgun:incl =
+    {
+      t_Weapon = "!"
+    }
+    weapon_shotgun:form =
+    {
+      t_weapon_shotgun = "!"
+    }
+    t_weapon_rpg:incl =
+    {
+      t_Weapon = "!"
+    }
+    weapon_rpg:form =
+    {
+      t_weapon_rpg = "!"
+    }
+    t_weapon_gauss:incl =
+    {
+      t_Weapon = "!"
+    }
+    weapon_gauss:form =
+    {
+      t_weapon_gauss = "!"
+    }
+    t_weapon_crossbow:incl =
+    {
+      t_Weapon = "!"
+      sequence: =
+      {
+        txt = "&"
+        hint = "Placement"
+        typ = "C"
+        items = "Normal (flat)"$0D"Realistic (tilted)"
+        values = "0"$0D"1"
+      }
+    }
+    weapon_crossbow:form =
+    {
+      t_weapon_crossbow = "!"
+    }
+    t_weapon_egon:incl =
+    {
+      t_Weapon = "!"
+    }
+    weapon_egon:form =
+    {
+      t_weapon_egon = "!"
+    }
+    t_weapon_tripmine:incl =
+    {
+      t_Weapon = "!"
+    }
+    weapon_tripmine:form =
+    {
+      t_weapon_tripmine = "!"
+    }
+    t_weapon_satchel:incl =
+    {
+      t_Weapon = "!"
+    }
+    weapon_satchel:form =
+    {
+      t_weapon_satchel = "!"
+    }
+    t_weapon_handgrenade:incl =
+    {
+      t_Weapon = "!"
+    }
+    weapon_handgrenade:form =
+    {
+      t_weapon_handgrenade = "!"
+    }
+    t_weapon_snark:incl =
+    {
+      t_Weapon = "!"
+    }
+    weapon_snark:form =
+    {
+      t_weapon_snark = "!"
+    }
+    t_weapon_hornetgun:incl =
+    {
+      t_Weapon = "!"
+    }
+    weapon_hornetgun:form =
+    {
+      t_weapon_hornetgun = "!"
+    }
+    t_weaponbox:incl =
+    {
+    }
+    weaponbox:form =
+    {
+      t_weaponbox = "!"
+    }
+    t_world_items:incl =
+    {
+      t_Weapon = "!"
+      type: =
+      {
+        txt = "&"
+        hint = "types"
+        typ = "C"
+        items = "Antidote"$0D"Security Card"$0D"Battery"$0D"Suit"
+        values = "42"$0D"43"$0D"44"$0D"45"
+      }
+    }
+    world_items:form =
+    {
+      t_world_items = "!"
+    }
+    t_trigger_vphysics_motion:incl =
+    {
+      t_Trigger = "!"
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X4096"
+        cap = "Can move (through hierarchical attachment)"
+      }
+      StartDisabled: =
+      {
+        txt = "&"
+        hint = "Start Disabled"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
+      }
+      filtername: =
+      {
+        txt = "&"
+        hint = "Filter Name"
+      }
+      SetGravityScale: =
+      {
+        txt = "&"
+        hint = "Scale gravity of objects in the field."
+      }
+      input#SetGravityScale: =
+      {
+        txt = "&"
+        hint = "Scale gravity of objects in the field."
+      }
+      SetAdditionalAirDensity: =
+      {
+        txt = "&"
+        hint = "Additional air density for drag"
+      }
+      input#SetAdditionalAirDensity: =
+      {
+        txt = "&"
+        hint = "Additional air density for drag"
+      }
+      SetVelocityLimit: =
+      {
+        txt = "&"
+        hint = "Max velocity in field (0 disables)"
+      }
+      input#SetVelocityLimit: =
+      {
+        txt = "&"
+        hint = "Max velocity in field."
+      }
+      SetVelocityLimitDelta: =
+      {
+        txt = "&"
+        hint = "Max amount to reduce velocity per second when it exceeds the v"
+         "elocity limit (0 disables)"
+      }
+      input#SetVelocityLimitDelta: =
+      {
+        txt = "&"
+        hint = "Max amount to reduce velocity per second"
+      }
+      input#SetVelocityLimitTime: =
+      {
+        txt = "&"
+        hint = "Accepts two arguments: the first is the new velocity limit, th"
+         "e second is the time it takes to ramp to that value"
+      }
+      SetVelocityScale: =
+      {
+        txt = "&"
+        hint = "Velocity scale/drag"
+      }
+      input#SetVelocityScale: =
+      {
+        txt = "&"
+        hint = "Velocity scale/drag"
+      }
+      SetAngVelocityLimit: =
+      {
+        txt = "&"
+        hint = "Max angular velocity in field (degrees/s, 0 disables)"
+      }
+      input#SetAngVelocityLimit: =
+      {
+        txt = "&"
+        hint = "Max angular velocity in field."
+      }
+      SetAngVelocityScale: =
+      {
+        txt = "&"
+        hint = "Angular Velocity scale/drag"
+      }
+      input#SetAngVelocityScale: =
+      {
+        txt = "&"
+        hint = "Angular Velocity scale/drag"
+      }
+      SetLinearForce: =
+      {
+        txt = "&"
+        hint = "Linear force (0 disables)"
+      }
+      input#SetLinearForce: =
+      {
+        txt = "&"
+        hint = "Linear force (0 disables)"
+      }
+      SetLinearForceAngles: =
+      {
+        txt = "&"
+        hint = "Direction of linear force (Pitch Yaw Roll (Y Z X))"
+      }
+      ParticleTrailMaterial: =
+      {
+        txt = "&"
+        hint = "Particle Trail Material"
+      }
+      ParticleTrailLifetime: =
+      {
+        txt = "&"
+        hint = "Particle Trail Lifetime"
+      }
+      ParticleTrailStartSize: =
+      {
+        txt = "&"
+        hint = "Particle Trail Starting Sprite Size"
+      }
+      ParticleTrailEndSize: =
+      {
+        txt = "&"
+        hint = "Particle Trail Ending Sprite Size"
+      }
+      input#Enable: =
+      {
+        txt = "&"
+        hint = "Enable the trigger."
+      }
+      input#Disable: =
+      {
+        txt = "&"
+        hint = "Disable the trigger."
+      }
+      input#Toggle: =
+      {
+        txt = "&"
+        hint = "Toggle enable/disable."
+      }
+    }
+    trigger_vphysics_motion:form =
+    {
+      t_trigger_vphysics_motion = "!"
+    }
+    t_path_corner:incl =
+    {
+      t_Targetname = "!"
+      t_Angles = "!"
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X1"
+        cap = "Wait for retrigger"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X2"
+        cap = "Teleport to THIS path_corner"
+      }
+      target: =
+      {
+        txt = "&"
+        hint = "Next stop target"
+      }
+      wait: =
+      {
+        txt = "&"
+        hint = "Wait here (secs)"
+      }
+      speed: =
+      {
+        txt = "&"
+        hint = "New Train Speed"
+      }
+      yaw_speed: =
+      {
+        txt = "&"
+        hint = "New Train rot. Speed"
+      }
+      input#SetNextPathCorner: =
+      {
+        txt = "&"
+        hint = "Sets next pathcorner"
+      }
+      output#OnPass: =
+      {
+        txt = "&"
+        hint = "Fires when a path follower passes this point"
+      }
+    }
+    path_corner:form =
+    {
+      t_path_corner = "!"
+    }
+    t_path_track:incl =
+    {
+      t_Targetname = "!"
+      t_Angles = "!"
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X1"
+        cap = "Disabled"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X2"
+        cap = "Fire once"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X4"
+        cap = "Branch Reverse"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X8"
+        cap = "Disable train"
+      }
+      target: =
+      {
+        txt = "&"
+        hint = "Next stop target"
+      }
+      message: =
+      {
+        txt = "&"
+        hint = "Fire On Pass"
+      }
+      altpath: =
+      {
+        txt = "&"
+        hint = "Branch Path"
+      }
+      netname: =
+      {
+        txt = "&"
+        hint = "Fire on dead end"
+      }
+      speed: =
+      {
+        txt = "&"
+        hint = "New Train Speed"
+      }
+    }
+    path_track:form =
+    {
+      t_path_track = "!"
+    }
+    t_speaker:incl =
+    {
+      t_Targetname = "!"
+      preset: =
+      {
+        txt = "&"
+        hint = "Announcement Presets"
+        typ = "C"
+        items = "None"$0D"C1A0 Announcer"$0D"C1A1 Announcer"$0D"C1A2 Announcer"
+         $0D"C1A3 Announcer"$0D"C1A4 Announcer"$0D"C2A1 Announcer"$0D"C2A2 Ann"
+         "ouncer"$0D"C2A4 Announcer"$0D"C3A1 Announcer"$0D"C3A2 Announcer"
+        values = "0"$0D"1"$0D"2"$0D"3"$0D"4"$0D"5"$0D"6"$0D"7"$0D"9"$0D"11"$0D
+         "12"
+      }
+      message: =
+      {
+        txt = "&"
+        hint = "Sentence Group Name"
+      }
+      health: =
+      {
+        txt = "&"
+        hint = "Volume (10 = loudest)"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X1"
+        cap = "Start Silent"
+      }
+    }
+    speaker:form =
+    {
+      t_speaker = "!"
+    }
+    t_target_cdaudio:incl =
+    {
+      t_Targetname = "!"
+      health: =
+      {
+        txt = "&"
+        hint = "Track #"
+        typ = "C"
+        items = "Stop"$0D"Track 1"$0D"Track 2"$0D"Track 3"$0D"Track 4"$0D"Trac"
+         "k 5"$0D"Track 6"$0D"Track 7"$0D"Track 8"$0D"Track 9"$0D"Track 10"$0D
+         "Track 11"$0D"Track 12"$0D"Track 13"$0D"Track 14"$0D"Track 15"$0D"Tra"
+         "ck 16"$0D"Track 17"$0D"Track 18"$0D"Track 19"$0D"Track 20"$0D"Track "
+         "21"$0D"Track 22"$0D"Track 23"$0D"Track 24"$0D"Track 25"$0D"Track 26"$0D
+         "Track 27"$0D"Track 28"$0D"Track 29"$0D"Track 30"
+        values = "-1"$0D"1"$0D"2"$0D"3"$0D"4"$0D"5"$0D"6"$0D"7"$0D"8"$0D"9"$0D
+         "10"$0D"11"$0D"12"$0D"13"$0D"14"$0D"15"$0D"16"$0D"17"$0D"18"$0D"19"$0D
+         "20"$0D"21"$0D"22"$0D"23"$0D"24"$0D"25"$0D"26"$0D"27"$0D"28"$0D"29"$0D
+         "30"
+      }
+      radius: =
+      {
+        txt = "&"
+        hint = "Player Radius"
+      }
+    }
+    target_cdaudio:form =
+    {
+      t_target_cdaudio = "!"
+    }
+    t_trigger_auto:incl =
+    {
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X1"
+        cap = "Remove On fire"
+      }
+      globalstate: =
+      {
+        txt = "&"
+        hint = "Global State to Read"
+      }
+      triggerstate: =
+      {
+        txt = "&"
+        hint = "Trigger State"
+        typ = "C"
+        items = "Off"$0D"On"$0D"Toggle"
+        values = "0"$0D"1"$0D"2"
+      }
+      output#OnTrigger: =
+      {
+        txt = "&"
+      }
+    }
+    trigger_auto:form =
+    {
+      t_trigger_auto = "!"
+    }
+    t_trigger_autosave:incl =
+    {
+      t_Targetname = "!"
+      master: =
+      {
+        txt = "&"
+        hint = "Master"
+      }
+    }
+    trigger_autosave:form =
+    {
+      t_trigger_autosave = "!"
+    }
+    t_trigger_cdaudio:incl =
+    {
+      t_Targetname = "!"
+      health: =
+      {
+        txt = "&"
+        hint = "Track #"
+        typ = "C"
+        items = "Stop"$0D"Track 1"$0D"Track 2"$0D"Track 3"$0D"Track 4"$0D"Trac"
+         "k 5"$0D"Track 6"$0D"Track 7"$0D"Track 8"$0D"Track 9"$0D"Track 10"$0D
+         "Track 11"$0D"Track 12"$0D"Track 13"$0D"Track 14"$0D"Track 15"$0D"Tra"
+         "ck 16"$0D"Track 17"$0D"Track 18"$0D"Track 19"$0D"Track 20"$0D"Track "
+         "21"$0D"Track 22"$0D"Track 23"$0D"Track 24"$0D"Track 25"$0D"Track 26"$0D
+         "Track 27"$0D"Track 28"$0D"Track 29"$0D"Track 30"
+        values = "-1"$0D"1"$0D"2"$0D"3"$0D"4"$0D"5"$0D"6"$0D"7"$0D"8"$0D"9"$0D
+         "10"$0D"11"$0D"12"$0D"13"$0D"14"$0D"15"$0D"16"$0D"17"$0D"18"$0D"19"$0D
+         "20"$0D"21"$0D"22"$0D"23"$0D"24"$0D"25"$0D"26"$0D"27"$0D"28"$0D"29"$0D
+         "30"
+      }
+    }
+    trigger_cdaudio:form =
+    {
+      t_trigger_cdaudio = "!"
+    }
+    t_trigger_changelevel:incl =
+    {
+      targetname: =
+      {
+        txt = "&"
+        hint = "Name"
+      }
+      map: =
+      {
+        txt = "&"
+        hint = "New map name"
+      }
+      landmark: =
+      {
+        txt = "&"
+        hint = "Landmark name"
+      }
+      changetarget: =
+      {
+        txt = "&"
+        hint = "Change Target"
+      }
+      changedelay: =
+      {
+        txt = "&"
+        hint = "Delay before change target"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X1"
+        cap = "No Intermission"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X2"
+        cap = "USE Only"
+      }
+      input#ChangeLevel: =
+      {
+        txt = "&"
+        hint = "Cause the level change. Use this when triggering the level cha"
+         "nge with a button, etc."
+      }
+      output#OnChangeLevel: =
+      {
+        txt = "&"
+        hint = "Fired when the level changes."
+      }
+    }
+    trigger_changelevel:form =
+    {
+      t_trigger_changelevel = "!"
+    }
+    t_trigger_changetarget:incl =
+    {
+      t_Targetname = "!"
+      m_iszNewTarget: =
+      {
+        txt = "&"
+        hint = "New Target"
+      }
+    }
+    trigger_changetarget:form =
+    {
+      t_trigger_changetarget = "!"
+    }
+    t_trigger_counter:incl =
+    {
+      t_Trigger = "!"
+      t_Targetname = "!"
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X1"
+        cap = "No Message"
+      }
+      master: =
+      {
+        txt = "&"
+        hint = "Master"
+      }
+      count: =
+      {
+        txt = "&"
+        hint = "Count before activation"
+      }
+    }
+    trigger_counter:form =
+    {
+      t_trigger_counter = "!"
+    }
+    t_trigger_endsection:incl =
+    {
+      t_Targetname = "!"
+      section: =
+      {
+        txt = "&"
+        hint = "Section"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X1"
+        cap = "USE Only"
+      }
+    }
+    trigger_endsection:form =
+    {
+      t_trigger_endsection = "!"
+    }
+    t_trigger_gravity:incl =
+    {
+      t_Trigger = "!"
+      gravity: =
+      {
+        txt = "&"
+        hint = "Gravity (0-1)"
+      }
+    }
+    trigger_gravity:form =
+    {
+      t_trigger_gravity = "!"
+    }
+    t_trigger_relay:incl =
+    {
+      t_Targetname = "!"
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X1"
+        cap = "Remove On fire"
+      }
+      triggerstate: =
+      {
+        txt = "&"
+        hint = "Trigger State"
+        typ = "C"
+        items = "Off"$0D"On"$0D"Toggle"
+        values = "0"$0D"1"$0D"2"
+      }
+      input#Trigger: =
+      {
+        txt = "&"
+        hint = "Trigger the relay."
+      }
+      output#OnTrigger: =
+      {
+        txt = "&"
+        hint = "Fired when the relay is triggered."
+      }
+    }
+    trigger_relay:form =
+    {
+      t_trigger_relay = "!"
+    }
+    t_trigger_transition:incl =
+    {
+      t_Targetname = "!"
+    }
+    trigger_transition:form =
+    {
+      t_trigger_transition = "!"
+    }
+    t_path_corner_crash:incl =
+    {
+      t_Targetname = "!"
+      target: =
+      {
+        txt = "&"
+        hint = "Next stop target"
+      }
+    }
+    path_corner_crash:form =
+    {
+      t_path_corner_crash = "!"
+    }
+    t_player_loadsaved:incl =
+    {
+      bbox = '-16 -16 -16 16 16 16'
+      t_Targetname = "!"
+      duration: =
+      {
+        txt = "&"
+        hint = "Fade Duration (seconds)"
+      }
+      holdtime: =
+      {
+        txt = "&"
+        hint = "Hold Fade (seconds)"
+      }
+      renderamt: =
+      {
+        txt = "&"
+        hint = "Fade Alpha"
+      }
+      rendercolor: =
+      {
+        txt = "&"
+        hint = "Fade Color (R G B)"
+      }
+      loadtime: =
+      {
+        txt = "&"
+        hint = "Reload delay"
+      }
+      input#Reload: =
+      {
+        txt = "&"
+        hint = "Ends this game and reloads"
+      }
+    }
+    player_loadsaved:form =
+    {
+      t_player_loadsaved = "!"
+    }
+    t_player_weaponstrip:incl =
+    {
+      bbox = '-16 -16 -16 16 16 16'
+      t_Targetname = "!"
+      input#Strip: =
+      {
+        txt = "&"
+        hint = "Strip player's weapons"
+      }
+      input#StripWeaponsAndSuit: =
+      {
+        txt = "&"
+        hint = "Strip player's weapons and his suit"
+      }
+    }
+    player_weaponstrip:form =
+    {
+      t_player_weaponstrip = "!"
+    }
+    t_player_speedmod:incl =
+    {
+      bbox = '-16 -16 -16 16 16 16'
+      t_Targetname = "!"
+      input#ModifySpeed: =
+      {
+        txt = "&"
+        hint = "Modifies player speed by X amount."
+      }
+    }
+    player_speedmod:form =
+    {
+      t_player_speedmod = "!"
+    }
+    t_logic_choreographed_scene:incl =
+    {
+      t_Targetname = "!"
+      SceneFile: =
+      {
+        txt = "&"
+        hint = "Scene file"
+      }
+      target1: =
+      {
+        txt = "&"
+        hint = "Target 1"
+      }
+      target2: =
+      {
+        txt = "&"
+        hint = "Target 2"
+      }
+      target3: =
+      {
+        txt = "&"
+        hint = "Target 3"
+      }
+      target4: =
+      {
+        txt = "&"
+        hint = "Target 4"
+      }
+      target5: =
+      {
+        txt = "&"
+        hint = "Target 5"
+      }
+      target6: =
+      {
+        txt = "&"
+        hint = "Target 6"
+      }
+      target7: =
+      {
+        txt = "&"
+        hint = "Target 7"
+      }
+      target8: =
+      {
+        txt = "&"
+        hint = "Target 8"
+      }
+      busyactor: =
+      {
+        txt = "&"
+        hint = "If an Actor is talking..."
+        typ = "C"
+        items = "Default"$0D"Wait for actor to finish"
+        values = "0"$0D"1"
+      }
+      input#Start: =
+      {
+        txt = "&"
+        hint = "Starts playback of the scene file"
+      }
+      input#Pause: =
+      {
+        txt = "&"
+        hint = "Pauses playback of the scene file"
+      }
+      input#Resume: =
+      {
+        txt = "&"
+        hint = "Resumes playback of the scene if it has been paused"
+      }
+      input#Cancel: =
+      {
+        txt = "&"
+        hint = "Cancels playback of the scene"
+      }
+      input#InterjectResponse: =
+      {
+        txt = "&"
+        hint = "Finds an actor who can respond to the specified concept string"
+         " while the scene continues playing"
+      }
+      input#StopWaitingForActor: =
+      {
+        txt = "&"
+        hint = "Stop waiting on an actor to stop talking."
+      }
+      output#OnStart: =
+      {
+        txt = "&"
+        hint = "The scene has started"
+      }
+      output#OnCompletion: =
+      {
+        txt = "&"
+        hint = "The scene has completed"
+      }
+      output#OnCanceled: =
+      {
+        txt = "&"
+        hint = "The scene has been canceled"
+      }
+      output#OnTrigger1: =
+      {
+        txt = "&"
+        hint = "Scene trigger 1"
+      }
+      output#OnTrigger2: =
+      {
+        txt = "&"
+        hint = "Scene trigger 2"
+      }
+      output#OnTrigger3: =
+      {
+        txt = "&"
+        hint = "Scene trigger 3"
+      }
+      output#OnTrigger4: =
+      {
+        txt = "&"
+        hint = "Scene trigger 4"
+      }
+      output#OnTrigger5: =
+      {
+        txt = "&"
+        hint = "Scene trigger 5"
+      }
+      output#OnTrigger6: =
+      {
+        txt = "&"
+        hint = "Scene trigger 6"
+      }
+      output#OnTrigger7: =
+      {
+        txt = "&"
+        hint = "Scene trigger 7"
+      }
+      output#OnTrigger8: =
+      {
+        txt = "&"
+        hint = "Scene trigger 8"
+      }
+    }
+    logic_choreographed_scene:form =
+    {
+      t_logic_choreographed_scene = "!"
+    }
+    t_ai_sound:incl =
+    {
+      t_Targetname = "!"
+      t_Parentname = "!"
+      input#InsertSound: =
+      {
+        txt = "&"
+        hint = "Insert a sound in the AI sound list"
+      }
+      soundtype: =
+      {
+        txt = "&"
+        hint = "Sound Type"
+        typ = "C"
+        items = "Combat"$0D"World"$0D"Danger"$0D"Bullet Impact"$0D"Carcass"$0D
+         "Meat"$0D"Garbage"$0D"Thumper"$0D"Readiness - Low"$0D"Readiness - Med"
+         "ium"$0D"Readiness - High"
+        values = "1"$0D"2"$0D"8"$0D"16"$0D"32"$0D"64"$0D"128"$0D"256"$0D"16384"
+         $0D"32768"$0D"65536"
+      }
+      locationproxy: =
+      {
+        txt = "&"
+        hint = "Location Proxy"
+      }
+    }
+    ai_sound:form =
+    {
+      t_ai_sound = "!"
+    }
+    t_env_muzzleflash:incl =
+    {
+      t_Targetname = "!"
+      t_Parentname = "!"
+      t_Angles = "!"
+      parentattachment: =
+      {
+        txt = "&"
+        hint = "Parent Attachment"
+      }
+      scale: =
+      {
+        txt = "&"
+        hint = "Scale"
+      }
+      input#Fire: =
+      {
+        txt = "&"
+        hint = "Fires the effect once."
+      }
+    }
+    env_muzzleflash:form =
+    {
+      t_env_muzzleflash = "!"
+    }
+    t_env_terrainmorph:incl =
+    {
+      bbox = '-4 -4 -4 4 4 4'
+      t_Targetname = "!"
+      t_Parentname = "!"
+      startradius: =
+      {
+        txt = "&"
+        hint = "Start Radius"
+      }
+      goalradius: =
+      {
+        txt = "&"
+        hint = "Goal Radius"
+      }
+      duration: =
+      {
+        txt = "&"
+        hint = "Duration"
+      }
+      fraction: =
+      {
+        txt = "&"
+        hint = "Displacement Fraction"
+      }
+      input#BeginMorph: =
+      {
+        txt = "&"
+        hint = "Begin Morph"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X1"
+        cap = "Instant"
+      }
+    }
+    env_terrainmorph:form =
+    {
+      t_env_terrainmorph = "!"
+    }
+    t_point_camera:incl =
+    {
+      t_Parentname = "!"
+      t_Angles = "!"
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X1"
+        cap = "Start Off"
+      }
+      targetname: =
+      {
+        txt = "&"
+        hint = "Name"
+      }
+      FOV: =
+      {
+        txt = "&"
+        hint = "FOV"
+      }
+      UseScreenAspectRatio: =
+      {
+        txt = "&"
+        hint = "Screen Aspect Ratio"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
+      }
+      fogEnable: =
+      {
+        txt = "&"
+        hint = "Fog Enable"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
+      }
+      fogColor: =
+      {
+        txt = "&"
+        hint = "Fog Color"
+      }
+      fogStart: =
+      {
+        txt = "&"
+        hint = "Fog Start"
+      }
+      fogEnd: =
+      {
+        txt = "&"
+        hint = "Fog End"
+      }
+      input#ChangeFOV: =
+      {
+        txt = "&"
+        hint = "Changes camera's FOV over time"
+      }
+      input#SetOnAndTurnOthersOff: =
+      {
+        txt = "&"
+        hint = "Turn the camera on, and turn all other cameras off."
+      }
+      input#SetOn: =
+      {
+        txt = "&"
+        hint = "Turn the camera on."
+      }
+      input#SetOff: =
+      {
+        txt = "&"
+        hint = "Turn the camera off."
+      }
+    }
+    point_camera:form =
+    {
+      t_point_camera = "!"
+    }
+    t_func_monitor:incl =
+    {
+      t_func_brush = "!"
+      target: =
+      {
+        txt = "&"
+        hint = "Camera name"
+      }
+      input#Toggle: =
+      {
+        txt = "&"
+        hint = "Toggle - If on, turn off, if off, turn on."
+      }
+      input#Enable: =
+      {
+        txt = "&"
+        hint = "Enable."
+      }
+      input#Disable: =
+      {
+        txt = "&"
+        hint = "Disable."
+      }
+      input#SetCamera: =
+      {
+        txt = "&"
+        hint = "Sets the camera to use for this monitor. Takes the name of a p"
+         "oint_camera entity in the map."
+      }
+    }
+    func_monitor:form =
+    {
+      t_func_monitor = "!"
+    }
+    t_BaseVehicle:incl =
+    {
+      t_Targetname = "!"
+      t_Origin = "!"
+      t_Global = "!"
+      t_prop_static_base = "!"
+      vehiclescript: =
+      {
+        txt = "&"
+        hint = "Vehicle Script File"
+      }
+      actionScale: =
+      {
+        txt = "&"
+        hint = "Scale of action input / framerate"
+      }
+      input#Action: =
+      {
+        txt = "&"
+        hint = "Set the speed of the action animation"
+      }
+      input#TurnOn: =
+      {
+        txt = "&"
+        hint = "Turn on: Start engine & enable throttle"
+      }
+      input#TurnOff: =
+      {
+        txt = "&"
+        hint = "Turn off: Stop engine, disable throttle, engage brakes."
+      }
+      input#Lock: =
+      {
+        txt = "&"
+        hint = "Prevent the player from entering or exiting the vehicle."
+      }
+      input#Unlock: =
+      {
+        txt = "&"
+        hint = "Re-allow the player to enter or exit the vehicle."
+      }
+    }
+    t_BaseDriveableVehicle:incl =
+    {
+      t_BaseVehicle = "!"
+      VehicleLocked: =
+      {
+        txt = "&"
+        hint = "Start locked"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
+      }
+      output#PlayerOn: =
+      {
+        txt = "&"
+        hint = "Player entered the vehicle"
+      }
+      output#PlayerOff: =
+      {
+        txt = "&"
+        hint = "Player exited the vehicle"
+      }
+      output#PressedAttack: =
+      {
+        txt = "&"
+        hint = "Player Pressed attack key"
+      }
+      output#PressedAttack2: =
+      {
+        txt = "&"
+        hint = "Player Pressed attack2 key"
+      }
+      output#AttackAxis: =
+      {
+        txt = "&"
+        hint = "State of attack button [0,1]"
+      }
+      output#Attack2Axis: =
+      {
+        txt = "&"
+        hint = "State of attack2 button [0,1]"
+      }
+      input#HandBrakeOn: =
+      {
+        txt = "&"
+        hint = "Turns the handbrake on"
+      }
+      input#HandBrakeOff: =
+      {
+        txt = "&"
+        hint = "Releases the handbrake"
+      }
+    }
+    t_prop_vehicle:incl =
+    {
+      t_BaseVehicle = "!"
+      input#Steer: =
+      {
+        txt = "&"
+        hint = "Steer the vehicle +/-1"
+      }
+      input#Throttle: =
+      {
+        txt = "&"
+        hint = "Throttle +/-1"
+      }
+    }
+    prop_vehicle:form =
+    {
+      t_prop_vehicle = "!"
+    }
+    t_prop_vehicle_driveable:incl =
+    {
+      t_BaseDriveableVehicle = "!"
+    }
+    prop_vehicle_driveable:form =
+    {
+      t_prop_vehicle_driveable = "!"
+    }
+    t_phys_constraintsystem:incl =
+    {
+      t_Targetname = "!"
+    }
+    phys_constraintsystem:form =
+    {
+      t_phys_constraintsystem = "!"
+    }
+  }
+}
