@@ -23,8 +23,8 @@ unit Game;
 interface
 
 uses
-  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
-  QkObjects, QkFileObjects, qmath, QkForm, StdCtrls, TB97, ComCtrls, StrUtils, Logging;
+  Windows, SysUtils, Classes, Controls, Forms, Dialogs,
+  QkObjects, QkFileObjects, qmath, QkForm, StdCtrls, TB97, ComCtrls;
 
 type
   TGameCfgDlg = class(TQkForm)
@@ -144,9 +144,9 @@ implementation
 
 {$R *.DFM}
 
-uses QkPak, Setup, QkUnknown, QkTextures, Travail, ToolBox1, QkImages, Qk1,
-  Game2, QkQuakeCtx, Config, PakFiles, Quarkx, QkExceptions, PyImages,
-  QkApplPaths, QkSteamFS, Python, ExtraFunctionality;
+uses StrUtils, Graphics, QkPak, Setup, QkUnknown, QkTextures, Travail, ToolBox1,
+  QkImages, Game2, QkQuakeCtx, Config, PakFiles, QkExceptions, Quarkx, PyImages,
+  QkApplPaths, Qk1, QkSteamFS, Python, Logging, ExtraFunctionality;
 
 var
  GameFiles: TQList = Nil;
