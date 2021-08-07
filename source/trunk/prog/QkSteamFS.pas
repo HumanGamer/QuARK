@@ -134,7 +134,7 @@ begin
   WaitForSteam := False;
   SteamEXEName := Setup.Specifics.Values['SteamEXEName'];
   if SteamEXEName = '' then
-    SteamEXEName := 'Steam.exe';
+    SteamEXEName := 'steam.exe';
   Result := ProcessExists(SteamEXEName);
   if (not Result) and (Setup.Specifics.Values['Autostart']='1') then
   begin
@@ -242,7 +242,7 @@ begin
     GameIDDir := '';
     FullFileName := FileName;
   end
-  else //Includes orangebox
+  else //Includes orangebox and maybe Source2013
   begin
     QuArKSASEXE := Setup.Specifics.Values['QuArKSASEXENameOrangebox'];
     GameIDDir := '';

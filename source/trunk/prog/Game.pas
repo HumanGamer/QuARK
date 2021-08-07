@@ -368,7 +368,7 @@ end;
 
 function QuakeDir : String;
 begin
- Result:=SetupGameSet.Specifics.Values['Directory'];
+ Result:=SetupGameSet.Specifics.Values['Directory']; //This should have been called GameExecutablePath
  if Result='*auto*' then
    Result:=GetSteamQuakeDir;
  if Result='' then
@@ -608,7 +608,7 @@ begin
     //Steam path changes
     if SetupGameSet.Specifics.Values['Steam']='1' then
       if FileToResolve.FileType = ftTool then
-        if (GetSteamCompiler = 'source2007') or (GetSteamCompiler = 'source2009') or (GetSteamCompiler = 'orangebox') then
+        if (GetSteamCompiler = 'source2007') or (GetSteamCompiler = 'source2009') or (GetSteamCompiler = 'orangebox') or (GetSteamCompiler = 'source2013sp') or (GetSteamCompiler = 'source2013mp') then
         begin
           //Newer compilers want to run one directory upwards
           argument_mappath:=ConcatPaths([Result.Workdir, argument_mappath]);
@@ -1779,6 +1779,10 @@ begin
       Result := 'sourcesdk\bin\source2009\bin'
     else if S = 'orangebox' then
       Result := 'sourcesdk\bin\orangebox\bin'
+    else if S = 'source2013sp' then
+      Result := 'sourcesdk\bin\source2013sp\bin' //Untested
+    else if S = 'source2013mp' then
+      Result := 'sourcesdk\bin\source2013mp\bin' //Untested
     else
     begin
       //Shouldn't happen!

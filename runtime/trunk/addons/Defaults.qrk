@@ -2312,9 +2312,9 @@ QQRKSRC1
 
         // hidden settings:
         Directory = "%steampath%"
-        SteamEXEName = "Steam.exe"
+        SteamEXEName = "steam.exe"
         ProgramDirectory = "steamapps"
-        SourceSDKDirectory = "sourcesdk\bin"
+        //SourceSDKDirectory = "sourcesdk\bin" // Not used
         CommonDirectory = "common"
         QuArKSASEXENameOld = "QuArKSAS.exe"
         QuArKSASEXENameSource2006 = "QuArKSAS_source2006.exe"
@@ -4711,17 +4711,21 @@ QQRKSRC1
         Typ = "CL"   // Combobox list
         Hint = "Set this to the compiler version"
         Items = "*auto*"
-             $0D"old"
+             $0D"source2004"
              $0D"source2006 (ep1)"
              $0D"source2007"
              $0D"source2009"
-             $0D"MP (orangebox)"
+             $0D"sourceMP"
+             $0D"source2013 (SP)"
+             $0D"source2013 (MP)"
         Values = "*auto*"
              $0D"old"
              $0D"source2006"
              $0D"source2007"
              $0D"source2009"
              $0D"orangebox"
+             $0D"source2013sp"
+             $0D"source2013mp"
       }
       GameFileLayout: =
       {
