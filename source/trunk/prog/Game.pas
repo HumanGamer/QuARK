@@ -1667,7 +1667,7 @@ begin
     else
     begin
       //Shouldn't happen!
-      Log(LOG_WARNING, 'SourceSDKDir: Unknown SteamGame value!');
+      Log(LOG_WARNING, 'SteamAppID: Unknown SteamGame value!');
       Result := '';
     end;
   end;
