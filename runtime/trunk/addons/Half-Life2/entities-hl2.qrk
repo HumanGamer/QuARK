@@ -1,8 +1,6 @@
 QQRKSRC1
-// This file has been written by QuArK QuArK 6.4 alpha
-// It's the text version of file: halflife2.qrk
-
-// HL2 Entities. last changes august/1/2005 by cbxpm.
+// This file has been written by QuArK 6.6
+// It's the text version of file: halflife2.fgd
 
 {
   Description = "HL2 Entities"
@@ -54,13 +52,17 @@ QQRKSRC1
         {
           origin = "0 0 0"
           ;desc = "AI Goal Act Busy"
-        }        
+          seeentitytimeout = "1"
+          sightmethod = "0"
+          type = "0"
+          allowteleport = "0"
+        }
         ai_goal_actbusy_queue:e =
         {
           origin = "0 0 0"
           ;desc = "AI Goal Act Busy Queue"
           mustreachfront = "0"
-        }        
+        }
         ai_goal_assault:e =
         {
           origin = "0 0 0"
@@ -68,22 +70,24 @@ QQRKSRC1
           SearchType = "0"
           StartActive = "0"
           AssaultCue = "1"
-        }        
+          RallySelectMethod = "0"
+        }
         ai_goal_follow:e =
         {
           origin = "0 0 0"
           ;desc = "AI Goal Follow"
-          SearchType = "0"
-          StartActive = "0"
-          MaximumState = "1"
-          Formation = "0"
-        }        
+        }
+        ai_goal_injured_follow:e =
+        {
+          origin = "0 0 0"
+          ;desc = "AI Goal Injured Follow"
+        }
         ai_goal_lead:e =
         {
           origin = "0 0 0"
           ;desc = "AI Goal Lead"
           SearchType = "0"
-        }        
+        }
         ai_goal_lead_weapon:e =
         {
           origin = "0 0 0"
@@ -92,13 +96,21 @@ QQRKSRC1
            "Actor(s) will lead the player to their target."
           WeaponName = "weapon_bugbait"
           SearchType = "0"
-        }        
+        }
+        ai_goal_operator:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Indicates items in the world that some NPCs may operate upo"
+           "n"
+          state = "0"
+          moveto = "1"
+        }
         ai_goal_police:e =
         {
           origin = "0 0 0"
           ;desc = "AI Goal Police"
           policeradius = "512"
-        }        
+        }
         ai_goal_standoff:e =
         {
           origin = "0 0 0"
@@ -110,7 +122,13 @@ QQRKSRC1
           PlayerBattleline = "1"
           StayAtCover = "0"
           AbandonIfEnemyHides = "0"
-        }        
+        }
+        ai_npc_eventresponsesystem:e =
+        {
+          origin = "0 0 0"
+          ;desc = "An entity that allows you to generate events for nearby fri"
+           "endly NPCs to respond to."
+        }
         ai_relationship:e =
         {
           origin = "0 0 0"
@@ -121,7 +139,7 @@ QQRKSRC1
           rank = "0"
           StartActive = "0"
           Reciprocal = "0"
-        }        
+        }
         ai_script_conditions:e =
         {
           origin = "0 0 0"
@@ -129,7 +147,7 @@ QQRKSRC1
           StartDisabled = "1"
           MinimumState = "1"
           MaximumState = "3"
-          ScriptStatus = "0"
+          ScriptStatus = "2"
           RequiredTime = "0"
           MinTimeout = "0"
           MaxTimeout = "0"
@@ -145,6 +163,9 @@ QQRKSRC1
           PlayerTargetFOVTrueCone = "0"
           PlayerTargetLOS = "2"
           PlayerBlockingActor = "2"
+          ActorInPVS = "2"
+          ActorInVehicle = "2"
+          PlayerInVehicle = "2"
         }
         ai_sound:e =
         {
@@ -158,7 +179,10 @@ QQRKSRC1
            " causes antlions to run away briefly\n  Readiness: (Low, Medium, H"
            "igh) Causes player companions that can hear this sound to change r"
            "eadiness\n"
+          volume = "120"
+          duration = "0.5"
           soundtype = "0"
+          soundcontext = "0"
         }
       }
 
@@ -184,6 +208,13 @@ QQRKSRC1
           origin = "0 0 0"
           ;desc = "Special effect for the energy cores in citadel."
           scale = "1"
+        }
+        env_entity_dissolver:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Entity Dissolver"
+          magnitude = "250"
+          dissolvetype = "Energy"
         }
         env_flare:e =
         {
@@ -227,28 +258,34 @@ QQRKSRC1
           Damage = "150"
           DamageRadius = "750"
           SmokeLifetime = "30"
-        }        
+        }
         env_muzzleflash:e =
         {
           origin = "0 0 0"
           ;desc = "Muzzle Flash"
           scale = "1"
-        }        
+        }
         env_rotorwash:e =
         {
           origin = "0 0 0"
           ;desc = "Rotorwash Effect"
-        }        
+        }
         env_speaker:e =
         {
           origin = "0 0 0"
           ;desc = "Announcement Speaker"
-        }        
+        }
+        env_sporeexplosion:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Bugbait Spore Effect"
+          spawnrate = "25"
+        }
         env_starfield:e =
         {
           origin = "0 0 0"
           ;desc = "Starfield effect"
-        }        
+        }
         env_terrainmorph:e =
         {
           origin = "0 0 0"
@@ -379,6 +416,14 @@ QQRKSRC1
            "rent enemy to enter + leave the hint, then the missile will guide "
            "to the entity."
         }
+        info_radar_target:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Jalopy Radar Beacon"
+          radius = "6000"
+          type = "0"
+          mode = "0"
+        }
         info_snipertarget:e =
         {
           origin = "0 0 0"
@@ -389,6 +434,11 @@ QQRKSRC1
         {
           origin = "0 0 0"
           ;desc = "Gunship Crash Target"
+        }
+        info_target_vehicle_transition:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Vehicle Transition Point"
         }
         info_teleporter_countdown:e =
         {
@@ -477,7 +527,20 @@ QQRKSRC1
         item_dynamic_resupply:e =
         {
           origin = "0 0 0"
-          ;desc = "Dynamic item"
+          ;desc = "A dynamic item. When the player enters the PVS of this enti"
+           "ty, it will determine the item most needed by the player, spawn on"
+           "e of those items, and remove itself. To determine which item the p"
+           "layer most needs, it calculates which of the Desired Health/Armor/"
+           "Ammo ratios the player is farthest from.\n\nIf the player is above"
+           " all the desired levels, then no item will be spawned, unless this"
+           " item_dynamic_resupply was created by an item_item_crate. In that "
+           "case, a random piece of ammo used by a weapon, that the player has"
+           ", will be spawned. If the 'Fallback to Health Vial' spawnflag is s"
+           "et, a health vial will be spawned instead of the ammo.\n\nBy defau"
+           "lt, the item_dynamic_resupply uses the values inside the Master re"
+           "supply, instead of using it's own values. This makes it easy to tw"
+           "eak the desired loadout of many resupplies. The BecomeMaster input"
+           " allows you to switch Masters dynamically as the level progresses."
           spawnflags = "1"
           DesiredHealth = "1"
           DesiredArmor = "0.3"
@@ -490,6 +553,7 @@ QQRKSRC1
           DesiredAmmoGrenade = "0.1"
           DesiredAmmo357 = "0"
           DesiredAmmoCrossbow = "0"
+          DesiredAmmoAR2_AltFire = "0"
         }
         item_healthcharger:e =
         {
@@ -511,6 +575,7 @@ QQRKSRC1
           origin = "0 0 0"
           ;desc = "Item Crate"
           CrateType = "0"
+          CrateAppearance = "0"
           ItemClass = "item_dynamic_resupply"
           ItemCount = "1"
         }
@@ -531,53 +596,97 @@ QQRKSRC1
         }
       }
 
+// logic entities
+
+      logic_* entities.qtxfolder =
+      {
+        logic_achievement:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Sends an achievement system related event from the map to t"
+           "he achievement system."
+          AchievementEvent = "0"
+        }
+        logic_choreographed_scene:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Manages a choreographed scene of one or more actors."
+          busyactor = "1"
+          onplayerdeath = "0"
+        }
+        logic_scene_list_manager:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Manages a list of logic_choreographed_scene entities. Store"
+           " choreo scenes in them in order that they will be played by other "
+           "inputs. Whenever a scene plays, the manager will remove all scenes"
+           " before that one in the list. The name of another logic_scene_list"
+           "_manager can be entered in a slot instead of an invididual scene, "
+           "which will cause all scenes in that manager to be removed when a l"
+           "ater scene in this list is played."
+        }
+      }
+
 // npc entities
 
       npc_* entities.qtxfolder =
       {
+        npc_advisor:e =
+        {
+          origin = "0 0 0"
+          ;desc = "An adorable sluglike alien with benevolent psychic powers."
+          model = "models/advisor.mdl"
+        }
         npc_alyx:e =
         {
           origin = "0 0 0"
-          angles = "0 0 0"
           ;desc = "Alyx"
           model = "models/alyx.mdl"
           additionalequipment = "weapon_alyxgun"
+          DontPickupWeapons = "1"
+          ShouldHaveEMP = "1"
         }
         npc_antlion:e =
         {
           origin = "0 0 0"
-          angles = "0 0 0"
           ;desc = "Antlions will run away from ai_sound, type: Thumper."
           startburrowed = "No"
           radius = "256"
           eludedist = "1024"
           ignorebugbait = "No"
+          unburroweffects = "No"
+        }
+        npc_antlion_grub:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Antlion grub"
         }
         npc_antlion_template_maker:e =
         {
           origin = "0 0 0"
-          angles = "0 0 0"
           ;desc = "Antlion Template Maker"
           spawnradius = "512"
           vehicledistance = "1"
+          workerspawnrate = "0"
           ignorebugbait = "0"
           pool_start = "0"
           pool_max = "0"
           pool_regen_amount = "0"
           pool_regen_time = "0"
+          createspores = "0"
         }
         npc_antlionguard:e =
         {
           origin = "0 0 0"
-          angles = "0 0 0"
           ;desc = "Antlion Guard"
           startburrowed = "No"
           allowbark = "No"
+          cavernbreed = "No"
+          incavern = "No"
         }
         npc_apcdriver:e =
         {
           origin = "0 0 0"
-          angles = "0 0 0"
           ;desc = "NPC used to drive an APC vehicle."
           drivermaxspeed = "1"
           driverminspeed = "0"
@@ -585,35 +694,38 @@ QQRKSRC1
         npc_barnacle:e =
         {
           origin = "0 0 0"
-          angles = "0 0 0"
           ;desc = "Barnacle"
           RestDist = "16"
         }
         npc_barney:e =
         {
           origin = "0 0 0"
-          angles = "0 0 0"
           ;desc = "Barney"
           additionalequipment = "weapon_pistol"
+        }
+        npc_blob:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Blob"
         }
         npc_breen:e =
         {
           origin = "0 0 0"
-          angles = "0 0 0"
           ;desc = "Dr Breen"
           model = "models/breen.mdl"
         }
         npc_bullseye:e =
         {
           origin = "0 0 0"
-          angles = "0 0 0"
           ;desc = "Bullseye"
           health = "35"
+          minangle = "360"
+          mindist = "0"
+          autoaimradius = "0"
         }
         npc_citizen:e =
         {
           origin = "0 0 0"
-          angles = "0 0 0"
           ;desc = "Citizen"
           spawnflags = "262144"
           additionalequipment = "0"
@@ -623,28 +735,45 @@ QQRKSRC1
           expressiontype = "Random"
           model = "models/humans/group01/male_01.mdl"
           notifynavfailblocked = "0"
+          neverleaveplayersquad = "0"
+        }
+        npc_clawscanner:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Claw Scanner"
+          spotlightlength = "500"
+          spotlightwidth = "50"
+          spotlightdisabled = "0"
+          ShouldInspect = "1"
+          OnlyInspectPlayers = "0"
+          NeverInspectPlayers = "0"
         }
         npc_combine_camera:e =
         {
           origin = "0 0 0"
-          angles = "0 0 0"
           ;desc = "Combine security camera"
           spawnflags = "32"
           innerradius = "300"
           outerradius = "450"
           minhealthdmg = "0"
         }
+        npc_combine_cannon:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Combine Cannon"
+          sightdist = "1024"
+        }
         npc_combine_s:e =
         {
           origin = "0 0 0"
-          angles = "0 0 0"
           ;desc = "Combine Soldier"
           model = "models/combine_soldier.mdl"
+          tacticalvariant = "0"
+          usemarch = "0"
         }
         npc_combinedropship:e =
         {
           origin = "0 0 0"
-          angles = "0 0 0"
           ;desc = "Combine Dropship"
           GunRange = "2048"
           Invulnerable = "0"
@@ -653,32 +782,28 @@ QQRKSRC1
         npc_combinegunship:e =
         {
           origin = "0 0 0"
-          angles = "0 0 0"
           ;desc = "Combine Gunship"
         }
         npc_crabsynth:e =
         {
           origin = "0 0 0"
-          angles = "0 0 0"
           ;desc = "Crab Synth"
-        }        
+        }
         npc_cranedriver:e =
         {
           origin = "0 0 0"
-          angles = "0 0 0"
           ;desc = "NPC used to drive cranes."
           releasepause = "0"
-        }        
+        }
         npc_crow:e =
         {
           origin = "0 0 0"
-          angles = "0 0 0"
           ;desc = "Crow"
-        }        
+          deaf = "0"
+        }
         npc_cscanner:e =
         {
           origin = "0 0 0"
-          angles = "0 0 0"
           ;desc = "City Scanner"
           spotlightlength = "500"
           spotlightwidth = "50"
@@ -686,24 +811,21 @@ QQRKSRC1
           ShouldInspect = "1"
           OnlyInspectPlayers = "0"
           NeverInspectPlayers = "0"
-        }        
+        }
         npc_dog:e =
         {
           origin = "0 0 0"
-          angles = "0 0 0"
           ;desc = "d0g"
-        }        
+        }
         npc_eli:e =
         {
           origin = "0 0 0"
-          angles = "0 0 0"
           ;desc = "Eli Vance"
           model = "models/eli.mdl"
-        }        
+        }
         npc_enemyfinder:e =
         {
           origin = "0 0 0"
-          angles = "0 0 0"
           ;desc = "EnemyFinder"
           spawnflags = "65536"
           FieldOfView = "0.2"
@@ -715,79 +837,114 @@ QQRKSRC1
           freepass_refillrate = "0.5"
           freepass_peektime = "0"
           StartOn = "1"
-        }        
+        }
+        npc_enemyfinder_combinecannon:e =
+        {
+          origin = "0 0 0"
+          ;desc = "EnemyFinder Specifically for use with func_tank_combine_can"
+           "non"
+          spawnflags = "65536"
+          FieldOfView = "0.2"
+          MinSearchDist = "0"
+          MaxSearchDist = "2048"
+          freepass_timetotrigger = "0"
+          freepass_duration = "0"
+          freepass_movetolerance = "120"
+          freepass_refillrate = "0.5"
+          freepass_peektime = "0"
+          StartOn = "1"
+        }
         npc_fastzombie:e =
         {
           origin = "0 0 0"
-          angles = "0 0 0"
           ;desc = "Fast Zombie"
-        }        
+        }
+        npc_fastzombie_torso:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Fast Zombie Torso"
+        }
+        npc_fisherman:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Fisherman"
+        }
         npc_gman:e =
         {
           origin = "0 0 0"
-          angles = "0 0 0"
           ;desc = "The G-Man"
-        }        
+        }
+        npc_grenade_frag:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Hand Grenade"
+        }
         npc_headcrab:e =
         {
           origin = "0 0 0"
-          angles = "0 0 0"
           ;desc = "Headcrab"
-        }        
+        }
         npc_headcrab_black:e =
         {
           origin = "0 0 0"
-          angles = "0 0 0"
           ;desc = "Black Headcrab"
-        }        
+        }
         npc_headcrab_fast:e =
         {
           origin = "0 0 0"
-          angles = "0 0 0"
           ;desc = "Fast Headcrab"
-        }        
+        }
         npc_heli_avoidbox:b =
         {
-          t_triggerpoly=!
+          ;incl = "defpoly"
           ;desc = "Helicopter avoidance box"
-        }        
+        }
         npc_heli_avoidsphere:e =
         {
           origin = "0 0 0"
-          angles = "0 0 0"
           ;desc = "Helicopter avoidance sphere"
           radius = "128"
-        }        
+        }
         npc_heli_nobomb:b =
         {
-          t_triggerpoly=!
+          ;incl = "defpoly"
           ;desc = "Helicopter bombing suppressor"
-        }        
+        }
         npc_helicopter:e =
         {
           origin = "0 0 0"
-          angles = "0 0 0"
           ;desc = "Helicopter"
           InitialSpeed = "0"
           GracePeriod = "2.0"
           PatrolSpeed = "0"
-        }        
+          noncombat = "No"
+        }
+        npc_hunter:e =
+        {
+          origin = "0 0 0"
+          ;desc = "A smaller, faster, strider that can pursue the player into "
+           "buildings."
+        }
+        npc_hunter_maker:e =
+        {
+          origin = "0 0 0"
+          ;desc = "An entity that creates hunters. The NPCs it creates are clo"
+           "nes of a template NPC."
+        }
         npc_ichthyosaur:e =
         {
           origin = "0 0 0"
-          angles = "0 0 0"
           ;desc = "Ichthyosaur. Not fully functional"
         }
         npc_kleiner:e =
         {
           origin = "0 0 0"
-          angles = "0 0 0"
           ;desc = "Kleiner"
+          model = "models/kleiner.mdl"
         }
         npc_launcher:e =
         {
           origin = "0 0 0"
-          angles = "0 0 0"
           ;desc = "Launcher"
           spawnflags = "65536"
           StartOn = "0"
@@ -811,39 +968,41 @@ QQRKSRC1
           SpinSpeed = "0"
           Damage = "50"
           DamageRadius = "200"
-        }        
+        }
+        npc_magnusson:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Magnusson"
+          model = "models/magnusson.mdl"
+        }
         npc_maker:e =
         {
           origin = "0 0 0"
-          angles = "0 0 0"
           ;desc = "NPC Maker"
           additionalequipment = "0"
-        }        
+        }
         npc_manhack:e =
         {
           origin = "0 0 0"
-          angles = "0 0 0"
           ;desc = "Manhack"
-        }        
+          ignoreclipbrushes = "0"
+        }
         npc_metropolice:e =
         {
           origin = "0 0 0"
-          angles = "0 0 0"
           ;desc = "MetroPolice"
           additionalequipment = "weapon_pistol"
           manhacks = "0"
           weapondrawn = "0"
-        }        
+        }
         npc_missiledefense:e =
         {
           origin = "0 0 0"
-          angles = "0 0 0"
           ;desc = "Missile Defense"
-        }        
+        }
         npc_monk:e =
         {
           origin = "0 0 0"
-          angles = "0 0 0"
           ;desc = "Monk"
           additionalequipment = "weapon_annabelle"
           HasGun = "1"
@@ -851,59 +1010,55 @@ QQRKSRC1
         npc_mortarsynth:e =
         {
           origin = "0 0 0"
-          angles = "0 0 0"
           ;desc = "Mortar Synth"
-          additionalequipment = "weapon_annabelle"
-          HasGun = "1"
-        }        
+        }
         npc_mossman:e =
         {
           origin = "0 0 0"
-          angles = "0 0 0"
           ;desc = "Dr Mossman"
-        }        
+        }
         npc_pigeon:e =
         {
           origin = "0 0 0"
-          angles = "0 0 0"
           ;desc = "Pigeon"
-        }        
+          deaf = "0"
+        }
         npc_poisonzombie:e =
         {
           origin = "0 0 0"
-          angles = "0 0 0"
           ;desc = "A bloated, disgusting, fluid-spurting zombie created by a p"
            "oison headcrab."
           crabcount = "3"
-        }        
+        }
         npc_rollermine:e =
         {
           origin = "0 0 0"
-          angles = "0 0 0"
           ;desc = "Roller Mine"
           startburied = "No"
-        }        
+          uniformsightdist = "0"
+        }
         npc_seagull:e =
         {
           origin = "0 0 0"
-          angles = "0 0 0"
           ;desc = "Seagull"
-        }        
+          deaf = "0"
+        }
         npc_sniper:e =
         {
           origin = "0 0 0"
-          angles = "0 0 0"
           ;desc = "Sniper"
           radius = "0"
           misses = "0"
           beambrightness = "100"
+          shootZombiesInChest = "0"
           shielddistance = "64"
           shieldradius = "48"
-        }        
+          PaintInterval = "1"
+          PaintIntervalVariance = "0.75"
+        }
         npc_spotlight:e =
         {
           origin = "0 0 0"
-          angles = "0 0 0"
           ;desc = "Spotlight"
           spawnflags = "196608"
           health = "100"
@@ -915,25 +1070,23 @@ QQRKSRC1
           spotlightlength = "500"
           spotlightwidth = "50"
           rendercolor = "255 255 255"
-        }        
+        }
         npc_stalker:e =
         {
           origin = "0 0 0"
-          angles = "0 0 0"
           ;desc = "Stalker"
           BeamPower = "Low"
-        }        
+        }
         npc_strider:e =
         {
           origin = "0 0 0"
-          angles = "0 0 0"
           ;desc = "Strider"
+          model = "models/combine_strider.mdl"
           disablephysics = "0"
-        }                
+        }
         npc_turret_ceiling:e =
         {
           origin = "0 0 0"
-          angles = "0 0 0"
           ;desc = "Combine Ceiling Turret"
           spawnflags = "32"
           minhealthdmg = "0"
@@ -941,42 +1094,43 @@ QQRKSRC1
         npc_turret_floor:e =
         {
           origin = "0 0 0"
-          angles = "0 0 0"
           ;desc = "Combine Floor Turret"
-        }        
+          SkinNumber = "0"
+        }
         npc_turret_ground:e =
         {
           origin = "0 0 0"
-          angles = "0 0 0"
           ;desc = "Combine ground turret"
-        }        
+        }
         npc_vehicledriver:e =
         {
           origin = "0 0 0"
-          angles = "0 0 0"
           ;desc = "NPC used to drive a target vehicle."
           drivermaxspeed = "1"
           driverminspeed = "0"
-        }        
+        }
         npc_vortigaunt:e =
         {
           origin = "0 0 0"
-          angles = "0 0 0"
           ;desc = "Vortigaunt"
           model = "models/vortigaunt.mdl"
           ArmorRechargeEnabled = "1"
-        }        
+          HealthRegenerateEnabled = "0"
+        }
         npc_zombie:e =
         {
           origin = "0 0 0"
-          angles = "0 0 0"
           ;desc = "Zombie"
-        }        
+        }
         npc_zombie_torso:e =
         {
           origin = "0 0 0"
-          angles = "0 0 0"
           ;desc = "Zombie Torso"
+        }
+        npc_zombine:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Combine Soldier Zombie"
         }
       }
 
@@ -1030,12 +1184,6 @@ QQRKSRC1
           origin = "0 0 0"
           ;desc = "Generic Actor NPC"
           hull_name = "Human"
-        }
-        logic_choreographed_scene:e =
-        {
-          origin = "0 0 0"
-          ;desc = "Manages a choreographed scene of one or more actors."
-          busyactor = "0"
         }
         monster_generic:e =
         {
@@ -1336,7 +1484,7 @@ QQRKSRC1
         weapon_357:e =
         {
           origin = "0 0 0"
-          ;desc = "357 Magnum"
+          ;desc = "357"
         }
         weapon_alyxgun:e =
         {
@@ -1351,18 +1499,18 @@ QQRKSRC1
         weapon_ar2:e =
         {
           origin = "0 0 0"
-          ;desc = "Assault Rifle 2 (Pulse Rifle)"
+          ;desc = "Assault Rifle 2"
         }
         weapon_brickbat:e =
         {
           origin = "0 0 0"
-          ;desc = "Brickbat (Unknown)"
+          ;desc = "Brickbat"
           BrickbatType = "Rock"
         }
         weapon_bugbait:e =
         {
           origin = "0 0 0"
-          ;desc = "Bug Bait"
+          ;desc = "Bug bait"
         }
         weapon_crossbow:e =
         {
@@ -1373,37 +1521,43 @@ QQRKSRC1
         {
           origin = "0 0 0"
           ;desc = "Crowbar"
-        }        
+        }
         weapon_frag:e =
         {
           origin = "0 0 0"
           ;desc = "Frag Grenade"
-        }        
+        }
         weapon_physcannon:e =
         {
           origin = "0 0 0"
-          ;desc = "Physics Cannon (Gravity Gun)"
-        }        
+          ;desc = "Physics Cannon"
+        }
         weapon_pistol:e =
         {
           origin = "0 0 0"
-          ;desc = "9mm Pistol"
-        }        
+          ;desc = "Pistol"
+        }
         weapon_rpg:e =
         {
           origin = "0 0 0"
-          ;desc = "RPG Missile Launcher"
-        }        
+          ;desc = "Missile Launcher"
+        }
         weapon_shotgun:e =
         {
           origin = "0 0 0"
           ;desc = "Shotgun"
-        }        
+        }
         weapon_smg1:e =
         {
           origin = "0 0 0"
-          ;desc = "Submachine Gun"
-        }        
+          ;desc = "SMG1"
+        }
+        weapon_striderbuster:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Strider Buster"
+          dud = "0"
+        }
         weapon_stunstick:e =
         {
           origin = "0 0 0"
@@ -1427,6 +1581,139 @@ QQRKSRC1
         txt = "&"
         hint = "Un-Use Sentence"
       }
+      DontUseSpeechSemaphore: =
+      {
+        txt = "&"
+        hint = "Don't Use Speech Semaphore"
+        typ = "C"
+        items = "No (Use speech semaphore)"$0D"Yes (Don't use speech semaphore"
+         ")"
+        values = "0"$0D"1"
+      }
+      input#SpeakResponseConcept: =
+      {
+        txt = "&"
+        hint = "Speak the specified response concept."
+      }
+    }
+    t_PlayerCompanion:incl =
+    {
+      t_BaseNPC = !
+      input#OutsideTransition: =
+      {
+        txt = "&"
+        hint = "Use this input to teleport the NPC to a hintnode with the Play"
+         "er Squad Transition Point hint type."
+      }
+      input#EnableAlwaysTransition: =
+      {
+        txt = "&"
+        hint = "Enable the 'always transition' behavior"
+      }
+      input#DisableAlwaysTransition: =
+      {
+        txt = "&"
+        hint = "Disable the 'always transition' behavior"
+      }
+      input#EnableSpeakWhileScripting: =
+      {
+        txt = "&"
+        hint = "Allow this NPC to speak responses while in a scripted sequence"
+         " or while StartScripting is active."
+      }
+      input#DisableSpeakWhileScripting: =
+      {
+        txt = "&"
+        hint = "Cancels this NPC's ability to speak responses while in a scrip"
+         "ted sequence or while StartScripting is active if it was previously "
+         "enabled by EnableSpeakWhileScripting."
+      }
+      AlwaysTransition: =
+      {
+        txt = "&"
+        hint = "Always transition"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
+      }
+      DontPickupWeapons: =
+      {
+        txt = "&"
+        hint = "Prevent picking up weapons?"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
+      }
+      GameEndAlly: =
+      {
+        txt = "&"
+        hint = "Is this a vital ally?"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
+      }
+      input#MakeGameEndAlly: =
+      {
+        txt = "&"
+        hint = "Make this NPC a game end ally."
+      }
+      input#MakeRegularAlly: =
+      {
+        txt = "&"
+        hint = "Make this NPC a regular ally."
+      }
+      input#EnableWeaponPickup: =
+      {
+        txt = "&"
+        hint = "Enable Weapon Pickup"
+      }
+      input#DisableWeaponPickup: =
+      {
+        txt = "&"
+        hint = "Disable Weapon Pickup"
+      }
+      input#GiveWeapon: =
+      {
+        txt = "&"
+        hint = "Gives the NPC a weapon of the specified entity name."
+      }
+      input#SetReadinessPanic: =
+      {
+        txt = "&"
+        hint = "Set readiness to panic state (Special)"
+      }
+      input#SetReadinessLow: =
+      {
+        txt = "&"
+        hint = "Set readiness to calmest state (Bored)"
+      }
+      input#SetReadinessMedium: =
+      {
+        txt = "&"
+        hint = "Set readiness to moderate (Alert)"
+      }
+      input#SetReadinessHigh: =
+      {
+        txt = "&"
+        hint = "Set readiness to highest. (Combat imminent)"
+      }
+      input#LockReadiness: =
+      {
+        txt = "&"
+        hint = "Lock readiness at current setting for x seconds -1 = forever, "
+         "0 = unlock now"
+      }
+      input#ClearAllOutputs: =
+      {
+        txt = "&"
+        hint = "Obliterate every output that this NPC has."
+      }
+      output#OnWeaponPickup: =
+      {
+        txt = "&"
+        hint = "Fires when this NPC picks a weapon off the ground or a gun rac"
+         "k."
+      }
     }
     t_RappelNPC:incl =
     {
@@ -1448,6 +1735,123 @@ QQRKSRC1
       {
         txt = "&"
         hint = "Fires when done rappeling"
+      }
+    }
+    t_AlyxInteractable:incl =
+    {
+      output#OnAlyxStartedInteraction: =
+      {
+        txt = "&"
+        hint = "Fired when Alyx begins to interact with this entity."
+      }
+      output#OnAlyxFinishedInteraction: =
+      {
+        txt = "&"
+        hint = "Fired when Alyx has finished interacting with this entity."
+      }
+      input#InteractivePowerDown: =
+      {
+        txt = "&"
+        hint = "Shutdown this target."
+      }
+    }
+    t_CombineBallSpawners:incl =
+    {
+      t_Targetname = !
+      t_Origin = !
+      t_Angles = !
+      t_Global = !
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X4096"
+        cap = "Start inactive"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X8192"
+        cap = "Combine power supply"
+      }
+      ballcount: =
+      {
+        txt = "&"
+        hint = "Ball count"
+      }
+      minspeed: =
+      {
+        txt = "&"
+        hint = "Min ball speed"
+      }
+      maxspeed: =
+      {
+        txt = "&"
+        hint = "Max ball speed"
+      }
+      ballradius: =
+      {
+        txt = "&"
+        hint = "Ball radius"
+      }
+      balltype: =
+      {
+        txt = "&"
+        hint = "Ball Type"
+        typ = "C"
+        items = "Combine Energy Ball 1"$0D"Combine Energy Ball 2"$0D"Combine E"
+         "nergy Ball 3"
+        values = "0"$0D"1"$0D"2"
+      }
+      ballrespawntime: =
+      {
+        txt = "&"
+        hint = "Ball Respawn Time"
+      }
+      input#Enable: =
+      {
+        txt = "&"
+        hint = "Enable spawning of combine balls"
+      }
+      input#Disable: =
+      {
+        txt = "&"
+        hint = "Disable spawning of combine balls"
+      }
+      output#OnBallGrabbed: =
+      {
+        txt = "&"
+        hint = "Fired when a combine ball is grabbed from the field by a mega "
+         "physcannon"
+      }
+      output#OnBallReinserted: =
+      {
+        txt = "&"
+        hint = "Fired when a combine ball is reinserted into the field (only g"
+         "ets triggered when Combine Power supply is checked)"
+      }
+      output#OnBallHitTopSide: =
+      {
+        txt = "&"
+        hint = "Fired when a combine ball in hits the top side of the field (o"
+         "nly gets triggered when Combine Power supply is checked)"
+      }
+      output#OnBallHitBottomSide: =
+      {
+        txt = "&"
+        hint = "Fired when a combine ball in hits the bottom side of the field"
+         " (only gets triggered when Combine Power supply is checked)"
+      }
+      output#OnLastBallGrabbed: =
+      {
+        txt = "&"
+        hint = "Fired when the last combine ball is grabbed from the field by "
+         "a mega physcannon"
+      }
+      output#OnFirstBallReinserted: =
+      {
+        txt = "&"
+        hint = "Fired when the first combine ball is reinserted into the field"
+         " (only gets triggered when Combine Power supply is checked)"
       }
     }
     prop_combine_ball:form =
@@ -1608,6 +2012,40 @@ QQRKSRC1
          " (only gets triggered when Combine Power supply is checked)"
       }
     }
+    npc_blob:form =
+    {
+      t_BaseNPC = !
+      input#FormPathShape: =
+      {
+        txt = "&"
+        hint = "Tells the group to go distribute themselves along a shape defi"
+         "ned by path corner entities"
+      }
+      input#SetRadius: =
+      {
+        txt = "&"
+        hint = "Force the group to change the radius (density)"
+      }
+    }
+    npc_grenade_frag:form =
+    {
+      t_BaseNPC = !
+      input#SetTimer: =
+      {
+        txt = "&"
+        hint = "This input makes the grenade live, and specifies how many seco"
+         "nds before it explodes."
+      }
+    }
+    npc_combine_cannon:form =
+    {
+      t_BaseNPC = !
+      sightdist: =
+      {
+        txt = "&"
+        hint = "Sight radius"
+      }
+    }
     npc_combine_camera:form =
     {
       t_BaseNPC = !
@@ -1698,10 +2136,11 @@ QQRKSRC1
          "us."
       }
     }
-    npc_turret_ground:form =
+    t_npc_turret_ground:incl =
     {
       t_BaseNPC = !
       t_Parentname = !
+      t_AlyxInteractable = !
       input#Enable: =
       {
         txt = "&"
@@ -1718,6 +2157,10 @@ QQRKSRC1
         hint = "Fires when the turret can't find any more enemies (7 second de"
          "lay)"
       }
+    }
+    npc_turret_ground:form =
+    {
+      t_npc_turret_ground = "!"
     }
     npc_turret_ceiling:form =
     {
@@ -1741,6 +2184,12 @@ QQRKSRC1
         txt = "&"
         typ = "X128"
         cap = "Never Retire"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X256"
+        cap = "Out of Ammo"
       }
       minhealthdmg: =
       {
@@ -1778,7 +2227,7 @@ QQRKSRC1
         hint = "Turret has been tipped over and is inactive."
       }
     }
-    npc_turret_floor:form =
+    t_npc_turret_floor:incl =
     {
       t_Targetname = !
       t_Angles = !
@@ -1800,6 +2249,23 @@ QQRKSRC1
         typ = "X128"
         cap = "Fast Retire"
       }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X256"
+        cap = "Out of Ammo"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X512"
+        cap = "Citizen modified (Friendly)"
+      }
+      SkinNumber: =
+      {
+        txt = "&"
+        hint = "Skin Number"
+      }
       input#Toggle: =
       {
         txt = "&"
@@ -1814,6 +2280,22 @@ QQRKSRC1
       {
         txt = "&"
         hint = "Disable the turret."
+      }
+      input#DepleteAmmo: =
+      {
+        txt = "&"
+        hint = "Depletes all the ammo from a turret, causing it to dry-fire."
+      }
+      input#RestoreAmmo: =
+      {
+        txt = "&"
+        hint = "Restores ammo to a turret, allowing it to fire live rounds aga"
+         "in."
+      }
+      input#SelfDestruct: =
+      {
+        txt = "&"
+        hint = "Causes the turret to warn and then explode."
       }
       output#OnDeploy: =
       {
@@ -1840,6 +2322,10 @@ QQRKSRC1
         txt = "&"
         hint = "Released by physgun"
       }
+    }
+    npc_turret_floor:form =
+    {
+      t_npc_turret_floor = "!"
     }
     t_VehicleDriverNPC:incl =
     {
@@ -2005,11 +2491,18 @@ QQRKSRC1
     npc_rollermine:form =
     {
       t_BaseNPC = !
+      t_AlyxInteractable = !
       spawnflags: =
       {
         txt = "&"
         typ = "X65536"
         cap = "Friendly"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X131072"
+        cap = "Use prop_physics collision rules"
       }
       startburied: =
       {
@@ -2018,6 +2511,26 @@ QQRKSRC1
         typ = "C"
         items = "No"$0D"Yes"
         values = "0"$0D"1"
+      }
+      uniformsightdist: =
+      {
+        txt = "&"
+        hint = "Sight Distance"
+        typ = "C"
+        items = "Ignore distant targets not in a vehicle (default)."$0D"Equal "
+         "visibility for all targets."
+        values = "0"$0D"1"
+      }
+      input#TurnOn: =
+      {
+        txt = "&"
+        hint = "Restore this rollermine to normal functionality."
+      }
+      input#TurnOff: =
+      {
+        txt = "&"
+        hint = "Make this rollermine completely inert. Does not run AI and NPC"
+         "s will ignore it."
       }
       output#OnPhysGunPickup: =
       {
@@ -2029,6 +2542,10 @@ QQRKSRC1
         txt = "&"
         hint = "Released by physgun"
       }
+    }
+    npc_missiledefense:form =
+    {
+      t_BaseNPC = !
     }
     npc_missiledefense:form =
     {
@@ -2052,6 +2569,14 @@ QQRKSRC1
         txt = "&"
         hint = "Beam Brightness (0 to 255)"
       }
+      shootZombiesInChest: =
+      {
+        txt = "&"
+        hint = "Shoot zombies in chest"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
+      }
       shielddistance: =
       {
         txt = "&"
@@ -2061,6 +2586,16 @@ QQRKSRC1
       {
         txt = "&"
         hint = "Bullet shield radius"
+      }
+      PaintInterval: =
+      {
+        txt = "&"
+        hint = "Paint interval"
+      }
+      PaintIntervalVariance: =
+      {
+        txt = "&"
+        hint = "Paint interval variance"
       }
       input#EnableSniper: =
       {
@@ -2092,6 +2627,32 @@ QQRKSRC1
         txt = "&"
         hint = "Randomly Sweep a Group"
       }
+      input#StopSweeping: =
+      {
+        txt = "&"
+        hint = "Stop any target sweeping operation started by entity I/O"
+      }
+      input#ProtectTarget: =
+      {
+        txt = "&"
+        hint = "Protect the specified enemy. The sniper will attempt to shoot "
+         "the enemy nearest the protect target at all times."
+      }
+      input#SetPaintInterval: =
+      {
+        txt = "&"
+        hint = "Set PaintInterval field."
+      }
+      input#SetPaintIntervalVariance: =
+      {
+        txt = "&"
+        hint = "Set PaintIntervalVariance field."
+      }
+      output#OnShotFired: =
+      {
+        txt = "&"
+        hint = "Fires when sniper fires a shot"
+      }
       spawnflags: =
       {
         txt = "&"
@@ -2116,6 +2677,52 @@ QQRKSRC1
         typ = "X524288"
         cap = "Start Disabled"
       }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X1048576"
+        cap = "Faster shooting (Episodic)"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X2097152"
+        cap = "No sweep away from target (Episodic)"
+      }
+    }
+    info_radar_target:form =
+    {
+      t_Targetname = !
+      t_Parentname = !
+      t_EnableDisable = !
+      radius: =
+      {
+        txt = "&"
+        hint = "Effective Radius"
+      }
+      type: =
+      {
+        txt = "&"
+        hint = "Type of target"
+        typ = "C"
+        items = "Generic Citizen Beacon"$0D"Magnussen RDU Beacon"$0D"Dog"$0D"A"
+         "lly Installation"
+        values = "0"$0D"1"$0D"2"$0D"3"
+      }
+      mode: =
+      {
+        txt = "&"
+        hint = "Mode"
+        typ = "C"
+        items = "Default"$0D"Sticky - once detected, ignore effective radius."
+        values = "0"$0D"1"
+      }
+    }
+    info_target_vehicle_transition:form =
+    {
+      t_Targetname = !
+      t_Angles = !
+      t_EnableDisable = !
     }
     info_snipertarget:form =
     {
@@ -2143,12 +2750,12 @@ QQRKSRC1
         typ = "X2"
         cap = "No Interruptions"
       }
-      spawnflags: =
-      {
-        txt = "&"
-        typ = "X4"
-        cap = "Snap Shot"
-      }
+      //spawnflags: =
+      //{
+      //  txt = "&"
+      //  typ = "X4"
+      //  cap = "Snap Shot"
+      //}
       spawnflags: =
       {
         txt = "&"
@@ -2185,6 +2792,16 @@ QQRKSRC1
         txt = "&"
         hint = "Disable Thumper"
       }
+      output#OnThumped: =
+      {
+        txt = "&"
+        hint = "Fires when thumper impacts the ground."
+      }
+      EffectRadius: =
+      {
+        txt = "&"
+        hint = "Effect Radius"
+      }
     }
     npc_antlion:form =
     {
@@ -2209,6 +2826,12 @@ QQRKSRC1
         typ = "X131072"
         cap = "Use Ground Checks"
       }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X262144"
+        cap = "Worker Type"
+      }
       radius: =
       {
         txt = "&"
@@ -2227,6 +2850,14 @@ QQRKSRC1
         items = "No"$0D"Yes"
         values = "0"$0D"1"
       }
+      unburroweffects: =
+      {
+        txt = "&"
+        hint = "Suppress unburrow effects"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
+      }
       input#Unburrow: =
       {
         txt = "&"
@@ -2236,6 +2867,11 @@ QQRKSRC1
       {
         txt = "&"
         hint = "Burrow into the ground"
+      }
+      input#BurrowAway: =
+      {
+        txt = "&"
+        hint = "Burrow into the ground and remove the antlion"
       }
       input#FightToPosition: =
       {
@@ -2266,6 +2902,11 @@ QQRKSRC1
       {
         txt = "&"
         hint = "Fires when the antlion reaches his specified fight-to location"
+      }
+      output#OnUnBurrowed: =
+      {
+        txt = "&"
+        hint = "Fires when the antlion unburrows"
       }
     }
     npc_antlionguard:form =
@@ -2299,6 +2940,27 @@ QQRKSRC1
         items = "No"$0D"Yes"
         values = "0"$0D"1"
       }
+      cavernbreed: =
+      {
+        txt = "&"
+        hint = "Cavern Guard Model and Texture"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
+      }
+      incavern: =
+      {
+        txt = "&"
+        hint = "Use inside-Cavern Behavior"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
+      }
+      shovetargets: =
+      {
+        txt = "&"
+        hint = "Shove Targets"
+      }
       input#Unburrow: =
       {
         txt = "&"
@@ -2312,7 +2974,9 @@ QQRKSRC1
       input#SetChargeTarget: =
       {
         txt = "&"
-        hint = "Sets a charge target to attack"
+        hint = "Sets a charge target to attack.  Parameters are the name of th"
+         "e entity to start at and the name of the entity to charge towards, s"
+         "eparated by a space (i.e. start target)"
       }
       input#ClearChargeTarget: =
       {
@@ -2350,6 +3014,18 @@ QQRKSRC1
         txt = "&"
         hint = "Stop trying to sniff out the player"
       }
+      input#EnablePreferPhysicsAttack: =
+      {
+        txt = "&"
+        hint = "Prefer to use physics attacks if at all possible, even when in"
+         "side a cavern."
+      }
+      input#DisablePreferPhysicsAttack: =
+      {
+        txt = "&"
+        hint = "Do not prefer to use physics attacks if at all possible, even "
+         "when inside a cavern."
+      }
       output#OnSeeHiddenPlayer: =
       {
         txt = "&"
@@ -2374,6 +3050,14 @@ QQRKSRC1
         txt = "&"
         hint = "Forces the crow to fly to the nearest crow flyto hint node."
       }
+      deaf: =
+      {
+        txt = "&"
+        hint = "Deaf?"
+        typ = "C"
+        items = "No."$0D"Yes. Ignore sounds."
+        values = "0"$0D"1"
+      }
     }
     npc_seagull:form =
     {
@@ -2383,6 +3067,14 @@ QQRKSRC1
         txt = "&"
         hint = "Forces the seagull to fly to the nearest crow flyto hint node."
       }
+      deaf: =
+      {
+        txt = "&"
+        hint = "Deaf?"
+        typ = "C"
+        items = "No."$0D"Yes. Ignore sounds."
+        values = "0"$0D"1"
+      }
     }
     npc_pigeon:form =
     {
@@ -2391,6 +3083,14 @@ QQRKSRC1
       {
         txt = "&"
         hint = "Forces the pigeon to fly to the nearest crow flyto hint node."
+      }
+      deaf: =
+      {
+        txt = "&"
+        hint = "Deaf?"
+        typ = "C"
+        items = "No."$0D"Yes. Ignore sounds."
+        values = "0"$0D"1"
       }
     }
     npc_ichthyosaur:form =
@@ -2413,6 +3113,22 @@ QQRKSRC1
         txt = "&"
         typ = "X65536"
         cap = "Start hidden"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X131072"
+        cap = "Start hanging from ceiling"
+      }
+      input#StartHangingFromCeiling: =
+      {
+        txt = "&"
+        hint = "Start hanging from ceiling."
+      }
+      input#DropFromCeiling: =
+      {
+        txt = "&"
+        hint = "Drop if hanging from ceiling."
       }
     }
     npc_headcrab:form =
@@ -2449,6 +3165,21 @@ QQRKSRC1
         txt = "&"
         hint = "Health"
       }
+      minangle: =
+      {
+        txt = "&"
+        hint = "Minimum Angle"
+      }
+      mindist: =
+      {
+        txt = "&"
+        hint = "Minimum Distance"
+      }
+      autoaimradius: =
+      {
+        txt = "&"
+        hint = "Autoaim Radius"
+      }
       spawnflags: =
       {
         txt = "&"
@@ -2478,6 +3209,12 @@ QQRKSRC1
         txt = "&"
         typ = "X1048576"
         cap = "Perfect Accuracy"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X2097152"
+        cap = "Collide against physics objects (Creates VPhysics Shadow)"
       }
       output#OnTargeted: =
       {
@@ -2577,11 +3314,132 @@ QQRKSRC1
         txt = "&"
         hint = "Turn off: Stop looking for enemies"
       }
+      output#OnLostEnemies: =
+      {
+        txt = "&"
+        hint = "Fires when the enemy finder has no enemies."
+      }
+      output#OnAcquireEnemies: =
+      {
+        txt = "&"
+        hint = "Fires when the enemy finder acquires enemies."
+      }
+    }
+    npc_enemyfinder_combinecannon:form =
+    {
+      bbox = '-16 -16 -16 16 16 16'
+      t_Parentname = !
+      t_BaseNPC = !
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X65536"
+        cap = "Check Visibility"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X131072"
+        cap = "APC Visibility checks"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X262144"
+        cap = "Short memory"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X524288"
+        cap = "Can be an enemy"
+      }
+      FieldOfView: =
+      {
+        txt = "&"
+        hint = "FieldOfView"
+      }
+      MinSearchDist: =
+      {
+        txt = "&"
+        hint = "Min Search Dist"
+      }
+      MaxSearchDist: =
+      {
+        txt = "&"
+        hint = "Max Search Dist"
+      }
+      SnapToEnt: =
+      {
+        txt = "&"
+        hint = "Name of entity to snap to"
+      }
+      freepass_timetotrigger: =
+      {
+        txt = "&"
+        hint = "Player pass issue time"
+      }
+      freepass_duration: =
+      {
+        txt = "&"
+        hint = "Player pass duration"
+      }
+      freepass_movetolerance: =
+      {
+        txt = "&"
+        hint = "Player pass move tolerance"
+      }
+      freepass_refillrate: =
+      {
+        txt = "&"
+        hint = "Player pass refill rate"
+      }
+      freepass_peektime: =
+      {
+        txt = "&"
+        hint = "Player pass peek time"
+      }
+      StartOn: =
+      {
+        txt = "&"
+        hint = "Start On"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
+      }
+      input#TurnOn: =
+      {
+        txt = "&"
+        hint = "Turn on: Look for enemies"
+      }
+      input#TurnOff: =
+      {
+        txt = "&"
+        hint = "Turn off: Stop looking for enemies"
+      }
+      input#SetWideFOVForSeconds: =
+      {
+        txt = "&"
+        hint = "Gives this enemyfinder a 180 degree viewcone for the number of"
+         " seconds specified in the parameter override"
+      }
+      output#OnLostEnemies: =
+      {
+        txt = "&"
+        hint = "Fires when the enemy finder has no enemies."
+      }
+      output#OnAcquireEnemies: =
+      {
+        txt = "&"
+        hint = "Fires when the enemy finder acquires enemies."
+      }
     }
     npc_citizen:form =
     {
       t_BaseNPC = !
       t_Parentname = !
+      t_TalkNPC = !
+      t_PlayerCompanion = !
       spawnflags: =
       {
         txt = "&"
@@ -2616,7 +3474,7 @@ QQRKSRC1
       {
         txt = "&"
         typ = "X2097152"
-        cap = "Don't use Speech Semaphore"
+        cap = "Don't use Speech Semaphore - OBSOLETE"
       }
       spawnflags: =
       {
@@ -2684,16 +3542,19 @@ QQRKSRC1
         hint = "Model"
         typ = "C"
         items = "Male 1"$0D"Male 2"$0D"Male 3"$0D"Male 4"$0D"Male 5"$0D"Male 6"
-         $0D"Female 1"$0D"Female 2"$0D"Female 3"$0D"Female 4"$0D"Female 5"$0D"F"
-         "emale 6"$0D"Cheaple Male 1"$0D"Odessa. DO NOT USE."
+         $0D"Male 7"$0D"Male 8"$0D"Male 9"$0D"Female 1"$0D"Female 2"$0D"Female"
+         " 3"$0D"Female 4"$0D"Female 5"$0D"Female 6"$0D"Cheaple Male 1"$0D"Ode"
+         "ssa. DO NOT USE."
         values = "models/humans/group01/male_01.mdl"$0D"models/humans/group01/"
          "male_02.mdl"$0D"models/humans/group01/male_03.mdl"$0D"models/humans/"
-         "group01/male_07.mdl"$0D"models/humans/group01/male_08.mdl"$0D"models"
-         "/humans/group01/male_09.mdl"$0D"models/humans/group01/female_01.mdl"$0D
-         "models/humans/group01/female_02.mdl"$0D"models/humans/group01/female"
-         "_03.mdl"$0D"models/humans/group01/female_04.mdl"$0D"models/humans/gr"
-         "oup01/female_06.mdl"$0D"models/humans/group01/female_07.mdl"$0D"mode"
-         "ls/humans/male_cheaple.mdl"$0D"models/odessa.mdl"
+         "group01/male_04.mdl"$0D"models/humans/group01/male_05.mdl"$0D"models"
+         "/humans/group01/male_06.mdl"$0D"models/humans/group01/male_07.mdl"$0D
+         "models/humans/group01/male_08.mdl"$0D"models/humans/group01/male_09."
+         "mdl"$0D"models/humans/group01/female_01.mdl"$0D"models/humans/group0"
+         "1/female_02.mdl"$0D"models/humans/group01/female_03.mdl"$0D"models/h"
+         "umans/group01/female_04.mdl"$0D"models/humans/group01/female_06.mdl"$0D
+         "models/humans/group01/female_07.mdl"$0D"models/humans/male_cheaple.m"
+         "dl"$0D"models/odessa.mdl"
       }
       ExpressionOverride: =
       {
@@ -2707,6 +3568,25 @@ QQRKSRC1
         typ = "C"
         items = "No"$0D"Yes"
         values = "0"$0D"1"
+      }
+      neverleaveplayersquad: =
+      {
+        txt = "&"
+        hint = "Permanent squad member?"
+        typ = "C"
+        items = "No. This is default behavior."$0D"Yes, stay in squad until de"
+         "ath."
+        values = "0"$0D"1"
+      }
+      denycommandconcept: =
+      {
+        txt = "&"
+        hint = "Deny command speech concept"
+      }
+      input#RemoveFromPlayerSquad: =
+      {
+        txt = "&"
+        hint = "Remove from player squad, instantly."
       }
       input#SetExpressionOverride: =
       {
@@ -2752,27 +3632,6 @@ QQRKSRC1
         hint = "Set the ammo-resupplier flag off. Will not change the model or"
          " skin of the citizen."
       }
-      input#SetReadinessLow: =
-      {
-        txt = "&"
-        hint = "Set readiness to calmest state (Bored)"
-      }
-      input#SetReadinessMedium: =
-      {
-        txt = "&"
-        hint = "Set readiness to moderate (Alert)"
-      }
-      input#SetReadinessHigh: =
-      {
-        txt = "&"
-        hint = "Set readiness to highest. (Combat imminent)"
-      }
-      input#LockReadiness: =
-      {
-        txt = "&"
-        hint = "Lock readiness at current setting for x seconds -1 = forever, "
-         "0 = unlock now"
-      }
       output#OnJoinedPlayerSquad: =
       {
         txt = "&"
@@ -2805,9 +3664,25 @@ QQRKSRC1
          "cked."
       }
     }
-    npc_barney:form =
+    npc_fisherman:form =
     {
       t_BaseNPC = !
+      ExpressionOverride: =
+      {
+        txt = "&"
+        hint = "Facial expression override"
+      }
+      input#SetExpressionOverride: =
+      {
+        txt = "&"
+        hint = "Set facial expression override"
+      }
+    }
+    npc_barney:form =
+    {
+      t_TalkNPC = !
+      t_BaseNPC = !
+      t_PlayerCompanion = !
       additionalequipment: =
       {
         txt = "&"
@@ -2818,27 +3693,6 @@ QQRKSRC1
         values = "weapon_pistol"$0D"weapon_smg1"$0D"weapon_stunstick"$0D"weapo"
          "n_shotgun"$0D"weapon_ar2"$0D"0"
       }
-      input#SetReadinessLow: =
-      {
-        txt = "&"
-        hint = "Set readiness to calmest state (Bored)"
-      }
-      input#SetReadinessMedium: =
-      {
-        txt = "&"
-        hint = "Set readiness to moderate (Alert)"
-      }
-      input#SetReadinessHigh: =
-      {
-        txt = "&"
-        hint = "Set readiness to highest. (Combat imminent)"
-      }
-      input#LockReadiness: =
-      {
-        txt = "&"
-        hint = "Lock readiness at current setting for x seconds -1 = forever, "
-         "0 = unlock now"
-      }
       ExpressionOverride: =
       {
         txt = "&"
@@ -2848,6 +3702,11 @@ QQRKSRC1
       {
         txt = "&"
         hint = "Set facial expression override"
+      }
+      output#OnPlayerUse: =
+      {
+        txt = "&"
+        hint = "Fires when a player +USEs Barney"
       }
     }
     t_BaseCombine:incl =
@@ -2868,6 +3727,18 @@ QQRKSRC1
         txt = "&"
         typ = "X65536"
         cap = "Start LookOff"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X131072"
+        cap = "Don't drop grenades"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X262144"
+        cap = "Don't drop ar2 alt fire (elite only) "
       }
       NumGrenades: =
       {
@@ -2906,6 +3777,12 @@ QQRKSRC1
     npc_combine_s:form =
     {
       t_BaseCombine = !
+      input#Assault: =
+      {
+        txt = "&"
+        hint = "Start an assault. Parameter passed in should be the name of th"
+         "e rally point."
+      }
       model: =
       {
         txt = "&"
@@ -2914,6 +3791,23 @@ QQRKSRC1
         items = "Regular Soldier"$0D"Nova Prospekt Soldier"$0D"Elite Soldier"
         values = "models/combine_soldier.mdl"$0D"models/combine_soldier_prison"
          "guard.mdl"$0D"models/combine_super_soldier.mdl"
+      }
+      tacticalvariant: =
+      {
+        txt = "&"
+        hint = "Tactical Variant"
+        typ = "C"
+        items = "Normal Tactics"$0D"Pressure the enemy (Keep advancing)"$0D"Pr"
+         "essure until within 30ft, then normal"
+        values = "0"$0D"1"$0D"2"
+      }
+      usemarch: =
+      {
+        txt = "&"
+        hint = "Walk Easy"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"2"
       }
     }
     npc_launcher:form =
@@ -3090,6 +3984,213 @@ QQRKSRC1
         hint = "Fire Once (if have enemy)"
       }
     }
+    npc_hunter:form =
+    {
+      t_BaseNPC = !
+      FollowTarget: =
+      {
+        txt = "&"
+        hint = "Strider to Follow"
+      }
+      input#FollowStrider: =
+      {
+        txt = "&"
+        hint = "Sets the name of the strider that this hunter should follow."
+      }
+      input#SetMinigunTime: =
+      {
+        txt = "&"
+        hint = "Time to shoot at any set minigun target."
+      }
+      input#SetMinigunTarget: =
+      {
+        txt = "&"
+        hint = "Hunter will shoot minigun at the named target."
+      }
+      input#DisableShooting: =
+      {
+        txt = "&"
+        hint = "Forces the hunter to be melee-only."
+      }
+      input#EnableShooting: =
+      {
+        txt = "&"
+        hint = "Allows the hunter to use range attacks or melee attacks."
+      }
+      input#DisableSquadShootDelay: =
+      {
+        txt = "&"
+        hint = "Disables the delay between range attacks for squads of hunters"
+         ", allowing them to shoot as frequently as they wish."
+      }
+      input#EnableSquadShootDelay: =
+      {
+        txt = "&"
+        hint = "Enables the delay between range attacks for squads of hunters."
+      }
+      input#EnableUnplantedShooting: =
+      {
+        txt = "&"
+        hint = "Used mainly for scripted attacks against bullseyes. Enables th"
+         "e hunter to shoot without having to plant first."
+      }
+      input#DisableUnplantedShooting: =
+      {
+        txt = "&"
+        hint = "Returns the hunter to normal after a call to EnableUnplantedSh"
+         "ooting."
+      }
+      input#DoPhysicsBlast: =
+      {
+        txt = "&"
+        hint = "Hunter will instantly do the defensive physics blast."
+      }
+      input#Crouch: =
+      {
+        txt = "&"
+        hint = "Crouch down."
+      }
+      input#Stand: =
+      {
+        txt = "&"
+        hint = "Stand up from crouch."
+      }
+      input#DisableCrouchWalk: =
+      {
+        txt = "&"
+        hint = "UNUSED: Prevents the hunter from crouch walking."
+      }
+      input#EnableCrouchWalk: =
+      {
+        txt = "&"
+        hint = "UNUSED: Allows the hunter to crouch walk."
+      }
+      input#UseSiegeTargets: =
+      {
+        txt = "&"
+        hint = "Pass in the name of info_targets to shoot at when I can't shoo"
+         "t at the player."
+      }
+    }
+    npc_advisor:form =
+    {
+      t_BaseNPC = !
+      model: =
+      {
+        txt = "&"
+        hint = "World model"
+        typ = "B"
+        Cap = "models..."
+        form = "t_models_hl2_form:form"
+      }
+      levitationarea: =
+      {
+        txt = "&"
+        hint = "Levitation Area"
+      }
+      levitategoal_bottom: =
+      {
+        txt = "&"
+        hint = "Levitation Goal Bottom"
+      }
+      levitategoal_top: =
+      {
+        txt = "&"
+        hint = "Levitation Goal Top"
+      }
+      staging_ent_names: =
+      {
+        txt = "&"
+        hint = "Staging Position Names"
+      }
+      priority_grab_name: =
+      {
+        txt = "&"
+        hint = "Priority Name For Grabbing"
+      }
+      output#OnPickingThrowable: =
+      {
+        txt = "&"
+        hint = "Fires just before I pick something to hurl"
+      }
+      output#OnThrowWarn: =
+      {
+        txt = "&"
+        hint = "Fires when I trigger the warning green glow before tossing"
+      }
+      output#OnThrow: =
+      {
+        txt = "&"
+        hint = "Fires just after I throw something"
+      }
+      output#OnHealthIsNow: =
+      {
+        txt = "&"
+        hint = "When I am damaged, my hitpoints thereafter"
+      }
+      input#SetThrowRate: =
+      {
+        txt = "&"
+        hint = "Advisor will throw an object once per this many seconds (plus "
+         "a little more)"
+      }
+      input#WrenchImmediate: =
+      {
+        txt = "&"
+        hint = "Advisor will immediately start levitating all objects with thi"
+         "s name"
+      }
+      input#SetStagingNum: =
+      {
+        txt = "&"
+        hint = "Advisor will stage this many objects at once, then barrage the"
+         " player."
+      }
+      input#PinPlayer: =
+      {
+        txt = "&"
+        hint = "Advisor will wrench the player to this point in the air. Use a"
+         " null param to let go."
+      }
+      input#BeamOn: =
+      {
+        txt = "&"
+        hint = "Start a psychic-TK effect beam from the advisor to the specifi"
+         "ed object. You must remember to turn it off later."
+      }
+      input#BeamOff: =
+      {
+        txt = "&"
+        hint = "Turn off a psychic-TK effect beam from the advisor to the spec"
+         "ified object."
+      }
+      input#ELightOn: =
+      {
+        txt = "&"
+        hint = "Turn on an entity light at my location. Please remember to tur"
+         "n this off."
+      }
+      input#ELightOff: =
+      {
+        txt = "&"
+        hint = "Turn off my entity light."
+      }
+      input#DoNothing: =
+      {
+        txt = "&"
+      }
+    }
+    env_sporeexplosion:form =
+    {
+      t_Targetname = !
+      t_Parentname = !
+      t_EnableDisable = !
+      spawnrate: =
+      {
+        txt = "&"
+        hint = "Spawn Rate (as percentage)"
+      }
+    }
     env_gunfire:form =
     {
       t_Targetname = !
@@ -3164,7 +4265,7 @@ QQRKSRC1
         hint = "Tracer"
         typ = "C"
         items = "Default"$0D"AR2"
-        values = $0D"AR2TRACER"
+        values = "Tracer"$0D"AR2TRACER"
       }
     }
     env_headcrabcanister:form =
@@ -3290,6 +4391,11 @@ QQRKSRC1
         txt = "&"
         hint = "Smoke Duration"
       }
+      LaunchPositionName: =
+      {
+        txt = "&"
+        hint = "Launch Position Name"
+      }
       input#FireCanister: =
       {
         txt = "&"
@@ -3332,11 +4438,20 @@ QQRKSRC1
     npc_vortigaunt:form =
     {
       t_BaseNPC = !
+      t_TalkNPC = !
       t_modelselect = !
       ArmorRechargeEnabled: =
       {
         txt = "&"
         hint = "Allow Armor Recharging"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
+      }
+      HealthRegenerateEnabled: =
+      {
+        txt = "&"
+        hint = "Regenerate Health"
         typ = "C"
         items = "No"$0D"Yes"
         values = "0"$0D"1"
@@ -3361,6 +4476,40 @@ QQRKSRC1
       {
         txt = "&"
         hint = "Force the vortigaunt to charge the named target."
+      }
+      input#EnableHealthRegeneration: =
+      {
+        txt = "&"
+        hint = "Allow the vortigaunt to start regenerating his health over tim"
+         "e, like vital allies."
+      }
+      input#DisableHealthRegeneration: =
+      {
+        txt = "&"
+        hint = "Stop the vortigaunt from regenerating his health. (Default beh"
+         "avior)"
+      }
+      input#TurnBlue: =
+      {
+        txt = "&"
+        hint = "If true, turn blue. If false, turn green. (Episodic)."
+      }
+      input#TurnBlack: =
+      {
+        txt = "&"
+        hint = "If true, turn black. If false, be seen. (Episodic)."
+      }
+      input#BeginCarryNPC: =
+      {
+        txt = "&"
+        hint = "Begin to override our animations for 'carrying' an NPC. (Episo"
+         "dic)"
+      }
+      input#EndCarryNPC: =
+      {
+        txt = "&"
+        hint = "Stop overriding our animations for 'carrying' an NPC. (Episodi"
+         "c)"
       }
       output#OnFinishedExtractingBugbait: =
       {
@@ -3515,11 +4664,18 @@ QQRKSRC1
     npc_strider:form =
     {
       t_BaseNPC = !
+      t_modelselect = !
       spawnflags: =
       {
         txt = "&"
         typ = "X65536"
         cap = "Can Stomp Player"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X131072"
+        cap = "Minimal damage taken from NPCs (1 point per missile)"
       }
       input#SetMinigunTime: =
       {
@@ -3530,6 +4686,18 @@ QQRKSRC1
       {
         txt = "&"
         hint = "Strider will shoot minigun at this"
+      }
+      input#DisableMinigun: =
+      {
+        txt = "&"
+        hint = "Disables the minigun until further notice by the EnableMinigun"
+         " input."
+      }
+      input#EnableMinigun: =
+      {
+        txt = "&"
+        hint = "Enables the minigun if it was disabled by the DisableMinigun i"
+         "nput."
       }
       input#SetCannonTarget: =
       {
@@ -3570,6 +4738,12 @@ QQRKSRC1
         txt = "&"
         hint = "Crouch down"
       }
+      input#CrouchInstantly: =
+      {
+        txt = "&"
+        hint = "Crouch instantly. This makes the Strider pop to a crouch. Do n"
+         "ot do this where players can observe."
+      }
       input#Stand: =
       {
         txt = "&"
@@ -3601,6 +4775,48 @@ QQRKSRC1
       {
         txt = "&"
         hint = "Clear the strider patrol path"
+      }
+      input#EnableAggressiveBehavior: =
+      {
+        txt = "&"
+        hint = "Use aggressive behavior. Fire faster, more frequently"
+      }
+      input#DisableAggressiveBehavior: =
+      {
+        txt = "&"
+        hint = "Stop using aggressive behavior. (Revert to normal)"
+      }
+      input#StopShootingMinigunForSeconds: =
+      {
+        txt = "&"
+        hint = "Stop shooting the minigun for a period of time (specify second"
+         "s as parameter)"
+      }
+      input#DisableCrouch: =
+      {
+        txt = "&"
+        hint = "Prevent the Strider from crouching"
+      }
+      input#DisableMoveToLOS: =
+      {
+        txt = "&"
+        hint = "Prevent the Strider from seeking Line of Sight to target. (Hol"
+         "d position)"
+      }
+      input#DisableCollisionWith: =
+      {
+        txt = "&"
+        hint = "Disable collision with a given object."
+      }
+      input#EnableCollisionWith: =
+      {
+        txt = "&"
+        hint = "Reenable collision with a given object."
+      }
+      input#ScaleGroundSpeed: =
+      {
+        txt = "&"
+        hint = "Scale the movement speed of the strider"
       }
       disablephysics: =
       {
@@ -4197,6 +5413,20 @@ QQRKSRC1
     {
       t_BaseNPC = !
     }
+    npc_zombine:form =
+    {
+      t_BaseNPC = !
+      input#StartSprint: =
+      {
+        txt = "&"
+        hint = "Forces the zombine to sprint."
+      }
+      input#PullGrenade: =
+      {
+        txt = "&"
+        hint = "Forces the zombine to pull a grenade."
+      }
+    }
     npc_poisonzombie:form =
     {
       t_BaseNPC = !
@@ -4524,8 +5754,169 @@ QQRKSRC1
         txt = "&"
         hint = "Weapons"
         typ = "C"
-        items = "Alyx Gun"$0D"Nothing"
-        values = "weapon_alyxgun"$0D"0"
+        items = "Alyx Gun"$0D"Shotgun"$0D"Nothing"
+        values = "weapon_alyxgun"$0D"weapon_shotgun"$0D"0"
+      }
+      DontPickupWeapons: =
+      {
+        txt = "&"
+        hint = "Prevent picking up weapons?"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
+      }
+      ShouldHaveEMP: =
+      {
+        txt = "&"
+        hint = "Should alyx have her EMP?"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
+      }
+      input#AllowInteraction: =
+      {
+        txt = "&"
+        hint = "Allow Alyx's 'hacking' AI to run."
+      }
+      input#DisallowInteraction: =
+      {
+        txt = "&"
+        hint = "Disallow Alyx's 'hacking' AI."
+      }
+      input#AllowDarknessSpeech: =
+      {
+        txt = "&"
+        hint = "Enables or disables Alyx's darkness speech ('where are you', e"
+         "tc)."
+      }
+      input#SetAnimLockedEntity: =
+      {
+        txt = "&"
+        hint = "Sets Alyx to take her animation and cycle position from anothe"
+         "r entity."
+      }
+      input#ClearAnimLockedEntity: =
+      {
+        txt = "&"
+        hint = "Stops Alyx from taking her animation locking from another char"
+         "acter."
+      }
+      input#GiveEMP: =
+      {
+        txt = "&"
+        hint = "Gives or removes the EMP tool."
+      }
+      output#OnFinishInteractWithObject: =
+      {
+        txt = "&"
+        hint = "Fires when Alyx finishes interacting with an object (usually h"
+         "acking it)."
+      }
+      output#OnPlayerUse: =
+      {
+        txt = "&"
+        hint = "Fires when a player +USEs Alyx."
+      }
+      input#EnterVehicle: =
+      {
+        txt = "&"
+        hint = "Make Alyx enter the vehicle specified by name."
+      }
+      input#EnterVehicleImmediately: =
+      {
+        txt = "&"
+        hint = "Make Alyx enter the vehicle specified by name immediately via "
+         "teleportation."
+      }
+      input#ExitVehicle: =
+      {
+        txt = "&"
+        hint = "Make Alyx exit the vehicle she's in."
+      }
+      input#CancelEnterVehicle: =
+      {
+        txt = "&"
+        hint = "Stops Alyx from trying to enter the vehicle if she's outside o"
+         "f it."
+      }
+      output#OnPlayerUse: =
+      {
+        txt = "&"
+        hint = "Fires when a player +USEs Alyx"
+      }
+    }
+    ai_goal_operator:form =
+    {
+      t_Targetname = !
+      t_EnableDisable = !
+      actor: =
+      {
+        txt = "&"
+        hint = "Actor to affect"
+      }
+      target: =
+      {
+        txt = "&"
+        hint = "Position entity"
+      }
+      contexttarget: =
+      {
+        txt = "&"
+        hint = "Context target"
+      }
+      state: =
+      {
+        txt = "&"
+        hint = "Initial State"
+        typ = "C"
+        items = "Not ready (closed, locked, etc)"$0D"Ready (open and accessibl"
+         "e)"
+        values = "0"$0D"1"
+      }
+      moveto: =
+      {
+        txt = "&"
+        hint = "How should NPC approach?"
+        typ = "C"
+        items = "DO NOT USE THIS SETTING"$0D"Walk"$0D"Run"
+        values = "0"$0D"1"$0D"2"
+      }
+      input#Activate: =
+      {
+        txt = "&"
+        hint = "Begin operating on the object"
+      }
+      input#SetStateReady: =
+      {
+        txt = "&"
+        hint = "Set the object's state to READY. Fire this input when the obje"
+         "ct has been unlocked/opened or otherwise made ready for interaction."
+      }
+      input#SetStateFinished: =
+      {
+        txt = "&"
+        hint = "Fire this input when the NPC has completed the interaction wit"
+         "h this object."
+      }
+      output#OnBeginApproach: =
+      {
+        txt = "&"
+        hint = "Fired when the NPC begins to approach the position"
+      }
+      output#OnMakeReady: =
+      {
+        txt = "&"
+        hint = "Make the item ready to operate"
+      }
+      output#OnBeginOperating: =
+      {
+        txt = "&"
+        hint = "Fired when the NPC is ready to operate"
+      }
+      output#OnFinished: =
+      {
+        txt = "&"
+        hint = "The item is done"
       }
     }
     npc_kleiner:form =
@@ -5573,7 +6964,7 @@ QQRKSRC1
         values = "0"$0D"1"
       }
     }
-    ai_goal_follow:form =
+    t_FollowGoal:incl =
     {
       t_Targetname = !
       actor: =
@@ -5615,8 +7006,9 @@ QQRKSRC1
         txt = "&"
         hint = "Formation"
         typ = "C"
-        items = "Close circle"$0D"Wide circle"$0D"Medium circle"
-        values = "0"$0D"1"$0D"5"
+        items = "Close circle"$0D"Wide circle"$0D"Medium circle"$0D"Sidekick"$0D
+         "Vortigaunt"
+        values = "0"$0D"1"$0D"5"$0D"6"$0D"8"
       }
       input#Activate: =
       {
@@ -5628,6 +7020,14 @@ QQRKSRC1
         txt = "&"
         hint = "Cease the follow behavior"
       }
+    }
+    ai_goal_follow:form =
+    {
+      t_FollowGoal = !
+    }
+    ai_goal_injured_follow:form =
+    {
+      t_FollowGoal = !
     }
     ai_battle_line:form =
     {
@@ -5961,6 +7361,14 @@ QQRKSRC1
         items = "Entity System Input"$0D"Gunfire"$0D"Don't wait for a cue."
         values = "1"$0D"2"$0D"3"
       }
+      RallySelectMethod: =
+      {
+        txt = "&"
+        hint = "Rally Point Selection Method"
+        typ = "C"
+        items = "Priority, Distance (default)"$0D"Random"
+        values = "0"$0D"1"
+      }
       input#Activate: =
       {
         txt = "&"
@@ -6075,6 +7483,57 @@ QQRKSRC1
     ai_goal_actbusy:form =
     {
       t_BaseActBusy = !
+      seeentity: =
+      {
+        txt = "&"
+        hint = "Sight Entity"
+      }
+      seeentitytimeout: =
+      {
+        txt = "&"
+        hint = "Sight Entity Timeout"
+      }
+      sightmethod: =
+      {
+        txt = "&"
+        hint = "Sight Enemy Method"
+        typ = "C"
+        items = "Default. LOS -and- Viewcone"$0D"LOS Only. Disregard Viewcone"
+        values = "0"$0D"1"
+      }
+      type: =
+      {
+        txt = "&"
+        hint = "Actbusy Type"
+        typ = "C"
+        items = "Default (Standard)"$0D"Combat"
+        values = "0"$0D"1"
+      }
+      safezone: =
+      {
+        txt = "&"
+        hint = "Combat Safe Zone"
+      }
+      allowteleport: =
+      {
+        txt = "&"
+        hint = "Allow actor to teleport?"
+        typ = "C"
+        items = "No"$0D"Yes (Only for Combat Actbusy)"
+        values = "0"$0D"1"
+      }
+      output#OnNPCLostSeeEntity: =
+      {
+        txt = "&"
+        hint = "Fired when the NPC loses sight of the see entity (if one is sp"
+         "ecified)."
+      }
+      output#OnNPCSeeEnemy: =
+      {
+        txt = "&"
+        hint = "Fired when this NPC leaves his actbusy because of sighting an "
+         "enemy."
+      }
     }
     ai_goal_actbusy_queue:form =
     {
@@ -6252,6 +7711,33 @@ QQRKSRC1
       {
         txt = "&"
         hint = "Changes the entities target"
+      }
+    }
+    ai_npc_eventresponsesystem:form =
+    {
+      bbox = '-8 -8 -8 8 8 8'
+      t_Targetname = !
+      input#TriggerResponseEvent: =
+      {
+        txt = "&"
+        hint = "Fire an NPC Response Event. The parameter should match the res"
+         "ponse rules concept that any nearby friendly NPCs will try to speak."
+      }
+      input#ForceTriggerResponseEvent: =
+      {
+        txt = "&"
+        hint = "Fire an NPC Response Event, and force the first available NPC "
+         "to speak the response (breaking them out of any scene they're in). T"
+         "he parameter should match the response rules concept that any nearby"
+         " friendly NPCs will try to speak."
+      }
+      input#ForceTriggerResponseEventNoCancel: =
+      {
+        txt = "&"
+        hint = "Fire an NPC Response Event, and force the first available NPC "
+         "to speak the response (but don't break them out of any scene they're"
+         " in). The parameter should match the response rules concept that any"
+         " nearby friendly NPCs will try to speak."
       }
     }
     ai_changehintgroup:form =
@@ -6441,6 +7927,36 @@ QQRKSRC1
         items = "No"$0D"Yes"$0D"Don't care"
         values = "0"$0D"1"$0D"2"
       }
+      ActorInPVS: =
+      {
+        txt = "&"
+        hint = "Actor in Player's PVS"
+        typ = "C"
+        items = "No"$0D"Yes"$0D"Don't care"
+        values = "0"$0D"1"$0D"2"
+      }
+      ActorInVehicle: =
+      {
+        txt = "&"
+        hint = "Actor in a vehicle"
+        typ = "C"
+        items = "No"$0D"Yes"$0D"Don't care"
+        values = "0"$0D"1"$0D"2"
+      }
+      PlayerInVehicle: =
+      {
+        txt = "&"
+        hint = "Player in a vehicle"
+        typ = "C"
+        items = "No"$0D"Yes"$0D"Don't care"
+        values = "0"$0D"1"$0D"2"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X1"
+        cap = "Fire outputs with the Actor as Activator"
+      }
       input#Enable: =
       {
         txt = "&"
@@ -6460,6 +7976,11 @@ QQRKSRC1
       {
         txt = "&"
         hint = "Fires when AI conditions timed out"
+      }
+      output#NoValidActor: =
+      {
+        txt = "&"
+        hint = "Fires if/when there are no matching actors in the map."
       }
     }
     scripted_sequence:form =
@@ -7319,6 +8840,18 @@ QQRKSRC1
         typ = "X2"
         cap = "Is Master"
       }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X8"
+        cap = "Fallback to Health Vial"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X16"
+        cap = "Alternate master"
+      }
       DesiredHealth: =
       {
         txt = "&"
@@ -7373,6 +8906,11 @@ QQRKSRC1
       {
         txt = "&"
         hint = "Desired Crossbow Ammo Ratio"
+      }
+      DesiredAmmoAR2_AltFire: =
+      {
+        txt = "&"
+        hint = "Desired AR2 Alt-fire Ammo Ratio"
       }
       input#CalculateType: =
       {
@@ -7465,14 +9003,16 @@ QQRKSRC1
     {
       t_Targetname = !
       t_Angles = !
+      t_BaseFadeProp = !
       AmmoType: =
       {
         txt = "&"
         hint = "Ammo Type"
         typ = "C"
         items = "Pistol"$0D"SMG1"$0D"AR2"$0D"RPG Rounds"$0D"Buckshot"$0D"Grena"
-         "des"$0D"357"$0D"XBowBolt"$0D"AR2 Alt-Fire Round"
-        values = "0"$0D"1"$0D"2"$0D"3"$0D"4"$0D"5"$0D"6"$0D"7"$0D"8"
+         "des"$0D"357"$0D"XBowBolt"$0D"AR2 Alt-Fire Round"$0D"SMG Alt-Fire gre"
+         "nade"
+        values = "0"$0D"1"$0D"2"$0D"3"$0D"4"$0D"5"$0D"6"$0D"7"$0D"8"$0D"9"
       }
       input#Kill: =
       {
@@ -7491,6 +9031,7 @@ QQRKSRC1
       t_Targetname = !
       t_Angles = !
       t_DamageFilter = !
+      t_BaseFadeProp = !
       CrateType: =
       {
         txt = "&"
@@ -7498,6 +9039,14 @@ QQRKSRC1
         typ = "C"
         items = "Contains specified item"
         values = "0"
+      }
+      CrateAppearance: =
+      {
+        txt = "&"
+        hint = "Crate Appearance"
+        typ = "C"
+        items = "Default Appearance"$0D"Radar Beacon Crate"
+        values = "0"$0D"1"
       }
       ItemClass: =
       {
@@ -7508,6 +9057,11 @@ QQRKSRC1
       {
         txt = "&"
         hint = "Item Count"
+      }
+      SpecificResupply: =
+      {
+        txt = "&"
+        hint = "Specific resupply"
       }
       input#Kill: =
       {
@@ -7548,11 +9102,19 @@ QQRKSRC1
         hint = "Fires when the health of this breakable changes, passing the n"
          "ew value of health as a percentage of max health, from [0..1]."
       }
+      output#OnCacheInteraction: =
+      {
+        txt = "&"
+        hint = "This output fires when the player proves they have 'found' thi"
+         "s crate. Fires on: Picked up by +USE, Picked up by Physcannon, Punte"
+         "d by Physcannon, Broken."
+      }
     }
     item_healthcharger:form =
     {
       t_Targetname = !
       t_Angles = !
+      t_BaseFadeProp = !
       _minlight: =
       {
         txt = "&"
@@ -7573,6 +9135,7 @@ QQRKSRC1
     {
       t_Targetname = !
       t_Angles = !
+      t_BaseFadeProp = !
       _minlight: =
       {
         txt = "&"
@@ -7631,6 +9194,18 @@ QQRKSRC1
         typ = "X1"
         cap = "Start constrained"
       }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X2"
+        cap = "Deny player pickup (reserve for NPC)"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X4"
+        cap = "Not puntable by Gravity Gun"
+      }
       output#OnPlayerUse: =
       {
         txt = "&"
@@ -7645,6 +9220,27 @@ QQRKSRC1
       {
         txt = "&"
         hint = "Fires when an NPC picks up this weapon"
+      }
+      output#OnCacheInteraction: =
+      {
+        txt = "&"
+        hint = "Fires when the player 'proves' they've found this weapon. Fire"
+         "s on: Player Touch, +USE pickup, Physcannon pickup, Physcannon punt."
+      }
+      fademindist: =
+      {
+        txt = "&"
+        hint = "Start Fade Dist/Pixels"
+      }
+      fademaxdist: =
+      {
+        txt = "&"
+        hint = "End Fade Dist/Pixels"
+      }
+      fadescale: =
+      {
+        txt = "&"
+        hint = "Fade Scale"
       }
     }
     weapon_crowbar:form =
@@ -7690,17 +9286,6 @@ QQRKSRC1
     weapon_physcannon:form =
     {
       t_Weapon = !
-      spawnflags: =
-      {
-        txt = "&"
-        typ = "X2"
-        cap = "Start without grab functionality."
-      }
-      input#EnableGrab: =
-      {
-        txt = "&"
-        hint = "Enable the grab functionality."
-      }
     }
     weapon_bugbait:form =
     {
@@ -8050,6 +9635,54 @@ QQRKSRC1
     {
       bbox = '-16 -16 -16 16 16 16'
       t_Targetname = !
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X1"
+        cap = "Suppress weapons"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X2"
+        cap = "Suppress HUD"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X4"
+        cap = "Suppress jump"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X8"
+        cap = "Suppress duck"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X16"
+        cap = "Suppress use"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X32"
+        cap = "Suppress sprint"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X64"
+        cap = "Suppress attack"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X128"
+        cap = "Suppress zoom"
+      }
       input#ModifySpeed: =
       {
         txt = "&"
@@ -8109,8 +9742,9 @@ QQRKSRC1
         txt = "&"
         hint = "If an Actor is talking..."
         typ = "C"
-        items = "Default"$0D"Wait for actor to finish"
-        values = "0"$0D"1"
+        items = "Start immediately"$0D"Wait for actor to finish"$0D"Interrupt "
+         "at next interrupt event"$0D"Cancel at next interrupt event"
+        values = "0"$0D"1"$0D"2"$0D"3"
       }
       input#Start: =
       {
@@ -8131,6 +9765,17 @@ QQRKSRC1
       {
         txt = "&"
         hint = "Cancels playback of the scene"
+      }
+      input#CancelAtNextInterrupt: =
+      {
+        txt = "&"
+        hint = "Cancels playback of the scene at the next interrupt event in t"
+         "he scene."
+      }
+      input#PitchShift: =
+      {
+        txt = "&"
+        hint = "Multiplies the the pitch"
       }
       input#InterjectResponse: =
       {
@@ -8198,26 +9843,183 @@ QQRKSRC1
         txt = "&"
         hint = "Scene trigger 8"
       }
+      output#OnTrigger9: =
+      {
+        txt = "&"
+        hint = "Scene trigger 9"
+      }
+      output#OnTrigger10: =
+      {
+        txt = "&"
+        hint = "Scene trigger 10"
+      }
+      output#OnTrigger11: =
+      {
+        txt = "&"
+        hint = "Scene trigger 11"
+      }
+      output#OnTrigger12: =
+      {
+        txt = "&"
+        hint = "Scene trigger 12"
+      }
+      output#OnTrigger13: =
+      {
+        txt = "&"
+        hint = "Scene trigger 13"
+      }
+      output#OnTrigger14: =
+      {
+        txt = "&"
+        hint = "Scene trigger 14"
+      }
+      output#OnTrigger15: =
+      {
+        txt = "&"
+        hint = "Scene trigger 15"
+      }
+      output#OnTrigger16: =
+      {
+        txt = "&"
+        hint = "Scene trigger 16"
+      }
+      onplayerdeath: =
+      {
+        txt = "&"
+        hint = "On player death"
+        typ = "C"
+        items = "Do Nothing"$0D"Cancel Script and return to AI"
+        values = "0"$0D"1"
+      }
+    }
+    logic_scene_list_manager:form =
+    {
+      t_Targetname = !
+      scene0: =
+      {
+        txt = "&"
+        hint = "Scene 1"
+      }
+      scene1: =
+      {
+        txt = "&"
+        hint = "Scene 2"
+      }
+      scene2: =
+      {
+        txt = "&"
+        hint = "Scene 3"
+      }
+      scene3: =
+      {
+        txt = "&"
+        hint = "Scene 4"
+      }
+      scene4: =
+      {
+        txt = "&"
+        hint = "Scene 5"
+      }
+      scene5: =
+      {
+        txt = "&"
+        hint = "Scene 6"
+      }
+      scene6: =
+      {
+        txt = "&"
+        hint = "Scene 7"
+      }
+      scene7: =
+      {
+        txt = "&"
+        hint = "Scene 8"
+      }
+      scene8: =
+      {
+        txt = "&"
+        hint = "Scene 9"
+      }
+      scene9: =
+      {
+        txt = "&"
+        hint = "Scene 10"
+      }
+      scene10: =
+      {
+        txt = "&"
+        hint = "Scene 11"
+      }
+      scene11: =
+      {
+        txt = "&"
+        hint = "Scene 12"
+      }
+      scene12: =
+      {
+        txt = "&"
+        hint = "Scene 13"
+      }
+      scene13: =
+      {
+        txt = "&"
+        hint = "Scene 14"
+      }
+      scene14: =
+      {
+        txt = "&"
+        hint = "Scene 15"
+      }
+      scene15: =
+      {
+        txt = "&"
+        hint = "Scene 16"
+      }
+      input#Shutdown: =
+      {
+        txt = "&"
+        hint = "Remove the manager and all scenes referenced by it (and all sc"
+         "enes referenced by logic_scene_list_manager's embedded in this one)."
+      }
     }
     ai_sound:form =
     {
       t_Targetname = !
       t_Parentname = !
-      input#InsertSound: =
+      input#EmitAISound: =
       {
         txt = "&"
-        hint = "Insert a sound in the AI sound list"
+        hint = "Make the sound."
+      }
+      volume: =
+      {
+        txt = "&"
+        hint = "Volume"
+      }
+      duration: =
+      {
+        txt = "&"
+        hint = "Duration"
       }
       soundtype: =
       {
         txt = "&"
         hint = "Sound Type"
         typ = "C"
-        items = "Combat"$0D"World"$0D"Danger"$0D"Bullet Impact"$0D"Carcass"$0D
-         "Meat"$0D"Garbage"$0D"Thumper"$0D"Readiness - Low"$0D"Readiness - Med"
-         "ium"$0D"Readiness - High"
-        values = "1"$0D"2"$0D"8"$0D"16"$0D"32"$0D"64"$0D"128"$0D"256"$0D"16384"
-         $0D"32768"$0D"65536"
+        items = "Select one"$0D"Combat"$0D"World"$0D"Danger"$0D"Bullet Impact"$0D
+         "Carcass"$0D"Meat"$0D"Garbage"$0D"Thumper"$0D"Move Away - Most NPCs w"
+         "ill clear the radius of this sound when heard."$0D"Readiness - Low"$0D
+         "Readiness - Medium"$0D"Readiness - High"
+        values = "0"$0D"1"$0D"2"$0D"8"$0D"16"$0D"32"$0D"64"$0D"128"$0D"256"$0D
+         "4096"$0D"16384"$0D"32768"$0D"65536"
+      }
+      soundcontext: =
+      {
+        txt = "&"
+        hint = "Additional sound context (optional)"
+        typ = "C"
+        items = "Select one"$0D"Only Combine hear"$0D"Combine cannot hear"
+        values = "0"$0D"8388608"$0D"67108864"
       }
       locationproxy: =
       {
@@ -8434,6 +10236,227 @@ QQRKSRC1
         txt = "&"
         typ = "X1"
         cap = "Instant"
+      }
+    }
+    logic_achievement:form =
+    {
+      t_Targetname = !
+      t_EnableDisable = !
+      AchievementEvent: =
+      {
+        txt = "&"
+        hint = "Achievement Event"
+        typ = "C"
+        items = "[HL2] Hit the trashcan cop with the can."$0D"[HL2] Put the ca"
+         "n in the trash."$0D"[HL2] Escape the apartment block raid."$0D"[HL2]"
+         " Break the mini-teleporter in Kleiner's lab."$0D"[HL2] Get the crowb"
+         "ar."$0D"[HL2] Get the Airboat"$0D"[HL2] Get the airboat's mounted gu"
+         "n."$0D"[HL2] Discover the hidden singing vortigaunt cave in chapter "
+         "Water Hazard."$0D"[HL2] Destroy the hunter-chopper in Half-Life 2."$0D
+         "[HL2] Find the HEV Suit Charger faceplate in Eli's scrapyard."$0D"[H"
+         "L2] Get the Gravity Gun in Black Mesa East"$0D"[HL2] Make a basket i"
+         "n Eli's scrapyard."$0D"[HL2] Beat Ravenholm Gravgun only. (Start)."$0D
+         "[HL2] Beat Ravenholm Gravgun only. (End)."$0D"[HL2] Escort Gregori s"
+         "afely through the church cemetery."$0D"[HL2] Kill 3 enemies using th"
+         "e crane."$0D"[HL2] Pin the soldier to the billboard with the crossbo"
+         "w in chapter Highway 17."$0D"[HL2] Defend Little Odessa from the gun"
+         "ship attack."$0D"[HL2] Cross the antlion beach in chapter Sandtraps "
+         "without touching the sand."$0D"[HL2] Get inside Nova Prospekt"$0D"[H"
+         "L2] Survive the second turret standoff in the prison."$0D"[HL2] Gain"
+         " command of a squad of rebels in the uprising"$0D"[HL2] Get through "
+         "the toxic tunnel under City 17 in Half-Life 2."$0D"[HL2] Survive the"
+         " Generator Plaza standoff in chapter Anticitizen One."$0D"[HL2] Kill"
+         " all of the snipers in City 17."$0D"[HL2] Shut down the supression d"
+         "evice by disabling its generators."$0D"[HL2] Survive the rooftop str"
+         "ider battle in the ruins of City 17."$0D"[HL2] Destroy the Citadel's"
+         " reactor core (Beat Game)."$0D"[HL2] G-Man: trainstation_05 on Klein"
+         "er's Monitor"$0D"[HL2] G-Man: canals_01 on TV in vort train car"$0D"["
+         "HL2] G-Man: canals_06 at the red barn"$0D"[HL2] G-Man: canals_06 on "
+         "giant outdoor monitor"$0D"[HL2] G-Man: canals_12 on catwalk"$0D"[HL2"
+         "] G-Man: canals_13 to the left of the dam"$0D"[HL2] G-Man: town_05 a"
+         "t the end of the tracks"$0D"[HL2] G-Man: coast_03 odessa meeting"$0D
+         "[HL2] G-Man: prison_02 control room monitor"$0D"[HL2] G-Man: c17_02 "
+         "on TV in the destroyed foyer"$0D"[HL2] Lamda: Secret entrance to Kle"
+         "iner's lab in trainstation_05"$0D"[HL2] Lamda: canals_01 building by"
+         " tracks"$0D"[HL2] Lamda: canals_01 vent crawl"$0D"[HL2] Lamda: canal"
+         "s_01a tunnel"$0D"[HL2] Lamda: canals_02 below grate in sewer corrido"
+         "r"$0D"[HL2] Lamda: canals_03 under steam pipe"$0D"[HL2] Lamda: canal"
+         "s_05 on second level of curved room"$0D"[HL2] Lamda: canals_05 befor"
+         "e shanty town"$0D"[HL2] Lamda: canals_06 on overhead metal walkway i"
+         "n tunnel"$0D"[HL2] Lamda: canals_06 at the red barn"$0D"DON'T USE ME"
+         " [HL2] Lamda: canals_06 outside the pipe at floating ramp puzzle"$0D
+         "[HL2] Lamda: canals_06 outside exploded tanker (zombie ambush)"$0D"["
+         "HL2] Lamda: canals_07 in the wall below apcs"$0D"[HL2] Lamda: canals"
+         "_08 in counterweighted basket"$0D"[HL2] Lamda: canals_08 behind rail"
+         "way bridge piling"$0D"[HL2] Lamda: canals_09 on wooden platforms in "
+         "tunnel"$0D"[HL2] Lamda: canals_10 up banked side of canals passage"$0D
+         "[HL2] Lamda: canals_10 in wall opening after canals passage"$0D"[HL2"
+         "] Lamda: canals_12 right side of split channel"$0D"[HL2] Lamda: eli_"
+         "01 Black Mesa East dock"$0D"[HL2] Lamda: town_01 through ductwork be"
+         "hind generators"$0D"[HL2] Lamda: town_01 behind fence in car-crusher"
+         " arena"$0D"[HL2] Lamda: town_01a in attic opposite map exit"$0D"[HL2"
+         "] Lamda: town_05 tunnel exit from ravenholm mine"$0D"[HL2] Lamda: co"
+         "ast_01 shack after the buggy jump"$0D"[HL2] Lamda: coast_03 poison h"
+         "eadcrab shack"$0D"[HL2] Lamda: coast_04 broken down van after the gu"
+         "nship"$0D"[HL2] Lamda: coast_05 suicide citizen's gas tank cache"$0D
+         "[HL2] Lamda: coast_07 fenced off area outside of town"$0D"[HL2] Lamd"
+         "a: coast_09 above the bathroom in the battery puzzle building"$0D"[H"
+         "L2] Lamda: coast_11 elevated shack after the board bridge"$0D"[HL2] "
+         "Lamda: prison_02 in the boarded up area of the gman sighting"$0D"[HL"
+         "2] Lamda: prison_03 in the prison cell"$0D"[HL2] Lamda: prison_05 in"
+         " the laundry utility room"$0D"[HL2] Lamda: prison_06 on top of the s"
+         "oda machine"$0D"[HL2] Lamda: c17_02 next to first Combine wall"$0D"["
+         "HL2] Lambda: c17_04 inside shack before metrocop holdout"$0D"[HL2] L"
+         "amda: c17_05 behind fence before end of map"$0D"[HL2] Lamda: c17_06a"
+         " at start of freeway tunnel"$0D"[HL2] Lamda: c17_06b before second d"
+         "rawbridge"$0D"[HL2] Lamda: c17_06b behind fence before end of map"$0D
+         "[HL2] Lamda: c17_08 lowest catwalk at sewer entrance"$0D"[HL2] Lamda"
+         ": c17_08 wall cubby next to poison zombie"$0D"[HL2] Lamda: c17_08 en"
+         "d of pipe hop tunnel by poison zombie"$0D"[HL2] Lamda: c17_08 side o"
+         "f building next to hallway leading to level exit"$0D"[HL2] Lamda: c1"
+         "7_12b at map exit"$0D"[HL2] Lamda: c17_13 white van in underground g"
+         "arage"$0D"[EP1] Reach the bottom of the main elevator shaft."$0D"[EP"
+         "1] Contain the citadel core. (start)"$0D"[EP1] Contain the citadel c"
+         "ore. (end)"$0D"[EP1] Contain the citadel core."$0D"[EP1] Contain the"
+         " citadel core with no stalker kills"$0D"[EP1] Survive long enough to"
+         " get on the elevator in the parking garage."$0D"[EP1] Destroy the gu"
+         "nship in the hospital attic."$0D"[EP1] Don't let any citizens die wh"
+         "en escorting them to the escape train (start)."$0D"[EP1] Don't let a"
+         "ny citizens die when escorting them to the escape train (end)."$0D"["
+         "EP1] Beat EP1 without picking up any health. (start)"$0D"[EP1] Beat "
+         "EP1 without picking up any health. (end)"$0D"[EP1] Began EP1 (for tr"
+         "acking One Free Bullet)"$0D"[EP1] Beat EP1 (for tracking One Free Bu"
+         "llet)"$0D"[EP2] Hold off the antlion invasion inside the mine shaft"$0D
+         "[EP2] Defeat both antlion guards outside the White Forest"$0D"[EP2] "
+         "Survive the Hunter ambush at the radio tower."$0D"[EP2] Start of the"
+         " chopper arena battle."$0D"[EP2] End of the chopper arena battle."$0D
+         "[EP2] Destroy the Combine Cannon in the junkyard."$0D"[EP2] Beat DOG"
+         " in the race to the White Forest."$0D"[EP2] Unlock the Rocket Launch"
+         "er lambda cache in chapter Under The Radar."$0D"[EP2] Survive the in"
+         "vasion at White Forest Inn"$0D"[EP2] Send <some object from chapter "
+         "1> into space."$0D"[EP2] Secure the launch doors on missile silo 2."$0D
+         "[EP2] Save the missile silo from the Combine offensive."$0D"[EP2] Sa"
+         "ve the missile silo without losing any buildings."$0D"[EP2] Found a "
+         "radar cache in chapter Under The Radar."$0D"[EP2] Radar Cache: 09 fi"
+         "rst van cache"$0D"[EP2] Radar Cache: 09 rpg cache"$0D"[EP2] Radar Ca"
+         "che: 09 shack floor board cache"$0D"[EP2] Radar Cache: 10 cave cache"
+         $0D"[EP2] Radar Cache: 10 hanging crate cache"$0D"[EP2] Web Cache: ep"
+         "2_outland_01a underwater cache"$0D"[EP2] Web Cache: ep2_outland_03 g"
+         "rim pinata cache"$0D"[EP2] Web Cache: ep2_outland_03 first arena exi"
+         "t tunnel wall cache"$0D"[EP2] Web Cache: ep2_outland_03 second arena"
+         " exit tunnel ceiling cache"$0D"[EP2] Web Cache: ep2_outland_03 zombi"
+         "ne grenade trap cache"$0D"[EP2] Web Cache: ep2_outland_04 gear cave "
+         "entry wall cache"$0D"[EP2] Web Cache: ep2_outland_04 gear cave rockf"
+         "all ceiling cache"$0D"[EP2] Web Cache: ep2_outland_04 gear cave barn"
+         "acle ceiling cache"$0D"[EP2] Web Cache: ep2_outland_04 gear cave poi"
+         "son crab wall cache"$0D"[PORTAL] Acquire the fully powered Aperture "
+         "Science Handheld Portal Device."$0D"[PORTAL] Do whatever it takes to"
+         " survive."$0D"[PORTAL] Make the correct party escort submission posi"
+         "tion decision."$0D"[PORTAL] Complete Portal."
+        values = "ACHIEVEMENT_EVENT_HL2_HIT_CANCOP_WITHCAN"$0D"ACHIEVEMENT_EVE"
+         "NT_HL2_PUT_CANINTRASH"$0D"ACHIEVEMENT_EVENT_HL2_ESCAPE_APARTMENTRAID"
+         $0D"ACHIEVEMENT_EVENT_HL2_BREAK_MINITELEPORTER"$0D"ACHIEVEMENT_EVENT_"
+         "HL2_GET_CROWBAR"$0D"ACHIEVEMENT_EVENT_HL2_GET_AIRBOAT"$0D"ACHIEVEMEN"
+         "T_EVENT_HL2_GET_AIRBOATGUN"$0D"ACHIEVEMENT_EVENT_HL2_FIND_VORTIGAUNT"
+         "CAVE"$0D"ACHIEVEMENT_EVENT_HL2_KILL_CHOPPER"$0D"ACHIEVEMENT_EVENT_HL"
+         "2_FIND_HEVFACEPLATE"$0D"ACHIEVEMENT_EVENT_HL2_GET_GRAVITYGUN"$0D"ACH"
+         "IEVEMENT_EVENT_HL2_MAKEABASKET"$0D"ACHIEVEMENT_EVENT_HL2_BEAT_RAVENH"
+         "OLM_NOWEAPONS_START"$0D"ACHIEVEMENT_EVENT_HL2_BEAT_RAVENHOLM_NOWEAPO"
+         "NS_END"$0D"ACHIEVEMENT_EVENT_HL2_BEAT_CEMETERY"$0D"ACHIEVEMENT_EVENT"
+         "_HL2_KILL_ENEMIES_WITHCRANE"$0D"ACHIEVEMENT_EVENT_HL2_PIN_SOLDIER_TO"
+         "BILLBOARD"$0D"ACHIEVEMENT_EVENT_HL2_KILL_ODESSAGUNSHIP"$0D"ACHIEVEME"
+         "NT_EVENT_HL2_BEAT_DONTTOUCHSAND"$0D"ACHIEVEMENT_EVENT_HL2_ENTER_NOVA"
+         "PROSPEKT"$0D"ACHIEVEMENT_EVENT_HL2_BEAT_TURRETSTANDOFF2"$0D"ACHIEVEM"
+         "ENT_EVENT_HL2_FOLLOWFREEMAN"$0D"ACHIEVEMENT_EVENT_HL2_BEAT_TOXICTUNN"
+         "EL"$0D"ACHIEVEMENT_EVENT_HL2_BEAT_PLAZASTANDOFF"$0D"ACHIEVEMENT_EVEN"
+         "T_HL2_KILL_ALLC1709SNIPERS"$0D"ACHIEVEMENT_EVENT_HL2_BEAT_SUPRESSION"
+         "DEVICE"$0D"ACHIEVEMENT_EVENT_HL2_BEAT_C1713STRIDERSTANDOFF"$0D"ACHIE"
+         "VEMENT_EVENT_HL2_BEAT_GAME"$0D"ACHIEVEMENT_EVENT_HL2_GMAN_KLEINERSLA"
+         "B"$0D"ACHIEVEMENT_EVENT_HL2_GMAN_TRAINCAR"$0D"ACHIEVEMENT_EVENT_HL2_"
+         "GMAN_REDBARN"$0D"ACHIEVEMENT_EVENT_HL2_GMAN_OUTDOORMONITOR"$0D"ACHIE"
+         "VEMENT_EVENT_HL2_GMAN_CATWALK"$0D"ACHIEVEMENT_EVENT_HL2_GMAN_DAM"$0D
+         "ACHIEVEMENT_EVENT_HL2_GMAN_TRAINTRACKS"$0D"ACHIEVEMENT_EVENT_HL2_GMA"
+         "N_ODESSA"$0D"ACHIEVEMENT_EVENT_HL2_GMAN_PRISONMONITOR"$0D"ACHIEVEMEN"
+         "T_EVENT_HL2_GMAN_FOYERTV"$0D"ACHIEVEMENT_EVENT_HL2_LAMDACACHE_KLEINE"
+         "RSLAB"$0D"ACHIEVEMENT_EVENT_HL2_LAMDACACHE_CANALSSTATION"$0D"ACHIEVE"
+         "MENT_EVENT_HL2_LAMDACACHE_VENTCRAWL"$0D"ACHIEVEMENT_EVENT_HL2_LAMDAC"
+         "ACHE_CANALSTUNNEL"$0D"ACHIEVEMENT_EVENT_HL2_LAMDACACHE_SEWERGRATE"$0D
+         "ACHIEVEMENT_EVENT_HL2_LAMDACACHE_STEAMPIPE"$0D"ACHIEVEMENT_EVENT_HL2"
+         "_LAMDACACHE_CURVEDROOM"$0D"ACHIEVEMENT_EVENT_HL2_LAMDACACHE_SHANTYTO"
+         "WN"$0D"ACHIEVEMENT_EVENT_HL2_LAMDACACHE_TUNNELLADDER"$0D"ACHIEVEMENT"
+         "_EVENT_HL2_LAMDACACHE_REDBARN"$0D"ACHIEVEMENT_EVENT_HL2_LAMDACACHE_F"
+         "LOATINGRAMP"$0D"ACHIEVEMENT_EVENT_HL2_LAMDACACHE_ZOMBIEAMBUSH"$0D"AC"
+         "HIEVEMENT_EVENT_HL2_LAMDACACHE_BELOWAPCS"$0D"ACHIEVEMENT_EVENT_HL2_L"
+         "AMDACACHE_COUNTERWEIGHT"$0D"ACHIEVEMENT_EVENT_HL2_LAMDACACHE_RAILWAY"
+         "BRIDGE"$0D"ACHIEVEMENT_EVENT_HL2_LAMDACACHE_TUNNELPLATFORMS"$0D"ACHI"
+         "EVEMENT_EVENT_HL2_LAMDACACHE_BANKEDCANAL"$0D"ACHIEVEMENT_EVENT_HL2_L"
+         "AMDACACHE_CANALWALL"$0D"ACHIEVEMENT_EVENT_HL2_LAMDACACHE_CHANNELSPLI"
+         "T"$0D"ACHIEVEMENT_EVENT_HL2_LAMDACACHE_BMEDOCK"$0D"ACHIEVEMENT_EVENT"
+         "_HL2_LAMDACACHE_GENERATORS"$0D"ACHIEVEMENT_EVENT_HL2_LAMDACACHE_CARC"
+         "RUSHERARENA"$0D"ACHIEVEMENT_EVENT_HL2_LAMDACACHE_RAVENHOLMATTIC"$0D"A"
+         "CHIEVEMENT_EVENT_HL2_LAMDACACHE_MINETUNNELEXIT"$0D"ACHIEVEMENT_EVENT"
+         "_HL2_LAMDACACHE_COASTSHACK"$0D"ACHIEVEMENT_EVENT_HL2_LAMDACACHE_POIS"
+         "ONSHACK"$0D"ACHIEVEMENT_EVENT_HL2_LAMDACACHE_GUNSHIPVAN"$0D"ACHIEVEM"
+         "ENT_EVENT_HL2_LAMDACACHE_SUICIDECITIZEN"$0D"ACHIEVEMENT_EVENT_HL2_LA"
+         "MDACACHE_RAILROADSHACK"$0D"ACHIEVEMENT_EVENT_HL2_LAMDACACHE_COASTABO"
+         "VEBATTERY"$0D"ACHIEVEMENT_EVENT_HL2_LAMDACACHE_SANDSHACK"$0D"ACHIEVE"
+         "MENT_EVENT_HL2_LAMDACACHE_GMANCACHE"$0D"ACHIEVEMENT_EVENT_HL2_LAMDAC"
+         "ACHE_CELLCACHE"$0D"ACHIEVEMENT_EVENT_HL2_LAMDACACHE_POISONLAUNDRY"$0D
+         "ACHIEVEMENT_EVENT_HL2_LAMDACACHE_SODAMACHINE"$0D"ACHIEVEMENT_EVENT_H"
+         "L2_LAMDACACHE_STREETWARDOGWALL"$0D"ACHIEVEMENT_EVENT_HL2_LAMDACACHE_"
+         "STREETWARSHACK"$0D"ACHIEVEMENT_EVENT_HL2_LAMDACACHE_STREETWARFENCE"$0D
+         "ACHIEVEMENT_EVENT_HL2_LAMDACACHE_FREEWAYTUNNEL"$0D"ACHIEVEMENT_EVENT"
+         "_HL2_LAMDACACHE_DRAWBRIDGE"$0D"ACHIEVEMENT_EVENT_HL2_LAMDACACHE_PLAZ"
+         "AFENCE"$0D"ACHIEVEMENT_EVENT_HL2_LAMDACACHE_SEWERSCATWALKS"$0D"ACHIE"
+         "VEMENT_EVENT_HL2_LAMDACACHE_POISONZOMBIEALCOVE"$0D"ACHIEVEMENT_EVENT"
+         "_HL2_LAMDACACHE_PIPEHOPTUNNEL"$0D"ACHIEVEMENT_EVENT_HL2_LAMDACACHE_E"
+         "XITCATWALK"$0D"ACHIEVEMENT_EVENT_HL2_LAMDACACHE_ENDOFC1712B"$0D"ACHI"
+         "EVEMENT_EVENT_HL2_LAMDACACHE_WHITEVAN"$0D"ACHIEVEMENT_EVENT_EP1_BEAT"
+         "_MAINELEVATOR"$0D"ACHIEVEMENT_EVENT_EP1_BEAT_CITADELCORE_START"$0D"A"
+         "CHIEVEMENT_EVENT_EP1_BEAT_CITADELCORE_END"$0D"ACHIEVEMENT_EVENT_EP1_"
+         "BEAT_CITADELCORE"$0D"ACHIEVEMENT_EVENT_EP1_BEAT_CITADELCORE_NOSTALKE"
+         "RKILLS"$0D"ACHIEVEMENT_EVENT_EP1_BEAT_GARAGEELEVATORSTANDOFF"$0D"ACH"
+         "IEVEMENT_EVENT_EP1_BEAT_HOSPITALATTICGUNSHIP"$0D"ACHIEVEMENT_EVENT_E"
+         "P1_BEAT_CITIZENESCORT_NOCITIZENDEATHS_START"$0D"ACHIEVEMENT_EVENT_EP"
+         "1_BEAT_CITIZENESCORT_NOCITIZENDEATHS_END"$0D"ACHIEVEMENT_EVENT_EP1_B"
+         "EAT_GAME_NOHEALTHPICKUPS_START"$0D"ACHIEVEMENT_EVENT_EP1_BEAT_GAME_N"
+         "OHEALTHPICKUPS_END"$0D"ACHIEVEMENT_EVENT_EP1_START_GAME"$0D"ACHIEVEM"
+         "ENT_EVENT_EP1_BEAT_GAME"$0D"ACHIEVEMENT_EVENT_EP2_BEAT_ANTLIONINVASI"
+         "ON"$0D"ACHIEVEMENT_EVENT_EP2_BEAT_ANTLIONGUARDS"$0D"ACHIEVEMENT_EVEN"
+         "T_EP2_BEAT_HUNTERAMBUSH"$0D"ACHIEVEMENT_EVENT_EP2_KILL_CHOPPER_NOMIS"
+         "SES_START"$0D"ACHIEVEMENT_EVENT_EP2_KILL_CHOPPER_NOMISSES_END"$0D"AC"
+         "HIEVEMENT_EVENT_EP2_KILL_COMBINECANNON"$0D"ACHIEVEMENT_EVENT_EP2_BEA"
+         "T_RACEWITHDOG"$0D"ACHIEVEMENT_EVENT_EP2_BEAT_ROCKETCACHEPUZZLE"$0D"A"
+         "CHIEVEMENT_EVENT_EP2_BEAT_WHITEFORESTINN"$0D"ACHIEVEMENT_EVENT_EP2_P"
+         "UT_ITEMINROCKET"$0D"ACHIEVEMENT_EVENT_EP2_BEAT_MISSILESILO2"$0D"ACHI"
+         "EVEMENT_EVENT_EP2_BEAT_GAME"$0D"ACHIEVEMENT_EVENT_EP2_BEAT_OUTLAND12"
+         "_NOBUILDINGSDESTROYED"$0D"ACHIEVEMENT_EVENT_EP2_FIND_RADAR_CACHE"$0D
+         "ACHIEVEMENT_EVENT_EP2_RADARCACHE_VAN"$0D"ACHIEVEMENT_EVENT_EP2_RADAR"
+         "CACHE_RPG"$0D"ACHIEVEMENT_EVENT_EP2_RADARCACHE_SHACK"$0D"ACHIEVEMENT"
+         "_EVENT_EP2_RADARCACHE_CAVE"$0D"ACHIEVEMENT_EVENT_EP2_RADARCACHE_HANG"
+         "ING"$0D"ACHIEVEMENT_EVENT_EP2_WEBCACHE_01"$0D"ACHIEVEMENT_EVENT_EP2_"
+         "WEBCACHE_02"$0D"ACHIEVEMENT_EVENT_EP2_WEBCACHE_03"$0D"ACHIEVEMENT_EV"
+         "ENT_EP2_WEBCACHE_04"$0D"ACHIEVEMENT_EVENT_EP2_WEBCACHE_05"$0D"ACHIEV"
+         "EMENT_EVENT_EP2_WEBCACHE_06"$0D"ACHIEVEMENT_EVENT_EP2_WEBCACHE_07"$0D
+         "ACHIEVEMENT_EVENT_EP2_WEBCACHE_08"$0D"ACHIEVEMENT_EVENT_EP2_WEBCACHE"
+         "_09"$0D"ACHIEVEMENT_EVENT_PORTAL_GET_PORTALGUNS"$0D"ACHIEVEMENT_EVEN"
+         "T_PORTAL_KILL_COMPANIONCUBE"$0D"ACHIEVEMENT_EVENT_PORTAL_ESCAPE_TEST"
+         "CHAMBERS"$0D"ACHIEVEMENT_EVENT_PORTAL_BEAT_GAME"
+      }
+      input#Toggle: =
+      {
+        txt = "&"
+        hint = "Toggle the relay between enabled and disabled."
+      }
+      input#FireEvent: =
+      {
+        txt = "&"
+        hint = "Tells the achievement system the specifed event has occured."
+      }
+      output#OnFired: =
+      {
+        txt = "&"
+        hint = "When the event fires, this fires."
       }
     }
     point_camera:form =
@@ -9105,6 +11128,75 @@ QQRKSRC1
       {
         txt = "&"
         hint = "Restarts the countdown since the malfunction is finished."
+      }
+    }
+    env_entity_dissolver:form =
+    {
+      t_Targetname = !
+      input#Dissolve: =
+      {
+        txt = "&"
+        hint = "Dissolve target, if no target is passed it'll use the target s"
+         "pecified in the target field."
+      }
+      target: =
+      {
+        txt = "&"
+        hint = "Target to Dissolve"
+      }
+      magnitude: =
+      {
+        txt = "&"
+        hint = "Magnitude"
+      }
+      dissolvetype: =
+      {
+        txt = "&"
+        hint = "Dissolve Type"
+        typ = "C"
+        items = "Energy"$0D"Heavy electrical"$0D"Light electrical"$0D"Core Eff"
+         "ect"
+        values = "0"$0D"1"$0D"2"$0D"3"
+      }
+    }
+    weapon_striderbuster:form =
+    {
+      t_BasePropPhysics = !
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X8388608"
+        cap = "Don't use game_weapon_manager"
+      }
+      dud: =
+      {
+        txt = "&"
+        hint = "Dud Bomb"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
+      }
+      output#OnAttachToStrider: =
+      {
+        txt = "&"
+        hint = "Fired when the striderbuster successfully attaches to a stride"
+         "r."
+      }
+      output#OnDetonate: =
+      {
+        txt = "&"
+        hint = "Fired when the striderbuster detonates."
+      }
+      output#OnShatter: =
+      {
+        txt = "&"
+        hint = "Fired when the striderbuster shatters without detonating."
+      }
+      output#OnShotDown: =
+      {
+        txt = "&"
+        hint = "Fired when the striderbuster shatters after being shot down by"
+         " Hunters"
       }
     }
   }
