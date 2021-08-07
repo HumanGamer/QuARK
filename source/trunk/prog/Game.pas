@@ -882,9 +882,7 @@ var
  PakFile: QFileObject;
  PakSearchPath: String;
  GetPakNames: TGetPakNames;
- Setup: QObject;
  SteamRunning: Boolean;
- I: Integer;
 begin
   Log(LOG_VERBOSE, 'GetGameFileBase: %s, %s, %s, %s', [BaseDir, FileName, PakFileName, BoolToStr(LookInCD)]);
   Result := NIL;
@@ -958,29 +956,15 @@ begin
       end;
     end;
 
-    //Pak file search (this includes GCF's)
+    //Pak file search (this includes GCF's and VPK's)
     RestartAliasing(FileName);
     FilenameAlias := GetNextAlias;
-    if SetupGameSet.Specifics.Values['Steam']='1' then
+    if SameText(RightStr(PakFileName, 4), '.gcf') then
     begin
-      Setup:=SetupSubSet(ssGames, 'Steam');
-      PakSearchPath:=QuickResolveFilename(ConcatPaths([QuakeDir, Setup.Specifics.Values['SteamAppsDirectory']]));
-      if SetupGameSet.Specifics.Values['GameFileLayout']='username' then
-      begin
-        //Move the gamedir-part into the filename
-        I:=LastPos(PathDelim, RemoveTrailingSlash(AbsolutePath));
-        if I <> 0 then
-        begin
-          RestartAliasing(ConcatPaths([RightStr(AbsolutePath,Length(AbsolutePath)-I),FileName]));
-          FilenameAlias := GetNextAlias;
-          AbsolutePath:=LeftStr(AbsolutePath,I);
-        end;
-      end
-      else if SetupGameSet.Specifics.Values['GameFileLayout']='common' then
-      begin
-        //Archive files are scattered over multiple base directories
-        PakSearchPath:=ConcatPaths([PakSearchPath, Setup.Specifics.Values['CommonDirectory'], GetSteamGameDir(), BaseDir]);
-      end;
+      //Move the basedir into the filename
+      RestartAliasing(ConcatPaths([BaseDir,FileName]));
+      FilenameAlias := GetNextAlias;
+      PakSearchPath:=QuickResolveFilename(QuakeDir);
     end
     else
     begin

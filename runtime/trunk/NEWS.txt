@@ -14,6 +14,8 @@
 
 6.6.0 Beta 8
 ============
+* [DanielPharos]: Improved Steam folder handling to allow a per-game Steam Library location.
+
 * [DanielPharos]: Made the "browse for folder" window resizable and added the "Create
           - new folder" button (only supported on Windows ME, Windows 2000, and higher).
 
