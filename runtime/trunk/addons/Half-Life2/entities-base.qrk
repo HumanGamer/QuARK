@@ -1,8 +1,6 @@
 QQRKSRC1
-// This file has been written by QuArK QuArK 6.4 alpha
-// It's the text version of file: base.qrk
-
-// Common Source Entities. last changes august/5/2005 by cbxpm.
+// This file has been written by QuArK 6.6
+// It's the text version of file: base.fgd
 
 {
   Description = "Common Source Entities"
@@ -108,13 +106,78 @@ QQRKSRC1
       down:f   = {v='0 0 -64 0 128 -64 128 0 -64' detail_tex=! m="1"}
     }
   }
-  
+
   Toolbox Folders.qtx =
   {
     Toolbox = "New map items..."
     Root = "Common Source Entities.qtxfolder"
     Common Source Entities.qtxfolder =
     {
+
+// ai entities
+
+      ai_* entities.qtxfolder =
+      {
+        ai_speechfilter:e =
+        {
+          origin = "0 0 0"
+          ;desc = "An entity that can be used to control the idle speech patte"
+           "rns of a set of NPCs."
+          IdleModifier = "1.0"
+          NeverSayHello = "0"
+        }
+      }
+
+// ambient entities
+
+      ambient_* entities.qtxfolder =
+      {
+        ambient_generic:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Universal ambient sound. Use it to play and control a singl"
+           "e sound."
+          health = "10"
+          preset = "0"
+          volstart = "0"
+          fadeinsecs = "0"
+          fadeoutsecs = "0"
+          pitch = "100"
+          pitchstart = "100"
+          spinup = "0"
+          spindown = "0"
+          lfotype = "0"
+          lforate = "0"
+          lfomodpitch = "0"
+          lfomodvol = "0"
+          cspinup = "0"
+          radius = "1250"
+          spawnflags = "48"
+        }
+      }
+
+// color entities
+
+      color_* entities.qtxfolder =
+      {
+        color_correction:e =
+        {
+          origin = "0 0 0"
+          ;desc = "An entity to control the color correction in the map."
+          minfalloff = "0.0"
+          maxfalloff = "200.0"
+          maxweight = "1.0"
+          fadeInDuration = "0.0"
+          fadeOutDuration = "0.0"
+        }
+        color_correction_volume:b =
+        {
+          t_nodrawpoly=!
+          ;desc = "An entity to control the color correction in the map."
+          fadeDuration = "10.0"
+          maxweight = "1.0"
+        }
+      }
 
 // env entities
 
@@ -138,6 +201,8 @@ QQRKSRC1
           framestart = "0"
           StrikeTime = "1"
           damage = "0"
+          decalname = "Bigshot"
+          HDRColorScale = "1.0"
           TouchType = "0"
         }
         env_beverage:e =
@@ -217,6 +282,10 @@ QQRKSRC1
           ;desc = "Spawns the specified entity template at its origin. If set "
            "to auto-spawn, it will spawn the template whenever there's room an"
            "d the player is looking elsewhere."
+          PostSpawnSpeed = "0"
+          PostSpawnDirection = "0 0 0"
+          PostSpawnDirectionVariance = "0.15"
+          PostSpawnInheritAngles = "0"
         }
         env_explosion:e =
         {
@@ -280,6 +349,8 @@ QQRKSRC1
           fogdir = "1 0 0"
           fogstart = "500.0"
           fogend = "2000.0"
+          fogmaxdensity = "1"
+          foglerptime = "0"
           farz = "-1"
         }
         env_funnel:e =
@@ -321,6 +392,7 @@ QQRKSRC1
           MaxDist = "2000"
           OuterMaxDist = "0"
           GlowProxySize = "2.0"
+          HDRColorScale = "1.0"
         }
         env_message:e =
         {
@@ -345,6 +417,12 @@ QQRKSRC1
           Sensitivity = "1"
           SmoothFactor = "0"
           MaxRange = "240"
+        }
+        env_particle_performance_monitor:e =
+        {
+          origin = "0 0 0"
+          ;desc = "An entity for turning on and off measuring and display of p"
+           "article throughput."
         }
         env_particlelight:e =
         {
@@ -373,6 +451,7 @@ QQRKSRC1
           magnitude = "100"
           radius = "0"
           spawnflags = "1"
+          inner_radius = "0"
         }
         env_physimpact:e =
         {
@@ -382,6 +461,7 @@ QQRKSRC1
           angles = "0 0 0"
           magnitude = "100"
           distance = "0"
+          spawnflags = "8"
         }
         env_player_surface_trigger:e =
         {
@@ -391,7 +471,22 @@ QQRKSRC1
            "a specific material."
           gamematerial = "0"
         }
-         env_rotorshooter:e =
+        env_projectedtexture:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Projected texture entity."
+          spawnflags = "1"
+          lightfov = "90.0"
+          nearz = "4.0"
+          farz = "750.0"
+          enableshadows = "0"
+          shadowquality = "1"
+          lightonlytarget = "0"
+          lightworld = "1"
+          lightcolor = "255 255 255 200"
+          cameraspace = "0"
+        }
+        env_rotorshooter:e =
         {
           origin = "0 0 0"
           ;desc = "An entity that creates gibs when it's within the influence "
@@ -401,6 +496,19 @@ QQRKSRC1
           skin = "0"
           rotortime = "1"
           rotortimevariance = "0.3"
+        }
+        env_rotorwash_emitter:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Creates rotorwash."
+          altitude = "1024"
+        }
+        env_screeneffect:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Allows screenspace effects to be played on the player's vie"
+           "w."
+          type = "0"
         }
         env_screenoverlay:e =
         {
@@ -436,6 +544,9 @@ QQRKSRC1
           shootsounds = "-1"
           simulation = "0"
           skin = "0"
+          nogibshadows = "0"
+          gibgravityscale = "1"
+          massoverride = "0"
         }
         env_smokestack:e =
         {
@@ -456,6 +567,7 @@ QQRKSRC1
           WindSpeed = "0"
           SmokeMaterial = "particle/SmokeStack.vmt"
           twist = "0"
+          roll = "0"
           rendercolor = "255 255 255"
           renderamt = "255"
         }
@@ -501,8 +613,6 @@ QQRKSRC1
           ;desc = "An entity that works like env_soundscape except that it wor"
            "ks in conjunction with trigger_soundscape to determine when a play"
            "er hears it."
-          radius = "128"
-          soundscape = "Nothing"
         }
         env_spark:e =
         {
@@ -530,6 +640,29 @@ QQRKSRC1
           framerate = "10.0"
           model = "sprites/glow01.spr"
           GlowProxySize = "2.0"
+          HDRColorScale = "1.0"
+        }
+        env_sprite_oriented:e =
+        {
+          origin = "0 0 0"
+          ;desc = "A env_sprite that allows orientation."
+          framerate = "10.0"
+          model = "sprites/glow01.spr"
+          GlowProxySize = "2.0"
+          HDRColorScale = "1.0"
+        }
+        env_spritetrail:e =
+        {
+          origin = "0 0 0"
+          ;desc = "A magical trail you can parent to anything you heart desire"
+           "s."
+          lifetime = "0.5"
+          startwidth = "8.0"
+          endwidth = "1.0"
+          spritename = "sprites/bluelaser1.vmt"
+          renderamt = "255"
+          rendercolor = "255 255 255"
+          rendermode = "5"
         }
         env_steam:e =
         {
@@ -545,6 +678,7 @@ QQRKSRC1
           rendercolor = "255 255 255"
           JetLength = "80"
           renderamt = "255"
+          rollspeed = "8"
         }
         env_sun:e =
         {
@@ -553,7 +687,12 @@ QQRKSRC1
           use_angles = "0"
           pitch = "0"
           rendercolor = "100 80 80"
+          overlaycolor = "0 0 0"
           size = "16"
+          overlaysize = "-1"
+          material = "sprites/light_glow02_add_noz"
+          overlaymaterial = "sprites/light_glow02_add_noz"
+          HDRColorScale = "1.0"
         }
         env_texturetoggle:e =
         {
@@ -568,6 +707,13 @@ QQRKSRC1
            " Think of it as a method of controlling the exposure of the player"
            "'s eyes."
         }
+        env_viewpunch:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Causes a view punch on players."
+          punchangle = "0 0 90"
+          radius = "500"
+        }
         env_wind:e =
         {
           origin = "0 0 0"
@@ -578,6 +724,7 @@ QQRKSRC1
           maxgust = "250"
           mingustdelay = "10"
           maxgustdelay = "20"
+          gustduration = "5"
           gustdirchange = "20"
         }
         env_zoom:e =
@@ -600,6 +747,11 @@ QQRKSRC1
           origin = "0 0 0"
           ;desc = "A filter that filters by the class name of the activator."
         }
+        filter_activator_mass_greater:e =
+        {
+          origin = "0 0 0"
+          ;desc = "A filter that filters by the mass of the activator."
+        }
         filter_activator_name:e =
         {
           origin = "0 0 0"
@@ -613,7 +765,16 @@ QQRKSRC1
            "ilter."
           damagetype = "64"
         }
-         filter_multi:e =
+        filter_enemy:e =
+        {
+          origin = "0 0 0"
+          ;desc = "A filter that filters a potential enemy entity by a set of "
+           "criteria."
+          filter_radius = "0"
+          filter_outer_radius = "0"
+          filter_max_per_enemy = "0"
+        }
+        filter_multi:e =
         {
           origin = "0 0 0"
           ;desc = "A filter that tests the activator against multiple filters."
@@ -638,7 +799,8 @@ QQRKSRC1
            "nut shaped map would require at least two portals to divide the ma"
            "p into two areas. A linear map could be divided into two areas wit"
            "h a single area portal."
-          StartOpen = "0"
+          StartOpen = "1"
+          PortalVersion = "1"
         }
         func_areaportalwindow:b =
         {
@@ -653,6 +815,7 @@ QQRKSRC1
           FadeStartDist = "128"
           FadeDist = "512"
           TranslucencyLimit = "0.2"
+          PortalVersion = "1"
         }
         func_breakable:b =
         {
@@ -671,17 +834,16 @@ QQRKSRC1
           health = "5"
           fragility = "100"
           surfacetype = "0"
-          upperleft = "0 0 0"
-          upperright = "0 0 0"
-          lowerright = "0 0 0"
-          lowerleft = "0 0 0"
         }
         func_brush:b =
         {
           t_detailpoly=!
           ;desc = "An brush built entity with various features."
+          spawnflags = "2"
           Solidity = "0"
+          invert_exclusion = "0"
           solidbsp = "0"
+          vrad_brush_cast_shadows = "0"
         }
         func_button:b =
         {
@@ -754,6 +916,15 @@ QQRKSRC1
           SizeMax = "20"
           Alpha = "255"
         }
+        func_fish_pool:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Creates a school of interactive fish that swim near this en"
+           "tity."
+          model = "models/Junkola.mdl"
+          fish_count = "10"
+          max_range = "150"
+        }
         func_guntarget:b =
         {
           t_detailpoly=!
@@ -766,6 +937,24 @@ QQRKSRC1
         {
           t_detailpoly=!
           ;desc = "Legacy support. Use func_brush instead."
+        }
+        func_instance:e =
+        {
+          origin = "0 0 0"
+          ;desc = "An entity for placing an instance of a map file.  You may t"
+           "ranslate and rotate this entity. You can use the replace keys to d"
+           "o parameter changes on the instance contents.  In a $ at the begin"
+           "ning of a variable name.  Then just use the $variable name inside "
+           "of the instance contents on any value portion of a key/value pair."
+          fixup_style = "0"
+        }
+        func_instance_parms:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Place one copy of this entity inside of an instance.  Whene"
+           "ver you add a $parameter for the instance, get the properties of t"
+           "his entity.  It will auto-populate it with the variables and allow"
+           " you to indicate the variable type."
         }
         func_ladderendpoint:e =
         {
@@ -840,6 +1029,18 @@ QQRKSRC1
           rendercolor = "100 100 100"
           preciptype = "0"
         }
+        func_reflective_glass:b =
+        {
+          t_nodrawpoly=!
+          ;desc = "Used to produce perfectly reflective glass that renders wor"
+           "ld + entities. Typically, you want your glass brush to have nodraw"
+           " on all non-reflective surfaces and you want to use a shader like "
+           "lightmappedreflective in your material applied to the non-nodraw s"
+           "urfaces. See hl2/materials/glass/reflectiveglass001.vmt for an exa"
+           "mple. NOTE: currently, you cannot use reflective glass in scenes w"
+           "ith water, and you can only have 1 reflective glass in your view f"
+           "rustum ( + pvs ) at a time."
+        }
         func_rot_button:b =
         {
           t_detailpoly=!
@@ -870,7 +1071,7 @@ QQRKSRC1
            "e."
           Color1 = "255 255 255"
           Color2 = "255 255 255"
-          material = "particle/smoke_grenade1"
+          material = "particle/particle_smokegrenade"
           ParticleDrawWidth = "120"
           ParticleSpacingDistance = "80"
           DensityRampSpeed = "1"
@@ -911,6 +1112,9 @@ QQRKSRC1
            "th of path_track entities.\nNOTE: Build your train so that the fro"
            "nt of the train is facing down the X axis. When it spawns it will "
            "automatically rotate to face the next path_track on the path."
+          ManualSpeedChanges = "0"
+          ManualAccelSpeed = "0"
+          ManualDecelSpeed = "0"
         }
         func_traincontrols:b =
         {
@@ -927,8 +1131,13 @@ QQRKSRC1
            "s entity is non-functional in Counter-Strike: Source. Use func_lad"
            "der instead."
           StartDisabled = "0"
-          point0 = "0 0 0"
-          point1 = "0 0 0"
+        }
+        func_viscluster:b =
+        {
+          t_nodrawpoly=!
+          ;desc = "Any leaves touching this brush will have their vis merged t"
+           "ogether into a single cluster.  Use multiple func_viscluster entit"
+           "ies to reduce vis time"
         }
         func_wall:b =
         {
@@ -964,6 +1173,15 @@ QQRKSRC1
           origin = "0 0 0"
           ;desc = "An entity that ends a multiplayer game."
         }
+        game_gib_manager:e =
+        {
+          origin = "0 0 0"
+          ;desc = "An entity to control the number of gibs in the world, for p"
+           "erformance reasons."
+          maxpieces = "-1"
+          maxpiecesdx8 = "-1"
+          allownewgibs = "0"
+        }
         game_player_equip:e =
         {
           origin = "0 0 0"
@@ -986,6 +1204,8 @@ QQRKSRC1
           ;desc = "An entity to control the number of ragdolls in the world, f"
            "or performance reasons."
           MaxRagdollCount = "-1"
+          MaxRagdollCountDX8 = "-1"
+          SaveImportant = "0"
         }
         game_score:e =
         {
@@ -1024,12 +1244,27 @@ QQRKSRC1
            "ype in the world. Useful in places where NPCs are spawning rapidly"
            ", dying, and dropping weapons."
           maxpieces = "0"
+          ammomod = "1"
         }
         game_zone_player:b =
         {
           t_triggerpoly=!
           ;desc = "An entity used to count the number of players within a zone"
            "."
+        }
+      }
+
+// hammer entities
+
+      hammer_* entities.qtxfolder =
+      {
+        hammer_updateignorelist:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Specifies entities that are to be ignored by the hammer_upd"
+           "ate_safe_entities console command. Enter the targetnames of entiti"
+           "es that you want to exclude into the list of fields here. Several "
+           "of these may exist in a map."
         }
       }
 
@@ -1170,6 +1405,8 @@ QQRKSRC1
            "o create or destroy a connection in the nodegraph because of some "
            "event in your map (a bridge being created/destroyed, etc)."
           initialstate = "1"
+          linktype = "1"
+          InvertAllow = "0"
         }
         info_node_link_controller:e =
         {
@@ -1180,6 +1417,8 @@ QQRKSRC1
           mins = "-8 -32 -36"
           maxs = "8 32 36"
           initialstate = "1"
+          useairlinkradius = "0"
+          InvertAllow = "0"
         }
         info_npc_spawn_destination:e =
         {
@@ -1203,11 +1442,39 @@ QQRKSRC1
           EndU = "1.0"
           StartV = "0.0"
           EndV = "1.0"
+          fademindist = "-1"
+          fademaxdist = "0"
+        }
+        info_overlay_transition:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Overlay Transition"
+          LengthTexcoordStart = "0.0"
+          LengthTexcoordEnd = "1.0"
+          WidthTexcoordStart = "0.0"
+          WidthTexcoordEnd = "1.0"
+          Width1 = "25.0"
+          Width2 = "25.0"
+          DebugDraw = "0"
+        }
+        info_particle_system:e =
+        {
+          origin = "0 0 0"
+          ;desc = "An entity that spawns a particle system built using the par"
+           "ticle editor."
+          start_active = "0"
+          flag_as_weather = "0"
+          cpoint1_parent = "0"
+          cpoint2_parent = "0"
+          cpoint3_parent = "0"
+          cpoint4_parent = "0"
+          cpoint5_parent = "0"
+          cpoint6_parent = "0"
+          cpoint7_parent = "0"
         }
         info_player_start:e =
         {
           origin = "0 0 0"
-          angles = "0 0 0"
           ;desc = "This entity indicates the position and facing direction at "
            "which the player will spawn. Any number of info_player_start entit"
            "ies may be placed in a map for when working in cordoned-off portio"
@@ -1223,6 +1490,14 @@ QQRKSRC1
            "when the level is loaded. If it has a name specified, it won't app"
            "ly until it receives the 'Activate' input."
           Distance = "64"
+        }
+        info_radial_link_controller:e =
+        {
+          origin = "0 0 0"
+          ;desc = "This entity automatically severs node connections that pass"
+           " through its radius. If it moves, it will restore those connection"
+           "s."
+          radius = "120"
         }
         info_target:e =
         {
@@ -1256,7 +1531,7 @@ QQRKSRC1
           origin = "0 0 0"
           ;desc = "Animation KeyFrame"
         }
-       }
+      }
 
 // light entities
 
@@ -1268,11 +1543,11 @@ QQRKSRC1
           _light = "255 255 255 300"
           origin = "0 0 0"
           ;desc = "An invisible omnidirectional lightsource."
+          _distance = "0"
         }
         light_dynamic:e =
         {
           origin = "0 0 0"
-          angles = "0 0 0"
           ;desc = "An invisible lightsource that changes in some way over time"
            "."
           _light = "255 255 255 200"
@@ -1286,20 +1561,22 @@ QQRKSRC1
         }
         light_environment:e =
         {
-         origin = "0 0 0"
-         angles = "0 0 0"
+          origin = "0 0 0"
           ;desc = "Sets the color and angle of the light from the sun and sky."
+          _light = "255 255 255 200"
+          _ambient = "255 255 255 20"
+          _lightHDR = "-1 -1 -1 1"
+          _lightscaleHDR = "1"
+          _ambientHDR = "-1 -1 -1 1"
+          _AmbientScaleHDR = "1"
           pitch = "0"
-          _light = "255 201 128 210"
-          _ambient = "103 143 184 50"
+          SunSpreadAngle = "0"
         }
         light_spot:e =
         {
           origin = "0 0 0"
-          angles = "0 0 0"
           ;desc = "An invisible and directional spotlight."
-          _light = "255 255 255 500"
-          _inner_cone = "35"
+          _inner_cone = "30"
           _cone = "45"
           _exponent = "1"
           _distance = "0"
@@ -1311,6 +1588,16 @@ QQRKSRC1
 
       logic_* entities.qtxfolder =
       {
+        logic_active_autosave:e =
+        {
+          origin = "0 0 0"
+          ;desc = "An entity that is used to look for opportunities to autosav"
+           "e."
+          MinimumHitPoints = "30"
+          TriggerHitPoints = "75"
+          TimeToTrigget = "0"
+          DangerousTime = "10"
+        }
         logic_auto:e =
         {
           origin = "0 0 0"
@@ -1325,6 +1612,8 @@ QQRKSRC1
           origin = "0 0 0"
           ;desc = "An entity that is used to force an autosave."
           NewLevelUnit = "0"
+          MinimumHitPoints = "0"
+          MinHitPointsToCommit = "0"
         }
         logic_branch:e =
         {
@@ -1332,6 +1621,14 @@ QQRKSRC1
           ;desc = "Tests a boolean value and fires an output based on whether "
            "the value is true or false. Use this entity to branch between two "
            "potential sets of events."
+        }
+        logic_branch_listener:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Contains a list of logic_branch entities and fires outputs "
+           "when the state of any of the logic_branches changes.\n\nThis entit"
+           "y is used to fire an event when a set of conditions are all satisf"
+           "ied."
         }
         logic_case:e =
         {
@@ -1352,7 +1649,7 @@ QQRKSRC1
            "isions between two target entities."
           startdisabled = "1"
         }
-       logic_compare:e =
+        logic_compare:e =
         {
           origin = "0 0 0"
           ;desc = "Compares an input value to another value. If the input valu"
@@ -1394,6 +1691,12 @@ QQRKSRC1
           spawnflags = "1"
           navprop = "Ignore"
         }
+        logic_playerproxy:e =
+        {
+          origin = "0 0 0"
+          ;desc = "An entity that is used to relay inputs/ouputs to the player"
+           " and back to the world."
+        }
         logic_relay:e =
         {
           origin = "0 0 0"
@@ -1411,6 +1714,20 @@ QQRKSRC1
            "d, in which case it will fire alternating high/low outputs each ti"
            "me it fires."
           UseRandomTime = "0"
+        }
+      }
+
+// material entities
+
+      material_* entities.qtxfolder =
+      {
+        material_modify_control:e =
+        {
+          origin = "0 0 0"
+          ;desc = "An entity that can be used to directly control material var"
+           "s. To use it, you need to read the .vmt of the material you intend"
+           " to change. Parent this entity to a brush model entity who's mater"
+           "ial you want to control."
         }
       }
 
@@ -1447,9 +1764,30 @@ QQRKSRC1
           origin = "0 0 0"
           ;desc = "An entity that remaps a range of input values to a given ra"
            "nge of output values."
-          spawnflags = "1"
+          spawnflags = "3"
           in1 = "0"
           in2 = "1"
+        }
+      }
+
+// momentary entities
+
+      momentary_* entities.qtxfolder =
+      {
+        momentary_rot_button:b =
+        {
+          t_detailpoly=!
+          ;desc = "A brush entity that's designed to be used for rotating whee"
+           "ls, where the player can rotate them to arbitrary positions before"
+           " stopping."
+          speed = "50"
+          sounds = "0"
+          distance = "90"
+          returnspeed = "0"
+          spawnflags = "1057"
+          startposition = "0"
+          startdirection = "Forward"
+          solidbsp = "0"
         }
       }
 
@@ -1492,6 +1830,11 @@ QQRKSRC1
            "rniture or door that an NPC needs to manipulate within a scripted_"
            "sequence."
         }
+        npc_puppet:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Puppet entity that mimics the animations of a target NPC."
+        }
         npc_template_maker:e =
         {
           origin = "0 0 0"
@@ -1501,6 +1844,7 @@ QQRKSRC1
           Radius = "256"
           CriterionVisibility = "2"
           CriterionDistance = "2"
+          MinSpawnDistance = "0"
         }
       }
 
@@ -1508,36 +1852,6 @@ QQRKSRC1
 
       other entities.qtxfolder =
       {
-        ai_speechfilter:e =
-        {
-          origin = "0 0 0"
-          ;desc = "An entity that can be used to control the idle speech patte"
-           "rns of a set of NPCs."
-          IdleModifier = "1.0"
-          NeverSayHello = "0"
-        }
-        ambient_generic:e =
-        {
-          origin = "0 0 0"
-          ;desc = "Universal ambient sound. Use it to play and control a singl"
-           "e sound."
-          health = "10"
-          preset = "0"
-          volstart = "0"
-          fadein = "0"
-          fadeout = "0"
-          pitch = "100"
-          pitchstart = "100"
-          spinup = "0"
-          spindown = "0"
-          lfotype = "0"
-          lforate = "0"
-          lfomodpitch = "0"
-          lfomodvol = "0"
-          cspinup = "0"
-          radius = "1250"
-          spawnflags = "48"
-        }
         cycler:e =
         {
           origin = "0 0 0"
@@ -1561,29 +1875,22 @@ QQRKSRC1
            "eives the 'Activate' input."
           LowPriority = "0"
         }
-        material_modify_control:e =
+        test_traceline:e =
         {
           origin = "0 0 0"
-          ;desc = "An entity that can be used to directly control material var"
-           "s. To use it, you need to read the .vmt of the material you intend"
-           " to change. Parent this entity to a brush model entity who's mater"
-           "ial you want to control."
+          ;desc = "A debugging tool for testing tracelines."
         }
-        momentary_rot_button:b =
+        worldspawn:b =
         {
-          t_detailpoly=!
-          ;desc = "A brush entity that's designed to be used for rotating whee"
-           "ls, where the player can rotate them to arbitrary positions before"
-           " stopping."
-          speed = "50"
-          sounds = "0"
-          distance = "90"
-          returnspeed = "0"
-          spawnflags = "1057"
-          startposition = "0"
-          startdirection = "Forward"
-          solidbsp = "0"
+          ;desc = "This is the world entity. Each map can only contain one, an"
+           "d it's automatically created for you."
         }
+      }
+
+// path entities
+
+      path_* entities.qtxfolder =
+      {
         path_track:e =
         {
           origin = "0 0 0"
@@ -1593,84 +1900,6 @@ QQRKSRC1
           speed = "0"
           radius = "0"
           orientationtype = "1"
-        }
-        physics_cannister:e =
-        {
-          origin = "0 0 0"
-          ;desc = "A physically simulated gas cannister that can have its cap "
-           "shot off, at which point gas will start escaping and cause the can"
-           "nister to fly around. If it takes enough damage, it will explode."
-          model = "models/fire_equipment/w_weldtank.mdl"
-          spawnflags = "2"
-          expdamage = "200.0"
-          expradius = "250.0"
-          health = "25"
-          thrust = "3000.0"
-          fuel = "12.0"
-          rendercolor = "255 255 255"
-          renderamt = "128"
-          gassound = "ambient/objects/cannister_loop.wav"
-        }
-        shadow_control:e =
-        {
-          origin = "0 0 0"
-          ;desc = "An entity to control the shadows in the map."
-          angles = "80 30 0"
-          color = "128 128 128"
-          distance = "75"
-        }
-        sky_camera:e =
-        {
-          origin = "0 0 0"
-          ;desc = "An entity used to control the 3D Skybox. Its origin is used"
-           " to determine the 3D Skybox's position relative to the map. Place "
-           "this entity, in the 3D Skybox, at the point where the origin of th"
-           "e map should be."
-          scale = "16"
-          fogenable = "0"
-          fogblend = "0"
-          use_angles = "0"
-          fogcolor = "255 255 255"
-          fogcolor2 = "255 255 255"
-          fogdir = "1 0 0"
-          fogstart = "500.0"
-          fogend = "2000.0"
-        }
-        tanktrain_ai:e =
-        {
-          origin = "0 0 0"
-          ;desc = "Train chase AI"
-          startsound = "vehicles/diesel_start1.wav"
-          enginesound = "vehicles/diesel_turbo_loop1.wav"
-          movementsound = "vehicles/tank_treads_loop1.wav"
-        }
-        tanktrain_aitarget:e =
-        {
-          origin = "0 0 0"
-          ;desc = "An entity that changes the target of a tanktrain_ai entity."
-        }
-        test_traceline:e =
-        {
-          origin = "0 0 0"
-          ;desc = "A debugging tool for testing tracelines."
-        }
-        vgui_screen:e =
-        {
-          origin = "0 0 0"
-          ;desc = "A VGUI screen. Useful for in-world monitors."
-        }
-        water_lod_control:e =
-        {
-          origin = "0 0 0"
-          ;desc = "An entity used to control the LOD behavior of any water in "
-           "the map. If your map has water, this entity is required."
-          cheapwaterstartdistance = "1000"
-          cheapwaterenddistance = "2000"
-        }
-        worldspawn:b =
-        {
-          ;desc = "This is the world entity. Each map can only contain one, an"
-           "d it's automatically created for you."
         }
       }
 
@@ -1689,7 +1918,6 @@ QQRKSRC1
           origin = "0 0 0"
           ;desc = "A constraint that keeps the relative position and orientati"
            "on of two objects fixed."
-          spawnflags = "1"
         }
         phys_constraintsystem:e =
         {
@@ -1706,6 +1934,7 @@ QQRKSRC1
           ;desc = "Turns an arbitrary entity into a physically simulated entit"
            "y. i.e. brush entities will behave like func_physbox, model entiti"
            "es behave like prop_physics."
+          massoverride = "0"
         }
         phys_hinge:e =
         {
@@ -1714,6 +1943,11 @@ QQRKSRC1
            "axis of rotation."
           hingefriction = "0"
           SystemLoadScale = "1"
+          minSoundThreshold = "6"
+          maxSoundThreshold = "80"
+          reversalsoundthresholdSmall = "0"
+          reversalsoundthresholdMedium = "0"
+          reversalsoundthresholdLarge = "0"
         }
         phys_keepupright:e =
         {
@@ -1792,7 +2026,7 @@ QQRKSRC1
            "nearest point on a line."
           radius = "512"
           force = "5000"
-        }       
+        }
         phys_slideconstraint:e =
         {
           origin = "0 0 0"
@@ -1801,6 +2035,11 @@ QQRKSRC1
           spawnflags = "1"
           slidefriction = "0"
           SystemLoadScale = "1"
+          minSoundThreshold = "6"
+          maxSoundThreshold = "80"
+          reversalsoundthresholdSmall = "0"
+          reversalsoundthresholdMedium = "0"
+          reversalsoundthresholdLarge = "0"
         }
         phys_spring:e =
         {
@@ -1817,7 +2056,7 @@ QQRKSRC1
           damping = "2.0"
           relativedamping = "0.1"
           breaklength = "0"
-        }       
+        }
         phys_thruster:e =
         {
           origin = "0 0 0"
@@ -1839,6 +2078,29 @@ QQRKSRC1
         }
       }
 
+// physics entities
+
+      physics_* entities.qtxfolder =
+      {
+        physics_cannister:e =
+        {
+          origin = "0 0 0"
+          ;desc = "A physically simulated gas cannister that can have its cap "
+           "shot off, at which point gas will start escaping and cause the can"
+           "nister to fly around. If it takes enough damage, it will explode."
+          model = "models/fire_equipment/w_weldtank.mdl"
+          spawnflags = "2"
+          expdamage = "200.0"
+          expradius = "250.0"
+          health = "25"
+          thrust = "3000.0"
+          fuel = "12.0"
+          rendercolor = "255 255 255"
+          renderamt = "128"
+          gassound = "ambient/objects/cannister_loop.wav"
+        }
+      }
+
 // point entities
 
       point_* entities.qtxfolder =
@@ -1855,6 +2117,13 @@ QQRKSRC1
           ;desc = "An entity that detects if another entity's angular velocity"
            " meets or exceeds a threshold value."
           threshold = "0"
+          fireinterval = "0.2"
+          usehelper = "0"
+        }
+        point_bonusmaps_accessor:e =
+        {
+          origin = "0 0 0"
+          ;desc = "An entity that relays bonus maps changes."
         }
         point_clientcommand:e =
         {
@@ -1878,6 +2147,11 @@ QQRKSRC1
            "es motion. Parent this entity to the prop, and when the prop has i"
            "ts motion enabled, it will immediately teleport to the origin of t"
            "his entity."
+        }
+        point_gamestats_counter:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Generic game statistics counter."
         }
         point_hurt:e =
         {
@@ -1907,6 +2181,26 @@ QQRKSRC1
           width = "75.0"
           speedfactor = "0.15"
         }
+        point_posecontroller:e =
+        {
+          origin = "0 0 0"
+          ;desc = "An entity that controls a pose parameter of a prop and cycl"
+           "es the pose clientside."
+          PoseValue = "0.0"
+          InterpolationTime = "0.0"
+          InterpolationWrap = "0"
+          CycleFrequency = "0.0"
+          FModulationType = "0"
+          FModTimeOffset = "0.0"
+          FModRate = "0.0"
+          FModAmplitude = "0.0"
+        }
+        point_proximity_sensor:e =
+        {
+          origin = "0 0 0"
+          ;desc = "An entity that detects another entity's proximity to a targ"
+           "et position."
+        }
         point_servercommand:e =
         {
           origin = "0 0 0"
@@ -1915,7 +2209,6 @@ QQRKSRC1
         point_spotlight:e =
         {
           origin = "0 0 0"
-          angles = "0 0 0"
           ;desc = "An entity to draw a spotlight. Will draw a beam when the pl"
            "ayer views it side on, and a halo when it's facing towards the pla"
            "yer. Unless the 'No Dynamic Light' spawnflag is checked, it will a"
@@ -1925,6 +2218,7 @@ QQRKSRC1
           spotlightlength = "500"
           spotlightwidth = "50"
           rendercolor = "255 255 255"
+          HDRColorScale = "1.0"
         }
         point_teleport:e =
         {
@@ -1970,12 +2264,19 @@ QQRKSRC1
           interval_min = "0.5"
           interval_max = "2"
         }
+        point_velocitysensor:e =
+        {
+          origin = "0 0 0"
+          ;desc = "An entity that detects and outputs an entity's velocity."
+          enabled = "1"
+        }
         point_viewcontrol:e =
         {
           origin = "0 0 0"
           ;desc = "A camera entity that controls the player's view. While it's"
            " active, the player will see out of the camera."
           wait = "10"
+          interpolatepositiontoplayer = "0"
           spawnflags = "3"
           speed = "0"
           acceleration = "500"
@@ -2006,13 +2307,11 @@ QQRKSRC1
           health = "0"
           forceclosed = "0"
           spawnflags = "8192"
+          opendir = "0"
         }
         prop_dynamic:e =
         {
           origin = "0 0 0"
-          angles = "0 0 0"
-          fademindist = "-1"
-          fadescale = "1"
           ;desc = "A prop that can be placed in hierarchy and can play animati"
            "ons. It can also be configured to break when it takes enough damag"
            "e. Note that the health of the object will be overridden by the he"
@@ -2032,9 +2331,6 @@ QQRKSRC1
         prop_dynamic_override:e =
         {
           origin = "0 0 0"
-          angles = "0 0 0"
-          fademindist = "-1"
-          fadescale = "1"
           ;desc = "A prop that can be placed in hierarchy and can play animati"
            "ons. It can also be configured to break when it takes enough damag"
            "e.\nprop_dynamic_override is a prototyping entity only. It will al"
@@ -2044,9 +2340,6 @@ QQRKSRC1
         prop_physics:e =
         {
           origin = "0 0 0"
-          angles = "0 0 0"
-          fademindist = "-1"
-          fadescale = "1"
           ;desc = "A prop that physically simulates as a single rigid body. It"
            " can be constrained to other physics objects using hinges or other"
            " constraints. It can also be configured to break when it takes eno"
@@ -2061,19 +2354,14 @@ QQRKSRC1
         prop_physics_multiplayer:e =
         {
           origin = "0 0 0"
-          angles = "0 0 0"
-          fademindist = "-1"
-          fadescale = "1"
           ;desc = "This class is the same as prop_physics, except the runtime "
            "collisions use a more bouncy method that avoids the prediction err"
            "ors normal physics objects get."
+          physicsmode = "0"
         }
         prop_physics_override:e =
         {
           origin = "0 0 0"
-          angles = "0 0 0"
-          fademindist = "-1"
-          fadescale = "1"
           ;desc = "A prop that physically simulates as a single rigid body. It"
            " can be constrained to other physics objects using hinges or other"
            " constraints. It can also be configured to break when it takes eno"
@@ -2087,17 +2375,68 @@ QQRKSRC1
            "h internal joints. The joint constraints are part of the physics m"
            "odel."
           spawnflags = "4"
-          fademindist = "-1"
-          fademaxdist = "0"
-          fadescale = "1"
         }
         prop_static:e =
         {
           origin = "0 0 0"
-          angles = "0 0 0"
-          fademindist = "-1"
-          fadescale = "1"
           ;desc = "A prop that doesn't move and doesn't animate."
+        }
+      }
+
+// shadow entities
+
+      shadow_* entities.qtxfolder =
+      {
+        shadow_control:e =
+        {
+          origin = "0 0 0"
+          ;desc = "An entity to control the shadows in the map."
+          angles = "80 30 0"
+          color = "128 128 128"
+          distance = "75"
+          disableallshadows = "0"
+        }
+      }
+
+// sky entities
+
+      sky_* entities.qtxfolder =
+      {
+        sky_camera:e =
+        {
+          origin = "0 0 0"
+          ;desc = "An entity used to control the 3D Skybox. Its origin is used"
+           " to determine the 3D Skybox's position relative to the map. Place "
+           "this entity, in the 3D Skybox, at the point where the origin of th"
+           "e map should be."
+          scale = "16"
+          fogenable = "0"
+          fogblend = "0"
+          use_angles = "0"
+          fogcolor = "255 255 255"
+          fogcolor2 = "255 255 255"
+          fogdir = "1 0 0"
+          fogstart = "500.0"
+          fogend = "2000.0"
+        }
+      }
+
+// tanktrain entities
+
+      tanktrain_* entities.qtxfolder =
+      {
+        tanktrain_ai:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Train chase AI"
+          startsound = "vehicles/diesel_start1.wav"
+          enginesound = "vehicles/diesel_turbo_loop1.wav"
+          movementsound = "vehicles/tank_treads_loop1.wav"
+        }
+        tanktrain_aitarget:e =
+        {
+          origin = "0 0 0"
+          ;desc = "An entity that changes the target of a tanktrain_ai entity."
         }
       }
 
@@ -2110,6 +2449,8 @@ QQRKSRC1
           t_triggerpoly=!
           ;desc = "A trigger volume that autosaves when the player touches it."
           NewLevelUnit = "0"
+          DangerousTimer = "0"
+          MinimumHitPoints = "0"
         }
         trigger_changelevel:b =
         {
@@ -2117,12 +2458,12 @@ QQRKSRC1
           ;desc = "An entity that triggers a level change.\nPlace an info_land"
            "mark in both maps that marks the 'same' location in each map.\nTIP"
            "S & TRICKS: To fire events in the next level, use the OnLevelChang"
-           "e output to turn on an env_global in the current level.  Create an"
-           " logic_auto in the next level that checks for the state set by the"
-           " env_global.\n\nTo control which entities go through the level tra"
-           "nsition, create one or more trigger_transitions and give them the "
-           "same name as the landmark. Any entities within the trigger_transit"
-           "ion(s) will go to the next map."
+           "e output to turn on an env_global in the current level.  Create a "
+           "logic_auto in the next level that checks for the state set by the "
+           "env_global.\n\nTo control which entities go through the level tran"
+           "sition, create one or more trigger_transitions and give them the s"
+           "ame name as the landmark. Any entities within the trigger_transiti"
+           "on(s) will go to the next map."
         }
         trigger_gravity:b =
         {
@@ -2139,6 +2480,7 @@ QQRKSRC1
           damagecap = "20"
           damagetype = "0"
           damagemodel = "0"
+          nodmgforce = "0"
         }
         trigger_impact:b =
         {
@@ -2203,6 +2545,7 @@ QQRKSRC1
           ;desc = "A trigger volume that pushes entities that touch it."
           pushdir = "0 0 0"
           speed = "40"
+          alternateticksfix = "0"
         }
         trigger_remove:b =
         {
@@ -2211,6 +2554,12 @@ QQRKSRC1
            "e careful, removing some entities can cause instability. This is n"
            "ot the same as killing entities. i.e. NPCs removed in this manner "
            "will not fire their OnKilled outputs."
+        }
+        trigger_serverragdoll:b =
+        {
+          t_triggerpoly=!
+          ;desc = "A volume that forces any NPC inside it to create a server s"
+           "ide ragdoll instead of a client one."
         }
         trigger_soundscape:b =
         {
@@ -2249,6 +2598,43 @@ QQRKSRC1
           HoldNoise = "0"
         }
       }
+
+// vgui entities
+
+      vgui_* entities.qtxfolder =
+      {
+        vgui_screen:e =
+        {
+          origin = "0 0 0"
+          ;desc = "A VGUI screen. Useful for in-world monitors."
+        }
+        vgui_slideshow_display:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Slideshow Display"
+          directory = "slideshow"
+          minslidetime = "0.5"
+          maxslidetime = "0.5"
+          cycletype = "0"
+          nolistrepeat = "0"
+          width = "256"
+          height = "128"
+        }
+      }
+
+// water entities
+
+      water_* entities.qtxfolder =
+      {
+        water_lod_control:e =
+        {
+          origin = "0 0 0"
+          ;desc = "An entity used to control the LOD behavior of any water in "
+           "the map. If your map has water, this entity is required."
+          cheapwaterstartdistance = "1000"
+          cheapwaterenddistance = "2000"
+        }
+      }
     }
   }
   Entity Forms.fctx =
@@ -2271,11 +2657,16 @@ QQRKSRC1
     }
     t_Studiomodel:incl =
     {
-     t_modelselect = !
+      t_modelselect = !
       skin: =
       {
         txt = "&"
         hint = "Skin"
+      }
+      modelscale: =
+      {
+        txt = "&"
+        hint = "Model Scale"
       }
       disableshadows: =
       {
@@ -2299,6 +2690,19 @@ QQRKSRC1
       {
         txt = "&"
         hint = "Turn shadow on."
+      }
+      input#AlternativeSorting: =
+      {
+        txt = "&"
+        hint = "Used to attempt to fix sorting problems when rendering. True a"
+         "ctivates, false deactivates"
+      }
+      input#SetModelScale: =
+      {
+        txt = "&"
+        hint = "Takes two values separated by a space. The first is the target"
+         " model scale. The second value is the number of seconds the change i"
+         "n scale will be spread over."
       }
       output#OnIgnite: =
       {
@@ -2408,6 +2812,15 @@ QQRKSRC1
          " its parent. Entities must be parented before being sent this input."
          " The parameter passed in should be the name of the attachment."
       }
+      input#SetParentAttachmentMaintainOffset: =
+      {
+        txt = "&"
+        hint = "Change this entity to attach to a specific attachment point on"
+         " it's parent. Entities must be parented before being sent this input"
+         ". The parameter passed in should be the name of the attachment. The "
+         "entity will maintain it's position relative to the parent at the tim"
+         "e it is attached."
+      }
       input#ClearParent: =
       {
         txt = "&"
@@ -2511,12 +2924,6 @@ QQRKSRC1
         txt = "&"
         hint = "FX Color (R G B)"
       }
-      rendercolor: =
-      {
-        Txt = "&"
-        Typ = "LU3"
-        Hint = "FX Color (R G B)"
-      }
       disablereceiveshadows: =
       {
         txt = "&"
@@ -2524,6 +2931,16 @@ QQRKSRC1
         typ = "C"
         items = "No"$0D"Yes"
         values = "0"$0D"1"
+      }
+      input#Alpha: =
+      {
+        txt = "&"
+        hint = "Set the sprite's alpha (0 - 255)."
+      }
+      input#Color: =
+      {
+        txt = "&"
+        hint = "Set the sprite's color (R G B)."
       }
     }
     t_DXLevelChoice:incl =
@@ -2533,16 +2950,18 @@ QQRKSRC1
         txt = "&"
         hint = "Minimum DX Level"
         typ = "C"
-        items = "default (lowest)"$0D"dx7"
-        values = "0"$0D"70"
+        items = "default (lowest)"$0D"dx7"$0D"dx8.0 (4600Ti)"$0D"dx8.1 (FX5200"
+         ")"$0D"dx9 SM2.0"$0D"dx9 SM3.0"
+        values = "0"$0D"70"$0D"80"$0D"81"$0D"90"$0D"95"
       }
       maxdxlevel: =
       {
         txt = "&"
         hint = "Maximum DX Level"
         typ = "C"
-        items = "default (highest)"$0D"dx6"
-        values = "0"$0D"60"
+        items = "default (highest)"$0D"dx6"$0D"dx7"$0D"dx8.0 (4600Ti)"$0D"dx8."
+         "1 (FX5200)"$0D"dx9 SM2.0"$0D"dx9 SM3.0"
+        values = "0"$0D"60"$0D"70"$0D"80"$0D"81"$0D"90"$0D"95"
       }
     }
     t_Inputfilter:incl =
@@ -2576,6 +2995,11 @@ QQRKSRC1
         items = "Off"$0D"On"$0D"Dead"
         values = "0"$0D"1"$0D"2"
       }
+      counter: =
+      {
+        txt = "&"
+        hint = "Counter"
+      }
       spawnflags: =
       {
         txt = "&"
@@ -2601,6 +3025,29 @@ QQRKSRC1
       {
         txt = "&"
         hint = "Set state of global to DEAD."
+      }
+      input#SetCounter: =
+      {
+        txt = "&"
+        hint = "Sets the counter value of this global."
+      }
+      input#AddToCounter: =
+      {
+        txt = "&"
+        hint = "Adds to the counter value of this global. Negative numbers sub"
+         "tract."
+      }
+      input#GetCounter: =
+      {
+        txt = "&"
+        hint = "Causes the Counter output to be fired, passing the current cou"
+         "nter value for this global."
+      }
+      output#Counter: =
+      {
+        txt = "&"
+        hint = "Fired in response to the GetCounter input, passing the current"
+         " value of the counter."
       }
     }
     t_DamageFilter:incl =
@@ -2663,8 +3110,14 @@ QQRKSRC1
         txt = "&"
         hint = "Performance Mode"
         typ = "C"
-        items = "Normal"$0D"Limit Gibs"$0D"Full Gibs on All Platforms"
-        values = "0"$0D"1"$0D"2"
+        items = "Normal"$0D"No Gibs"$0D"Full Gibs on All Platforms"$0D"Reduced"
+         " gibs"
+        values = "0"$0D"1"$0D"2"$0D"3"
+      }
+      BreakModelMessage: =
+      {
+        txt = "&"
+        hint = "Break Model Message"
       }
       input#Break: =
       {
@@ -2699,10 +3152,20 @@ QQRKSRC1
         txt = "&"
         hint = "Makes the breakable not able to picked up by the physcannon."
       }
+      input#SetMass: =
+      {
+        txt = "&"
+        hint = "Set mass of this object."
+      }
       output#OnBreak: =
       {
         txt = "&"
         hint = "Fired when this breakable breaks."
+      }
+      output#OnTakeDamage: =
+      {
+        txt = "&"
+        hint = "Fired each time this breakable takes any damage."
       }
       output#OnHealthChanged: =
       {
@@ -2716,6 +3179,40 @@ QQRKSRC1
         hint = "Fired when the physcannon has ripped this breakable off of the"
          " wall. Only fired if ACT_PHYSCANNON_DETACH is defined in the model t"
          "his breakable is using."
+      }
+      output#OnPhysCannonAnimatePreStarted: =
+      {
+        txt = "&"
+        hint = "Fired when this prop starts playing the Pre physcannon-pull ac"
+         "tivity, caused by the player trying to grab this prop with the physc"
+         "annon. Only fired if the ACT_PHYSCANNON_ANIMATE_PRE activity is defi"
+         "ned in the model this breakable is using."
+      }
+      output#OnPhysCannonAnimatePullStarted: =
+      {
+        txt = "&"
+        hint = "Fired when this prop starts playing the physcannon-pull activi"
+         "ty, caused by the player trying to grab this prop with the physcanno"
+         "n. Only fired if the ACT_PHYSCANNON_ANIMATE activity is defined in t"
+         "he model this breakable is using. If the prop has Pre pull anim, thi"
+         "s will be fired after the Pre anim has finished playing."
+      }
+      output#OnPhysCannonPullAnimFinished: =
+      {
+        txt = "&"
+        hint = "Fired when this prop has finished playing the physcannon-pull "
+         "activity, caused by the player trying to grab this prop with the phy"
+         "scannon. Only fired if the ACT_PHYSCANNON_ANIMATE activity is define"
+         "d in the model this breakable is using. If the prop has Pre & Post p"
+         "ull anims, this will be fired after the Post anim has finished playi"
+         "ng."
+      }
+      output#OnPhysCannonAnimatePostStarted: =
+      {
+        txt = "&"
+        hint = "Fired when this prop starts playing the Post physcannon-pull a"
+         "ctivity. Only fired if the ACT_PHYSCANNON_ANIMATE_POST activity is d"
+         "efined in the model this breakable is using."
       }
     }
     t_BreakableBrush:incl =
@@ -2753,6 +3250,12 @@ QQRKSRC1
         typ = "X1024"
         cap = "Don't take physics damage"
       }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X2048"
+        cap = "Don't allow bullet penetration"
+      }
       propdata: =
       {
         txt = "&"
@@ -2780,8 +3283,8 @@ QQRKSRC1
         hint = "Material Type"
         typ = "C"
         items = "Glass"$0D"Wood"$0D"Metal"$0D"Flesh"$0D"CinderBlock"$0D"Ceilin"
-         "g Tile"$0D"Computer"$0D"Unbreakable Glass"$0D"Rocks"
-        values = "0"$0D"1"$0D"2"$0D"3"$0D"4"$0D"5"$0D"6"$0D"7"$0D"8"
+         "g Tile"$0D"Computer"$0D"Unbreakable Glass"$0D"Rocks"$0D"None"
+        values = "0"$0D"1"$0D"2"$0D"3"$0D"4"$0D"5"$0D"6"$0D"7"$0D"8"$0D"10"
       }
       explosion: =
       {
@@ -2971,14 +3474,20 @@ QQRKSRC1
         typ = "X8192"
         cap = "Don't drop weapons"
       }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X16384"
+        cap = "Ignore player push (dont give way to player)"
+      }
       sleepstate: =
       {
         txt = "&"
         hint = "Sleep State"
         typ = "C"
         items = "None"$0D"Waiting for threat"$0D"Waiting for PVS"$0D"Waiting f"
-         "or input"
-        values = "0"$0D"1"$0D"2"$0D"3"
+         "or input, ignore PVS"$0D"Auto PVS"$0D"Auto PVS after PVS"
+        values = "0"$0D"1"$0D"2"$0D"3"$0D"4"$0D"5"
       }
       wakeradius: =
       {
@@ -2989,6 +3498,19 @@ QQRKSRC1
       {
         txt = "&"
         hint = "Wake Squad"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
+      }
+      enemyfilter: =
+      {
+        txt = "&"
+        hint = "Enemy Filter"
+      }
+      ignoreunseenenemies: =
+      {
+        txt = "&"
+        hint = "Ignore unseen enemies"
         typ = "C"
         items = "No"$0D"Yes"
         values = "0"$0D"1"
@@ -3082,16 +3604,42 @@ QQRKSRC1
         txt = "&"
         hint = "Fired when this NPC has refused to join the player's squad."
       }
+      output#OnSleep: =
+      {
+        txt = "&"
+        hint = "Fired when this NPC enters a sleep state."
+      }
       output#OnWake: =
       {
         txt = "&"
         hint = "Fired when this NPC comes out of a sleep state."
+      }
+      output#OnForcedInteractionStarted: =
+      {
+        txt = "&"
+        hint = "Fired when the NPC starts a forced interaction."
+      }
+      output#OnForcedInteractionAborted: =
+      {
+        txt = "&"
+        hint = "Fired when the NPC aborts a forced interaction for some reason"
+         " (target NPC died, couldn't be pathed to, etc)"
+      }
+      output#OnForcedInteractionFinished: =
+      {
+        txt = "&"
+        hint = "NPCs in actbusies can no longer perform dynamic interactions."
       }
       input#SetRelationship: =
       {
         txt = "&"
         hint = "Changes this entity's relationship with another entity or clas"
          "s. Format: <entityname/classname> <D_HT/D_FR/D_LI/D_NU> <priority>"
+      }
+      input#SetEnemyFilter: =
+      {
+        txt = "&"
+        hint = "Changes this NPC's enemy filter to the named filter."
       }
       input#SetHealth: =
       {
@@ -3116,6 +3664,21 @@ QQRKSRC1
         txt = "&"
         hint = "Ignite, burst into flames"
       }
+      input#IgniteLifetime: =
+      {
+        txt = "&"
+        hint = "Ignite, with a parameter lifetime."
+      }
+      input#IgniteNumHitboxFires: =
+      {
+        txt = "&"
+        hint = "Ignite, with a parameter number of hitbox fires."
+      }
+      input#IgniteHitboxFireScale: =
+      {
+        txt = "&"
+        hint = "Ignite, with a parameter hitbox fire scale."
+      }
       input#Break: =
       {
         txt = "&"
@@ -3133,12 +3696,6 @@ QQRKSRC1
       {
         txt = "&"
         hint = "Exit scripting state."
-      }
-      input#Assault: =
-      {
-        txt = "&"
-        hint = "Start an assault. Parameter passed in should be the name of th"
-         "e rally point."
       }
       input#SetSquad: =
       {
@@ -3173,6 +3730,45 @@ QQRKSRC1
         txt = "&"
         hint = "Ignore danger sounds for the specified number of seconds."
       }
+      input#HolsterWeapon: =
+      {
+        txt = "&"
+        hint = "Force the NPC to holster their weapon. Ignored if the NPC is s"
+         "cripting, if the NPC's weapon is already holstered, or if the NPC do"
+         "esn't use weapons."
+      }
+      input#HolsterAndDestroyWeapon: =
+      {
+        txt = "&"
+        hint = "Identical to HolsterWeapon, except the weapon is destroyed onc"
+         "e it has been holstered and concealed."
+      }
+      input#UnholsterWeapon: =
+      {
+        txt = "&"
+        hint = "Force the NPC to draw their weapon. Ignored if the NPC is scri"
+         "pting, if the NPC's weapon is already drawn, or if the NPC doesn't u"
+         "se weapons."
+      }
+      input#ForceInteractionWithNPC: =
+      {
+        txt = "&"
+        hint = "Force the NPC to use a dynamic interaction with another NPC. P"
+         "arameter format: <target NPC name> <dynamic interaction name>"
+      }
+      input#UpdateEnemyMemory: =
+      {
+        txt = "&"
+        hint = "Update (or Create) this NPC's memory of an enemy and its locat"
+         "ion"
+      }
+      input#BecomeRagdoll: =
+      {
+        txt = "&"
+        hint = "This NPC will instantly become a ragdoll with ZERO force (just"
+         " go limp). OnDeath, OnHalfHealth, etc. Outputs will **NOT** BE FIRED"
+         "."
+      }
     }
     info_npc_spawn_destination:form =
     {
@@ -3200,6 +3796,14 @@ QQRKSRC1
       t_Targetname = !
       t_Angles = !
       t_EnableDisable = !
+      StartDisabled: =
+      {
+        txt = "&"
+        hint = "Start Disabled"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
+      }
       spawnflags: =
       {
         txt = "&"
@@ -3255,7 +3859,14 @@ QQRKSRC1
       {
         txt = "&"
         hint = "Fired when the spawner is exhausted (all children have been sp"
-         "awned), and all spawned children have died."
+         "awned) and all spawned children have died."
+      }
+      output#OnAllLiveChildrenDead: =
+      {
+        txt = "&"
+        hint = "Fired when all spawned children have died. This does not mean "
+         "the spawned is exhausted, so a new child may be spawned any time aft"
+         "er this (unless the maker is disabled)."
       }
       input#Spawn: =
       {
@@ -3266,6 +3877,16 @@ QQRKSRC1
       {
         txt = "&"
         hint = "Toggles the spawner enabled/disabled state."
+      }
+      input#Enable: =
+      {
+        txt = "&"
+        hint = "Enables the spawner."
+      }
+      input#Disable: =
+      {
+        txt = "&"
+        hint = "Disables the spawner."
       }
       input#AddMaxChildren: =
       {
@@ -3341,6 +3962,11 @@ QQRKSRC1
         items = "Nearest"$0D"Farthest"$0D"Don't Care"
         values = "0"$0D"1"$0D"2"
       }
+      MinSpawnDistance: =
+      {
+        txt = "&"
+        hint = "Minimum spawn distance from player"
+      }
       input#SpawnNPCInRadius: =
       {
         txt = "&"
@@ -3351,10 +3977,21 @@ QQRKSRC1
         txt = "&"
         hint = "Spawn an NPC somewhere within a line behind the maker."
       }
+      input#SpawnMultiple: =
+      {
+        txt = "&"
+        hint = "Spawn multiple NPCs (uses destination group, else radius)."
+      }
       input#ChangeDestinationGroup: =
       {
         txt = "&"
         hint = "Switch to a different set of Destination entities."
+      }
+      input#SetMinimumSpawnDistance: =
+      {
+        txt = "&"
+        hint = "Set the minimum spawn distance from player to destination node"
+         "."
       }
     }
     t_BaseHelicopter:incl =
@@ -3376,6 +4013,13 @@ QQRKSRC1
         hint = "The helicopter will immediately move at top speed toward its c"
          "urrent goal, or in its current orientation if it's on top of its goa"
          "l."
+      }
+      input#MoveSpecifiedSpeed: =
+      {
+        txt = "&"
+        hint = "The helicopter will immediately move at the specified speed (y"
+         "ou provide this as parameter override in units per second) towards i"
+         "ts current goal."
       }
       input#ChangePathCorner: =
       {
@@ -3446,16 +4090,6 @@ QQRKSRC1
          "ue to fly along his patrol path or to his specified target even if h"
          "e senses an enemy."
       }
-      InitialSpeed: =
-      {
-        txt = "&"
-        hint = "Initial Speed"
-      }
-      target: =
-      {
-        txt = "&"
-        hint = "Target path_track"
-      }
       spawnflags: =
       {
         txt = "&"
@@ -3486,7 +4120,16 @@ QQRKSRC1
         Typ = "LU4"
         Hint = "light color (not the intensity, only the color)"
       }
-
+      _lightHDR: =
+      {
+        txt = "&"
+        hint = "BrightnessHDR"
+      }
+      _lightscaleHDR: =
+      {
+        txt = "&"
+        hint = "BrightnessScaleHDR"
+      }
       style: =
       {
         txt = "&"
@@ -3517,6 +4160,21 @@ QQRKSRC1
       {
         txt = "&"
         hint = "Quadratic"
+      }
+      _fifty_percent_distance: =
+      {
+        txt = "&"
+        hint = "50 percent falloff distance"
+      }
+      _zero_percent_distance: =
+      {
+        txt = "&"
+        hint = "0 percent falloff distance"
+      }
+      _hardfalloff: =
+      {
+        txt = "&"
+        hint = "hard falloff"
       }
       input#TurnOn: =
       {
@@ -3561,6 +4219,12 @@ QQRKSRC1
     t_HintNode:incl =
     {
       t_Node = !
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X65536"
+        cap = "Allow jump up"
+      }
       hinttype: =
       {
         txt = "&"
@@ -3568,19 +4232,21 @@ QQRKSRC1
         typ = "C"
         items = "None"$0D"World: Window"$0D"World: Act Busy Hint"$0D"World: Vi"
          "sually Interesting"$0D"World: Visually Interesting (Don't aim at)"$0D
-         "World: Inhibit Combine Mines within 15 feet"$0D"Crouch Cover Medium"$0D
-         "Crouch Cover Low"$0D"Waste Scanner Spawn"$0D"Entrance / Exit Pinch"$0D
-         "Enemy Disadvantage Point"$0D"Health Kit"$0D"Antlion: Burrow Point"$0D
-         "Antlion: Thumper Flee Point"$0D"Headcrab: Burrow Point"$0D"Roller: P"
-         "atrol Point"$0D"Roller: Cleanup Spot"$0D"Crow: Fly to point"$0D"Crow"
-         ": Perch point"$0D"Follower: Wait point"$0D"Override jump permission"$0D
-         "Player squad transition point"$0D"NPC exit point"$0D"Strider node"$0D
-         "HL1 World: Machinery"$0D"HL1 World: Blinking Light"$0D"HL1 World: Hu"
-         "man Blood"$0D"HL1 World: Alien Blood"
-        values = "0"$0D"2"$0D"12"$0D"13"$0D"14"$0D"15"$0D"100"$0D"101"$0D"102"$0D
-         "103"$0D"105"$0D"106"$0D"400"$0D"401"$0D"450"$0D"500"$0D"501"$0D"700"$0D
-         "701"$0D"900"$0D"901"$0D"902"$0D"903"$0D"904"$0D"1000"$0D"1001"$0D"10"
-         "02"$0D"1003"
+         "World: Inhibit Combine Mines within 15 feet"$0D"World: Visually Inte"
+         "resting (Stealth mode)"$0D"Crouch Cover Medium"$0D"Crouch Cover Low"$0D
+         "Waste Scanner Spawn"$0D"Entrance / Exit Pinch"$0D"Enemy Disadvantage"
+         " Point"$0D"Health Kit"$0D"Antlion: Burrow Point"$0D"Antlion: Thumper"
+         " Flee Point"$0D"Headcrab: Burrow Point"$0D"Headcrab: Exit Pod Point"$0D
+         "Roller: Patrol Point"$0D"Roller: Cleanup Spot"$0D"Crow: Fly to point"
+         $0D"Crow: Perch point"$0D"Follower: Wait point"$0D"Override jump perm"
+         "ission"$0D"Player squad transition point"$0D"NPC exit point"$0D"Stri"
+         "der node"$0D"Player Ally: Push away destination"$0D"PLayer Ally: Fea"
+         "r withdrawal destination"$0D"HL1 World: Machinery"$0D"HL1 World: Bli"
+         "nking Light"$0D"HL1 World: Human Blood"$0D"HL1 World: Alien Blood"
+        values = "0"$0D"2"$0D"12"$0D"13"$0D"14"$0D"15"$0D"16"$0D"100"$0D"101"$0D
+         "102"$0D"103"$0D"105"$0D"106"$0D"400"$0D"401"$0D"450"$0D"451"$0D"500"$0D
+         "501"$0D"700"$0D"701"$0D"900"$0D"901"$0D"902"$0D"903"$0D"904"$0D"950"$0D
+         "951"$0D"1000"$0D"1001"$0D"1002"$0D"1003"
       }
       hintactivity: =
       {
@@ -3592,8 +4258,8 @@ QQRKSRC1
         txt = "&"
         hint = "Node FOV"
         typ = "C"
-        items = "180 Degrees"$0D"360 Degrees"
-        values = "180"$0D"360"
+        items = "45 Degrees"$0D"90 Degrees"$0D"180 Degrees"$0D"360 Degrees"
+        values = "45"$0D"90"$0D"180"$0D"360"
       }
       StartHintDisabled: =
       {
@@ -3695,13 +4361,31 @@ QQRKSRC1
       {
         txt = "&"
         typ = "X64"
-        cap = "Everything"
+        cap = "Everything (not including physics debris)"
       }
       spawnflags: =
       {
         txt = "&"
         typ = "X512"
         cap = "Only clients *not* in vehicles"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X1024"
+        cap = "Physics debris"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X2048"
+        cap = "Only NPCs in vehicles (respects player ally flag)"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X4096"
+        cap = "Disallow Bots"
       }
       filtername: =
       {
@@ -3728,6 +4412,13 @@ QQRKSRC1
       t_Origin = !
       t_EnableDisable = !
       t_TriggerOnce = !
+      output#OnStartTouchAll: =
+      {
+        txt = "&"
+        hint = "Fired when an entity starts touching this trigger, and no othe"
+         "r entities are touching it. Only entities that passed this trigger's"
+         " filters are considered."
+      }
       output#OnEndTouch: =
       {
         txt = "&"
@@ -3827,6 +4518,9 @@ QQRKSRC1
       {
         txt = "&"
         hint = "World is cold"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
       }
     }
     worldspawn:form =
@@ -3845,7 +4539,6 @@ QQRKSRC1
 //        txt = "&"
 //        hint = "Sound Name"
 //      }
-
       health: =
       {
         txt = "&"
@@ -3872,15 +4565,15 @@ QQRKSRC1
         txt = "&"
         hint = "Start Volume"
       }
-      fadein: =
+      fadeinsecs: =
       {
         txt = "&"
-        hint = "Fade in time (0-100)"
+        hint = "Fade in time in seconds (0-100)"
       }
-      fadeout: =
+      fadeoutsecs: =
       {
         txt = "&"
-        hint = "Fade out time (0-100)"
+        hint = "Fade out time in seconds (0-100)"
       }
       pitch: =
       {
@@ -3981,6 +4674,18 @@ QQRKSRC1
         txt = "&"
         hint = "Sets the sound volume, expressed as a range from 0 to 10, wher"
          "e 10 is the loudest."
+      }
+      input#FadeIn: =
+      {
+        txt = "&"
+        hint = "Fades the sound up to full volume over a specified number of s"
+         "econds, with a range from 0 to 100 seconds."
+      }
+      input#FadeOut: =
+      {
+        txt = "&"
+        hint = "Fades the sound to silence over a specified number of seconds,"
+         " with a range from 0 to 100 seconds."
       }
     }
     func_lod:form =
@@ -4150,6 +4855,29 @@ QQRKSRC1
          "verlay number in the parameter."
       }
     }
+    env_screeneffect:form =
+    {
+      t_Targetname = !
+      type: =
+      {
+        txt = "&"
+        hint = "Effect Type"
+        typ = "C"
+        items = "Advisor Stun"$0D"Intro Blur"$0D"Groggy Vision"
+        values = "0"$0D"1"$0D"2"
+      }
+      input#StartEffect: =
+      {
+        txt = "&"
+        hint = "Start the effect with the duration in seconds as the passed pa"
+         "rameter."
+      }
+      input#StopEffect: =
+      {
+        txt = "&"
+        hint = "Stop the effect."
+      }
+    }
     env_texturetoggle:form =
     {
       t_Targetname = !
@@ -4231,6 +4959,7 @@ QQRKSRC1
     }
     env_sun:form =
     {
+      t_Targetname = !
       t_Angles = !
       target: =
       {
@@ -4261,10 +4990,35 @@ QQRKSRC1
         Typ = "LU3"
         Hint = "Sun Color (R G B)"
       }
+      overlaycolor: =
+      {
+        txt = "&"
+        hint = "Overlay Color (R G B)"
+      }
       size: =
       {
         txt = "&"
         hint = "Size"
+      }
+      overlaysize: =
+      {
+        txt = "&"
+        hint = "Overlay Size"
+      }
+      material: =
+      {
+        txt = "&"
+        hint = "Material Name"
+      }
+      overlaymaterial: =
+      {
+        txt = "&"
+        hint = "Overlay Material Name"
+      }
+      HDRColorScale: =
+      {
+        txt = "&"
+        hint = "HDR color scale."
       }
       input#TurnOn: =
       {
@@ -4291,14 +5045,65 @@ QQRKSRC1
         txt = "&"
         hint = "Max Ragdoll Count"
       }
+      MaxRagdollCountDX8: =
+      {
+        txt = "&"
+        hint = "Max Ragdoll Count DX8"
+      }
+      SaveImportant: =
+      {
+        txt = "&"
+        hint = "Save Important Ragdolls"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
+      }
       input#SetMaxRagdollCount: =
       {
         txt = "&"
         hint = "Set the Max Ragdoll Count."
       }
+      input#SetMaxRagdollCountDX8: =
+      {
+        txt = "&"
+        hint = "Set the Max Ragdoll Count on DX8 hardware."
+      }
+    }
+    game_gib_manager:form =
+    {
+      t_Targetname = !
+      maxpieces: =
+      {
+        txt = "&"
+        hint = "Max Gib Count"
+      }
+      maxpiecesdx8: =
+      {
+        txt = "&"
+        hint = "Max Gib Count On DX8"
+      }
+      allownewgibs: =
+      {
+        txt = "&"
+        hint = "Allow New Gibs To Spawn"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
+      }
+      input#SetMaxPieces: =
+      {
+        txt = "&"
+        hint = "Set the max gib count."
+      }
+      input#SetMaxPiecesDX8: =
+      {
+        txt = "&"
+        hint = "Set the max gib count under DX8."
+      }
     }
     env_lightglow:form =
     {
+      t_Parentname = !
       t_Targetname = !
       t_Angles = !
       rendercolor: =
@@ -4341,6 +5146,11 @@ QQRKSRC1
       {
         txt = "&"
         hint = "Glow Proxy Geometry Size"
+      }
+      HDRColorScale: =
+      {
+        txt = "&"
+        hint = "HDR color scale."
       }
       input#Color: =
       {
@@ -4426,6 +5236,11 @@ QQRKSRC1
       {
         txt = "&"
         hint = "Twist"
+      }
+      roll: =
+      {
+        txt = "&"
+        hint = "Roll Speed"
       }
       rendercolor: =
       {
@@ -4595,6 +5410,31 @@ QQRKSRC1
          "ween 0 and 2, where 0 is the eyes fully closed, 1 is use the unchang"
          "ed autoexposure (default), and 2 is the eye fully wide open."
       }
+      input#UseDefaultAutoExposure: =
+      {
+        txt = "&"
+        hint = "Revert to using the default tonemap auto exposure."
+      }
+      input#SetAutoExposureMin: =
+      {
+        txt = "&"
+        hint = "Set a custom tonemap auto exposure minimum."
+      }
+      input#SetAutoExposureMax: =
+      {
+        txt = "&"
+        hint = "Set a custom tonemap auto exposure maximum."
+      }
+      input#SetBloomScale: =
+      {
+        txt = "&"
+        hint = "Set a custom bloom scale."
+      }
+      input#SetTonemapRate: =
+      {
+        txt = "&"
+        hint = "Set the rate for autoexposure adjustment."
+      }
     }
     func_useableladder:form =
     {
@@ -4643,6 +5483,11 @@ QQRKSRC1
       {
         txt = "&"
         hint = "Fired whenever a player gets off this ladder."
+      }
+      ladderSurfaceProperties: =
+      {
+        txt = "&"
+        hint = "Surface properties (optional)"
       }
     }
     func_ladderendpoint:form =
@@ -4695,6 +5540,21 @@ QQRKSRC1
         txt = "&"
         hint = "Foreground bmodel"
       }
+      PortalVersion: =
+      {
+        txt = "&"
+        hint = "Portal Version"
+      }
+      input#SetFadeStartDistance: =
+      {
+        txt = "&"
+        hint = "Set fade start distance."
+      }
+      input#SetFadeEndDistance: =
+      {
+        txt = "&"
+        hint = "Set fade end distance."
+      }
     }
 
     func_wall:form =
@@ -4722,17 +5582,16 @@ QQRKSRC1
         hint = "Minimum Light Level"
       }
     }
-
     func_clip_vphysics:form =
     {
       t_Targetname = !
+      t_EnableDisable = !
       filtername: =
       {
         txt = "&"
         hint = "Filter Name"
       }
     }
-
     func_brush:form =
     {
       t_Targetname = !
@@ -4767,6 +5626,14 @@ QQRKSRC1
         txt = "&"
         hint = "NPC class excluded from collisions"
       }
+      invert_exclusion: =
+      {
+        txt = "&"
+        hint = "Invert NPC class exclusion"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
+      }
       solidbsp: =
       {
         txt = "&"
@@ -4775,8 +5642,30 @@ QQRKSRC1
         items = "No"$0D"Yes"
         values = "0"$0D"1"
       }
+      vrad_brush_cast_shadows: =
+      {
+        txt = "&"
+        hint = "Shadows"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
+      }
+      input#Alpha: =
+      {
+        txt = "&"
+        hint = "Sets the brush's alpha value."
+      }
+      input#SetExcluded: =
+      {
+        txt = "&"
+        hint = "Change the NPC class excluded from collisions"
+      }
+      input#SetInvert: =
+      {
+        txt = "&"
+        hint = "Set the state of invversion for NPC class exclusion (0 or 1)"
+      }
     }
-
     t_func_brush:incl =
     {
       t_Targetname = !
@@ -4811,6 +5700,14 @@ QQRKSRC1
         txt = "&"
         hint = "NPC class excluded from collisions"
       }
+      invert_exclusion: =
+      {
+        txt = "&"
+        hint = "Invert NPC class exclusion"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
+      }
       solidbsp: =
       {
         txt = "&"
@@ -4818,6 +5715,29 @@ QQRKSRC1
         typ = "C"
         items = "No"$0D"Yes"
         values = "0"$0D"1"
+      }
+      vrad_brush_cast_shadows: =
+      {
+        txt = "&"
+        hint = "Shadows"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
+      }
+      input#Alpha: =
+      {
+        txt = "&"
+        hint = "Sets the brush's alpha value."
+      }
+      input#SetExcluded: =
+      {
+        txt = "&"
+        hint = "Change the NPC class excluded from collisions"
+      }
+      input#SetInvert: =
+      {
+        txt = "&"
+        hint = "Set the state of invversion for NPC class exclusion (0 or 1)"
       }
     }
 
@@ -4862,6 +5782,103 @@ QQRKSRC1
       bbox = '-4 -4 -4 4 4 4'
       t_vgui_screen_base = !
     }
+    vgui_slideshow_display:form =
+    {
+      t_Targetname = !
+      t_Angles = !
+      t_Parentname = !
+      displaytext: =
+      {
+        txt = "&"
+        hint = "Display Text"
+      }
+      directory: =
+      {
+        txt = "&"
+        hint = "Image Directory (materials/vgui/...)"
+      }
+      minslidetime: =
+      {
+        txt = "&"
+        hint = "Min Slide Time"
+      }
+      maxslidetime: =
+      {
+        txt = "&"
+        hint = "Max Slide Time"
+      }
+      cycletype: =
+      {
+        txt = "&"
+        hint = "Cycle Type"
+        typ = "C"
+        items = "Random"$0D"Forward"$0D"Backward"
+        values = "0"$0D"1"$0D"2"
+      }
+      nolistrepeat: =
+      {
+        txt = "&"
+        hint = "No List Repeat"
+        typ = "C"
+        items = "Allow List Repeats"$0D"No List Repeats"
+        values = "0"$0D"1"
+      }
+      width: =
+      {
+        txt = "&"
+        hint = "Panel width"
+      }
+      height: =
+      {
+        txt = "&"
+        hint = "Panel height"
+      }
+      input#Enable: =
+      {
+        txt = "&"
+        hint = "Make slideshow visible."
+      }
+      input#Disable: =
+      {
+        txt = "&"
+        hint = "Make slideshow invisible."
+      }
+      input#SetDisplayText: =
+      {
+        txt = "&"
+        hint = "Sets the display text."
+      }
+      input#RemoveAllSlides: =
+      {
+        txt = "&"
+        hint = "Removes all slides from slideshow."
+      }
+      input#AddSlides: =
+      {
+        txt = "&"
+        hint = "Adds slides by keyword."
+      }
+      input#SetMinSlideTime: =
+      {
+        txt = "&"
+        hint = "Sets min random time between slides."
+      }
+      input#SetMaxSlideTime: =
+      {
+        txt = "&"
+        hint = "Sets max random time between slides."
+      }
+      input#SetCycleType: =
+      {
+        txt = "&"
+        hint = "0 - random, 1 - forward, 2 - backward"
+      }
+      input#SetNoListRepeat: =
+      {
+        txt = "&"
+        hint = "Sets if lists can be randomly picked twice in a row."
+      }
+    }
     cycler:form =
     {
       t_Targetname = !
@@ -4898,11 +5915,6 @@ QQRKSRC1
         txt = "&"
         hint = "Sets the cycler's sequence."
       }
-      input#Alpha: =
-      {
-        txt = "&"
-        hint = "Sets the cycler's alpha value."
-      }
     }
     t_gibshooterbase:incl =
     {
@@ -4928,6 +5940,11 @@ QQRKSRC1
         txt = "&"
         hint = "Gib Angles (Pitch Yaw Roll)"
       }
+      gibanglevelocity: =
+      {
+        txt = "&"
+        hint = "Max angular velocity"
+      }
       m_flVelocity: =
       {
         txt = "&"
@@ -4942,6 +5959,11 @@ QQRKSRC1
       {
         txt = "&"
         hint = "Gib Life"
+      }
+      lightingorigin: =
+      {
+        txt = "&"
+        hint = "Lighting Origin"
       }
       spawnflags: =
       {
@@ -5036,6 +6058,16 @@ QQRKSRC1
       {
         txt = "&"
         hint = "Ending Entity"
+      }
+      decalname: =
+      {
+        txt = "&"
+        hint = "Decal Name"
+      }
+      HDRColorScale: =
+      {
+        txt = "&"
+        hint = "HDR color scale."
       }
       spawnflags: =
       {
@@ -5142,6 +6174,21 @@ QQRKSRC1
       {
         txt = "&"
         hint = "Sets the beam's render color (R G B)."
+      }
+      input#ColorRedValue: =
+      {
+        txt = "&"
+        hint = "Sets the red color channel's value (0 - 255)."
+      }
+      input#ColorGreenValue: =
+      {
+        txt = "&"
+        hint = "Sets the green color channel's value (0 - 255)."
+      }
+      input#ColorBlueValue: =
+      {
+        txt = "&"
+        hint = "Sets the blue color channel's value (0 - 255)."
       }
       input#Amplitude: =
       {
@@ -5468,6 +6515,23 @@ QQRKSRC1
         typ = "X4096"
         cap = "Don't clamp Max"
       }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X8192"
+        cap = "Damage above surface only"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X16384"
+        cap = "Generic damage"
+      }
+      ignoredEntity: =
+      {
+        txt = "&"
+        hint = "Ignored Entity"
+      }
       input#Explode: =
       {
         txt = "&"
@@ -5592,10 +6656,44 @@ QQRKSRC1
         typ = "X1"
         cap = "No Damage - Only Force"
       }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X2"
+        cap = "Push players"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X4"
+        cap = "Push radially - not as a sphere"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X8"
+        cap = "Test LOS before pushing"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X16"
+        cap = "Disorient player if pushed"
+      }
+      inner_radius: =
+      {
+        txt = "&"
+        hint = "Inner radius"
+      }
       input#Explode: =
       {
         txt = "&"
         hint = "Trigger the explosion."
+      }
+      output#OnPushedPlayer: =
+      {
+        txt = "&"
+        hint = "Fires when the player is pushed by the explosion."
       }
     }
     env_physimpact:form =
@@ -5639,6 +6737,12 @@ QQRKSRC1
         txt = "&"
         typ = "X4"
         cap = "Ignore Mass"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X8"
+        cap = "Ignore Surface Normal When Applying Force"
       }
       input#Impact: =
       {
@@ -5715,6 +6819,12 @@ QQRKSRC1
         txt = "&"
         typ = "X128"
         cap = "Delete when out"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X256"
+        cap = "Visible from above"
       }
       ignitionpoint: =
       {
@@ -5898,6 +7008,31 @@ QQRKSRC1
         txt = "&"
         hint = "Set the angles to use for the secondary fog direction."
       }
+      input#SetColorLerpTo: =
+      {
+        txt = "&"
+        hint = "Set the primary fog color."
+      }
+      input#SetColorSecondaryLerpTo: =
+      {
+        txt = "&"
+        hint = "Set the secondary fog color."
+      }
+      input#SetStartDistLerpTo: =
+      {
+        txt = "&"
+        hint = "Set the fog start distance."
+      }
+      input#SetEndDistLerpTo: =
+      {
+        txt = "&"
+        hint = "Set the fog end distance."
+      }
+      input#StartFogTransition: =
+      {
+        txt = "&"
+        hint = "Start fog transition."
+      }
       fogenable: =
       {
         txt = "&"
@@ -5959,10 +7094,26 @@ QQRKSRC1
         txt = "&"
         hint = "Fog End"
       }
+      fogmaxdensity: =
+      {
+        txt = "&"
+        hint = "Fog Max Density [0..1]"
+      }
+      foglerptime: =
+      {
+        txt = "&"
+        hint = "Interpolate time"
+      }
       farz: =
       {
         txt = "&"
         hint = "Far Z Clip Plane"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X1"
+        cap = "Master (Has priority if multiple env_fog_controllers exist)"
       }
     }
     env_steam:form =
@@ -6037,6 +7188,11 @@ QQRKSRC1
       {
         txt = "&"
         hint = "Translucency"
+      }
+      rollspeed: =
+      {
+        txt = "&"
+        hint = "How fast does the particles spin"
       }
       input#TurnOn: =
       {
@@ -6239,6 +7395,12 @@ QQRKSRC1
     {
       bbox = '-8 -8 -8 8 8 8'
       t_Targetname = !
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X1"
+        cap = "All Players"
+      }
       message: =
       {
         txt = "&"
@@ -6248,6 +7410,11 @@ QQRKSRC1
       {
         txt = "&"
         hint = "Shows the hint message."
+      }
+      input#HideHudHint: =
+      {
+        txt = "&"
+        hint = "Hides the hint message."
       }
     }
     env_shake:form =
@@ -6277,6 +7444,18 @@ QQRKSRC1
         txt = "&"
         typ = "X16"
         cap = "Ropes"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X32"
+        cap = "DON'T shake view (for shaking ropes or physics only)"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X64"
+        cap = "DON'T Rumble Controller"
       }
       amplitude: =
       {
@@ -6318,6 +7497,49 @@ QQRKSRC1
       {
         txt = "&"
         hint = "Stop the shake."
+      }
+    }
+    env_viewpunch:form =
+    {
+      bbox = '-4 -4 -4 4 4 4'
+      t_Targetname = !
+      t_Parentname = !
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X1"
+        cap = "Punch all players (ignore radius)"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X2"
+        cap = "Punch players in the air"
+      }
+      punchangle: =
+      {
+        txt = "&"
+        hint = "Punch angles"
+      }
+      radius: =
+      {
+        txt = "&"
+        hint = "Effect Radius"
+      }
+      input#ViewPunch: =
+      {
+        txt = "&"
+        hint = "Performs the view punch."
+      }
+    }
+    env_rotorwash_emitter:form =
+    {
+      t_Targetname = !
+      t_Parentname = !
+      altitude: =
+      {
+        txt = "&"
+        hint = "Altitude"
       }
     }
     gibshooter:form =
@@ -6368,6 +7590,24 @@ QQRKSRC1
         txt = "&"
         typ = "X4"
         cap = "strict remove after lifetime"
+      }
+      nogibshadows: =
+      {
+        txt = "&"
+        hint = "Disable Shadows on Gibs"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
+      }
+      gibgravityscale: =
+      {
+        txt = "&"
+        hint = "Gib gravity scale"
+      }
+      massoverride: =
+      {
+        txt = "&"
+        hint = "Mass override"
       }
     }
     env_rotorshooter:form =
@@ -6435,7 +7675,6 @@ QQRKSRC1
         hint = "Radius"
       }
     }
-
     env_soundscape:form =
     {
       t_Targetname = !
@@ -6615,7 +7854,6 @@ QQRKSRC1
         hint = "Fired when this soundscape becomes the active one."
       }
     }
-
     env_soundscape_triggerable:form =
     {
       t_env_soundscape = !
@@ -6730,15 +7968,184 @@ QQRKSRC1
         txt = "&"
         hint = "Size of Glow Proxy Geometry."
       }
-      input#Alpha: =
+      HDRColorScale: =
       {
         txt = "&"
-        hint = "Set the sprite's alpha (0 - 255)."
+        hint = "HDR color scale."
       }
-      input#Color: =
+      input#ColorRedValue: =
       {
         txt = "&"
-        hint = "Set the sprite's color (R G B)."
+        hint = "Sets the red color channel's value (0 - 255)."
+      }
+      input#ColorGreenValue: =
+      {
+        txt = "&"
+        hint = "Sets the green color channel's value (0 - 255)."
+      }
+      input#ColorBlueValue: =
+      {
+        txt = "&"
+        hint = "Sets the blue color channel's value (0 - 255)."
+      }
+      input#SetScale: =
+      {
+        txt = "&"
+        hint = "Set the sprite's scale (0 - 8.0)."
+      }
+      input#HideSprite: =
+      {
+        txt = "&"
+        hint = "Hide the sprite. Won't be drawn until the 'ShowSprite' input i"
+         "s received."
+      }
+      input#ShowSprite: =
+      {
+        txt = "&"
+        hint = "Show the sprite."
+      }
+      input#ToggleSprite: =
+      {
+        txt = "&"
+        hint = "Toggle the sprite between hidden and shown."
+      }
+    }
+    t_env_sprite:incl =
+    {
+      bbox = '-2 -2 -2 2 2 2'
+      t_Targetname = !
+      t_Parentname = !
+      t_RenderFields = !
+      t_DXLevelChoice = !
+      framerate: =
+      {
+        txt = "&"
+        hint = "Framerate"
+      }
+      model: =
+      {
+        txt = "&"
+        hint = "Sprite Name"
+      }
+      scale: =
+      {
+        txt = "&"
+        hint = "Scale"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X1"
+        cap = "Start on"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X2"
+        cap = "Play Once"
+      }
+      GlowProxySize: =
+      {
+        txt = "&"
+        hint = "Size of Glow Proxy Geometry."
+      }
+      HDRColorScale: =
+      {
+        txt = "&"
+        hint = "HDR color scale."
+      }
+      input#ColorRedValue: =
+      {
+        txt = "&"
+        hint = "Sets the red color channel's value (0 - 255)."
+      }
+      input#ColorGreenValue: =
+      {
+        txt = "&"
+        hint = "Sets the green color channel's value (0 - 255)."
+      }
+      input#ColorBlueValue: =
+      {
+        txt = "&"
+        hint = "Sets the blue color channel's value (0 - 255)."
+      }
+      input#SetScale: =
+      {
+        txt = "&"
+        hint = "Set the sprite's scale (0 - 8.0)."
+      }
+      input#HideSprite: =
+      {
+        txt = "&"
+        hint = "Hide the sprite. Won't be drawn until the 'ShowSprite' input i"
+         "s received."
+      }
+      input#ShowSprite: =
+      {
+        txt = "&"
+        hint = "Show the sprite."
+      }
+      input#ToggleSprite: =
+      {
+        txt = "&"
+        hint = "Toggle the sprite between hidden and shown."
+      }
+    }
+    env_sprite_oriented:form =
+    {
+      t_env_sprite = !
+      t_Angles = !
+      framerate: =
+      {
+        txt = "&"
+        hint = "Framerate"
+      }
+      model: =
+      {
+        txt = "&"
+        hint = "Sprite Name"
+      }
+      scale: =
+      {
+        txt = "&"
+        hint = "Scale"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X1"
+        cap = "Start on"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X2"
+        cap = "Play Once"
+      }
+      GlowProxySize: =
+      {
+        txt = "&"
+        hint = "Size of Glow Proxy Geometry."
+      }
+      HDRColorScale: =
+      {
+        txt = "&"
+        hint = "HDR color scale."
+      }
+      input#ColorRedValue: =
+      {
+        txt = "&"
+        hint = "Sets the red color channel's value (0 - 255)."
+      }
+      input#ColorGreenValue: =
+      {
+        txt = "&"
+        hint = "Sets the green color channel's value (0 - 255)."
+      }
+      input#ColorBlueValue: =
+      {
+        txt = "&"
+        hint = "Sets the blue color channel's value (0 - 255)."
       }
       input#SetScale: =
       {
@@ -6766,11 +8173,6 @@ QQRKSRC1
     {
       t_Targetname = !
       t_Angles = !
-      gustsound: =
-      {
-        txt = "&"
-        hint = "Gust Sound Filename"
-      }
       minwind: =
       {
         txt = "&"
@@ -6801,10 +8203,25 @@ QQRKSRC1
         txt = "&"
         hint = "Max gust delay"
       }
+      gustduration: =
+      {
+        txt = "&"
+        hint = "Gust Duration"
+      }
       gustdirchange: =
       {
         txt = "&"
         hint = "Max gust dir change (degrees)"
+      }
+      output#OnGustStart: =
+      {
+        txt = "&"
+        hint = "Fired when a wind gust begins."
+      }
+      output#OnGustEnd: =
+      {
+        txt = "&"
+        hint = "Fired when a wind gust ends."
       }
     }
     sky_camera:form =
@@ -6942,6 +8359,16 @@ QQRKSRC1
       {
         txt = "&"
         hint = "Max Allowed in Level"
+      }
+      ammomod: =
+      {
+        txt = "&"
+        hint = "Ammo modifier"
+      }
+      input#SetAmmoModifier: =
+      {
+        txt = "&"
+        hint = "Adjust the ammo modifier."
       }
     }
     game_end:form =
@@ -7171,7 +8598,9 @@ QQRKSRC1
     {
       t_Targetname = !
       t_Parentname = !
+      t_RenderFields = !
       t_Angles = !
+      t_DXLevelChoice = !
       spawnflags: =
       {
         txt = "&"
@@ -7205,6 +8634,11 @@ QQRKSRC1
         Typ = "LU3"
         Hint = "Color (R G B)"
       }
+      HDRColorScale: =
+      {
+        txt = "&"
+        hint = "HDR color scale."
+      }
       input#LightOn: =
       {
         txt = "&"
@@ -7215,11 +8649,22 @@ QQRKSRC1
         txt = "&"
         hint = "Turn the spotlight off"
       }
+      output#OnLightOn: =
+      {
+        txt = "&"
+        hint = "Fires when light turns on."
+      }
+      output#OnLightOff: =
+      {
+        txt = "&"
+        hint = "Fires when light turns off."
+      }
     }
     point_tesla:form =
     {
       bbox = '-8 -8 -8 8 8 8'
       t_Targetname = !
+      t_Parentname = !
       m_SourceEntityName: =
       {
         txt = "&"
@@ -7327,6 +8772,36 @@ QQRKSRC1
         hint = "Command to execute."
       }
     }
+    point_bonusmaps_accessor:form =
+    {
+      bbox = '-8 -8 -8 8 8 8'
+      t_Targetname = !
+      filename: =
+      {
+        txt = "&"
+        hint = "File Name"
+      }
+      mapname: =
+      {
+        txt = "&"
+        hint = "Map Name"
+      }
+      input#Unlock: =
+      {
+        txt = "&"
+        hint = "Unlocks the filename/map combination."
+      }
+      input#Complete: =
+      {
+        txt = "&"
+        hint = "Completes the filename/map combination."
+      }
+      input#Save: =
+      {
+        txt = "&"
+        hint = "Saves bonus map data."
+      }
+    }
     game_ui:form =
     {
       bbox = '-8 -8 -8 8 8 8'
@@ -7411,6 +8886,36 @@ QQRKSRC1
       {
         txt = "&"
         hint = "Fired whenever the player presses the secondary attack key."
+      }
+      output#UnpressedMoveLeft: =
+      {
+        txt = "&"
+        hint = "Fired whenever the player releases the moveleft key."
+      }
+      output#UnpressedMoveRight: =
+      {
+        txt = "&"
+        hint = "Fired whenever the player releases the moveright key."
+      }
+      output#UnpressedForward: =
+      {
+        txt = "&"
+        hint = "Fired whenever the player releases the forward key."
+      }
+      output#UnpressedBack: =
+      {
+        txt = "&"
+        hint = "Fired whenever the player releases the backward key."
+      }
+      output#UnpressedAttack: =
+      {
+        txt = "&"
+        hint = "Fired whenever the player releases the attack key."
+      }
+      output#UnpressedAttack2: =
+      {
+        txt = "&"
+        hint = "Fired whenever the player releases the secondary attack key."
       }
       output#XAxis: =
       {
@@ -7541,7 +9046,8 @@ QQRKSRC1
     }
     info_overlay:form =
     {
-      bbox = '-8 -8 -8 8 8 8'
+      bbox = '-1 -1 0 1 1 1'
+      t_Targetname = !
       material: =
       {
         txt = "&"
@@ -7619,6 +9125,72 @@ QQRKSRC1
         txt = "&"
         hint = "Overlay Point 4(Read-Only)"
       }
+      fademindist: =
+      {
+        txt = "&"
+        hint = "Start Fade Dist"
+      }
+      fademaxdist: =
+      {
+        txt = "&"
+        hint = "End Fade Dist"
+      }
+    }
+    info_overlay_transition:form =
+    {
+      bbox = '-8 -8 -8 8 8 8'
+      material: =
+      {
+        txt = "&"
+        hint = "Material"
+        typ = "ET"
+        Cap = "texture..."
+      }
+      sides: =
+      {
+        txt = "&"
+        hint = "Brush faces"
+      }
+      sides2: =
+      {
+        txt = "&"
+        hint = "Water faces"
+      }
+      LengthTexcoordStart: =
+      {
+        txt = "&"
+        hint = "Texcoord Length Start"
+      }
+      LengthTexcoordEnd: =
+      {
+        txt = "&"
+        hint = "Texcoord Length End"
+      }
+      WidthTexcoordStart: =
+      {
+        txt = "&"
+        hint = "Texcoord Width Start"
+      }
+      WidthTexcoordEnd: =
+      {
+        txt = "&"
+        hint = "Texcoord Width End"
+      }
+      Width1: =
+      {
+        txt = "&"
+        hint = "Width Land"
+      }
+      Width2: =
+      {
+        txt = "&"
+        hint = "Width Water"
+      }
+      DebugDraw: =
+      {
+        txt = "&"
+        hint = "Show Debug"
+      }
     }
     info_intermission:form =
     {
@@ -7643,10 +9215,398 @@ QQRKSRC1
       t_Targetname = !
       t_Parentname = !
       t_Angles = !
-      input#DispatchEffect: =
+      spawnflags: =
       {
         txt = "&"
-        hint = "Dispatch an effect from this point. Unfinished."
+        typ = "X1"
+        cap = "Transmit to client"
+      }
+    }
+    info_particle_system:form =
+    {
+      t_Targetname = !
+      t_Parentname = !
+      t_Angles = !
+      effect_name: =
+      {
+        txt = "&"
+        hint = "Particle System Name"
+      }
+      start_active: =
+      {
+        txt = "&"
+        hint = "Start Active?"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
+      }
+      flag_as_weather: =
+      {
+        txt = "&"
+        hint = "Flag as Weather?"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
+      }
+      cpoint1: =
+      {
+        txt = "&"
+        hint = "Control Point 1"
+      }
+      cpoint2: =
+      {
+        txt = "&"
+        hint = "Control Point 2"
+      }
+      cpoint3: =
+      {
+        txt = "&"
+        hint = "Control Point 3"
+      }
+      cpoint4: =
+      {
+        txt = "&"
+        hint = "Control Point 4"
+      }
+      cpoint5: =
+      {
+        txt = "&"
+        hint = "Control Point 5"
+      }
+      cpoint6: =
+      {
+        txt = "&"
+        hint = "Control Point 6"
+      }
+      cpoint7: =
+      {
+        txt = "&"
+        hint = "Control Point 7"
+      }
+      cpoint8: =
+      {
+        txt = "&"
+        hint = "Control Point 8"
+      }
+      cpoint9: =
+      {
+        txt = "&"
+        hint = "Control Point 9"
+      }
+      cpoint10: =
+      {
+        txt = "&"
+        hint = "Control Point 10"
+      }
+      cpoint11: =
+      {
+        txt = "&"
+        hint = "Control Point 11"
+      }
+      cpoint12: =
+      {
+        txt = "&"
+        hint = "Control Point 12"
+      }
+      cpoint13: =
+      {
+        txt = "&"
+        hint = "Control Point 13"
+      }
+      cpoint14: =
+      {
+        txt = "&"
+        hint = "Control Point 14"
+      }
+      cpoint15: =
+      {
+        txt = "&"
+        hint = "Control Point 15"
+      }
+      cpoint16: =
+      {
+        txt = "&"
+        hint = "Control Point 16"
+      }
+      cpoint17: =
+      {
+        txt = "&"
+        hint = "Control Point 17"
+      }
+      cpoint18: =
+      {
+        txt = "&"
+        hint = "Control Point 18"
+      }
+      cpoint19: =
+      {
+        txt = "&"
+        hint = "Control Point 19"
+      }
+      cpoint20: =
+      {
+        txt = "&"
+        hint = "Control Point 20"
+      }
+      cpoint21: =
+      {
+        txt = "&"
+        hint = "Control Point 21"
+      }
+      cpoint22: =
+      {
+        txt = "&"
+        hint = "Control Point 22"
+      }
+      cpoint23: =
+      {
+        txt = "&"
+        hint = "Control Point 23"
+      }
+      cpoint24: =
+      {
+        txt = "&"
+        hint = "Control Point 24"
+      }
+      cpoint25: =
+      {
+        txt = "&"
+        hint = "Control Point 25"
+      }
+      cpoint26: =
+      {
+        txt = "&"
+        hint = "Control Point 26"
+      }
+      cpoint27: =
+      {
+        txt = "&"
+        hint = "Control Point 27"
+      }
+      cpoint28: =
+      {
+        txt = "&"
+        hint = "Control Point 28"
+      }
+      cpoint29: =
+      {
+        txt = "&"
+        hint = "Control Point 29"
+      }
+      cpoint30: =
+      {
+        txt = "&"
+        hint = "Control Point 30"
+      }
+      cpoint31: =
+      {
+        txt = "&"
+        hint = "Control Point 31"
+      }
+      cpoint32: =
+      {
+        txt = "&"
+        hint = "Control Point 32"
+      }
+      cpoint33: =
+      {
+        txt = "&"
+        hint = "Control Point 33"
+      }
+      cpoint34: =
+      {
+        txt = "&"
+        hint = "Control Point 34"
+      }
+      cpoint35: =
+      {
+        txt = "&"
+        hint = "Control Point 35"
+      }
+      cpoint36: =
+      {
+        txt = "&"
+        hint = "Control Point 36"
+      }
+      cpoint37: =
+      {
+        txt = "&"
+        hint = "Control Point 37"
+      }
+      cpoint38: =
+      {
+        txt = "&"
+        hint = "Control Point 38"
+      }
+      cpoint39: =
+      {
+        txt = "&"
+        hint = "Control Point 39"
+      }
+      cpoint40: =
+      {
+        txt = "&"
+        hint = "Control Point 40"
+      }
+      cpoint41: =
+      {
+        txt = "&"
+        hint = "Control Point 41"
+      }
+      cpoint42: =
+      {
+        txt = "&"
+        hint = "Control Point 42"
+      }
+      cpoint43: =
+      {
+        txt = "&"
+        hint = "Control Point 43"
+      }
+      cpoint44: =
+      {
+        txt = "&"
+        hint = "Control Point 44"
+      }
+      cpoint45: =
+      {
+        txt = "&"
+        hint = "Control Point 45"
+      }
+      cpoint46: =
+      {
+        txt = "&"
+        hint = "Control Point 46"
+      }
+      cpoint47: =
+      {
+        txt = "&"
+        hint = "Control Point 47"
+      }
+      cpoint48: =
+      {
+        txt = "&"
+        hint = "Control Point 48"
+      }
+      cpoint49: =
+      {
+        txt = "&"
+        hint = "Control Point 49"
+      }
+      cpoint50: =
+      {
+        txt = "&"
+        hint = "Control Point 50"
+      }
+      cpoint51: =
+      {
+        txt = "&"
+        hint = "Control Point 51"
+      }
+      cpoint52: =
+      {
+        txt = "&"
+        hint = "Control Point 52"
+      }
+      cpoint53: =
+      {
+        txt = "&"
+        hint = "Control Point 53"
+      }
+      cpoint54: =
+      {
+        txt = "&"
+        hint = "Control Point 54"
+      }
+      cpoint55: =
+      {
+        txt = "&"
+        hint = "Control Point 55"
+      }
+      cpoint56: =
+      {
+        txt = "&"
+        hint = "Control Point 56"
+      }
+      cpoint57: =
+      {
+        txt = "&"
+        hint = "Control Point 57"
+      }
+      cpoint58: =
+      {
+        txt = "&"
+        hint = "Control Point 58"
+      }
+      cpoint59: =
+      {
+        txt = "&"
+        hint = "Control Point 59"
+      }
+      cpoint60: =
+      {
+        txt = "&"
+        hint = "Control Point 60"
+      }
+      cpoint61: =
+      {
+        txt = "&"
+        hint = "Control Point 61"
+      }
+      cpoint62: =
+      {
+        txt = "&"
+        hint = "Control Point 62"
+      }
+      cpoint63: =
+      {
+        txt = "&"
+        hint = "Control Point 63"
+      }
+      cpoint1_parent: =
+      {
+        txt = "&"
+        hint = "Control Point 1's Parent"
+      }
+      cpoint2_parent: =
+      {
+        txt = "&"
+        hint = "Control Point 2's Parent"
+      }
+      cpoint3_parent: =
+      {
+        txt = "&"
+        hint = "Control Point 3's Parent"
+      }
+      cpoint4_parent: =
+      {
+        txt = "&"
+        hint = "Control Point 4's Parent"
+      }
+      cpoint5_parent: =
+      {
+        txt = "&"
+        hint = "Control Point 5's Parent"
+      }
+      cpoint6_parent: =
+      {
+        txt = "&"
+        hint = "Control Point 6's Parent"
+      }
+      cpoint7_parent: =
+      {
+        txt = "&"
+        hint = "Control Point 7's Parent"
+      }
+      input#Start: =
+      {
+        txt = "&"
+        hint = "Tell the particle system to start emitting."
+      }
+      input#Stop: =
+      {
+        txt = "&"
+        hint = "Tell the particle system to stop emitting."
       }
     }
     phys_ragdollmagnet:form =
@@ -7695,7 +9655,6 @@ QQRKSRC1
     }
     info_node:form =
     {
-      t_Targetname = !
       t_Node = !
       spawnflags: =
       {
@@ -7778,7 +9737,6 @@ QQRKSRC1
     }
     info_node_air:form =
     {
-      t_Targetname = !
       t_Node = !
       nodeheight: =
       {
@@ -7825,10 +9783,26 @@ QQRKSRC1
         items = "Off"$0D"On"
         values = "0"$0D"1"
       }
+      linktype: =
+      {
+        txt = "&"
+        hint = "Type of Connection"
+        typ = "C"
+        items = "Ground"$0D"Jump"$0D"Fly"$0D"Climb"
+        values = "1"$0D"2"$0D"4"$0D"8"
+      }
       AllowUse: =
       {
         txt = "&"
         hint = "Allow Pass When Off"
+      }
+      InvertAllow: =
+      {
+        txt = "&"
+        hint = "Invert exclusion rules"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
       }
       spawnflags: =
       {
@@ -7884,6 +9858,12 @@ QQRKSRC1
         typ = "X256"
         cap = "Force large_centered connect"
       }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X512"
+        cap = "Force medium_tall connect"
+      }
       input#TurnOn: =
       {
         txt = "&"
@@ -7916,10 +9896,26 @@ QQRKSRC1
         items = "Off"$0D"On"
         values = "0"$0D"1"
       }
+      useairlinkradius: =
+      {
+        txt = "&"
+        hint = "Use Larger Radius (for air links)"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
+      }
       AllowUse: =
       {
         txt = "&"
         hint = "Allow Pass When Off"
+      }
+      InvertAllow: =
+      {
+        txt = "&"
+        hint = "Invert exclusion rules"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
       }
       input#TurnOn: =
       {
@@ -7930,6 +9926,26 @@ QQRKSRC1
       {
         txt = "&"
         hint = "Turn the link off."
+      }
+      input#SetAllowed: =
+      {
+        txt = "&"
+        hint = "Change the allowed pass when off"
+      }
+      input#SetInvert: =
+      {
+        txt = "&"
+        hint = "Change the invert exclusion rule"
+      }
+    }
+    info_radial_link_controller:form =
+    {
+      t_Targetname = !
+      t_Parentname = !
+      radius: =
+      {
+        txt = "&"
+        hint = "Radius (Use Helper!)"
       }
     }
     info_node_climb:form =
@@ -7958,21 +9974,6 @@ QQRKSRC1
       {
         txt = "&"
         hint = "Maximum Distance"
-      }
-      _lightHDR: =
-      {
-        txt = "&"
-        hint = "use -1 -1 -1 1 as the argument"
-      }
-      _zero_percent_distance: =
-      {
-        txt = "&"
-        hint = "use 0 as the argument"
-      }
-      _fifty_percent_distance: =
-      {
-        txt = "&"
-        hint = "use 0 as the argument"
       }
     }
     light_environment:form =
@@ -8006,26 +10007,40 @@ QQRKSRC1
         Typ = "LU4"
         Hint = "light color (not the intensity, only the color)"
       }
-      _ambientHDR: =
-      {
-        txt = "&"
-        hint = "use -1 -1 -1 1 as the argument"
-      }
-      angles: =
-      {
-        txt = "&"
-        hint = "Angle"
-      }
       _lightHDR: =
       {
         txt = "&"
-        hint = "use -1 -1 -1 1 as the argument"
+        hint = "BrightnessHDR"
+      }
+      _lightscaleHDR: =
+      {
+        txt = "&"
+        hint = "BrightnessScaleHDR"
+      }
+      _ambientHDR: =
+      {
+        txt = "&"
+        hint = "AmbientHDR"
+      }
+      _AmbientScaleHDR: =
+      {
+        txt = "&"
+        hint = "AmbientScaleHDR"
+      }
+      pitch: =
+      {
+        txt = "&"
+        hint = "Pitch"
+      }
+      SunSpreadAngle: =
+      {
+        txt = "&"
+        hint = "SunSpreadAngle"
       }
     }
     light_spot:form =
     {
-      bbox = '-4 -4 -4 4 4 4
-      '
+      bbox = '-4 -4 -4 4 4 4'
       t_Targetname = !
       t_Angles = !
       t_Light = !
@@ -8054,11 +10069,6 @@ QQRKSRC1
         txt = "&"
         hint = "Maximum distance"
       }
-      angles: =
-      {
-        txt = "&"
-        hint = "Angle"
-      }
       pitch: =
       {
         txt = "&"
@@ -8069,21 +10079,6 @@ QQRKSRC1
         txt = "&"
         typ = "X1"
         cap = "Initially dark"
-      }
-      _lightHDR: =
-      {
-        txt = "&"
-        hint = "use -1 -1 -1 1 as the argument"
-      }
-      _zero_percent_distance: =
-      {
-        txt = "&"
-        hint = "use 0 as the argument"
-      }
-      _fifty_percent_distance: =
-      {
-        txt = "&"
-        hint = "use 0 as the argument"
       }
     }
     light_dynamic:form =
@@ -8153,13 +10148,13 @@ QQRKSRC1
       {
         txt = "&"
         typ = "X1"
-        cap = "No world light"
+        cap = "Do not light world (better perf)"
       }
       spawnflags: =
       {
         txt = "&"
         typ = "X2"
-        cap = "No model light"
+        cap = "Do not light models"
       }
       spawnflags: =
       {
@@ -8249,6 +10244,14 @@ QQRKSRC1
         txt = "&"
         hint = "Maximum Distance"
       }
+      disableallshadows: =
+      {
+        txt = "&"
+        hint = "All Shadows Disabled"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
+      }
       input#color: =
       {
         txt = "&"
@@ -8268,6 +10271,78 @@ QQRKSRC1
       {
         txt = "&"
         hint = "Set the shadow direction."
+      }
+      input#SetShadowsDisabled: =
+      {
+        txt = "&"
+        hint = "Set shadows disabled state."
+      }
+    }
+    color_correction:form =
+    {
+      t_Targetname = !
+      t_EnableDisable = !
+      minfalloff: =
+      {
+        txt = "&"
+        hint = "Lookup Falloff Start Distance"
+      }
+      maxfalloff: =
+      {
+        txt = "&"
+        hint = "Lookup Falloff End Distance"
+      }
+      maxweight: =
+      {
+        txt = "&"
+        hint = "Maximum Weight"
+      }
+      filename: =
+      {
+        txt = "&"
+        hint = "Lookup Table Filename"
+      }
+      fadeInDuration: =
+      {
+        txt = "&"
+        hint = "Lookup Fade In Duration"
+      }
+      fadeOutDuration: =
+      {
+        txt = "&"
+        hint = "Lookup Fade out Duration"
+      }
+      input#SetFadeInDuration: =
+      {
+        txt = "&"
+        hint = "Sets the 'fadeInDuration' variable, used to fade cc lookup usa"
+         "ge when entity is enabled."
+      }
+      input#SetFadeOutDuration: =
+      {
+        txt = "&"
+        hint = "Sets the 'fadeOutDuration' variable, used to fade cc lookup us"
+         "age when entity is disabled."
+      }
+    }
+    color_correction_volume:form =
+    {
+      t_Targetname = !
+      t_EnableDisable = !
+      fadeDuration: =
+      {
+        txt = "&"
+        hint = "Lookup Fade Duration"
+      }
+      maxweight: =
+      {
+        txt = "&"
+        hint = "Maximum Weight"
+      }
+      filename: =
+      {
+        txt = "&"
+        hint = "Lookup Table Filename"
       }
     }
     t_KeyFrame:incl =
@@ -8376,6 +10451,7 @@ QQRKSRC1
       t_Targetname = !
       t_Parentname = !
       t_Origin = !
+      t_RenderFields = !
       movedir: =
       {
         txt = "&"
@@ -8435,6 +10511,11 @@ QQRKSRC1
          "re 0 is the starting position and 1 is the starting position + (move"
          " direction * move distance)."
       }
+      input#SetSpeed: =
+      {
+        txt = "&"
+        hint = "Set the speed and update immediately."
+      }
       output#OnFullyOpen: =
       {
         txt = "&"
@@ -8447,7 +10528,6 @@ QQRKSRC1
         hint = "Fired when the brush reaches the starting position."
       }
     }
-
     func_water_analog:form =
     {
       t_Targetname = !
@@ -8516,41 +10596,6 @@ QQRKSRC1
       {
         txt = "&"
         hint = "Fired when the water brush reaches the starting position."
-      }
-      renderfx: =
-      {
-        txt = "&"
-        hint = "Use 0 as your argument unless you know what your doing"
-      }
-      rendermode: =
-      {
-        txt = "&"
-        hint = "Use 0 as your argument unless you know what your doing"
-      }
-      renderamt: =
-      {
-        txt = "&"
-        hint = "Translucency"
-      }
-      rendercolor: =
-      {
-        txt = "&"
-        hint = "RGB Color"
-      }
-      disableshadows: =
-      {
-        txt = "&"
-        hint = "Use 0 as your argument unless you know what your doing"
-      }
-      disablereceiveshadows: =
-      {
-        txt = "&"
-        hint = "Use 0 as your argument unless you know what your doing"
-      }
-      _minlight: =
-      {
-        txt = "&"
-        hint = "Minimum light level"
       }
     }
     func_rotating:form =
@@ -8894,6 +10939,14 @@ QQRKSRC1
         txt = "&"
         hint = "Break the rope, if it's marked to do so."
       }
+      NoWind: =
+      {
+        txt = "&"
+        hint = "Disable Wind"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
+      }
     }
     keyframe_rope:form =
     {
@@ -8913,6 +10966,8 @@ QQRKSRC1
         txt = "&"
         hint = "Position Interpolator"
         typ = "C"
+        items = "Linear"$0D"Catmull-Rom Spline"$0D"Rope"
+        values = "0"$0D"1"$0D"2"
       }
     }
     t_Button:incl =
@@ -8930,7 +10985,18 @@ QQRKSRC1
       input#Press: =
       {
         txt = "&"
-        hint = "Activate the button, as if it was pressed."
+        hint = "Activate the button as if it was pressed."
+      }
+      input#PressIn: =
+      {
+        txt = "&"
+        hint = "Activate the button as if it was pressed, sending it to the bo"
+         "ttom position."
+      }
+      input#PressOut: =
+      {
+        txt = "&"
+        hint = "Unpress the button, sending it to the top position."
       }
       output#OnDamaged: =
       {
@@ -8964,6 +11030,7 @@ QQRKSRC1
       t_Parentname = !
       t_Origin = !
       t_RenderFields = !
+      t_DamageFilter = !
       t_Button = !
       movedir: =
       {
@@ -9118,6 +11185,7 @@ QQRKSRC1
       t_Angles = !
       t_Global = !
       t_Button = !
+      t_EnableDisable = !
       master: =
       {
         txt = "&"
@@ -9407,6 +11475,16 @@ QQRKSRC1
         txt = "&"
         hint = "Stop Sound"
       }
+      startclosesound: =
+      {
+        txt = "&"
+        hint = "Start Close Sound"
+      }
+      closesound: =
+      {
+        txt = "&"
+        hint = "Stop Close Sound"
+      }
       wait: =
       {
         txt = "&"
@@ -9426,6 +11504,14 @@ QQRKSRC1
       {
         txt = "&"
         hint = "Force Closed"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
+      }
+      ignoredebris: =
+      {
+        txt = "&"
+        hint = "Ignore Debris"
         typ = "C"
         items = "No"$0D"Yes"
         values = "0"$0D"1"
@@ -9450,11 +11536,19 @@ QQRKSRC1
         txt = "&"
         hint = "Unlocked Sound"
       }
+      spawnpos: =
+      {
+        txt = "&"
+        hint = "Spawn Position"
+        typ = "C"
+        items = "Closed"$0D"Open"
+        values = "0"$0D"1"
+      }
       spawnflags: =
       {
         txt = "&"
         typ = "X1"
-        cap = "Starts Open"
+        cap = "Starts Open - OBSOLETE, use 'Spawn Position' key instead"
       }
       spawnflags: =
       {
@@ -9550,12 +11644,14 @@ QQRKSRC1
       output#OnFullyOpen: =
       {
         txt = "&"
-        hint = "Fired when the door reaches the fully open position."
+        hint = "Fired when the door reaches the fully open position. Reversed "
+         "if 'Start Open' flag is set."
       }
       output#OnFullyClosed: =
       {
         txt = "&"
-        hint = "Fired when the door reaches the fully closed position."
+        hint = "Fired when the door reaches the fully closed position. Reverse"
+         "d if 'Start Open' flag is set."
       }
       output#OnBlockedClosing: =
       {
@@ -9576,6 +11672,11 @@ QQRKSRC1
       {
         txt = "&"
         hint = "Fired when the door is unblocked while opening."
+      }
+      output#OnLockedUse: =
+      {
+        txt = "&"
+        hint = "Fired when the player uses the door, but it is locked."
       }
       input#Open: =
       {
@@ -9652,6 +11753,12 @@ QQRKSRC1
         typ = "X128"
         cap = "Y Axis"
       }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X65536"
+        cap = "New func_door +USE rules (NOT for prop_doors!!)"
+      }
       distance: =
       {
         txt = "&"
@@ -9673,13 +11780,18 @@ QQRKSRC1
       t_Angles = !
       t_Global = !
       t_Studiomodel = !
+      slavename: =
+      {
+        txt = "&"
+        hint = "Slave Name"
+      }
       hardware: =
       {
         txt = "&"
         hint = "Hardware Type"
         typ = "C"
-        items = "<None>"$0D"Lever"$0D"Push bar"
-        values = "0"$0D"1"$0D"2"
+        items = "<None>"$0D"Lever"$0D"Push bar"$0D"Keypad"
+        values = "0"$0D"1"$0D"2"$0D"3"
       }
       ajarangles: =
       {
@@ -9794,6 +11906,15 @@ QQRKSRC1
         typ = "X32768"
         cap = "Ignore player +USE"
       }
+      opendir: =
+      {
+        txt = "&"
+        hint = "Open Direction"
+        typ = "C"
+        items = "Open Both Directions"$0D"Open Forward Only"$0D"Open Backward "
+         "Only"
+        values = "0"$0D"1"$0D"2"
+      }
       output#OnClose: =
       {
         txt = "&"
@@ -9834,6 +11955,11 @@ QQRKSRC1
         txt = "&"
         hint = "Fired when the door is unblocked while opening."
       }
+      output#OnLockedUse: =
+      {
+        txt = "&"
+        hint = "Fired when the player uses the door, but it is locked."
+      }
       input#Open: =
       {
         txt = "&"
@@ -9863,6 +11989,16 @@ QQRKSRC1
       {
         txt = "&"
         hint = "Unlock the door."
+      }
+      input#SetRotationDistance: =
+      {
+        txt = "&"
+        hint = "Set the distance (in degrees) between Open and Closed."
+      }
+      input#SetSpeed: =
+      {
+        txt = "&"
+        hint = "Set the speed at which the door rotates. 100 is default."
       }
     }
     env_cubemap:form =
@@ -10165,10 +12301,11 @@ QQRKSRC1
         items = "--- None ---"$0D"Gordon pre-criminal"$0D"Antlions are player "
          "allies"$0D"Suit sprint function not yet enabled"$0D"Super phys gun i"
          "s enabled"$0D"Friendly encounter sequence (lower weapons, etc.)"$0D"G"
-         "ordon is invulnerable"$0D"Don't spawn seagulls on the jeep"
+         "ordon is invulnerable"$0D"Don't spawn seagulls on the jeep"$0D"Game "
+         "is running on a console"$0D"Game is running on a PC"
         values = $0D"gordon_precriminal"$0D"antlion_allied"$0D"suit_no_sprint"$0D
          "super_phys_gun"$0D"friendly_encounter"$0D"gordon_invulnerable"$0D"no"
-         "_seagulls_on_jeep"
+         "_seagulls_on_jeep"$0D"is_console"$0D"is_pc"
       }
       output#OnMapSpawn: =
       {
@@ -10194,6 +12331,17 @@ QQRKSRC1
       {
         txt = "&"
         hint = "Fired when the map is loaded as a background to the main menu."
+      }
+      output#OnMultiNewMap: =
+      {
+        txt = "&"
+        hint = "Fired only in multiplayer, when a new map is loaded."
+      }
+      output#OnMultiNewRound: =
+      {
+        txt = "&"
+        hint = "Fired only in multiplayer, when a new round is started. Only f"
+         "ired in multiplayer games that use round-based gameplay."
       }
     }
     point_viewcontrol:form =
@@ -10221,6 +12369,14 @@ QQRKSRC1
       {
         txt = "&"
         hint = "Path Corner"
+      }
+      interpolatepositiontoplayer: =
+      {
+        txt = "&"
+        hint = "Interpolate Position To Player"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
       }
       spawnflags: =
       {
@@ -10297,6 +12453,115 @@ QQRKSRC1
         hint = "Fired when the point_viewcontrol deactivates, due to the Disab"
          "le input being received, the Entity to Look At being destroyed, or t"
          "he Hold Time expiring."
+      }
+    }
+    point_posecontroller:form =
+    {
+      t_Targetname = !
+      PropName: =
+      {
+        txt = "&"
+        hint = "Prop Name"
+      }
+      PoseParameterName: =
+      {
+        txt = "&"
+        hint = "Pose Parameter Name"
+      }
+      PoseValue: =
+      {
+        txt = "&"
+        hint = "Pose Parameter Value"
+      }
+      InterpolationTime: =
+      {
+        txt = "&"
+        hint = "Interpolation Time"
+      }
+      InterpolationWrap: =
+      {
+        txt = "&"
+        hint = "Should wrap from 0.0 to 1.0 when interpolating."
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
+      }
+      CycleFrequency: =
+      {
+        txt = "&"
+        hint = "Cycle Frequency"
+      }
+      FModulationType: =
+      {
+        txt = "&"
+        hint = "Frequency Modulation Type"
+        typ = "C"
+        items = "None"$0D"Sine"$0D"Square"$0D"Triangle"$0D"Sawtooth"$0D"Noise"
+        values = "0"$0D"1"$0D"2"$0D"3"$0D"4"$0D"5"
+      }
+      FModTimeOffset: =
+      {
+        txt = "&"
+        hint = "Frequency Modulation Time Offset"
+      }
+      FModRate: =
+      {
+        txt = "&"
+        hint = "Frequency Modulation Rate"
+      }
+      FModAmplitude: =
+      {
+        txt = "&"
+        hint = "Frequency Modulation Amplitude"
+      }
+      input#SetPoseParameterName: =
+      {
+        txt = "&"
+        hint = "Sets the pose parameter to control."
+      }
+      input#SetPoseValue: =
+      {
+        txt = "&"
+        hint = "Set the pose parameter to a normalized value between 0.0 and 1"
+         ".0 (maps to min and max range)."
+      }
+      input#SetInterpolationTime: =
+      {
+        txt = "&"
+        hint = "Set the interpolation time to a number of seconds between 0.0 "
+         "and 10.0."
+      }
+      input#SetCycleFrequency: =
+      {
+        txt = "&"
+        hint = "Set the pose parameter's base cycles per second from -10.0f to"
+         " 10.0."
+      }
+      input#SetFModType: =
+      {
+        txt = "&"
+        hint = "Set the type of frequency modulation."
+      }
+      input#SetFModTimeOffset: =
+      {
+        txt = "&"
+        hint = "Set the modulation time offset from -1.0f to 1.0."
+      }
+      input#SetFModRate: =
+      {
+        txt = "&"
+        hint = "Set the modulation cycles per second from -10.0f to 10.0."
+      }
+      input#SetFModAmplitude: =
+      {
+        txt = "&"
+        hint = "Set the modulation extents from 0.0f to 10.0."
+      }
+      input#RandomizeFMod: =
+      {
+        txt = "&"
+        hint = "Randomize the frequency modulation by an extremeness of 0.0 to"
+         " 1.0."
       }
     }
     logic_compare:form =
@@ -10406,6 +12671,112 @@ QQRKSRC1
         hint = "Fired when the input value is false (zero)."
       }
     }
+    logic_branch_listener:form =
+    {
+      t_Targetname = !
+      Branch01: =
+      {
+        txt = "&"
+        hint = "Logic Branch 01"
+      }
+      Branch02: =
+      {
+        txt = "&"
+        hint = "Logic Branch 02"
+      }
+      Branch03: =
+      {
+        txt = "&"
+        hint = "Logic Branch 03"
+      }
+      Branch04: =
+      {
+        txt = "&"
+        hint = "Logic Branch 04"
+      }
+      Branch05: =
+      {
+        txt = "&"
+        hint = "Logic Branch 05"
+      }
+      Branch06: =
+      {
+        txt = "&"
+        hint = "Logic Branch 06"
+      }
+      Branch07: =
+      {
+        txt = "&"
+        hint = "Logic Branch 07"
+      }
+      Branch08: =
+      {
+        txt = "&"
+        hint = "Logic Branch 08"
+      }
+      Branch09: =
+      {
+        txt = "&"
+        hint = "Logic Branch 09"
+      }
+      Branch10: =
+      {
+        txt = "&"
+        hint = "Logic Branch 10"
+      }
+      Branch11: =
+      {
+        txt = "&"
+        hint = "Logic Branch 11"
+      }
+      Branch12: =
+      {
+        txt = "&"
+        hint = "Logic Branch 12"
+      }
+      Branch13: =
+      {
+        txt = "&"
+        hint = "Logic Branch 13"
+      }
+      Branch14: =
+      {
+        txt = "&"
+        hint = "Logic Branch 14"
+      }
+      Branch15: =
+      {
+        txt = "&"
+        hint = "Logic Branch 15"
+      }
+      Branch16: =
+      {
+        txt = "&"
+        hint = "Logic Branch 16"
+      }
+      input#Test: =
+      {
+        txt = "&"
+        hint = "Tests the state of all the logic_branches in the list and fire"
+         "s the appropriate output."
+      }
+      output#OnAllTrue: =
+      {
+        txt = "&"
+        hint = "Fired when all the logic_branches in the list become true."
+      }
+      output#OnAllFalse: =
+      {
+        txt = "&"
+        hint = "Fired when all the logic_branches in the list become false."
+      }
+      output#OnMixed: =
+      {
+        txt = "&"
+        hint = "Fired when one of the logic branches in the list changes, but "
+         "some are true and some are false."
+      }
+    }
     logic_case:form =
     {
       t_Targetname = !
@@ -10492,13 +12863,20 @@ QQRKSRC1
       input#InValue: =
       {
         txt = "&"
-        hint = "Compare the Input value to the case values, and fire the appro"
-         "priate output, if any."
+        hint = "Compares the Input value to the case values, and fires the app"
+         "ropriate output, if any."
       }
       input#PickRandom: =
       {
         txt = "&"
-        hint = "Fire a random OnCase output with at least one connection."
+        hint = "Fires a random OnCase output with at least one connection."
+      }
+      input#PickRandomShuffle: =
+      {
+        txt = "&"
+        hint = "Fires a random OnCase output with at least one connection, wit"
+         "h no repeats until all cases have been picked, at which point the sh"
+         "uffle starts over."
       }
       output#OnCase01: =
       {
@@ -10657,10 +13035,17 @@ QQRKSRC1
         hint = "Cancel any events fired by this relay that are currently pendi"
          "ng in the I/O event queue."
       }
+      output#OnSpawn: =
+      {
+        txt = "&"
+        hint = "Fired when the relay is spawned. If the relay is set to only t"
+         "rigger once, it will delete itself after firing this output."
+      }
       output#OnTrigger: =
       {
         txt = "&"
-        hint = "Fired when the relay is triggered."
+        hint = "Fired when the relay is triggered. If the relay is set to only"
+         " trigger once, it will delete itself after firing this output."
       }
     }
     logic_timer:form =
@@ -10702,6 +13087,12 @@ QQRKSRC1
         txt = "&"
         hint = "Set a new Refire Interval."
       }
+      input#ResetTimer: =
+      {
+        txt = "&"
+        hint = "Reset the timer. It will fire after the Refire Interval expire"
+         "s."
+      }
       input#FireTimer: =
       {
         txt = "&"
@@ -10732,6 +13123,18 @@ QQRKSRC1
         txt = "&"
         hint = "Set a new Maximum Random Interval."
       }
+      input#AddToTimer: =
+      {
+        txt = "&"
+        hint = "Add time to the timer if it is currently enabled.  Does not ch"
+         "ange the Refire Interval."
+      }
+      input#SubtractFromTimer: =
+      {
+        txt = "&"
+        hint = "Subtract time from the timer if it is currently enabled.  Does"
+         " not change the Refire Interval."
+      }
       output#OnTimer: =
       {
         txt = "&"
@@ -10748,9 +13151,94 @@ QQRKSRC1
         hint = "Fired every other time for an oscillating timer."
       }
     }
+    hammer_updateignorelist:form =
+    {
+      t_Targetname = !
+      IgnoredName01: =
+      {
+        txt = "&"
+        hint = "IgnoredName 01"
+      }
+      IgnoredName02: =
+      {
+        txt = "&"
+        hint = "IgnoredName 02"
+      }
+      IgnoredName03: =
+      {
+        txt = "&"
+        hint = "IgnoredName 03"
+      }
+      IgnoredName04: =
+      {
+        txt = "&"
+        hint = "IgnoredName 04"
+      }
+      IgnoredName05: =
+      {
+        txt = "&"
+        hint = "IgnoredName 05"
+      }
+      IgnoredName06: =
+      {
+        txt = "&"
+        hint = "IgnoredName 06"
+      }
+      IgnoredName07: =
+      {
+        txt = "&"
+        hint = "IgnoredName 07"
+      }
+      IgnoredName08: =
+      {
+        txt = "&"
+        hint = "IgnoredName 08"
+      }
+      IgnoredName09: =
+      {
+        txt = "&"
+        hint = "IgnoredName 09"
+      }
+      IgnoredName10: =
+      {
+        txt = "&"
+        hint = "IgnoredName 10"
+      }
+      IgnoredName11: =
+      {
+        txt = "&"
+        hint = "IgnoredName 11"
+      }
+      IgnoredName12: =
+      {
+        txt = "&"
+        hint = "IgnoredName 12"
+      }
+      IgnoredName13: =
+      {
+        txt = "&"
+        hint = "IgnoredName 13"
+      }
+      IgnoredName14: =
+      {
+        txt = "&"
+        hint = "IgnoredName 14"
+      }
+      IgnoredName15: =
+      {
+        txt = "&"
+        hint = "IgnoredName 15"
+      }
+      IgnoredName16: =
+      {
+        txt = "&"
+        hint = "IgnoredName 16"
+      }
+    }
     logic_collision_pair:form =
     {
       bbox = '-4 -4 -4 4 4 4'
+      t_Targetname = !
       attach1: =
       {
         txt = "&"
@@ -10793,7 +13281,7 @@ QQRKSRC1
       SpeakerName: =
       {
         txt = "&"
-        hint = "Speaker"
+        hint = "Speaker target"
       }
       ListenFilter: =
       {
@@ -10848,6 +13336,12 @@ QQRKSRC1
         typ = "X32"
         cap = "Hears explosions"
       }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X64"
+        cap = "Ignores non-attenuated sounds"
+      }
       Sensitivity: =
       {
         txt = "&"
@@ -10889,11 +13383,18 @@ QQRKSRC1
     math_remap:form =
     {
       t_Targetname = !
+      t_EnableDisable = !
       spawnflags: =
       {
         txt = "&"
         typ = "X1"
         cap = "Ignore out of range input values"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X2"
+        cap = "Clamp output to output range"
       }
       in1: =
       {
@@ -10971,6 +13472,7 @@ QQRKSRC1
     math_counter:form =
     {
       t_Targetname = !
+      t_EnableDisable = !
       startvalue: =
       {
         txt = "&"
@@ -11033,6 +13535,13 @@ QQRKSRC1
         hint = "Set the lower bound of the counter and fire the OutValue outpu"
          "t with the current value."
       }
+      input#GetValue: =
+      {
+        txt = "&"
+        hint = "Causes the counter fire its OnGetValue output with the current"
+         " value of the counter. Used for polling the counter when you don't w"
+         "ant constant updates from the OutValue output."
+      }
       output#OutValue: =
       {
         txt = "&"
@@ -11051,6 +13560,13 @@ QQRKSRC1
         hint = "Fired when the counter value meets or exceeds the max value. T"
          "he counter must go below the max value before the output will fire a"
          "gain."
+      }
+      output#OnGetValue: =
+      {
+        txt = "&"
+        hint = "Fired in response to the GetValue input. Used for polling the "
+         "counter when you don't want constant updates from the OutValue outpu"
+         "t."
       }
     }
     logic_lineto:form =
@@ -11127,10 +13643,67 @@ QQRKSRC1
         items = "No"$0D"Yes"
         values = "0"$0D"1"
       }
+      MinimumHitPoints: =
+      {
+        txt = "&"
+        hint = "Minimum Hit Points"
+      }
+      MinHitPointsToCommit: =
+      {
+        txt = "&"
+        hint = "Minimum Hit Points to Commit"
+      }
       input#Save: =
       {
         txt = "&"
         hint = "Force an autosave."
+      }
+      input#SaveDangerous: =
+      {
+        txt = "&"
+        hint = "Force an autosave as autosavedangerous.sav. If the player is a"
+         "live after the passed number of seconds it replaces the standard aut"
+         "o save."
+      }
+      input#SetMinHitpointsThreshold: =
+      {
+        txt = "&"
+        hint = "Set MinimumHitPoints to this."
+      }
+    }
+    logic_active_autosave:form =
+    {
+      bbox = '-8 -8 -8 8 8 8'
+      t_Targetname = !
+      MinimumHitPoints: =
+      {
+        txt = "&"
+        hint = "Initiation Hit Points"
+      }
+      TriggerHitPoints: =
+      {
+        txt = "&"
+        hint = "Trigger Hit Points"
+      }
+      TimeToTrigget: =
+      {
+        txt = "&"
+        hint = "Time to trigger"
+      }
+      DangerousTime: =
+      {
+        txt = "&"
+        hint = "Dangerous time"
+      }
+      input#Enable: =
+      {
+        txt = "&"
+        hint = "Enable the entity"
+      }
+      input#Disable: =
+      {
+        txt = "&"
+        hint = "Enable the entity"
       }
     }
     point_template:form =
@@ -11280,16 +13853,52 @@ QQRKSRC1
         txt = "&"
         hint = "Point_template To Spawn"
       }
+      PostSpawnSpeed: =
+      {
+        txt = "&"
+        hint = "PostSpawn Movement Speed"
+      }
+      PostSpawnDirection: =
+      {
+        txt = "&"
+        hint = "PostSpawn Movement Direction"
+      }
+      PostSpawnDirectionVariance: =
+      {
+        txt = "&"
+        hint = "PostSpawn Direction Variance"
+      }
+      PostSpawnInheritAngles: =
+      {
+        txt = "&"
+        hint = "PostSpawn Inherit Angles"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
+      }
       input#ForceSpawn: =
       {
         txt = "&"
         hint = "Spawn an instance of the template at this origin and angle."
+      }
+      input#ForceSpawnAtEntityOrigin: =
+      {
+        txt = "&"
+        hint = "Spawn an instance of the template that the same origin and ang"
+         "le as the specified entity (specify by targetname in parameters)"
       }
       output#OnEntitySpawned: =
       {
         txt = "&"
         hint = "Fired when an instance of the entity template has been spawned"
          "."
+      }
+      output#OnEntityFailedSpawn: =
+      {
+        txt = "&"
+        hint = "Fired when a ForceSpawn input failed to spawn the template, ei"
+         "ther due to lack of space or being in player's view, depending on th"
+         "e spawnflags."
       }
     }
     t_BaseFilter:incl =
@@ -11386,6 +13995,15 @@ QQRKSRC1
         hint = "Filter Classname"
       }
     }
+    filter_activator_mass_greater:form =
+    {
+      t_BaseFilter = !
+      filtermass: =
+      {
+        txt = "&"
+        hint = "Filter Mass"
+      }
+    }
     filter_damage_type:form =
     {
       t_BaseFilter = !
@@ -11401,6 +14019,36 @@ QQRKSRC1
         values = "0"$0D"1"$0D"2"$0D"4"$0D"8"$0D"16"$0D"32"$0D"64"$0D"128"$0D"2"
          "56"$0D"512"$0D"1024"$0D"16384"$0D"32768"$0D"65536"$0D"131072"$0D"262"
          "144"$0D"524288"$0D"1048576"$0D"2097152"$0D"4194304"
+      }
+    }
+    filter_enemy:form =
+    {
+      t_BaseFilter = !
+      filtername: =
+      {
+        txt = "&"
+        hint = "Name/Classname"
+      }
+      filter_radius: =
+      {
+        txt = "&"
+        hint = "Radius"
+      }
+      filter_outer_radius: =
+      {
+        txt = "&"
+        hint = "Outer Radius"
+      }
+      filter_max_per_enemy: =
+      {
+        txt = "&"
+        hint = "Max Squadmates Per Enemy"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X1"
+        cap = "Do not lose target if already aquired but filter failed."
       }
     }
     point_anglesensor:form =
@@ -11427,6 +14075,12 @@ QQRKSRC1
       {
         txt = "&"
         hint = "Tolerance"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X1"
+        cap = "Use target entity's angles (NOT position)"
       }
       input#Toggle: =
       {
@@ -11458,6 +14112,12 @@ QQRKSRC1
         hint = "Fires in response to a Test input when the Target Entity is no"
          "t pointing at the Look At Entity."
       }
+      output#FacingPercentage: =
+      {
+        txt = "&"
+        hint = "Normalized value (0..1) where 1 is facing directly at target a"
+         "nd 0 is at or beyond the angle of tolerance."
+      }
     }
     point_angularvelocitysensor:form =
     {
@@ -11472,12 +14132,38 @@ QQRKSRC1
         txt = "&"
         hint = "Threshold Velocity"
       }
+      fireinterval: =
+      {
+        txt = "&"
+        hint = "Fire Interval"
+      }
+      axis: =
+      {
+        txt = "&"
+        hint = "Axis"
+      }
+      usehelper: =
+      {
+        txt = "&"
+        hint = "Use Axis Helper"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
+      }
       input#Test: =
       {
         txt = "&"
         hint = "Checks to see if the Target Entity's angular velocity meets or"
          " exceeds the Threshold Velocity, firing either the OnGreaterThanOrEq"
          "ualTo or OnLessThan output based on the result."
+      }
+      input#TestWithInterval: =
+      {
+        txt = "&"
+        hint = "Checks to see if the Target Entity's angular velocity meets or"
+         " exceeds the Threshold Velocity. Once the Fire Interval expires, fir"
+         "es the appropriate test result output if the result is stable throug"
+         "hout the Fire Interval."
       }
       output#AngularVelocity: =
       {
@@ -11516,6 +14202,73 @@ QQRKSRC1
          "ocity from a different velocity."
       }
     }
+    point_velocitysensor:form =
+    {
+      t_Targetname = !
+      target: =
+      {
+        txt = "&"
+        hint = "Target Entity Name"
+      }
+      axis: =
+      {
+        txt = "&"
+        hint = "Measurement Axis"
+      }
+      enabled: =
+      {
+        txt = "&"
+        hint = "Start Enabled"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
+      }
+      output#Velocity: =
+      {
+        txt = "&"
+        hint = "Fired when the Target's Velocity changes, passing the new magn"
+         "itude of the velocity."
+      }
+      input#Enable: =
+      {
+        txt = "&"
+        hint = "Enable the sensor."
+      }
+      input#Disable: =
+      {
+        txt = "&"
+        hint = "Disable the sensor."
+      }
+    }
+    point_proximity_sensor:form =
+    {
+      t_Targetname = !
+      t_Parentname = !
+      t_EnableDisable = !
+      t_Angles = !
+      target: =
+      {
+        txt = "&"
+        hint = "Target Entity Name"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X1"
+        cap = "Test the distance as measured along the axis specified by our d"
+         "irection."
+      }
+      input#Toggle: =
+      {
+        txt = "&"
+        hint = "Toggle the sensor between enabled and disabled."
+      }
+      output#Distance: =
+      {
+        txt = "&"
+        hint = "Distance of the target entity away from this entity."
+      }
+    }
     point_teleport:form =
     {
       t_Targetname = !
@@ -11530,6 +14283,12 @@ QQRKSRC1
         txt = "&"
         typ = "X1"
         cap = "Teleport Home"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X2"
+        cap = "Into Duck (episodic)"
       }
       input#Teleport: =
       {
@@ -11631,7 +14390,6 @@ QQRKSRC1
         hint = "Fired when a player breaks through the constraint."
       }
     }
-
     func_physbox:form =
     {
       t_BreakableBrush = !
@@ -11692,6 +14450,30 @@ QQRKSRC1
         typ = "X524288"
         cap = "Generate output on +USE "
       }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X1048576"
+        cap = "Physgun can ALWAYS pick up. No matter what."
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X2097152"
+        cap = "Physgun is NOT allowed to pick this up."
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X4194304"
+        cap = "Physgun is NOT allowed to punt this object."
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X8388608"
+        cap = "Prevent motion enable on player bump"
+      }
       Damagetype: =
       {
         txt = "&"
@@ -11789,6 +14571,17 @@ QQRKSRC1
         hint = "Fired when a player picks this object up, either with the phys"
          "gun or +USE."
       }
+      output#OnPhysGunPunt: =
+      {
+        txt = "&"
+        hint = "Fired when a player punts this object with the physgun."
+      }
+      output#OnPhysGunOnlyPickup: =
+      {
+        txt = "&"
+        hint = "Fired when a player picks this object up WITH THE PHYSGUN. +US"
+         "E pickups do not fire this output."
+      }
       output#OnPhysGunDrop: =
       {
         txt = "&"
@@ -11801,8 +14594,6 @@ QQRKSRC1
          "ill fire only if the Generate output on +USE spawnflag is set."
       }
     }
-
-
     t_func_physbox:incl =
     {
       t_BreakableBrush = !
@@ -11863,6 +14654,30 @@ QQRKSRC1
         typ = "X524288"
         cap = "Generate output on +USE "
       }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X1048576"
+        cap = "Physgun can ALWAYS pick up. No matter what."
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X2097152"
+        cap = "Physgun is NOT allowed to pick this up."
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X4194304"
+        cap = "Physgun is NOT allowed to punt this object."
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X8388608"
+        cap = "Prevent motion enable on player bump"
+      }
       Damagetype: =
       {
         txt = "&"
@@ -11960,6 +14775,17 @@ QQRKSRC1
         hint = "Fired when a player picks this object up, either with the phys"
          "gun or +USE."
       }
+      output#OnPhysGunPunt: =
+      {
+        txt = "&"
+        hint = "Fired when a player punts this object with the physgun."
+      }
+      output#OnPhysGunOnlyPickup: =
+      {
+        txt = "&"
+        hint = "Fired when a player picks this object up WITH THE PHYSGUN. +US"
+         "E pickups do not fire this output."
+      }
       output#OnPhysGunDrop: =
       {
         txt = "&"
@@ -11972,8 +14798,6 @@ QQRKSRC1
          "ill fire only if the Generate output on +USE spawnflag is set."
       }
     }
-
-
     t_TwoObjectPhysics:incl =
     {
       t_Targetname = !
@@ -11994,6 +14818,12 @@ QQRKSRC1
         txt = "&"
         typ = "X8"
         cap = "Change mass to keep stable attachment to world"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X16"
+        cap = "Do not connect entities until turned on"
       }
       attach1: =
       {
@@ -12024,6 +14854,11 @@ QQRKSRC1
       {
         txt = "&"
         hint = "Play Sound on Break"
+      }
+      teleportfollowdistance: =
+      {
+        txt = "&"
+        hint = "Follow teleport distance"
       }
       input#Break: =
       {
@@ -12177,6 +15012,12 @@ QQRKSRC1
         txt = "&"
         hint = "Fired when gas starts to escape from the cannister."
       }
+      output#OnAwakened: =
+      {
+        txt = "&"
+        hint = "Fired when this entity becomes awake (collision/force is appli"
+         "ed)."
+      }
     }
     info_constraint_anchor:form =
     {
@@ -12285,7 +15126,57 @@ QQRKSRC1
       input#SetAngularVelocity: =
       {
         txt = "&"
-        hint = "Set angular velocity around the hinge (motor)"
+        hint = "Set angular velocity around the hinge (motor) in deg/sec"
+      }
+      minSoundThreshold: =
+      {
+        txt = "&"
+        hint = "Minimum Sound Velocity"
+      }
+      maxSoundThreshold: =
+      {
+        txt = "&"
+        hint = "Full Sound Velocity"
+      }
+      slidesoundfwd: =
+      {
+        txt = "&"
+        hint = "Travel sound (forward)"
+      }
+      slidesoundback: =
+      {
+        txt = "&"
+        hint = "Travel sound (backward)"
+      }
+      reversalsoundthresholdSmall: =
+      {
+        txt = "&"
+        hint = "Reversal sound threshold (small)"
+      }
+      reversalsoundthresholdMedium: =
+      {
+        txt = "&"
+        hint = "Reversal sound threshold (medium)"
+      }
+      reversalsoundthresholdLarge: =
+      {
+        txt = "&"
+        hint = "Reversal sound threshold (large)"
+      }
+      reversalsoundSmall: =
+      {
+        txt = "&"
+        hint = "Reversal sound (small)"
+      }
+      reversalsoundMedium: =
+      {
+        txt = "&"
+        hint = "Reversal sound (medium)"
+      }
+      reversalsoundLarge: =
+      {
+        txt = "&"
+        hint = "Reversal sound (large)"
       }
     }
     phys_ballsocket:form =
@@ -12295,12 +15186,6 @@ QQRKSRC1
     phys_constraint:form =
     {
       t_TwoObjectPhysics = !
-      spawnflags: =
-      {
-        txt = "&"
-        typ = "X1"
-        cap = "No Collision until break"
-      }
     }
     phys_pulleyconstraint:form =
     {
@@ -12367,6 +15252,56 @@ QQRKSRC1
       {
         txt = "&"
         hint = "Set linear velocity along the constraint"
+      }
+      minSoundThreshold: =
+      {
+        txt = "&"
+        hint = "Minimum Sound Velocity"
+      }
+      maxSoundThreshold: =
+      {
+        txt = "&"
+        hint = "Full Sound Velocity"
+      }
+      slidesoundfwd: =
+      {
+        txt = "&"
+        hint = "Travel sound (forward)"
+      }
+      slidesoundback: =
+      {
+        txt = "&"
+        hint = "Travel sound (backward)"
+      }
+      reversalsoundthresholdSmall: =
+      {
+        txt = "&"
+        hint = "Reversal sound threshold (small)"
+      }
+      reversalsoundthresholdMedium: =
+      {
+        txt = "&"
+        hint = "Reversal sound threshold (medium)"
+      }
+      reversalsoundthresholdLarge: =
+      {
+        txt = "&"
+        hint = "Reversal sound threshold (large)"
+      }
+      reversalsoundSmall: =
+      {
+        txt = "&"
+        hint = "Reversal sound (small)"
+      }
+      reversalsoundMedium: =
+      {
+        txt = "&"
+        hint = "Reversal sound (medium)"
+      }
+      reversalsoundLarge: =
+      {
+        txt = "&"
+        hint = "Reversal sound (large)"
       }
     }
     phys_lengthconstraint:form =
@@ -12471,6 +15406,12 @@ QQRKSRC1
         typ = "X1"
         cap = "Convert Asleep"
       }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X2"
+        cap = "Convert As Debris"
+      }
       target: =
       {
         txt = "&"
@@ -12480,6 +15421,11 @@ QQRKSRC1
       {
         txt = "&"
         hint = "Model Swap Entity"
+      }
+      massoverride: =
+      {
+        txt = "&"
+        hint = "Mass Override"
       }
       output#OnConvert: =
       {
@@ -12793,6 +15739,48 @@ QQRKSRC1
         txt = "&"
         hint = "Lighting Origin"
       }
+      disablevertexlighting: =
+      {
+        txt = "&"
+        hint = "Disable Vertex lighting"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
+      }
+      disableselfshadowing: =
+      {
+        txt = "&"
+        hint = "Disable Self-Shadowing with vertex lighting"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
+      }
+      ignorenormals: =
+      {
+        txt = "&"
+        hint = "Ignore surface normal for computing vertex lighting"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
+      }
+    }
+    t_BaseFadeProp:incl =
+    {
+      fademindist: =
+      {
+        txt = "&"
+        hint = "Start Fade Dist"
+      }
+      fademaxdist: =
+      {
+        txt = "&"
+        hint = "End Fade Dist"
+      }
+      fadescale: =
+      {
+        txt = "&"
+        hint = "Fade Scale"
+      }
     }
     t_prop_dynamic_base:incl =
     {
@@ -12802,6 +15790,8 @@ QQRKSRC1
       t_Studiomodel = !
       t_BreakableProp = !
       t_DXLevelChoice = !
+      t_BaseFadeProp = !
+      t_RenderFields = !
       solid: =
       {
         txt = "&"
@@ -12815,6 +15805,12 @@ QQRKSRC1
         txt = "&"
         typ = "X64"
         cap = "Use Hitboxes for Renderbox"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X256"
+        cap = "Start with collision disabled"
       }
       DefaultAnim: =
       {
@@ -12844,20 +15840,13 @@ QQRKSRC1
         txt = "&"
         hint = "Body Group"
       }
-      fademindist: =
+      DisableBoneFollowers: =
       {
         txt = "&"
-        hint = "Start Fade Dist"
-      }
-      fademaxdist: =
-      {
-        txt = "&"
-        hint = "End Fade Dist"
-      }
-      fadescale: =
-      {
-        txt = "&"
-        hint = "Fade Scale"
+        hint = "Disable Bone Followers"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
       }
       input#SetAnimation: =
       {
@@ -12870,6 +15859,11 @@ QQRKSRC1
         txt = "&"
         hint = "Set the Default Animation to the one specified in the paramete"
          "r."
+      }
+      input#SetPlaybackRate: =
+      {
+        txt = "&"
+        hint = "Set the playback rate for the animation."
       }
       input#SetBodyGroup: =
       {
@@ -12886,6 +15880,16 @@ QQRKSRC1
         txt = "&"
         hint = "Make the prop invisible."
       }
+      input#EnableCollision: =
+      {
+        txt = "&"
+        hint = "Enable collision on the prop."
+      }
+      input#DisableCollision: =
+      {
+        txt = "&"
+        hint = "Disable collision on the prop."
+      }
       output#OnAnimationBegun: =
       {
         txt = "&"
@@ -12895,6 +15899,11 @@ QQRKSRC1
       {
         txt = "&"
         hint = "Fired whenever an animation is complete."
+      }
+      lightingorigin: =
+      {
+        txt = "&"
+        hint = "Lighting Origin"
       }
     }
     prop_detail:form =
@@ -12928,6 +15937,7 @@ QQRKSRC1
       t_Studiomodel = !
       t_BreakableProp = !
       t_DXLevelChoice = !
+      t_BaseFadeProp = !
       spawnflags: =
       {
         txt = "&"
@@ -12988,6 +15998,18 @@ QQRKSRC1
         typ = "X4096"
         cap = "Debris with trigger interaction"
       }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X8192"
+        cap = "Force server-side (Multiplayer only)"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X1048576"
+        cap = "Physgun can ALWAYS pick up. No matter what."
+      }
       minhealthdmg: =
       {
         txt = "&"
@@ -13044,20 +16066,10 @@ QQRKSRC1
         txt = "&"
         hint = "Physics Impact Force to Override Motion"
       }
-      fademindist: =
+      puntsound: =
       {
         txt = "&"
-        hint = "Start Fade Dist"
-      }
-      fademaxdist: =
-      {
-        txt = "&"
-        hint = "End Fade Dist"
-      }
-      fadescale: =
-      {
-        txt = "&"
-        hint = "fade scale"
+        hint = "Sound to make when punted"
       }
       input#Wake: =
       {
@@ -13108,6 +16120,16 @@ QQRKSRC1
         txt = "&"
         hint = "Damaging the entity does *not* apply physics forces to it."
       }
+      input#EnablePuntSound: =
+      {
+        txt = "&"
+        hint = "Allow this prop to play its own sound when punted"
+      }
+      input#DisablePuntSound: =
+      {
+        txt = "&"
+        hint = "Prevent this prop from playing its own sound when punted"
+      }
       output#OnMotionEnabled: =
       {
         txt = "&"
@@ -13126,6 +16148,17 @@ QQRKSRC1
         hint = "Fired when the player picks up the prop with the physcannon or"
          " +USE."
       }
+      output#OnPhysGunPunt: =
+      {
+        txt = "&"
+        hint = "Fired when a player punts this object with the physgun."
+      }
+      output#OnPhysGunOnlyPickup: =
+      {
+        txt = "&"
+        hint = "Fired when a player picks this object up WITH THE PHYSGUN. +US"
+         "E pickups do not fire this output."
+      }
       output#OnPhysGunDrop: =
       {
         txt = "&"
@@ -13135,8 +16168,19 @@ QQRKSRC1
       output#OnPlayerUse: =
       {
         txt = "&"
-        hint = "Fired when the player tries to +USE the physbox. This output w"
-         "ill fire only if the Generate output on +USE spawnflag is set."
+        hint = "Fired when the player tries to +USE the prop. This output will"
+         " fire only if the Generate output on +USE spawnflag is set."
+      }
+      output#OnPlayerPickup: =
+      {
+        txt = "&"
+        hint = "Fired whenever the player picks up this prop (with the physcan"
+         "non or with +USE)."
+      }
+      output#OnOutOfWorld: =
+      {
+        txt = "&"
+        hint = "Fired whenever the prop is out of the allowed world bounds."
       }
     }
     prop_physics_override:form =
@@ -13152,15 +16196,45 @@ QQRKSRC1
         txt = "&"
         hint = "Ignite, burst into flames."
       }
+      input#IgniteLifetime: =
+      {
+        txt = "&"
+        hint = "Ignite, with a parameter lifetime."
+      }
+      input#IgniteNumHitboxFires: =
+      {
+        txt = "&"
+        hint = "Ignite, with a parameternumber of hitbox fires."
+      }
+      input#IgniteHitboxFireScale: =
+      {
+        txt = "&"
+        hint = "Ignite, with a parameter hitbox fire scale."
+      }
     }
-
     prop_physics:form =
     {
       t_BasePropPhysics = !
+      t_RenderFields = !
       input#Ignite: =
       {
         txt = "&"
         hint = "Ignite, burst into flames."
+      }
+      input#IgniteLifetime: =
+      {
+        txt = "&"
+        hint = "Ignite, with a parameter lifetime."
+      }
+      input#IgniteNumHitboxFires: =
+      {
+        txt = "&"
+        hint = "Ignite, with a parameternumber of hitbox fires."
+      }
+      input#IgniteHitboxFireScale: =
+      {
+        txt = "&"
+        hint = "Ignite, with a parameter hitbox fire scale."
       }
     }
 
@@ -13176,6 +16250,15 @@ QQRKSRC1
     prop_physics_multiplayer:form =
     {
       t_prop_physics = !
+      physicsmode: =
+      {
+        txt = "&"
+        hint = "Physics Mode"
+        typ = "C"
+        items = "Auto Detect"$0D"Solid, Server-side"$0D"Non-Solid, Server-side"
+         $0D"Non-Solid, Client-side"
+        values = "0"$0D"1"$0D"2"$0D"3"
+      }
     }
     prop_ragdoll:form =
     {
@@ -13183,6 +16266,8 @@ QQRKSRC1
       t_Targetname = !
       t_Studiomodel = !
       t_DXLevelChoice = !
+      t_BaseFadeProp = !
+      t_EnableDisable = !
       spawnflags: =
       {
         txt = "&"
@@ -13195,25 +16280,50 @@ QQRKSRC1
         typ = "X8192"
         cap = "Allow Dissolve"
       }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X16384"
+        cap = "Motion Disabled"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X32768"
+        cap = "Allow stretch"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X65536"
+        cap = "Start asleep"
+      }
       angleOverride: =
       {
         txt = "&"
         hint = "Override Animation"
       }
-      fademindist: =
+      input#StartRagdollBoogie: =
       {
         txt = "&"
-        hint = "Start Fade Dist"
+        hint = "Begins ragdoll boogie effect. Parameter override = number of s"
+         "econds to boogie."
       }
-      fademaxdist: =
+      input#EnableMotion: =
       {
         txt = "&"
-        hint = "End Fade Dist"
+        hint = "Enable physics motion/collision response."
       }
-      fadescale: =
+      input#DisableMotion: =
       {
         txt = "&"
-        hint = "fade scale"
+        hint = "Disable physics motion/collision response."
+      }
+      input#FadeAndRemove: =
+      {
+        txt = "&"
+        hint = "Fade out then remove (kill) self. Parameter override = duratio"
+         "n of fade"
       }
     }
     prop_dynamic_ornament:form =
@@ -13260,6 +16370,11 @@ QQRKSRC1
         typ = "C"
         items = "Closed"$0D"Open"
         values = "0"$0D"1"
+      }
+      PortalVersion: =
+      {
+        txt = "&"
+        hint = "Portal Version"
       }
       input#Open: =
       {
@@ -13334,6 +16449,18 @@ QQRKSRC1
       t_BreakableBrush = !
       t_RenderFields = !
       t_Shadow = !
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X1"
+        cap = "Physics damage decals"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X2"
+        cap = "Take damage from held objects"
+      }
       health: =
       {
         txt = "&"
@@ -13344,10 +16471,6 @@ QQRKSRC1
         txt = "&"
         hint = "Fragility"
       }
-      upperleft: = {txt = "&" hint = "corner for positioning of broken glass"}
-      upperright: = {txt = "&" hint = "corner for positioning of broken glass"}
-      lowerright: = {txt = "&" hint = "corner for positioning of broken glass"}
-      lowerleft: = {txt = "&" hint = "corner for positioning of broken glass"}
       surfacetype: =
       {
         txt = "&"
@@ -13450,8 +16573,8 @@ QQRKSRC1
         txt = "&"
         hint = "Precipitation Type"
         typ = "C"
-        items = "Rain"$0D"Snow"
-        values = "0"$0D"1"
+        items = "Rain"$0D"Snow"$0D"Ash"$0D"Snowfall"
+        values = "0"$0D"1"$0D"2"$0D"3"
       }
     }
     func_wall_toggle:form =
@@ -13515,6 +16638,20 @@ QQRKSRC1
       {
         txt = "&"
         hint = "Fires when the target is killed."
+      }
+    }
+    func_fish_pool:form =
+    {
+      t_modelselect = !
+      fish_count: =
+      {
+        txt = "&"
+        hint = "Fish Count"
+      }
+      max_range: =
+      {
+        txt = "&"
+        hint = "Max Range"
       }
     }
     t_PlatSounds:incl =
@@ -13663,7 +16800,7 @@ QQRKSRC1
       {
         txt = "&"
         typ = "X256"
-        cap = "Use max peed for pitch shifting move sound"
+        cap = "Use max speed for pitch shifting move sound"
       }
       spawnflags: =
       {
@@ -13848,6 +16985,51 @@ QQRKSRC1
     func_tracktrain:form =
     {
       t_BaseTrain = !
+      output#OnStart: =
+      {
+        txt = "&"
+        hint = "Fired when the train starts moving in either direction."
+      }
+      output#OnNext: =
+      {
+        txt = "&"
+        hint = "Fires when this train picks a new point to move towards (and j"
+         "ust after OnStart)."
+      }
+      ManualSpeedChanges: =
+      {
+        txt = "&"
+        hint = "Manual Train Speed"
+        typ = "C"
+        items = "Off"$0D"On"
+        values = "0"$0D"1"
+      }
+      ManualAccelSpeed: =
+      {
+        txt = "&"
+        hint = "Manual Accel Speed"
+      }
+      ManualDecelSpeed: =
+      {
+        txt = "&"
+        hint = "Manual Decel Speed"
+      }
+      input#SetSpeedDirAccel: =
+      {
+        txt = "&"
+        hint = "Accel/Decel to the specified speed, as a ratio of max speed. N"
+         "egative values reverse the direction [-1, 1]"
+      }
+      input#TeleportToPathTrack: =
+      {
+        txt = "&"
+        hint = "Teleport train to the designated path track."
+      }
+      input#SetSpeedForwardModifier: =
+      {
+        txt = "&"
+        hint = "Applies the given modifier to all forward speeds. [0, 1]"
+      }
     }
     func_tanktrain:form =
     {
@@ -13946,6 +17128,18 @@ QQRKSRC1
         typ = "X16"
         cap = "Teleport to THIS path track"
       }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X32"
+        cap = "Part of an uphill path"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X64"
+        cap = "Part of a downhill path"
+      }
       target: =
       {
         txt = "&"
@@ -14011,6 +17205,12 @@ QQRKSRC1
         hint = "Fired when any entity following this path passes this path_tra"
          "ck node."
       }
+      output#OnTeleport: =
+      {
+        txt = "&"
+        hint = "Fired when any entity following this path teleports directly t"
+         "o this path_track node."
+      }
     }
     test_traceline:form =
     {
@@ -14033,9 +17233,20 @@ QQRKSRC1
         items = "No"$0D"Yes"
         values = "0"$0D"1"
       }
+      DangerousTimer: =
+      {
+        txt = "&"
+        hint = "Dangerous Timer"
+      }
+      MinimumHitPoints: =
+      {
+        txt = "&"
+        hint = "Minumum Hit Points"
+      }
     }
     trigger_changelevel:form =
     {
+      t_EnableDisable = !
       targetname: =
       {
         txt = "&"
@@ -14099,6 +17310,12 @@ QQRKSRC1
         typ = "X128"
         cap = "Disable auto player movement"
       }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X2048"
+        cap = "Auto-duck while in trigger"
+      }
     }
     trigger_soundscape:form =
     {
@@ -14149,6 +17366,14 @@ QQRKSRC1
         items = "Normal"$0D"Doubling w/forgiveness"
         values = "0"$0D"1"
       }
+      nodmgforce: =
+      {
+        txt = "&"
+        hint = "Zero Damage Force"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
+      }
       input#SetDamage: =
       {
         txt = "&"
@@ -14184,10 +17409,28 @@ QQRKSRC1
         txt = "&"
         hint = "Delay Before Reset"
       }
+      input#TouchTest: =
+      {
+        txt = "&"
+        hint = "Tests if the trigger is being touched and fires an output base"
+         "d on whether the value is true or false."
+      }
       output#OnTrigger: =
       {
         txt = "&"
         hint = "Fired whenever the trigger is activated."
+      }
+      output#OnTouching: =
+      {
+        txt = "&"
+        hint = "Fired when the TestTouch input is true (something is touching "
+         "the trigger.)"
+      }
+      output#OnNotTouching: =
+      {
+        txt = "&"
+        hint = "Fired when the TestTouch input is not true (nothing is touchin"
+         "g the trigger.)"
       }
     }
     trigger_once:form =
@@ -14271,6 +17514,11 @@ QQRKSRC1
         txt = "&"
         hint = "Speed of Push"
       }
+      alternateticksfix: =
+      {
+        txt = "&"
+        hint = "Scale force for alternate ticks"
+      }
     }
     trigger_wind:form =
     {
@@ -14310,6 +17558,7 @@ QQRKSRC1
     trigger_impact:form =
     {
       t_Targetname = !
+      t_Origin = !
       t_Angles = !
       Magnitude: =
       {
@@ -14391,10 +17640,15 @@ QQRKSRC1
     {
       t_Targetname = !
     }
+    trigger_serverragdoll:form =
+    {
+      t_Targetname = !
+    }
     ai_speechfilter:form =
     {
       t_Targetname = !
       t_ResponseContext = !
+      t_EnableDisable = !
       subject: =
       {
         txt = "&"
@@ -14412,6 +17666,11 @@ QQRKSRC1
         typ = "C"
         items = "Yes"$0D"No"
         values = "0"$0D"1"
+      }
+      input#SetIdleModifier: =
+      {
+        txt = "&"
+        hint = "Allows designers to change the idle modifier at runtime"
       }
     }
     water_lod_control:form =
@@ -14438,41 +17697,6 @@ QQRKSRC1
         txt = "&"
         hint = "Set the distance that water finishes transitioning to cheap wa"
          "ter."
-      }
-      renderfx: =
-      {
-        txt = "&"
-        hint = "Use 0 as your argument unless you know what your doing"
-      }
-      rendermode: =
-      {
-        txt = "&"
-        hint = "Use 0 as your argument unless you know what your doing"
-      }
-      renderamt: =
-      {
-        txt = "&"
-        hint = "Translucency"
-      }
-      rendercolor: =
-      {
-        txt = "&"
-        hint = "RGB Color"
-      }
-      disableshadows: =
-      {
-        txt = "&"
-        hint = "Use 0 as your argument unless you know what your doing"
-      }
-      disablereceiveshadows: =
-      {
-        txt = "&"
-        hint = "Use 0 as your argument unless you know what your doing"
-      }
-      _minlight: =
-      {
-        txt = "&"
-        hint = "Minimum light level"
       }
     }
     info_camera_link:form =
@@ -14571,6 +17795,7 @@ QQRKSRC1
     npc_furniture:form =
     {
       t_BaseNPC = !
+      t_Parentname = !
       model: =
       {
         txt = "&"
@@ -14578,6 +17803,16 @@ QQRKSRC1
         typ = "B"
         Cap = "models..."
         form = "t_models_hl2_form:form"
+      }
+      input#DisablePlayerCollision: =
+      {
+        txt = "&"
+        hint = "Disable collisions against the player."
+      }
+      input#EnablePlayerCollision: =
+      {
+        txt = "&"
+        hint = "Enable collisions against the player."
       }
     }
     env_credits:form =
@@ -14632,6 +17867,22 @@ QQRKSRC1
         hint = "This sets the material variable to the current time on the ser"
          "ver."
       }
+      input#StartAnimSequence: =
+      {
+        txt = "&"
+        hint = "Force an animated material with the MaterialModifyAnimated pro"
+         "xy to play a set of animation frames. Format is: <Frame Start> <Fram"
+         "e End> <Frame Rate> <Loop>\nSetting <Frame End> to -1 uses the last "
+         "frame of the texture. <Loop> should be 1 or 0."
+      }
+      input#StartFloatLerp: =
+      {
+        txt = "&"
+        hint = "Force a material with the MaterialModifyAnimated proxy to lerp"
+         " a material var between two floating point values. Format is: <Start"
+         " Value> <End Value> <Transition Time> <Loop>\n<Loop> should be 1 or "
+         "0."
+      }
     }
     point_devshot_camera:form =
     {
@@ -14645,6 +17896,435 @@ QQRKSRC1
       {
         txt = "&"
         hint = "Camera FOV"
+      }
+    }
+    logic_playerproxy:form =
+    {
+      bbox = '-8 -8 -8 8 8 8'
+      t_Targetname = !
+      t_DamageFilter = !
+      output#OnFlashlightOn: =
+      {
+        txt = "&"
+        hint = "Fired when the player turns on his flashlight. This output has"
+         " the value of how much energy the player had when this happened [0.."
+         "1]."
+      }
+      output#OnFlashlightOff: =
+      {
+        txt = "&"
+        hint = "Fired when the player turns off his flashlight. This output ha"
+         "s the value of how much energy the player had when this happened [0."
+         ".1]."
+      }
+      input#RequestPlayerHealth: =
+      {
+        txt = "&"
+        hint = "Requests the current player's health from the proxy. This will"
+         " fire the PlayerHealth output with the value."
+      }
+      output#PlayerHealth: =
+      {
+        txt = "&"
+        hint = "The player's current health value."
+      }
+      output#PlayerMissedAR2AltFire: =
+      {
+        txt = "&"
+        hint = "Player fired an AR2 combine ball that didn't kill any enemies."
+      }
+      input#SetFlashlightSlowDrain: =
+      {
+        txt = "&"
+        hint = "Puts the player's flashlight in slow-power-drain mode (for Epi"
+         "sodic darkness)"
+      }
+      input#SetFlashlightNormalDrain: =
+      {
+        txt = "&"
+        hint = "Puts the player's flashlight to default power drain"
+      }
+      input#SetPlayerHealth: =
+      {
+        txt = "&"
+        hint = "Sets the player's health to this value."
+      }
+      input#RequestAmmoState: =
+      {
+        txt = "&"
+        hint = "Request the ammo state of the player. It will fire PlayerHasAm"
+         "mo or PlayerHasNoAmmo outputs."
+      }
+      output#PlayerHasAmmo: =
+      {
+        txt = "&"
+        hint = "Fired by request if the player has any ammo."
+      }
+      output#PlayerHasNoAmmo: =
+      {
+        txt = "&"
+        hint = "Fired by request if the player doesn't have any ammo."
+      }
+      output#PlayerDied: =
+      {
+        txt = "&"
+        hint = "Fires when the player dies."
+      }
+      input#LowerWeapon: =
+      {
+        txt = "&"
+        hint = "Lowers the players weapon."
+      }
+      input#EnableCappedPhysicsDamage: =
+      {
+        txt = "&"
+        hint = "Cause player to take less damage from physics objects, and nev"
+         "er more than 30 points from any individual strike."
+      }
+      input#DisableCappedPhysicsDamage: =
+      {
+        txt = "&"
+        hint = "Undo effects of EnableCappedPhysicsDamage"
+      }
+      input#SetLocatorTargetEntity: =
+      {
+        txt = "&"
+        hint = "Set the entity that the HUD locator should track. (Usually a v"
+         "ehicle)"
+      }
+    }
+    env_spritetrail:form =
+    {
+      bbox = '-8 -8 -8 8 8 8'
+      t_Parentname = !
+      t_Targetname = !
+      lifetime: =
+      {
+        txt = "&"
+        hint = "Lifetime"
+      }
+      startwidth: =
+      {
+        txt = "&"
+        hint = "Start Width"
+      }
+      endwidth: =
+      {
+        txt = "&"
+        hint = "End Width"
+      }
+      spritename: =
+      {
+        txt = "&"
+        hint = "Sprite Name"
+      }
+      renderamt: =
+      {
+        txt = "&"
+        hint = "FX Amount (0 - 255)"
+      }
+      rendercolor: =
+      {
+        txt = "&"
+        hint = "FX Color (R G B)"
+      }
+      rendermode: =
+      {
+        txt = "&"
+        hint = "Render Mode"
+        typ = "C"
+        items = "Normal"$0D"Solid"$0D"Additive"
+        values = "0"$0D"4"$0D"5"
+      }
+    }
+    env_projectedtexture:form =
+    {
+      bbox = '-2 -2 -2 2 2 2'
+      t_Targetname = !
+      t_Parentname = !
+      t_Angles = !
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X1"
+        cap = "Enabled"
+      }
+      target: =
+      {
+        txt = "&"
+        hint = "target"
+      }
+      lightfov: =
+      {
+        txt = "&"
+        hint = "FOV"
+      }
+      nearz: =
+      {
+        txt = "&"
+        hint = "NearZ"
+      }
+      farz: =
+      {
+        txt = "&"
+        hint = "FarZ"
+      }
+      enableshadows: =
+      {
+        txt = "&"
+        hint = "Enable Shadows"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
+      }
+      shadowquality: =
+      {
+        txt = "&"
+        hint = "Shadow Quality"
+        typ = "C"
+        items = "Low"$0D"High"
+        values = "0"$0D"1"
+      }
+      lightonlytarget: =
+      {
+        txt = "&"
+        hint = "Light Only Target"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
+      }
+      lightworld: =
+      {
+        txt = "&"
+        hint = "Light World"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
+      }
+      lightcolor: =
+      {
+        txt = "&"
+        hint = "Light Color"
+      }
+      cameraspace: =
+      {
+        txt = "&"
+        hint = "Camera Space"
+      }
+      input#TurnOn: =
+      {
+        txt = "&"
+        hint = "Turn on the texture"
+      }
+      input#TurnOff: =
+      {
+        txt = "&"
+        hint = "Turn off the texture"
+      }
+      input#SetFOV: =
+      {
+        txt = "&"
+        hint = "Set FOV"
+      }
+    }
+    func_reflective_glass:form =
+    {
+      t_func_brush = !
+    }
+    env_particle_performance_monitor:form =
+    {
+      t_Targetname = !
+      input#TurnOnDisplay: =
+      {
+        txt = "&"
+        hint = "Turn on display of particle simulation benchmark"
+      }
+      input#TurnOffDisplay: =
+      {
+        txt = "&"
+        hint = "Turn off display of particle simulation benchmark"
+      }
+      input#StartMeasuring: =
+      {
+        txt = "&"
+        hint = "Start measuring particle simulation speed"
+      }
+      input#StopMeasuring: =
+      {
+        txt = "&"
+        hint = "Stop measuring particle simulation speed"
+      }
+    }
+    npc_puppet:form =
+    {
+      t_BaseNPC = !
+      t_Targetname = !
+      t_Parentname = !
+      t_Studiomodel = !
+      animationtarget: =
+      {
+        txt = "&"
+        hint = "Animation target"
+      }
+      attachmentname: =
+      {
+        txt = "&"
+        hint = "Target attachment point name"
+      }
+      input#SetAnimationTarget: =
+      {
+        txt = "&"
+        hint = "Set the animation target to use. An empty string will disable "
+         "the puppet."
+      }
+    }
+    point_gamestats_counter:form =
+    {
+      bbox = '-2 -2 -2 2 2 2'
+      t_Origin = !
+      t_Targetname = !
+      t_EnableDisable = !
+      Name: =
+      {
+        txt = "&"
+        hint = "Name of statistic counter"
+      }
+      input#SetName: =
+      {
+        txt = "&"
+        hint = "Changes name of statistic counter"
+      }
+      input#Increment: =
+      {
+        txt = "&"
+        hint = "Increments named statistic counter by specified value"
+      }
+    }
+    func_instance:form =
+    {
+      bbox = '-8 -8 -8 8 8 8'
+      t_Angles = !
+      targetname: =
+      {
+        txt = "&"
+        hint = "Fix Up Name"
+      }
+      file: =
+      {
+        txt = "&"
+        hint = "VMF Filename"
+      }
+      fixup_style: =
+      {
+        txt = "&"
+        hint = "Entity Name Fix Up"
+        typ = "C"
+        items = "Prefix"$0D"Postfix"$0D"None"
+        values = "0"$0D"1"$0D"2"
+      }
+      replace01: =
+      {
+        txt = "&"
+        hint = "Replace"
+      }
+      replace02: =
+      {
+        txt = "&"
+        hint = "Replace"
+      }
+      replace03: =
+      {
+        txt = "&"
+        hint = "Replace"
+      }
+      replace04: =
+      {
+        txt = "&"
+        hint = "Replace"
+      }
+      replace05: =
+      {
+        txt = "&"
+        hint = "Replace"
+      }
+      replace06: =
+      {
+        txt = "&"
+        hint = "Replace"
+      }
+      replace07: =
+      {
+        txt = "&"
+        hint = "Replace"
+      }
+      replace08: =
+      {
+        txt = "&"
+        hint = "Replace"
+      }
+      replace09: =
+      {
+        txt = "&"
+        hint = "Replace"
+      }
+      replace10: =
+      {
+        txt = "&"
+        hint = "Replace"
+      }
+    }
+    func_instance_parms:form =
+    {
+      bbox = '-8 -8 -8 8 8 8'
+      parm1: =
+      {
+        txt = "&"
+        hint = "Parm"
+      }
+      parm2: =
+      {
+        txt = "&"
+        hint = "Parm"
+      }
+      parm3: =
+      {
+        txt = "&"
+        hint = "Parm"
+      }
+      parm4: =
+      {
+        txt = "&"
+        hint = "Parm"
+      }
+      parm5: =
+      {
+        txt = "&"
+        hint = "Parm"
+      }
+      parm6: =
+      {
+        txt = "&"
+        hint = "Parm"
+      }
+      parm7: =
+      {
+        txt = "&"
+        hint = "Parm"
+      }
+      parm8: =
+      {
+        txt = "&"
+        hint = "Parm"
+      }
+      parm9: =
+      {
+        txt = "&"
+        hint = "Parm"
+      }
+      parm10: =
+      {
+        txt = "&"
+        hint = "Parm"
       }
     }
   }
