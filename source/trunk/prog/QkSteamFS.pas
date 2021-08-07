@@ -121,29 +121,27 @@ end;
 function RunSteam: Boolean;
 var
   Setup: QObject;
-  SteamEXEName: String;
-  SteamDirectory: String;
+  SteamEXEFullPath: String;
   SteamStartupInfo: StartUpInfo;
   SteamProcessInformation: Process_Information;
 begin
   Setup := SetupSubSet(ssGames, 'Steam');
-  SteamEXEName := Setup.Specifics.Values['SteamEXEName'];
-  if SteamEXEName = '' then
-    SteamEXEName := 'steam.exe';
-  Result := ProcessExists(SteamEXEName);
+  SteamEXEFullPath := ConcatPaths([QuickResolveFilename(Setup.Specifics.Values['Directory']), Setup.Specifics.Values['SteamEXEName']]);
+  Result := ProcessExists(SteamEXEFullPath);
   if (not Result) and (Setup.Specifics.Values['Autostart']='1') then
   begin
     FillChar(SteamStartupInfo, SizeOf(SteamStartupInfo), 0);
     FillChar(SteamProcessInformation, SizeOf(SteamProcessInformation), 0);
     SteamStartupInfo.cb:=SizeOf(SteamStartupInfo);
-    SteamDirectory:=QuickResolveFilename(Setup.Specifics.Values['Directory']);
-    if Windows.CreateProcess(nil, PChar(ConcatPaths([SteamDirectory, SteamEXEName])), nil, nil, false, 0, nil, nil, SteamStartupInfo, SteamProcessInformation)=true then
+    if Windows.CreateProcess(nil, PChar(SteamEXEFullPath), nil, nil, false, 0, nil, nil, SteamStartupInfo, SteamProcessInformation)=false then
     begin
-      CloseHandle(SteamProcessInformation.hThread);
-      WaitForInputIdle(SteamProcessInformation.hProcess, INFINITE);
-      CloseHandle(SteamProcessInformation.hProcess);
-      Result := true;
+      LogWindowsError(GetLastError(), 'CreateProcess(Steam)');
+      Exit;
     end;
+    CloseHandle(SteamProcessInformation.hThread);
+    WaitForInputIdle(SteamProcessInformation.hProcess, INFINITE);
+    CloseHandle(SteamProcessInformation.hProcess);
+    Result := true;
   end;
 end;
 

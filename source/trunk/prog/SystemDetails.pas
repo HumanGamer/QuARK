@@ -2214,10 +2214,11 @@ begin
 end;
 
 function ProcessExists(const exeFileName: String): Boolean;
-var 
-  ContinueLoop: BOOL; 
-  FSnapshotHandle: THandle; 
+var
+  ContinueLoop: BOOL;
+  FSnapshotHandle, FSnapshotHandle2: THandle;
   FProcessEntry32: TProcessEntry32;
+  FModuleEntry32: TModuleEntry32;
   ProcessNumber: Integer;
   ProcessSize, BytesReturned: DWORD;
   ProcessList, ProcessList2: PDWORD;
@@ -2234,16 +2235,35 @@ begin
   if WindowsPlatformCompatibility=osWin95Comp then
   begin
     FSnapshotHandle := CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
+    if FSnapshotHandle = INVALID_HANDLE_VALUE then
+    begin
+      LogWindowsError(GetLastError(), 'CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS)');
+      LogAndRaiseError('Unable to retrieve process information!');
+    end;
     try
       FProcessEntry32.dwSize := SizeOf(FProcessEntry32);
       ContinueLoop := Process32First(FSnapshotHandle, FProcessEntry32);
       while ContinueLoop <> false do
       begin
-        if (ExtractFileName(FProcessEntry32.szExeFile) = ExeFileName)
-          or (FProcessEntry32.szExeFile = ExeFileName) then
+        if SameText(ExtractFilename(StrPas(FProcessEntry32.szExeFile)), ExtractFilename(exeFileName)) then
         begin
-          Result := True;
-          break;
+          FSnapshotHandle2 := CreateToolhelp32Snapshot(TH32CS_SNAPMODULE, FProcessEntry32.th32ProcessID);
+          if FSnapshotHandle2 = INVALID_HANDLE_VALUE then
+          begin
+            LogWindowsError(GetLastError(), 'CreateToolhelp32Snapshot(TH32CS_SNAPMODULE)');
+            LogAndRaiseError('Unable to retrieve process information!');
+          end;
+          try
+            FModuleEntry32.dwSize := SizeOf(FModuleEntry32);
+            Module32First(FSnapshotHandle2, FModuleEntry32);
+            if SameText(StrPas(FModuleEntry32.szExePath), ExeFileName) then
+            begin
+              Result := True;
+              break;
+            end;
+          finally
+            CloseHandle(FSnapshotHandle2);
+          end;
         end;
         ContinueLoop := Process32Next(FSnapshotHandle, FProcessEntry32);
       end;
@@ -2280,13 +2300,17 @@ begin
                 repeat
                   ProcessNameBufferSize := ProcessNameBufferSize * 2;
                   ReallocMem(ProcessNameBuffer, ProcessNameBufferSize * SizeOf(Char));
-                  RealProcessNameSize := GetModuleBaseName(ProcessHandle, ProcessModule, ProcessNameBuffer, ProcessNameBufferSize);
+                  RealProcessNameSize := GetModuleFileNameEx(ProcessHandle, ProcessModule, ProcessNameBuffer, ProcessNameBufferSize);
                 until RealProcessNameSize < ProcessNameBufferSize;
                 if RealProcessNameSize > 0 then
                 begin
                   SetLength(ProcessName, RealProcessNameSize);
                   ProcessName := PChar(ProcessNameBuffer);
+{$IFDEF LINUX}
                   if CompareStr(ProcessName, exeFileName) = 0 then
+{$ELSE}
+                  if SameText(ProcessName, exeFileName) then
+{$ENDIF}
                   begin
                     Result:=True;
                     break;
