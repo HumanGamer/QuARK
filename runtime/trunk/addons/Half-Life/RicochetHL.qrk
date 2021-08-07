@@ -170,19 +170,19 @@ QQRKSRC1
     }
     worldspawn:form =
     {
-      t_worldspawn = "!"
+      t_worldspawn = !
     }
     t_info_player_start:incl =
     {
-      t_PlayerClass = "!"
+      t_PlayerClass = !
     }
     info_player_start:form =
     {
-      t_info_player_start = "!"
+      t_info_player_start = !
     }
     t_info_player_deathmatch:incl =
     {
-      t_PlayerClass = "!"
+      t_PlayerClass = !
       target: =
       {
         txt = "&"
@@ -196,19 +196,19 @@ QQRKSRC1
     }
     info_player_deathmatch:form =
     {
-      t_info_player_deathmatch = "!"
+      t_info_player_deathmatch = !
     }
     t_info_ricochet:incl =
     {
-      t_Angles = "!"
+      t_Angles = !
     }
     info_ricochet:form =
     {
-      t_info_ricochet = "!"
+      t_info_ricochet = !
     }
     t_info_player_spectator:incl =
     {
-      t_PlayerClass = "!"
+      t_PlayerClass = !
       target: =
       {
         txt = "&"
@@ -222,45 +222,45 @@ QQRKSRC1
     }
     info_player_spectator:form =
     {
-      t_info_player_spectator = "!"
+      t_info_player_spectator = !
     }
     t_info_teleport_destination:incl =
     {
       bbox = '-16 16 0 16 16 16'
-      t_PlayerClass = "!"
-      t_Targetname = "!"
+      t_PlayerClass = !
+      t_Targetname = !
     }
     info_teleport_destination:form =
     {
-      t_info_teleport_destination = "!"
+      t_info_teleport_destination = !
     }
     t_item_powerup:incl =
     {
       bbox = '-16 -16 -16 16 16 32'
-      t_Weapon = "!"
-      t_Targetx = "!"
+      t_Weapon = !
+      t_Targetx = !
     }
     item_powerup:form =
     {
-      t_item_powerup = "!"
+      t_item_powerup = !
     }
     t_trigger_discreturn:incl =
     {
     }
     trigger_discreturn:form =
     {
-      t_trigger_discreturn = "!"
+      t_trigger_discreturn = !
     }
     t_trigger_fall:incl =
     {
     }
     trigger_fall:form =
     {
-      t_trigger_fall = "!"
+      t_trigger_fall = !
     }
     t_trigger_jump:incl =
     {
-      t_Target = "!"
+      t_Target = !
       height: =
       {
         txt = "&"
@@ -269,7 +269,7 @@ QQRKSRC1
     }
     trigger_jump:form =
     {
-      t_trigger_jump = "!"
+      t_trigger_jump = !
     }
   }
 }

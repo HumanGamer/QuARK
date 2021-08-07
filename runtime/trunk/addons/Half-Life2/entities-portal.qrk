@@ -189,9 +189,9 @@ QQRKSRC1
   {
     t_point_energy_ball_launcher:incl =
     {
-      t_CombineBallSpawners = "!"
-      t_Parentname = "!"
-      t_Targetname = "!"
+      t_CombineBallSpawners = !
+      t_Parentname = !
+      t_Targetname = !
       BallLifetime: =
       {
         txt = "&"
@@ -215,13 +215,13 @@ QQRKSRC1
     }
     point_energy_ball_launcher:form =
     {
-      t_point_energy_ball_launcher = "!"
+      t_point_energy_ball_launcher = !
     }
     t_npc_rocket_turret:incl =
     {
-      t_Parentname = "!"
-      t_Targetname = "!"
-      t_Angles = "!"
+      t_Parentname = !
+      t_Targetname = !
+      t_Angles = !
       spawnflags: =
       {
         txt = "&"
@@ -272,13 +272,13 @@ QQRKSRC1
     }
     npc_rocket_turret:form =
     {
-      t_npc_rocket_turret = "!"
+      t_npc_rocket_turret = !
     }
     t_env_portal_path_track:incl =
     {
-      t_Targetname = "!"
-      t_Parentname = "!"
-      t_Angles = "!"
+      t_Targetname = !
+      t_Parentname = !
+      t_Angles = !
       spawnflags: =
       {
         txt = "&"
@@ -417,12 +417,12 @@ QQRKSRC1
     }
     env_portal_path_track:form =
     {
-      t_env_portal_path_track = "!"
+      t_env_portal_path_track = !
     }
     t_trigger_portal_cleanser:incl =
     {
-      t_Trigger = "!"
-      t_Targetname = "!"
+      t_Trigger = !
+      t_Targetname = !
       output#OnDissolve: =
       {
         txt = "&"
@@ -441,13 +441,13 @@ QQRKSRC1
     }
     trigger_portal_cleanser:form =
     {
-      t_trigger_portal_cleanser = "!"
+      t_trigger_portal_cleanser = !
     }
     t_func_portal_orientation:incl =
     {
-      t_Targetname = "!"
-      t_Parentname = "!"
-      t_EnableDisable = "!"
+      t_Targetname = !
+      t_Parentname = !
+      t_EnableDisable = !
       AnglesToFace: =
       {
         txt = "&"
@@ -464,11 +464,11 @@ QQRKSRC1
     }
     func_portal_orientation:form =
     {
-      t_func_portal_orientation = "!"
+      t_func_portal_orientation = !
     }
     t_func_weight_button:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       WeightToActivate: =
       {
         txt = "&"
@@ -487,12 +487,12 @@ QQRKSRC1
     }
     func_weight_button:form =
     {
-      t_func_weight_button = "!"
+      t_func_weight_button = !
     }
     t_func_noportal_volume:incl =
     {
-      t_Targetname = "!"
-      t_Parentname = "!"
+      t_Targetname = !
+      t_Parentname = !
       input#Deactivate: =
       {
         txt = "&"
@@ -517,12 +517,12 @@ QQRKSRC1
     }
     func_noportal_volume:form =
     {
-      t_func_noportal_volume = "!"
+      t_func_noportal_volume = !
     }
     t_func_portal_bumper:incl =
     {
-      t_Targetname = "!"
-      t_Parentname = "!"
+      t_Targetname = !
+      t_Parentname = !
       input#Deactivate: =
       {
         txt = "&"
@@ -547,12 +547,12 @@ QQRKSRC1
     }
     func_portal_bumper:form =
     {
-      t_func_portal_bumper = "!"
+      t_func_portal_bumper = !
     }
     t_func_portal_detector:incl =
     {
-      t_Targetname = "!"
-      t_Parentname = "!"
+      t_Targetname = !
+      t_Parentname = !
       input#Disable: =
       {
         txt = "&"
@@ -606,12 +606,12 @@ QQRKSRC1
     }
     func_portal_detector:form =
     {
-      t_func_portal_detector = "!"
+      t_func_portal_detector = !
     }
     t_func_liquidportal:incl =
     {
-      t_Origin = "!"
-      t_Angles = "!"
+      t_Origin = !
+      t_Angles = !
       InitialLinkedPortal: =
       {
         txt = "&"
@@ -653,12 +653,12 @@ QQRKSRC1
     }
     func_liquidportal:form =
     {
-      t_func_liquidportal = "!"
+      t_func_liquidportal = !
     }
     t_prop_portal:incl =
     {
-      t_Targetname = "!"
-      t_Angles = "!"
+      t_Targetname = !
+      t_Angles = !
       Activated: =
       {
         txt = "&"
@@ -710,13 +710,13 @@ QQRKSRC1
     }
     prop_portal:form =
     {
-      t_prop_portal = "!"
+      t_prop_portal = !
     }
     t_weapon_portalgun:incl =
     {
-      t_Weapon = "!"
-      t_Targetname = "!"
-      t_Parentname = "!"
+      t_Weapon = !
+      t_Targetname = !
+      t_Parentname = !
       CanFirePortal1: =
       {
         txt = "&"
@@ -778,11 +778,11 @@ QQRKSRC1
     }
     weapon_portalgun:form =
     {
-      t_weapon_portalgun = "!"
+      t_weapon_portalgun = !
     }
     t_npc_portal_turret_ground:incl =
     {
-      t_npc_turret_ground = "!"
+      t_npc_turret_ground = !
       ConeOfFire: =
       {
         txt = "&"
@@ -791,11 +791,11 @@ QQRKSRC1
     }
     npc_portal_turret_ground:form =
     {
-      t_npc_portal_turret_ground = "!"
+      t_npc_portal_turret_ground = !
     }
     t_prop_glados_core:incl =
     {
-      t_BasePropPhysics = "!"
+      t_BasePropPhysics = !
       CoreType: =
       {
         txt = "&"
@@ -827,11 +827,11 @@ QQRKSRC1
     }
     prop_glados_core:form =
     {
-      t_prop_glados_core = "!"
+      t_prop_glados_core = !
     }
     t_npc_portal_turret_floor:incl =
     {
-      t_npc_turret_floor = "!"
+      t_npc_turret_floor = !
       DamageForce: =
       {
         txt = "&"
@@ -848,13 +848,13 @@ QQRKSRC1
     }
     npc_portal_turret_floor:form =
     {
-      t_npc_portal_turret_floor = "!"
+      t_npc_portal_turret_floor = !
     }
     t_npc_security_camera:incl =
     {
-      t_Targetname = "!"
-      t_Angles = "!"
-      t_Studiomodel = "!"
+      t_Targetname = !
+      t_Angles = !
+      t_Studiomodel = !
       spawnflags: =
       {
         txt = "&"
@@ -894,13 +894,13 @@ QQRKSRC1
     }
     npc_security_camera:form =
     {
-      t_npc_security_camera = "!"
+      t_npc_security_camera = !
     }
     t_prop_telescopic_arm:incl =
     {
-      t_Targetname = "!"
-      t_Angles = "!"
-      t_Studiomodel = "!"
+      t_Targetname = !
+      t_Angles = !
+      t_Studiomodel = !
       input#Enable: =
       {
         txt = "&"
@@ -934,14 +934,14 @@ QQRKSRC1
     }
     prop_telescopic_arm:form =
     {
-      t_prop_telescopic_arm = "!"
+      t_prop_telescopic_arm = !
     }
     t_prop_portal_stats_display:incl =
     {
-      t_Targetname = "!"
-      t_Angles = "!"
-      t_Parentname = "!"
-      t_Global = "!"
+      t_Targetname = !
+      t_Angles = !
+      t_Parentname = !
+      t_Global = !
       input#Enable: =
       {
         txt = "&"
@@ -986,13 +986,13 @@ QQRKSRC1
     }
     prop_portal_stats_display:form =
     {
-      t_prop_portal_stats_display = "!"
+      t_prop_portal_stats_display = !
     }
     t_vgui_neurotoxin_countdown:incl =
     {
-      t_Targetname = "!"
-      t_Angles = "!"
-      t_Parentname = "!"
+      t_Targetname = !
+      t_Angles = !
+      t_Parentname = !
       width: =
       {
         txt = "&"
@@ -1016,13 +1016,13 @@ QQRKSRC1
     }
     vgui_neurotoxin_countdown:form =
     {
-      t_vgui_neurotoxin_countdown = "!"
+      t_vgui_neurotoxin_countdown = !
     }
     t_env_lightrail_endpoint:incl =
     {
-      t_Angles = "!"
-      t_Targetname = "!"
-      t_Parentname = "!"
+      t_Angles = !
+      t_Targetname = !
+      t_Parentname = !
       spawnflags: =
       {
         txt = "&"
@@ -1065,12 +1065,12 @@ QQRKSRC1
     }
     env_lightrail_endpoint:form =
     {
-      t_env_lightrail_endpoint = "!"
+      t_env_lightrail_endpoint = !
     }
     t_env_portal_credits:incl =
     {
       bbox = '-8 -8 -8 8 8 8'
-      t_Targetname = "!"
+      t_Targetname = !
       input#RollCredits: =
       {
         txt = "&"
@@ -1099,12 +1099,12 @@ QQRKSRC1
     }
     env_portal_credits:form =
     {
-      t_env_portal_credits = "!"
+      t_env_portal_credits = !
     }
     t_info_lighting_relative:incl =
     {
-      t_Targetname = "!"
-      t_Parentname = "!"
+      t_Targetname = !
+      t_Parentname = !
       LightingLandmark: =
       {
         txt = "&"
@@ -1113,7 +1113,7 @@ QQRKSRC1
     }
     info_lighting_relative:form =
     {
-      t_info_lighting_relative = "!"
+      t_info_lighting_relative = !
     }
   }
 }

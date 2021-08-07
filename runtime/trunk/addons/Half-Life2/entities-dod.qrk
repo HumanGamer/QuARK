@@ -168,7 +168,7 @@ QQRKSRC1
     t_filter_activator_team:incl =
     {
       bbox = '-8 -8 -8 8 8 8'
-      t_BaseFilter = "!"
+      t_BaseFilter = !
       filterteam: =
       {
         txt = "&"
@@ -180,31 +180,31 @@ QQRKSRC1
     }
     filter_activator_team:form =
     {
-      t_filter_activator_team = "!"
+      t_filter_activator_team = !
     }
     t_info_player_allies:incl =
     {
-      t_Angles = "!"
-      t_Targetname = "!"
-      t_EnableDisable = "!"
+      t_Angles = !
+      t_Targetname = !
+      t_EnableDisable = !
     }
     info_player_allies:form =
     {
-      t_info_player_allies = "!"
+      t_info_player_allies = !
     }
     t_info_player_axis:incl =
     {
-      t_Angles = "!"
-      t_Targetname = "!"
-      t_EnableDisable = "!"
+      t_Angles = !
+      t_Targetname = !
+      t_EnableDisable = !
     }
     info_player_axis:form =
     {
-      t_info_player_axis = "!"
+      t_info_player_axis = !
     }
     t_info_doddetect:incl =
     {
-      t_EnableDisable = "!"
+      t_EnableDisable = !
       detect_allies_respawnfactor: =
       {
         txt = "&"
@@ -236,12 +236,12 @@ QQRKSRC1
     }
     info_doddetect:form =
     {
-      t_info_doddetect = "!"
+      t_info_doddetect = !
     }
     t_dod_scoring:incl =
     {
-      t_Targetname = "!"
-      t_TeamNum = "!"
+      t_Targetname = !
+      t_TeamNum = !
       point_give_delay: =
       {
         txt = "&"
@@ -265,12 +265,12 @@ QQRKSRC1
     }
     dod_scoring:form =
     {
-      t_dod_scoring = "!"
+      t_dod_scoring = !
     }
     t_dod_control_point_master:incl =
     {
-      t_Targetname = "!"
-      t_EnableDisable = "!"
+      t_Targetname = !
+      t_EnableDisable = !
       cpm_use_timer: =
       {
         txt = "&"
@@ -310,11 +310,11 @@ QQRKSRC1
     }
     dod_control_point_master:form =
     {
-      t_dod_control_point_master = "!"
+      t_dod_control_point_master = !
     }
     t_dod_location:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       location_name: =
       {
         txt = "&"
@@ -323,13 +323,13 @@ QQRKSRC1
     }
     dod_location:form =
     {
-      t_dod_location = "!"
+      t_dod_location = !
     }
     t_dod_control_point:incl =
     {
-      t_EnableDisable = "!"
-      t_Targetname = "!"
-      t_Angles = "!"
+      t_EnableDisable = !
+      t_Targetname = !
+      t_Angles = !
       spawnflags: =
       {
         txt = "&"
@@ -516,19 +516,19 @@ QQRKSRC1
     }
     dod_control_point:form =
     {
-      t_dod_control_point = "!"
+      t_dod_control_point = !
     }
     t_func_ladder:incl =
     {
     }
     func_ladder:form =
     {
-      t_func_ladder = "!"
+      t_func_ladder = !
     }
     t_dod_capture_area:incl =
     {
-      t_EnableDisable = "!"
-      t_Targetname = "!"
+      t_EnableDisable = !
+      t_Targetname = !
       area_allies_cancap: =
       {
         txt = "&"
@@ -613,13 +613,13 @@ QQRKSRC1
     }
     dod_capture_area:form =
     {
-      t_dod_capture_area = "!"
+      t_dod_capture_area = !
     }
     t_dod_bomb_target:incl =
     {
-      t_EnableDisable = "!"
-      t_Angles = "!"
-      t_Targetname = "!"
+      t_EnableDisable = !
+      t_Angles = !
+      t_Targetname = !
       target_control_point: =
       {
         txt = "&"
@@ -666,12 +666,12 @@ QQRKSRC1
     }
     dod_bomb_target:form =
     {
-      t_dod_bomb_target = "!"
+      t_dod_bomb_target = !
     }
     t_dod_bomb_dispenser:incl =
     {
-      t_EnableDisable = "!"
-      t_Targetname = "!"
+      t_EnableDisable = !
+      t_Targetname = !
       dispense_team: =
       {
         txt = "&"
@@ -683,7 +683,7 @@ QQRKSRC1
     }
     dod_bomb_dispenser:form =
     {
-      t_dod_bomb_dispenser = "!"
+      t_dod_bomb_dispenser = !
     }
     t_func_team_wall:incl =
     {
@@ -698,13 +698,13 @@ QQRKSRC1
     }
     func_team_wall:form =
     {
-      t_func_team_wall = "!"
+      t_func_team_wall = !
     }
     t_func_teamblocker:incl =
     {
-      t_Targetname = "!"
-      t_Parentname = "!"
-      t_TeamNum = "!"
+      t_Targetname = !
+      t_Parentname = !
+      t_TeamNum = !
       spawnflags: =
       {
         txt = "&"
@@ -714,7 +714,7 @@ QQRKSRC1
     }
     func_teamblocker:form =
     {
-      t_func_teamblocker = "!"
+      t_func_teamblocker = !
     }
   }
 }

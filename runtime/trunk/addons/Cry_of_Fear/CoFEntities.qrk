@@ -3174,7 +3174,7 @@ QQRKSRC1
     }
     worldspawn:form =
     {
-      t_worldspawn = "!"
+      t_worldspawn = !
     }
     t_Sequence:incl =
     {
@@ -3308,9 +3308,9 @@ QQRKSRC1
     t_Weapon:incl =
     {
       bbox = '-16 -16 0 16 16 32'
-      t_Targetname = "!"
-      t_Angles = "!"
-      t_Appearflags = "!"
+      t_Targetname = !
+      t_Angles = !
+      t_Appearflags = !
       frags: =
       {
         txt = "&"
@@ -3342,7 +3342,7 @@ QQRKSRC1
     }
     t_Ammo:incl =
     {
-      t_Weapon = "!"
+      t_Weapon = !
     }
     t_Global:incl =
     {
@@ -3354,7 +3354,7 @@ QQRKSRC1
     }
     t_Targetx:incl =
     {
-      t_Target = "!"
+      t_Target = !
       delay: =
       {
         txt = "&"
@@ -3399,8 +3399,8 @@ QQRKSRC1
     }
     t_RenderFields:incl =
     {
-      t_RenderFxChoices = "!"
-      t_RenderMode = "!"
+      t_RenderFxChoices = !
+      t_RenderMode = !
       renderamt: =
       {
         txt = "&"
@@ -3414,8 +3414,8 @@ QQRKSRC1
     }
     t_RenderFieldsMax:incl =
     {
-      t_RenderFxChoices = "!"
-      t_RenderMode = "!"
+      t_RenderFxChoices = !
+      t_RenderMode = !
       renderamt: =
       {
         txt = "&"
@@ -3476,14 +3476,14 @@ QQRKSRC1
     t_PlayerClass:incl =
     {
       bbox = '-16 -16 -36 16 16 36'
-      t_Angles = "!"
+      t_Angles = !
     }
     t_Monster:incl =
     {
-      t_Targetname = "!"
-      t_Angles = "!"
-      t_RenderFields = "!"
-      t_Appearflags = "!"
+      t_Targetname = !
+      t_Angles = !
+      t_RenderFields = !
+      t_Appearflags = !
       health: =
       {
         txt = "&"
@@ -3627,9 +3627,9 @@ QQRKSRC1
     t_gibshooterbase:incl =
     {
       bbox = '-16 -16 -16 16 16 16'
-      t_Targetname = "!"
-      t_Angles = "!"
-      t_MoveWith = "!"
+      t_Targetname = !
+      t_Angles = !
+      t_MoveWith = !
       m_iGibs: =
       {
         txt = "&"
@@ -3778,8 +3778,8 @@ QQRKSRC1
     }
     t_Breakable:incl =
     {
-      t_Targetname = "!"
-      t_Global = "!"
+      t_Targetname = !
+      t_Global = !
       target: =
       {
         txt = "&"
@@ -3896,7 +3896,7 @@ QQRKSRC1
     }
     t_Door:incl =
     {
-      t_Appearflags = "!"
+      t_Appearflags = !
       target: =
       {
         txt = "&"
@@ -4038,12 +4038,12 @@ QQRKSRC1
     }
     t_BaseTank:incl =
     {
-      t_Targetname = "!"
-      t_Target = "!"
-      t_Angles = "!"
-      t_MoveWith = "!"
-      t_RenderFields = "!"
-      t_Global = "!"
+      t_Targetname = !
+      t_Target = !
+      t_Angles = !
+      t_MoveWith = !
+      t_RenderFields = !
+      t_Global = !
       spawnflags: =
       {
         txt = "&"
@@ -4251,10 +4251,10 @@ QQRKSRC1
     }
     t_Trackchange:incl =
     {
-      t_Targetname = "!"
-      t_RenderFields = "!"
-      t_Global = "!"
-      t_PlatSounds = "!"
+      t_Targetname = !
+      t_RenderFields = !
+      t_Global = !
+      t_PlatSounds = !
       height: =
       {
         txt = "&"
@@ -4324,9 +4324,9 @@ QQRKSRC1
     }
     t_Trigger:incl =
     {
-      t_Targetname = "!"
-      t_Master = "!"
-      t_Targetx = "!"
+      t_Targetname = !
+      t_Master = !
+      t_Targetx = !
     }
     t_TriggerCond:incl =
     {
@@ -4363,9 +4363,9 @@ QQRKSRC1
     t_Script:incl =
     {
       bbox = '-16 -16 0 16 16 72'
-      t_Targetname = "!"
-      t_Angles = "!"
-      t_MoveWith = "!"
+      t_Targetname = !
+      t_Angles = !
+      t_MoveWith = !
       target: =
       {
         txt = "&"
@@ -4438,7 +4438,7 @@ QQRKSRC1
     t_ScriptSequence:incl =
     {
       bbox = '-16 -16 0 16 16 72'
-      t_Script = "!"
+      t_Script = !
       m_iszMoveTarget: =
       {
         txt = "&"
@@ -4497,15 +4497,15 @@ QQRKSRC1
     }
     t_aiscripted_sequence:incl =
     {
-      t_ScriptSequence = "!"
+      t_ScriptSequence = !
     }
     aiscripted_sequence:form =
     {
-      t_aiscripted_sequence = "!"
+      t_aiscripted_sequence = !
     }
     t_ambient_fmodstream:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       message: =
       {
         txt = "&"
@@ -4534,12 +4534,12 @@ QQRKSRC1
     }
     ambient_fmodstream:form =
     {
-      t_ambient_fmodstream = "!"
+      t_ambient_fmodstream = !
     }
     t_ambient_generic:incl =
     {
-      t_Targetname = "!"
-      t_MoveWith = "!"
+      t_Targetname = !
+      t_MoveWith = !
       message: =
       {
         txt = "&"
@@ -4686,15 +4686,15 @@ QQRKSRC1
     }
     ambient_generic:form =
     {
-      t_ambient_generic = "!"
+      t_ambient_generic = !
     }
     t_button_target:incl =
     {
-      t_Target = "!"
-      t_Master = "!"
-      t_RenderFields = "!"
-      t_ZHLTLightKeys = "!"
-      t_MoveWith = "!"
+      t_Target = !
+      t_Master = !
+      t_RenderFields = !
+      t_ZHLTLightKeys = !
+      t_MoveWith = !
       spawnflags: =
       {
         txt = "&"
@@ -4722,12 +4722,12 @@ QQRKSRC1
     }
     button_target:form =
     {
-      t_button_target = "!"
+      t_button_target = !
     }
     t_calc_position:incl =
     {
       bbox = '-12 -12 -12 12 12 12'
-      t_Targetname = "!"
+      t_Targetname = !
       netname: =
       {
         txt = "&"
@@ -4751,12 +4751,12 @@ QQRKSRC1
     }
     calc_position:form =
     {
-      t_calc_position = "!"
+      t_calc_position = !
     }
     t_calc_ratio:incl =
     {
       bbox = '-12 -12 -12 12 12 12'
-      t_Targetname = "!"
+      t_Targetname = !
       target: =
       {
         txt = "&"
@@ -4806,7 +4806,7 @@ QQRKSRC1
     }
     calc_ratio:form =
     {
-      t_calc_ratio = "!"
+      t_calc_ratio = !
     }
     t_worldspawn:incl =
     {
@@ -5012,7 +5012,7 @@ QQRKSRC1
     }
     worldspawn:form =
     {
-      t_worldspawn = "!"
+      t_worldspawn = !
     }
     t_Sequence:incl =
     {
@@ -5146,9 +5146,9 @@ QQRKSRC1
     t_Weapon:incl =
     {
       bbox = '-16 -16 0 16 16 32'
-      t_Targetname = "!"
-      t_Angles = "!"
-      t_Appearflags = "!"
+      t_Targetname = !
+      t_Angles = !
+      t_Appearflags = !
       frags: =
       {
         txt = "&"
@@ -5180,7 +5180,7 @@ QQRKSRC1
     }
     t_Ammo:incl =
     {
-      t_Weapon = "!"
+      t_Weapon = !
     }
     t_Global:incl =
     {
@@ -5192,7 +5192,7 @@ QQRKSRC1
     }
     t_Targetx:incl =
     {
-      t_Target = "!"
+      t_Target = !
       delay: =
       {
         txt = "&"
@@ -5237,8 +5237,8 @@ QQRKSRC1
     }
     t_RenderFields:incl =
     {
-      t_RenderFxChoices = "!"
-      t_RenderMode = "!"
+      t_RenderFxChoices = !
+      t_RenderMode = !
       renderamt: =
       {
         txt = "&"
@@ -5252,8 +5252,8 @@ QQRKSRC1
     }
     t_RenderFieldsMax:incl =
     {
-      t_RenderFxChoices = "!"
-      t_RenderMode = "!"
+      t_RenderFxChoices = !
+      t_RenderMode = !
       renderamt: =
       {
         txt = "&"
@@ -5314,14 +5314,14 @@ QQRKSRC1
     t_PlayerClass:incl =
     {
       bbox = '-16 -16 -36 16 16 36'
-      t_Angles = "!"
+      t_Angles = !
     }
     t_Monster:incl =
     {
-      t_Targetname = "!"
-      t_Angles = "!"
-      t_RenderFields = "!"
-      t_Appearflags = "!"
+      t_Targetname = !
+      t_Angles = !
+      t_RenderFields = !
+      t_Appearflags = !
       health: =
       {
         txt = "&"
@@ -5465,9 +5465,9 @@ QQRKSRC1
     t_gibshooterbase:incl =
     {
       bbox = '-16 -16 -16 16 16 16'
-      t_Targetname = "!"
-      t_Angles = "!"
-      t_MoveWith = "!"
+      t_Targetname = !
+      t_Angles = !
+      t_MoveWith = !
       m_iGibs: =
       {
         txt = "&"
@@ -5616,8 +5616,8 @@ QQRKSRC1
     }
     t_Breakable:incl =
     {
-      t_Targetname = "!"
-      t_Global = "!"
+      t_Targetname = !
+      t_Global = !
       target: =
       {
         txt = "&"
@@ -5734,7 +5734,7 @@ QQRKSRC1
     }
     t_Door:incl =
     {
-      t_Appearflags = "!"
+      t_Appearflags = !
       target: =
       {
         txt = "&"
@@ -5876,12 +5876,12 @@ QQRKSRC1
     }
     t_BaseTank:incl =
     {
-      t_Targetname = "!"
-      t_Target = "!"
-      t_Angles = "!"
-      t_MoveWith = "!"
-      t_RenderFields = "!"
-      t_Global = "!"
+      t_Targetname = !
+      t_Target = !
+      t_Angles = !
+      t_MoveWith = !
+      t_RenderFields = !
+      t_Global = !
       spawnflags: =
       {
         txt = "&"
@@ -6089,10 +6089,10 @@ QQRKSRC1
     }
     t_Trackchange:incl =
     {
-      t_Targetname = "!"
-      t_RenderFields = "!"
-      t_Global = "!"
-      t_PlatSounds = "!"
+      t_Targetname = !
+      t_RenderFields = !
+      t_Global = !
+      t_PlatSounds = !
       height: =
       {
         txt = "&"
@@ -6162,9 +6162,9 @@ QQRKSRC1
     }
     t_Trigger:incl =
     {
-      t_Targetname = "!"
-      t_Master = "!"
-      t_Targetx = "!"
+      t_Targetname = !
+      t_Master = !
+      t_Targetx = !
     }
     t_TriggerCond:incl =
     {
@@ -6201,9 +6201,9 @@ QQRKSRC1
     t_Script:incl =
     {
       bbox = '-16 -16 0 16 16 72'
-      t_Targetname = "!"
-      t_Angles = "!"
-      t_MoveWith = "!"
+      t_Targetname = !
+      t_Angles = !
+      t_MoveWith = !
       target: =
       {
         txt = "&"
@@ -6276,7 +6276,7 @@ QQRKSRC1
     t_ScriptSequence:incl =
     {
       bbox = '-16 -16 0 16 16 72'
-      t_Script = "!"
+      t_Script = !
       m_iszMoveTarget: =
       {
         txt = "&"
@@ -6335,15 +6335,15 @@ QQRKSRC1
     }
     t_aiscripted_sequence:incl =
     {
-      t_ScriptSequence = "!"
+      t_ScriptSequence = !
     }
     aiscripted_sequence:form =
     {
-      t_aiscripted_sequence = "!"
+      t_aiscripted_sequence = !
     }
     t_ambient_fmodstream:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       message: =
       {
         txt = "&"
@@ -6372,12 +6372,12 @@ QQRKSRC1
     }
     ambient_fmodstream:form =
     {
-      t_ambient_fmodstream = "!"
+      t_ambient_fmodstream = !
     }
     t_ambient_generic:incl =
     {
-      t_Targetname = "!"
-      t_MoveWith = "!"
+      t_Targetname = !
+      t_MoveWith = !
       message: =
       {
         txt = "&"
@@ -6524,15 +6524,15 @@ QQRKSRC1
     }
     ambient_generic:form =
     {
-      t_ambient_generic = "!"
+      t_ambient_generic = !
     }
     t_button_target:incl =
     {
-      t_Target = "!"
-      t_Master = "!"
-      t_RenderFields = "!"
-      t_ZHLTLightKeys = "!"
-      t_MoveWith = "!"
+      t_Target = !
+      t_Master = !
+      t_RenderFields = !
+      t_ZHLTLightKeys = !
+      t_MoveWith = !
       spawnflags: =
       {
         txt = "&"
@@ -6560,12 +6560,12 @@ QQRKSRC1
     }
     button_target:form =
     {
-      t_button_target = "!"
+      t_button_target = !
     }
     t_calc_position:incl =
     {
       bbox = '-12 -12 -12 12 12 12'
-      t_Targetname = "!"
+      t_Targetname = !
       netname: =
       {
         txt = "&"
@@ -6589,12 +6589,12 @@ QQRKSRC1
     }
     calc_position:form =
     {
-      t_calc_position = "!"
+      t_calc_position = !
     }
     t_calc_ratio:incl =
     {
       bbox = '-12 -12 -12 12 12 12'
-      t_Targetname = "!"
+      t_Targetname = !
       target: =
       {
         txt = "&"
@@ -6673,12 +6673,12 @@ QQRKSRC1
     }
     calc_ratio:form =
     {
-      t_calc_ratio = "!"
+      t_calc_ratio = !
     }
     t_calc_subvelocity:incl =
     {
       bbox = '-12 -12 -12 12 12 12'
-      t_Targetname = "!"
+      t_Targetname = !
       netname: =
       {
         txt = "&"
@@ -6737,12 +6737,12 @@ QQRKSRC1
     }
     calc_subvelocity:form =
     {
-      t_calc_subvelocity = "!"
+      t_calc_subvelocity = !
     }
     t_calc_velocity_path:incl =
     {
       bbox = '-12 -12 -12 12 12 12'
-      t_Targetname = "!"
+      t_Targetname = !
       target: =
       {
         txt = "&"
@@ -6787,12 +6787,12 @@ QQRKSRC1
     }
     calc_velocity_path:form =
     {
-      t_calc_velocity_path = "!"
+      t_calc_velocity_path = !
     }
     t_calc_velocity_polar:incl =
     {
       bbox = '-12 -12 -12 12 12 12'
-      t_Targetname = "!"
+      t_Targetname = !
       netname: =
       {
         txt = "&"
@@ -6822,24 +6822,24 @@ QQRKSRC1
     }
     calc_velocity_polar:form =
     {
-      t_calc_velocity_polar = "!"
+      t_calc_velocity_polar = !
     }
     t_camera_spot_trigger:incl =
     {
-      t_Targetname = "!"
-      t_Target = "!"
-      t_MoveWith = "!"
+      t_Targetname = !
+      t_Target = !
+      t_MoveWith = !
     }
     camera_spot_trigger:form =
     {
-      t_camera_spot_trigger = "!"
+      t_camera_spot_trigger = !
     }
     t_cycler:incl =
     {
       bbox = '-16 -16 0 16 16 72'
-      t_Targetname = "!"
-      t_RenderFields = "!"
-      t_MoveWith = "!"
+      t_Targetname = !
+      t_RenderFields = !
+      t_MoveWith = !
       model: =
       {
         txt = "&"
@@ -6851,13 +6851,13 @@ QQRKSRC1
     }
     cycler:form =
     {
-      t_cycler = "!"
+      t_cycler = !
     }
     t_cycler_sprite:incl =
     {
-      t_Targetname = "!"
-      t_RenderFields = "!"
-      t_MoveWith = "!"
+      t_Targetname = !
+      t_RenderFields = !
+      t_MoveWith = !
       model: =
       {
         txt = "&"
@@ -6871,17 +6871,17 @@ QQRKSRC1
     }
     cycler_sprite:form =
     {
-      t_cycler_sprite = "!"
+      t_cycler_sprite = !
     }
     t_cycler_weapon:incl =
     {
       bbox = '-16 -16 -16 16 16 16'
-      t_Monster = "!"
-      t_MoveWith = "!"
+      t_Monster = !
+      t_MoveWith = !
     }
     cycler_weapon:form =
     {
-      t_cycler_weapon = "!"
+      t_cycler_weapon = !
     }
     t_BeamStartEnd:incl =
     {
@@ -6916,14 +6916,14 @@ QQRKSRC1
     }
     env_static_decal:form =
     {
-      t_env_static_decal = "!"
+      t_env_static_decal = !
     }
     t_env_beam:incl =
     {
       bbox = '-16 -16 -16 16 16 16'
-      t_Targetname = "!"
-      t_BeamStartEnd = "!"
-      t_RenderFxChoices = "!"
+      t_Targetname = !
+      t_BeamStartEnd = !
+      t_RenderFxChoices = !
       renderamt: =
       {
         txt = "&"
@@ -7075,13 +7075,13 @@ QQRKSRC1
     }
     env_beam:form =
     {
-      t_env_beam = "!"
+      t_env_beam = !
     }
     t_env_beamtrail:incl =
     {
       bbox = '-16 -16 -16 16 16 16'
-      t_Targetname = "!"
-      t_MoveWith = "!"
+      t_Targetname = !
+      t_MoveWith = !
       target: =
       {
         txt = "&"
@@ -7121,14 +7121,14 @@ QQRKSRC1
     }
     env_beamtrail:form =
     {
-      t_env_beamtrail = "!"
+      t_env_beamtrail = !
     }
     t_env_beverage:incl =
     {
       bbox = '-4 -4 -4 4 4 4'
-      t_Targetname = "!"
-      t_Angles = "!"
-      t_MoveWith = "!"
+      t_Targetname = !
+      t_Angles = !
+      t_MoveWith = !
       target: =
       {
         txt = "&"
@@ -7151,14 +7151,14 @@ QQRKSRC1
     }
     env_beverage:form =
     {
-      t_env_beverage = "!"
+      t_env_beverage = !
     }
     t_env_blood:incl =
     {
       bbox = '-16 -16 -16 16 16 16'
-      t_Targetname = "!"
-      t_Angles = "!"
-      t_MoveWith = "!"
+      t_Targetname = !
+      t_Angles = !
+      t_MoveWith = !
       target: =
       {
         txt = "&"
@@ -7209,13 +7209,13 @@ QQRKSRC1
     }
     env_blood:form =
     {
-      t_env_blood = "!"
+      t_env_blood = !
     }
     t_env_bubbles:incl =
     {
-      t_Targetname = "!"
-      t_ZHLTLightKeys = "!"
-      t_MoveWith = "!"
+      t_Targetname = !
+      t_ZHLTLightKeys = !
+      t_MoveWith = !
       density: =
       {
         txt = "&"
@@ -7240,7 +7240,7 @@ QQRKSRC1
     }
     env_bubbles:form =
     {
-      t_env_bubbles = "!"
+      t_env_bubbles = !
     }
     t_env_customize:incl =
     {
@@ -7429,12 +7429,12 @@ QQRKSRC1
     }
     env_customize:form =
     {
-      t_env_customize = "!"
+      t_env_customize = !
     }
     t_env_decal:incl =
     {
       bbox = '-16 -16 -16 16 16 16'
-      t_Targetname = "!"
+      t_Targetname = !
       target: =
       {
         txt = "&"
@@ -7467,12 +7467,12 @@ QQRKSRC1
     }
     env_decal:form =
     {
-      t_env_decal = "!"
+      t_env_decal = !
     }
     t_env_dlight:incl =
     {
-      t_Targetname = "!"
-      t_MoveWith = "!"
+      t_Targetname = !
+      t_MoveWith = !
       message: =
       {
         txt = "&"
@@ -7513,12 +7513,12 @@ QQRKSRC1
     }
     env_dlight:form =
     {
-      t_env_dlight = "!"
+      t_env_dlight = !
     }
     t_env_elight:incl =
     {
-      t_Targetname = "!"
-      t_MoveWith = "!"
+      t_Targetname = !
+      t_MoveWith = !
       netname: =
       {
         txt = "&"
@@ -7572,7 +7572,7 @@ QQRKSRC1
     }
     env_elight:form =
     {
-      t_env_elight = "!"
+      t_env_elight = !
     }
     t_rain_settings:incl =
     {
@@ -7592,7 +7592,7 @@ QQRKSRC1
     }
     rain_settings:form =
     {
-      t_rain_settings = "!"
+      t_rain_settings = !
     }
     t_rain_modify:incl =
     {
@@ -7629,12 +7629,12 @@ QQRKSRC1
     }
     rain_modify:form =
     {
-      t_rain_modify = "!"
+      t_rain_modify = !
     }
     t_env_rain:incl =
     {
-      t_Targetname = "!"
-      t_MoveWith = "!"
+      t_Targetname = !
+      t_MoveWith = !
       angles: =
       {
         txt = "&"
@@ -7721,12 +7721,12 @@ QQRKSRC1
     }
     env_rain:form =
     {
-      t_env_rain = "!"
+      t_env_rain = !
     }
     t_env_mirror:incl =
     {
-      t_Targetname = "!"
-      t_MoveWith = "!"
+      t_Targetname = !
+      t_MoveWith = !
       radius: =
       {
         txt = "&"
@@ -7746,13 +7746,13 @@ QQRKSRC1
     }
     env_mirror:form =
     {
-      t_env_mirror = "!"
+      t_env_mirror = !
     }
     t_env_explosion:incl =
     {
       bbox = '-16 -16 -16 16 16 16'
-      t_Targetname = "!"
-      t_MoveWith = "!"
+      t_Targetname = !
+      t_MoveWith = !
       target: =
       {
         txt = "&"
@@ -7802,11 +7802,11 @@ QQRKSRC1
     }
     env_explosion:form =
     {
-      t_env_explosion = "!"
+      t_env_explosion = !
     }
     t_env_fade:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       spawnflags: =
       {
         txt = "&"
@@ -7860,11 +7860,11 @@ QQRKSRC1
     }
     env_fade:form =
     {
-      t_env_fade = "!"
+      t_env_fade = !
     }
     t_env_fog:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       fadein: =
       {
         txt = "&"
@@ -7904,12 +7904,12 @@ QQRKSRC1
     }
     env_fog:form =
     {
-      t_env_fog = "!"
+      t_env_fog = !
     }
     t_env_footsteps:incl =
     {
-      t_Targetname = "!"
-      t_Master = "!"
+      t_Targetname = !
+      t_Master = !
       frags: =
       {
         txt = "&"
@@ -7954,13 +7954,13 @@ QQRKSRC1
     }
     env_footsteps:form =
     {
-      t_env_footsteps = "!"
+      t_env_footsteps = !
     }
     t_env_funnel:incl =
     {
       bbox = '-16 -16 -16 16 16 16'
-      t_Targetname = "!"
-      t_MoveWith = "!"
+      t_Targetname = !
+      t_MoveWith = !
       message: =
       {
         txt = "&"
@@ -7986,11 +7986,11 @@ QQRKSRC1
     }
     env_funnel:form =
     {
-      t_env_funnel = "!"
+      t_env_funnel = !
     }
     t_env_global:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       globalstate: =
       {
         txt = "&"
@@ -8021,14 +8021,14 @@ QQRKSRC1
     }
     env_global:form =
     {
-      t_env_global = "!"
+      t_env_global = !
     }
     t_env_glow:incl =
     {
       bbox = '-4 -4 -4 4 4 4'
-      t_Targetname = "!"
-      t_MoveWith = "!"
-      t_RenderFieldsMax = "!"
+      t_Targetname = !
+      t_MoveWith = !
+      t_RenderFieldsMax = !
       model: =
       {
         txt = "&"
@@ -8042,15 +8042,15 @@ QQRKSRC1
     }
     env_glow:form =
     {
-      t_env_glow = "!"
+      t_env_glow = !
     }
     t_env_laser:incl =
     {
       bbox = '-16 -16 -16 16 16 16'
-      t_Targetname = "!"
-      t_RenderFxChoices = "!"
-      t_Angles = "!"
-      t_MoveWith = "!"
+      t_Targetname = !
+      t_RenderFxChoices = !
+      t_Angles = !
+      t_MoveWith = !
       LaserStart: =
       {
         txt = "&"
@@ -8209,12 +8209,12 @@ QQRKSRC1
     }
     env_laser:form =
     {
-      t_env_laser = "!"
+      t_env_laser = !
     }
     t_env_message:incl =
     {
-      t_Targetname = "!"
-      t_Target = "!"
+      t_Targetname = !
+      t_Target = !
       message: =
       {
         txt = "&"
@@ -8254,15 +8254,15 @@ QQRKSRC1
     }
     env_message:form =
     {
-      t_env_message = "!"
+      t_env_message = !
     }
     t_env_model:incl =
     {
-      t_Targetname = "!"
-      t_Angles = "!"
-      t_MoveWith = "!"
-      t_RenderFields = "!"
-      t_Sequence = "!"
+      t_Targetname = !
+      t_Angles = !
+      t_MoveWith = !
+      t_RenderFields = !
+      t_Sequence = !
       model: =
       {
         txt = "&"
@@ -8357,12 +8357,12 @@ QQRKSRC1
     }
     env_model:form =
     {
-      t_env_model = "!"
+      t_env_model = !
     }
     t_env_quakefx:incl =
     {
       bbox = '-16 -16 -16 16 16 16'
-      t_Targetname = "!"
+      t_Targetname = !
       message: =
       {
         txt = "&"
@@ -8401,15 +8401,15 @@ QQRKSRC1
     }
     env_quakefx:form =
     {
-      t_env_quakefx = "!"
+      t_env_quakefx = !
     }
     t_env_particle:incl =
     {
       bbox = '-4 -4 -4 4 4 4'
-      t_Targetname = "!"
-      t_Angles = "!"
-      t_MoveWith = "!"
-      t_RenderFields = "!"
+      t_Targetname = !
+      t_Angles = !
+      t_MoveWith = !
+      t_RenderFields = !
       message: =
       {
         txt = "&"
@@ -8430,13 +8430,13 @@ QQRKSRC1
     }
     env_particle:form =
     {
-      t_env_particle = "!"
+      t_env_particle = !
     }
     t_env_render:incl =
     {
       bbox = '-16 -16 -16 16 16 16'
-      t_Targetname = "!"
-      t_RenderFields = "!"
+      t_Targetname = !
+      t_RenderFields = !
       message: =
       {
         txt = "&"
@@ -8511,12 +8511,12 @@ QQRKSRC1
     }
     env_render:form =
     {
-      t_env_render = "!"
+      t_env_render = !
     }
     t_env_shake:incl =
     {
-      t_Targetname = "!"
-      t_MoveWith = "!"
+      t_Targetname = !
+      t_MoveWith = !
       spawnflags: =
       {
         txt = "&"
@@ -8546,12 +8546,12 @@ QQRKSRC1
     }
     env_shake:form =
     {
-      t_env_shake = "!"
+      t_env_shake = !
     }
     t_env_shockwave:incl =
     {
-      t_Targetname = "!"
-      t_MoveWith = "!"
+      t_Targetname = !
+      t_MoveWith = !
       spawnflags: =
       {
         txt = "&"
@@ -8622,13 +8622,13 @@ QQRKSRC1
     }
     env_shockwave:form =
     {
-      t_env_shockwave = "!"
+      t_env_shockwave = !
     }
     t_env_shooter:incl =
     {
       bbox = '-16 -16 -16 16 16 16'
-      t_gibshooterbase = "!"
-      t_RenderFields = "!"
+      t_gibshooterbase = !
+      t_RenderFields = !
       shootmodel: =
       {
         txt = "&"
@@ -8710,20 +8710,20 @@ QQRKSRC1
     }
     env_shooter:form =
     {
-      t_env_shooter = "!"
+      t_env_shooter = !
     }
     t_env_sky:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
     }
     env_sky:form =
     {
-      t_env_sky = "!"
+      t_env_sky = !
     }
     t_env_sound:incl =
     {
-      t_Master = "!"
-      t_MoveWith = "!"
+      t_Master = !
+      t_MoveWith = !
       targetname: =
       {
         txt = "&"
@@ -8758,14 +8758,14 @@ QQRKSRC1
     }
     env_sound:form =
     {
-      t_env_sound = "!"
+      t_env_sound = !
     }
     t_env_spark:incl =
     {
       bbox = '-16 -16 -16 16 16 16'
-      t_Targetname = "!"
-      t_Angles = "!"
-      t_MoveWith = "!"
+      t_Targetname = !
+      t_Angles = !
+      t_MoveWith = !
       target: =
       {
         txt = "&"
@@ -8797,15 +8797,15 @@ QQRKSRC1
     }
     env_spark:form =
     {
-      t_env_spark = "!"
+      t_env_spark = !
     }
     t_env_sprite:incl =
     {
       bbox = '-4 -4 -4 4 4 4'
-      t_Targetname = "!"
-      t_Angles = "!"
-      t_MoveWith = "!"
-      t_RenderFieldsMax = "!"
+      t_Targetname = !
+      t_Angles = !
+      t_MoveWith = !
+      t_RenderFieldsMax = !
       framerate: =
       {
         txt = "&"
@@ -8849,12 +8849,12 @@ QQRKSRC1
     }
     env_sprite:form =
     {
-      t_env_sprite = "!"
+      t_env_sprite = !
     }
     t_env_state:incl =
     {
-      t_Targetname = "!"
-      t_Master = "!"
+      t_Targetname = !
+      t_Master = !
       target: =
       {
         txt = "&"
@@ -8895,12 +8895,12 @@ QQRKSRC1
     }
     env_state:form =
     {
-      t_env_state = "!"
+      t_env_state = !
     }
     t_env_warpball:incl =
     {
-      t_Targetname = "!"
-      t_MoveWith = "!"
+      t_Targetname = !
+      t_MoveWith = !
       target: =
       {
         txt = "&"
@@ -8919,17 +8919,17 @@ QQRKSRC1
     }
     env_warpball:form =
     {
-      t_env_warpball = "!"
+      t_env_warpball = !
     }
     t_func_asylumlookat:incl =
     {
-      t_Targetname = "!"
-      t_MoveWith = "!"
-      t_Appearflags = "!"
-      t_RenderFields = "!"
-      t_ZHLTLightKeys = "!"
-      t_SwitchTexLight = "!"
-      t_Global = "!"
+      t_Targetname = !
+      t_MoveWith = !
+      t_Appearflags = !
+      t_RenderFields = !
+      t_ZHLTLightKeys = !
+      t_SwitchTexLight = !
+      t_Global = !
       _minlight: =
       {
         txt = "&"
@@ -8938,15 +8938,15 @@ QQRKSRC1
     }
     func_asylumlookat:form =
     {
-      t_func_asylumlookat = "!"
+      t_func_asylumlookat = !
     }
     t_func_breakable:incl =
     {
-      t_Breakable = "!"
-      t_MoveWith = "!"
-      t_RenderFields = "!"
-      t_ZHLTLightKeys = "!"
-      t_SwitchTexLight = "!"
+      t_Breakable = !
+      t_MoveWith = !
+      t_RenderFields = !
+      t_ZHLTLightKeys = !
+      t_SwitchTexLight = !
       _minlight: =
       {
         txt = "&"
@@ -8955,20 +8955,20 @@ QQRKSRC1
     }
     func_breakable:form =
     {
-      t_func_breakable = "!"
+      t_func_breakable = !
     }
     t_func_button:incl =
     {
-      t_Targetname = "!"
-      t_Target = "!"
-      t_Angles = "!"
-      t_MoveWith = "!"
-      t_Master = "!"
-      t_RenderFields = "!"
-      t_ZHLTLightKeys = "!"
-      t_SwitchTexLight = "!"
-      t_Global = "!"
-      t_LockSounds = "!"
+      t_Targetname = !
+      t_Target = !
+      t_Angles = !
+      t_MoveWith = !
+      t_Master = !
+      t_RenderFields = !
+      t_ZHLTLightKeys = !
+      t_SwitchTexLight = !
+      t_Global = !
+      t_LockSounds = !
       speed: =
       {
         txt = "&"
@@ -9096,16 +9096,16 @@ QQRKSRC1
     }
     func_button:form =
     {
-      t_func_button = "!"
+      t_func_button = !
     }
     t_func_conveyor:incl =
     {
-      t_Targetname = "!"
-      t_Angles = "!"
-      t_MoveWith = "!"
-      t_RenderFields = "!"
-      t_ZHLTLightKeys = "!"
-      t_Global = "!"
+      t_Targetname = !
+      t_Angles = !
+      t_MoveWith = !
+      t_RenderFields = !
+      t_ZHLTLightKeys = !
+      t_Global = !
       spawnflags: =
       {
         txt = "&"
@@ -9131,15 +9131,15 @@ QQRKSRC1
     }
     func_conveyor:form =
     {
-      t_func_conveyor = "!"
+      t_func_conveyor = !
     }
     t_func_coopallplayersbutton:incl =
     {
-      t_Targetname = "!"
-      t_Angles = "!"
-      t_MoveWith = "!"
-      t_RenderFields = "!"
-      t_ZHLTLightKeys = "!"
+      t_Targetname = !
+      t_Angles = !
+      t_MoveWith = !
+      t_RenderFields = !
+      t_ZHLTLightKeys = !
       message: =
       {
         txt = "&"
@@ -9158,19 +9158,19 @@ QQRKSRC1
     }
     func_coopallplayersbutton:form =
     {
-      t_func_coopallplayersbutton = "!"
+      t_func_coopallplayersbutton = !
     }
     t_func_door:incl =
     {
-      t_Targetname = "!"
-      t_Angles = "!"
-      t_MoveWith = "!"
-      t_Master = "!"
-      t_Door = "!"
-      t_LockSounds = "!"
-      t_RenderFields = "!"
-      t_ZHLTLightKeys = "!"
-      t_Global = "!"
+      t_Targetname = !
+      t_Angles = !
+      t_MoveWith = !
+      t_Master = !
+      t_Door = !
+      t_LockSounds = !
+      t_RenderFields = !
+      t_ZHLTLightKeys = !
+      t_Global = !
       directuse: =
       {
         txt = "&"
@@ -9192,19 +9192,19 @@ QQRKSRC1
     }
     func_door:form =
     {
-      t_func_door = "!"
+      t_func_door = !
     }
     t_func_door_rotating:incl =
     {
-      t_Targetname = "!"
-      t_Angles = "!"
-      t_MoveWith = "!"
-      t_Master = "!"
-      t_Door = "!"
-      t_LockSounds = "!"
-      t_RenderFields = "!"
-      t_ZHLTLightKeys = "!"
-      t_Global = "!"
+      t_Targetname = !
+      t_Angles = !
+      t_MoveWith = !
+      t_Master = !
+      t_Door = !
+      t_LockSounds = !
+      t_RenderFields = !
+      t_ZHLTLightKeys = !
+      t_Global = !
       directuse: =
       {
         txt = "&"
@@ -9250,17 +9250,17 @@ QQRKSRC1
     }
     func_door_rotating:form =
     {
-      t_func_door_rotating = "!"
+      t_func_door_rotating = !
     }
     t_func_escalatorstep:incl =
     {
-      t_Targetname = "!"
-      t_Angles = "!"
-      t_MoveWith = "!"
-      t_Master = "!"
-      t_RenderFields = "!"
-      t_ZHLTLightKeys = "!"
-      t_Global = "!"
+      t_Targetname = !
+      t_Angles = !
+      t_MoveWith = !
+      t_Master = !
+      t_RenderFields = !
+      t_ZHLTLightKeys = !
+      t_Global = !
       spawnflags: =
       {
         txt = "&"
@@ -9284,14 +9284,14 @@ QQRKSRC1
     }
     func_escalatorstep:form =
     {
-      t_func_escalatorstep = "!"
+      t_func_escalatorstep = !
     }
     t_func_friction:incl =
     {
-      t_Appearflags = "!"
-      t_MoveWith = "!"
-      t_RenderFields = "!"
-      t_ZHLTLightKeys = "!"
+      t_Appearflags = !
+      t_MoveWith = !
+      t_RenderFields = !
+      t_ZHLTLightKeys = !
       modifier: =
       {
         txt = "&"
@@ -9300,15 +9300,15 @@ QQRKSRC1
     }
     func_friction:form =
     {
-      t_func_friction = "!"
+      t_func_friction = !
     }
     t_func_guntarget:incl =
     {
-      t_Targetname = "!"
-      t_MoveWith = "!"
-      t_RenderFields = "!"
-      t_ZHLTLightKeys = "!"
-      t_Global = "!"
+      t_Targetname = !
+      t_MoveWith = !
+      t_RenderFields = !
+      t_ZHLTLightKeys = !
+      t_Global = !
       speed: =
       {
         txt = "&"
@@ -9337,16 +9337,16 @@ QQRKSRC1
     }
     func_guntarget:form =
     {
-      t_func_guntarget = "!"
+      t_func_guntarget = !
     }
     t_func_healthcharger:incl =
     {
-      t_Targetname = "!"
-      t_MoveWith = "!"
-      t_RenderFields = "!"
-      t_ZHLTLightKeys = "!"
-      t_SwitchTexLight = "!"
-      t_Global = "!"
+      t_Targetname = !
+      t_MoveWith = !
+      t_RenderFields = !
+      t_ZHLTLightKeys = !
+      t_SwitchTexLight = !
+      t_Global = !
       _minlight: =
       {
         txt = "&"
@@ -9355,14 +9355,14 @@ QQRKSRC1
     }
     func_healthcharger:form =
     {
-      t_func_healthcharger = "!"
+      t_func_healthcharger = !
     }
     t_func_illusionary:incl =
     {
-      t_Targetname = "!"
-      t_MoveWith = "!"
-      t_RenderFields = "!"
-      t_ZHLTLightKeys = "!"
+      t_Targetname = !
+      t_MoveWith = !
+      t_RenderFields = !
+      t_ZHLTLightKeys = !
       skin: =
       {
         txt = "&"
@@ -9381,14 +9381,14 @@ QQRKSRC1
     }
     func_illusionary:form =
     {
-      t_func_illusionary = "!"
+      t_func_illusionary = !
     }
     t_func_ladder:incl =
     {
-      t_Targetname = "!"
-      t_MoveWith = "!"
-      t_RenderFields = "!"
-      t_ZHLTLightKeys = "!"
+      t_Targetname = !
+      t_MoveWith = !
+      t_RenderFields = !
+      t_ZHLTLightKeys = !
       spawnflags: =
       {
         txt = "&"
@@ -9398,14 +9398,14 @@ QQRKSRC1
     }
     func_ladder:form =
     {
-      t_func_ladder = "!"
+      t_func_ladder = !
     }
     t_func_laddercontrol:incl =
     {
-      t_Targetname = "!"
-      t_MoveWith = "!"
-      t_RenderFields = "!"
-      t_ZHLTLightKeys = "!"
+      t_Targetname = !
+      t_MoveWith = !
+      t_RenderFields = !
+      t_ZHLTLightKeys = !
       target: =
       {
         txt = "&"
@@ -9414,21 +9414,21 @@ QQRKSRC1
     }
     func_laddercontrol:form =
     {
-      t_func_laddercontrol = "!"
+      t_func_laddercontrol = !
     }
     t_func_monsterclip:incl =
     {
-      t_Targetname = "!"
-      t_MoveWith = "!"
+      t_Targetname = !
+      t_MoveWith = !
     }
     func_monsterclip:form =
     {
-      t_func_monsterclip = "!"
+      t_func_monsterclip = !
     }
     t_func_mortar_field:incl =
     {
-      t_Targetname = "!"
-      t_MoveWith = "!"
+      t_Targetname = !
+      t_MoveWith = !
       m_flSpread: =
       {
         txt = "&"
@@ -9460,17 +9460,17 @@ QQRKSRC1
     }
     func_mortar_field:form =
     {
-      t_func_mortar_field = "!"
+      t_func_mortar_field = !
     }
     t_func_pendulum:incl =
     {
-      t_Targetname = "!"
-      t_Angles = "!"
-      t_MoveWith = "!"
-      t_RenderFields = "!"
-      t_ZHLTLightKeys = "!"
-      t_Global = "!"
-      t_Appearflags = "!"
+      t_Targetname = !
+      t_Angles = !
+      t_MoveWith = !
+      t_RenderFields = !
+      t_ZHLTLightKeys = !
+      t_Global = !
+      t_Appearflags = !
       speed: =
       {
         txt = "&"
@@ -9534,16 +9534,16 @@ QQRKSRC1
     }
     func_pendulum:form =
     {
-      t_func_pendulum = "!"
+      t_func_pendulum = !
     }
     t_func_plat:incl =
     {
-      t_Targetname = "!"
-      t_MoveWith = "!"
-      t_RenderFields = "!"
-      t_ZHLTLightKeys = "!"
-      t_Global = "!"
-      t_PlatSounds = "!"
+      t_Targetname = !
+      t_MoveWith = !
+      t_RenderFields = !
+      t_ZHLTLightKeys = !
+      t_Global = !
+      t_PlatSounds = !
       spawnflags: =
       {
         txt = "&"
@@ -9568,16 +9568,16 @@ QQRKSRC1
     }
     func_plat:form =
     {
-      t_func_plat = "!"
+      t_func_plat = !
     }
     t_func_platrot:incl =
     {
-      t_Targetname = "!"
-      t_Angles = "!"
-      t_RenderFields = "!"
-      t_ZHLTLightKeys = "!"
-      t_Global = "!"
-      t_PlatSounds = "!"
+      t_Targetname = !
+      t_Angles = !
+      t_RenderFields = !
+      t_ZHLTLightKeys = !
+      t_Global = !
+      t_PlatSounds = !
       spawnflags: =
       {
         txt = "&"
@@ -9624,13 +9624,13 @@ QQRKSRC1
     }
     func_platrot:form =
     {
-      t_func_platrot = "!"
+      t_func_platrot = !
     }
     t_func_pushable:incl =
     {
-      t_Breakable = "!"
-      t_RenderFields = "!"
-      t_ZHLTLightKeys = "!"
+      t_Breakable = !
+      t_RenderFields = !
+      t_ZHLTLightKeys = !
       spawnflags: =
       {
         txt = "&"
@@ -9661,15 +9661,15 @@ QQRKSRC1
     }
     func_pushable:form =
     {
-      t_func_pushable = "!"
+      t_func_pushable = !
     }
     t_func_recharge:incl =
     {
-      t_MoveWith = "!"
-      t_RenderFields = "!"
-      t_ZHLTLightKeys = "!"
-      t_SwitchTexLight = "!"
-      t_Global = "!"
+      t_MoveWith = !
+      t_RenderFields = !
+      t_ZHLTLightKeys = !
+      t_SwitchTexLight = !
+      t_Global = !
       _minlight: =
       {
         txt = "&"
@@ -9678,19 +9678,19 @@ QQRKSRC1
     }
     func_recharge:form =
     {
-      t_func_recharge = "!"
+      t_func_recharge = !
     }
     t_func_rot_button:incl =
     {
-      t_Targetname = "!"
-      t_Target = "!"
-      t_Angles = "!"
-      t_MoveWith = "!"
-      t_RenderFields = "!"
-      t_ZHLTLightKeys = "!"
-      t_Global = "!"
-      t_Master = "!"
-      t_LockSounds = "!"
+      t_Targetname = !
+      t_Target = !
+      t_Angles = !
+      t_MoveWith = !
+      t_RenderFields = !
+      t_ZHLTLightKeys = !
+      t_Global = !
+      t_Master = !
+      t_LockSounds = !
       changetarget: =
       {
         txt = "&"
@@ -9794,15 +9794,15 @@ QQRKSRC1
     }
     func_rot_button:form =
     {
-      t_func_rot_button = "!"
+      t_func_rot_button = !
     }
     t_func_rotating:incl =
     {
-      t_Targetname = "!"
-      t_MoveWith = "!"
-      t_RenderFields = "!"
-      t_ZHLTLightKeys = "!"
-      t_Global = "!"
+      t_Targetname = !
+      t_MoveWith = !
+      t_RenderFields = !
+      t_ZHLTLightKeys = !
+      t_Global = !
       angles: =
       {
         txt = "&"
@@ -9920,11 +9920,11 @@ QQRKSRC1
     }
     func_rotating:form =
     {
-      t_func_rotating = "!"
+      t_func_rotating = !
     }
     t_func_shine:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       message: =
       {
         txt = "&"
@@ -9943,23 +9943,23 @@ QQRKSRC1
     }
     func_shine:form =
     {
-      t_func_shine = "!"
+      t_func_shine = !
     }
     t_func_stairs:incl =
     {
-      t_Targetname = "!"
-      t_MoveWith = "!"
-      t_RenderFields = "!"
-      t_ZHLTLightKeys = "!"
+      t_Targetname = !
+      t_MoveWith = !
+      t_RenderFields = !
+      t_ZHLTLightKeys = !
     }
     func_stairs:form =
     {
-      t_func_stairs = "!"
+      t_func_stairs = !
     }
     t_func_tank:incl =
     {
-      t_BaseTank = "!"
-      t_ZHLTLightKeys = "!"
+      t_BaseTank = !
+      t_ZHLTLightKeys = !
       bullet: =
       {
         txt = "&"
@@ -9971,12 +9971,12 @@ QQRKSRC1
     }
     func_tank:form =
     {
-      t_func_tank = "!"
+      t_func_tank = !
     }
     t_func_tankcontrols:incl =
     {
-      t_Targetname = "!"
-      t_MoveWith = "!"
+      t_Targetname = !
+      t_MoveWith = !
       target: =
       {
         txt = "&"
@@ -10010,12 +10010,12 @@ QQRKSRC1
     }
     func_tankcontrols:form =
     {
-      t_func_tankcontrols = "!"
+      t_func_tankcontrols = !
     }
     t_func_tanklaser:incl =
     {
-      t_BaseTank = "!"
-      t_ZHLTLightKeys = "!"
+      t_BaseTank = !
+      t_ZHLTLightKeys = !
       laserentity: =
       {
         txt = "&"
@@ -10024,12 +10024,12 @@ QQRKSRC1
     }
     func_tanklaser:form =
     {
-      t_func_tanklaser = "!"
+      t_func_tanklaser = !
     }
     t_func_tankmortar:incl =
     {
-      t_BaseTank = "!"
-      t_ZHLTLightKeys = "!"
+      t_BaseTank = !
+      t_ZHLTLightKeys = !
       iMagnitude: =
       {
         txt = "&"
@@ -10038,21 +10038,21 @@ QQRKSRC1
     }
     func_tankmortar:form =
     {
-      t_func_tankmortar = "!"
+      t_func_tankmortar = !
     }
     t_func_tankrocket:incl =
     {
-      t_BaseTank = "!"
-      t_ZHLTLightKeys = "!"
+      t_BaseTank = !
+      t_ZHLTLightKeys = !
     }
     func_tankrocket:form =
     {
-      t_func_tankrocket = "!"
+      t_func_tankrocket = !
     }
     t_func_trackautochange:incl =
     {
-      t_Trackchange = "!"
-      t_ZHLTLightKeys = "!"
+      t_Trackchange = !
+      t_ZHLTLightKeys = !
       _minlight: =
       {
         txt = "&"
@@ -10061,12 +10061,12 @@ QQRKSRC1
     }
     func_trackautochange:form =
     {
-      t_func_trackautochange = "!"
+      t_func_trackautochange = !
     }
     t_func_trackchange:incl =
     {
-      t_Trackchange = "!"
-      t_ZHLTLightKeys = "!"
+      t_Trackchange = !
+      t_ZHLTLightKeys = !
       _minlight: =
       {
         txt = "&"
@@ -10075,14 +10075,14 @@ QQRKSRC1
     }
     func_trackchange:form =
     {
-      t_func_trackchange = "!"
+      t_func_trackchange = !
     }
     t_func_tracktrain:incl =
     {
-      t_Targetname = "!"
-      t_RenderFields = "!"
-      t_ZHLTLightKeys = "!"
-      t_Global = "!"
+      t_Targetname = !
+      t_RenderFields = !
+      t_ZHLTLightKeys = !
+      t_Global = !
       spawnflags: =
       {
         txt = "&"
@@ -10190,15 +10190,15 @@ QQRKSRC1
     }
     func_tracktrain:form =
     {
-      t_func_tracktrain = "!"
+      t_func_tracktrain = !
     }
     t_func_train:incl =
     {
-      t_Targetname = "!"
-      t_RenderFields = "!"
-      t_ZHLTLightKeys = "!"
-      t_Global = "!"
-      t_PlatSounds = "!"
+      t_Targetname = !
+      t_RenderFields = !
+      t_ZHLTLightKeys = !
+      t_Global = !
+      t_PlatSounds = !
       target: =
       {
         txt = "&"
@@ -10258,7 +10258,7 @@ QQRKSRC1
     }
     func_train:form =
     {
-      t_func_train = "!"
+      t_func_train = !
     }
     t_func_traincontrols:incl =
     {
@@ -10270,19 +10270,19 @@ QQRKSRC1
     }
     func_traincontrols:form =
     {
-      t_func_traincontrols = "!"
+      t_func_traincontrols = !
     }
     t_func_valve:incl =
     {
-      t_Targetname = "!"
-      t_Target = "!"
-      t_Angles = "!"
-      t_MoveWith = "!"
-      t_Master = "!"
-      t_RenderFields = "!"
-      t_ZHLTLightKeys = "!"
-      t_SwitchTexLight = "!"
-      t_Global = "!"
+      t_Targetname = !
+      t_Target = !
+      t_Angles = !
+      t_MoveWith = !
+      t_Master = !
+      t_RenderFields = !
+      t_ZHLTLightKeys = !
+      t_SwitchTexLight = !
+      t_Global = !
       iuser1: =
       {
         txt = "&"
@@ -10353,17 +10353,17 @@ QQRKSRC1
     }
     func_valve:form =
     {
-      t_func_valve = "!"
+      t_func_valve = !
     }
     t_func_wall:incl =
     {
-      t_Targetname = "!"
-      t_MoveWith = "!"
-      t_Appearflags = "!"
-      t_RenderFields = "!"
-      t_ZHLTLightKeys = "!"
-      t_SwitchTexLight = "!"
-      t_Global = "!"
+      t_Targetname = !
+      t_MoveWith = !
+      t_Appearflags = !
+      t_RenderFields = !
+      t_ZHLTLightKeys = !
+      t_SwitchTexLight = !
+      t_Global = !
       _minlight: =
       {
         txt = "&"
@@ -10372,11 +10372,11 @@ QQRKSRC1
     }
     func_wall:form =
     {
-      t_func_wall = "!"
+      t_func_wall = !
     }
     t_func_wall_toggle:incl =
     {
-      t_func_wall = "!"
+      t_func_wall = !
       spawnflags: =
       {
         txt = "&"
@@ -10386,19 +10386,19 @@ QQRKSRC1
     }
     func_wall_toggle:form =
     {
-      t_func_wall_toggle = "!"
+      t_func_wall_toggle = !
     }
     t_func_water:incl =
     {
-      t_Targetname = "!"
-      t_Angles = "!"
-      t_Master = "!"
-      t_Door = "!"
-      t_LockSounds = "!"
-      t_MoveWith = "!"
-      t_RenderFields = "!"
-      t_ZHLTLightKeys = "!"
-      t_Global = "!"
+      t_Targetname = !
+      t_Angles = !
+      t_Master = !
+      t_Door = !
+      t_LockSounds = !
+      t_MoveWith = !
+      t_RenderFields = !
+      t_ZHLTLightKeys = !
+      t_Global = !
       spawnflags: =
       {
         txt = "&"
@@ -10427,13 +10427,13 @@ QQRKSRC1
     }
     func_water:form =
     {
-      t_func_water = "!"
+      t_func_water = !
     }
     t_game_counter:incl =
     {
-      t_Targetname = "!"
-      t_Targetx = "!"
-      t_Master = "!"
+      t_Targetname = !
+      t_Targetx = !
+      t_Master = !
       spawnflags: =
       {
         txt = "&"
@@ -10459,13 +10459,13 @@ QQRKSRC1
     }
     game_counter:form =
     {
-      t_game_counter = "!"
+      t_game_counter = !
     }
     t_game_counter_set:incl =
     {
-      t_Targetname = "!"
-      t_Target = "!"
-      t_Master = "!"
+      t_Targetname = !
+      t_Target = !
+      t_Master = !
       spawnflags: =
       {
         txt = "&"
@@ -10480,20 +10480,20 @@ QQRKSRC1
     }
     game_counter_set:form =
     {
-      t_game_counter_set = "!"
+      t_game_counter_set = !
     }
     t_game_end:incl =
     {
-      t_Targetname = "!"
-      t_Master = "!"
+      t_Targetname = !
+      t_Master = !
     }
     game_end:form =
     {
-      t_game_end = "!"
+      t_game_end = !
     }
     t_game_player_equip:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       master: =
       {
         txt = "&"
@@ -10508,12 +10508,12 @@ QQRKSRC1
     }
     game_player_equip:form =
     {
-      t_game_player_equip = "!"
+      t_game_player_equip = !
     }
     t_game_player_hurt:incl =
     {
-      t_Targetname = "!"
-      t_Master = "!"
+      t_Targetname = !
+      t_Master = !
       dmg: =
       {
         txt = "&"
@@ -10528,12 +10528,12 @@ QQRKSRC1
     }
     game_player_hurt:form =
     {
-      t_game_player_hurt = "!"
+      t_game_player_hurt = !
     }
     t_game_player_team:incl =
     {
-      t_Targetname = "!"
-      t_Master = "!"
+      t_Targetname = !
+      t_Master = !
       spawnflags: =
       {
         txt = "&"
@@ -10560,12 +10560,12 @@ QQRKSRC1
     }
     game_player_team:form =
     {
-      t_game_player_team = "!"
+      t_game_player_team = !
     }
     t_game_score:incl =
     {
-      t_Targetname = "!"
-      t_Master = "!"
+      t_Targetname = !
+      t_Master = !
       spawnflags: =
       {
         txt = "&"
@@ -10586,13 +10586,13 @@ QQRKSRC1
     }
     game_score:form =
     {
-      t_game_score = "!"
+      t_game_score = !
     }
     t_game_team_master:incl =
     {
-      t_Targetname = "!"
-      t_Targetx = "!"
-      t_Master = "!"
+      t_Targetname = !
+      t_Targetx = !
+      t_Master = !
       spawnflags: =
       {
         txt = "&"
@@ -10615,13 +10615,13 @@ QQRKSRC1
     }
     game_team_master:form =
     {
-      t_game_team_master = "!"
+      t_game_team_master = !
     }
     t_game_team_set:incl =
     {
-      t_Targetname = "!"
-      t_Targetx = "!"
-      t_Master = "!"
+      t_Targetname = !
+      t_Targetx = !
+      t_Master = !
       spawnflags: =
       {
         txt = "&"
@@ -10631,12 +10631,12 @@ QQRKSRC1
     }
     game_team_set:form =
     {
-      t_game_team_set = "!"
+      t_game_team_set = !
     }
     t_game_text:incl =
     {
-      t_Targetname = "!"
-      t_Master = "!"
+      t_Targetname = !
+      t_Master = !
       spawnflags: =
       {
         txt = "&"
@@ -10718,11 +10718,11 @@ QQRKSRC1
     }
     game_text:form =
     {
-      t_game_text = "!"
+      t_game_text = !
     }
     t_game_zone_player:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       intarget: =
       {
         txt = "&"
@@ -10746,11 +10746,11 @@ QQRKSRC1
     }
     game_zone_player:form =
     {
-      t_game_zone_player = "!"
+      t_game_zone_player = !
     }
     t_gibshooter:incl =
     {
-      t_gibshooterbase = "!"
+      t_gibshooterbase = !
       m_iBloodColor: =
       {
         txt = "&"
@@ -10762,11 +10762,11 @@ QQRKSRC1
     }
     gibshooter:form =
     {
-      t_gibshooter = "!"
+      t_gibshooter = !
     }
     t_hud_sprite:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       model: =
       {
         txt = "&"
@@ -10786,12 +10786,12 @@ QQRKSRC1
     }
     hud_sprite:form =
     {
-      t_hud_sprite = "!"
+      t_hud_sprite = !
     }
     t_infodecal:incl =
     {
-      t_Targetname = "!"
-      t_Appearflags = "!"
+      t_Targetname = !
+      t_Appearflags = !
       texture: =
       {
         txt = "&"
@@ -10801,11 +10801,11 @@ QQRKSRC1
     }
     infodecal:form =
     {
-      t_infodecal = "!"
+      t_infodecal = !
     }
     t_info_alias:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       target: =
       {
         txt = "&"
@@ -10836,12 +10836,12 @@ QQRKSRC1
     }
     info_alias:form =
     {
-      t_info_alias = "!"
+      t_info_alias = !
     }
     t_info_bigmomma:incl =
     {
       bbox = '-24 -24 0 24 24 16'
-      t_Targetname = "!"
+      t_Targetname = !
       spawnflags: =
       {
         txt = "&"
@@ -10897,7 +10897,7 @@ QQRKSRC1
     }
     info_bigmomma:form =
     {
-      t_info_bigmomma = "!"
+      t_info_bigmomma = !
     }
     t_info_compile_parameters:incl =
     {
@@ -11068,11 +11068,11 @@ QQRKSRC1
     }
     info_compile_parameters:form =
     {
-      t_info_compile_parameters = "!"
+      t_info_compile_parameters = !
     }
     t_info_group:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       target: =
       {
         txt = "&"
@@ -11092,31 +11092,31 @@ QQRKSRC1
     }
     info_group:form =
     {
-      t_info_group = "!"
+      t_info_group = !
     }
     t_info_intermission:incl =
     {
       bbox = '-4 -4 -4 4 4 4'
-      t_Target = "!"
-      t_Angles = "!"
-      t_MoveWith = "!"
+      t_Target = !
+      t_Angles = !
+      t_MoveWith = !
     }
     info_intermission:form =
     {
-      t_info_intermission = "!"
+      t_info_intermission = !
     }
     t_info_landmark:incl =
     {
-      t_Targetname = "!"
-      t_MoveWith = "!"
+      t_Targetname = !
+      t_MoveWith = !
     }
     info_landmark:form =
     {
-      t_info_landmark = "!"
+      t_info_landmark = !
     }
     t_info_movewith:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       target: =
       {
         txt = "&"
@@ -11142,7 +11142,7 @@ QQRKSRC1
     }
     info_movewith:form =
     {
-      t_info_movewith = "!"
+      t_info_movewith = !
     }
     t_info_node:incl =
     {
@@ -11150,7 +11150,7 @@ QQRKSRC1
     }
     info_node:form =
     {
-      t_info_node = "!"
+      t_info_node = !
     }
     t_info_node_air:incl =
     {
@@ -11158,29 +11158,29 @@ QQRKSRC1
     }
     info_node_air:form =
     {
-      t_info_node_air = "!"
+      t_info_node_air = !
     }
     t_info_null:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
     }
     info_null:form =
     {
-      t_info_null = "!"
+      t_info_null = !
     }
     t_info_player_coop:incl =
     {
-      t_PlayerClass = "!"
+      t_PlayerClass = !
     }
     info_player_coop:form =
     {
-      t_info_player_coop = "!"
+      t_info_player_coop = !
     }
     t_info_player_deathmatch:incl =
     {
-      t_PlayerClass = "!"
-      t_Master = "!"
-      t_MoveWith = "!"
+      t_PlayerClass = !
+      t_Master = !
+      t_MoveWith = !
       target: =
       {
         txt = "&"
@@ -11189,13 +11189,13 @@ QQRKSRC1
     }
     info_player_deathmatch:form =
     {
-      t_info_player_deathmatch = "!"
+      t_info_player_deathmatch = !
     }
     t_info_player_start:incl =
     {
-      t_PlayerClass = "!"
-      t_MoveWith = "!"
-      t_Sequence = "!"
+      t_PlayerClass = !
+      t_MoveWith = !
+      t_Sequence = !
       spawnflags: =
       {
         txt = "&"
@@ -11205,13 +11205,13 @@ QQRKSRC1
     }
     info_player_start:form =
     {
-      t_info_player_start = "!"
+      t_info_player_start = !
     }
     t_info_target:incl =
     {
       bbox = '-4 -4 -4 4 4 4'
-      t_Targetname = "!"
-      t_MoveWith = "!"
+      t_Targetname = !
+      t_MoveWith = !
       spawnflags: =
       {
         txt = "&"
@@ -11221,51 +11221,51 @@ QQRKSRC1
     }
     info_target:form =
     {
-      t_info_target = "!"
+      t_info_target = !
     }
     t_info_teleport_destination:incl =
     {
       bbox = '-8 -8 0 8 8 16'
-      t_Targetname = "!"
-      t_PlayerClass = "!"
-      t_MoveWith = "!"
+      t_Targetname = !
+      t_PlayerClass = !
+      t_MoveWith = !
     }
     info_teleport_destination:form =
     {
-      t_info_teleport_destination = "!"
+      t_info_teleport_destination = !
     }
     t_info_texlights:incl =
     {
     }
     info_texlights:form =
     {
-      t_info_texlights = "!"
+      t_info_texlights = !
     }
     t_item_airtank:incl =
     {
       bbox = '-16 -16 0 16 16 36'
-      t_Weapon = "!"
-      t_Targetx = "!"
+      t_Weapon = !
+      t_Targetx = !
     }
     item_airtank:form =
     {
-      t_item_airtank = "!"
+      t_item_airtank = !
     }
     t_item_antidote:incl =
     {
       bbox = '-16 -16 0 16 16 36'
-      t_Weapon = "!"
-      t_Targetx = "!"
+      t_Weapon = !
+      t_Targetx = !
     }
     item_antidote:form =
     {
-      t_item_antidote = "!"
+      t_item_antidote = !
     }
     t_item_battery:incl =
     {
       bbox = '-16 -16 0 16 16 36'
-      t_Weapon = "!"
-      t_Targetx = "!"
+      t_Weapon = !
+      t_Targetx = !
       model: =
       {
         txt = "&"
@@ -11294,53 +11294,53 @@ QQRKSRC1
     }
     item_battery:form =
     {
-      t_item_battery = "!"
+      t_item_battery = !
     }
     t_item_flashlight:incl =
     {
       bbox = '-16 -16 0 16 16 36'
-      t_Weapon = "!"
-      t_Targetx = "!"
+      t_Weapon = !
+      t_Targetx = !
     }
     item_flashlight:form =
     {
-      t_item_flashlight = "!"
+      t_item_flashlight = !
     }
     t_item_healthkit:incl =
     {
       bbox = '-16 -16 0 16 16 36'
-      t_Weapon = "!"
-      t_Targetx = "!"
+      t_Weapon = !
+      t_Targetx = !
     }
     item_healthkit:form =
     {
-      t_item_healthkit = "!"
+      t_item_healthkit = !
     }
     t_item_longjump:incl =
     {
       bbox = '-16 -16 0 16 16 36'
-      t_Weapon = "!"
-      t_Targetx = "!"
+      t_Weapon = !
+      t_Targetx = !
     }
     item_longjump:form =
     {
-      t_item_longjump = "!"
+      t_item_longjump = !
     }
     t_item_security:incl =
     {
       bbox = '-16 -16 0 16 16 36'
-      t_Weapon = "!"
-      t_Targetx = "!"
+      t_Weapon = !
+      t_Targetx = !
     }
     item_security:form =
     {
-      t_item_security = "!"
+      t_item_security = !
     }
     t_item_suit:incl =
     {
       bbox = '-16 -16 0 16 16 36'
-      t_Weapon = "!"
-      t_Targetx = "!"
+      t_Weapon = !
+      t_Targetx = !
       spawnflags: =
       {
         txt = "&"
@@ -11350,12 +11350,12 @@ QQRKSRC1
     }
     item_suit:form =
     {
-      t_item_suit = "!"
+      t_item_suit = !
     }
     t_light:incl =
     {
-      t_Light = "!"
-      t_ZhltLights = "!"
+      t_Light = !
+      t_ZhltLights = !
       target: =
       {
         txt = "&"
@@ -11375,12 +11375,12 @@ QQRKSRC1
     }
     light:form =
     {
-      t_light = "!"
+      t_light = !
     }
     t_light_glow:incl =
     {
-      t_Targetname = "!"
-      t_MoveWith = "!"
+      t_Targetname = !
+      t_MoveWith = !
       frags: =
       {
         txt = "&"
@@ -11404,12 +11404,12 @@ QQRKSRC1
     }
     light_glow:form =
     {
-      t_light_glow = "!"
+      t_light_glow = !
     }
     t_light_environment:incl =
     {
-      t_Angles = "!"
-      t_ZhltLights = "!"
+      t_Angles = !
+      t_ZhltLights = !
       pitch: =
       {
         txt = "&"
@@ -11428,13 +11428,13 @@ QQRKSRC1
     }
     light_environment:form =
     {
-      t_light_environment = "!"
+      t_light_environment = !
     }
     t_light_spot:incl =
     {
-      t_Target = "!"
-      t_Light = "!"
-      t_ZhltLights = "!"
+      t_Target = !
+      t_Light = !
+      t_ZhltLights = !
       firetarget: =
       {
         txt = "&"
@@ -11472,17 +11472,17 @@ QQRKSRC1
     }
     light_spot:form =
     {
-      t_light_spot = "!"
+      t_light_spot = !
     }
     t_momentary_door:incl =
     {
-      t_Targetname = "!"
-      t_Angles = "!"
-      t_MoveWith = "!"
-      t_Master = "!"
-      t_RenderFields = "!"
-      t_ZHLTLightKeys = "!"
-      t_Global = "!"
+      t_Targetname = !
+      t_Angles = !
+      t_MoveWith = !
+      t_Master = !
+      t_RenderFields = !
+      t_ZHLTLightKeys = !
+      t_Global = !
       speed: =
       {
         txt = "&"
@@ -11532,12 +11532,12 @@ QQRKSRC1
     }
     momentary_door:form =
     {
-      t_momentary_door = "!"
+      t_momentary_door = !
     }
     t_locus_alias:incl =
     {
       bbox = '-8 -8 -8 8 8 8'
-      t_Targetname = "!"
+      t_Targetname = !
       netname: =
       {
         txt = "&"
@@ -11546,12 +11546,12 @@ QQRKSRC1
     }
     locus_alias:form =
     {
-      t_locus_alias = "!"
+      t_locus_alias = !
     }
     t_locus_beam:incl =
     {
       bbox = '-16 -16 -16 16 16 16'
-      t_Targetname = "!"
+      t_Targetname = !
       m_iszStart: =
       {
         txt = "&"
@@ -11688,12 +11688,12 @@ QQRKSRC1
     }
     locus_beam:form =
     {
-      t_locus_beam = "!"
+      t_locus_beam = !
     }
     t_locus_variable:incl =
     {
       bbox = '-16 -16 -16 16 16 16'
-      t_Targetname = "!"
+      t_Targetname = !
       m_iszPosition: =
       {
         txt = "&"
@@ -11727,17 +11727,17 @@ QQRKSRC1
     }
     locus_variable:form =
     {
-      t_locus_variable = "!"
+      t_locus_variable = !
     }
     t_momentary_rot_button:incl =
     {
-      t_Targetname = "!"
-      t_Target = "!"
-      t_Angles = "!"
-      t_Master = "!"
-      t_MoveWith = "!"
-      t_RenderFields = "!"
-      t_ZHLTLightKeys = "!"
+      t_Targetname = !
+      t_Target = !
+      t_Angles = !
+      t_Master = !
+      t_MoveWith = !
+      t_RenderFields = !
+      t_ZHLTLightKeys = !
       speed: =
       {
         txt = "&"
@@ -11819,22 +11819,22 @@ QQRKSRC1
     }
     momentary_rot_button:form =
     {
-      t_momentary_rot_button = "!"
+      t_momentary_rot_button = !
     }
     t_monster_baby:incl =
     {
       bbox = '-16 -16 0 16 16 72'
-      t_Monster = "!"
+      t_Monster = !
     }
     monster_baby:form =
     {
-      t_monster_baby = "!"
+      t_monster_baby = !
     }
     t_monster_booksimon:incl =
     {
       bbox = '-16 -16 0 16 16 72'
-      t_Monster = "!"
-      t_Sequence = "!"
+      t_Monster = !
+      t_Sequence = !
       message: =
       {
         txt = "&"
@@ -11864,13 +11864,13 @@ QQRKSRC1
     }
     monster_booksimon:form =
     {
-      t_monster_booksimon = "!"
+      t_monster_booksimon = !
     }
     t_monster_booksimonsledgehammer:incl =
     {
       bbox = '-16 -16 0 16 16 72'
-      t_Monster = "!"
-      t_Sequence = "!"
+      t_Monster = !
+      t_Sequence = !
       message: =
       {
         txt = "&"
@@ -11879,21 +11879,21 @@ QQRKSRC1
     }
     monster_booksimonsledgehammer:form =
     {
-      t_monster_booksimonsledgehammer = "!"
+      t_monster_booksimonsledgehammer = !
     }
     t_monster_bosschainsaw:incl =
     {
       bbox = '-16 -16 0 16 16 72'
-      t_Monster = "!"
+      t_Monster = !
     }
     monster_bosschainsaw:form =
     {
-      t_monster_bosschainsaw = "!"
+      t_monster_bosschainsaw = !
     }
     t_monster_child:incl =
     {
       bbox = '-10 -10 0 10 10 60'
-      t_Monster = "!"
+      t_Monster = !
       spawnflags: =
       {
         txt = "&"
@@ -11903,30 +11903,30 @@ QQRKSRC1
     }
     monster_child:form =
     {
-      t_monster_child = "!"
+      t_monster_child = !
     }
     t_monster_crab:incl =
     {
       bbox = '-16 -16 0 16 16 36'
-      t_Monster = "!"
+      t_Monster = !
     }
     monster_crab:form =
     {
-      t_monster_crab = "!"
+      t_monster_crab = !
     }
     t_monster_crazybitch:incl =
     {
       bbox = '-16 -16 0 16 16 72'
-      t_Monster = "!"
+      t_Monster = !
     }
     monster_crazybitch:form =
     {
-      t_monster_crazybitch = "!"
+      t_monster_crazybitch = !
     }
     t_monster_custom:incl =
     {
       bbox = '-10 -10 0 10 10 60'
-      t_Monster = "!"
+      t_Monster = !
       attacksound1: =
       {
         txt = "&"
@@ -12023,12 +12023,12 @@ QQRKSRC1
     }
     monster_custom:form =
     {
-      t_monster_custom = "!"
+      t_monster_custom = !
     }
     t_monster_doctorboss:incl =
     {
       bbox = '-16 -16 -36 16 16 36'
-      t_Monster = "!"
+      t_Monster = !
       target: =
       {
         txt = "&"
@@ -12057,57 +12057,57 @@ QQRKSRC1
     }
     monster_doctorboss:form =
     {
-      t_monster_doctorboss = "!"
+      t_monster_doctorboss = !
     }
     t_monster_faceless:incl =
     {
       bbox = '-16 -16 0 16 16 72'
-      t_Monster = "!"
+      t_Monster = !
     }
     monster_faceless:form =
     {
-      t_monster_faceless = "!"
+      t_monster_faceless = !
     }
     t_monster_facelessv:incl =
     {
       bbox = '-16 -16 0 16 16 72'
-      t_Monster = "!"
+      t_Monster = !
     }
     monster_facelessv:form =
     {
-      t_monster_facelessv = "!"
+      t_monster_facelessv = !
     }
     t_monster_faster:incl =
     {
       bbox = '-16 -16 0 16 16 72'
-      t_Monster = "!"
+      t_Monster = !
     }
     monster_faster:form =
     {
-      t_monster_faster = "!"
+      t_monster_faster = !
     }
     t_monster_flygare:incl =
     {
       bbox = '-16 -16 0 16 16 72'
-      t_Monster = "!"
+      t_Monster = !
     }
     monster_flygare:form =
     {
-      t_monster_flygare = "!"
+      t_monster_flygare = !
     }
     t_monster_furniture:incl =
     {
       bbox = '-16 -16 0 16 16 72'
-      t_Monster = "!"
+      t_Monster = !
     }
     monster_furniture:form =
     {
-      t_monster_furniture = "!"
+      t_monster_furniture = !
     }
     t_monster_generic:incl =
     {
       bbox = '-16 -16 -36 16 16 36'
-      t_Monster = "!"
+      t_Monster = !
       spawnflags: =
       {
         txt = "&"
@@ -12179,15 +12179,15 @@ QQRKSRC1
     }
     monster_generic:form =
     {
-      t_monster_generic = "!"
+      t_monster_generic = !
     }
     t_monster_generic_dead:incl =
     {
       bbox = '-16 -16 0 16 16 72'
-      t_Targetname = "!"
-      t_Angles = "!"
-      t_Appearflags = "!"
-      t_RenderFields = "!"
+      t_Targetname = !
+      t_Angles = !
+      t_Appearflags = !
+      t_RenderFields = !
       spawnflags: =
       {
         txt = "&"
@@ -12229,12 +12229,12 @@ QQRKSRC1
     }
     monster_generic_dead:form =
     {
-      t_monster_generic_dead = "!"
+      t_monster_generic_dead = !
     }
     t_monster_krypande:incl =
     {
       bbox = '-16 -16 0 16 16 72'
-      t_Monster = "!"
+      t_Monster = !
       body: =
       {
         txt = "&"
@@ -12246,66 +12246,66 @@ QQRKSRC1
     }
     monster_krypande:form =
     {
-      t_monster_krypande = "!"
+      t_monster_krypande = !
     }
     t_monster_nerd:incl =
     {
       bbox = '-16 -16 0 16 16 72'
-      t_Monster = "!"
+      t_Monster = !
     }
     monster_nerd:form =
     {
-      t_monster_nerd = "!"
+      t_monster_nerd = !
     }
     t_monster_rcrazy:incl =
     {
       bbox = '-16 -16 0 16 16 72'
-      t_Monster = "!"
+      t_Monster = !
     }
     monster_rcrazy:form =
     {
-      t_monster_rcrazy = "!"
+      t_monster_rcrazy = !
     }
     t_monster_roofboss:incl =
     {
       bbox = '-16 -16 0 16 16 72'
-      t_Monster = "!"
+      t_Monster = !
     }
     monster_roofboss:form =
     {
-      t_monster_roofboss = "!"
+      t_monster_roofboss = !
     }
     t_monster_ruben:incl =
     {
       bbox = '-16 -16 0 16 16 72'
-      t_Monster = "!"
+      t_Monster = !
     }
     monster_ruben:form =
     {
-      t_monster_ruben = "!"
+      t_monster_ruben = !
     }
     t_monster_sawcrazy:incl =
     {
       bbox = '-16 -16 0 16 16 72'
-      t_Monster = "!"
+      t_Monster = !
     }
     monster_sawcrazy:form =
     {
-      t_monster_sawcrazy = "!"
+      t_monster_sawcrazy = !
     }
     t_monster_sewerboss:incl =
     {
       bbox = '-16 -16 0 16 16 72'
-      t_Monster = "!"
+      t_Monster = !
     }
     monster_sewerboss:form =
     {
-      t_monster_sewerboss = "!"
+      t_monster_sewerboss = !
     }
     t_monster_sewmo:incl =
     {
       bbox = '-16 -16 0 16 16 72'
-      t_Monster = "!"
+      t_Monster = !
       spawnflags: =
       {
         txt = "&"
@@ -12315,12 +12315,12 @@ QQRKSRC1
     }
     monster_sewmo:form =
     {
-      t_monster_sewmo = "!"
+      t_monster_sewmo = !
     }
     t_monster_spitter:incl =
     {
       bbox = '-16 -16 0 16 16 72'
-      t_Monster = "!"
+      t_Monster = !
       target: =
       {
         txt = "&"
@@ -12329,22 +12329,22 @@ QQRKSRC1
     }
     monster_spitter:form =
     {
-      t_monster_spitter = "!"
+      t_monster_spitter = !
     }
     t_monster_taller:incl =
     {
       bbox = '-32 -32 0 32 32 168'
-      t_Monster = "!"
+      t_Monster = !
     }
     monster_taller:form =
     {
-      t_monster_taller = "!"
+      t_monster_taller = !
     }
     t_monster_target:incl =
     {
       bbox = '-16 -16 -16 16 16 16'
-      t_Targetname = "!"
-      t_MoveWith = "!"
+      t_Targetname = !
+      t_MoveWith = !
       frags: =
       {
         txt = "&"
@@ -12365,21 +12365,21 @@ QQRKSRC1
     }
     monster_target:form =
     {
-      t_monster_target = "!"
+      t_monster_target = !
     }
     t_monster_slowerstuck:incl =
     {
       bbox = '-16 -16 0 16 16 72'
-      t_Monster = "!"
+      t_Monster = !
     }
     monster_slowerstuck:form =
     {
-      t_monster_slowerstuck = "!"
+      t_monster_slowerstuck = !
     }
     t_monster_slower:incl =
     {
       bbox = '-16 -16 0 16 16 72'
-      t_Monster = "!"
+      t_Monster = !
       body: =
       {
         txt = "&"
@@ -12412,12 +12412,12 @@ QQRKSRC1
     }
     monster_slower:form =
     {
-      t_monster_slower = "!"
+      t_monster_slower = !
     }
     t_monster_slower3:incl =
     {
       bbox = '-16 -16 0 16 16 72'
-      t_Monster = "!"
+      t_Monster = !
       body: =
       {
         txt = "&"
@@ -12450,12 +12450,12 @@ QQRKSRC1
     }
     monster_slower3:form =
     {
-      t_monster_slower3 = "!"
+      t_monster_slower3 = !
     }
     t_monster_sawrunner:incl =
     {
       bbox = '-16 -16 0 16 16 72'
-      t_Monster = "!"
+      t_Monster = !
       body: =
       {
         txt = "&"
@@ -12488,21 +12488,21 @@ QQRKSRC1
     }
     monster_sawrunner:form =
     {
-      t_monster_sawrunner = "!"
+      t_monster_sawrunner = !
     }
     t_monster_stranger:incl =
     {
       bbox = '-16 -16 0 16 16 72'
-      t_Monster = "!"
+      t_Monster = !
     }
     monster_stranger:form =
     {
-      t_monster_stranger = "!"
+      t_monster_stranger = !
     }
     t_monster_suicider:incl =
     {
       bbox = '-16 -16 0 16 16 72'
-      t_Monster = "!"
+      t_Monster = !
       iuser1: =
       {
         txt = "&"
@@ -12519,22 +12519,22 @@ QQRKSRC1
     }
     monster_suicider:form =
     {
-      t_monster_suicider = "!"
+      t_monster_suicider = !
     }
     t_monster_watro:incl =
     {
       bbox = '-16 -16 0 16 16 72'
-      t_Monster = "!"
+      t_Monster = !
     }
     monster_watro:form =
     {
-      t_monster_watro = "!"
+      t_monster_watro = !
     }
     t_monstermaker:incl =
     {
       bbox = '-16 -16 -16 16 16 16'
-      t_Targetname = "!"
-      t_MoveWith = "!"
+      t_Targetname = !
+      t_MoveWith = !
       monsterbody: =
       {
         txt = "&"
@@ -12697,11 +12697,11 @@ QQRKSRC1
     }
     monstermaker:form =
     {
-      t_monstermaker = "!"
+      t_monstermaker = !
     }
     t_motion_manager:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       target: =
       {
         txt = "&"
@@ -12721,12 +12721,12 @@ QQRKSRC1
     }
     motion_manager:form =
     {
-      t_motion_manager = "!"
+      t_motion_manager = !
     }
     t_multisource:incl =
     {
-      t_Targetname = "!"
-      t_Target = "!"
+      t_Targetname = !
+      t_Target = !
       netname: =
       {
         txt = "&"
@@ -12740,11 +12740,11 @@ QQRKSRC1
     }
     multisource:form =
     {
-      t_multisource = "!"
+      t_multisource = !
     }
     t_multi_alias:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       m_iMode: =
       {
         txt = "&"
@@ -12756,12 +12756,12 @@ QQRKSRC1
     }
     multi_alias:form =
     {
-      t_multi_alias = "!"
+      t_multi_alias = !
     }
     t_multi_manager:incl =
     {
-      t_Targetname = "!"
-      t_Master = "!"
+      t_Targetname = !
+      t_Master = !
       wait: =
       {
         txt = "&"
@@ -12832,11 +12832,11 @@ QQRKSRC1
     }
     multi_manager:form =
     {
-      t_multi_manager = "!"
+      t_multi_manager = !
     }
     t_multi_watcher:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       m_fLogic: =
       {
         txt = "&"
@@ -12890,13 +12890,13 @@ QQRKSRC1
     }
     multi_watcher:form =
     {
-      t_multi_watcher = "!"
+      t_multi_watcher = !
     }
     t_path_corner:incl =
     {
-      t_Targetname = "!"
-      t_Angles = "!"
-      t_MoveWith = "!"
+      t_Targetname = !
+      t_Angles = !
+      t_MoveWith = !
       spawnflags: =
       {
         txt = "&"
@@ -12959,13 +12959,13 @@ QQRKSRC1
     }
     path_corner:form =
     {
-      t_path_corner = "!"
+      t_path_corner = !
     }
     t_path_track:incl =
     {
-      t_Targetname = "!"
-      t_Angles = "!"
-      t_MoveWith = "!"
+      t_Targetname = !
+      t_Angles = !
+      t_MoveWith = !
       spawnflags: =
       {
         txt = "&"
@@ -13049,12 +13049,12 @@ QQRKSRC1
     }
     path_track:form =
     {
-      t_path_track = "!"
+      t_path_track = !
     }
     t_player_freeze:incl =
     {
       bbox = '-16 -16 -16 16 16 16'
-      t_Targetname = "!"
+      t_Targetname = !
       delay: =
       {
         txt = "&"
@@ -13069,12 +13069,12 @@ QQRKSRC1
     }
     player_freeze:form =
     {
-      t_player_freeze = "!"
+      t_player_freeze = !
     }
     t_player_loadsaved:incl =
     {
       bbox = '-16 -16 -16 16 16 16'
-      t_Targetname = "!"
+      t_Targetname = !
       duration: =
       {
         txt = "&"
@@ -13113,12 +13113,12 @@ QQRKSRC1
     }
     player_loadsaved:form =
     {
-      t_player_loadsaved = "!"
+      t_player_loadsaved = !
     }
     t_player_weaponstrip:incl =
     {
       bbox = '-16 -16 -16 16 16 16'
-      t_Targetname = "!"
+      t_Targetname = !
       bullets: =
       {
         txt = "&"
@@ -13278,11 +13278,11 @@ QQRKSRC1
     }
     player_weaponstrip:form =
     {
-      t_player_weaponstrip = "!"
+      t_player_weaponstrip = !
     }
     t_scripted_action:incl =
     {
-      t_Script = "!"
+      t_Script = !
       m_iszMoveTarget: =
       {
         txt = "&"
@@ -13329,14 +13329,14 @@ QQRKSRC1
     }
     scripted_action:form =
     {
-      t_scripted_action = "!"
+      t_scripted_action = !
     }
     t_scripted_sentence:incl =
     {
       bbox = '-16 -16 0 16 16 72'
-      t_Targetname = "!"
-      t_Targetx = "!"
-      t_MoveWith = "!"
+      t_Targetname = !
+      t_Targetx = !
+      t_MoveWith = !
       spawnflags: =
       {
         txt = "&"
@@ -13408,12 +13408,12 @@ QQRKSRC1
     }
     scripted_sentence:form =
     {
-      t_scripted_sentence = "!"
+      t_scripted_sentence = !
     }
     t_scripted_sequence:incl =
     {
       bbox = '-16 -16 0 16 16 72'
-      t_ScriptSequence = "!"
+      t_ScriptSequence = !
       spawnflags: =
       {
         txt = "&"
@@ -13423,14 +13423,14 @@ QQRKSRC1
     }
     scripted_sequence:form =
     {
-      t_scripted_sequence = "!"
+      t_scripted_sequence = !
     }
     t_scripted_tanksequence:incl =
     {
       bbox = '-16 -16 -16 16 16 16'
-      t_Targetname = "!"
-      t_Angles = "!"
-      t_MoveWith = "!"
+      t_Targetname = !
+      t_Angles = !
+      t_MoveWith = !
       m_iszEntity: =
       {
         txt = "&"
@@ -13520,14 +13520,14 @@ QQRKSRC1
     }
     scripted_tanksequence:form =
     {
-      t_scripted_tanksequence = "!"
+      t_scripted_tanksequence = !
     }
     t_scripted_trainsequence:incl =
     {
       bbox = '-16 -16 -16 16 16 16'
-      t_Targetname = "!"
-      t_Angles = "!"
-      t_MoveWith = "!"
+      t_Targetname = !
+      t_Angles = !
+      t_MoveWith = !
       m_iszEntity: =
       {
         txt = "&"
@@ -13589,12 +13589,12 @@ QQRKSRC1
     }
     scripted_trainsequence:form =
     {
-      t_scripted_trainsequence = "!"
+      t_scripted_trainsequence = !
     }
     t_speaker:incl =
     {
-      t_Targetname = "!"
-      t_MoveWith = "!"
+      t_Targetname = !
+      t_MoveWith = !
       preset: =
       {
         txt = "&"
@@ -13625,11 +13625,11 @@ QQRKSRC1
     }
     speaker:form =
     {
-      t_speaker = "!"
+      t_speaker = !
     }
     t_target_cdaudio:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       health: =
       {
         txt = "&"
@@ -13659,11 +13659,11 @@ QQRKSRC1
     }
     target_cdaudio:form =
     {
-      t_target_cdaudio = "!"
+      t_target_cdaudio = !
     }
     t_trigger_auto:incl =
     {
-      t_Targetx = "!"
+      t_Targetx = !
       spawnflags: =
       {
         txt = "&"
@@ -13692,24 +13692,24 @@ QQRKSRC1
     }
     trigger_auto:form =
     {
-      t_trigger_auto = "!"
+      t_trigger_auto = !
     }
     t_trigger_autosave:incl =
     {
-      t_Targetname = "!"
-      t_Master = "!"
-      t_MoveWith = "!"
+      t_Targetname = !
+      t_Master = !
+      t_MoveWith = !
     }
     trigger_autosave:form =
     {
-      t_trigger_autosave = "!"
+      t_trigger_autosave = !
     }
     t_trigger_bounce:incl =
     {
-      t_Trigger = "!"
-      t_TriggerCond = "!"
-      t_Angles = "!"
-      t_MoveWith = "!"
+      t_Trigger = !
+      t_TriggerCond = !
+      t_Angles = !
+      t_MoveWith = !
       frags: =
       {
         txt = "&"
@@ -13729,14 +13729,14 @@ QQRKSRC1
     }
     trigger_bounce:form =
     {
-      t_trigger_bounce = "!"
+      t_trigger_bounce = !
     }
     t_trigger_booksimon:incl =
     {
-      t_Trigger = "!"
-      t_TriggerCond = "!"
-      t_Angles = "!"
-      t_MoveWith = "!"
+      t_Trigger = !
+      t_TriggerCond = !
+      t_Angles = !
+      t_MoveWith = !
       message: =
       {
         txt = "&"
@@ -13758,12 +13758,12 @@ QQRKSRC1
     }
     trigger_booksimon:form =
     {
-      t_trigger_booksimon = "!"
+      t_trigger_booksimon = !
     }
     t_trigger_camera:incl =
     {
-      t_Targetname = "!"
-      t_Targetx = "!"
+      t_Targetname = !
+      t_Targetx = !
       wait: =
       {
         txt = "&"
@@ -13915,11 +13915,11 @@ QQRKSRC1
     }
     trigger_camera:form =
     {
-      t_trigger_camera = "!"
+      t_trigger_camera = !
     }
     t_trigger_cdaudio:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       message: =
       {
         txt = "&"
@@ -13944,11 +13944,11 @@ QQRKSRC1
     }
     trigger_cdaudio:form =
     {
-      t_trigger_cdaudio = "!"
+      t_trigger_cdaudio = !
     }
     t_trigger_changealias:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       target: =
       {
         txt = "&"
@@ -13974,11 +13974,11 @@ QQRKSRC1
     }
     trigger_changealias:form =
     {
-      t_trigger_changealias = "!"
+      t_trigger_changealias = !
     }
     t_trigger_changecvar:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       netname: =
       {
         txt = "&"
@@ -13997,7 +13997,7 @@ QQRKSRC1
     }
     trigger_changecvar:form =
     {
-      t_trigger_changecvar = "!"
+      t_trigger_changecvar = !
     }
     t_trigger_changelevel:incl =
     {
@@ -14047,11 +14047,11 @@ QQRKSRC1
     }
     trigger_changelevel:form =
     {
-      t_trigger_changelevel = "!"
+      t_trigger_changelevel = !
     }
     t_trigger_changetarget:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       target: =
       {
         txt = "&"
@@ -14065,11 +14065,11 @@ QQRKSRC1
     }
     trigger_changetarget:form =
     {
-      t_trigger_changetarget = "!"
+      t_trigger_changetarget = !
     }
     t_trigger_changevalue:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       target: =
       {
         txt = "&"
@@ -14088,12 +14088,12 @@ QQRKSRC1
     }
     trigger_changevalue:form =
     {
-      t_trigger_changevalue = "!"
+      t_trigger_changevalue = !
     }
     t_trigger_cofmobile:incl =
     {
-      t_Targetname = "!"
-      t_Targetx = "!"
+      t_Targetname = !
+      t_Targetx = !
       bodynumber: =
       {
         txt = "&"
@@ -14114,13 +14114,13 @@ QQRKSRC1
     }
     trigger_cofmobile:form =
     {
-      t_trigger_cofmobile = "!"
+      t_trigger_cofmobile = !
     }
     t_trigger_cofteleport:incl =
     {
-      t_Targetname = "!"
-      t_Master = "!"
-      t_MoveWith = "!"
+      t_Targetname = !
+      t_Master = !
+      t_MoveWith = !
       target: =
       {
         txt = "&"
@@ -14135,11 +14135,11 @@ QQRKSRC1
     }
     trigger_cofteleport:form =
     {
-      t_trigger_cofteleport = "!"
+      t_trigger_cofteleport = !
     }
     t_trigger_command:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       netname: =
       {
         txt = "&"
@@ -14148,23 +14148,23 @@ QQRKSRC1
     }
     trigger_command:form =
     {
-      t_trigger_command = "!"
+      t_trigger_command = !
     }
     t_trigger_coop_changelevel:incl =
     {
-      t_Targetname = "!"
-      t_Master = "!"
-      t_MoveWith = "!"
-      t_RenderFields = "!"
+      t_Targetname = !
+      t_Master = !
+      t_MoveWith = !
+      t_RenderFields = !
     }
     trigger_coop_changelevel:form =
     {
-      t_trigger_coop_changelevel = "!"
+      t_trigger_coop_changelevel = !
     }
     t_trigger_counter:incl =
     {
-      t_Trigger = "!"
-      t_MoveWith = "!"
+      t_Trigger = !
+      t_MoveWith = !
       spawnflags: =
       {
         txt = "&"
@@ -14179,12 +14179,12 @@ QQRKSRC1
     }
     trigger_counter:form =
     {
-      t_trigger_counter = "!"
+      t_trigger_counter = !
     }
     t_trigger_endsection:incl =
     {
-      t_Targetname = "!"
-      t_MoveWith = "!"
+      t_Targetname = !
+      t_MoveWith = !
       section: =
       {
         txt = "&"
@@ -14199,11 +14199,11 @@ QQRKSRC1
     }
     trigger_endsection:form =
     {
-      t_trigger_endsection = "!"
+      t_trigger_endsection = !
     }
     t_trigger_gravity:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       gravity: =
       {
         txt = "&"
@@ -14212,14 +14212,14 @@ QQRKSRC1
     }
     trigger_gravity:form =
     {
-      t_trigger_gravity = "!"
+      t_trigger_gravity = !
     }
     t_trigger_hevcharge:incl =
     {
-      t_Targetname = "!"
-      t_Target = "!"
-      t_Master = "!"
-      t_MoveWith = "!"
+      t_Targetname = !
+      t_Target = !
+      t_Master = !
+      t_MoveWith = !
       spawnflags: =
       {
         txt = "&"
@@ -14251,14 +14251,14 @@ QQRKSRC1
     }
     trigger_hevcharge:form =
     {
-      t_trigger_hevcharge = "!"
+      t_trigger_hevcharge = !
     }
     t_trigger_hurt:incl =
     {
-      t_Targetname = "!"
-      t_Target = "!"
-      t_Master = "!"
-      t_MoveWith = "!"
+      t_Targetname = !
+      t_Target = !
+      t_Master = !
+      t_MoveWith = !
       spawnflags: =
       {
         txt = "&"
@@ -14323,12 +14323,12 @@ QQRKSRC1
     }
     trigger_hurt:form =
     {
-      t_trigger_hurt = "!"
+      t_trigger_hurt = !
     }
     t_trigger_monsterjump:incl =
     {
-      t_Master = "!"
-      t_MoveWith = "!"
+      t_Master = !
+      t_MoveWith = !
       speed: =
       {
         txt = "&"
@@ -14342,11 +14342,11 @@ QQRKSRC1
     }
     trigger_monsterjump:form =
     {
-      t_trigger_monsterjump = "!"
+      t_trigger_monsterjump = !
     }
     t_trigger_motion:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       target: =
       {
         txt = "&"
@@ -14414,13 +14414,13 @@ QQRKSRC1
     }
     trigger_motion:form =
     {
-      t_trigger_motion = "!"
+      t_trigger_motion = !
     }
     t_trigger_once:incl =
     {
-      t_Trigger = "!"
-      t_TriggerCond = "!"
-      t_MoveWith = "!"
+      t_Trigger = !
+      t_TriggerCond = !
+      t_MoveWith = !
       message: =
       {
         txt = "&"
@@ -14442,11 +14442,11 @@ QQRKSRC1
     }
     trigger_once:form =
     {
-      t_trigger_once = "!"
+      t_trigger_once = !
     }
     t_trigger_multiple:incl =
     {
-      t_trigger_once = "!"
+      t_trigger_once = !
       netname: =
       {
         txt = "&"
@@ -14468,13 +14468,13 @@ QQRKSRC1
     }
     trigger_multiple:form =
     {
-      t_trigger_multiple = "!"
+      t_trigger_multiple = !
     }
     t_trigger_onsight:incl =
     {
-      t_Targetname = "!"
-      t_Master = "!"
-      t_MoveWith = "!"
+      t_Targetname = !
+      t_Master = !
+      t_MoveWith = !
       netname: =
       {
         txt = "&"
@@ -14534,12 +14534,12 @@ QQRKSRC1
     }
     trigger_onsight:form =
     {
-      t_trigger_onsight = "!"
+      t_trigger_onsight = !
     }
     t_trigger_push:incl =
     {
-      t_Trigger = "!"
-      t_MoveWith = "!"
+      t_Trigger = !
+      t_MoveWith = !
       spawnflags: =
       {
         txt = "&"
@@ -14566,11 +14566,11 @@ QQRKSRC1
     }
     trigger_push:form =
     {
-      t_trigger_push = "!"
+      t_trigger_push = !
     }
     t_trigger_lightstyle:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       target: =
       {
         txt = "&"
@@ -14606,13 +14606,13 @@ QQRKSRC1
     }
     trigger_lightstyle:form =
     {
-      t_trigger_lightstyle = "!"
+      t_trigger_lightstyle = !
     }
     t_trigger_relay:incl =
     {
-      t_Targetname = "!"
-      t_Targetx = "!"
-      t_Master = "!"
+      t_Targetname = !
+      t_Targetx = !
+      t_Master = !
       m_iszAltTarget: =
       {
         txt = "&"
@@ -14641,11 +14641,11 @@ QQRKSRC1
     }
     trigger_relay:form =
     {
-      t_trigger_relay = "!"
+      t_trigger_relay = !
     }
     t_trigger_rottest:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       target: =
       {
         txt = "&"
@@ -14674,12 +14674,12 @@ QQRKSRC1
     }
     trigger_rottest:form =
     {
-      t_trigger_rottest = "!"
+      t_trigger_rottest = !
     }
     t_trigger_sound:incl =
     {
-      t_Targetname = "!"
-      t_Master = "!"
+      t_Targetname = !
+      t_Master = !
       target: =
       {
         txt = "&"
@@ -14714,11 +14714,11 @@ QQRKSRC1
     }
     trigger_sound:form =
     {
-      t_trigger_sound = "!"
+      t_trigger_sound = !
     }
     t_trigger_startpatrol:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       target: =
       {
         txt = "&"
@@ -14732,12 +14732,12 @@ QQRKSRC1
     }
     trigger_startpatrol:form =
     {
-      t_trigger_startpatrol = "!"
+      t_trigger_startpatrol = !
     }
     t_trigger_suicide:incl =
     {
-      t_Trigger = "!"
-      t_MoveWith = "!"
+      t_Trigger = !
+      t_MoveWith = !
       iuser1: =
       {
         txt = "&"
@@ -14749,14 +14749,14 @@ QQRKSRC1
     }
     trigger_suicide:form =
     {
-      t_trigger_suicide = "!"
+      t_trigger_suicide = !
     }
     t_trigger_teleport:incl =
     {
-      t_Targetname = "!"
-      t_Master = "!"
-      t_TriggerCond = "!"
-      t_MoveWith = "!"
+      t_Targetname = !
+      t_Master = !
+      t_TriggerCond = !
+      t_MoveWith = !
       target: =
       {
         txt = "&"
@@ -14775,19 +14775,19 @@ QQRKSRC1
     }
     trigger_teleport:form =
     {
-      t_trigger_teleport = "!"
+      t_trigger_teleport = !
     }
     t_trigger_transition:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
     }
     trigger_transition:form =
     {
-      t_trigger_transition = "!"
+      t_trigger_transition = !
     }
     t_watcher:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       m_iszWatch: =
       {
         txt = "&"
@@ -14857,11 +14857,11 @@ QQRKSRC1
     }
     watcher:form =
     {
-      t_watcher = "!"
+      t_watcher = !
     }
     t_watcher_count:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       noise: =
       {
         txt = "&"
@@ -14916,15 +14916,15 @@ QQRKSRC1
     }
     watcher_count:form =
     {
-      t_watcher_count = "!"
+      t_watcher_count = !
     }
     t_weapon_debug:incl =
     {
-      t_Weapon = "!"
+      t_Weapon = !
     }
     weapon_debug:form =
     {
-      t_weapon_debug = "!"
+      t_weapon_debug = !
     }
     t_weaponbox:incl =
     {
@@ -14932,13 +14932,13 @@ QQRKSRC1
     }
     weaponbox:form =
     {
-      t_weaponbox = "!"
+      t_weaponbox = !
     }
     t_world_items:incl =
     {
-      t_Weapon = "!"
-      t_Targetx = "!"
-      t_RenderFields = "!"
+      t_Weapon = !
+      t_Targetx = !
+      t_RenderFields = !
       type: =
       {
         txt = "&"
@@ -14950,85 +14950,85 @@ QQRKSRC1
     }
     world_items:form =
     {
-      t_world_items = "!"
+      t_world_items = !
     }
     t_ammo_shells:incl =
     {
-      t_Ammo = "!"
-      t_Targetx = "!"
+      t_Ammo = !
+      t_Targetx = !
     }
     ammo_shells:form =
     {
-      t_ammo_shells = "!"
+      t_ammo_shells = !
     }
     t_ammo_glock:incl =
     {
-      t_Ammo = "!"
-      t_Targetx = "!"
+      t_Ammo = !
+      t_Targetx = !
     }
     ammo_glock:form =
     {
-      t_ammo_glock = "!"
+      t_ammo_glock = !
     }
     t_ammo_p345:incl =
     {
-      t_Ammo = "!"
-      t_Targetx = "!"
+      t_Ammo = !
+      t_Targetx = !
     }
     ammo_p345:form =
     {
-      t_ammo_p345 = "!"
+      t_ammo_p345 = !
     }
     t_ammo_m16:incl =
     {
-      t_Ammo = "!"
-      t_Targetx = "!"
+      t_Ammo = !
+      t_Targetx = !
     }
     ammo_m16:form =
     {
-      t_ammo_m16 = "!"
+      t_ammo_m16 = !
     }
     t_ammo_revolver:incl =
     {
-      t_Ammo = "!"
-      t_Targetx = "!"
+      t_Ammo = !
+      t_Targetx = !
     }
     ammo_revolver:form =
     {
-      t_ammo_revolver = "!"
+      t_ammo_revolver = !
     }
     t_ammo_rifle:incl =
     {
-      t_Ammo = "!"
-      t_Targetx = "!"
+      t_Ammo = !
+      t_Targetx = !
     }
     ammo_rifle:form =
     {
-      t_ammo_rifle = "!"
+      t_ammo_rifle = !
     }
     t_ammo_tmp:incl =
     {
-      t_Ammo = "!"
-      t_Targetx = "!"
+      t_Ammo = !
+      t_Targetx = !
     }
     ammo_tmp:form =
     {
-      t_ammo_tmp = "!"
+      t_ammo_tmp = !
     }
     t_ammo_vp70:incl =
     {
-      t_Ammo = "!"
-      t_Targetx = "!"
+      t_Ammo = !
+      t_Targetx = !
     }
     ammo_vp70:form =
     {
-      t_ammo_vp70 = "!"
+      t_ammo_vp70 = !
     }
     t_env_dynlight:incl =
     {
-      t_Targetname = "!"
-      t_MoveWith = "!"
-      t_Angles = "!"
+      t_Targetname = !
+      t_MoveWith = !
+      t_Angles = !
       rendercolor: =
       {
         txt = "&"
@@ -15058,7 +15058,7 @@ QQRKSRC1
     }
     env_dynlight:form =
     {
-      t_env_dynlight = "!"
+      t_env_dynlight = !
     }
     t_envpos_sky:incl =
     {
@@ -15088,7 +15088,7 @@ QQRKSRC1
     }
     envpos_sky:form =
     {
-      t_envpos_sky = "!"
+      t_envpos_sky = !
     }
     t_envpos_world:incl =
     {
@@ -15101,13 +15101,13 @@ QQRKSRC1
     }
     envpos_world:form =
     {
-      t_envpos_world = "!"
+      t_envpos_world = !
     }
     t_door_prop:incl =
     {
-      t_Targetname = "!"
-      t_Angles = "!"
-      t_RenderFields = "!"
+      t_Targetname = !
+      t_Angles = !
+      t_RenderFields = !
       model: =
       {
         txt = "&"
@@ -15180,13 +15180,13 @@ QQRKSRC1
     }
     door_prop:form =
     {
-      t_door_prop = "!"
+      t_door_prop = !
     }
     t_door_prop_view:incl =
     {
       bbox = '-8 -8 0 8 8 16'
-      t_PlayerClass = "!"
-      t_Targetname = "!"
+      t_PlayerClass = !
+      t_Targetname = !
       message: =
       {
         txt = "&"
@@ -15195,12 +15195,12 @@ QQRKSRC1
     }
     door_prop_view:form =
     {
-      t_door_prop_view = "!"
+      t_door_prop_view = !
     }
     t_camera:incl =
     {
       bbox = '-8 -8 0 8 8 16'
-      t_Targetname = "!"
+      t_Targetname = !
       message: =
       {
         txt = "&"
@@ -15209,13 +15209,13 @@ QQRKSRC1
     }
     camera:form =
     {
-      t_camera = "!"
+      t_camera = !
     }
     t_camera_model:incl =
     {
       bbox = '-8 -8 0 8 8 16'
-      t_Targetname = "!"
-      t_MoveWith = "!"
+      t_Targetname = !
+      t_MoveWith = !
       model: =
       {
         txt = "&"
@@ -15252,13 +15252,13 @@ QQRKSRC1
     }
     camera_model:form =
     {
-      t_camera_model = "!"
+      t_camera_model = !
     }
     t_prop:incl =
     {
-      t_Targetname = "!"
-      t_Angles = "!"
-      t_RenderFields = "!"
+      t_Targetname = !
+      t_Angles = !
+      t_RenderFields = !
       model: =
       {
         txt = "&"
@@ -15331,14 +15331,14 @@ QQRKSRC1
     }
     prop:form =
     {
-      t_prop = "!"
+      t_prop = !
     }
     t_inter_door:incl =
     {
-      t_Targetname = "!"
-      t_Global = "!"
-      t_RenderFields = "!"
-      t_Master = "!"
+      t_Targetname = !
+      t_Global = !
+      t_RenderFields = !
+      t_Master = !
       target: =
       {
         txt = "&"
@@ -15449,14 +15449,14 @@ QQRKSRC1
     }
     inter_door:form =
     {
-      t_inter_door = "!"
+      t_inter_door = !
     }
     t_inter_door_coop_changelevel:incl =
     {
-      t_Targetname = "!"
-      t_Global = "!"
-      t_RenderFields = "!"
-      t_Master = "!"
+      t_Targetname = !
+      t_Global = !
+      t_RenderFields = !
+      t_Master = !
       target: =
       {
         txt = "&"
@@ -15493,14 +15493,14 @@ QQRKSRC1
     }
     inter_door_coop_changelevel:form =
     {
-      t_inter_door_coop_changelevel = "!"
+      t_inter_door_coop_changelevel = !
     }
     t_inter_door_coop:incl =
     {
       bbox = '-8 -8 0 8 8 16'
-      t_Targetname = "!"
-      t_Global = "!"
-      t_RenderFields = "!"
+      t_Targetname = !
+      t_Global = !
+      t_RenderFields = !
       model: =
       {
         txt = "&"
@@ -15619,22 +15619,22 @@ QQRKSRC1
     }
     inter_door_coop:form =
     {
-      t_inter_door_coop = "!"
+      t_inter_door_coop = !
     }
     t_inter_door_exit:incl =
     {
       bbox = '-8 -8 0 8 8 16'
-      t_PlayerClass = "!"
-      t_Targetname = "!"
+      t_PlayerClass = !
+      t_Targetname = !
     }
     inter_door_exit:form =
     {
-      t_inter_door_exit = "!"
+      t_inter_door_exit = !
     }
     t_inter_door_disable:incl =
     {
       bbox = '-8 -8 -4 8 8 4'
-      t_Targetname = "!"
+      t_Targetname = !
       target: =
       {
         txt = "&"
@@ -15651,40 +15651,40 @@ QQRKSRC1
     }
     inter_door_disable:form =
     {
-      t_inter_door_disable = "!"
+      t_inter_door_disable = !
     }
     t_item_glocktaclight:incl =
     {
       bbox = '-16 -16 0 16 16 36'
-      t_Targetx = "!"
+      t_Targetx = !
     }
     item_glocktaclight:form =
     {
-      t_item_glocktaclight = "!"
+      t_item_glocktaclight = !
     }
     t_item_nightvision:incl =
     {
       bbox = '-16 -16 0 16 16 36'
-      t_Weapon = "!"
-      t_Targetx = "!"
+      t_Weapon = !
+      t_Targetx = !
     }
     item_nightvision:form =
     {
-      t_item_nightvision = "!"
+      t_item_nightvision = !
     }
     t_item_phonebattery:incl =
     {
       bbox = '-16 -16 0 16 16 36'
-      t_Targetx = "!"
+      t_Targetx = !
     }
     item_phonebattery:form =
     {
-      t_item_phonebattery = "!"
+      t_item_phonebattery = !
     }
     t_item_key:incl =
     {
       bbox = '-16 -16 0 16 16 36'
-      t_Targetx = "!"
+      t_Targetx = !
       message: =
       {
         txt = "&"
@@ -15713,12 +15713,12 @@ QQRKSRC1
     }
     item_key:form =
     {
-      t_item_key = "!"
+      t_item_key = !
     }
     t_item_padlock:incl =
     {
       bbox = '-8 -8 0 8 8 16'
-      t_Targetname = "!"
+      t_Targetname = !
       message: =
       {
         txt = "&"
@@ -15732,19 +15732,19 @@ QQRKSRC1
     }
     item_padlock:form =
     {
-      t_item_padlock = "!"
+      t_item_padlock = !
     }
     t_boat:incl =
     {
-      t_MoveWith = "!"
+      t_MoveWith = !
     }
     boat:form =
     {
-      t_boat = "!"
+      t_boat = !
     }
     t_boat_exit:incl =
     {
-      t_MoveWith = "!"
+      t_MoveWith = !
       message: =
       {
         txt = "&"
@@ -15773,21 +15773,21 @@ QQRKSRC1
     }
     boat_exit:form =
     {
-      t_boat_exit = "!"
+      t_boat_exit = !
     }
     t_boat_hide_spot:incl =
     {
       bbox = '-8 -8 -8 8 8 8'
-      t_Targetname = "!"
-      t_MoveWith = "!"
+      t_Targetname = !
+      t_MoveWith = !
     }
     boat_hide_spot:form =
     {
-      t_boat_hide_spot = "!"
+      t_boat_hide_spot = !
     }
     t_cof_addcodenote:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       iuser1: =
       {
         txt = "&"
@@ -15799,12 +15799,12 @@ QQRKSRC1
     }
     cof_addcodenote:form =
     {
-      t_cof_addcodenote = "!"
+      t_cof_addcodenote = !
     }
     t_cof_barshoot:incl =
     {
-      t_MoveWith = "!"
-      t_RenderFields = "!"
+      t_MoveWith = !
+      t_RenderFields = !
       message: =
       {
         txt = "&"
@@ -15813,11 +15813,11 @@ QQRKSRC1
     }
     cof_barshoot:form =
     {
-      t_cof_barshoot = "!"
+      t_cof_barshoot = !
     }
     t_cof_begingame:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       spawnflags: =
       {
         txt = "&"
@@ -15827,11 +15827,11 @@ QQRKSRC1
     }
     cof_begingame:form =
     {
-      t_cof_begingame = "!"
+      t_cof_begingame = !
     }
     t_cof_billboard:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       message: =
       {
         txt = "&"
@@ -15850,11 +15850,11 @@ QQRKSRC1
     }
     cof_billboard:form =
     {
-      t_cof_billboard = "!"
+      t_cof_billboard = !
     }
     t_cof_blackandwhite:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       iuser1: =
       {
         txt = "&"
@@ -15863,11 +15863,11 @@ QQRKSRC1
     }
     cof_blackandwhite:form =
     {
-      t_cof_blackandwhite = "!"
+      t_cof_blackandwhite = !
     }
     t_cof_blur:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       rate: =
       {
         txt = "&"
@@ -15886,11 +15886,11 @@ QQRKSRC1
     }
     cof_blur:form =
     {
-      t_cof_blur = "!"
+      t_cof_blur = !
     }
     t_cof_bosshealthbar:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       message: =
       {
         txt = "&"
@@ -15909,12 +15909,12 @@ QQRKSRC1
     }
     cof_bosshealthbar:form =
     {
-      t_cof_bosshealthbar = "!"
+      t_cof_bosshealthbar = !
     }
     t_cof_burningbarrel:incl =
     {
       bbox = '-16 -16 0 16 16 36'
-      t_Targetname = "!"
+      t_Targetname = !
       model: =
       {
         txt = "&"
@@ -15931,12 +15931,12 @@ QQRKSRC1
     }
     cof_burningbarrel:form =
     {
-      t_cof_burningbarrel = "!"
+      t_cof_burningbarrel = !
     }
     t_cof_camerazoom:incl =
     {
       bbox = '-4 -4 -4 4 4 4'
-      t_Targetname = "!"
+      t_Targetname = !
       zoomfov: =
       {
         txt = "&"
@@ -15964,21 +15964,21 @@ QQRKSRC1
     }
     cof_camerazoom:form =
     {
-      t_cof_camerazoom = "!"
+      t_cof_camerazoom = !
     }
     t_cof_closeallvgui:incl =
     {
       bbox = '-4 -4 -4 4 4 4'
-      t_Targetname = "!"
+      t_Targetname = !
     }
     cof_closeallvgui:form =
     {
-      t_cof_closeallvgui = "!"
+      t_cof_closeallvgui = !
     }
     t_cof_changelevel:incl =
     {
       bbox = '-16 -16 0 16 16 36'
-      t_Targetname = "!"
+      t_Targetname = !
       message: =
       {
         txt = "&"
@@ -15987,12 +15987,12 @@ QQRKSRC1
     }
     cof_changelevel:form =
     {
-      t_cof_changelevel = "!"
+      t_cof_changelevel = !
     }
     t_cof_clothesmenu:incl =
     {
       bbox = '-4 -4 -4 4 4 4'
-      t_Targetname = "!"
+      t_Targetname = !
       cameraent: =
       {
         txt = "&"
@@ -16006,12 +16006,12 @@ QQRKSRC1
     }
     cof_clothesmenu:form =
     {
-      t_cof_clothesmenu = "!"
+      t_cof_clothesmenu = !
     }
     t_cof_chapter:incl =
     {
       bbox = '-16 -16 0 16 16 36'
-      t_Targetname = "!"
+      t_Targetname = !
       message: =
       {
         txt = "&"
@@ -16025,12 +16025,12 @@ QQRKSRC1
     }
     cof_chapter:form =
     {
-      t_cof_chapter = "!"
+      t_cof_chapter = !
     }
     t_cof_computer:incl =
     {
       bbox = '-16 -16 0 16 16 36'
-      t_Targetname = "!"
+      t_Targetname = !
       target: =
       {
         txt = "&"
@@ -16039,21 +16039,21 @@ QQRKSRC1
     }
     cof_computer:form =
     {
-      t_cof_computer = "!"
+      t_cof_computer = !
     }
     t_cof_coopgameover:incl =
     {
       bbox = '-4 -4 -4 4 4 4'
-      t_Targetname = "!"
+      t_Targetname = !
     }
     cof_coopgameover:form =
     {
-      t_cof_coopgameover = "!"
+      t_cof_coopgameover = !
     }
     t_cof_coop_spawn1:incl =
     {
       bbox = '-16 -16 -36 16 16 36'
-      t_Targetname = "!"
+      t_Targetname = !
       iuser1: =
       {
         txt = "&"
@@ -16065,12 +16065,12 @@ QQRKSRC1
     }
     cof_coop_spawn1:form =
     {
-      t_cof_coop_spawn1 = "!"
+      t_cof_coop_spawn1 = !
     }
     t_cof_coop_spawn2:incl =
     {
       bbox = '-16 -16 -36 16 16 36'
-      t_Targetname = "!"
+      t_Targetname = !
       iuser1: =
       {
         txt = "&"
@@ -16082,12 +16082,12 @@ QQRKSRC1
     }
     cof_coop_spawn2:form =
     {
-      t_cof_coop_spawn2 = "!"
+      t_cof_coop_spawn2 = !
     }
     t_cof_coop_spawn3:incl =
     {
       bbox = '-16 -16 -36 16 16 36'
-      t_Targetname = "!"
+      t_Targetname = !
       iuser1: =
       {
         txt = "&"
@@ -16099,12 +16099,12 @@ QQRKSRC1
     }
     cof_coop_spawn3:form =
     {
-      t_cof_coop_spawn3 = "!"
+      t_cof_coop_spawn3 = !
     }
     t_cof_coop_spawn4:incl =
     {
       bbox = '-16 -16 -36 16 16 36'
-      t_Targetname = "!"
+      t_Targetname = !
       iuser1: =
       {
         txt = "&"
@@ -16116,12 +16116,12 @@ QQRKSRC1
     }
     cof_coop_spawn4:form =
     {
-      t_cof_coop_spawn4 = "!"
+      t_cof_coop_spawn4 = !
     }
     t_cof_coop_stats:incl =
     {
       bbox = '-4 -4 -4 4 4 4'
-      t_Targetname = "!"
+      t_Targetname = !
       message: =
       {
         txt = "&"
@@ -16136,12 +16136,12 @@ QQRKSRC1
     }
     cof_coop_stats:form =
     {
-      t_cof_coop_stats = "!"
+      t_cof_coop_stats = !
     }
     t_cof_spawnpointonoff:incl =
     {
       bbox = '-4 -4 -4 4 4 4'
-      t_Targetname = "!"
+      t_Targetname = !
       message: =
       {
         txt = "&"
@@ -16164,11 +16164,11 @@ QQRKSRC1
     }
     cof_spawnpointonoff:form =
     {
-      t_cof_spawnpointonoff = "!"
+      t_cof_spawnpointonoff = !
     }
     t_cof_clearitems:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       message: =
       {
         txt = "&"
@@ -16195,11 +16195,11 @@ QQRKSRC1
     }
     cof_clearitems:form =
     {
-      t_cof_clearitems = "!"
+      t_cof_clearitems = !
     }
     t_cof_cracker:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       dmg: =
       {
         txt = "&"
@@ -16208,12 +16208,12 @@ QQRKSRC1
     }
     cof_cracker:form =
     {
-      t_cof_cracker = "!"
+      t_cof_cracker = !
     }
     t_cof_credits:incl =
     {
       bbox = '-4 -4 -4 4 4 4'
-      t_Targetname = "!"
+      t_Targetname = !
       message: =
       {
         txt = "&"
@@ -16245,12 +16245,12 @@ QQRKSRC1
     }
     cof_credits:form =
     {
-      t_cof_credits = "!"
+      t_cof_credits = !
     }
     t_cof_customiseplayer:incl =
     {
       bbox = '-4 -4 -4 4 4 4'
-      t_Targetname = "!"
+      t_Targetname = !
       player1: =
       {
         txt = "&"
@@ -16289,21 +16289,21 @@ QQRKSRC1
     }
     cof_customiseplayer:form =
     {
-      t_cof_customiseplayer = "!"
+      t_cof_customiseplayer = !
     }
     t_cof_deadcat:incl =
     {
       bbox = '-16 -16 0 16 16 16'
-      t_Targetname = "!"
+      t_Targetname = !
     }
     cof_deadcat:form =
     {
-      t_cof_deadcat = "!"
+      t_cof_deadcat = !
     }
     t_cof_developer_commentary:incl =
     {
       bbox = '-16 -16 0 16 16 36'
-      t_Targetname = "!"
+      t_Targetname = !
       model: =
       {
         txt = "&"
@@ -16344,19 +16344,19 @@ QQRKSRC1
     }
     cof_developer_commentary:form =
     {
-      t_cof_developer_commentary = "!"
+      t_cof_developer_commentary = !
     }
     t_cof_difficultysettings:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
     }
     cof_difficultysettings:form =
     {
-      t_cof_difficultysettings = "!"
+      t_cof_difficultysettings = !
     }
     t_cof_doctorweaponset:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       iuser1: =
       {
         txt = "&"
@@ -16368,11 +16368,11 @@ QQRKSRC1
     }
     cof_doctorweaponset:form =
     {
-      t_cof_doctorweaponset = "!"
+      t_cof_doctorweaponset = !
     }
     t_cof_doctorweapontrigger:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       target: =
       {
         txt = "&"
@@ -16386,11 +16386,11 @@ QQRKSRC1
     }
     cof_doctorweapontrigger:form =
     {
-      t_cof_doctorweapontrigger = "!"
+      t_cof_doctorweapontrigger = !
     }
     t_cof_document:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       page1: =
       {
         txt = "&"
@@ -16444,21 +16444,21 @@ QQRKSRC1
     }
     cof_document:form =
     {
-      t_cof_document = "!"
+      t_cof_document = !
     }
     t_cof_doctorshoot:incl =
     {
-      t_Targetname = "!"
-      t_RenderFields = "!"
+      t_Targetname = !
+      t_RenderFields = !
     }
     cof_doctorshoot:form =
     {
-      t_cof_doctorshoot = "!"
+      t_cof_doctorshoot = !
     }
     t_cof_ending:incl =
     {
-      t_Targetname = "!"
-      t_Target = "!"
+      t_Targetname = !
+      t_Target = !
       iuser1: =
       {
         txt = "&"
@@ -16470,12 +16470,12 @@ QQRKSRC1
     }
     cof_ending:form =
     {
-      t_cof_ending = "!"
+      t_cof_ending = !
     }
     t_cof_entityrestore:incl =
     {
-      t_Targetname = "!"
-      t_Target = "!"
+      t_Targetname = !
+      t_Target = !
       impulse: =
       {
         txt = "&"
@@ -16487,21 +16487,21 @@ QQRKSRC1
     }
     cof_entityrestore:form =
     {
-      t_cof_entityrestore = "!"
+      t_cof_entityrestore = !
     }
     t_cof_entteleport:incl =
     {
-      t_Targetname = "!"
-      t_Target = "!"
+      t_Targetname = !
+      t_Target = !
     }
     cof_entteleport:form =
     {
-      t_cof_entteleport = "!"
+      t_cof_entteleport = !
     }
     t_cof_fatfuckingcunt:incl =
     {
-      t_MoveWith = "!"
-      t_RenderFields = "!"
+      t_MoveWith = !
+      t_RenderFields = !
       message: =
       {
         txt = "&"
@@ -16510,11 +16510,11 @@ QQRKSRC1
     }
     cof_fatfuckingcunt:form =
     {
-      t_cof_fatfuckingcunt = "!"
+      t_cof_fatfuckingcunt = !
     }
     t_cof_giveitems:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       message: =
       {
         txt = "&"
@@ -16541,11 +16541,11 @@ QQRKSRC1
     }
     cof_giveitems:form =
     {
-      t_cof_giveitems = "!"
+      t_cof_giveitems = !
     }
     t_cof_goodpoints:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       impulse: =
       {
         txt = "&"
@@ -16557,11 +16557,11 @@ QQRKSRC1
     }
     cof_goodpoints:form =
     {
-      t_cof_goodpoints = "!"
+      t_cof_goodpoints = !
     }
     t_cof_goodpointstrigger:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       triggerone: =
       {
         txt = "&"
@@ -16590,11 +16590,11 @@ QQRKSRC1
     }
     cof_goodpointstrigger:form =
     {
-      t_cof_goodpointstrigger = "!"
+      t_cof_goodpointstrigger = !
     }
     t_cof_greyfade:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       iuser1: =
       {
         txt = "&"
@@ -16614,12 +16614,12 @@ QQRKSRC1
     }
     cof_greyfade:form =
     {
-      t_cof_greyfade = "!"
+      t_cof_greyfade = !
     }
     t_cof_hint:incl =
     {
-      t_Targetname = "!"
-      t_Target = "!"
+      t_Targetname = !
+      t_Target = !
       message: =
       {
         txt = "&"
@@ -16628,14 +16628,14 @@ QQRKSRC1
     }
     cof_hint:form =
     {
-      t_cof_hint = "!"
+      t_cof_hint = !
     }
     t_cof_hoodie:incl =
     {
-      t_Targetname = "!"
-      t_Angles = "!"
-      t_MoveWith = "!"
-      t_RenderFields = "!"
+      t_Targetname = !
+      t_Angles = !
+      t_MoveWith = !
+      t_RenderFields = !
       model: =
       {
         txt = "&"
@@ -16659,11 +16659,11 @@ QQRKSRC1
     }
     cof_hoodie:form =
     {
-      t_cof_hoodie = "!"
+      t_cof_hoodie = !
     }
     t_cof_interdooronoff:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       message: =
       {
         txt = "&"
@@ -16677,11 +16677,11 @@ QQRKSRC1
     }
     cof_interdooronoff:form =
     {
-      t_cof_interdooronoff = "!"
+      t_cof_interdooronoff = !
     }
     t_cof_introduction:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       iuser1: =
       {
         txt = "&"
@@ -16709,11 +16709,11 @@ QQRKSRC1
     }
     cof_introduction:form =
     {
-      t_cof_introduction = "!"
+      t_cof_introduction = !
     }
     t_cof_inter_door_exitchange:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       message: =
       {
         txt = "&"
@@ -16727,12 +16727,12 @@ QQRKSRC1
     }
     cof_inter_door_exitchange:form =
     {
-      t_cof_inter_door_exitchange = "!"
+      t_cof_inter_door_exitchange = !
     }
     t_cof_keypad:incl =
     {
-      t_Targetname = "!"
-      t_Targetx = "!"
+      t_Targetname = !
+      t_Targetx = !
       message: =
       {
         txt = "&"
@@ -16741,39 +16741,39 @@ QQRKSRC1
     }
     cof_keypad:form =
     {
-      t_cof_keypad = "!"
+      t_cof_keypad = !
     }
     t_cof_keypad2:incl =
     {
-      t_Targetname = "!"
-      t_Targetx = "!"
+      t_Targetname = !
+      t_Targetx = !
     }
     cof_keypad2:form =
     {
-      t_cof_keypad2 = "!"
+      t_cof_keypad2 = !
     }
     t_cof_keypad3:incl =
     {
-      t_Targetname = "!"
-      t_Targetx = "!"
+      t_Targetname = !
+      t_Targetx = !
     }
     cof_keypad3:form =
     {
-      t_cof_keypad3 = "!"
+      t_cof_keypad3 = !
     }
     t_cof_keypad4:incl =
     {
-      t_Targetname = "!"
-      t_Targetx = "!"
+      t_Targetname = !
+      t_Targetx = !
     }
     cof_keypad4:form =
     {
-      t_cof_keypad4 = "!"
+      t_cof_keypad4 = !
     }
     t_cof_keypadnew:incl =
     {
       bbox = '-8 -8 0 8 8 8'
-      t_Targetname = "!"
+      t_Targetname = !
       iuser1: =
       {
         txt = "&"
@@ -16810,11 +16810,11 @@ QQRKSRC1
     }
     cof_keypadnew:form =
     {
-      t_cof_keypadnew = "!"
+      t_cof_keypadnew = !
     }
     t_cof_killplayer:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       spawnflags: =
       {
         txt = "&"
@@ -16854,16 +16854,16 @@ QQRKSRC1
     }
     cof_killplayer:form =
     {
-      t_cof_killplayer = "!"
+      t_cof_killplayer = !
     }
     t_cof_mdlcutscene:incl =
     {
       bbox = '-8 -8 -8 8 8 8'
-      t_Targetname = "!"
-      t_RenderFxChoices = "!"
-      t_Targetx = "!"
-      t_Angles = "!"
-      t_Sequence = "!"
+      t_Targetname = !
+      t_RenderFxChoices = !
+      t_Targetx = !
+      t_Angles = !
+      t_Sequence = !
       model: =
       {
         txt = "&"
@@ -17066,12 +17066,12 @@ QQRKSRC1
     }
     cof_mdlcutscene:form =
     {
-      t_cof_mdlcutscene = "!"
+      t_cof_mdlcutscene = !
     }
     t_cof_monster_random_spawn:incl =
     {
       bbox = '-16 -16 0 16 16 72'
-      t_Angles = "!"
+      t_Angles = !
       model: =
       {
         txt = "&"
@@ -17112,33 +17112,33 @@ QQRKSRC1
     }
     cof_monster_random_spawn:form =
     {
-      t_cof_monster_random_spawn = "!"
+      t_cof_monster_random_spawn = !
     }
     t_cof_numeralplate_left:incl =
     {
-      t_Targetname = "!"
-      t_Angles = "!"
-      t_MoveWith = "!"
-      t_RenderFields = "!"
+      t_Targetname = !
+      t_Angles = !
+      t_MoveWith = !
+      t_RenderFields = !
     }
     cof_numeralplate_left:form =
     {
-      t_cof_numeralplate_left = "!"
+      t_cof_numeralplate_left = !
     }
     t_cof_numeralplate_right:incl =
     {
-      t_Targetname = "!"
-      t_Angles = "!"
-      t_MoveWith = "!"
-      t_RenderFields = "!"
+      t_Targetname = !
+      t_Angles = !
+      t_MoveWith = !
+      t_RenderFields = !
     }
     cof_numeralplate_right:form =
     {
-      t_cof_numeralplate_right = "!"
+      t_cof_numeralplate_right = !
     }
     t_cof_objective:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       message: =
       {
         txt = "&"
@@ -17152,12 +17152,12 @@ QQRKSRC1
     }
     cof_objective:form =
     {
-      t_cof_objective = "!"
+      t_cof_objective = !
     }
     t_cof_passwordnote:incl =
     {
-      t_Angles = "!"
-      t_RenderFields = "!"
+      t_Angles = !
+      t_RenderFields = !
       usertype: =
       {
         txt = "&"
@@ -17169,12 +17169,12 @@ QQRKSRC1
     }
     cof_passwordnote:form =
     {
-      t_cof_passwordnote = "!"
+      t_cof_passwordnote = !
     }
     t_cof_pushablevan:incl =
     {
-      t_Angles = "!"
-      t_RenderFields = "!"
+      t_Angles = !
+      t_RenderFields = !
       model: =
       {
         txt = "&"
@@ -17186,11 +17186,11 @@ QQRKSRC1
     }
     cof_pushablevan:form =
     {
-      t_cof_pushablevan = "!"
+      t_cof_pushablevan = !
     }
     t_cof_phonecall:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       target: =
       {
         txt = "&"
@@ -17532,31 +17532,31 @@ QQRKSRC1
     }
     cof_phonecall:form =
     {
-      t_cof_phonecall = "!"
+      t_cof_phonecall = !
     }
     t_cof_phonedisable:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
     }
     cof_phonedisable:form =
     {
-      t_cof_phonedisable = "!"
+      t_cof_phonedisable = !
     }
     t_cof_phonetrigger:incl =
     {
-      t_Targetname = "!"
-      t_Target = "!"
+      t_Targetname = !
+      t_Target = !
     }
     cof_phonetrigger:form =
     {
-      t_cof_phonetrigger = "!"
+      t_cof_phonetrigger = !
     }
     t_cof_puzzlebar:incl =
     {
       bbox = '-8 -8 0 8 8 32'
-      t_PlayerClass = "!"
-      t_Targetname = "!"
-      t_Targetx = "!"
+      t_PlayerClass = !
+      t_Targetname = !
+      t_Targetx = !
       iuser3: =
       {
         txt = "&"
@@ -17568,14 +17568,14 @@ QQRKSRC1
     }
     cof_puzzlebar:form =
     {
-      t_cof_puzzlebar = "!"
+      t_cof_puzzlebar = !
     }
     t_cof_puzzlebar2:incl =
     {
       bbox = '-8 -8 0 8 8 32'
-      t_PlayerClass = "!"
-      t_Targetname = "!"
-      t_Targetx = "!"
+      t_PlayerClass = !
+      t_Targetname = !
+      t_Targetx = !
       iuser3: =
       {
         txt = "&"
@@ -17587,14 +17587,14 @@ QQRKSRC1
     }
     cof_puzzlebar2:form =
     {
-      t_cof_puzzlebar2 = "!"
+      t_cof_puzzlebar2 = !
     }
     t_cof_puzzlebar3:incl =
     {
       bbox = '-8 -8 0 8 8 32'
-      t_PlayerClass = "!"
-      t_Targetname = "!"
-      t_Targetx = "!"
+      t_PlayerClass = !
+      t_Targetname = !
+      t_Targetx = !
       iuser3: =
       {
         txt = "&"
@@ -17606,14 +17606,14 @@ QQRKSRC1
     }
     cof_puzzlebar3:form =
     {
-      t_cof_puzzlebar3 = "!"
+      t_cof_puzzlebar3 = !
     }
     t_cof_puzzlebar4:incl =
     {
       bbox = '-8 -8 0 8 8 32'
-      t_PlayerClass = "!"
-      t_Targetname = "!"
-      t_Targetx = "!"
+      t_PlayerClass = !
+      t_Targetname = !
+      t_Targetx = !
       iuser3: =
       {
         txt = "&"
@@ -17625,14 +17625,14 @@ QQRKSRC1
     }
     cof_puzzlebar4:form =
     {
-      t_cof_puzzlebar4 = "!"
+      t_cof_puzzlebar4 = !
     }
     t_cof_puzzlebar5:incl =
     {
       bbox = '-8 -8 0 8 8 32'
-      t_PlayerClass = "!"
-      t_Targetname = "!"
-      t_Targetx = "!"
+      t_PlayerClass = !
+      t_Targetname = !
+      t_Targetx = !
       iuser3: =
       {
         txt = "&"
@@ -17644,11 +17644,11 @@ QQRKSRC1
     }
     cof_puzzlebar5:form =
     {
-      t_cof_puzzlebar5 = "!"
+      t_cof_puzzlebar5 = !
     }
     t_cof_puzzlebarbutton:incl =
     {
-      t_RenderFields = "!"
+      t_RenderFields = !
       message: =
       {
         txt = "&"
@@ -17662,12 +17662,12 @@ QQRKSRC1
     }
     cof_puzzlebarbutton:form =
     {
-      t_cof_puzzlebarbutton = "!"
+      t_cof_puzzlebarbutton = !
     }
     t_cof_randomtimedspawner:incl =
     {
       bbox = '-4 -4 -4 4 4 4'
-      t_Targetname = "!"
+      t_Targetname = !
       target: =
       {
         txt = "&"
@@ -17699,11 +17699,11 @@ QQRKSRC1
     }
     cof_randomtimedspawner:form =
     {
-      t_cof_randomtimedspawner = "!"
+      t_cof_randomtimedspawner = !
     }
     t_cof_simonspeak:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       noise: =
       {
         txt = "&"
@@ -17726,12 +17726,12 @@ QQRKSRC1
     }
     cof_simonspeak:form =
     {
-      t_cof_simonspeak = "!"
+      t_cof_simonspeak = !
     }
     t_cof_simpletext:incl =
     {
       bbox = '-4 -4 -4 4 4 4'
-      t_Targetname = "!"
+      t_Targetname = !
       message: =
       {
         txt = "&"
@@ -17754,11 +17754,11 @@ QQRKSRC1
     }
     cof_simpletext:form =
     {
-      t_cof_simpletext = "!"
+      t_cof_simpletext = !
     }
     t_cof_skipmanager:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       entity: =
       {
         txt = "&"
@@ -17802,11 +17802,11 @@ QQRKSRC1
     }
     cof_skipmanager:form =
     {
-      t_cof_skipmanager = "!"
+      t_cof_skipmanager = !
     }
     t_cof_slowmotion:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       health: =
       {
         txt = "&"
@@ -17815,35 +17815,35 @@ QQRKSRC1
     }
     cof_slowmotion:form =
     {
-      t_cof_slowmotion = "!"
+      t_cof_slowmotion = !
     }
     t_cof_startdoctormode:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
     }
     cof_startdoctormode:form =
     {
-      t_cof_startdoctormode = "!"
+      t_cof_startdoctormode = !
     }
     t_cof_stats:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
     }
     cof_stats:form =
     {
-      t_cof_stats = "!"
+      t_cof_stats = !
     }
     t_cof_stopwheelchair:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
     }
     cof_stopwheelchair:form =
     {
-      t_cof_stopwheelchair = "!"
+      t_cof_stopwheelchair = !
     }
     t_cof_strangle:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       target: =
       {
         txt = "&"
@@ -17857,19 +17857,19 @@ QQRKSRC1
     }
     cof_strangle:form =
     {
-      t_cof_strangle = "!"
+      t_cof_strangle = !
     }
     t_cof_stresstest:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
     }
     cof_stresstest:form =
     {
-      t_cof_stresstest = "!"
+      t_cof_stresstest = !
     }
     t_cof_survivalmode:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       message: =
       {
         txt = "&"
@@ -17888,11 +17888,11 @@ QQRKSRC1
     }
     cof_survivalmode:form =
     {
-      t_cof_survivalmode = "!"
+      t_cof_survivalmode = !
     }
     t_cof_updatekeypad:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       message: =
       {
         txt = "&"
@@ -17901,11 +17901,11 @@ QQRKSRC1
     }
     cof_updatekeypad:form =
     {
-      t_cof_updatekeypad = "!"
+      t_cof_updatekeypad = !
     }
     t_cof_telephone:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       target: =
       {
         txt = "&"
@@ -17914,11 +17914,11 @@ QQRKSRC1
     }
     cof_telephone:form =
     {
-      t_cof_telephone = "!"
+      t_cof_telephone = !
     }
     t_cof_telescope:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       message: =
       {
         txt = "&"
@@ -17927,19 +17927,19 @@ QQRKSRC1
     }
     cof_telescope:form =
     {
-      t_cof_telescope = "!"
+      t_cof_telescope = !
     }
     t_cof_telescope_camera:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
     }
     cof_telescope_camera:form =
     {
-      t_cof_telescope_camera = "!"
+      t_cof_telescope_camera = !
     }
     t_cof_killmp3:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       frags: =
       {
         txt = "&"
@@ -17951,11 +17951,11 @@ QQRKSRC1
     }
     cof_killmp3:form =
     {
-      t_cof_killmp3 = "!"
+      t_cof_killmp3 = !
     }
     t_cof_telescope_cancel:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       message: =
       {
         txt = "&"
@@ -17964,11 +17964,11 @@ QQRKSRC1
     }
     cof_telescope_cancel:form =
     {
-      t_cof_telescope_cancel = "!"
+      t_cof_telescope_cancel = !
     }
     t_cof_ladderclimb:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       iuser1: =
       {
         txt = "&"
@@ -17980,17 +17980,17 @@ QQRKSRC1
     }
     cof_ladderclimb:form =
     {
-      t_cof_ladderclimb = "!"
+      t_cof_ladderclimb = !
     }
     t_cof_ladder_manager:incl =
     {
       bbox = '-16 -16 0 16 16 72'
-      t_Targetname = "!"
-      t_Targetx = "!"
-      t_Angles = "!"
-      t_MoveWith = "!"
-      t_RenderFields = "!"
-      t_Sequence = "!"
+      t_Targetname = !
+      t_Targetx = !
+      t_Angles = !
+      t_MoveWith = !
+      t_RenderFields = !
+      t_Sequence = !
       model: =
       {
         txt = "&"
@@ -18187,12 +18187,12 @@ QQRKSRC1
     }
     cof_ladder_manager:form =
     {
-      t_cof_ladder_manager = "!"
+      t_cof_ladder_manager = !
     }
     t_cof_ladder_manager_use:incl =
     {
-      t_Targetname = "!"
-      t_RenderFields = "!"
+      t_Targetname = !
+      t_RenderFields = !
       spawnflags: =
       {
         txt = "&"
@@ -18215,19 +18215,19 @@ QQRKSRC1
     }
     cof_ladder_manager_use:form =
     {
-      t_cof_ladder_manager_use = "!"
+      t_cof_ladder_manager_use = !
     }
     t_cof_lensflare:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
     }
     cof_lensflare:form =
     {
-      t_cof_lensflare = "!"
+      t_cof_lensflare = !
     }
     t_cof_leveltrigger:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       message: =
       {
         txt = "&"
@@ -18241,11 +18241,11 @@ QQRKSRC1
     }
     cof_leveltrigger:form =
     {
-      t_cof_leveltrigger = "!"
+      t_cof_leveltrigger = !
     }
     t_cof_lobby_start:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       message: =
       {
         txt = "&"
@@ -18254,11 +18254,11 @@ QQRKSRC1
     }
     cof_lobby_start:form =
     {
-      t_cof_lobby_start = "!"
+      t_cof_lobby_start = !
     }
     t_cof_logo:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       frags: =
       {
         txt = "&"
@@ -18271,11 +18271,11 @@ QQRKSRC1
     }
     cof_logo:form =
     {
-      t_cof_logo = "!"
+      t_cof_logo = !
     }
     t_cof_lookat:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       fuser1: =
       {
         txt = "&"
@@ -18284,11 +18284,11 @@ QQRKSRC1
     }
     cof_lookat:form =
     {
-      t_cof_lookat = "!"
+      t_cof_lookat = !
     }
     t_cof_maxhealthchange:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       impulse: =
       {
         txt = "&"
@@ -18300,12 +18300,12 @@ QQRKSRC1
     }
     cof_maxhealthchange:form =
     {
-      t_cof_maxhealthchange = "!"
+      t_cof_maxhealthchange = !
     }
     t_cof_phonecheck:incl =
     {
-      t_Targetname = "!"
-      t_Target = "!"
+      t_Targetname = !
+      t_Target = !
       impulse: =
       {
         txt = "&"
@@ -18344,11 +18344,11 @@ QQRKSRC1
     }
     cof_phonecheck:form =
     {
-      t_cof_phonecheck = "!"
+      t_cof_phonecheck = !
     }
     t_cof_playerbreathetoggle:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       frags: =
       {
         txt = "&"
@@ -18360,20 +18360,20 @@ QQRKSRC1
     }
     cof_playerbreathetoggle:form =
     {
-      t_cof_playerbreathetoggle = "!"
+      t_cof_playerbreathetoggle = !
     }
     t_cof_serversettings:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
     }
     cof_serversettings:form =
     {
-      t_cof_serversettings = "!"
+      t_cof_serversettings = !
     }
     t_cof_speedchange:incl =
     {
-      t_Targetname = "!"
-      t_Target = "!"
+      t_Targetname = !
+      t_Target = !
       speed: =
       {
         txt = "&"
@@ -18382,11 +18382,11 @@ QQRKSRC1
     }
     cof_speedchange:form =
     {
-      t_cof_speedchange = "!"
+      t_cof_speedchange = !
     }
     t_cof_teleport:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       target: =
       {
         txt = "&"
@@ -18400,11 +18400,11 @@ QQRKSRC1
     }
     cof_teleport:form =
     {
-      t_cof_teleport = "!"
+      t_cof_teleport = !
     }
     t_cof_trainprop:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       iuser1: =
       {
         txt = "&"
@@ -18432,20 +18432,20 @@ QQRKSRC1
     }
     cof_trainprop:form =
     {
-      t_cof_trainprop = "!"
+      t_cof_trainprop = !
     }
     t_cof_triggeron:incl =
     {
-      t_Targetname = "!"
-      t_Target = "!"
+      t_Targetname = !
+      t_Target = !
     }
     cof_triggeron:form =
     {
-      t_cof_triggeron = "!"
+      t_cof_triggeron = !
     }
     t_cof_yesno:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       spawnflags: =
       {
         txt = "&"
@@ -18506,11 +18506,11 @@ QQRKSRC1
     }
     cof_yesno:form =
     {
-      t_cof_yesno = "!"
+      t_cof_yesno = !
     }
     t_cof_weaponswitch:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       message: =
       {
         txt = "&"
@@ -18519,11 +18519,11 @@ QQRKSRC1
     }
     cof_weaponswitch:form =
     {
-      t_cof_weaponswitch = "!"
+      t_cof_weaponswitch = !
     }
     t_cof_weapontrigger:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       message: =
       {
         txt = "&"
@@ -18542,11 +18542,11 @@ QQRKSRC1
     }
     cof_weapontrigger:form =
     {
-      t_cof_weapontrigger = "!"
+      t_cof_weapontrigger = !
     }
     t_cof_wheelchairmode:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       message: =
       {
         txt = "&"
@@ -18555,13 +18555,13 @@ QQRKSRC1
     }
     cof_wheelchairmode:form =
     {
-      t_cof_wheelchairmode = "!"
+      t_cof_wheelchairmode = !
     }
     t_cutscene_model:incl =
     {
       bbox = '-8 -8 0 8 8 16'
-      t_RenderFields = "!"
-      t_Targetname = "!"
+      t_RenderFields = !
+      t_Targetname = !
       spawnflags: =
       {
         txt = "&"
@@ -18729,11 +18729,11 @@ QQRKSRC1
     }
     cutscene_model:form =
     {
-      t_cutscene_model = "!"
+      t_cutscene_model = !
     }
     t_dripper:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       fuser1: =
       {
         txt = "&"
@@ -18742,14 +18742,14 @@ QQRKSRC1
     }
     dripper:form =
     {
-      t_dripper = "!"
+      t_dripper = !
     }
     t_func_fogfield:incl =
     {
-      t_Targetname = "!"
-      t_MoveWith = "!"
-      t_RenderFields = "!"
-      t_ZHLTLightKeys = "!"
+      t_Targetname = !
+      t_MoveWith = !
+      t_RenderFields = !
+      t_ZHLTLightKeys = !
       _minlight: =
       {
         txt = "&"
@@ -18772,11 +18772,11 @@ QQRKSRC1
     }
     func_fogfield:form =
     {
-      t_func_fogfield = "!"
+      t_func_fogfield = !
     }
     t_func_timer:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       iuser1: =
       {
         txt = "&"
@@ -18788,14 +18788,14 @@ QQRKSRC1
     }
     func_timer:form =
     {
-      t_func_timer = "!"
+      t_func_timer = !
     }
     t_func_trainbutts:incl =
     {
-      t_Targetname = "!"
-      t_MoveWith = "!"
-      t_RenderFields = "!"
-      t_ZHLTLightKeys = "!"
+      t_Targetname = !
+      t_MoveWith = !
+      t_RenderFields = !
+      t_ZHLTLightKeys = !
       iuser1: =
       {
         txt = "&"
@@ -18817,23 +18817,23 @@ QQRKSRC1
     }
     func_trainbutts:form =
     {
-      t_func_trainbutts = "!"
+      t_func_trainbutts = !
     }
     t_info_roofboss_target:incl =
     {
       bbox = '-4 -4 -4 4 4 4'
-      t_Targetname = "!"
-      t_MoveWith = "!"
+      t_Targetname = !
+      t_MoveWith = !
     }
     info_roofboss_target:form =
     {
-      t_info_roofboss_target = "!"
+      t_info_roofboss_target = !
     }
     t_real_camera:incl =
     {
       bbox = '-32 -32 0 32 32 72'
-      t_PlayerClass = "!"
-      t_Targetname = "!"
+      t_PlayerClass = !
+      t_Targetname = !
       message: =
       {
         txt = "&"
@@ -18842,15 +18842,15 @@ QQRKSRC1
     }
     real_camera:form =
     {
-      t_real_camera = "!"
+      t_real_camera = !
     }
     t_statue_eagle:incl =
     {
-      t_Targetname = "!"
-      t_Angles = "!"
-      t_MoveWith = "!"
-      t_RenderFields = "!"
-      t_Sequence = "!"
+      t_Targetname = !
+      t_Angles = !
+      t_MoveWith = !
+      t_RenderFields = !
+      t_Sequence = !
       startpos: =
       {
         txt = "&"
@@ -18862,15 +18862,15 @@ QQRKSRC1
     }
     statue_eagle:form =
     {
-      t_statue_eagle = "!"
+      t_statue_eagle = !
     }
     t_statue_horse:incl =
     {
-      t_Targetname = "!"
-      t_Angles = "!"
-      t_MoveWith = "!"
-      t_RenderFields = "!"
-      t_Sequence = "!"
+      t_Targetname = !
+      t_Angles = !
+      t_MoveWith = !
+      t_RenderFields = !
+      t_Sequence = !
       startpos: =
       {
         txt = "&"
@@ -18882,15 +18882,15 @@ QQRKSRC1
     }
     statue_horse:form =
     {
-      t_statue_horse = "!"
+      t_statue_horse = !
     }
     t_statue_lion:incl =
     {
-      t_Targetname = "!"
-      t_Angles = "!"
-      t_MoveWith = "!"
-      t_RenderFields = "!"
-      t_Sequence = "!"
+      t_Targetname = !
+      t_Angles = !
+      t_MoveWith = !
+      t_RenderFields = !
+      t_Sequence = !
       startpos: =
       {
         txt = "&"
@@ -18902,15 +18902,15 @@ QQRKSRC1
     }
     statue_lion:form =
     {
-      t_statue_lion = "!"
+      t_statue_lion = !
     }
     t_statue_owl:incl =
     {
-      t_Targetname = "!"
-      t_Angles = "!"
-      t_MoveWith = "!"
-      t_RenderFields = "!"
-      t_Sequence = "!"
+      t_Targetname = !
+      t_Angles = !
+      t_MoveWith = !
+      t_RenderFields = !
+      t_Sequence = !
       startpos: =
       {
         txt = "&"
@@ -18922,20 +18922,20 @@ QQRKSRC1
     }
     statue_owl:form =
     {
-      t_statue_owl = "!"
+      t_statue_owl = !
     }
     t_statue_puzzle_complete:incl =
     {
-      t_Targetname = "!"
-      t_Target = "!"
+      t_Targetname = !
+      t_Target = !
     }
     statue_puzzle_complete:form =
     {
-      t_statue_puzzle_complete = "!"
+      t_statue_puzzle_complete = !
     }
     t_subtitle_main:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       linenumber: =
       {
         txt = "&"
@@ -18944,14 +18944,14 @@ QQRKSRC1
     }
     subtitle_main:form =
     {
-      t_subtitle_main = "!"
+      t_subtitle_main = !
     }
     t_subtitle_linechange:incl =
     {
       bbox = '-4 -4 -4 4 4 4'
-      t_Targetname = "!"
-      t_Angles = "!"
-      t_MoveWith = "!"
+      t_Targetname = !
+      t_Angles = !
+      t_MoveWith = !
       linechange: =
       {
         txt = "&"
@@ -18960,11 +18960,11 @@ QQRKSRC1
     }
     subtitle_linechange:form =
     {
-      t_subtitle_linechange = "!"
+      t_subtitle_linechange = !
     }
     t_subtitle_multiple:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       subtitlenumber1: =
       {
         txt = "&"
@@ -19288,14 +19288,14 @@ QQRKSRC1
     }
     subtitle_multiple:form =
     {
-      t_subtitle_multiple = "!"
+      t_subtitle_multiple = !
     }
     t_tape_recorder:incl =
     {
-      t_Targetname = "!"
-      t_Angles = "!"
-      t_MoveWith = "!"
-      t_RenderFields = "!"
+      t_Targetname = !
+      t_Angles = !
+      t_MoveWith = !
+      t_RenderFields = !
       model: =
       {
         txt = "&"
@@ -19339,12 +19339,12 @@ QQRKSRC1
     }
     tape_recorder:form =
     {
-      t_tape_recorder = "!"
+      t_tape_recorder = !
     }
     t_trigger_checkbrush:incl =
     {
-      t_Targetname = "!"
-      t_RenderFields = "!"
+      t_Targetname = !
+      t_RenderFields = !
       message: =
       {
         txt = "&"
@@ -19369,13 +19369,13 @@ QQRKSRC1
     }
     trigger_checkbrush:form =
     {
-      t_trigger_checkbrush = "!"
+      t_trigger_checkbrush = !
     }
     t_trigger_statueuse:incl =
     {
-      t_Targetname = "!"
-      t_RenderFields = "!"
-      t_Master = "!"
+      t_Targetname = !
+      t_RenderFields = !
+      t_Master = !
       statuetype: =
       {
         txt = "&"
@@ -19387,12 +19387,12 @@ QQRKSRC1
     }
     trigger_statueuse:form =
     {
-      t_trigger_statueuse = "!"
+      t_trigger_statueuse = !
     }
     t_trigger_subwaywall:incl =
     {
-      t_Targetname = "!"
-      t_RenderFields = "!"
+      t_Targetname = !
+      t_RenderFields = !
       target: =
       {
         txt = "&"
@@ -19421,14 +19421,14 @@ QQRKSRC1
     }
     trigger_subwaywall:form =
     {
-      t_trigger_subwaywall = "!"
+      t_trigger_subwaywall = !
     }
     t_weapon_axe:incl =
     {
       bbox = '-16 -16 -5 16 16 27'
-      t_Weapon = "!"
-      t_Targetx = "!"
-      t_RenderFields = "!"
+      t_Weapon = !
+      t_Targetx = !
+      t_RenderFields = !
       spawnflags: =
       {
         txt = "&"
@@ -19438,36 +19438,36 @@ QQRKSRC1
     }
     weapon_axe:form =
     {
-      t_weapon_axe = "!"
+      t_weapon_axe = !
     }
     t_weapon_booklaser:incl =
     {
       bbox = '-16 -16 -5 16 16 27'
-      t_Weapon = "!"
-      t_Targetx = "!"
-      t_RenderFields = "!"
+      t_Weapon = !
+      t_Targetx = !
+      t_RenderFields = !
     }
     weapon_booklaser:form =
     {
-      t_weapon_booklaser = "!"
+      t_weapon_booklaser = !
     }
     t_weapon_branch:incl =
     {
       bbox = '-16 -16 -5 16 16 27'
-      t_Weapon = "!"
-      t_Targetx = "!"
-      t_RenderFields = "!"
+      t_Weapon = !
+      t_Targetx = !
+      t_RenderFields = !
     }
     weapon_branch:form =
     {
-      t_weapon_branch = "!"
+      t_weapon_branch = !
     }
     t_weapon_camera:incl =
     {
       bbox = '-16 -16 -5 16 16 27'
-      t_Weapon = "!"
-      t_Targetx = "!"
-      t_RenderFields = "!"
+      t_Weapon = !
+      t_Targetx = !
+      t_RenderFields = !
       spawnflags: =
       {
         txt = "&"
@@ -19477,208 +19477,208 @@ QQRKSRC1
     }
     weapon_camera:form =
     {
-      t_weapon_camera = "!"
+      t_weapon_camera = !
     }
     t_weapon_famas:incl =
     {
       bbox = '-16 -16 -5 16 16 27'
-      t_Weapon = "!"
-      t_Targetx = "!"
-      t_RenderFields = "!"
+      t_Weapon = !
+      t_Targetx = !
+      t_RenderFields = !
     }
     weapon_famas:form =
     {
-      t_weapon_famas = "!"
+      t_weapon_famas = !
     }
     t_weapon_flashlight:incl =
     {
       bbox = '-16 -16 -5 16 16 27'
-      t_Weapon = "!"
-      t_Targetx = "!"
-      t_RenderFields = "!"
+      t_Weapon = !
+      t_Targetx = !
+      t_RenderFields = !
     }
     weapon_flashlight:form =
     {
-      t_weapon_flashlight = "!"
+      t_weapon_flashlight = !
     }
     t_weapon_flare:incl =
     {
       bbox = '-16 -16 -5 16 16 27'
-      t_Weapon = "!"
-      t_Targetx = "!"
-      t_RenderFields = "!"
+      t_Weapon = !
+      t_Targetx = !
+      t_RenderFields = !
     }
     weapon_flare:form =
     {
-      t_weapon_flare = "!"
+      t_weapon_flare = !
     }
     t_weapon_lantern:incl =
     {
       bbox = '-16 -16 -5 16 16 27'
-      t_Weapon = "!"
-      t_Targetx = "!"
-      t_RenderFields = "!"
+      t_Weapon = !
+      t_Targetx = !
+      t_RenderFields = !
     }
     weapon_lantern:form =
     {
-      t_weapon_lantern = "!"
+      t_weapon_lantern = !
     }
     t_weapon_m16:incl =
     {
       bbox = '-16 -16 -5 16 16 27'
-      t_Weapon = "!"
-      t_Targetx = "!"
-      t_RenderFields = "!"
+      t_Weapon = !
+      t_Targetx = !
+      t_RenderFields = !
     }
     weapon_m16:form =
     {
-      t_weapon_m16 = "!"
+      t_weapon_m16 = !
     }
     t_weapon_mobile:incl =
     {
       bbox = '-16 -16 -5 16 16 27'
-      t_Weapon = "!"
-      t_Targetx = "!"
-      t_RenderFields = "!"
+      t_Weapon = !
+      t_Targetx = !
+      t_RenderFields = !
     }
     weapon_mobile:form =
     {
-      t_weapon_mobile = "!"
+      t_weapon_mobile = !
     }
     t_weapon_nightstick:incl =
     {
       bbox = '-16 -16 -5 16 16 27'
-      t_Weapon = "!"
-      t_Targetx = "!"
-      t_RenderFields = "!"
+      t_Weapon = !
+      t_Targetx = !
+      t_RenderFields = !
     }
     weapon_nightstick:form =
     {
-      t_weapon_nightstick = "!"
+      t_weapon_nightstick = !
     }
     t_weapon_p345:incl =
     {
       bbox = '-16 -16 -5 16 16 27'
-      t_Weapon = "!"
-      t_Targetx = "!"
-      t_RenderFields = "!"
+      t_Weapon = !
+      t_Targetx = !
+      t_RenderFields = !
     }
     weapon_p345:form =
     {
-      t_weapon_p345 = "!"
+      t_weapon_p345 = !
     }
     t_weapon_revolver:incl =
     {
       bbox = '-16 -16 -5 16 16 27'
-      t_Weapon = "!"
-      t_Targetx = "!"
-      t_RenderFields = "!"
+      t_Weapon = !
+      t_Targetx = !
+      t_RenderFields = !
     }
     weapon_revolver:form =
     {
-      t_weapon_revolver = "!"
+      t_weapon_revolver = !
     }
     t_weapon_rifle:incl =
     {
       bbox = '-16 -16 -5 16 16 27'
-      t_Weapon = "!"
-      t_Targetx = "!"
-      t_RenderFields = "!"
+      t_Weapon = !
+      t_Targetx = !
+      t_RenderFields = !
     }
     weapon_rifle:form =
     {
-      t_weapon_rifle = "!"
+      t_weapon_rifle = !
     }
     t_weapon_shotgun:incl =
     {
       bbox = '-16 -16 -5 16 16 27'
-      t_Weapon = "!"
-      t_Targetx = "!"
-      t_RenderFields = "!"
+      t_Weapon = !
+      t_Targetx = !
+      t_RenderFields = !
     }
     weapon_shotgun:form =
     {
-      t_weapon_shotgun = "!"
+      t_weapon_shotgun = !
     }
     t_weapon_sledgehammer:incl =
     {
       bbox = '-16 -16 -5 16 16 27'
-      t_Weapon = "!"
-      t_Targetx = "!"
-      t_RenderFields = "!"
+      t_Weapon = !
+      t_Targetx = !
+      t_RenderFields = !
     }
     weapon_sledgehammer:form =
     {
-      t_weapon_sledgehammer = "!"
+      t_weapon_sledgehammer = !
     }
     t_weapon_syringe:incl =
     {
       bbox = '-16 -16 -5 16 16 27'
-      t_Weapon = "!"
-      t_Targetx = "!"
-      t_RenderFields = "!"
+      t_Weapon = !
+      t_Targetx = !
+      t_RenderFields = !
     }
     weapon_syringe:form =
     {
-      t_weapon_syringe = "!"
+      t_weapon_syringe = !
     }
     t_weapon_switchblade:incl =
     {
       bbox = '-16 -16 -5 16 16 27'
-      t_Weapon = "!"
-      t_Targetx = "!"
-      t_RenderFields = "!"
+      t_Weapon = !
+      t_Targetx = !
+      t_RenderFields = !
     }
     weapon_switchblade:form =
     {
-      t_weapon_switchblade = "!"
+      t_weapon_switchblade = !
     }
     t_weapon_tmp:incl =
     {
       bbox = '-16 -16 -5 16 16 27'
-      t_Weapon = "!"
-      t_Targetx = "!"
-      t_RenderFields = "!"
+      t_Weapon = !
+      t_Targetx = !
+      t_RenderFields = !
     }
     weapon_tmp:form =
     {
-      t_weapon_tmp = "!"
+      t_weapon_tmp = !
     }
     t_weapon_vp70:incl =
     {
       bbox = '-16 -16 -5 16 16 27'
-      t_Weapon = "!"
-      t_Targetx = "!"
-      t_RenderFields = "!"
+      t_Weapon = !
+      t_Targetx = !
+      t_RenderFields = !
     }
     weapon_vp70:form =
     {
-      t_weapon_vp70 = "!"
+      t_weapon_vp70 = !
     }
     t_weapon_glock:incl =
     {
       bbox = '-16 -16 -5 16 16 27'
-      t_Weapon = "!"
-      t_Targetx = "!"
-      t_RenderFields = "!"
+      t_Weapon = !
+      t_Targetx = !
+      t_RenderFields = !
     }
     weapon_glock:form =
     {
-      t_weapon_glock = "!"
+      t_weapon_glock = !
     }
     t_info_simon_spawnpoint:incl =
     {
-      t_PlayerClass = "!"
-      t_MoveWith = "!"
-      t_Sequence = "!"
+      t_PlayerClass = !
+      t_MoveWith = !
+      t_Sequence = !
     }
     info_simon_spawnpoint:form =
     {
-      t_info_simon_spawnpoint = "!"
+      t_info_simon_spawnpoint = !
     }
     t_trigger_booksimon:incl =
     {
-      t_Targetx = "!"
+      t_Targetx = !
       message: =
       {
         txt = "&"
@@ -19692,13 +19692,13 @@ QQRKSRC1
     }
     trigger_booksimon:form =
     {
-      t_trigger_booksimon = "!"
+      t_trigger_booksimon = !
     }
     t_monster_twitcher:incl =
     {
       bbox = '-16 -16 0 16 16 72'
-      t_Monster = "!"
-      t_Sequence = "!"
+      t_Monster = !
+      t_Sequence = !
       body: =
       {
         txt = "&"
@@ -19712,13 +19712,13 @@ QQRKSRC1
     }
     monster_twitcher:form =
     {
-      t_monster_twitcher = "!"
+      t_monster_twitcher = !
     }
     t_monster_twitcher2:incl =
     {
       bbox = '-16 -16 0 16 16 72'
-      t_Monster = "!"
-      t_Sequence = "!"
+      t_Monster = !
+      t_Sequence = !
       body: =
       {
         txt = "&"
@@ -19732,13 +19732,13 @@ QQRKSRC1
     }
     monster_twitcher2:form =
     {
-      t_monster_twitcher2 = "!"
+      t_monster_twitcher2 = !
     }
     t_monster_twitcher3:incl =
     {
       bbox = '-16 -16 0 16 16 72'
-      t_Monster = "!"
-      t_Sequence = "!"
+      t_Monster = !
+      t_Sequence = !
       body: =
       {
         txt = "&"
@@ -19752,13 +19752,13 @@ QQRKSRC1
     }
     monster_twitcher3:form =
     {
-      t_monster_twitcher3 = "!"
+      t_monster_twitcher3 = !
     }
     t_monster_twitcher4:incl =
     {
       bbox = '-16 -16 0 16 16 72'
-      t_Monster = "!"
-      t_Sequence = "!"
+      t_Monster = !
+      t_Sequence = !
       body: =
       {
         txt = "&"
@@ -19772,16 +19772,16 @@ QQRKSRC1
     }
     monster_twitcher4:form =
     {
-      t_monster_twitcher4 = "!"
+      t_monster_twitcher4 = !
     }
     t_aom_pills:incl =
     {
       bbox = '-16 -16 0 16 16 16'
-      t_Targetname = "!"
+      t_Targetname = !
     }
     aom_pills:form =
     {
-      t_aom_pills = "!"
+      t_aom_pills = !
     }
   }
 }

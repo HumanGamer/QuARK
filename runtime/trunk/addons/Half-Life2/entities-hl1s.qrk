@@ -1049,7 +1049,7 @@ QQRKSRC1
   {
     t_TalkNPC:incl =
     {
-      t_BaseNPC = "!"
+      t_BaseNPC = !
       UseSentence: =
       {
         txt = "&"
@@ -1063,7 +1063,7 @@ QQRKSRC1
     }
     t_RappelNPC:incl =
     {
-      t_BaseNPC = "!"
+      t_BaseNPC = !
       waitingtorappel: =
       {
         txt = "&"
@@ -1085,18 +1085,18 @@ QQRKSRC1
     }
     t_monster_ichthyosaur:incl =
     {
-      t_BaseNPC = "!"
+      t_BaseNPC = !
     }
     monster_ichthyosaur:form =
     {
-      t_monster_ichthyosaur = "!"
+      t_monster_ichthyosaur = !
     }
     t_func_wall:incl =
     {
-      t_Targetname = "!"
-      t_RenderFields = "!"
-      t_Global = "!"
-      t_Shadow = "!"
+      t_Targetname = !
+      t_RenderFields = !
+      t_Global = !
+      t_Shadow = !
       _minlight: =
       {
         txt = "&"
@@ -1110,12 +1110,12 @@ QQRKSRC1
     }
     func_wall:form =
     {
-      t_func_wall = "!"
+      t_func_wall = !
     }
     t_func_pushable:incl =
     {
-      t_Breakable = "!"
-      t_RenderFields = "!"
+      t_Breakable = !
+      t_RenderFields = !
       size: =
       {
         txt = "&"
@@ -1148,19 +1148,19 @@ QQRKSRC1
     }
     func_pushable:form =
     {
-      t_func_pushable = "!"
+      t_func_pushable = !
     }
     t_func_ladder:incl =
     {
     }
     func_ladder:form =
     {
-      t_func_ladder = "!"
+      t_func_ladder = !
     }
     t_func_mortar_field:incl =
     {
-      t_Targetname = "!"
-      t_Origin = "!"
+      t_Targetname = !
+      t_Origin = !
       m_fControl: =
       {
         txt = "&"
@@ -1197,20 +1197,20 @@ QQRKSRC1
     }
     func_mortar_field:form =
     {
-      t_func_mortar_field = "!"
+      t_func_mortar_field = !
     }
     t_info_player_deathmatch:incl =
     {
-      t_PlayerClass = "!"
-      t_Angles = "!"
+      t_PlayerClass = !
+      t_Angles = !
     }
     info_player_deathmatch:form =
     {
-      t_info_player_deathmatch = "!"
+      t_info_player_deathmatch = !
     }
     t_BaseHeadcrab:incl =
     {
-      t_BaseNPC = "!"
+      t_BaseNPC = !
       startburrowed: =
       {
         txt = "&"
@@ -1228,16 +1228,16 @@ QQRKSRC1
     }
     t_monster_headcrab:incl =
     {
-      t_BaseHeadcrab = "!"
-      t_Parentname = "!"
+      t_BaseHeadcrab = !
+      t_Parentname = !
     }
     monster_headcrab:form =
     {
-      t_monster_headcrab = "!"
+      t_monster_headcrab = !
     }
     t_monster_tentacle:incl =
     {
-      t_BaseNPC = "!"
+      t_BaseNPC = !
       sweeparc: =
       {
         txt = "&"
@@ -1254,11 +1254,11 @@ QQRKSRC1
     }
     monster_tentacle:form =
     {
-      t_monster_tentacle = "!"
+      t_monster_tentacle = !
     }
     t_monster_barney:incl =
     {
-      t_BaseNPC = "!"
+      t_BaseNPC = !
       UseSentence: =
       {
         txt = "&"
@@ -1272,11 +1272,11 @@ QQRKSRC1
     }
     monster_barney:form =
     {
-      t_monster_barney = "!"
+      t_monster_barney = !
     }
     t_monster_sentry:incl =
     {
-      t_BaseNPC = "!"
+      t_BaseNPC = !
       spawnflags: =
       {
         txt = "&"
@@ -1292,11 +1292,11 @@ QQRKSRC1
     }
     monster_sentry:form =
     {
-      t_monster_sentry = "!"
+      t_monster_sentry = !
     }
     t_func_friction:incl =
     {
-      t_Trigger = "!"
+      t_Trigger = !
       modifier: =
       {
         txt = "&"
@@ -1305,14 +1305,14 @@ QQRKSRC1
     }
     func_friction:form =
     {
-      t_func_friction = "!"
+      t_func_friction = !
     }
     t_env_gunfire:incl =
     {
-      t_Targetname = "!"
-      t_Parentname = "!"
-      t_Targetname = "!"
-      t_EnableDisable = "!"
+      t_Targetname = !
+      t_Parentname = !
+      t_Targetname = !
+      t_EnableDisable = !
       target: =
       {
         txt = "&"
@@ -1386,11 +1386,11 @@ QQRKSRC1
     }
     env_gunfire:form =
     {
-      t_env_gunfire = "!"
+      t_env_gunfire = !
     }
     t_monster_alien_slave:incl =
     {
-      t_BaseNPC = "!"
+      t_BaseNPC = !
       netname: =
       {
         txt = "&"
@@ -1411,14 +1411,14 @@ QQRKSRC1
     }
     monster_alien_slave:form =
     {
-      t_monster_alien_slave = "!"
+      t_monster_alien_slave = !
     }
     t_env_laser:incl =
     {
       bbox = '-16 -16 -16 16 16 16'
-      t_Targetname = "!"
-      t_RenderFxChoices = "!"
-      t_Angles = "!"
+      t_Targetname = !
+      t_RenderFxChoices = !
+      t_Angles = !
       LaserTarget: =
       {
         txt = "&"
@@ -1496,11 +1496,11 @@ QQRKSRC1
     }
     env_laser:form =
     {
-      t_env_laser = "!"
+      t_env_laser = !
     }
     t_multi_manager:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       spawnflags: =
       {
         txt = "&"
@@ -1520,11 +1520,11 @@ QQRKSRC1
     }
     multi_manager:form =
     {
-      t_multi_manager = "!"
+      t_multi_manager = !
     }
     t_multisource:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       target: =
       {
         txt = "&"
@@ -1538,13 +1538,13 @@ QQRKSRC1
     }
     multisource:form =
     {
-      t_multisource = "!"
+      t_multisource = !
     }
     t_env_render:incl =
     {
       bbox = '-16 -16 -16 16 16 16'
-      t_Targetname = "!"
-      t_RenderFields = "!"
+      t_Targetname = !
+      t_RenderFields = !
       target: =
       {
         txt = "&"
@@ -1587,13 +1587,13 @@ QQRKSRC1
     }
     env_render:form =
     {
-      t_env_render = "!"
+      t_env_render = !
     }
     t_env_glow:incl =
     {
       bbox = '-4 -4 -4 4 4 4'
-      t_Targetname = "!"
-      t_RenderFields = "!"
+      t_Targetname = !
+      t_RenderFields = !
       model: =
       {
         txt = "&"
@@ -1607,7 +1607,7 @@ QQRKSRC1
     }
     env_glow:form =
     {
-      t_env_glow = "!"
+      t_env_glow = !
     }
     t_env_sound:incl =
     {
@@ -1655,12 +1655,12 @@ QQRKSRC1
     }
     env_sound:form =
     {
-      t_env_sound = "!"
+      t_env_sound = !
     }
     t_env_funnel:incl =
     {
       bbox = '-16 -16 -16 16 16 16'
-      t_Targetname = "!"
+      t_Targetname = !
       spawnflags: =
       {
         txt = "&"
@@ -1670,11 +1670,11 @@ QQRKSRC1
     }
     env_funnel:form =
     {
-      t_env_funnel = "!"
+      t_env_funnel = !
     }
     t_monster_houndeye:incl =
     {
-      t_BaseNPC = "!"
+      t_BaseNPC = !
       netname: =
       {
         txt = "&"
@@ -1689,11 +1689,11 @@ QQRKSRC1
     }
     monster_houndeye:form =
     {
-      t_monster_houndeye = "!"
+      t_monster_houndeye = !
     }
     t_monster_scientist_dead:incl =
     {
-      t_BaseNPC = "!"
+      t_BaseNPC = !
       netname: =
       {
         txt = "&"
@@ -1708,27 +1708,27 @@ QQRKSRC1
     }
     monster_scientist_dead:form =
     {
-      t_monster_scientist_dead = "!"
+      t_monster_scientist_dead = !
     }
     t_monster_leech:incl =
     {
-      t_BaseNPC = "!"
+      t_BaseNPC = !
     }
     monster_leech:form =
     {
-      t_monster_leech = "!"
+      t_monster_leech = !
     }
     t_monster_barnacle:incl =
     {
-      t_BaseNPC = "!"
+      t_BaseNPC = !
     }
     monster_barnacle:form =
     {
-      t_monster_barnacle = "!"
+      t_monster_barnacle = !
     }
     t_monster_apache:incl =
     {
-      t_BaseNPC = "!"
+      t_BaseNPC = !
       spawnflags: =
       {
         txt = "&"
@@ -1744,19 +1744,19 @@ QQRKSRC1
     }
     monster_apache:form =
     {
-      t_monster_apache = "!"
+      t_monster_apache = !
     }
     t_monster_zombie:incl =
     {
-      t_BaseNPC = "!"
+      t_BaseNPC = !
     }
     monster_zombie:form =
     {
-      t_monster_zombie = "!"
+      t_monster_zombie = !
     }
     t_monster_flyer_flock:incl =
     {
-      t_BaseNPC = "!"
+      t_BaseNPC = !
       iFlockSize: =
       {
         txt = "&"
@@ -1770,11 +1770,11 @@ QQRKSRC1
     }
     monster_flyer_flock:form =
     {
-      t_monster_flyer_flock = "!"
+      t_monster_flyer_flock = !
     }
     t_monster_alien_grunt:incl =
     {
-      t_BaseNPC = "!"
+      t_BaseNPC = !
       netname: =
       {
         txt = "&"
@@ -1789,11 +1789,11 @@ QQRKSRC1
     }
     monster_alien_grunt:form =
     {
-      t_monster_alien_grunt = "!"
+      t_monster_alien_grunt = !
     }
     t_monster_bigmomma:incl =
     {
-      t_BaseNPC = "!"
+      t_BaseNPC = !
       netname: =
       {
         txt = "&"
@@ -1802,61 +1802,61 @@ QQRKSRC1
     }
     monster_bigmomma:form =
     {
-      t_monster_bigmomma = "!"
+      t_monster_bigmomma = !
     }
     t_monster_bullchicken:incl =
     {
-      t_BaseNPC = "!"
+      t_BaseNPC = !
     }
     monster_bullchicken:form =
     {
-      t_monster_bullchicken = "!"
+      t_monster_bullchicken = !
     }
     t_monster_babycrab:incl =
     {
-      t_BaseNPC = "!"
+      t_BaseNPC = !
     }
     monster_babycrab:form =
     {
-      t_monster_babycrab = "!"
+      t_monster_babycrab = !
     }
     t_monster_gargantua:incl =
     {
-      t_BaseNPC = "!"
+      t_BaseNPC = !
     }
     monster_gargantua:form =
     {
-      t_monster_gargantua = "!"
+      t_monster_gargantua = !
     }
     t_monster_gman:incl =
     {
-      t_BaseNPC = "!"
+      t_BaseNPC = !
     }
     monster_gman:form =
     {
-      t_monster_gman = "!"
+      t_monster_gman = !
     }
     t_monster_human_assassin:incl =
     {
-      t_BaseNPC = "!"
+      t_BaseNPC = !
     }
     monster_human_assassin:form =
     {
-      t_monster_human_assassin = "!"
+      t_monster_human_assassin = !
     }
     t_monster_human_grunt:incl =
     {
-      t_BaseNPC = "!"
+      t_BaseNPC = !
     }
     monster_human_grunt:form =
     {
-      t_monster_human_grunt = "!"
+      t_monster_human_grunt = !
     }
     t_monster_hgrunt_dead:incl =
     {
-      t_Targetname = "!"
-      t_RenderFields = "!"
-      t_Angles = "!"
+      t_Targetname = !
+      t_RenderFields = !
+      t_Angles = !
       sequence: =
       {
         txt = "&"
@@ -1882,11 +1882,11 @@ QQRKSRC1
     }
     monster_hgrunt_dead:form =
     {
-      t_monster_hgrunt_dead = "!"
+      t_monster_hgrunt_dead = !
     }
     t_monster_miniturret:incl =
     {
-      t_BaseNPC = "!"
+      t_BaseNPC = !
       orientation: =
       {
         txt = "&"
@@ -1910,19 +1910,19 @@ QQRKSRC1
     }
     monster_miniturret:form =
     {
-      t_monster_miniturret = "!"
+      t_monster_miniturret = !
     }
     t_monster_nihilanth:incl =
     {
-      t_BaseNPC = "!"
+      t_BaseNPC = !
     }
     monster_nihilanth:form =
     {
-      t_monster_nihilanth = "!"
+      t_monster_nihilanth = !
     }
     t_monster_furniture:incl =
     {
-      t_BaseNPC = "!"
+      t_BaseNPC = !
       model: =
       {
         txt = "&"
@@ -1934,31 +1934,31 @@ QQRKSRC1
     }
     monster_furniture:form =
     {
-      t_monster_furniture = "!"
+      t_monster_furniture = !
     }
     t_monster_cockroach:incl =
     {
-      t_BaseNPC = "!"
+      t_BaseNPC = !
     }
     monster_cockroach:form =
     {
-      t_monster_cockroach = "!"
+      t_monster_cockroach = !
     }
     t_xen_plantlight:incl =
     {
-      t_Targetname = "!"
-      t_RenderFields = "!"
-      t_Angles = "!"
+      t_Targetname = !
+      t_RenderFields = !
+      t_Angles = !
     }
     xen_plantlight:form =
     {
-      t_xen_plantlight = "!"
+      t_xen_plantlight = !
     }
     t_xen_hair:incl =
     {
-      t_Targetname = "!"
-      t_RenderFields = "!"
-      t_Angles = "!"
+      t_Targetname = !
+      t_RenderFields = !
+      t_Angles = !
       spawnflags: =
       {
         txt = "&"
@@ -1968,51 +1968,51 @@ QQRKSRC1
     }
     xen_hair:form =
     {
-      t_xen_hair = "!"
+      t_xen_hair = !
     }
     t_xen_tree:incl =
     {
-      t_Targetname = "!"
-      t_RenderFields = "!"
-      t_Angles = "!"
+      t_Targetname = !
+      t_RenderFields = !
+      t_Angles = !
     }
     xen_tree:form =
     {
-      t_xen_tree = "!"
+      t_xen_tree = !
     }
     t_xen_spore_small:incl =
     {
-      t_Targetname = "!"
-      t_RenderFields = "!"
-      t_Angles = "!"
+      t_Targetname = !
+      t_RenderFields = !
+      t_Angles = !
     }
     xen_spore_small:form =
     {
-      t_xen_spore_small = "!"
+      t_xen_spore_small = !
     }
     t_xen_spore_medium:incl =
     {
-      t_Targetname = "!"
-      t_RenderFields = "!"
-      t_Angles = "!"
+      t_Targetname = !
+      t_RenderFields = !
+      t_Angles = !
     }
     xen_spore_medium:form =
     {
-      t_xen_spore_medium = "!"
+      t_xen_spore_medium = !
     }
     t_xen_spore_large:incl =
     {
-      t_Targetname = "!"
-      t_RenderFields = "!"
-      t_Angles = "!"
+      t_Targetname = !
+      t_RenderFields = !
+      t_Angles = !
     }
     xen_spore_large:form =
     {
-      t_xen_spore_large = "!"
+      t_xen_spore_large = !
     }
     t_monster_scientist:incl =
     {
-      t_BaseNPC = "!"
+      t_BaseNPC = !
       body: =
       {
         txt = "&"
@@ -2021,13 +2021,13 @@ QQRKSRC1
     }
     monster_scientist:form =
     {
-      t_monster_scientist = "!"
+      t_monster_scientist = !
     }
     t_monster_generic:incl =
     {
-      t_BaseNPC = "!"
-      t_RenderFields = "!"
-      t_Shadow = "!"
+      t_BaseNPC = !
+      t_RenderFields = !
+      t_Shadow = !
       spawnflags: =
       {
         txt = "&"
@@ -2050,14 +2050,14 @@ QQRKSRC1
     }
     monster_generic:form =
     {
-      t_monster_generic = "!"
+      t_monster_generic = !
     }
     t_generic_actor:incl =
     {
-      t_BaseNPC = "!"
-      t_Parentname = "!"
-      t_RenderFields = "!"
-      t_Shadow = "!"
+      t_BaseNPC = !
+      t_Parentname = !
+      t_RenderFields = !
+      t_Shadow = !
       model: =
       {
         txt = "&"
@@ -2078,13 +2078,13 @@ QQRKSRC1
     }
     generic_actor:form =
     {
-      t_generic_actor = "!"
+      t_generic_actor = !
     }
     t_cycler_actor:incl =
     {
-      t_BaseNPC = "!"
-      t_RenderFields = "!"
-      t_Shadow = "!"
+      t_BaseNPC = !
+      t_RenderFields = !
+      t_Shadow = !
       model: =
       {
         txt = "&"
@@ -2106,12 +2106,12 @@ QQRKSRC1
     }
     cycler_actor:form =
     {
-      t_cycler_actor = "!"
+      t_cycler_actor = !
     }
     t_monstermaker:incl =
     {
-      t_Angles = "!"
-      t_BaseNPCMaker = "!"
+      t_Angles = !
+      t_BaseNPCMaker = !
       target: =
       {
         txt = "&"
@@ -2163,12 +2163,12 @@ QQRKSRC1
     }
     monstermaker:form =
     {
-      t_monstermaker = "!"
+      t_monstermaker = !
     }
     t_player_control:incl =
     {
       bbox = '-10 -10 -10 10 10 10'
-      t_Targetname = "!"
+      t_Targetname = !
       input#Activate: =
       {
         txt = "&"
@@ -2192,9 +2192,9 @@ QQRKSRC1
     }
     t_BaseScripted:incl =
     {
-      t_Targetname = "!"
-      t_Parentname = "!"
-      t_Angles = "!"
+      t_Targetname = !
+      t_Parentname = !
+      t_Angles = !
       m_iszEntity: =
       {
         txt = "&"
@@ -2372,7 +2372,7 @@ QQRKSRC1
     }
     t_scripted_sentence:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       spawnflags: =
       {
         txt = "&"
@@ -2465,12 +2465,12 @@ QQRKSRC1
     }
     scripted_sentence:form =
     {
-      t_scripted_sentence = "!"
+      t_scripted_sentence = !
     }
     t_scripted_target:incl =
     {
-      t_Targetname = "!"
-      t_Parentname = "!"
+      t_Targetname = !
+      t_Parentname = !
       StartDisabled: =
       {
         txt = "&"
@@ -2532,11 +2532,11 @@ QQRKSRC1
     }
     scripted_target:form =
     {
-      t_scripted_target = "!"
+      t_scripted_target = !
     }
     t_ai_relationship:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       subject: =
       {
         txt = "&"
@@ -2622,11 +2622,11 @@ QQRKSRC1
     }
     ai_relationship:form =
     {
-      t_ai_relationship = "!"
+      t_ai_relationship = !
     }
     t_ai_ally_manager:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       maxallies: =
       {
         txt = "&"
@@ -2720,11 +2720,11 @@ QQRKSRC1
     }
     ai_ally_manager:form =
     {
-      t_ai_ally_manager = "!"
+      t_ai_ally_manager = !
     }
     t_LeadGoalBase:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       actor: =
       {
         txt = "&"
@@ -2929,7 +2929,7 @@ QQRKSRC1
     }
     t_ai_goal_lead:incl =
     {
-      t_LeadGoalBase = "!"
+      t_LeadGoalBase = !
       SearchType: =
       {
         txt = "&"
@@ -2941,11 +2941,11 @@ QQRKSRC1
     }
     ai_goal_lead:form =
     {
-      t_ai_goal_lead = "!"
+      t_ai_goal_lead = !
     }
     t_ai_goal_lead_weapon:incl =
     {
-      t_LeadGoalBase = "!"
+      t_LeadGoalBase = !
       WeaponName: =
       {
         txt = "&"
@@ -2970,11 +2970,11 @@ QQRKSRC1
     }
     ai_goal_lead_weapon:form =
     {
-      t_ai_goal_lead_weapon = "!"
+      t_ai_goal_lead_weapon = !
     }
     t_FollowGoal:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       actor: =
       {
         txt = "&"
@@ -3031,26 +3031,26 @@ QQRKSRC1
     }
     t_ai_goal_follow:incl =
     {
-      t_FollowGoal = "!"
+      t_FollowGoal = !
     }
     ai_goal_follow:form =
     {
-      t_ai_goal_follow = "!"
+      t_ai_goal_follow = !
     }
     t_ai_goal_injured_follow:incl =
     {
-      t_FollowGoal = "!"
+      t_FollowGoal = !
     }
     ai_goal_injured_follow:form =
     {
-      t_ai_goal_injured_follow = "!"
+      t_ai_goal_injured_follow = !
     }
     t_ai_battle_line:incl =
     {
       bbox = '-4 -4 -4 4 4 4'
-      t_Targetname = "!"
-      t_Angles = "!"
-      t_Parentname = "!"
+      t_Targetname = !
+      t_Angles = !
+      t_Parentname = !
       spawnflags: =
       {
         txt = "&"
@@ -3093,11 +3093,11 @@ QQRKSRC1
     }
     ai_battle_line:form =
     {
-      t_ai_battle_line = "!"
+      t_ai_battle_line = !
     }
     t_ai_goal_standoff:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       actor: =
       {
         txt = "&"
@@ -3178,13 +3178,13 @@ QQRKSRC1
     }
     ai_goal_standoff:form =
     {
-      t_ai_goal_standoff = "!"
+      t_ai_goal_standoff = !
     }
     t_ai_goal_police:incl =
     {
-      t_Targetname = "!"
-      t_Parentname = "!"
-      t_Angles = "!"
+      t_Targetname = !
+      t_Parentname = !
+      t_Angles = !
       spawnflags: =
       {
         txt = "&"
@@ -3248,13 +3248,13 @@ QQRKSRC1
     }
     ai_goal_police:form =
     {
-      t_ai_goal_police = "!"
+      t_ai_goal_police = !
     }
     t_assault_rallypoint:incl =
     {
-      t_Targetname = "!"
-      t_Parentname = "!"
-      t_Angles = "!"
+      t_Targetname = !
+      t_Parentname = !
+      t_Angles = !
       assaultpoint: =
       {
         txt = "&"
@@ -3299,13 +3299,13 @@ QQRKSRC1
     }
     assault_rallypoint:form =
     {
-      t_assault_rallypoint = "!"
+      t_assault_rallypoint = !
     }
     t_assault_assaultpoint:incl =
     {
-      t_Targetname = "!"
-      t_Parentname = "!"
-      t_Angles = "!"
+      t_Targetname = !
+      t_Parentname = !
+      t_Angles = !
       assaultgroup: =
       {
         txt = "&"
@@ -3424,11 +3424,11 @@ QQRKSRC1
     }
     assault_assaultpoint:form =
     {
-      t_assault_assaultpoint = "!"
+      t_assault_assaultpoint = !
     }
     t_ai_goal_assault:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       actor: =
       {
         txt = "&"
@@ -3489,11 +3489,11 @@ QQRKSRC1
     }
     ai_goal_assault:form =
     {
-      t_ai_goal_assault = "!"
+      t_ai_goal_assault = !
     }
     t_BaseActBusy:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       actor: =
       {
         txt = "&"
@@ -3588,7 +3588,7 @@ QQRKSRC1
     }
     t_ai_goal_actbusy:incl =
     {
-      t_BaseActBusy = "!"
+      t_BaseActBusy = !
       seeentity: =
       {
         txt = "&"
@@ -3643,11 +3643,11 @@ QQRKSRC1
     }
     ai_goal_actbusy:form =
     {
-      t_ai_goal_actbusy = "!"
+      t_ai_goal_actbusy = !
     }
     t_ai_goal_actbusy_queue:incl =
     {
-      t_BaseActBusy = "!"
+      t_BaseActBusy = !
       node_exit: =
       {
         txt = "&"
@@ -3800,12 +3800,12 @@ QQRKSRC1
     }
     ai_goal_actbusy_queue:form =
     {
-      t_ai_goal_actbusy_queue = "!"
+      t_ai_goal_actbusy_queue = !
     }
     t_ai_changetarget:incl =
     {
       bbox = '-8 -8 -8 8 8 8'
-      t_Targetname = "!"
+      t_Targetname = !
       target: =
       {
         txt = "&"
@@ -3829,12 +3829,12 @@ QQRKSRC1
     }
     ai_changetarget:form =
     {
-      t_ai_changetarget = "!"
+      t_ai_changetarget = !
     }
     t_ai_npc_eventresponsesystem:incl =
     {
       bbox = '-8 -8 -8 8 8 8'
-      t_Targetname = "!"
+      t_Targetname = !
       input#TriggerResponseEvent: =
       {
         txt = "&"
@@ -3860,12 +3860,12 @@ QQRKSRC1
     }
     ai_npc_eventresponsesystem:form =
     {
-      t_ai_npc_eventresponsesystem = "!"
+      t_ai_npc_eventresponsesystem = !
     }
     t_ai_changehintgroup:incl =
     {
       bbox = '-8 -8 -8 8 8 8'
-      t_Targetname = "!"
+      t_Targetname = !
       SearchType: =
       {
         txt = "&"
@@ -3910,11 +3910,11 @@ QQRKSRC1
     }
     ai_changehintgroup:form =
     {
-      t_ai_changehintgroup = "!"
+      t_ai_changehintgroup = !
     }
     t_ai_script_conditions:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       Actor: =
       {
         txt = "&"
@@ -4111,13 +4111,13 @@ QQRKSRC1
     }
     ai_script_conditions:form =
     {
-      t_ai_script_conditions = "!"
+      t_ai_script_conditions = !
     }
     t_scripted_sequence:incl =
     {
-      t_BaseScripted = "!"
-      t_Angles = "!"
-      t_DXLevelChoice = "!"
+      t_BaseScripted = !
+      t_Angles = !
+      t_DXLevelChoice = !
       spawnflags: =
       {
         txt = "&"
@@ -4183,11 +4183,11 @@ QQRKSRC1
     }
     scripted_sequence:form =
     {
-      t_scripted_sequence = "!"
+      t_scripted_sequence = !
     }
     t_aiscripted_schedule:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       m_iszEntity: =
       {
         txt = "&"
@@ -4266,11 +4266,11 @@ QQRKSRC1
     }
     aiscripted_schedule:form =
     {
-      t_aiscripted_schedule = "!"
+      t_aiscripted_schedule = !
     }
     t_ai_citizen_response_system:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       input#ResponseVitalNPC: =
       {
         txt = "&"
@@ -4279,14 +4279,14 @@ QQRKSRC1
     }
     ai_citizen_response_system:form =
     {
-      t_ai_citizen_response_system = "!"
+      t_ai_citizen_response_system = !
     }
     t_func_healthcharger:incl =
     {
-      t_EnableDisable = "!"
-      t_Parentname = "!"
-      t_Origin = "!"
-      t_Global = "!"
+      t_EnableDisable = !
+      t_Parentname = !
+      t_Origin = !
+      t_Global = !
       _minlight: =
       {
         txt = "&"
@@ -4305,13 +4305,13 @@ QQRKSRC1
     }
     func_healthcharger:form =
     {
-      t_func_healthcharger = "!"
+      t_func_healthcharger = !
     }
     t_func_recharge:incl =
     {
-      t_Targetname = "!"
-      t_Parentname = "!"
-      t_Origin = "!"
+      t_Targetname = !
+      t_Parentname = !
+      t_Origin = !
       _minlight: =
       {
         txt = "&"
@@ -4356,13 +4356,13 @@ QQRKSRC1
     }
     func_recharge:form =
     {
-      t_func_recharge = "!"
+      t_func_recharge = !
     }
     t_func_vehicleclip:incl =
     {
-      t_Parentname = "!"
-      t_Targetname = "!"
-      t_Global = "!"
+      t_Parentname = !
+      t_Targetname = !
+      t_Global = !
       input#Kill: =
       {
         txt = "&"
@@ -4371,11 +4371,11 @@ QQRKSRC1
     }
     func_vehicleclip:form =
     {
-      t_func_vehicleclip = "!"
+      t_func_vehicleclip = !
     }
     t_func_lookdoor:incl =
     {
-      t_func_movelinear = "!"
+      t_func_movelinear = !
       spawnflags: =
       {
         txt = "&"
@@ -4422,12 +4422,12 @@ QQRKSRC1
     }
     func_lookdoor:form =
     {
-      t_func_lookdoor = "!"
+      t_func_lookdoor = !
     }
     t_env_global:incl =
     {
       bbox = '-8 -8 -8 8 8 8'
-      t_EnvGlobal = "!"
+      t_EnvGlobal = !
       globalstate: =
       {
         txt = "&"
@@ -4444,17 +4444,17 @@ QQRKSRC1
     }
     env_global:form =
     {
-      t_env_global = "!"
+      t_env_global = !
     }
     t_BaseTank:incl =
     {
-      t_Targetname = "!"
-      t_Parentname = "!"
-      t_Origin = "!"
-      t_Angles = "!"
-      t_RenderFields = "!"
-      t_Global = "!"
-      t_Shadow = "!"
+      t_Targetname = !
+      t_Parentname = !
+      t_Origin = !
+      t_Angles = !
+      t_RenderFields = !
+      t_Global = !
+      t_Shadow = !
       spawnflags: =
       {
         txt = "&"
@@ -4831,7 +4831,7 @@ QQRKSRC1
     }
     t_func_tank:incl =
     {
-      t_BaseTank = "!"
+      t_BaseTank = !
       bullet: =
       {
         txt = "&"
@@ -4855,11 +4855,11 @@ QQRKSRC1
     }
     func_tank:form =
     {
-      t_func_tank = "!"
+      t_func_tank = !
     }
     t_func_tankpulselaser:incl =
     {
-      t_BaseTank = "!"
+      t_BaseTank = !
       PulseSpeed: =
       {
         txt = "&"
@@ -4893,11 +4893,11 @@ QQRKSRC1
     }
     func_tankpulselaser:form =
     {
-      t_func_tankpulselaser = "!"
+      t_func_tankpulselaser = !
     }
     t_func_tanklaser:incl =
     {
-      t_BaseTank = "!"
+      t_BaseTank = !
       laserentity: =
       {
         txt = "&"
@@ -4906,11 +4906,11 @@ QQRKSRC1
     }
     func_tanklaser:form =
     {
-      t_func_tanklaser = "!"
+      t_func_tanklaser = !
     }
     t_func_tankrocket:incl =
     {
-      t_BaseTank = "!"
+      t_BaseTank = !
       rocketspeed: =
       {
         txt = "&"
@@ -4919,11 +4919,11 @@ QQRKSRC1
     }
     func_tankrocket:form =
     {
-      t_func_tankrocket = "!"
+      t_func_tankrocket = !
     }
     t_func_tankmortar:incl =
     {
-      t_BaseTank = "!"
+      t_BaseTank = !
       iMagnitude: =
       {
         txt = "&"
@@ -4967,11 +4967,11 @@ QQRKSRC1
     }
     func_tankmortar:form =
     {
-      t_func_tankmortar = "!"
+      t_func_tankmortar = !
     }
     t_func_tankphyscannister:incl =
     {
-      t_BaseTank = "!"
+      t_BaseTank = !
       barrel_volume: =
       {
         txt = "&"
@@ -4980,13 +4980,13 @@ QQRKSRC1
     }
     func_tankphyscannister:form =
     {
-      t_func_tankphyscannister = "!"
+      t_func_tankphyscannister = !
     }
     t_Item:incl =
     {
-      t_Targetname = "!"
-      t_Angles = "!"
-      t_Shadow = "!"
+      t_Targetname = !
+      t_Angles = !
+      t_Shadow = !
       output#OnPlayerTouch: =
       {
         txt = "&"
@@ -4995,111 +4995,111 @@ QQRKSRC1
     }
     t_ammo_9mmclip:incl =
     {
-      t_Item = "!"
+      t_Item = !
     }
     ammo_9mmclip:form =
     {
-      t_ammo_9mmclip = "!"
+      t_ammo_9mmclip = !
     }
     t_ammo_glockclip:incl =
     {
-      t_Item = "!"
+      t_Item = !
     }
     ammo_glockclip:form =
     {
-      t_ammo_glockclip = "!"
+      t_ammo_glockclip = !
     }
     t_ammo_9mmAR:incl =
     {
-      t_Item = "!"
+      t_Item = !
     }
     ammo_9mmAR:form =
     {
-      t_ammo_9mmAR = "!"
+      t_ammo_9mmAR = !
     }
     t_ammo_9mmbox:incl =
     {
-      t_Item = "!"
+      t_Item = !
     }
     ammo_9mmbox:form =
     {
-      t_ammo_9mmbox = "!"
+      t_ammo_9mmbox = !
     }
     t_ammo_ARgrenades:incl =
     {
-      t_Item = "!"
+      t_Item = !
     }
     ammo_ARgrenades:form =
     {
-      t_ammo_ARgrenades = "!"
+      t_ammo_ARgrenades = !
     }
     t_ammo_buckshot:incl =
     {
-      t_Item = "!"
+      t_Item = !
     }
     ammo_buckshot:form =
     {
-      t_ammo_buckshot = "!"
+      t_ammo_buckshot = !
     }
     t_ammo_357:incl =
     {
-      t_Item = "!"
+      t_Item = !
     }
     ammo_357:form =
     {
-      t_ammo_357 = "!"
+      t_ammo_357 = !
     }
     t_ammo_rpgclip:incl =
     {
-      t_Item = "!"
+      t_Item = !
     }
     ammo_rpgclip:form =
     {
-      t_ammo_rpgclip = "!"
+      t_ammo_rpgclip = !
     }
     t_ammo_gaussclip:incl =
     {
-      t_Item = "!"
+      t_Item = !
     }
     ammo_gaussclip:form =
     {
-      t_ammo_gaussclip = "!"
+      t_ammo_gaussclip = !
     }
     t_ammo_crossbow:incl =
     {
-      t_Item = "!"
+      t_Item = !
     }
     ammo_crossbow:form =
     {
-      t_ammo_crossbow = "!"
+      t_ammo_crossbow = !
     }
     t_item_battery:incl =
     {
-      t_Item = "!"
+      t_Item = !
     }
     item_battery:form =
     {
-      t_item_battery = "!"
+      t_item_battery = !
     }
     t_item_longjump:incl =
     {
-      t_Item = "!"
+      t_Item = !
     }
     item_longjump:form =
     {
-      t_item_longjump = "!"
+      t_item_longjump = !
     }
     t_item_healthkit:incl =
     {
-      t_Item = "!"
+      t_Item = !
     }
     item_healthkit:form =
     {
-      t_item_healthkit = "!"
+      t_item_healthkit = !
     }
     t_item_suit:incl =
     {
-      t_Item = "!"
+      t_Item = !
       spawnflags: =
       {
         txt = "&"
@@ -5109,12 +5109,12 @@ QQRKSRC1
     }
     item_suit:form =
     {
-      t_item_suit = "!"
+      t_item_suit = !
     }
     t_Weapon:incl =
     {
-      t_Targetname = "!"
-      t_Angles = "!"
+      t_Targetname = !
+      t_Angles = !
       spawnflags: =
       {
         txt = "&"
@@ -5139,63 +5139,63 @@ QQRKSRC1
     }
     t_weapon_crowbar:incl =
     {
-      t_Weapon = "!"
+      t_Weapon = !
     }
     weapon_crowbar:form =
     {
-      t_weapon_crowbar = "!"
+      t_weapon_crowbar = !
     }
     t_weapon_mp5:incl =
     {
-      t_Weapon = "!"
+      t_Weapon = !
     }
     weapon_mp5:form =
     {
-      t_weapon_mp5 = "!"
+      t_weapon_mp5 = !
     }
     t_weapon_glock:incl =
     {
-      t_Weapon = "!"
+      t_Weapon = !
     }
     weapon_glock:form =
     {
-      t_weapon_glock = "!"
+      t_weapon_glock = !
     }
     t_weapon_357:incl =
     {
-      t_Weapon = "!"
+      t_Weapon = !
     }
     weapon_357:form =
     {
-      t_weapon_357 = "!"
+      t_weapon_357 = !
     }
     t_weapon_shotgun:incl =
     {
-      t_Weapon = "!"
+      t_Weapon = !
     }
     weapon_shotgun:form =
     {
-      t_weapon_shotgun = "!"
+      t_weapon_shotgun = !
     }
     t_weapon_rpg:incl =
     {
-      t_Weapon = "!"
+      t_Weapon = !
     }
     weapon_rpg:form =
     {
-      t_weapon_rpg = "!"
+      t_weapon_rpg = !
     }
     t_weapon_gauss:incl =
     {
-      t_Weapon = "!"
+      t_Weapon = !
     }
     weapon_gauss:form =
     {
-      t_weapon_gauss = "!"
+      t_weapon_gauss = !
     }
     t_weapon_crossbow:incl =
     {
-      t_Weapon = "!"
+      t_Weapon = !
       sequence: =
       {
         txt = "&"
@@ -5207,66 +5207,66 @@ QQRKSRC1
     }
     weapon_crossbow:form =
     {
-      t_weapon_crossbow = "!"
+      t_weapon_crossbow = !
     }
     t_weapon_egon:incl =
     {
-      t_Weapon = "!"
+      t_Weapon = !
     }
     weapon_egon:form =
     {
-      t_weapon_egon = "!"
+      t_weapon_egon = !
     }
     t_weapon_tripmine:incl =
     {
-      t_Weapon = "!"
+      t_Weapon = !
     }
     weapon_tripmine:form =
     {
-      t_weapon_tripmine = "!"
+      t_weapon_tripmine = !
     }
     t_weapon_satchel:incl =
     {
-      t_Weapon = "!"
+      t_Weapon = !
     }
     weapon_satchel:form =
     {
-      t_weapon_satchel = "!"
+      t_weapon_satchel = !
     }
     t_weapon_handgrenade:incl =
     {
-      t_Weapon = "!"
+      t_Weapon = !
     }
     weapon_handgrenade:form =
     {
-      t_weapon_handgrenade = "!"
+      t_weapon_handgrenade = !
     }
     t_weapon_snark:incl =
     {
-      t_Weapon = "!"
+      t_Weapon = !
     }
     weapon_snark:form =
     {
-      t_weapon_snark = "!"
+      t_weapon_snark = !
     }
     t_weapon_hornetgun:incl =
     {
-      t_Weapon = "!"
+      t_Weapon = !
     }
     weapon_hornetgun:form =
     {
-      t_weapon_hornetgun = "!"
+      t_weapon_hornetgun = !
     }
     t_weaponbox:incl =
     {
     }
     weaponbox:form =
     {
-      t_weaponbox = "!"
+      t_weaponbox = !
     }
     t_world_items:incl =
     {
-      t_Weapon = "!"
+      t_Weapon = !
       type: =
       {
         txt = "&"
@@ -5278,11 +5278,11 @@ QQRKSRC1
     }
     world_items:form =
     {
-      t_world_items = "!"
+      t_world_items = !
     }
     t_trigger_vphysics_motion:incl =
     {
-      t_Trigger = "!"
+      t_Trigger = !
       spawnflags: =
       {
         txt = "&"
@@ -5432,12 +5432,12 @@ QQRKSRC1
     }
     trigger_vphysics_motion:form =
     {
-      t_trigger_vphysics_motion = "!"
+      t_trigger_vphysics_motion = !
     }
     t_path_corner:incl =
     {
-      t_Targetname = "!"
-      t_Angles = "!"
+      t_Targetname = !
+      t_Angles = !
       spawnflags: =
       {
         txt = "&"
@@ -5483,12 +5483,12 @@ QQRKSRC1
     }
     path_corner:form =
     {
-      t_path_corner = "!"
+      t_path_corner = !
     }
     t_path_track:incl =
     {
-      t_Targetname = "!"
-      t_Angles = "!"
+      t_Targetname = !
+      t_Angles = !
       spawnflags: =
       {
         txt = "&"
@@ -5541,11 +5541,11 @@ QQRKSRC1
     }
     path_track:form =
     {
-      t_path_track = "!"
+      t_path_track = !
     }
     t_speaker:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       preset: =
       {
         txt = "&"
@@ -5576,11 +5576,11 @@ QQRKSRC1
     }
     speaker:form =
     {
-      t_speaker = "!"
+      t_speaker = !
     }
     t_target_cdaudio:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       health: =
       {
         txt = "&"
@@ -5605,7 +5605,7 @@ QQRKSRC1
     }
     target_cdaudio:form =
     {
-      t_target_cdaudio = "!"
+      t_target_cdaudio = !
     }
     t_trigger_auto:incl =
     {
@@ -5635,11 +5635,11 @@ QQRKSRC1
     }
     trigger_auto:form =
     {
-      t_trigger_auto = "!"
+      t_trigger_auto = !
     }
     t_trigger_autosave:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       master: =
       {
         txt = "&"
@@ -5648,11 +5648,11 @@ QQRKSRC1
     }
     trigger_autosave:form =
     {
-      t_trigger_autosave = "!"
+      t_trigger_autosave = !
     }
     t_trigger_cdaudio:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       health: =
       {
         txt = "&"
@@ -5672,7 +5672,7 @@ QQRKSRC1
     }
     trigger_cdaudio:form =
     {
-      t_trigger_cdaudio = "!"
+      t_trigger_cdaudio = !
     }
     t_trigger_changelevel:incl =
     {
@@ -5727,11 +5727,11 @@ QQRKSRC1
     }
     trigger_changelevel:form =
     {
-      t_trigger_changelevel = "!"
+      t_trigger_changelevel = !
     }
     t_trigger_changetarget:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       m_iszNewTarget: =
       {
         txt = "&"
@@ -5740,12 +5740,12 @@ QQRKSRC1
     }
     trigger_changetarget:form =
     {
-      t_trigger_changetarget = "!"
+      t_trigger_changetarget = !
     }
     t_trigger_counter:incl =
     {
-      t_Trigger = "!"
-      t_Targetname = "!"
+      t_Trigger = !
+      t_Targetname = !
       spawnflags: =
       {
         txt = "&"
@@ -5765,11 +5765,11 @@ QQRKSRC1
     }
     trigger_counter:form =
     {
-      t_trigger_counter = "!"
+      t_trigger_counter = !
     }
     t_trigger_endsection:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       section: =
       {
         txt = "&"
@@ -5784,11 +5784,11 @@ QQRKSRC1
     }
     trigger_endsection:form =
     {
-      t_trigger_endsection = "!"
+      t_trigger_endsection = !
     }
     t_trigger_gravity:incl =
     {
-      t_Trigger = "!"
+      t_Trigger = !
       gravity: =
       {
         txt = "&"
@@ -5797,11 +5797,11 @@ QQRKSRC1
     }
     trigger_gravity:form =
     {
-      t_trigger_gravity = "!"
+      t_trigger_gravity = !
     }
     t_trigger_relay:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       spawnflags: =
       {
         txt = "&"
@@ -5829,19 +5829,19 @@ QQRKSRC1
     }
     trigger_relay:form =
     {
-      t_trigger_relay = "!"
+      t_trigger_relay = !
     }
     t_trigger_transition:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
     }
     trigger_transition:form =
     {
-      t_trigger_transition = "!"
+      t_trigger_transition = !
     }
     t_path_corner_crash:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       target: =
       {
         txt = "&"
@@ -5850,12 +5850,12 @@ QQRKSRC1
     }
     path_corner_crash:form =
     {
-      t_path_corner_crash = "!"
+      t_path_corner_crash = !
     }
     t_player_loadsaved:incl =
     {
       bbox = '-16 -16 -16 16 16 16'
-      t_Targetname = "!"
+      t_Targetname = !
       duration: =
       {
         txt = "&"
@@ -5889,12 +5889,12 @@ QQRKSRC1
     }
     player_loadsaved:form =
     {
-      t_player_loadsaved = "!"
+      t_player_loadsaved = !
     }
     t_player_weaponstrip:incl =
     {
       bbox = '-16 -16 -16 16 16 16'
-      t_Targetname = "!"
+      t_Targetname = !
       input#Strip: =
       {
         txt = "&"
@@ -5908,12 +5908,12 @@ QQRKSRC1
     }
     player_weaponstrip:form =
     {
-      t_player_weaponstrip = "!"
+      t_player_weaponstrip = !
     }
     t_player_speedmod:incl =
     {
       bbox = '-16 -16 -16 16 16 16'
-      t_Targetname = "!"
+      t_Targetname = !
       input#ModifySpeed: =
       {
         txt = "&"
@@ -5922,11 +5922,11 @@ QQRKSRC1
     }
     player_speedmod:form =
     {
-      t_player_speedmod = "!"
+      t_player_speedmod = !
     }
     t_logic_choreographed_scene:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
       SceneFile: =
       {
         txt = "&"
@@ -6069,12 +6069,12 @@ QQRKSRC1
     }
     logic_choreographed_scene:form =
     {
-      t_logic_choreographed_scene = "!"
+      t_logic_choreographed_scene = !
     }
     t_ai_sound:incl =
     {
-      t_Targetname = "!"
-      t_Parentname = "!"
+      t_Targetname = !
+      t_Parentname = !
       input#InsertSound: =
       {
         txt = "&"
@@ -6099,13 +6099,13 @@ QQRKSRC1
     }
     ai_sound:form =
     {
-      t_ai_sound = "!"
+      t_ai_sound = !
     }
     t_env_muzzleflash:incl =
     {
-      t_Targetname = "!"
-      t_Parentname = "!"
-      t_Angles = "!"
+      t_Targetname = !
+      t_Parentname = !
+      t_Angles = !
       parentattachment: =
       {
         txt = "&"
@@ -6124,13 +6124,13 @@ QQRKSRC1
     }
     env_muzzleflash:form =
     {
-      t_env_muzzleflash = "!"
+      t_env_muzzleflash = !
     }
     t_env_terrainmorph:incl =
     {
       bbox = '-4 -4 -4 4 4 4'
-      t_Targetname = "!"
-      t_Parentname = "!"
+      t_Targetname = !
+      t_Parentname = !
       startradius: =
       {
         txt = "&"
@@ -6165,12 +6165,12 @@ QQRKSRC1
     }
     env_terrainmorph:form =
     {
-      t_env_terrainmorph = "!"
+      t_env_terrainmorph = !
     }
     t_point_camera:incl =
     {
-      t_Parentname = "!"
-      t_Angles = "!"
+      t_Parentname = !
+      t_Angles = !
       spawnflags: =
       {
         txt = "&"
@@ -6241,11 +6241,11 @@ QQRKSRC1
     }
     point_camera:form =
     {
-      t_point_camera = "!"
+      t_point_camera = !
     }
     t_func_monitor:incl =
     {
-      t_func_brush = "!"
+      t_func_brush = !
       target: =
       {
         txt = "&"
@@ -6275,14 +6275,14 @@ QQRKSRC1
     }
     func_monitor:form =
     {
-      t_func_monitor = "!"
+      t_func_monitor = !
     }
     t_BaseVehicle:incl =
     {
-      t_Targetname = "!"
-      t_Origin = "!"
-      t_Global = "!"
-      t_prop_static_base = "!"
+      t_Targetname = !
+      t_Origin = !
+      t_Global = !
+      t_prop_static_base = !
       vehiclescript: =
       {
         txt = "&"
@@ -6321,7 +6321,7 @@ QQRKSRC1
     }
     t_BaseDriveableVehicle:incl =
     {
-      t_BaseVehicle = "!"
+      t_BaseVehicle = !
       VehicleLocked: =
       {
         txt = "&"
@@ -6373,7 +6373,7 @@ QQRKSRC1
     }
     t_prop_vehicle:incl =
     {
-      t_BaseVehicle = "!"
+      t_BaseVehicle = !
       input#Steer: =
       {
         txt = "&"
@@ -6387,23 +6387,23 @@ QQRKSRC1
     }
     prop_vehicle:form =
     {
-      t_prop_vehicle = "!"
+      t_prop_vehicle = !
     }
     t_prop_vehicle_driveable:incl =
     {
-      t_BaseDriveableVehicle = "!"
+      t_BaseDriveableVehicle = !
     }
     prop_vehicle_driveable:form =
     {
-      t_prop_vehicle_driveable = "!"
+      t_prop_vehicle_driveable = !
     }
     t_phys_constraintsystem:incl =
     {
-      t_Targetname = "!"
+      t_Targetname = !
     }
     phys_constraintsystem:form =
     {
-      t_phys_constraintsystem = "!"
+      t_phys_constraintsystem = !
     }
   }
 }
