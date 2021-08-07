@@ -2314,7 +2314,7 @@ QQRKSRC1
         // hidden settings:
         Directory = "%steampath%"
         SteamEXEName = "steam.exe"
-        ProgramDirectory = "steamapps"
+        SteamAppsDirectory = "steamapps"
         //SourceSDKDirectory = "sourcesdk\bin" // Not used
         CommonDirectory = "common"
         QuArKSASEXENameOld = "QuArKSAS.exe"

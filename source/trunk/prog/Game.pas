@@ -378,9 +378,9 @@ begin
      SteamLibraryPath:='%steampath%';
    S := SetupGameSet.Specifics.Values['GameFileLayout'];
    if S = 'username' then
-     Result := SteamLibraryPath + '\SteamApps\%steamuser%\%steamgamedir%'
+     Result := ConcatPaths([SteamLibraryPath, SetupSubSet(ssGames, 'Steam').Specifics.Values['SteamAppsDirectory'], '%steamuser%', '%steamgamedir%'])
    else if S = 'common' then
-     Result := SteamLibraryPath + '\SteamApps\%steamcommon%\%steamgamedir%'
+     Result := ConcatPaths([SteamLibraryPath, SetupSubSet(ssGames, 'Steam').Specifics.Values['SteamAppsDirectory'], '%steamcommon%', '%steamgamedir%'])
    else
    begin
      //Shouldn't happen!
@@ -893,12 +893,15 @@ begin
   SearchStage:=0;
   AbsolutePath:=QuickResolveFilename(ConcatPaths([QuakeDir, BaseDir]));
   repeat
+    Log(LOG_VERBOSE, 'GetGameFileBase: Now starting search stage %d...', [SearchStage]);
+
     // Buffer search
     RestartAliasing(FileName);
     FilenameAlias := GetNextAlias;
     while (FilenameAlias <> '') do
     begin
       AbsolutePathAndFilename := IfRelativeThenAbsoluteFileName(AbsolutePath, FilenameAlias);
+      Log(LOG_VERBOSE, 'GetGameFileBase: Looking in GameFiles for %s...', [AbsolutePathAndFilename]);
       Result := SortedFindFileName(GameFiles, AbsolutePathAndFilename);
       if (Result <> NIL) then
         Exit; { found it }
@@ -911,6 +914,7 @@ begin
     while (FilenameAlias <> '') do
     begin
       AbsolutePathAndFilename := IfRelativeThenAbsoluteFileName(AbsolutePath, FilenameAlias);
+      Log(LOG_VERBOSE, 'GetGameFileBase: Looking on disk for %s...', [AbsolutePathAndFilename]);
       if FileExists(AbsolutePathAndFilename) then
       begin
         Result:=ExactFileLink(AbsolutePathAndFilename, Nil, True);
@@ -935,6 +939,7 @@ begin
         FilenameAlias := GetNextAlias;
         while (FilenameAlias <> '') do
         begin
+          Log(LOG_VERBOSE, 'GetGameFileBase: Looking in Steam filesystem for %s...', [FilenameAlias]);
           if RunSteamExtractor(FilenameAlias) then
           begin
             Log(LOG_VERBOSE, 'Steam extraction successful. Now loading file %s...', [ConcatPaths([GetSteamCacheDir, FilenameAlias])]);
@@ -959,7 +964,7 @@ begin
     if SetupGameSet.Specifics.Values['Steam']='1' then
     begin
       Setup:=SetupSubSet(ssGames, 'Steam');
-      PakSearchPath:=QuickResolveFilename(ConcatPaths([Setup.Specifics.Values['Directory'], Setup.Specifics.Values['ProgramDirectory']]));
+      PakSearchPath:=QuickResolveFilename(ConcatPaths([QuakeDir, Setup.Specifics.Values['SteamAppsDirectory']]));
       if SetupGameSet.Specifics.Values['GameFileLayout']='username' then
       begin
         //Move the gamedir-part into the filename
@@ -1001,6 +1006,7 @@ begin
               GameFiles.Sort(ByFileName);
             end;
             try
+              Log(LOG_VERBOSE, 'GetGameFileBase: Looking in pak file %s for %s...', [AbsolutePathAndFilename, FilenameAlias]);
               Result:=PakFile.FindFile(FilenameAlias);
             except
              on E:Exception do
