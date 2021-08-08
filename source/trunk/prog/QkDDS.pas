@@ -171,9 +171,11 @@ var
   Quality: Integer;
   QualityParameter: String;
   DumpBuffer: TFileStream;
-  DumpFileName: String;
+  NVDXTFileNamePNG, NVDXTFileNameDDS: String;
   NVDXTStartupInfo: StartUpInfo;
   NVDXTProcessInformation: Process_Information;
+  NVDXTReturnCode: DWORD;
+  TMPPath: array[0..MAX_PATH] of Char;
 begin
  Log(LOG_VERBOSE,'Saving DDS file: %s',[self.name]);
  with Info do
@@ -188,7 +190,10 @@ begin
     //  SaveFileDevIL(Info)
     else if LibraryToUse='NVDXT' then
     begin
-      //DanielPharos: This is a workaround: we use DevIL to save a TGA, and then NVDXT to convert it to a DDS
+      if FileExists(ConcatPaths([GetQPath(pQuArKDll), 'nvdxt.exe']))=false then
+        LogAndRaiseError(FmtLoadStr1(5739, [FormatName, 'NVDXT']));
+
+      //DanielPharos: This is a workaround: we use DevIL to save a PNG, and then NVDXT to convert it to a DDS
       if (not DevILLoaded) then
       begin
         if not LoadDevIL then
@@ -294,7 +299,7 @@ begin
             Inc(Dest, 3);
           end;
 
-          //FIXME: Change this code! Use QkTga (or whatever) instead!!! Look at AutoSave temps file code!
+          //FIXME: Change this code! Use QkPng (or whatever) instead!!! Look at AutoSave temps file code!
           Dest:=PByte(ilGetData);
           CheckDevILError(ilGetError);
           SourceImg:=PChar(PSD.Data);
@@ -375,22 +380,24 @@ begin
         PSD.Done;
       end;
 
-      Quality:=2;
       S:=SetupSubSet(ssFiles, 'DDS').Specifics.Values['SaveQualityNVDXT'];
       if S<>'' then
       begin
         Quality:=StrToIntDef(S, 2);
         if (Quality < 0) or (Quality > 3) then
           Quality := 2;
-      end;
+      end
+      else
+        Quality:=2;
 
-      DumpFileName:=ConcatPaths([GetQPath(pQuArK), '0']);
-      while FileExists(DumpFileName+'.tga') or FileExists(DumpFileName+'.dds') do
-      begin
-        //FIXME: Ugly way of creating a unique filename...
-        DumpFileName:=ConcatPaths([GetQPath(pQuArK), IntToStr(Random(999999))]);
-      end;
-      if ilSave(IL_TGA, PChar(DumpFileName+'.tga'))=IL_FALSE then
+      TMPPath[0]:=#0;
+      GetTempPath(SizeOf(TMPPath), TMPPath);
+
+      //NVDXT uses the file extension to identify the format, so we can't use MakeTempFileName here.
+      NVDXTFileNamePNG:=ConcatPaths([TMPPath, 'QuArK_NVDXT0.PNG']);
+      while FileExists(NVDXTFileNamePNG) do
+        NVDXTFileNamePNG:=ConcatPaths([TMPPath, 'QuArK_NVDXT'+IntToStr(Random(999999))+'.png']);
+      if ilSave(IL_PNG, PChar(NVDXTFileNamePNG))=IL_FALSE then
       begin
         ilDeleteImages(1, @DevILImage);
         LogAndRaiseError(FmtLoadStr1(5721, [FormatName, 'ilSave']));
@@ -400,9 +407,7 @@ begin
       CheckDevILError(ilGetError);
 
       try
-        //DanielPharos: Now convert the TGA to DDS with NVIDIA's DDS tool...
-        if FileExists(ConcatPaths([GetQPath(pQuArKDll), 'nvdxt.exe']))=false then
-          LogAndRaiseError(FmtLoadStr1(5739, [FormatName, 'NVDXT']));
+        //DanielPharos: Now convert the PNG to DDS with NVIDIA's DDS tool...
 
         case TexFormat of
         0: TexFormatParameter:='dxt1c';
@@ -415,9 +420,9 @@ begin
         7: TexFormatParameter:='u8888';
         8: TexFormatParameter:='u888';
         9: TexFormatParameter:='u555';
-        10: TexFormatParameter:='l8'; //@8bit only!
-        11: TexFormatParameter:='a8'; //@8bit only!
-        12: TexFormatParameter:='a8l8'; //@16 bit only!
+        10: if ImageBpp = 1 then TexFormatParameter:='l8' else TexFormatParameter:='dxt3';
+        11: if ImageBpp = 1 then TexFormatParameter:='a8' else TexFormatParameter:='dxt3';
+        12: if ImageBpp = 2 then TexFormatParameter:='a8l8' else TexFormatParameter:='dxt3';
         end;
 
         case Quality of
@@ -426,13 +431,18 @@ begin
         2: QualityParameter:='quality_production';
         3: QualityParameter:='quality_highest';
         end;
+
+        NVDXTFileNameDDS:=ConcatPaths([TMPPath, 'QuArK_NVDXT0.dds']);
+        while FileExists(NVDXTFileNameDDS) do
+          NVDXTFileNameDDS:=ConcatPaths([TMPPath, 'QuArK_NVDXT'+IntToStr(Random(999999))+'.dds']);
+
         FillChar(NVDXTStartupInfo, SizeOf(NVDXTStartupInfo), 0);
         FillChar(NVDXTProcessInformation, SizeOf(NVDXTProcessInformation), 0);
         NVDXTStartupInfo.cb:=SizeOf(NVDXTStartupInfo);
         NVDXTStartupInfo.dwFlags:=STARTF_USESHOWWINDOW;
         NVDXTStartupInfo.wShowWindow:=SW_HIDE+SW_MINIMIZE;
         try
-          if Windows.CreateProcess(PChar(ConcatPaths([GetQPath(pQuArKDll), 'nvdxt.exe'])), PChar('nvdxt.exe -rescale nearest -file "'+DumpFileName+'.tga" -output "'+DumpFileName+'.dds" -@@@@8,16,24,32! -'+TexFormatParameter+' -'+QualityParameter), nil, nil, false, 0, nil, PChar(GetQPath(pQuArKDll)), NVDXTStartupInfo, NVDXTProcessInformation)=false then //@@@-8, -16, -24, -32 bits!
+          if Windows.CreateProcess(PChar(ConcatPaths([GetQPath(pQuArKDll), 'nvdxt.exe'])), PChar('nvdxt.exe -rescale nearest -file "'+NVDXTFileNamePNG+'" -output "'+NVDXTFileNameDDS+'" -'+TexFormatParameter+' -'+QualityParameter), nil, nil, false, 0, nil, PChar(GetQPath(pQuArKDll)), NVDXTStartupInfo, NVDXTProcessInformation)=false then
           begin
             LogWindowsError(GetLastError(), 'CreateProcess(nvdxt.exe)');
             LogAndRaiseError(FmtLoadStr1(5721, [FormatName, 'CreateProcess']));
@@ -445,22 +455,30 @@ begin
             LogWindowsError(GetLastError(), 'WaitForSingleObject(NVDXT)');
             LogAndRaiseError(FmtLoadStr1(5721, [FormatName, 'WaitForSingleObject']));
           end;
+          if not GetExitCodeProcess(NVDXTProcessInformation.hProcess, NVDXTReturnCode) then
+          begin
+            LogWindowsError(GetLastError(), 'GetExitCodeProcess(NVDXT)');
+            LogAndRaiseError(FmtLoadStr1(5721, [FormatName, 'GetExitCodeProcess']));
+          end;
         finally
           CloseHandle(NVDXTProcessInformation.hProcess);
         end;
       finally
-        if DeleteFile(DumpFileName+'.tga')=false then
-          LogAndRaiseError(FmtLoadStr1(5721, [FormatName, 'DeleteFile(tga)']));
+        if DeleteFile(NVDXTFileNamePNG)=false then
+          LogAndRaiseError(FmtLoadStr1(5721, [FormatName, 'DeleteFile(png)']));
       end;
 
+      if NVDXTReturnCode <> 0 then
+        LogAndRaiseError(FmtLoadStr1(5721, [FormatName, 'NVDXT']));
+
       //DanielPharos: Now let's read in that DDS file and be done!
-      DumpBuffer:=TFileStream.Create(DumpFileName+'.dds',fmOpenRead);
+      DumpBuffer:=TFileStream.Create(NVDXTFileNameDDS,fmOpenRead);
       try
         F.CopyFrom(DumpBuffer,DumpBuffer.Size);
       finally
         DumpBuffer.Free;
       end;
-      if DeleteFile(DumpFileName+'.dds')=false then
+      if DeleteFile(NVDXTFileNameDDS)=false then
         LogAndRaiseError(FmtLoadStr1(5721, [FormatName, 'DeleteFile(dds)']));
 
     end
