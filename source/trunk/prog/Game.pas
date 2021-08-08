@@ -1691,7 +1691,8 @@ begin
     else if S = 'HL2:DM' then
       Result := 'half-life 2 deathmatch'
     else if S = 'HL2:LC' then
-      Result := 'half-life 2 lostcoast'
+      //Result := 'half-life 2 lostcoast'
+      Result := 'half-life 2'
     else if S = 'HL:DM:S' then
       //Result := 'half-life deathmatch source'
       Result := 'Half-Life 1 Source Deathmatch'
@@ -1806,7 +1807,8 @@ begin
     else if S = 'HL2:DM' then
       Result := 'source2006'
     else if S = 'HL2:LC' then
-      Result := 'source2006'
+      //Result := 'source2006'
+      Result := 'source2013sp'
     else if S = 'HL:DM:S' then
       Result := 'source2006'
     else if S = 'HL2:EP1' then
