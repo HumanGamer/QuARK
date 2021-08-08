@@ -48,7 +48,7 @@ class TexPosDlg (quarkpy.dlgclasses.LiveEditDlg):
             Style = "9"
         Caption = "Texture Positioning Dialog"
 
-        scale: = 
+        scale: =
         {
         Txt = "Scale"
         Typ = "EQ"

@@ -3,10 +3,10 @@
 #
 #                         Snap Object Plugin
 #                          v1.0, Aug 2001
-#                      works with Quark 6.3        
+#                      works with Quark 6.3
 #
 #
-#                    by tiglari@hexenworld.com     
+#                    by tiglari@hexenworld.com
 #
 #   You may freely distribute modified & extended versions of
 #   this plugin as long as you give due credit to tiglari &
@@ -156,7 +156,7 @@ class SnapObjectDlg (quarkpy.dlgclasses.LiveButtonDlg):
 
         orient: = {
           Typ = "X"
-          Hint = "if this is checked, the object is swivelled and then tilted so the tagged and selected faces are parallel." 
+          Hint = "if this is checked, the object is swivelled and then tilted so the tagged and selected faces are parallel."
         }
 
         shift: = {

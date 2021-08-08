@@ -58,7 +58,6 @@ class ThinFaceDlg (quarkpy.dlgclasses.LiveEditDlg):
           Hint = "These are the brushes that have thin faces.  Pick one," $0D " then push buttons on row below for action."
         }
 
-          
         sep: = { Typ="S" Txt=""}
 
         buttons: = {
@@ -81,7 +80,7 @@ class ThinFaceDlg (quarkpy.dlgclasses.LiveEditDlg):
           Txt = "too thin: "
           Hint = "Faces that aren't wider than this are too thin."
         }
-        
+
         sep: = { Typ="S" Txt=""}
 
         exit:py = {Txt="" }
@@ -124,7 +123,7 @@ class ThinFaceDlg (quarkpy.dlgclasses.LiveEditDlg):
               MT_INFORMATION, MB_OI)
         self.editor.ok(undo,'delete thin faces')
         if remains==0:
-            self.pack.useless.remove(brush)   
+            self.pack.useless.remove(brush)
         self.src["useless"]=''
         #
         # This seems to need to be called to get the dialog
@@ -159,7 +158,7 @@ def macro_fixview(self, index=0):
     #
     elif index==3:
         editor.uselessfacedlg.zapall()
-        
+
 quarkpy.qmacro.MACRO_fixview = macro_fixview
 
 def hasThinFaces(brush, factor=1.0, retvals=0):
@@ -184,8 +183,7 @@ def hasThinFaces(brush, factor=1.0, retvals=0):
     if retvals:
         return vals
     else:
-       return 0 
-                
+       return 0
 
 def getThin(thin, editor):
     useless = []
@@ -193,7 +191,7 @@ def getThin(thin, editor):
         if hasThinFaces(brush,thin):
             useless.append(brush)
     return useless
-    
+
 def thinClick(m):
     editor=mapeditor()
     useless=[]
@@ -202,8 +200,8 @@ def thinClick(m):
     if thin==None:
         thin="1.0"
 
-    useless=getThin(float(thin),editor)    
-    
+    useless=getThin(float(thin),editor)
+
     #
     # Here we start the Live Edit dialog invocation sequence.
     #  Data to be tracked during the life of the dialog goes
@@ -214,7 +212,7 @@ def thinClick(m):
     pack.useless=useless
     pack.thin=thin
     pack.seen = 0
-      
+
     #
     # This loads the relevant data into the dialog, gets
     #  recalled after changes.
@@ -227,7 +225,7 @@ def thinClick(m):
         # Cleaned up in onclosing below.
         #
         editor.uselessfacedlg=self
-        
+
         #
         # Names and list-indexes of thin brushes
         #

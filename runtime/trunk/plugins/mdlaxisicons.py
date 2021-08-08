@@ -124,7 +124,7 @@ def newfinishdrawing(editor, view, oldfinish=quarkpy.mdleditor.ModelEditor.finis
                             comp.filltris = [(fillcolor,None)]*len(comp.triangles)
                         else:
                             if quarkx.setupsubset(SS_MODEL, "Options")["DBF"] == "1":
-                                comp.filltris = [(None,(backfacecolor1,backfacecolor2))]*len(comp.triangles)             
+                                comp.filltris = [(None,(backfacecolor1,backfacecolor2))]*len(comp.triangles)
                             else:
                                 if editor.ModelFaceSelList != []:
                                     comp.filltris = quarkpy.mdleditor.faceselfilllist(view)
@@ -140,7 +140,7 @@ def newfinishdrawing(editor, view, oldfinish=quarkpy.mdleditor.ModelEditor.finis
                             comp.filltris = [(fillcolor,None)]*len(comp.triangles)
                         else:
                             if quarkx.setupsubset(SS_MODEL, "Options")["DBF"] == "1":
-                                comp.filltris = [(None,(backfacecolor1,backfacecolor2))]*len(comp.triangles)            
+                                comp.filltris = [(None,(backfacecolor1,backfacecolor2))]*len(comp.triangles)
                             else:
                                 if editor.ModelFaceSelList != []:
                                     comp.filltris = quarkpy.mdleditor.faceselfilllist(view)

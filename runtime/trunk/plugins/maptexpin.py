@@ -224,7 +224,7 @@ def vertexmenu(self, editor, view, oldmenu=quarkpy.maphandles.VertexHandle.menu.
     def clearAllClick(m, editor=editor):
         delattr(editor,'pinned')
         editor.invalidateviews()
-    
+
     if face is not None:
         stString = " (%.1f, %.1f)"%texCoords(self.pos, face.threepoints(2), 128)
     else:
@@ -306,7 +306,7 @@ def pinfinishdrawing(editor, view, oldmore=quarkpy.mapeditor.MapEditor.finishdra
              p0 = view.proj(moving)
              p1 = view.proj(moving+(scalefactor/scale)*quarkx.vect(axis))
              cv.line(p0, p1)
-                 
+
 #         else:
 #             cv.pencolor = MapColor("Bezier")
 #             tagging.drawsquare(cv,p1,8)
@@ -317,7 +317,7 @@ def pinfinishdrawing(editor, view, oldmore=quarkpy.mapeditor.MapEditor.finishdra
               drawredface(view,cv,face)
       except (AttributeError):
           pass
-      
+
       oldmore(editor, view)
 
 quarkpy.mapeditor.MapEditor.finishdrawing = pinfinishdrawing

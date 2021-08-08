@@ -4,7 +4,7 @@
 # THIS FILE IS PROTECTED BY THE GNU GENERAL PUBLIC LICENCE
 # FOUND IN FILE "COPYING.TXT"
 #
- 
+
 Info = {
    "plug-in":       "Camera Position Duplicator",
    "desc":          "storeable camera positions",
@@ -29,8 +29,7 @@ from quarkpy import mdlduplicator
 from quarkpy import qhandles
 from quarkpy import qutils
 from quarkpy import dlgclasses
-from quarkpy import qmacro
-from quarkpy import mdlmenus
+import quarkpy.qmacro
 from quarkpy.mdlhandles import *
 
 
@@ -257,10 +256,8 @@ class NameDialog(SimpleCancelDlgBox):
         self.action(self)
 
 def macro_accept(btn):
-    import quarkpy.qmacro
     quarkpy.qmacro.closedialogbox("NameDialog")
 
-import quarkpy.qmacro
 quarkpy.qmacro.MACRO_accept = macro_accept
 
 # This is called by two interface items, so pulled out of both of them.
@@ -408,7 +405,7 @@ def macro_camerapos(self, index=0):
     elif index == 3:
         editor.cameraposdlg.storeview()
 
-qmacro.MACRO_camerapos = macro_camerapos
+quarkpy.qmacro.MACRO_camerapos = macro_camerapos
 
 def findClick(m):
     editor=mapeditor()

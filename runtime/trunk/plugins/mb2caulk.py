@@ -30,7 +30,7 @@ Info = {
    "date":          "20 Aug 2000",
    "author":        "tiglari",
    "author e-mail": "tiglari@hexenworld.com",
-   "quark":         "Version 6.0b2" 
+   "quark":         "Version 6.0b2"
 }
 
 

@@ -87,7 +87,7 @@ class SylphisDrawEntityLines(DefaultDrawEntityLines):
                     o = ObjectOrigin(i)
                     if o is None:return
                     Arrow(cv, view, o, org)
-            
+
 
 #
 # Register this class with its gamename
