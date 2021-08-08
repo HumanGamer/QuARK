@@ -114,48 +114,6 @@ QQRKSRC1
     Common Source Entities.qtxfolder =
     {
 
-// ai entities
-
-      ai_* entities.qtxfolder =
-      {
-        ai_speechfilter:e =
-        {
-          origin = "0 0 0"
-          ;desc = "An entity that can be used to control the idle speech patte"
-           "rns of a set of NPCs."
-          IdleModifier = "1.0"
-          NeverSayHello = "0"
-        }
-      }
-
-// ambient entities
-
-      ambient_* entities.qtxfolder =
-      {
-        ambient_generic:e =
-        {
-          origin = "0 0 0"
-          ;desc = "Universal ambient sound. Use it to play and control a singl"
-           "e sound."
-          health = "10"
-          preset = "0"
-          volstart = "0"
-          fadeinsecs = "0"
-          fadeoutsecs = "0"
-          pitch = "100"
-          pitchstart = "100"
-          spinup = "0"
-          spindown = "0"
-          lfotype = "0"
-          lforate = "0"
-          lfomodpitch = "0"
-          lfomodvol = "0"
-          cspinup = "0"
-          radius = "1250"
-          spawnflags = "48"
-        }
-      }
-
 // color entities
 
       color_* entities.qtxfolder =
@@ -1254,20 +1212,6 @@ QQRKSRC1
         }
       }
 
-// hammer entities
-
-      hammer_* entities.qtxfolder =
-      {
-        hammer_updateignorelist:e =
-        {
-          origin = "0 0 0"
-          ;desc = "Specifies entities that are to be ignored by the hammer_upd"
-           "ate_safe_entities console command. Enter the targetnames of entiti"
-           "es that you want to exclude into the list of fields here. Several "
-           "of these may exist in a map."
-        }
-      }
-
 // info entities
 
       info_* entities.qtxfolder =
@@ -1848,61 +1792,6 @@ QQRKSRC1
         }
       }
 
-// other entities
-
-      other entities.qtxfolder =
-      {
-        cycler:e =
-        {
-          origin = "0 0 0"
-          ;desc = "An entity used to display a model for testing purposes. Sho"
-           "oting it with cycle through the model's animations."
-          skin = "0"
-          sequence = "0"
-        }
-        gibshooter:e =
-        {
-          origin = "0 0 0"
-          ;desc = "An entity that shoots out gibs. Style of body part depends "
-           "on language type."
-        }
-        infodecal:e =
-        {
-          origin = "0 0 0"
-          ;desc = "An entity that places a decal on the world. If the decal ha"
-           "s no target name, it will immediately apply itself when the level "
-           "is loaded. If it has a name specified, it won't apply until it rec"
-           "eives the 'Activate' input."
-          LowPriority = "0"
-        }
-        test_traceline:e =
-        {
-          origin = "0 0 0"
-          ;desc = "A debugging tool for testing tracelines."
-        }
-        worldspawn:b =
-        {
-          ;desc = "This is the world entity. Each map can only contain one, an"
-           "d it's automatically created for you."
-        }
-      }
-
-// path entities
-
-      path_* entities.qtxfolder =
-      {
-        path_track:e =
-        {
-          origin = "0 0 0"
-          ;desc = "An entity used to build paths for other entities to follow."
-           " Each path_track is a node on the path, each holding the name of t"
-           "he next path_track in the path."
-          speed = "0"
-          radius = "0"
-          orientationtype = "1"
-        }
-      }
-
 // phys entities
 
       phys_* entities.qtxfolder =
@@ -2078,28 +1967,6 @@ QQRKSRC1
         }
       }
 
-// physics entities
-
-      physics_* entities.qtxfolder =
-      {
-        physics_cannister:e =
-        {
-          origin = "0 0 0"
-          ;desc = "A physically simulated gas cannister that can have its cap "
-           "shot off, at which point gas will start escaping and cause the can"
-           "nister to fly around. If it takes enough damage, it will explode."
-          model = "models/fire_equipment/w_weldtank.mdl"
-          spawnflags = "2"
-          expdamage = "200.0"
-          expradius = "250.0"
-          health = "25"
-          thrust = "3000.0"
-          fuel = "12.0"
-          rendercolor = "255 255 255"
-          renderamt = "128"
-          gassound = "ambient/objects/cannister_loop.wav"
-        }
-      }
 
 // point entities
 
@@ -2383,44 +2250,6 @@ QQRKSRC1
         }
       }
 
-// shadow entities
-
-      shadow_* entities.qtxfolder =
-      {
-        shadow_control:e =
-        {
-          origin = "0 0 0"
-          ;desc = "An entity to control the shadows in the map."
-          angles = "80 30 0"
-          color = "128 128 128"
-          distance = "75"
-          disableallshadows = "0"
-        }
-      }
-
-// sky entities
-
-      sky_* entities.qtxfolder =
-      {
-        sky_camera:e =
-        {
-          origin = "0 0 0"
-          ;desc = "An entity used to control the 3D Skybox. Its origin is used"
-           " to determine the 3D Skybox's position relative to the map. Place "
-           "this entity, in the 3D Skybox, at the point where the origin of th"
-           "e map should be."
-          scale = "16"
-          fogenable = "0"
-          fogblend = "0"
-          use_angles = "0"
-          fogcolor = "255 255 255"
-          fogcolor2 = "255 255 255"
-          fogdir = "1 0 0"
-          fogstart = "500.0"
-          fogend = "2000.0"
-        }
-      }
-
 // tanktrain entities
 
       tanktrain_* entities.qtxfolder =
@@ -2622,10 +2451,129 @@ QQRKSRC1
         }
       }
 
-// water entities
+// other entities
 
-      water_* entities.qtxfolder =
+      other entities.qtxfolder =
       {
+        ai_speechfilter:e =
+        {
+          origin = "0 0 0"
+          ;desc = "An entity that can be used to control the idle speech patte"
+           "rns of a set of NPCs."
+          IdleModifier = "1.0"
+          NeverSayHello = "0"
+        }
+        ambient_generic:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Universal ambient sound. Use it to play and control a singl"
+           "e sound."
+          health = "10"
+          preset = "0"
+          volstart = "0"
+          fadeinsecs = "0"
+          fadeoutsecs = "0"
+          pitch = "100"
+          pitchstart = "100"
+          spinup = "0"
+          spindown = "0"
+          lfotype = "0"
+          lforate = "0"
+          lfomodpitch = "0"
+          lfomodvol = "0"
+          cspinup = "0"
+          radius = "1250"
+          spawnflags = "48"
+        }
+        cycler:e =
+        {
+          origin = "0 0 0"
+          ;desc = "An entity used to display a model for testing purposes. Sho"
+           "oting it with cycle through the model's animations."
+          skin = "0"
+          sequence = "0"
+        }
+        gibshooter:e =
+        {
+          origin = "0 0 0"
+          ;desc = "An entity that shoots out gibs. Style of body part depends "
+           "on language type."
+        }
+        hammer_updateignorelist:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Specifies entities that are to be ignored by the hammer_upd"
+           "ate_safe_entities console command. Enter the targetnames of entiti"
+           "es that you want to exclude into the list of fields here. Several "
+           "of these may exist in a map."
+        }
+        infodecal:e =
+        {
+          origin = "0 0 0"
+          ;desc = "An entity that places a decal on the world. If the decal ha"
+           "s no target name, it will immediately apply itself when the level "
+           "is loaded. If it has a name specified, it won't apply until it rec"
+           "eives the 'Activate' input."
+          LowPriority = "0"
+        }
+        path_track:e =
+        {
+          origin = "0 0 0"
+          ;desc = "An entity used to build paths for other entities to follow."
+           " Each path_track is a node on the path, each holding the name of t"
+           "he next path_track in the path."
+          speed = "0"
+          radius = "0"
+          orientationtype = "1"
+        }
+        physics_cannister:e =
+        {
+          origin = "0 0 0"
+          ;desc = "A physically simulated gas cannister that can have its cap "
+           "shot off, at which point gas will start escaping and cause the can"
+           "nister to fly around. If it takes enough damage, it will explode."
+          model = "models/fire_equipment/w_weldtank.mdl"
+          spawnflags = "2"
+          expdamage = "200.0"
+          expradius = "250.0"
+          health = "25"
+          thrust = "3000.0"
+          fuel = "12.0"
+          rendercolor = "255 255 255"
+          renderamt = "128"
+          gassound = "ambient/objects/cannister_loop.wav"
+        }
+        shadow_control:e =
+        {
+          origin = "0 0 0"
+          ;desc = "An entity to control the shadows in the map."
+          angles = "80 30 0"
+          color = "128 128 128"
+          distance = "75"
+          disableallshadows = "0"
+        }
+        sky_camera:e =
+        {
+          origin = "0 0 0"
+          ;desc = "An entity used to control the 3D Skybox. Its origin is used"
+           " to determine the 3D Skybox's position relative to the map. Place "
+           "this entity, in the 3D Skybox, at the point where the origin of th"
+           "e map should be."
+          scale = "16"
+          fogenable = "0"
+          fogblend = "0"
+          use_angles = "0"
+          fogcolor = "255 255 255"
+          fogcolor2 = "255 255 255"
+          fogdir = "1 0 0"
+          fogstart = "500.0"
+          fogend = "2000.0"
+        }
+        test_traceline:e =
+        {
+          origin = "0 0 0"
+          ;desc = "A debugging tool for testing tracelines."
+        }
         water_lod_control:e =
         {
           origin = "0 0 0"
@@ -2633,6 +2581,11 @@ QQRKSRC1
            "the map. If your map has water, this entity is required."
           cheapwaterstartdistance = "1000"
           cheapwaterenddistance = "2000"
+        }
+        worldspawn:b =
+        {
+          ;desc = "This is the world entity. Each map can only contain one, an"
+           "d it's automatically created for you."
         }
       }
     }

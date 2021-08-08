@@ -186,6 +186,35 @@ QQRKSRC1
         }
       }
 
+// assault entities
+
+      assault_* entities.qtxfolder =
+      {
+        assault_assaultpoint:e =
+        {
+          origin = "0 0 0"
+          ;desc = "(Assault) assault point"
+          assaulttimeout = "3.0"
+          clearoncontact = "0"
+          allowdiversion = "0"
+          allowdiversionradius = "0"
+          nevertimeout = "0"
+          strict = "0"
+          forcecrouch = "0"
+          urgent = "0"
+          assaulttolerance = "36"
+        }
+        assault_rallypoint:e =
+        {
+          origin = "0 0 0"
+          ;desc = "(Assault) rally point"
+          assaultdelay = "0"
+          priority = "1"
+          forcecrouch = "0"
+          urgent = "0"
+        }
+      }
+
 // env entities
 
       env_* entities.qtxfolder =
@@ -305,17 +334,15 @@ QQRKSRC1
 
       func_* entities.qtxfolder =
       {
+        func_bulletshield:b =
+        {
+          t_detailpoly=!
+          ;desc = "A shield that stops only bullets."
+        }
         func_combine_ball_spawner:b =
         {
           t_nodrawpoly=!
-          ;desc = "A volumetric trigger that bestows super armor to the player"
-          spawnflags = "4096"
-          ballcount = "3"
-          minspeed = "300.0"
-          maxspeed = "600.0"
-          ballradius = "20.0"
-          balltype = "Combine Energy Ball 1"
-          ballrespawntime = "4.0f"
+          ;desc = "Spawns Combine balls."
         }
         func_healthcharger:b =
         {
@@ -348,7 +375,11 @@ QQRKSRC1
         {
           t_detailpoly=!
           ;desc = "Brush Gun Turret"
-          bullet = "0"
+        }
+        func_tank_combine_cannon:b =
+        {
+          t_detailpoly=!
+          ;desc = "Combine sentry cannon"
         }
         func_tankairboatgun:b =
         {
@@ -416,6 +447,11 @@ QQRKSRC1
            "rent enemy to enter + leave the hint, then the missile will guide "
            "to the entity."
         }
+        info_darknessmode_lightsource:e =
+        {
+          origin = "0 0 0"
+          LightRadius = "256.0"
+        }
         info_radar_target:e =
         {
           origin = "0 0 0"
@@ -434,6 +470,11 @@ QQRKSRC1
         {
           origin = "0 0 0"
           ;desc = "Gunship Crash Target"
+        }
+        info_target_helicopter_crash:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Helicopter Crash Target"
         }
         info_target_vehicle_transition:e =
         {
@@ -1134,105 +1175,6 @@ QQRKSRC1
         }
       }
 
-// other entities
-
-      other_* entities.qtxfolder =
-      {
-        aiscripted_schedule:e =
-        {
-          origin = "0 0 0"
-          ;desc = "Issues a command to an NPC without taking the NPC out of it"
-           "s AI. This does not seize control of the NPC as a scripted_sequenc"
-           "e does"
-          m_flRadius = "0"
-          graball = "0"
-          forcestate = "0"
-          schedule = "1"
-          interruptability = "0"
-        }
-        assault_assaultpoint:e =
-        {
-          origin = "0 0 0"
-          ;desc = "(Assault) assault point"
-          assaulttimeout = "3.0"
-          clearoncontact = "0"
-          allowdiversion = "0"
-          nevertimeout = "0"
-        }
-        assault_rallypoint:e =
-        {
-          origin = "0 0 0"
-          ;desc = "(Assault) rally point"
-          assaultdelay = "0"
-          priority = "1"
-        }
-        combine_mine:e =
-        {
-          origin = "0 0 0"
-          ;desc = "Combine Land Mine"
-          bounce = "1"
-          LockSilently = "1"
-          StartDisarmed = "0"
-        }
-        cycler_actor:e =
-        {
-          origin = "0 0 0"
-          ;desc = "Actor Cycler"
-        }
-        generic_actor:e =
-        {
-          origin = "0 0 0"
-          ;desc = "Generic Actor NPC"
-          hull_name = "Human"
-        }
-        monster_generic:e =
-        {
-          origin = "0 0 0"
-          ;desc = "Generic Script NPC"
-          body = "0"
-        }
-        path_corner:e =
-        {
-          origin = "0 0 0"
-          ;desc = "Generic path point"
-          wait = "0"
-          speed = "0"
-          yaw_speed = "0"
-        }
-        path_corner_crash:e =
-        {
-          origin = "0 0 0"
-          ;desc = "Helicopter Crash Path"
-        }
-        phys_constraintsystem:e =
-        {
-          origin = "0 0 0"
-          ;desc = "Used to manage a group of interacting constraints and keep "
-           "them stable."
-        }
-        script_intro:e =
-        {
-          origin = "0 0 0"
-          ;desc = "Script: Custom entity used to handle the intro sequence."
-        }
-        script_tauremoval:e =
-        {
-          origin = "0 0 0"
-          ;desc = "Script: Custom entity used to handle the tau removal sequen"
-           "ce in coast. (unused)"
-        }
-        test_sidelist:e =
-        {
-          origin = "0 0 0"
-          ;desc = "Test entity for Ken!"
-        }
-        vehicle_viewcontroller:e =
-        {
-          origin = "0 0 0"
-          ;desc = "Vehicle hack to control player view"
-        }
-      }
-
 // player entities
 
       player_* entities.qtxfolder =
@@ -1298,6 +1240,30 @@ QQRKSRC1
           fogColor = "0 0 0"
           fogStart = "2048"
           fogEnd = "4096"
+          fogMaxDensity = "1"
+        }
+        point_combine_ball_launcher:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Launches Combine balls."
+          launchconenoise = "0.0"
+          maxballbounces = "8"
+        }
+        point_flesh_effect_target:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Flesh Effect Target"
+          radius = "8"
+        }
+        point_push:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Point Push"
+          spawnflags = "24"
+          enabled = "1"
+          magnitude = "100"
+          radius = "128"
+          inner_radius = "0"
         }
       }
 
@@ -1313,12 +1279,23 @@ QQRKSRC1
            " constraints. It can also be configured to break when it takes eno"
            "ugh damage."
         }
+        prop_coreball:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Core Ball"
+        }
+        prop_scalable:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Scalable Prop"
+        }
         prop_thumper:e =
         {
           origin = "0 0 0"
           ;desc = "Thumper"
           model = "models/props_combine/CombineThumper002.mdl"
           dustscale = "Small Thumper"
+          EffectRadius = "1000"
         }
         prop_vehicle:e =
         {
@@ -1344,6 +1321,15 @@ QQRKSRC1
           origin = "0 0 0"
           ;desc = "Driveable studiomodel cannon."
         }
+        prop_vehicle_choreo_generic:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Generic Choreo vehicle used for magical events."
+          model = "models/vehicles/prisoner_pod.mdl"
+          vehiclescript = "scripts/vehicles/choreo_vehicle.txt"
+          ignoremoveparent = "0"
+          ignoreplayer = "0"
+        }
         prop_vehicle_crane:e =
         {
           origin = "0 0 0"
@@ -1358,6 +1344,7 @@ QQRKSRC1
         {
           origin = "0 0 0"
           ;desc = "Driveable studiomodel jeep."
+          CargoVisible = "0"
         }
         prop_vehicle_prisoner_pod:e =
         {
@@ -1367,6 +1354,27 @@ QQRKSRC1
           vehiclescript = "scripts/vehicles/prisoner_pod.txt"
         }
       }
+
+// script entities
+
+    script_* entities.qtxfolder =
+    {
+      script_* entities.qtxfolder =
+      {
+        script_intro:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Script: Custom entity used to handle the intro sequence."
+          alternatefovchange = "0"
+        }
+        script_tauremoval:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Script: Custom entity used to handle the tau removal sequen"
+           "ce in coast. (unused)"
+        }
+      }
+    }
 
 // scripted entities
 
@@ -1407,7 +1415,9 @@ QQRKSRC1
            " is specified, hand the NPC to the next script and repeat this pro"
            "cess for that script.\n\nThe MoveToPosition input runs steps 1 and"
            " 2, then waits while playing the pre-action idle animation until t"
-           "he BeginSequence input is received."
+           "he BeginSequence input is received.\n\nIf the sequence has motion "
+           "extraction in it, set the 'Don't Teleport NPC On End' spawnflag."
+          onplayerdeath = "0"
         }
         scripted_target:e =
         {
@@ -1562,6 +1572,72 @@ QQRKSRC1
         {
           origin = "0 0 0"
           ;desc = "StunStick"
+        }
+      }
+
+// other entities
+
+      other entities.qtxfolder =
+      {
+        aiscripted_schedule:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Issues a command to an NPC without taking the NPC out of it"
+           "s AI. This does not seize control of the NPC as a scripted_sequenc"
+           "e does"
+          m_flRadius = "0"
+          graball = "0"
+          spawnflags = "4"
+          forcestate = "0"
+          schedule = "1"
+          interruptability = "0"
+        }
+        combine_mine:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Combine Land Mine"
+          bounce = "1"
+          LockSilently = "1"
+          StartDisarmed = "0"
+          Modification = "0"
+        }
+        cycler_actor:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Actor Cycler"
+        }
+        filter_combineball_type:e =
+        {
+          origin = "0 0 0"
+          ;desc = "A filter that filters by combine ball type."
+          balltype = "1"
+        }
+        generic_actor:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Generic Actor NPC"
+          hull_name = "Human"
+        }
+        grenade_helicopter:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Helicopter bomb"
+        }
+        monster_generic:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Generic Script NPC"
+          body = "0"
+        }
+        test_sidelist:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Test entity for Ken!"
+        }
+        vehicle_viewcontroller:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Vehicle hack to control player view"
         }
       }
     }
@@ -1915,89 +1991,12 @@ QQRKSRC1
     }
     func_combine_ball_spawner:form =
     {
-      t_Targetname = !
-      t_Origin = !
-      t_Angles = !
-      t_Global = !
-      spawnflags: =
-      {
-        txt = "&"
-        typ = "X4096"
-        cap = "Start inactive"
-      }
-      spawnflags: =
-      {
-        txt = "&"
-        typ = "X8192"
-        cap = "Combine power supply"
-      }
-      ballcount: =
-      {
-        txt = "&"
-        hint = "Ball count"
-      }
-      minspeed: =
-      {
-        txt = "&"
-        hint = "Min ball speed"
-      }
-      maxspeed: =
-      {
-        txt = "&"
-        hint = "Max ball speed"
-      }
-      ballradius: =
-      {
-        txt = "&"
-        hint = "Ball radius"
-      }
-      balltype: =
-      {
-        txt = "&"
-        hint = "Ball Type"
-        typ = "C"
-        items = "Combine Energy Ball 1"$0D"Combine Energy Ball 2"$0D"Combine E"
-         "nergy Ball 3"
-        values = "0"$0D"1"$0D"2"
-      }
-      ballrespawntime: =
-      {
-        txt = "&"
-        hint = "Ball Respawn Time"
-      }
-      input#Enable: =
-      {
-        txt = "&"
-        hint = "Enable spawning of combine balls"
-      }
-      input#Disable: =
-      {
-        txt = "&"
-        hint = "Disable spawning of combine balls"
-      }
-      output#OnBallGrabbed: =
-      {
-        txt = "&"
-        hint = "Fired when a combine ball is grabbed from the field by a mega "
-         "physcannon"
-      }
+      t_CombineBallSpawners = !
       output#OnBallReinserted: =
       {
         txt = "&"
         hint = "Fired when a combine ball is reinserted into the field (only g"
          "ets triggered when Combine Power supply is checked)"
-      }
-      output#OnBallHitTopSide: =
-      {
-        txt = "&"
-        hint = "Fired when a combine ball in hits the top side of the field (o"
-         "nly gets triggered when Combine Power supply is checked)"
-      }
-      output#OnBallHitBottomSide: =
-      {
-        txt = "&"
-        hint = "Fired when a combine ball in hits the bottom side of the field"
-         " (only gets triggered when Combine Power supply is checked)"
       }
       output#OnLastBallGrabbed: =
       {
@@ -2005,11 +2004,41 @@ QQRKSRC1
         hint = "Fired when the last combine ball is grabbed from the field by "
          "a mega physcannon"
       }
-      output#OnFirstBallReinserted: =
+    }
+    point_combine_ball_launcher:form =
+    {
+      t_CombineBallSpawners = !
+      launchconenoise: =
       {
         txt = "&"
-        hint = "Fired when the first combine ball is reinserted into the field"
-         " (only gets triggered when Combine Power supply is checked)"
+        hint = "Noise to launch direction"
+      }
+      bullseyename: =
+      {
+        txt = "&"
+        hint = "Name of bullseye"
+      }
+      maxballbounces: =
+      {
+        txt = "&"
+        hint = "Max number of bounces"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X1"
+        cap = "Attach Bullseye"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X2"
+        cap = "Balls should collide against player"
+      }
+      input#LaunchBall: =
+      {
+        txt = "&"
+        hint = "Launch a ball from the spawner."
       }
     }
     npc_blob:form =
@@ -4836,10 +4865,41 @@ QQRKSRC1
         typ = "X65536"
         cap = "Cheap death"
       }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X131072"
+        cap = "Ambush Mode"
+      }
       RestDist: =
       {
         txt = "&"
         hint = "Rest Distance"
+      }
+      input#DropTongue: =
+      {
+        txt = "&"
+        hint = "Drop tongue"
+      }
+      input#SetDropTongueSpeed: =
+      {
+        txt = "&"
+        hint = "Set Drop Tongue speed"
+      }
+      input#LetGo: =
+      {
+        txt = "&"
+        hint = "Let go of anything I am holding."
+      }
+      output#OnGrab: =
+      {
+        txt = "&"
+        hint = "When I attach my tongue to something"
+      }
+      output#OnRelease: =
+      {
+        txt = "&"
+        hint = "When I let go of something"
       }
     }
     npc_combinegunship:form =
@@ -4950,6 +5010,11 @@ QQRKSRC1
         cap = "No ground attack"
       }
     }
+    info_target_helicopter_crash:form =
+    {
+      t_Targetname = !
+      t_Parentname = !
+    }
     info_target_gunshipcrash:form =
     {
       t_Targetname = !
@@ -4983,6 +5048,11 @@ QQRKSRC1
       {
         txt = "&"
         hint = "Crate Gun Range"
+      }
+      RollermineTemplate: =
+      {
+        txt = "&"
+        hint = "Name of Rollermine Template"
       }
       NPCTemplate: =
       {
@@ -5094,6 +5164,11 @@ QQRKSRC1
         txt = "&"
         hint = "Drop the APC you're carrying. Now."
       }
+      input#Hover: =
+      {
+        txt = "&"
+        hint = "Hover over a named target entity until told to fly to a path."
+      }
       input#Pickup: =
       {
         txt = "&"
@@ -5181,6 +5256,12 @@ QQRKSRC1
         typ = "X1048576"
         cap = "More aggressive attacks"
       }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X2097152"
+        cap = "Cast long shadow"
+      }
       InitialSpeed: =
       {
         txt = "&"
@@ -5195,6 +5276,14 @@ QQRKSRC1
       {
         txt = "&"
         hint = "Patrol Speed"
+      }
+      noncombat: =
+      {
+        txt = "&"
+        hint = "Non-combat (Do not precache gibs)"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
       }
       input#GunOn: =
       {
@@ -5304,6 +5393,12 @@ QQRKSRC1
         txt = "&"
         hint = "The chopper fires continuously."
       }
+      input#StartFastShooting: =
+      {
+        txt = "&"
+        hint = "The chopper fires normal bursts, but does not 'charge up' the "
+         "gun. Fires immediately."
+      }
       input#ResetIdleTime: =
       {
         txt = "&"
@@ -5360,11 +5455,49 @@ QQRKSRC1
         hint = "When the helicopter moves, he will only move to path_tracks th"
          "at have line-of-sight to the enemy"
       }
+      input#StartCarpetBombing: =
+      {
+        txt = "&"
+        hint = "Starts the helicopter constantly dropping megabombs until Stop"
+         "CarpetBombing input"
+      }
+      input#StopCarpetBombing: =
+      {
+        txt = "&"
+        hint = "Stop the carpet bombing behavior"
+      }
       output#OnHealthChanged: =
       {
         txt = "&"
         hint = "Fires when the helicopter health changes. The integer is the p"
          "ercentage of health the chopper has from 0-100."
+      }
+      output#OnShotDown: =
+      {
+        txt = "&"
+        hint = "Fires the instant the helicopter is killed"
+      }
+    }
+    grenade_helicopter:form =
+    {
+      t_Targetname = !
+      t_Parentname = !
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X65536"
+        cap = "Is a dud"
+      }
+      input#ExplodeIn: =
+      {
+        txt = "&"
+        hint = "Tells the bomb to explode in X seconds."
+      }
+      output#OnPhysGunOnlyPickup: =
+      {
+        txt = "&"
+        hint = "Fired when a player picks this object up WITH THE PHYSGUN. +US"
+         "E pickups do not fire this output."
       }
     }
     npc_heli_avoidsphere:form =
@@ -5402,6 +5535,15 @@ QQRKSRC1
       t_Parentname = !
     }
     npc_fastzombie:form =
+    {
+      t_BaseNPC = !
+      input#AttachToVehicle: =
+      {
+        txt = "&"
+        hint = "Attach to a specified vehicle entity"
+      }
+    }
+    npc_fastzombie_torso:form =
     {
       t_BaseNPC = !
     }
@@ -5560,9 +5702,131 @@ QQRKSRC1
         hint = "Fired any time the scanner takes a picture of an NPC."
       }
     }
+    npc_clawscanner:form =
+    {
+      t_BaseNPC = !
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X65536"
+        cap = "No Dynamic Light"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X131072"
+        cap = "Strider Scout Scanner"
+      }
+      spotlightlength: =
+      {
+        txt = "&"
+        hint = "SpotlightLength"
+      }
+      spotlightwidth: =
+      {
+        txt = "&"
+        hint = "SpotlightWidth"
+      }
+      spotlightdisabled: =
+      {
+        txt = "&"
+        hint = "SpotlightDisabled"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
+      }
+      ShouldInspect: =
+      {
+        txt = "&"
+        hint = "Should inspect"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
+      }
+      OnlyInspectPlayers: =
+      {
+        txt = "&"
+        hint = "Only Inspect Players"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
+      }
+      NeverInspectPlayers: =
+      {
+        txt = "&"
+        hint = "Never Inspect Players"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
+      }
+      input#DisableSpotlight: =
+      {
+        txt = "&"
+        hint = "DisableSpotlight"
+      }
+      input#InspectTargetPhoto: =
+      {
+        txt = "&"
+        hint = "Tells the scanner to photograph the given entity, named by cla"
+         "ssname or by target name. !activator or !player works here also."
+      }
+      input#InspectTargetSpotlight: =
+      {
+        txt = "&"
+        hint = "Tells the scanner to spotlight the given entity, named by clas"
+         "sname or by target name. !activator or !player works here also."
+      }
+      input#InputSetFlightSpeed: =
+      {
+        txt = "&"
+        hint = "Sets the flight speed of the scanner"
+      }
+      input#InputShouldInspect: =
+      {
+        txt = "&"
+        hint = "Set whether should inspect or not"
+      }
+      input#SetFollowTarget: =
+      {
+        txt = "&"
+        hint = "Set target to follow until told otherwise"
+      }
+      input#ClearFollowTarget: =
+      {
+        txt = "&"
+        hint = "Stop following our target"
+      }
+      input#SetDistanceOverride: =
+      {
+        txt = "&"
+        hint = "Override the distance the scanner will attempt to keep between"
+         " inspection targets and itself"
+      }
+      input#DeployMine: =
+      {
+        txt = "&"
+        hint = "Drop landmine (if carrying one)"
+      }
+      input#EquipMine: =
+      {
+        txt = "&"
+        hint = "Equip with landmine"
+      }
+      output#OnPhotographPlayer: =
+      {
+        txt = "&"
+        hint = "Fired any time the scanner takes a picture of the player."
+      }
+      output#OnPhotographNPC: =
+      {
+        txt = "&"
+        hint = "Fired any time the scanner takes a picture of an NPC."
+      }
+    }
     npc_manhack:form =
     {
       t_BaseNPC = !
+      t_AlyxInteractable = !
       spawnflags: =
       {
         txt = "&"
@@ -5596,6 +5860,14 @@ QQRKSRC1
       {
         txt = "&"
         hint = "Causes the manhack to stop being packed up."
+      }
+      ignoreclipbrushes: =
+      {
+        txt = "&"
+        hint = "Ignore NPC Clip brushes"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
       }
     }
     npc_mortarsynth:form =
@@ -5706,6 +5978,12 @@ QQRKSRC1
         txt = "&"
         hint = "Fires when the player is hit by a stunstick by this NPC."
       }
+      output#OnCupCopped: =
+      {
+        txt = "&"
+        hint = "Fires if the player hits me with the cupcop can. ONLY use for "
+         "x360 achievement."
+      }
     }
     npc_crabsynth:form =
     {
@@ -5748,6 +6026,7 @@ QQRKSRC1
     {
       t_TalkNPC = !
       t_Parentname = !
+      t_PlayerCompanion = !
       t_modelselect = !
       additionalequipment: =
       {
@@ -5919,6 +6198,16 @@ QQRKSRC1
         hint = "The item is done"
       }
     }
+    info_darknessmode_lightsource:form =
+    {
+      t_Targetname = !
+      t_EnableDisable = !
+      LightRadius: =
+      {
+        txt = "&"
+        hint = "Light Radius"
+      }
+    }
     npc_kleiner:form =
     {
       t_TalkNPC = !
@@ -5928,6 +6217,11 @@ QQRKSRC1
     {
       t_TalkNPC = !
       t_Parentname = !
+      t_modelselect = !
+    }
+    npc_magnusson:form =
+    {
+      t_TalkNPC = !
       t_modelselect = !
     }
     npc_breen:form =
@@ -5944,13 +6238,10 @@ QQRKSRC1
     npc_mossman:form =
     {
       t_TalkNPC = !
-      t_modelselect = !
     }
     npc_gman:form =
     {
       t_TalkNPC = !
-           t_modelselect = !
-
     }
     npc_dog:form =
     {
@@ -5997,6 +6288,16 @@ QQRKSRC1
         txt = "&"
         hint = "Set d0g's throw target (pass in !player if you want the player"
          ")"
+      }
+      input#TurnBoneFollowersOff: =
+      {
+        txt = "&"
+        hint = "Turn dog's bone followers off"
+      }
+      input#TurnBoneFollowersOn: =
+      {
+        txt = "&"
+        hint = "Turn dog's bone followers on"
       }
       output#OnDogThrow: =
       {
@@ -6102,52 +6403,75 @@ QQRKSRC1
         txt = "&"
         hint = "Class name of spawned NPC"
         typ = "C"
-          items = "npc_alyx"
+          items = "npc_advisor"
+          $0D"npc_alyx"
           $0D"npc_antlion"
           $0D"npc_antlionguard"
-          $0D"npc_apcdriver"     
-          $0D"npc_barnacle"     
-          $0D"npc_barney"     
-          $0D"npc_breen"     
-          $0D"npc_bullseye"     
-          $0D"npc_citizen"     
-          $0D"npc_combine_camera"   
-          $0D"npc_combine_s"     
-          $0D"npc_combinedropship"  
-          $0D"npc_combinegunship"   
-          $0D"npc_combinegunship"   
-          $0D"npc_cranedriver"     
-          $0D"npc_crow"     
-          $0D"npc_cscanner"     
-          $0D"npc_dog"     
-          $0D"npc_eli"     
-          $0D"npc_enemyfinder"     
-          $0D"npc_fastzombie"     
-          $0D"npc_gman"     
-          $0D"npc_headcrab"     
-          $0D"npc_headcrab_black"   
-          $0D"npc_headcrab_fast"    
-          $0D"npc_helicopter"     
-          $0D"npc_ichthyosaur"     
-          $0D"npc_kleiner"     
-          $0D"npc_manhack"     
-          $0D"npc_metropolice"     
-          $0D"npc_missiledefense"   
-          $0D"npc_monk"     
-          $0D"npc_mortarsynth"     
-          $0D"npc_mossman"     
-          $0D"npc_pigeon"     
-          $0D"npc_poisonzombie"     
-          $0D"npc_rollermine"     
-          $0D"npc_seagull"     
-          $0D"npc_sniper"     
-          $0D"npc_spotlight"     
-          $0D"npc_stalker"     
-          $0D"npc_strider"     
-          $0D"npc_vehicledriver"    
-          $0D"npc_vortigaunt"     
-          $0D"npc_zombie"     
+          $0D"npc_antlion_grub"
+          $0D"npc_antlion_template_maker"
+          $0D"npc_apcdriver"
+          $0D"npc_barnacle"
+          $0D"npc_barney"
+          $0D"npc_blob"
+          $0D"npc_breen"
+          $0D"npc_bullseye"
+          $0D"npc_citizen"
+          $0D"npc_clawscanner"
+          $0D"npc_combine_camera"
+          $0D"npc_combine_cannon"
+          $0D"npc_combine_s"
+          $0D"npc_combinedropship"
+          $0D"npc_combinegunship"
+          $0D"npc_combinegunship"
+          $0D"npc_crabsynth"
+          $0D"npc_cranedriver"
+          $0D"npc_crow"
+          $0D"npc_cscanner"
+          $0D"npc_dog"
+          $0D"npc_eli"
+          $0D"npc_enemyfinder"
+          $0D"npc_enemyfinder_combinecannon"
+          $0D"npc_fastzombie"
+          $0D"npc_fastzombie_torso"
+          $0D"npc_fisherman"
+          $0D"npc_gman"
+          $0D"npc_grenade_frag"
+          $0D"npc_headcrab"
+          $0D"npc_headcrab_black"
+          $0D"npc_headcrab_fast"
+          $0D"npc_helicopter"
+          $0D"npc_heli_avoidbox"
+          $0D"npc_heli_avoidsphere"
+          $0D"npc_heli_nobomb"
+          $0D"npc_hunter"
+          $0D"npc_hunter_maker"
+          $0D"npc_ichthyosaur"
+          $0D"npc_kleiner"
+          $0D"npc_launcher"
+          $0D"npc_maker"
+          $0D"npc_manhack"
+          $0D"npc_metropolice"
+          $0D"npc_missiledefense"
+          $0D"npc_magnusson"
+          $0D"npc_monk"
+          $0D"npc_mortarsynth"
+          $0D"npc_mossman"
+          $0D"npc_pigeon"
+          $0D"npc_poisonzombie"
+          $0D"npc_rollermine"
+          $0D"npc_seagull"
+          $0D"npc_sniper"
+          $0D"npc_spotlight"
+          $0D"npc_stalker"
+          $0D"npc_strider"
+          $0D"npc_turret_ceiling"
+          $0D"npc_turret_floor"
+          $0D"npc_turret_ground"
+          $0D"npc_vehicledriver"
+          $0D"npc_vortigaunt"
+          $0D"npc_zombie"
           $0D"npc_zombie_torso"
+          $0D"npc_zombine"
       }
       NPCTargetname: =
       {
@@ -6192,6 +6516,18 @@ QQRKSRC1
         typ = "X2048"
         cap = "Try to spawn close to the current target"
       }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X4096"
+        cap = "Pick a random fight target"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X8192"
+        cap = "Try to play blocked effects near the player"
+      }
       TemplateName: =
       {
         txt = "&"
@@ -6226,6 +6562,11 @@ QQRKSRC1
       {
         txt = "&"
         hint = "Vehicle Spawn Distance"
+      }
+      workerspawnrate: =
+      {
+        txt = "&"
+        hint = "Random Worker Spawn Rate"
       }
       ignorebugbait: =
       {
@@ -6303,6 +6644,24 @@ QQRKSRC1
         txt = "&"
         hint = "Set the time interval between pool regeneration ticks."
       }
+      input#ChangeDestinationGroup: =
+      {
+        txt = "&"
+        hint = "Change the spawn group for this spawner."
+      }
+      output#OnAllBlocked: =
+      {
+        txt = "&"
+        hint = "Fires when all the hint nodes are blocked."
+      }
+      createspores: =
+      {
+        txt = "&"
+        hint = "Create Spore effect"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
+      }
     }
     point_antlion_repellant:form =
     {
@@ -6363,6 +6722,11 @@ QQRKSRC1
         txt = "&"
         hint = "Pre Action Idle Animation"
       }
+      m_iszEntry: =
+      {
+        txt = "&"
+        hint = "Entry Animation"
+      }
       m_iszPlay: =
       {
         txt = "&"
@@ -6377,6 +6741,22 @@ QQRKSRC1
       {
         txt = "&"
         hint = "Custom Move Animation"
+      }
+      m_bLoopActionSequence: =
+      {
+        txt = "&"
+        hint = "Loop Action Animation?"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
+      }
+      m_bSynchPostIdles: =
+      {
+        txt = "&"
+        hint = "Synch Post Idles?"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
       }
       m_flRadius: =
       {
@@ -6401,6 +6781,22 @@ QQRKSRC1
       {
         txt = "&"
         hint = "Next Script"
+      }
+      m_bIgnoreGravity: =
+      {
+        txt = "&"
+        hint = "Ignore Gravity on NPC during script"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
+      }
+      m_bDisableNPCCollisions: =
+      {
+        txt = "&"
+        hint = "Disable NPC collisions during script"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
       }
       input#BeginSequence: =
       {
@@ -6430,6 +6826,17 @@ QQRKSRC1
       {
         txt = "&"
         hint = "Fires when the action animation completes."
+      }
+      output#OnCancelSequence: =
+      {
+        txt = "&"
+        hint = "Fires when the sequence is cancelled."
+      }
+      output#OnCancelFailedSequence: =
+      {
+        txt = "&"
+        hint = "Fires when the sequence is cancelled without ever playing (OnC"
+         "ancelSequence will also fire)."
       }
       output#OnScriptEvent01: =
       {
@@ -6683,15 +7090,43 @@ QQRKSRC1
         items = "No"$0D"Yes"
         values = "0"$0D"1"
       }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X1"
+        cap = "Notify subject of target's location"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X2"
+        cap = "Notify target of subject's location"
+      }
       input#ApplyRelationship: =
       {
         txt = "&"
-        hint = "Apply relationship changes"
+        hint = "Apply relationship changes. This will change all Subject entit"
+         "ies' relationships to all Target entities. \n\nIMPORTANT: Once you A"
+         "pplyRelationships, this entity is then 'ALWAYS ON' until you send a "
+         "Disable input or RevertRelationship input. During the time this enti"
+         "ty is 'ON', any entities that spawn who match the Subject or Target "
+         "names will be affected. \n\nIMPORTANT: Unpredictable results may occ"
+         "ur when two ai_relationship entities refer to the same set or subset"
+         " of target or subject entities. This situation should be avoided."
       }
       input#RevertRelationship: =
       {
         txt = "&"
-        hint = "Revert relationship changes"
+        hint = "Revert relationship changes. This will return the relationship"
+         " to what it was at the time the ApplyRelationship input was called ("
+         "or when this ai_relationship was spawned if StartActive is set)."
+      }
+      input#RevertToDefaultRelationship: =
+      {
+        txt = "&"
+        hint = "Revert relationship changes to the default relationship, which"
+         " may have changed since this ai_relationship was applied. This retur"
+         "ns control of the entity relationship to the code."
       }
     }
     ai_ally_manager:form =
@@ -6804,17 +7239,27 @@ QQRKSRC1
       WaitPointName: =
       {
         txt = "&"
-        hint = "Point to wait at if the target's not visible."
+        hint = "Point to wait at if the target's not visible"
       }
       WaitDistance: =
       {
         txt = "&"
-        hint = "Wait until player gets this close."
+        hint = "Wait until player gets this close"
       }
       LeadDistance: =
       {
         txt = "&"
-        hint = "Lead Distance."
+        hint = "Lead Distance"
+      }
+      RetrieveDistance: =
+      {
+        txt = "&"
+        hint = "Retrieve Distance"
+      }
+      SuccessDistance: =
+      {
+        txt = "&"
+        hint = "Success Distance"
       }
       Run: =
       {
@@ -6830,6 +7275,52 @@ QQRKSRC1
         hint = "Retrieve player?"
         typ = "C"
         items = "No, just idle and wait"$0D"Yes, move to retrieve"
+        values = "0"$0D"1"
+      }
+      ComingBackWaitForSpeak: =
+      {
+        txt = "&"
+        hint = "Before Coming Back, Wait for speech?"
+        typ = "C"
+        items = "No, come back while speaking"$0D"Yes, wait for speech to fini"
+         "sh"
+        values = "0"$0D"1"
+      }
+      RetrieveWaitForSpeak: =
+      {
+        txt = "&"
+        hint = "On Retrieve, Wait for speech?"
+        typ = "C"
+        items = "No, start leading while speaking"$0D"Yes, wait for speech to "
+         "finish"
+        values = "0"$0D"1"
+      }
+      DontSpeakStart: =
+      {
+        txt = "&"
+        hint = "Speak start greeting?"
+        typ = "C"
+        items = "Yes, speak the start greeting"$0D"No, don't speak the greetin"
+         "g"
+        values = "0"$0D"1"
+      }
+      LeadDuringCombat: =
+      {
+        txt = "&"
+        hint = "Lead during combat?"
+        typ = "C"
+        items = "No. Stop to fight, resume leading when safe."$0D"Yes, lead wh"
+         "ile fighting."
+        values = "0"$0D"1"
+      }
+      GagLeader: =
+      {
+        txt = "&"
+        hint = "Gag Leader?"
+        typ = "C"
+        items = "No. Speak lead concepts normally, respecting other lead speec"
+         "h settings."$0D"Yes, don't speak any lead concepts at all, overridin"
+         "g all other lead speech settings."
         values = "0"$0D"1"
       }
       AttractPlayerConceptModifier: =
@@ -6861,6 +7352,16 @@ QQRKSRC1
       {
         txt = "&"
         hint = "Failure concept modifier"
+      }
+      ComingBackConceptModifier: =
+      {
+        txt = "&"
+        hint = "Coming Back concept modifier"
+      }
+      RetrieveConceptModifier: =
+      {
+        txt = "&"
+        hint = "Retrieve concept modifier"
       }
       spawnflags: =
       {
@@ -7247,6 +7748,22 @@ QQRKSRC1
         txt = "&"
         hint = "Priority"
       }
+      forcecrouch: =
+      {
+        txt = "&"
+        hint = "Force Crouch"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
+      }
+      urgent: =
+      {
+        txt = "&"
+        hint = "Urgent"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
+      }
       output#OnArrival: =
       {
         txt = "&"
@@ -7289,6 +7806,11 @@ QQRKSRC1
         items = "No"$0D"Yes"
         values = "0"$0D"1"
       }
+      allowdiversionradius: =
+      {
+        txt = "&"
+        hint = "Diversion Proximity"
+      }
       nevertimeout: =
       {
         txt = "&"
@@ -7297,21 +7819,66 @@ QQRKSRC1
         items = "No"$0D"Yes"
         values = "0"$0D"1"
       }
+      strict: =
+      {
+        txt = "&"
+        hint = "Strict?"
+        typ = "C"
+        items = "No, NPC may move from point to attack"$0D"Yes, NPC may not mo"
+         "ve to attack"
+        values = "0"$0D"1"
+      }
       spawnflags: =
       {
         txt = "&"
         typ = "X1"
         cap = "Clear this point upon arrival, UNCONDITIONALLY"
       }
+      forcecrouch: =
+      {
+        txt = "&"
+        hint = "Force Crouch"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
+      }
+      urgent: =
+      {
+        txt = "&"
+        hint = "Urgent"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
+      }
+      assaulttolerance: =
+      {
+        txt = "&"
+        hint = "Attack Tolerance"
+        typ = "C"
+        items = "Tight (3ft)"$0D"Medium (6ft)"$0D"Large (10ft)"
+        values = "36"$0D"72"$0D"120"
+      }
       input#SetClearOnContact: =
       {
         txt = "&"
-        hint = "Set the clear on contact flag."
+        hint = "Set the clear on contact flag. NPCs who spot enemies while run"
+         "ning to the assault point, or while waiting at it, will immediately "
+         "Clear it."
       }
       input#SetAllowDiversion: =
       {
         txt = "&"
-        hint = "Set the allow diversion flag."
+        hint = "Set the allow diversion flag. NPCs who spot enemies whil runni"
+         "ng to the assault point, or while waiting on it, will divert away (l"
+         "eave Assault mode) to deal with the enemies. Upon losing enemies, th"
+         "ey'll go back to Assault mode, and return to this assault point."
+      }
+      input#SetForceClear: =
+      {
+        txt = "&"
+        hint = "Set the Force Clear flag. NPCs who are currently running to th"
+         "e assault point will Clear it immediately. NPCs who acquire it in th"
+         "e future will Clear it automatically."
       }
       output#OnArrival: =
       {
@@ -8022,7 +8589,7 @@ QQRKSRC1
       {
         txt = "&"
         typ = "X128"
-        cap = "No Script Movement"
+        cap = "Don't Teleport NPC On End"
       }
       spawnflags: =
       {
@@ -8035,6 +8602,20 @@ QQRKSRC1
         txt = "&"
         typ = "X512"
         cap = "Priority Script"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X4096"
+        cap = "Allow actor death"
+      }
+      onplayerdeath: =
+      {
+        txt = "&"
+        hint = "On player death"
+        typ = "C"
+        items = "Do Nothing"$0D"Cancel Script and return to AI"
+        values = "0"$0D"1"
       }
     }
     aiscripted_schedule:form =
@@ -8168,6 +8749,12 @@ QQRKSRC1
         txt = "&"
         hint = "Recharge to full"
       }
+      input#SetCharge: =
+      {
+        txt = "&"
+        hint = "This sets the remaining charge in the charger to whatever valu"
+         "e you specify"
+      }
       output#OutRemainingCharge: =
       {
         txt = "&"
@@ -8203,6 +8790,16 @@ QQRKSRC1
       {
         txt = "&"
         hint = "Removes this entity from the world"
+      }
+      input#Enable: =
+      {
+        txt = "&"
+        hint = "Enable collisions with vehicles"
+      }
+      input#Disable: =
+      {
+        txt = "&"
+        hint = "Disable collisions with vehicles"
       }
     }
     func_lookdoor:form =
@@ -8268,10 +8865,13 @@ QQRKSRC1
         items = "Gordon pre-criminal"$0D"Antlions are player allies"$0D"Suit s"
          "print function not yet enabled"$0D"Super phys gun is enabled"$0D"Fri"
          "endly encounter sequence (lower weapons, etc.)"$0D"Gordon is invulne"
-         "rable"$0D"Don't spawn seagulls on the jeep"
+         "rable"$0D"Don't spawn seagulls on the jeep"$0D"Episode 2: Alyx injur"
+         "ed"$0D"Episodic: Alyx darkness mode"$0D"Ep2 Counter: Hunters to run "
+         "over before they dodge"
         values = "gordon_precriminal"$0D"antlion_allied"$0D"suit_no_sprint"$0D
          "super_phys_gun"$0D"friendly_encounter"$0D"gordon_invulnerable"$0D"no"
-         "_seagulls_on_jeep"
+         "_seagulls_on_jeep"$0D"ep2_alyx_injured"$0D"ep_alyx_darknessmode"$0D"h"
+         "unters_to_run_over"
       }
     }
     t_BaseTank:incl =
@@ -8330,6 +8930,12 @@ QQRKSRC1
         txt = "&"
         typ = "X32768"
         cap = "Non-solid."
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X131072"
+        cap = "Perfect accuracy every 3rd shot at player"
       }
       control_volume: =
       {
@@ -8533,8 +9139,8 @@ QQRKSRC1
         txt = "&"
         hint = "Effect Handling"
         typ = "C"
-        items = "Use Individual Settings."$0D"AR2"
-        values = "0"$0D"1"
+        items = "Use Individual Settings."$0D"AR2"$0D"Combine Cannon"
+        values = "0"$0D"1"$0D"2"
       }
       input#Activate: =
       {
@@ -8660,13 +9266,13 @@ QQRKSRC1
     func_tank:form =
     {
       t_BaseTank = !
-      bullet: =
+      ammotype: =
       {
         txt = "&"
-        hint = "Bullets"
+        hint = "Ammo type"
         typ = "C"
-        items = "None"$0D"Pistol"$0D"SMG1"$0D"AR2"$0D"Laser"
-        values = "0"$0D"1"$0D"2"$0D"3"$0D"4"
+        items = "None"$0D"Pistol"$0D"SMG1"$0D"AR2"$0D"Combine Heavy Cannon"
+        values = $0D"Pistol"$0D"SMG1"$0D"AR2"$0D"CombineHeavyCannon"
       }
       spawnflags: =
       {
@@ -8814,6 +9420,34 @@ QQRKSRC1
         hint = "Barrel Volume"
       }
     }
+    func_tank_combine_cannon:form =
+    {
+      t_BaseTank = !
+      ammotype: =
+      {
+        txt = "&"
+        hint = "Ammo type"
+        typ = "C"
+        items = "None"$0D"Pistol"$0D"SMG1"$0D"AR2"$0D"Combine Heavy Cannon"
+        values = $0D"Pistol"$0D"SMG1"$0D"AR2"$0D"CombineHeavyCannon"
+      }
+      input#DisableHarrass: =
+      {
+        txt = "&"
+        hint = "Disable the cannon tracking an unseen player"
+      }
+      input#EnableHarrass: =
+      {
+        txt = "&"
+        hint = "Allow the cannon to track and pester a player who is hiding (D"
+         "EFAULT)"
+      }
+      output#OnShotAtPlayer: =
+      {
+        txt = "&"
+        hint = "Fired everytime the cannon shoots at the player"
+      }
+    }
     t_Item:incl =
     {
       t_Targetname = !
@@ -8823,6 +9457,35 @@ QQRKSRC1
       {
         txt = "&"
         hint = "Fires when the player touches this object"
+      }
+      output#OnCacheInteraction: =
+      {
+        txt = "&"
+        hint = "This output fires when the player proves they have 'found' thi"
+         "s item. Fires on: Player Touch (whether or not player actually acqui"
+         "res the item), Picked up by +USE, Picked up by Physcannon, Punted by"
+         " Physcannon."
+      }
+      fademindist: =
+      {
+        txt = "&"
+        hint = "Start Fade Dist/Pixels"
+      }
+      fademaxdist: =
+      {
+        txt = "&"
+        hint = "End Fade Dist/Pixels"
+      }
+      fadescale: =
+      {
+        txt = "&"
+        hint = "Fade Scale"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X1"
+        cap = "Start Constrained"
       }
     }
     item_dynamic_resupply:form =
@@ -10073,6 +10736,14 @@ QQRKSRC1
         items = "No"$0D"Yes"
         values = "0"$0D"1"
       }
+      Modification: =
+      {
+        txt = "&"
+        hint = "Citizen modified"
+        typ = "C"
+        items = "Normal"$0D"Cavern"
+        values = "0"$0D"1"
+      }
       input#Disarm: =
       {
         txt = "&"
@@ -10167,12 +10838,14 @@ QQRKSRC1
       input#Start: =
       {
         txt = "&"
-        hint = "Start"
+        hint = "Starts the flare burning. The flare will burn for the specifie"
+         "d number of seconds (0 = infinite)."
       }
       input#Die: =
       {
         txt = "&"
-        hint = "Die"
+        hint = "Causes the flare to fade out over the specified number of seco"
+         "nds, and then die (0 = die instantly)."
       }
       input#Launch: =
       {
@@ -10510,6 +11183,11 @@ QQRKSRC1
         txt = "&"
         hint = "Fog End"
       }
+      fogMaxDensity: =
+      {
+        txt = "&"
+        hint = "Fog Max Density [0..1]"
+      }
       input#ChangeFOV: =
       {
         txt = "&"
@@ -10560,6 +11238,10 @@ QQRKSRC1
         hint = "Sets the camera to use for this monitor. Takes the name of a p"
          "oint_camera entity in the map."
       }
+    }
+    func_bulletshield:form =
+    {
+      t_func_brush = !
     }
     t_BaseVehicle:incl =
     {
@@ -10667,6 +11349,12 @@ QQRKSRC1
       {
         txt = "&"
         hint = "Throttle +/-1"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X1"
+        cap = "Always Think (Run physics every frame)"
       }
     }
     prop_vehicle_driveable:form =
@@ -10778,6 +11466,16 @@ QQRKSRC1
         txt = "&"
         hint = "Fired when the APC is killed."
       }
+      output#OnDamaged: =
+      {
+        txt = "&"
+        hint = "Fired when the APC is damaged."
+      }
+      output#OnDamagedByPlayer: =
+      {
+        txt = "&"
+        hint = "Fired when the APC is damaged by the player."
+      }
     }
     info_apc_missile_hint:form =
     {
@@ -10803,6 +11501,108 @@ QQRKSRC1
       {
         txt = "&"
         hint = "Finish the tau removal sequence."
+      }
+      input#LockEntrance: =
+      {
+        txt = "&"
+        hint = "Stops NPC's from entering the vehicle until unlocked."
+      }
+      input#UnlockEntrance: =
+      {
+        txt = "&"
+        hint = "Allows NPC's to enter the vehicle."
+      }
+      input#LockExit: =
+      {
+        txt = "&"
+        hint = "Stops NPC's from exiting the vehicle until unlocked."
+      }
+      input#UnlockExit: =
+      {
+        txt = "&"
+        hint = "Allows NPC's to exit the vehicle."
+      }
+      input#EnableRadar: =
+      {
+        txt = "&"
+        hint = "Turn on the Jalopy radar"
+      }
+      input#DisableRadar: =
+      {
+        txt = "&"
+        hint = "Turn off the Jalopy radar"
+      }
+      input#EnableRadarDetectEnemies: =
+      {
+        txt = "&"
+        hint = "Enable Jalopy radar to detect Striders and Hunters"
+      }
+      input#AddBusterToCargo: =
+      {
+        txt = "&"
+        hint = "Put a striderbuster in the cargo trigger"
+      }
+      input#SetCargoHopperVisibility: =
+      {
+        txt = "&"
+        hint = "Set the strider buster hopper thingy to be visible, or invisib"
+         "le."
+      }
+      input#DisablePhysGun: =
+      {
+        txt = "&"
+        hint = "Disable physgun interactions with the jeep."
+      }
+      input#EnablePhysGun: =
+      {
+        txt = "&"
+        hint = "Enable physgun interactions with the jeep (default)."
+      }
+      input#CreateLinkController: =
+      {
+        txt = "&"
+        hint = "Automatically builds and attaches a link controller to the car"
+         ", which cuts the node connections under the car while the car is sta"
+         "nding still."
+      }
+      input#DestroyLinkController: =
+      {
+        txt = "&"
+        hint = "Destroys the link controller created by CreateLinkController."
+      }
+      CargoVisible: =
+      {
+        txt = "&"
+        hint = "Hopper Visible"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X1"
+        cap = "HUD Locator Precache"
+      }
+      output#OnCompanionEnteredVehicle: =
+      {
+        txt = "&"
+        hint = "Companion has entered the vehicle."
+      }
+      output#OnCompanionExitedVehicle: =
+      {
+        txt = "&"
+        hint = "Companion has exited the vehicle."
+      }
+      output#OnHostileEnteredVehicle: =
+      {
+        txt = "&"
+        hint = "Hostile has entered the vehicle."
+      }
+      output#OnHostileExitedVehicle: =
+      {
+        txt = "&"
+        hint = "Hostile has exited the vehicle."
       }
     }
     vehicle_viewcontroller:form =
@@ -10924,10 +11724,6 @@ QQRKSRC1
         hint = "Fired when the pod too closed to enter."
       }
     }
-    phys_constraintsystem:form =
-    {
-      t_Targetname = !
-    }
     env_speaker:form =
     {
       t_BaseSpeaker = !
@@ -11016,6 +11812,14 @@ QQRKSRC1
       {
         txt = "&"
         hint = "Set the fade color. Parameters: <Red> <Green> <Blue>"
+      }
+      alternatefovchange: =
+      {
+        txt = "&"
+        hint = "Match env_zoom's FOV transition"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
       }
     }
     env_citadel_energy_core:form =
@@ -11130,6 +11934,97 @@ QQRKSRC1
         hint = "Restarts the countdown since the malfunction is finished."
       }
     }
+    prop_vehicle_choreo_generic:form =
+    {
+      t_BaseDriveableVehicle = !
+      t_Parentname = !
+      t_modelselect = !
+      vehiclescript: =
+      {
+        txt = "&"
+        hint = "Vehicle Script File"
+      }
+      input#Open: =
+      {
+        txt = "&"
+        hint = "Plays the vehicle's open animation and unlocks the vehicle for"
+         " entry or exit."
+      }
+      input#Close: =
+      {
+        txt = "&"
+        hint = "Plays the vehicle's close animation and locks the vehicle for "
+         "entry or exit."
+      }
+      input#EnterVehicle: =
+      {
+        txt = "&"
+        hint = "Forces the activator (or player) into the vehicle."
+      }
+      input#EnterVehicleImmediate: =
+      {
+        txt = "&"
+        hint = "Forces the activator (or player) into the vehicle without ente"
+         "r/exit animations."
+      }
+      input#ExitVehicle: =
+      {
+        txt = "&"
+        hint = "Boots the prisoner out of the vehicle."
+      }
+      input#Viewlock: =
+      {
+        txt = "&"
+        hint = "Set true to prevent Gordon from looking around *at all*. Set f"
+         "alse to let him look within limits."
+      }
+      input#SetAnimation: =
+      {
+        txt = "&"
+        hint = "Force the prop to play an animation. The parameter should be t"
+         "he name of the animation."
+      }
+      output#OnOpen: =
+      {
+        txt = "&"
+        hint = "Fired when the vehicle is open enough to enter."
+      }
+      output#OnClose: =
+      {
+        txt = "&"
+        hint = "Fired when the vehicle too closed to enter."
+      }
+      ignoremoveparent: =
+      {
+        txt = "&"
+        hint = "Ignore Move Parent on Exit"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
+      }
+      ignoreplayer: =
+      {
+        txt = "&"
+        hint = "Ignore Player collision"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
+      }
+    }
+    filter_combineball_type:form =
+    {
+      t_BaseFilter = !
+      balltype: =
+      {
+        txt = "&"
+        hint = "Ball Type"
+        typ = "C"
+        items = "Not Thrown (in combine ball field, etc)"$0D"Thrown/Launched b"
+         "y the player's physcannon"$0D"Launched by point_combine_ball_launche"
+         "r"
+        values = "0"$0D"2"$0D"3"
+      }
+    }
     env_entity_dissolver:form =
     {
       t_Targetname = !
@@ -11157,6 +12052,149 @@ QQRKSRC1
         items = "Energy"$0D"Heavy electrical"$0D"Light electrical"$0D"Core Eff"
          "ect"
         values = "0"$0D"1"$0D"2"$0D"3"
+      }
+    }
+    prop_coreball:form =
+    {
+      t_Targetname = !
+      t_Angles = !
+      input#SetScaleX: =
+      {
+        txt = "&"
+        hint = "Scales the coreball in one Axis. Params: <New Size> <Time>"
+      }
+      input#SetScaleY: =
+      {
+        txt = "&"
+        hint = "Scales the coreball in one Axis. Params: <New Size> <Time>"
+      }
+      input#SetScaleZ: =
+      {
+        txt = "&"
+        hint = "Scales the coreball in one Axis. Params: <New Size> <Time>"
+      }
+    }
+    prop_scalable:form =
+    {
+      t_Targetname = !
+      t_Studiomodel = !
+      t_Angles = !
+      t_RenderFields = !
+      input#SetScaleX: =
+      {
+        txt = "&"
+        hint = "Scales the prop in one Axis. Params: <New Size> <Time>"
+      }
+      input#SetScaleY: =
+      {
+        txt = "&"
+        hint = "Scales the prop in one Axis. Params: <New Size> <Time>"
+      }
+      input#SetScaleZ: =
+      {
+        txt = "&"
+        hint = "Scales the prop in one Axis. Params: <New Size> <Time>"
+      }
+    }
+    point_push:form =
+    {
+      t_Targetname = !
+      t_Angles = !
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X1"
+        cap = "Test LOS before pushing"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X2"
+        cap = "Use angles for push direction"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X4"
+        cap = "No falloff (constant push at any distance)"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X8"
+        cap = "Push players"
+      }
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X16"
+        cap = "Push physics"
+      }
+      enabled: =
+      {
+        txt = "&"
+        hint = "Start Enabled"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
+      }
+      magnitude: =
+      {
+        txt = "&"
+        hint = "Magnitude"
+      }
+      radius: =
+      {
+        txt = "&"
+        hint = "Radius"
+      }
+      inner_radius: =
+      {
+        txt = "&"
+        hint = "Inner radius"
+      }
+      input#Enable: =
+      {
+        txt = "&"
+        hint = "Enable the push."
+      }
+      input#Disable: =
+      {
+        txt = "&"
+        hint = "Disable the push."
+      }
+    }
+    npc_antlion_grub:form =
+    {
+      t_Targetname = !
+      t_Angles = !
+      t_BaseFadeProp = !
+      t_Global = !
+      spawnflags: =
+      {
+        txt = "&"
+        typ = "X1"
+        cap = "Do not automatically attach to surface"
+      }
+      input#Squash: =
+      {
+        txt = "&"
+        hint = "Squash the grub!"
+      }
+      output#OnAgitated: =
+      {
+        txt = "&"
+        hint = "Fired when the grub is stepped on or damaged."
+      }
+      output#OnDeath: =
+      {
+        txt = "&"
+        hint = "Fired when the grub is killed."
+      }
+      output#OnDeathByPlayer: =
+      {
+        txt = "&"
+        hint = "Fired when the grub is killed (only by the player)."
       }
     }
     weapon_striderbuster:form =
@@ -11197,6 +12235,22 @@ QQRKSRC1
         txt = "&"
         hint = "Fired when the striderbuster shatters after being shot down by"
          " Hunters"
+      }
+    }
+    point_flesh_effect_target:form =
+    {
+      t_Targetname = !
+      t_Parentname = !
+      radius: =
+      {
+        txt = "&"
+        hint = "Radius"
+      }
+      input#SetRadius: =
+      {
+        txt = "&"
+        hint = "Sets a new radius and time to interpolate to it(as a vector <S"
+         "ize> <Time in Seconds>)."
       }
     }
   }
