@@ -70,7 +70,7 @@ E R
 </td><td valign=top>
 <b>Entry field</b>.<br>
 This is the default type, if Typ="..." is not given.<br>
-Hint: Use "ER" to make it read-only. Use it for simple text entries for read-only text displays.
+Hint: Use "E R" to make it read-only. Use it for simple text entries for read-only text displays.
 </td><td>
 <pre>
 targetname: = { Typ="E" Txt="&" }
@@ -80,6 +80,22 @@ readonly: = {
     Txt="Output:"
     Hint="Displays the current memory usage."
     }
+</pre>
+<u><i>Specifics:</i></u><br>
+only common specifics (see above)
+</td></tr>
+
+<tr><td align=center>
+EN<br>
+
+ENR
+</td><td valign=top>
+<b>Entry name field</b>.<br>
+The last "R" (at third position) means Read/Only.<br>
+Contains the name of the object.
+</td><td>
+<pre>
+classname: = { Typ="ENR" Txt="classname" }
 </pre>
 <u><i>Specifics:</i></u><br>
 only common specifics (see above)
