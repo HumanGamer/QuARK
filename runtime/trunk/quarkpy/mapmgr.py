@@ -100,7 +100,7 @@ class MapLayout(BaseLayout):
             item = qmenu.item(SFTexts[i], self.spawnflagsclick)
             item.skill = int(sfskills[i])
             mnu.append(item)
-        sfbtn = qtoolbar.menubutton(mnu, "skill levels||This button lets you control in which difficulty settings the entity should appear in the game. This lets you make a map harder by for example hiding some health boxes in the upper skill levels. You can also hide some entities in deatchmatch games, for example some doors, or a wall (this is the purpose of the func_wall entity).", ico_maped, 10)
+        sfbtn = qtoolbar.menubutton(mnu, "skill levels||This button lets you control in which difficulty settings the entity should appear in the game. This lets you make a map harder by for example hiding some health boxes in the upper skill levels. You can also hide some entities in deathmatch games, for example some doors, or a wall (this is the purpose of the func_wall entity).", ico_maped, 10)
         sfbtn.caption = SFLetters[:len(sfskills)]
         addspec = qtoolbar.button(self.plusminusclick, "insert an empty Specific/Arg pair", ico_maped, 11)
         addspec.cmd = 0
