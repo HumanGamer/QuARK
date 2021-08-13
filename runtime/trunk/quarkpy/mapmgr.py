@@ -113,6 +113,7 @@ class MapLayout(BaseLayout):
         bb.margins = (0,0)
         df = fp.newdataform()
         df.allowedit = 1
+        df.alloweditname = 1
         df.addremaining = 1
         df.actionchanging = 512   # indexes in qdictionnary.Strings
         df.actiondeleting = 553

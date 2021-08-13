@@ -133,7 +133,7 @@ type
             public
               ActionChanging, ActionDeleting, ActionRenaming, ActionNiveau: Integer;
               OnChange: TNotifyEvent;
-              Modified, AllowEdit, InternalEditing, NoSpecifics,
+              Modified, AllowEdit, AllowEditName, InternalEditing, NoSpecifics,
               NoHeader, AddRemaining, NoClientAlign: Boolean;
               Delta: TDouble;
               TxtSpec, TxtArg: Integer;
@@ -1072,6 +1072,7 @@ begin
        FormCfg.ActionRenaming:=Self.ActionRenaming;
        FormCfg.OnChange:=Self.OnChange;
        FormCfg.AllowEdit:=Self.AllowEdit;
+       FormCfg.AllowEditName:=Self.AllowEditName;
        FormCfg.TxtSpec:=Self.TxtArg;
        FormCfg.HintPrefix:=Self.HintPrefix;
        FormCfg.OnNeedGameInfo:=Self.OnNeedGameInfo;
@@ -2432,7 +2433,7 @@ begin
                        System.Move(Spec[J], Value, 4);  { SizeOf(Single) }
                        if J>1 then
                         TextValues:=TextValues+' ';
-                       if S[3]='0' then
+                       if (Length(S)>=3) and (S[3]='0') then
                         { tiglari - specified prec flats - modified by Armin }
                         begin
                           K:=1;   { K is the number of zeroes and the precision }
@@ -2725,7 +2726,10 @@ begin
       begin  { adds a field to edit the name of the object(s) }
        Q:=QInternal.Create('', Form);
        Q.Specifics.Add('Txt='+EditNames);
-       Q.Specifics.Add('Typ=ENR');
+       if AllowEditName then
+        Q.Specifics.Add('Typ=EN')
+       else
+        Q.Specifics.Add('Typ=ENR');
        Form.SubElements.Insert(0, Q);
       end;
      if AddRemaining then

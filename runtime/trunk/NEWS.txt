@@ -14,6 +14,9 @@
 
 6.6.0 Beta 8
 ============
+* [DanielPharos]: Made the classname specific editable again in the Map Editor; this was
+          - blocked in 6.6.0 Beta 3.
+
 * [DanielPharos]: Added Half-life 1: Source support.
 
 * [DanielPharos]: Improved Steam folder handling to allow a per-game Steam Library location.

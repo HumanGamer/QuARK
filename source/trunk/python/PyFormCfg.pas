@@ -307,6 +307,14 @@ begin
             Result:=PyNoResult;
            Exit;
           end
+         else if StrComp(attr, 'alloweditname')=0 then
+          begin
+           if QkControl<>Nil then
+            Result:=PyInt_FromLong(Ord((QkControl as TPyFormCfg).AllowEditName))
+           else
+            Result:=PyNoResult;
+           Exit;
+          end
          else if StrComp(attr, 'addremaining')=0 then
           begin
            if QkControl<>Nil then
@@ -435,6 +443,13 @@ begin
           begin
            if QkControl<>Nil then
             (QkControl as TPyFormCfg).AllowEdit:=PyObject_IsTrue(value);
+           Result:=0;
+           Exit;
+          end
+         else if StrComp(attr, 'alloweditname')=0 then
+          begin
+           if QkControl<>Nil then
+            (QkControl as TPyFormCfg).AllowEditName:=PyObject_IsTrue(value);
            Result:=0;
            Exit;
           end
