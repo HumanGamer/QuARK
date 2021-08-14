@@ -4556,7 +4556,7 @@ def PaintManager(editor, view, x, y, flagsmouse, modelfacelist):
             if modelfacelist[item][1].name == editor.Root.currentcomponent.name:
                 itemcount = itemcount + 1
                 paintobject = [modelfacelist[item]]
-                # causes face underneith to be painted
+                # causes face underneath to be painted
                 if itemcount == int(quarkx.setupsubset(SS_MODEL, "Options")["Paint_ReachThrough"]):
                     break
         if paintobject == []:
@@ -5294,7 +5294,7 @@ def ColorPicker(editor, view, x, y, flagsmouse, modelfacelist):
         paintobject = []
         for item in range(len(modelfacelist)):
             paintobject = [modelfacelist[item]]
-            # causes color to be picked from a face underneith
+            # causes color to be picked from a face underneath
             if item == int(quarkx.setupsubset(SS_MODEL, "Options")["Paint_ReachThrough"]):
                 break
         if paintobject == []:
