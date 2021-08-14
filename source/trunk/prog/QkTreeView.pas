@@ -43,6 +43,7 @@ type
                end;
   TMyTreeView = class(TScrollingWinControl)
   private
+    FParentDoubleBuffered: Boolean;//DBhack
     FRoots: TQList;   { top-items (roots) displayed in the tree view }
     FFocusList: TList;  { pairs of position/item, from top-level down to focused item }
     Inv1, HasFocus, SelChanged, SelChangedMsg: Boolean;
@@ -67,12 +68,14 @@ type
     procedure WMGetDlgCode(var Message: TMessage); message WM_GETDLGCODE;
   (*procedure CMCtl3DChanged(var Message: TMessage); message CM_CTL3DCHANGED;*)
     procedure wmInternalMessage(var Msg: TMessage); message wm_InternalMessage;
+    procedure SetParentDoubleBuffered(nParentDoubleBuffered: Boolean);//DBhack
   protected
     EditInfo: PTVEditing;
     DropTarget: QObject;
     RightButtonDrag: Boolean;
     procedure WMPaint(var Message: TWMPaint); message WM_PAINT;
     procedure DoPaint(DC: HDC; const PaintInfo: TPaintStruct); virtual;
+    procedure SetParent(AParent: TWinControl); override;//DBhack
     procedure Expanding(Q: QObject); dynamic;
     procedure Accessing(Q: QObject); dynamic;
     procedure CreateParams(var Params: TCreateParams); override;
@@ -118,8 +121,9 @@ type
     procedure InvalidatePaintBoxes(ModifSel: Integer); virtual; abstract;
     procedure SelectOneChild(Q: QObject);
     {$IFDEF Debug} procedure CheckInternalState; {$ENDIF}
-(*published
-    property Align;
+  published
+    property ParentDoubleBuffered : Boolean read FParentDoubleBuffered write SetParentDoubleBuffered default True; //DBhack
+(*    property Align;
     property DragCursor;
     property DragMode;
     property Enabled;
@@ -173,6 +177,7 @@ var
 
 constructor TMyTreeView.Create(AOwner: TComponent);
 begin
+  ParentDoubleBuffered:=True; //DBhack
   inherited Create(AOwner);
   OnMouseWheelDown:=MouseWheelDown;
   OnMouseWheelUp:=MouseWheelUp;
@@ -202,6 +207,18 @@ begin
    EditInfo^.EditItem.AddRef(-1);
    Dispose(EditInfo);
   end;
+end;
+
+procedure TMyTreeView.SetParent(AParent: TWinControl); //DBhack
+begin
+  inherited;
+  if ParentDoubleBuffered and (Parent<>nil) then DoubleBuffered:=Parent.DoubleBuffered;
+end;
+
+procedure TMyTreeView.SetParentDoubleBuffered(nParentDoubleBuffered: Boolean); //DBhack
+begin
+  FParentDoubleBuffered:=nParentDoubleBuffered;
+  if FParentDoubleBuffered and (Parent<>nil) then DoubleBuffered:=Parent.DoubleBuffered;
 end;
 
 procedure TMyTreeView.CreateParams(var Params: TCreateParams);

@@ -1322,6 +1322,7 @@ begin
   Mgr:=LayoutMgrFromPanelObj(self);
   with TPyMapView.Create(Mgr.GetOwner.Owner) do
    begin
+    ParentDoubleBuffered:=False;
     if Renderer<>Nil then
      SetRenderer(Renderer);
     Left:=-2048;

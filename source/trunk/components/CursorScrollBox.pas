@@ -31,6 +31,7 @@ type
   TCSBPaintEvent = procedure(Sender: TObject; DC: HDC; const rcPaint: TRect) of object;
   TCursorScrollBox = class(TScrollBox)
   private
+    FParentDoubleBuffered: Boolean; //DoubleBuffering infrastructure based on Delphi 2009, marked with //DBhack
     FOnSetCursor: TSetCursorEvent;
     FOnPaint: TCSBPaintEvent;
     FDisplayHPos, FDisplayVPos: Integer;
@@ -39,6 +40,7 @@ type
     procedure SetDisplayVPos(nPos: Integer);
     procedure wmSetCursor(var Msg: TWMSetCursor); message wm_SetCursor;
     procedure Defilement(var Msg: TWMScroll; HorzScrollBar: TControlScrollBar);
+    procedure SetParentDoubleBuffered(nParentDoubleBuffered: Boolean); //DBhack
   protected
     procedure wmGetDlgCode(var Msg: TMessage); message wm_GetDlgCode;
     procedure wmEraseBkgnd(var Msg: TMessage); message wm_EraseBkgnd;
@@ -47,11 +49,14 @@ type
     procedure wmVScroll(var Msg: TWMScroll); message wm_VScroll;
     procedure cmMouseLeave(var Msg: TMessage); message cm_MouseLeave;
     procedure DoPaint(DC: HDC; const PaintInfo: TPaintStruct); virtual;
+    procedure SetParent(AParent: TWinControl); override; //DBhack
   public
    {procedure PreCoord(var X,Y: Integer);
     procedure PostCoord(var X,Y: Integer);
     function ComputeDC : HDC;}
+    constructor Create(AOwner: TComponent); override; //DBhack
   published
+    property ParentDoubleBuffered : Boolean read FParentDoubleBuffered write SetParentDoubleBuffered default True; //DBhack
     property DisplayHPos: Integer read FDisplayHPos write SetDisplayHPos;
     property DisplayVPos: Integer read FDisplayVPos write SetDisplayVPos;
     property OnSetCursor: TSetCursorEvent read FOnSetCursor write FOnSetCursor;
@@ -98,6 +103,26 @@ begin
  if (FDragModeInt=dmAutomatic)
  and ((X<-2) or (Y<-2) or (X>Width+2) or (Y>Height+2)) then
   BeginDrag(True);
+end;
+
+ {------------------------}
+
+constructor TCursorScrollBox.Create(AOwner: TComponent); //DBhack
+begin
+  ParentDoubleBuffered:=True;
+  inherited;
+end;
+
+procedure TCursorScrollBox.SetParent(AParent: TWinControl); //DBhack
+begin
+  inherited;
+  if ParentDoubleBuffered and (Parent<>nil) then DoubleBuffered:=Parent.DoubleBuffered;
+end;
+
+procedure TCursorScrollBox.SetParentDoubleBuffered(nParentDoubleBuffered: Boolean); //DBhack
+begin
+  FParentDoubleBuffered:=nParentDoubleBuffered;
+  if FParentDoubleBuffered and (Parent<>nil) then DoubleBuffered:=Parent.DoubleBuffered;
 end;
 
 procedure TCursorScrollBox.wmSetCursor;

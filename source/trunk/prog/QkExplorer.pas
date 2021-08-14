@@ -420,7 +420,6 @@ end;
 constructor TQkExplorer.Create(AOwner: TComponent);
 begin
  Log(LOG_VERBOSE, 'Creating a new QkExplorer... ('+AOwner.Name+')');
- DoubleBuffered := True;
  inherited;
 {FRoots:=TQList.Create;
  Images:=g_Form1.ImageList1;

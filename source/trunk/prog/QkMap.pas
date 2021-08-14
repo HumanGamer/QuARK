@@ -4345,6 +4345,7 @@ procedure TFQMap.FormCreate(Sender: TObject);
 begin
  inherited;
  ScrollBox1:=TPyMapView.Create(Self);
+ ScrollBox1.ParentDoubleBuffered:=False;
  ScrollBox1.MapViewObject^.Parent:=Nil;
  ScrollBox1.Parent:=Panel2;
  ScrollBox1.Align:=alClient;
