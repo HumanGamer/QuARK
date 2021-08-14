@@ -1007,7 +1007,7 @@ begin
       NonFaces:=0;
       ReadEntityList(FStructure, Q.Specifics.Values['Data'], Self);
       if NonFaces>0 then
-        ShowMessage(Format(LoadStr1(5792), [NonFaces]));
+        ShowMessage(FmtLoadStr1(5792, [NonFaces]));
     finally
       ProgressIndicatorStop;
     end;
