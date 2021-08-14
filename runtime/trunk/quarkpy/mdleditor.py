@@ -295,13 +295,11 @@ class ModelEditor(BaseEditor):
         self.EditorObjectList = []
         self.SelVertexes = []
         self.SelCommonTriangles = []
+
         ### To stop crossing of skins from model to model when a new model, even with the same name,
         ### is opened in the Model Editor without closing QuArK completely.
-        try:
-            from mdlmgr import saveskin
-            mdlmgr.saveskin = None
-        except:
-            pass
+        mdlmgr.saveskin = None
+
         quarkx.setupsubset(SS_MODEL, "Building")["ObjectMode"] = 0
         quarkx.setupsubset(SS_MODEL, "Building")["PaintMode"] = 0
         quarkx.setupsubset(SS_MODEL, "Colors")["temp_color"] = None
