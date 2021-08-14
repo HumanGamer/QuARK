@@ -12,7 +12,6 @@ import quarkx
 from qdictionnary import Strings
 from mdlutils import *
 import qmenu
-import qbaseeditor
 import mdleditor
 
 # Globals
