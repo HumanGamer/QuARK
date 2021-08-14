@@ -964,7 +964,7 @@ class BaseEditor:
 
             # This section handles the Skin-view Painting paint brush function.
             modelfacelist = mdlhandles.ClickOnView(self, view, x, y)
-            if self.layout.toolbars["tb_paintmodes"] is not None:
+            if ("tb_paintmodes" in self.layout.toolbars) and (self.layout.toolbars["tb_paintmodes"] is not None):
                 #tb2 = self.layout.toolbars["tb_paintmodes"]
                 i = quarkx.setupsubset(SS_MODEL, "Building").getint("PaintMode")
                 if i < 20 and i != 0 and (flagsmouse == 552 or flagsmouse == 1064 or flagsmouse == 2088):
@@ -1077,7 +1077,7 @@ class BaseEditor:
                     if flagsmouse == 16384 and quarkx.setupsubset(SS_MODEL, "Options")['VertexPaintMode'] is not None and quarkx.setupsubset(SS_MODEL, "Options")['VertexPaintMode'] == "1":
                         import mdlentities
                         mdlentities.vtxpaintcursor(editor)
-                    elif editor.layout.toolbars["tb_paintmodes"] is not None:
+                    elif ("tb_paintmodes" in editor.layout.toolbars) and (editor.layout.toolbars["tb_paintmodes"] is not None):
                         import plugins.mdlpaintmodes
                         plugins.mdlpaintmodes.paintcursor(editor)
 
@@ -1382,7 +1382,7 @@ class BaseEditor:
                     import mdlhandles
                     # To stop mouse button(s) click from causing zooming in all views including Skin-view.
                     if (flagsmouse == 264) or (flagsmouse == 280) or (flagsmouse == 288) or (flagsmouse == 296) or (flagsmouse == 344) or (flagsmouse == 352) or (flagsmouse == 552):
-                        if (flagsmouse == 264) or (flagsmouse == 288) and self.layout.toolbars["tb_paintmodes"] is not None:
+                        if ((flagsmouse == 264) or (flagsmouse == 288)) and ("tb_paintmodes" in self.layout.toolbars) and (self.layout.toolbars["tb_paintmodes"] is not None):
                             tb2 = self.layout.toolbars["tb_paintmodes"]
                             if tb2.tb.buttons[4].state == 2:
                                 self.dragobject = None
