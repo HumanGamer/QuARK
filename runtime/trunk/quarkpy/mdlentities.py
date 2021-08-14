@@ -9,7 +9,6 @@ Model Editor Entities manager
 #
 
 import quarkx
-import qeditor
 from mdlutils import *
 import mdlhandles
 import dlgclasses
