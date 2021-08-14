@@ -23,7 +23,7 @@ unit ToolBox1;
 interface
 
 uses
-  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+  Windows, Messages, SysUtils, Classes, Controls, Forms, Dialogs,
   TB97, QkObjects, QkFileObjects, QkExplorer, ExtCtrls, QkTreeView,
   QkGroup, QkFileExplorer, QkForm, CommCtrl, Menus, QkFormVw;
 
@@ -130,7 +130,7 @@ function BrowseForTextureDlg(const TexName: String; SelectEventWnd: HWnd) : TToo
 
 implementation
 
-uses Qk1, Travail, Setup, qmath, QkWad, QkInclude, QkMapPoly, QkMacro,
+uses Graphics, Qk1, Travail, Setup, qmath, QkWad, QkInclude, QkMapPoly,
   NewFolder, Undo, QkTextures, Quarkx, QuickWal, ToolBoxGroup, QkObjectClassList;
 
 {$R *.DFM}

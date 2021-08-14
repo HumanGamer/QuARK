@@ -53,7 +53,7 @@ type
 implementation
 
 uses QkUnknown, Undo, TbPalette, Toolbar1, ToolBox1,
-     Setup, QkInclude, QkMacro, QkImages, QkTextures,
+     Setup, QkInclude, QkImages, QkTextures,
      Python, Quarkx, PyMacros, PyToolbars, PyForms,
      QkPixelSet, QkObjectClassList;
 

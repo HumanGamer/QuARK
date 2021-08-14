@@ -25,9 +25,6 @@ interface
 uses Windows, SysUtils, Messages, Classes, ExtCtrls, Forms, Graphics,
      Menus, CommCtrl, EnterEditCtrl, QkObjects, QkForm, Controls;
 
-const
-  SpecDesc = ';desc';
-
 type
   TMyTVEnterEdit = class(TEnterEdit)
                    public

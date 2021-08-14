@@ -22,8 +22,8 @@ unit Toolbar1;
 
 interface
 
-uses Windows, {ShellApi,} SysUtils, Classes, Controls, Forms, TB97, Dialogs,
-     Graphics, Menus, QkObjects, QkFileObjects, QkForm, QkGroup;
+uses Windows, {ShellApi,} SysUtils, Classes, Controls, TB97, Dialogs,
+     Menus, QkObjects, QkFileObjects, QkForm, QkGroup;
 
 type
   QToolbar = class(QFileObject)
@@ -95,8 +95,8 @@ procedure ExecuteObjectMacros(Sender: TComponent; Obj: QObject);
 
 implementation
 
-uses Game, Setup, QkExplorer, ToolBox1, QkMacro, QkInclude, Running, QkExceptions,
-     FormCfg, Quarkx, QkObjectClassList, QkFormCfg, Python, QkPixelSet;
+uses Forms, Game, Setup, QkExplorer, ToolBox1, QkMacro, QkInclude, Running,
+     FormCfg, Quarkx, QkExceptions, QkObjectClassList, QkFormCfg, Python, QkPixelSet;
 
 const
  typSeparator    = 'S';

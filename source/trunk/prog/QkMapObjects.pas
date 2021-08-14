@@ -24,7 +24,7 @@ interface
 
 uses Windows, SysUtils, Classes, Menus, Controls, Graphics, CommCtrl,
      QkObjects, qmath, QkExplorer, QkFileObjects, QkForm, qmatrices,
-     Qk3D, QkModel, QkFrame, QkMdlObject, QkComponent, Python;
+     Qk3D, Python;
 
 const
  vfGrayedout        = 1;
@@ -212,9 +212,10 @@ function ControleSelection(T: TTreeMap) : Boolean;
 
 implementation
 
-uses qdraw, Setup, QkMapPoly, Undo, FormCfg, Game, QkMacro, Quarkx, QkExceptions,
+uses qdraw, Setup, QkMapPoly, Undo, FormCfg, Game, Quarkx, QkExceptions,
      PyMath, PyMapView, PyObjects, QkImages, Bezier, EdSceneObject, Logging,
-     StrUtils, QkObjectClassList, QkMD3, QkModelFile, QkModelRoot, ExtraFunctionality;
+     QkModel, QkFrame, QkMdlObject, QkComponent, QkMD3, QkModelFile, QkModelRoot,
+     StrUtils, QkObjectClassList, ExtraFunctionality;
 
  {------------------------}
 

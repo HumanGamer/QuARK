@@ -149,7 +149,7 @@ begin
        Tpb.SetBounds(X, TrashBtn.Top, Canvas.TextWidth(Tpb.Caption)+16, TrashBtn.Height);
        Tpb.Tag:=LongInt(NewObjList[I]);
        Tpb.OnClick:=InsertNewObj;
-       Tpb.Hint:=NewObjList[I].Specifics.Values[';desc'];
+       Tpb.Hint:=NewObjList[I].Specifics.Values[SpecDesc];
        Inc(X, Tpb.Width);
       end;
     end;
@@ -262,7 +262,7 @@ begin
  Gr.AddRef(+1); try
  Q:=Q.Clone(Nil, False);
  Gr.SubElements.Add(Q);
- Q.Specifics.Values[';desc']:='';
+ Q.Specifics.Values[SpecDesc]:='';
  Explorer.DropObjectsNow(Gr, '', True);
  finally Gr.AddRef(-1); end;
 end;

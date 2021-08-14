@@ -122,6 +122,10 @@ const
 
   DefaultForm = 'Default';
 
+  SpecDesc = ';desc';   { description that appears in italic in toolboxes }
+  SpecIncl = ';incl';   { includes data and process the macros again }
+  SpecCopy = ';copy';   { like ;copy but after macros are processed (macros in the copied data are not processed) }
+
 type
   TIsExplorerItem = set of  (ieDisplay
                             ,ieCanDrop

@@ -664,9 +664,9 @@ begin
             else if (e_sl.Names[j] = 'model') and (e_sl.Values['model'][1]='*') then continue; // remove model specifics if it points to a BSP model
             Entity.Specifics.Add(e_sl.Strings[j]);
           end;
-          Entity.Specifics.Add(';desc=(insert description here)');
+          Entity.Specifics.Add(SpecDesc+'=(insert description here)');
           if ext=':b' then
-            Entity.Specifics.Add(';incl=defpoly');
+            Entity.Specifics.Add(SpecIncl+'=defpoly');
           if pos('_',Entity.name)<>0 then
           begin
             tb:=copy(Entity.name, 1,pos('_', Entity.Name))+'* entities';
@@ -734,7 +734,7 @@ begin
   end;
   ExplorerFromObject(FParent).Refresh;
 
-  showmessage(format('%d new %s found in directory "%s"',[ count,getword(count), Specifics.Values['GameDir']]));
+  ShowMessage(FmtLoadStr1(5834, [ count,getword(count), Specifics.Values['GameDir']]));
 end;
 
  {------------------------}
