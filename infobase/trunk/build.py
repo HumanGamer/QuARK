@@ -138,14 +138,14 @@ def procrsc(kw, path):
 def proczip(kw, path):
 #    self.forgotten.remove(path)
     if localMode:
-        data = open(os.path.join("zips", path), "rb").read()
-        if not os.path.exists(os.path.join(OutputPath, "zips")):
-            os.mkdir(os.path.join(OutputPath, "zips"))
-        with open(os.path.join(OutputPath, "zips", path), "wb") as f:
+        data = open(os.path.join(ZIPLOC, path), "rb").read()
+        if not os.path.exists(os.path.join(OutputPath, ZIPLOC)):
+            os.mkdir(os.path.join(OutputPath, ZIPLOC))
+        with open(os.path.join(OutputPath, ZIPLOC, path), "wb") as f:
             f.write(data)
-        return '<a href="%s">%s</a>' % (path, path)
-    else:
         return '<a href="%s%s">%s</a>' % (ZIPLOC, path, path)
+    else:
+        return '<a href="%s%s%s">%s</a>' % (REMOTELOC, ZIPLOC, path, path)
 
 def procact(kw, actionstring):
     # An 'action' is usually composed of a series of menu-actions the user

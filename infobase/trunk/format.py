@@ -5,9 +5,12 @@
 EXTENSION = ".txt"
 
 #
-# Location for zip etc. archives for non-local version
+# Location for non-local version
 #
-ZIPLOC = "http://quark.sourceforge.net/infobase/" #Was: ftp://ftp.fileplanet.com/
+REMOTELOC = "http://quark.sourceforge.net/infobase/" #Was: ftp://ftp.fileplanet.com/
+
+# Path for zip etc. archives
+ZIPLOC = "zips/"
 
 # Path for all the pictures
 PICLOC = "pics/"
