@@ -29,7 +29,7 @@ interface
 
 uses Windows, Messages, Classes, SysUtils, Controls, Forms,
      QkObjects, Menus, TB97, StdCtrls, ComCtrls, CommCtrl,
-     {$IFNDEF NoMarsCaption} marsCap, {$ENDIF} Graphics;
+     {$IFNDEF NoMarsCaption} marsCap, {$ENDIF} Graphics, ExtraFunctionality;
 
 const
  wm_InternalMessage = {wm_User + $73}  $68FF;
@@ -115,10 +115,6 @@ type
                  ActiveBeginColor, ActiveEndColor: TColorRef;
                  AppCaption: String;
                 end;
-
-{$IFDEF CompiledWithDelphi2}
-  TCustomForm = TForm;
-{$ENDIF}
 
   TQkForm = class(TForm)
   private

@@ -26,6 +26,11 @@ interface
 
 uses Windows, SysUtils{$IFDEF Delphi6orNewerCompiler}, StrUtils{$ENDIF};
 
+{$IFDEF CompiledWithDelphi2}
+type
+  TCustomForm = TForm;
+{$ENDIF}
+
 // These seem to be missing alltogether!
 type
   TOSVersionInfoEx = record
