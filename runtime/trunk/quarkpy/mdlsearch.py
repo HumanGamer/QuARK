@@ -20,7 +20,6 @@ import dlgclasses
 import mdleditor
 import mdlentities
 import mdlhandles
-import plugins.mdlcamerapos
 
 # Globals
 CompList = ""
@@ -649,6 +648,7 @@ def EditorNextClick(m, editor=None):
 
     while successor.type != camsel.type:
         successor = m.succ(successor)
+    import plugins.mdlcamerapos
     plugins.mdlcamerapos.setView(successor, editor)
     camsel = successor
 
@@ -766,6 +766,7 @@ def WindowNextClick(m, editor=None):
 
     while successor.type != camsel.type:
         successor = m.succ(successor)
+    import plugins.mdlcamerapos
     plugins.mdlcamerapos.setView(successor, editor)
     camsel = successor
 
@@ -860,6 +861,7 @@ shortcuts = {}
 
 def SearchMenu(Editor3Dshot=Editor3Dshot, EditorNextShot=EditorNextShot, EditorPrevShot=EditorPrevShot, Window3Dshot=Window3Dshot, WindowNextShot=WindowNextShot, WindowPrevShot=WindowPrevShot):
     "The Search menu, with its shortcuts."
+    import plugins.mdlcamerapos
     if len(checkitems)>1:
         allchecks = [qmenu.item("&ALL CHECKS", CheckMap, "perform all map checks")]
     else:
