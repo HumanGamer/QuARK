@@ -1033,8 +1033,9 @@ def modelaxis(view):
         cv.textout(int(Zend.x)-5, int(Zend.y)-20, "Z")
 
 
-def faceselfilllist(view, fillcolor=None):
-    editor = mapeditor(SS_MODEL)
+def faceselfilllist(editor, view, fillcolor=None):
+    if editor is None:
+        return
     if view.info["viewname"] == "XY":
         fillcolor = MapColor("Options3Dviews_fillColor2", SS_MODEL)
     if view.info["viewname"] == "XZ":
@@ -1092,7 +1093,7 @@ def setsingleframefillcolor(editor, view):
         else:
             if quarkx.setupsubset(SS_MODEL, "Options")["DBF"] != "1":
                 if editor.ModelFaceSelList != []:
-                    comp.filltris = faceselfilllist(view)
+                    comp.filltris = faceselfilllist(editor, view)
                 else:
                     comp.filltris = [(None,None)]*len(comp.triangles)
             else:
@@ -1107,7 +1108,7 @@ def setsingleframefillcolor(editor, view):
         else:
             if quarkx.setupsubset(SS_MODEL, "Options")["DBF"] != "1":
                 if editor.ModelFaceSelList != []:
-                    comp.filltris = faceselfilllist(view)
+                    comp.filltris = faceselfilllist(editor, view)
                 else:
                     comp.filltris = [(None,None)]*len(comp.triangles)
             else:
@@ -1122,7 +1123,7 @@ def setsingleframefillcolor(editor, view):
         else:
             if quarkx.setupsubset(SS_MODEL, "Options")["DBF"] != "1":
                 if editor.ModelFaceSelList != []:
-                    comp.filltris = faceselfilllist(view)
+                    comp.filltris = faceselfilllist(editor, view)
                 else:
                     comp.filltris = [(None,None)]*len(comp.triangles)
             else:
@@ -1137,7 +1138,7 @@ def setsingleframefillcolor(editor, view):
         else:
             if quarkx.setupsubset(SS_MODEL, "Options")["DBF"] != "1":
                 if editor.ModelFaceSelList != []:
-                    comp.filltris = faceselfilllist(view)
+                    comp.filltris = faceselfilllist(editor, view)
                 else:
                     comp.filltris = [(None,None)]*len(comp.triangles)
             else:
@@ -1152,7 +1153,7 @@ def setsingleframefillcolor(editor, view):
         else:
             if quarkx.setupsubset(SS_MODEL, "Options")["DBF"] != "1":
                 if editor.ModelFaceSelList != []:
-                    comp.filltris = faceselfilllist(view)
+                    comp.filltris = faceselfilllist(editor, view)
                 else:
                     comp.filltris = [(None,None)]*len(comp.triangles)
             else:
@@ -1183,7 +1184,7 @@ def setframefillcolor(editor, view):
                 else:
                     if quarkx.setupsubset(SS_MODEL, "Options")["DBF"] != "1":
                         if editor.ModelFaceSelList != []:
-                            comp.filltris = faceselfilllist(v)
+                            comp.filltris = faceselfilllist(editor, v)
                         else:
                             comp.filltris = [(None,None)]*len(comp.triangles)
                     else:
@@ -1198,7 +1199,7 @@ def setframefillcolor(editor, view):
                 else:
                     if quarkx.setupsubset(SS_MODEL, "Options")["DBF"] != "1":
                         if editor.ModelFaceSelList != []:
-                            comp.filltris = faceselfilllist(v)
+                            comp.filltris = faceselfilllist(editor, v)
                         else:
                             comp.filltris = [(None,None)]*len(comp.triangles)
                     else:
@@ -1213,7 +1214,7 @@ def setframefillcolor(editor, view):
                 else:
                     if quarkx.setupsubset(SS_MODEL, "Options")["DBF"] != "1":
                         if editor.ModelFaceSelList != []:
-                            comp.filltris = faceselfilllist(v)
+                            comp.filltris = faceselfilllist(editor, v)
                         else:
                             comp.filltris = [(None,None)]*len(comp.triangles)
                     else:
@@ -1229,7 +1230,7 @@ def setframefillcolor(editor, view):
         else:
             if quarkx.setupsubset(SS_MODEL, "Options")["DBF"] != "1":
                 if editor.ModelFaceSelList != []:
-                    comp.filltris = faceselfilllist(view)
+                    comp.filltris = faceselfilllist(editor, view)
                 else:
                     comp.filltris = [(None,None)]*len(comp.triangles)
             else:
@@ -1245,7 +1246,7 @@ def setframefillcolor(editor, view):
         else:
             if quarkx.setupsubset(SS_MODEL, "Options")["DBF"] != "1":
                 if editor.ModelFaceSelList != []:
-                    comp.filltris = faceselfilllist(view)
+                    comp.filltris = faceselfilllist(editor, view)
                 else:
                     comp.filltris = [(None,None)]*len(comp.triangles)
             else:
@@ -1280,7 +1281,7 @@ def paintframefill(editor, v):
                         else:
                             if quarkx.setupsubset(SS_MODEL, "Options")["DBF"] != "1":
                                 if editor.ModelFaceSelList != []:
-                                    comp.filltris = faceselfilllist(v)
+                                    comp.filltris = faceselfilllist(editor, v)
                                 else:
                                     comp.filltris = [(None,None)]*len(comp.triangles)
                             else:
@@ -1299,7 +1300,7 @@ def paintframefill(editor, v):
                     else:
                         if quarkx.setupsubset(SS_MODEL, "Options")["DBF"] != "1":
                             if editor.ModelFaceSelList != []:
-                                comp.filltris = faceselfilllist(v)
+                                comp.filltris = faceselfilllist(editor, v)
                             else:
                                 comp.filltris = [(None,None)]*len(comp.triangles)
                         else:
@@ -1316,7 +1317,7 @@ def paintframefill(editor, v):
                     else:
                         if quarkx.setupsubset(SS_MODEL, "Options")["DBF"] != "1":
                             if editor.ModelFaceSelList != []:
-                                comp.filltris = faceselfilllist(v)
+                                comp.filltris = faceselfilllist(editor, v)
                             else:
                                 comp.filltris = [(None,None)]*len(comp.triangles)
                         else:
@@ -1340,7 +1341,7 @@ def paintframefill(editor, v):
     else:
         if quarkx.setupsubset(SS_MODEL, "Options")["DBF"] != "1":
             if editor.ModelFaceSelList != []:
-                comp.filltris = faceselfilllist(v)
+                comp.filltris = faceselfilllist(editor, v)
             else:
                 comp.filltris = [(None,None)]*len(comp.triangles)
         else:
@@ -1581,7 +1582,7 @@ def commonhandles(self, redraw=1):
             else:
                 if quarkx.setupsubset(SS_MODEL, "Options")["DBF"] != "1":
                     if self.ModelFaceSelList != []:
-                        comp.filltris = faceselfilllist(v)
+                        comp.filltris = faceselfilllist(self, v)
                     else:
                         comp.filltris = [(None,None)]*len(comp.triangles)
                 else:
@@ -1599,7 +1600,7 @@ def commonhandles(self, redraw=1):
             else:
                 if quarkx.setupsubset(SS_MODEL, "Options")["DBF"] != "1":
                     if self.ModelFaceSelList != []:
-                        comp.filltris = faceselfilllist(v)
+                        comp.filltris = faceselfilllist(self, v)
                     else:
                         comp.filltris = [(None,None)]*len(comp.triangles)
                 else:
@@ -1617,7 +1618,7 @@ def commonhandles(self, redraw=1):
             else:
                 if quarkx.setupsubset(SS_MODEL, "Options")["DBF"] != "1":
                     if self.ModelFaceSelList != []:
-                        comp.filltris = faceselfilllist(v)
+                        comp.filltris = faceselfilllist(self, v)
                     else:
                         comp.filltris = [(None,None)]*len(comp.triangles)
                 else:
@@ -1638,7 +1639,7 @@ def commonhandles(self, redraw=1):
                     else:
                         if quarkx.setupsubset(SS_MODEL, "Options")["DBF"] != "1":
                             if self.ModelFaceSelList != []:
-                                comp.filltris = faceselfilllist(v)
+                                comp.filltris = faceselfilllist(self, v)
                             else:
                                 comp.filltris = [(None,None)]*len(comp.triangles)
                         else:
@@ -1663,7 +1664,7 @@ def commonhandles(self, redraw=1):
                     else:
                         if quarkx.setupsubset(SS_MODEL, "Options")["DBF"] != "1":
                             if self.ModelFaceSelList != []:
-                                comp.filltris = faceselfilllist(v)
+                                comp.filltris = faceselfilllist(self, v)
                             else:
                                 comp.filltris = [(None,None)]*len(comp.triangles)
                         else:

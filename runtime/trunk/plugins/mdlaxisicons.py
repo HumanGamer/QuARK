@@ -127,7 +127,7 @@ def newfinishdrawing(editor, view, oldfinish=quarkpy.mdleditor.ModelEditor.finis
                                 comp.filltris = [(None,(backfacecolor1,backfacecolor2))]*len(comp.triangles)
                             else:
                                 if editor.ModelFaceSelList != []:
-                                    comp.filltris = quarkpy.mdleditor.faceselfilllist(view)
+                                    comp.filltris = quarkpy.mdleditor.faceselfilllist(editor, view)
 
                     if view.info["viewname"] == "3Dwindow":
                         comp = editor.Root.currentcomponent
@@ -143,7 +143,7 @@ def newfinishdrawing(editor, view, oldfinish=quarkpy.mdleditor.ModelEditor.finis
                                 comp.filltris = [(None,(backfacecolor1,backfacecolor2))]*len(comp.triangles)
                             else:
                                 if editor.ModelFaceSelList != []:
-                                    comp.filltris = quarkpy.mdleditor.faceselfilllist(view)
+                                    comp.filltris = quarkpy.mdleditor.faceselfilllist(editor, view)
                     view.repaint()
                     return scroller
             except:

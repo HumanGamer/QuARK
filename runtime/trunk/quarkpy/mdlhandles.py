@@ -402,30 +402,30 @@ class ModelFaceHandle(qhandles.GenericHandle):
                     import mdleditor
                     if v.info["viewname"] == "XY":
                         fillcolor = MapColor("Options3Dviews_fillColor2", SS_MODEL)
-                        comp.filltris = mdleditor.faceselfilllist(v, fillcolor)
+                        comp.filltris = mdleditor.faceselfilllist(editor, v, fillcolor)
                         mdleditor.setsingleframefillcolor(editor, v)
                         v.repaint()
                         plugins.mdlgridscale.gridfinishdrawing(editor, v)
                     if v.info["viewname"] == "XZ":
                         fillcolor = MapColor("Options3Dviews_fillColor4", SS_MODEL)
-                        comp.filltris = mdleditor.faceselfilllist(v, fillcolor)
+                        comp.filltris = mdleditor.faceselfilllist(editor, v, fillcolor)
                         mdleditor.setsingleframefillcolor(editor, v)
                         v.repaint()
                         plugins.mdlgridscale.gridfinishdrawing(editor, v)
                     if v.info["viewname"] == "YZ":
                         fillcolor = MapColor("Options3Dviews_fillColor3", SS_MODEL)
-                        comp.filltris = mdleditor.faceselfilllist(v, fillcolor)
+                        comp.filltris = mdleditor.faceselfilllist(editor, v, fillcolor)
                         mdleditor.setsingleframefillcolor(editor, v)
                         v.repaint()
                         plugins.mdlgridscale.gridfinishdrawing(editor, v)
                     if v.info["viewname"] == "editors3Dview":
                         fillcolor = MapColor("Options3Dviews_fillColor1", SS_MODEL)
-                        comp.filltris = mdleditor.faceselfilllist(v, fillcolor)
+                        comp.filltris = mdleditor.faceselfilllist(editor, v, fillcolor)
                         mdleditor.setsingleframefillcolor(editor, v)
                         v.repaint()
                     if v.info["viewname"] == "3Dwindow":
                         fillcolor = MapColor("Options3Dviews_fillColor5", SS_MODEL)
-                        comp.filltris = mdleditor.faceselfilllist(v, fillcolor)
+                        comp.filltris = mdleditor.faceselfilllist(editor, v, fillcolor)
                         mdleditor.setsingleframefillcolor(editor, v)
                         v.repaint()
                 if quarkx.setupsubset(SS_MODEL,"Options")['NFO'] != "1":
