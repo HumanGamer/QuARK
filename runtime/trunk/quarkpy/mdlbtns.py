@@ -310,115 +310,116 @@ def edit_paste(editor, m=None):
 def edit_dup(editor, m=None):
     if not dropitemsnow(editor, editor.visualselection(), Strings[541], "0"):
         quarkx.beep()
-    else:
-        for item in range(len(editor.visualselection())):
-            if editor.visualselection()[item].type == ":mc":
-                comp_copied_name = editor.visualselection()[item].name
-                # Checks for component names matching any new components and changes the new one's
-                # name(s) if needed to avoid dupes which cause problems in other functions.
-                components = editor.Root.findallsubitems("", ':mc')   # find all components
-                itemdigit = None
-                if editor.visualselection()[item].shortname[len(editor.visualselection()[item].shortname)-1].isdigit():
-                    itemdigit = ""
-                    count = len(editor.visualselection()[item].shortname)-1
-                    while count >= 0:
-                        if editor.visualselection()[item].shortname[count] == " ":
-                            count = count - 1
-                        elif editor.visualselection()[item].shortname[count].isdigit():
-                            itemdigit = str(editor.visualselection()[item].shortname[count]) + itemdigit
-                            count = count - 1
-                        else:
-                            break
-                    itembasename = editor.visualselection()[item].shortname.split(itemdigit)[0]
-                else:
-                    itembasename = editor.visualselection()[item].shortname
+        return
 
-                name = None
-                comparenbr = 0
-                new_comp = editor.layout.explorer.sellist[0].copy()
-                for comp in components:
-                    if not itembasename.endswith(" ") and comp.shortname.startswith(itembasename + " "):
-                        continue
-                    if comp.shortname.startswith(itembasename):
-                        getnbr = comp.shortname.replace(itembasename, '')
-                        if getnbr == "":
-                            nbr = 0
-                        else:
-                            nbr = int(getnbr)
-                        if nbr > comparenbr:
-                            comparenbr = nbr
-                        nbr = comparenbr + 1
-                        name = itembasename + str(nbr)
-                if name is not None:
-                    pass
-                else:
-                    name = editor.visualselection()[item].shortname
-                new_comp.shortname = name
-                editor.ModelComponentList['tristodraw'][new_comp.name] = editor.ModelComponentList['tristodraw'][comp_copied_name]
-                editor.ModelComponentList[new_comp.name] = {'bonevtxlist': {}, 'colorvtxlist': {}, 'weightvtxlist': {}}
-                undo = quarkx.action()
-                undo.put(editor.Root, new_comp)
-                editor.ok(undo, "duplicate")
-                compframes = new_comp.dictitems['Frames:fg'].subitems   # all frames
-                for compframe in compframes:
-                    compframe.compparent = new_comp # To allow frame relocation after editing.
+    for item in range(len(editor.visualselection())):
+        if editor.visualselection()[item].type == ":mc":
+            comp_copied_name = editor.visualselection()[item].name
+            # Checks for component names matching any new components and changes the new one's
+            # name(s) if needed to avoid dupes which cause problems in other functions.
+            components = editor.Root.findallsubitems("", ':mc')   # find all components
+            itemdigit = None
+            if editor.visualselection()[item].shortname[len(editor.visualselection()[item].shortname)-1].isdigit():
+                itemdigit = ""
+                count = len(editor.visualselection()[item].shortname)-1
+                while count >= 0:
+                    if editor.visualselection()[item].shortname[count] == " ":
+                        count = count - 1
+                    elif editor.visualselection()[item].shortname[count].isdigit():
+                        itemdigit = str(editor.visualselection()[item].shortname[count]) + itemdigit
+                        count = count - 1
+                    else:
+                        break
+                itembasename = editor.visualselection()[item].shortname.split(itemdigit)[0]
+            else:
+                itembasename = editor.visualselection()[item].shortname
 
-            if editor.visualselection()[item].type == ":mf":
-                # Checks for component frame names matching any new components frame names and changes
-                # the new one's name(s) if needed to avoid dupes which cause problems in other functions.
-                compframes = editor.visualselection()[item].parent.subitems   # all frames
-                itemdigit = None
-                if editor.visualselection()[item].shortname[len(editor.visualselection()[item].shortname)-1].isdigit():
-                    itemdigit = ""
-                    count = len(editor.visualselection()[item].shortname)-1
-                    while count >= 0:
-                        if editor.visualselection()[item].shortname[count] == " ":
-                            count = count - 1
-                        elif editor.visualselection()[item].shortname[count].isdigit():
-                            itemdigit = str(editor.visualselection()[item].shortname[count]) + itemdigit
-                            count = count - 1
-                        else:
-                            break
-                    itembasename = editor.visualselection()[item].shortname.split(itemdigit)[0]
-                else:
-                    itembasename = editor.visualselection()[item].shortname
+            name = None
+            comparenbr = 0
+            new_comp = editor.layout.explorer.sellist[0].copy()
+            for comp in components:
+                if not itembasename.endswith(" ") and comp.shortname.startswith(itembasename + " "):
+                    continue
+                if comp.shortname.startswith(itembasename):
+                    getnbr = comp.shortname.replace(itembasename, '')
+                    if getnbr == "":
+                        nbr = 0
+                    else:
+                        nbr = int(getnbr)
+                    if nbr > comparenbr:
+                        comparenbr = nbr
+                    nbr = comparenbr + 1
+                    name = itembasename + str(nbr)
+            if name is not None:
+                pass
+            else:
+                name = editor.visualselection()[item].shortname
+            new_comp.shortname = name
+            editor.ModelComponentList['tristodraw'][new_comp.name] = editor.ModelComponentList['tristodraw'][comp_copied_name]
+            editor.ModelComponentList[new_comp.name] = {'bonevtxlist': {}, 'colorvtxlist': {}, 'weightvtxlist': {}}
+            undo = quarkx.action()
+            undo.put(editor.Root, new_comp)
+            editor.ok(undo, "duplicate")
+            compframes = new_comp.dictitems['Frames:fg'].subitems   # all frames
+            for compframe in compframes:
+                compframe.compparent = new_comp # To allow frame relocation after editing.
 
-                name = None
-                comparenbr = 0
-                count = 0
-                stopcount = 0
-                for compframe in compframes:
-                    if not itembasename.endswith(" ") and compframe.shortname.startswith(itembasename + " "):
-                        if stopcount == 0:
-                            count = count + 1
-                        continue
-                    if compframe.shortname.startswith(itembasename):
-                        stopcount = 1
-                        getnbr = compframe.shortname.replace(itembasename, '')
-                        if getnbr == "":
-                            nbr = 0
-                        else:
-                            nbr = int(getnbr)
-                        if nbr > comparenbr:
-                            comparenbr = nbr
-                            count = count + 1
-                        nbr = comparenbr + 1
-                        name = itembasename + str(nbr)
+        if editor.visualselection()[item].type == ":mf":
+            # Checks for component frame names matching any new components frame names and changes
+            # the new one's name(s) if needed to avoid dupes which cause problems in other functions.
+            compframes = editor.visualselection()[item].parent.subitems   # all frames
+            itemdigit = None
+            if editor.visualselection()[item].shortname[len(editor.visualselection()[item].shortname)-1].isdigit():
+                itemdigit = ""
+                count = len(editor.visualselection()[item].shortname)-1
+                while count >= 0:
+                    if editor.visualselection()[item].shortname[count] == " ":
+                        count = count - 1
+                    elif editor.visualselection()[item].shortname[count].isdigit():
+                        itemdigit = str(editor.visualselection()[item].shortname[count]) + itemdigit
+                        count = count - 1
+                    else:
+                        break
+                itembasename = editor.visualselection()[item].shortname.split(itemdigit)[0]
+            else:
+                itembasename = editor.visualselection()[item].shortname
+
+            name = None
+            comparenbr = 0
+            count = 0
+            stopcount = 0
+            for compframe in compframes:
+                if not itembasename.endswith(" ") and compframe.shortname.startswith(itembasename + " "):
                     if stopcount == 0:
                         count = count + 1
-                if name is not None:
-                    pass
-                else:
-                    name = editor.visualselection()[item].shortname
-                editor.visualselection()[item].shortname = name
-                # Places the new frame at the end of its group of frames of the same name.
-                itemtomove = editor.visualselection()[item]
-                itemtomoveparent = itemtomove.parent
-                itemtomoveparent.removeitem(itemtomove)
-                try:
-                    itemtomoveparent.insertitem(count, itemtomove)
-                except:
-                    itemtomoveparent.insertitem(count-1, itemtomove)
+                    continue
+                if compframe.shortname.startswith(itembasename):
+                    stopcount = 1
+                    getnbr = compframe.shortname.replace(itembasename, '')
+                    if getnbr == "":
+                        nbr = 0
+                    else:
+                        nbr = int(getnbr)
+                    if nbr > comparenbr:
+                        comparenbr = nbr
+                        count = count + 1
+                    nbr = comparenbr + 1
+                    name = itembasename + str(nbr)
+                if stopcount == 0:
+                    count = count + 1
+            if name is not None:
+                pass
+            else:
+                name = editor.visualselection()[item].shortname
+            editor.visualselection()[item].shortname = name
+            # Places the new frame at the end of its group of frames of the same name.
+            itemtomove = editor.visualselection()[item]
+            itemtomoveparent = itemtomove.parent
+            itemtomoveparent.removeitem(itemtomove)
+            try:
+                itemtomoveparent.insertitem(count, itemtomove)
+            except:
+                itemtomoveparent.insertitem(count-1, itemtomove)
 
 
 def edit_newbboxgroup(editor, m=None):
