@@ -2999,7 +2999,7 @@ begin
  if Flags2 and soBsp=0 then
    Dest.Add(CommentMapLine(Ancestry));
  if (MapSaveSettings.MapFormat=HL2Type) then
-   if (Name = 'worldspawn') then
+   if (Name = ClassnameWorldspawn) then
      Dest.Add(LineStart+'world')
    else
      Dest.Add(LineStart+'entity');
