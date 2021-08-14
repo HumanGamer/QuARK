@@ -36,7 +36,7 @@
 				Outputs="..\..\..\runtime\dlls\$(TargetName).dll"/>
 			<Tool
 				Name="VCLinkerTool"
-				OutputFile="$(OutDir)/QuArkSteamFS.dll"
+				OutputFile="$(OutDir)/QuArKSteamFS.dll"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="$(SRC_MOD)/lib/public"
 				GenerateDebugInformation="TRUE"
@@ -87,7 +87,7 @@
 				Outputs="..\..\..\runtime\dlls\$(TargetName).dll"/>
 			<Tool
 				Name="VCLinkerTool"
-				OutputFile="$(OutDir)/QuArkSteamFS.dll"
+				OutputFile="$(OutDir)/QuArKSteamFS.dll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="$(SRC_MOD)/lib/public"
 				GenerateDebugInformation="TRUE"
