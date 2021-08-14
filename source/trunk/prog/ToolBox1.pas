@@ -108,6 +108,7 @@ type
     procedure BrowseToolBox(const ToolBoxName: String);
     function DefaultTarget : TQkExplorer;
   public
+    constructor Create(AOwner: TComponent); override;
     function FindTbObject(const nName: String; WantClass, BrowseClass: QObjectClass) : QObject;
     procedure SelectTbObject(Q: QObject);
     function GetToolBoxSingleName: String;
@@ -468,6 +469,12 @@ begin
      end;
     finally ProgressIndicatorStop; end;
    end;
+end;
+
+constructor TToolBoxForm.Create(AOwner: TComponent);
+begin
+ inherited;
+ PanelBig.DoubleBuffered:=True; //Delphi 7 and lower (at least) don't allow this in the .dfm file.
 end;
 
 function TToolBoxForm.GetToolBoxSingleName;

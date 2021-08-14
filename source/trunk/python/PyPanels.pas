@@ -150,6 +150,7 @@ end;
 
 constructor TQkMainPanel.Create;
 begin
+ FDoubleBuffered:=True;
  inherited;
  FLayoutMgr:=TLayoutMgr.Create(Self, Nil);
  BevelOuter:=bvNone;
