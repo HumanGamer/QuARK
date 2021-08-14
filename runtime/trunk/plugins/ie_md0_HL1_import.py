@@ -1519,7 +1519,6 @@ def SetUpBones(self, QuArK_bones): # self = the mdl_obj. Done cdunde from -> hlm
 ####################################
 class mdl_obj:
 # Done cdunde from -> hlmviewer source file -> studio.h -> studiohdr_t
-    origin = quarkx.vect(0.0, 0.0, 0.0) ### For QuArK's model placement in the editor.
     #Header Structure            #item of file, type, description.
     ident = ""                   #item   0-3    4 char, The version of the file (Must be IDST)
     version = 0                  #item   4      int, This is used to identify the file

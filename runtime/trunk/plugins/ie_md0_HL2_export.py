@@ -2478,7 +2478,6 @@ def fill_mdl(dlg):
 # Starts By Using the Model Object
 #################################### #NEED = need to add to writing to file code.
 class mdl_obj: # Done cdunde from -> hlmviewer source file -> studio.h -> studiohdr_t
-    origin = quarkx.vect(0.0, 0.0, 0.0) ### For QuArK's model placement in the editor.
     #Header Structure          #item of data file, size & type,   description
     ident = "IDST"             #item  0     4s string, The version of the file (Must be IDST)
     version = 44               #item  1     int, This is used to identify the file, 44=HL2 mesh file.
@@ -2566,7 +2565,6 @@ class mdl_obj: # Done cdunde from -> hlmviewer source file -> studio.h -> studio
     tags = [] # NEW
     surfaces = [] # NEW
     ikchains = [] # NEW
-    origin = quarkx.vect(0.0, 0.0, 0.0) # NEW
 
     #mdl data objects
     bones = []
@@ -2602,7 +2600,6 @@ class mdl_obj: # Done cdunde from -> hlmviewer source file -> studio.h -> studio
         self.tags = []              # NEW
         self.surfaces = []          # NEW
         self.ikchains = []          # NEW
-        self.origin = quarkx.vect(0.0, 0.0, 0.0) # NEW
         self.bones = []             # A list of the bones.
         self.QuArK_bones = []       # A list of the QuArK bones, for our use only.
         self.skins_group = []       # A list of the skins.

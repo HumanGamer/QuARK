@@ -2995,7 +2995,7 @@ class Vector48:
 ####################################
 # Starts By Using the Model Object
 ####################################
-class mdl_obj(object):
+class mdl_obj:
     #Header Structure            #item of file, type, description.
     ident = ""                   #item   0      4s.
     version = 0                  #item   1      int.
@@ -3082,7 +3082,6 @@ class mdl_obj(object):
     tags = []
     surfaces = []
     ikchains = []
-    origin = quarkx.vect(0.0, 0.0, 0.0)
 
     #mdl data objects
     bones = []
@@ -3204,7 +3203,6 @@ class mdl_obj(object):
         self.tags = []
         self.surfaces = []
         self.ikchains = []
-        self.origin = quarkx.vect(0.0, 0.0, 0.0)
         self.bones = []             # A list of the bones being read in from the file, if any.
         self.QuArKBonesData = []    # A list matching above with [[OurFullName, vtxlist as {dictionary}],...]
         self.skins_group = []       # A list of the .vtf skin files full paths and names.

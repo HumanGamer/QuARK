@@ -2145,7 +2145,6 @@ def fill_mdl(dlg):
 # Starts By Using the Model Object
 ####################################
 class mdl_obj: # Done cdunde from -> hlmviewer source file -> studio.h -> studiohdr_t
-    origin = quarkx.vect(0.0, 0.0, 0.0) ### For QuArK's model placement in the editor.
     #Header Structure          #item of data file, size & type,   description
     ident = "IDST"             #item  0-3   4 char[] string, The version of the file (Must be IDST)
     version = 10               #item  4     int, This is used to identify the file
