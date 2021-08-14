@@ -9,7 +9,6 @@ Core of the Model editor.
 #
 
 from qbaseeditor import BaseEditor
-from qeditor import *
 import qmacro
 import qmenu
 import qhandles
@@ -991,7 +990,7 @@ def modelaxis(view):
     if view.info["viewname"] == "editors3Dview" or view.info["viewname"] == "3Dwindow":
         modelcenter = view.info["center"]
     else:
-        editor = mdleditor
+        editor = mapeditor(SS_MODEL)
         for v in editor.layout.views:
             if v.info["viewname"] == "editors3Dview":
                 modelcenter = v.info["center"]
@@ -1035,7 +1034,7 @@ def modelaxis(view):
 
 
 def faceselfilllist(view, fillcolor=None):
-    editor = mdleditor
+    editor = mapeditor(SS_MODEL)
     if view.info["viewname"] == "XY":
         fillcolor = MapColor("Options3Dviews_fillColor2", SS_MODEL)
     if view.info["viewname"] == "XZ":
