@@ -1532,7 +1532,10 @@ begin
  if g_LargeDataInClipboard
  and (MessageDlg(LoadStr1(5681), mtConfirmation, [mbYes, mbNo], 0) = mrNo) then
   begin
-   OpenClipboard(0);
+   if OpenClipboard(0) = false then
+    //FIXME: Log or raise error?
+    //Exit;
+    ;
    try
     EmptyClipboard;
    finally
