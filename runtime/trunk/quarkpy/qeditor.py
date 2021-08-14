@@ -43,6 +43,7 @@ MV_AUTOFOCUS    = 8    # focused simply by moving the mouse over it
 MV_NOSCROLLBAR  = 16   # overrides the settings of flags 1 and 2
 MV_TOPREDLINE   = 32   # display the top red line
 MV_BOTTOMREDLINE= 64   # display the bottom red line
+vfSkinView = 0x80 # 2d only - used for skin page for mdl editor and bezier page for map editor
 
 # explorer flags (needs to match PyExplorer.pas)
 EF_AUTOFOCUS    = 8    # see MV_AUTOFOCUS

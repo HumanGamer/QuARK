@@ -29,8 +29,6 @@ DELAYREFRESHINTERVAL = 150 #in ms
 immediatelly_repaint_3d_textured_views_while_dragging = 0
 immediatelly_repaint_3d_views_while_dragging = 1
 
-vfSkinView = 0x80 # 2d only - used for skin page for mdl editor and bezier page for map editor; taken from PyMapView.pas
-
 #
 # Global variables that are set by the map editor.
 #
