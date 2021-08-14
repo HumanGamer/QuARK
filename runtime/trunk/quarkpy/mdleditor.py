@@ -766,7 +766,9 @@ class ModelEditor(BaseEditor):
 
                 setsingleframefillcolor(self, view)
                 view.repaint()
+                import plugins.mdlgridscale
                 plugins.mdlgridscale.gridfinishdrawing(self, view)
+                import plugins.mdlaxisicons
                 plugins.mdlaxisicons.newfinishdrawing(self, view)
                 if view.handles == []:
                     pass
@@ -797,7 +799,9 @@ class ModelEditor(BaseEditor):
 
                 setsingleframefillcolor(self, view)
                 view.repaint()
+                import plugins.mdlgridscale
                 plugins.mdlgridscale.gridfinishdrawing(self, view)
+                import plugins.mdlaxisicons
                 plugins.mdlaxisicons.newfinishdrawing(self, view)
                 if view.handles == []:
                     pass
@@ -1324,6 +1328,7 @@ def paintframefill(editor, v):
                     pass
 
                 ### Allows the drawing of the gridscale when actually panning.
+                import plugins.mdlgridscale
                 plugins.mdlgridscale.gridfinishdrawing(editor, v)
     except:
         pass
@@ -1685,7 +1690,9 @@ def commonhandles(self, redraw=1):
     for v in self.layout.views:
         if v.info["viewname"] == "editors3Dview" or v.info["viewname"] == "3Dwindow" or v.info["viewname"] == "skinview":
             continue
+        import plugins.mdlgridscale
         plugins.mdlgridscale.gridfinishdrawing(self, v)
+        import plugins.mdlaxisicons
         plugins.mdlaxisicons.newfinishdrawing(self, v)
 
 
