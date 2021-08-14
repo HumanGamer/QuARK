@@ -1226,11 +1226,13 @@ var
   S, Spec, Arg: String;
   I: Integer;
   Es, E1: TStringList;
-  function GetClassname(S: TStringList): string;
+
+  function GetClassname(const S: TStringList): string;
   begin
     result:=S.Values['classname'];
   end;
-  procedure CreateFullEntity(S: TStringList);
+
+  procedure CreateFullEntity(const S: TStringList);
   var
     E: TStringList;
     cn: String;
