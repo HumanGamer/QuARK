@@ -2477,8 +2477,8 @@ def save_mdl(dlg):
 # gamename is None.
 def savemodel(root, filename, gamename, nomessage=0):
     global editor
-    editor = quarkpy.mdleditor.mdleditor
     import quarkpy.mdleditor
+    editor = quarkpy.mdleditor.mdleditor
     if editor is None:
         return
 
