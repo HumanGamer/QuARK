@@ -137,10 +137,10 @@ def dropitemsnow(editor, newlist, text=Strings[544], center="S"):
                     path = None
                 if path is None:
                     path = "."
-                if os.path.exists(path + "/" + newitem.shortname + type):
+                if os.path.exists(os.path.join(path, newitem.shortname + type)):
                     nparent = editor.Root.currentcomponent.dictitems['Skins:sg']
                     skin = quarkx.newobj(newitem.shortname + type)
-                    image = quarkx.openfileobj(path + "/" + newitem.shortname + type)
+                    image = quarkx.openfileobj(os.path.join(path, newitem.shortname + type))
                     skin['Image1'] = image.dictspec['Image1']
                     skin['Size'] = image.dictspec['Size']
                     newitem = skin
