@@ -3314,7 +3314,6 @@ def findbone(editor, bone_name):
 #
 def clearbones(editor, undomsg):
     import mdlmgr
-    from mdlmgr import treeviewselchanged
     mdlmgr.treeviewselchanged = 1
     editor.layout.explorer.sellist = []
     editor.layout.explorer.uniquesel = None
@@ -3695,8 +3694,7 @@ def assign_release_vertices(editor, bone, comp, vtxsellist):
                         del vertex_list[key]
                 if len(vertex_list) == 0:
                     del Old_dictionary_list[vertex_index]
-                import mdlmgr # Import needs to be here to avoid error.
-                from mdlmgr import treeviewselchanged
+                import mdlmgr
                 mdlmgr.treeviewselchanged = 1
             else:
                 update_weightvtxlist(editor, vertex_index, new_bone)
@@ -4042,13 +4040,12 @@ def PassEditorSel2Skin(editor, option=1):
 ###############################
 
 #
-# This function removes all tagss and CLEARS ALL selection lists
-# to avoid errors in case there are tagss that exist but all components have been deleted.
+# This function removes all tags and CLEARS ALL selection lists
+# to avoid errors in case there are tags that exist but all components have been deleted.
 # It will also replace the 'Misc:mg' if it has been deleted by the user.
 #
 def clearMiscGroup(editor, undomsg, undo=None):
     import mdlmgr
-    from mdlmgr import treeviewselchanged
     mdlmgr.treeviewselchanged = 1
     editor.layout.explorer.sellist = []
     editor.layout.explorer.uniquesel = None

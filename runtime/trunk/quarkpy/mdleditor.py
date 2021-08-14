@@ -577,7 +577,6 @@ class ModelEditor(BaseEditor):
                         BonesSellist.remove(item)
                 skeletongroup = self.Root.dictitems['Skeleton:bg']  # get the bones group
                 bones = skeletongroup.findallsubitems("", ':bone')    # get all bones
-                from mdlmgr import check_use_weights
                 mdlmgr.check_use_weights = None
                 for bone in bones:
                     if bone.dictspec.has_key("use_weights"):
