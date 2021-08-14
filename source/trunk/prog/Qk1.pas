@@ -42,14 +42,6 @@ type
               Working: Boolean;
              end;
   
-  CmdLineOptions = record
-                    DoInstance: Boolean;
-                    DoSplash: Boolean;
-                    DoUpdate: Boolean;
-                    OnlineUpdate: Boolean;
-                    Files: array of string;
-                   end;
-
   TQrkExplorer = class(TFileExplorer)
   protected
    {function AfficherObjet(Parent, Enfant: QObject) : Integer; override;}
@@ -231,7 +223,6 @@ type
 
 var
   g_Form1: TForm1;
-  g_CmdOptions: CmdLineOptions;
 
  {------------------------}
 
@@ -244,8 +235,18 @@ uses {$IFDEF Debug}MemTester, {$ENDIF}Undo, QkQuakeC, Setup, Config,
   QkExceptions, QkQuakeCtx, QkSteamFS, AutoUpdater, QkConsts, Toolbar1,
   Logging, SystemDetails;
 
+type
+  TCmdLineOptions = record
+                    DoInstance: Boolean;
+                    DoSplash: Boolean;
+                    DoUpdate: Boolean;
+                    OnlineUpdate: Boolean;
+                    Files: array of string;
+                   end;
+
 var
-  g_Mutex: THandle = 0;
+  OnlyOnceMutex: THandle = 0;
+  LaunchOptions: TCmdLineOptions;
   OldException: TExceptionEvent;
   LoadingComplete: Boolean = false;
 
@@ -273,15 +274,15 @@ begin
    + #13#10
    + 'All other parameters will be interpreted as files to load.', 'QuArK', MB_TASKMODAL or MB_OK)
   else if S = '/NOINSTANCE' then
-   g_CmdOptions.DoInstance := false
+   LaunchOptions.DoInstance := false
   else if S = '/NOSPLASH' then
-   g_CmdOptions.DoSplash := false
+   LaunchOptions.DoSplash := false
   else if S = '/NOUPDATE' then
-   g_CmdOptions.DoUpdate := false
+   LaunchOptions.DoUpdate := false
   else
   begin
-   SetLength(g_CmdOptions.Files, Length(g_CmdOptions.Files) + 1);
-   g_CmdOptions.Files[Length(g_CmdOptions.Files) - 1] := ParamStr(I);
+   SetLength(LaunchOptions.Files, Length(LaunchOptions.Files) + 1);
+   LaunchOptions.Files[Length(LaunchOptions.Files) - 1] := ParamStr(I);
   end;
  end;
 end;
@@ -398,10 +399,10 @@ begin
  DecimalSeparator:='.';
 
  // Process the commandline and prepare it for further use
- g_cmdOptions.DoInstance := true; //These are the defaults
- g_CmdOptions.DoSplash := true;
- g_CmdOptions.DoUpdate := true;
- g_CmdOptions.OnlineUpdate := true;
+ LaunchOptions.DoInstance := true; //These are the defaults
+ LaunchOptions.DoSplash := true;
+ LaunchOptions.DoUpdate := true;
+ LaunchOptions.OnlineUpdate := true;
  ProcessCmdLine;
 
  //Remove the current directory from the DLL search path
@@ -409,8 +410,8 @@ begin
 
  //This is the mutex for single-instance checking
  Log(LOG_VERBOSE, 'Checking mutex...');
- g_Mutex:=CreateMutex(Nil, True, PChar('QuArK_Mutex'));
- if g_Mutex = 0 then
+ OnlyOnceMutex:=CreateMutex(Nil, True, PChar('QuArK_Mutex'));
+ if OnlyOnceMutex = 0 then
  begin
    //Something went terribly wrong!
    LogWindowsError(GetLastError(), 'CreateMutex(Nil, True, "QuArK_Mutex")');
@@ -421,7 +422,7 @@ begin
    MutexError := GetLastError();
 
  // Splash & nag screens
- if g_CmdOptions.DoSplash then
+ if LaunchOptions.DoSplash then
  begin
    Splash:=OpenSplashScreen;
    Disclaimer:=DisclaimerThread(Splash);
@@ -440,7 +441,7 @@ begin
    Log(LOG_VERBOSE, 'Initializing Python...');
    InitPython;
 
-   if g_CmdOptions.DoInstance and (SetupSubSet(ssGeneral, 'Startup').Specifics.Values['SingleInstance']<>'') then
+   if LaunchOptions.DoInstance and (SetupSubSet(ssGeneral, 'Startup').Specifics.Values['SingleInstance']<>'') then
    begin
      if MutexError = ERROR_ALREADY_EXISTS then
        begin
@@ -462,10 +463,10 @@ begin
      won't be loaded yet. Change this when the update-screen isn't a nag-screen
      anymore! (Store data in registry?) }
    //Check for updates...
-   if g_CmdOptions.DoUpdate and (SetupSubSet(ssGeneral, 'Startup').Specifics.Values['UpdateCheck']<>'') then
+   if LaunchOptions.DoUpdate and (SetupSubSet(ssGeneral, 'Startup').Specifics.Values['UpdateCheck']<>'') then
    begin
      Log(LOG_VERBOSE, 'Checking for updates...');
-     DoUpdate(g_CmdOptions.OnlineUpdate, True);
+     DoUpdate(LaunchOptions.OnlineUpdate, True);
    end;
 
    // Warn for bugs
@@ -477,7 +478,7 @@ begin
 
  finally
    // Wait for splash screen to close
-   if g_CmdOptions.DoSplash then
+   if LaunchOptions.DoSplash then
    begin
      Log(LOG_VERBOSE, 'Waiting for splash screen...');
      repeat
@@ -1622,11 +1623,11 @@ begin
  OldException:=nil;
  g_Form1:=nil;
  Application.UnHookMainWindow(WindowHook);
- if g_Mutex <> 0 then
+ if OnlyOnceMutex <> 0 then
  begin
-   ReleaseMutex(g_Mutex);
-   CloseHandle(g_Mutex);
-   g_Mutex:=0;
+   ReleaseMutex(OnlyOnceMutex);
+   CloseHandle(OnlyOnceMutex);
+   OnlyOnceMutex:=0;
  end;
 end;
 
@@ -1937,7 +1938,7 @@ end;
 function TForm1.ExecuteCmdLine(Counter: Integer) : Integer;
 begin
  Inc(Counter);
- if Counter>Length(g_CmdOptions.Files) then
+ if Counter>Length(LaunchOptions.Files) then
   begin
    //Done loading all (if any) files from the commandline. Now process the last remaining things to-do...
    RefreshAssociations(False);
@@ -1947,7 +1948,7 @@ begin
   end
  else
   if Counter>0 then
-   OpenAFile(g_CmdOptions.Files[Counter - 1], False);
+   OpenAFile(LaunchOptions.Files[Counter - 1], False);
  Result:=Counter;
 end;
 
