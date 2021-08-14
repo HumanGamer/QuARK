@@ -1409,8 +1409,8 @@ begin
   for i:=specList.count-1 downto 0 do
   begin
     e_sl:=TStringList(SpecList.Objects[i]);
-    if (uppercase(e_sl.Values['classname']) = 'WORLDSPAWN') or
-       (uppercase(e_sl.Values['classname']) = 'LIGHT') or
+    if (lowercase(e_sl.Values['classname']) = 'worldspawn') or
+       (lowercase(e_sl.Values['classname']) = 'light') or
        (Addons.FindSubObject(e_sl.Values['classname'], QObject, QObject)<>nil) then
     begin
       specList.Delete(i);
@@ -1425,7 +1425,7 @@ begin
     for j:=0 to found.count-1 do
     begin
       f_sl:=TStringList(found.objects[j]);
-      if (uppercase(f_sl.Values['classname']) = uppercase(e_sl.Values['classname'])) then
+      if (lowercase(f_sl.Values['classname']) = lowercase(e_sl.Values['classname'])) then
       begin
         bFound:=true;
         for k:=0 to e_sl.count-1 do
