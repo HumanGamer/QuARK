@@ -1530,6 +1530,7 @@ end;*)
 
 class procedure QFileObject.FileObjectClassInfo(var Info: TFileObjectClassInfo);
 begin
+ Finalize(Info); //Must call Finalize in order to release the Strings before FillChar.
  FillChar(Info, SizeOf(Info), 0);
  Info.FileObjectDescriptionText:=TypeInfo;
  Info.DefaultExt:=Copy(Info.FileObjectDescriptionText, 2, MaxInt);
