@@ -39,6 +39,7 @@ type
     procedure EnterEdit1Accept(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure FormDestroy(Sender: TObject);
   private
     FRoot: QMdlObject;
     ScrollBox1: TPyMapView;
@@ -193,6 +194,12 @@ procedure TFQMdl.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
   FRoot:=Nil;
   inherited;
+end;
+
+procedure TFQMdl.FormDestroy(Sender: TObject);
+begin
+  inherited;
+  ScrollBox1.Free;
 end;
 
 end.
