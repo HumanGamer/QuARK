@@ -86,6 +86,7 @@ type
     procedure EnterEdit1Accept(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure FormDestroy(Sender: TObject);
   private
    {FOldPaint: TCSBPaintEvent;}
     FRoot: TTreeMap;
@@ -4386,6 +4387,12 @@ begin
 end;
 
  {------------------------}
+
+procedure TFQMap.FormDestroy(Sender: TObject);
+begin
+  inherited;
+  ScrollBox1.Free;
+end;
 
 initialization
   RegisterQObject(QQkm, 'y');

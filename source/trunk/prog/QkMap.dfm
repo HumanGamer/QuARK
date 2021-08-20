@@ -1,6 +1,7 @@
 inherited FQMap: TFQMap
   Left = 717
   Top = 541
+  OnDestroy = FormDestroy
   PixelsPerInch = 96
   TextHeight = 13
   inherited leftdock: TDock97
