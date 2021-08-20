@@ -54,7 +54,7 @@ type
 implementation
 
 uses QuarkX, Setup, PyForms, Undo, QkModel, QkMapObjects, Qk3D, qmath, PyMath,
-  qmatrices;
+  qmatrices, PyControls;
 
 {$R *.dfm}
 
@@ -197,9 +197,15 @@ begin
 end;
 
 procedure TFQMdl.FormDestroy(Sender: TObject);
+var
+  MapViewObject: PyControlF;
 begin
   inherited;
+  //Normally Python will DecRef the MapViewObject, but here
+  //we have to manually release the MapViewObject.
+  MapViewObject:=ScrollBox1.MapViewObject;
   ScrollBox1.Free;
+  Py_DECREF(MapViewObject);
 end;
 
 end.

@@ -122,7 +122,7 @@ implementation
 
 uses
   Setup, Undo, Quarkx, qmatrices, Qk3D, PyMath, QkQuakeMap, QkApplPaths,
-  Graphics, StrUtils, Game, QkExceptions, Travail, QkConsts, Logging,
+  Graphics, StrUtils, Game, QkExceptions, Travail, QkConsts, Logging, PyControls,
   PyForms, Bezier, QkMesh, Duplicator, QkPixelSet, Qk6DX, QkVMF, QkSylphis, QkQ2,
   { tiglari } QkSin, { /tiglari } MapError, PixelSetSizeCache, QkObjectClassList;
 
@@ -4389,9 +4389,15 @@ end;
  {------------------------}
 
 procedure TFQMap.FormDestroy(Sender: TObject);
+var
+  MapViewObject: PyControlF;
 begin
   inherited;
+  //Normally Python will DecRef the MapViewObject, but here
+  //we have to manually release the MapViewObject.
+  MapViewObject:=ScrollBox1.MapViewObject;
   ScrollBox1.Free;
+  Py_DECREF(MapViewObject);
 end;
 
 initialization
