@@ -3952,8 +3952,7 @@ finalization
   //QuarkXWorkaroundNameChange
   SetLength(QuarkXWorkaroundNameChangeListOld, 0);
   SetLength(QuarkXWorkaroundNameChangeListNew, 0);
-  if PythonLoaded then
-    ShutdownPython;
+  ShutdownPython; //Is already done in Qk1, but let's be sure
   if (Pool <> nil) then
     Pool.Free;
 end.
