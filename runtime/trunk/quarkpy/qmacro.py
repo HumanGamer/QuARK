@@ -259,6 +259,9 @@ class dialogbox:
             self.df.onchange = None
             self.df = None
         self.dlg = None
+        self.f = None
+        self.df = None
+        self.src = None
         del self.buttons
 
     def close(self, reserved=None):
