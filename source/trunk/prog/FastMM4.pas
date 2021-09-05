@@ -3625,7 +3625,7 @@ begin
     LClassInfo := AClass.ClassInfo;
     if LClassInfo <> nil then // prepend the UnitName
     begin
-      UnitName := @PClassData(PByte(LClassInfo) + 2 + PByte(PByte(LClassInfo) + 1)^).UnitName;
+      UnitName := @PClassData(PByte(LClassInfo) + 2 + Integer(PByte(PByte(LClassInfo) + 1)^)).UnitName; //DanielPharos: See https://github.com/pleriche/FastMM4/issues/88
       FirstUnitNameChar := @UnitName^[1];
       if FirstUnitNameChar^ <> '@' then
         Result := AppendStringToBuffer(FirstUnitNameChar, Result, Length(UnitName^))
