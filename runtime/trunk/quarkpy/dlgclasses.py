@@ -45,7 +45,7 @@ class placepersistent_dialogbox(qmacro.dialogbox):
   def windowrect(self):
     rect = quarkx.setupsubset(self.editor.MODE,"Options")['dlgdim_'+self.label]
     if rect is not None:
-      return rect
+      return (int(rect[0]), int(rect[1]), int(rect[2]), int(rect[3]))
     x1,y1,x2,y2 = quarkx.screenrect()
     dx = x1-x2
     dy = y1-y2
@@ -170,7 +170,7 @@ class LiveBrowserDlg(LiveButtonDlg):
             self.moreaction(self)
 
 #
-# Like dialog box but with possiblity of specifying
+# Like dialog box but with possibility of specifying
 #   the location in the initialization.
 #
 class locatable_dialog_box(qmacro.dialogbox):
