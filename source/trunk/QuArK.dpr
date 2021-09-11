@@ -67,6 +67,7 @@ uses
   QkBBoxGroup in 'prog\model\QkBBoxGroup.pas',
   QkModel in 'prog\model\QkModel.pas',
   QkModelBone in 'prog\model\QkModelBone.pas',
+  QkModelFile in 'prog\model\QkModelFile.pas',
   QkModelRoot in 'prog\model\QkModelRoot.pas',
   QkModelTag in 'prog\model\QkModelTag.pas',
   QkQkl in 'prog\model\QkQkl.pas',
