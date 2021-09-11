@@ -92,7 +92,10 @@ end;
 procedure TWaiter.TriggerNow;
 begin
  if TriggerForm<>Nil then
-  TriggerForm.EndOfJob;
+  begin
+   TriggerForm.EndOfJob;
+   TriggerForm.Waiter:=Nil; //Otherwise closing the form will call this waiter thread, which will be freed already. 
+  end;
 end;
 
  {------------------------}
@@ -308,7 +311,7 @@ begin
    SI.dwFlags:=STARTF_USECOUNTCHARS;
    FillChar(PI, SizeOf(PI), 0);
 
-   Log(LOG_INFO, 'Now starting external program "%s" from path "%s"...', [S, StartDir]);
+   Log(LOG_INFO, 'Now starting external program "%s" from path "%s"...', [S, StartDir]); //FIXME: Move to dict!
 
    I:=Pos('>', S);
    Verb:=(I>0) and (Copy(S,1,1)='<');
