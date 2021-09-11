@@ -233,7 +233,7 @@ uses {$IFDEF Debug}MemTester, {$ENDIF}Undo, QkQuakeC, Setup, Config,
   Running, Output1, QkTreeView, PyProcess, Console, Python, Quarkx, About,
   PyMapView, PyForms, Qk3D, EdSceneObject, QkObjectClassList, QkApplPaths,
   QkExceptions, QkQuakeCtx, QkSteamFS, AutoUpdater, QkConsts, Toolbar1,
-  Logging, SystemDetails;
+  Splash, Logging, SystemDetails;
 
 type
   TCmdLineOptions = record
@@ -377,6 +377,8 @@ procedure TForm1.FormCreate(Sender: TObject);
   Result:=Count;
  end;
 
+const
+ TimerID = 0;
 var
  Item, BaseItem: TMenuItem;
  I: Integer;
@@ -384,8 +386,7 @@ var
  S, T: String;
  L: TStringList;
  C: TColor;
- Splash: TForm;
- Disclaimer: THandle;
+ Splash: TSplashScreen;
  MutexError: DWORD;
 begin
  Log(LOG_VERBOSE, 'Loading main form...');
@@ -423,15 +424,9 @@ begin
 
  // Splash & nag screens
  if LaunchOptions.DoSplash then
- begin
-   Splash:=OpenSplashScreen;
-   Disclaimer:=DisclaimerThread(Splash);
- end
+   Splash:=OpenSplashScreen
  else
- begin
    Splash:=nil;
-   Disclaimer:=0;
- end;
  try
    // Set-up the console
    Log(LOG_VERBOSE, 'Setting up console...');
@@ -481,14 +476,16 @@ begin
    if LaunchOptions.DoSplash then
    begin
      Log(LOG_VERBOSE, 'Waiting for splash screen...');
-     repeat
-       Application.ProcessMessages;
-     until (WaitForSingleObject(Disclaimer, 100)<>WAIT_TIMEOUT);
-     CloseHandle(Disclaimer);
-     //Disclaimer:=0;
+     SetTimer(Self.Handle, TimerID, 500, nil);
+     try
+       repeat
+         WaitMessage;
+         Application.ProcessMessages;
+       until (WaitForSingleObject(Splash.WaitHandle, 0) = WAIT_OBJECT_0);
+     finally
+       KillTimer(Self.Handle, TimerID);
+     end;
      Splash.Close;
-     //Splash:=nil;
-     Application.ProcessMessages;
    end;
  end;
 
@@ -1946,7 +1943,7 @@ begin
    //Done loading all (if any) files from the commandline. Now process the last remaining things to-do...
    RefreshAssociations(False);
    RestoreAutoSaved('.qkm');
-   RestoreAutoSaved('.qkl'); //@@@This never runs! AutoRestoreEvent is made! --> Right, dump that CreateEvent. We're already using the CreateMutex above. Just put a tip in the documentation about this!!!
+   RestoreAutoSaved('.qkl'); //FIXME: This never runs! AutoRestoreEvent is made! --> Right, dump that CreateEvent. We're already using the CreateMutex above. Just put a tip in the documentation about this!!!
    Counter:=-1;
   end
  else

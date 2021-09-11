@@ -189,6 +189,7 @@ uses
   Running in 'prog\Running.pas' {RunForm},
   SearchHoles in 'prog\SearchHoles.pas',
   Setup in 'prog\Setup.pas',
+  Splash in 'prog\Splash.pas' {SplashScreen},
   Sprite in 'prog\Sprite.pas',
   SystemDetails in 'prog\SystemDetails.pas',
   TbPalette in 'prog\TbPalette.pas',

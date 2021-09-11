@@ -14,10 +14,7 @@ object AboutBox: TAboutBox
   Font.Style = []
   OldCreateOrder = True
   Position = poScreenCenter
-  OnActivate = FormActivate
-  OnClose = FormClose
   OnCreate = FormCreate
-  OnPaint = FormPaint
   PixelsPerInch = 96
   TextHeight = 13
   object Panel1: TPanel

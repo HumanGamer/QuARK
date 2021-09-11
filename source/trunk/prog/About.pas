@@ -54,47 +54,21 @@ type
     Registration: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure OKButtonClick(Sender: TObject);
-    procedure FormActivate(Sender: TObject);
-    procedure FormClose(Sender: TObject; var Action: TCloseAction);
-    procedure FormPaint(Sender: TObject);
-  private
-    Event: THandle;
   public
   end;
 
-function OpenSplashScreen : TForm;
 procedure OpenAboutBox;
-function DisclaimerThread(F: TForm): THandle;
 procedure ProcessRegistration;
 
 implementation
 
-uses Qk1, Quarkx, PyProcess, QkConsts, ExtraFunctionality;
-
-type
-  PDisclaimerInfo = ^TDisclaimerInfo;
-  TDisclaimerInfo = record
-    H: HWnd;
-    R: TRect;
-    FlashCount: Cardinal;
-    Delay: Cardinal;
-    TextSize: Integer;
-    Text: array[0..255] of Char;
-    Event: THandle;
-  end;
-  TSplashScreen = class(TForm)
-    procedure RedrawSplashScreen(Sender : Tobject);
-    procedure FormClose(Sender: TObject; var Action: TCloseAction);
-  end;
+uses Qk1, Quarkx, QkConsts;
 
 const
-  MAX_DELAY = 10;
-  MIN_FLASH_COUNT = 2; //Must be larger than zero!
   RegistrationKey = '\Software\Armin Rigo\QuakeMap';
   RegistrationValueName = 'Registered';
 
 var
-  RedrawDisclaimer: Boolean;
   RegisteredTo: String;
 
 {$R *.DFM}
@@ -147,148 +121,6 @@ begin
     if g_Form1.Caption = 'QuArK Explorer' then
       g_Form1.Caption:=g_Form1.Caption+' [Registered]';
   end;
-end;
-
-function DisclaimerProc(Info: PDisclaimerInfo): LongInt; stdcall;
-var
-  DC: HDC;
-  I, C: Integer;
-  Font, Font1: HFont;
-  SkipDelay: Boolean;
-begin
-  InflateRect(Info^.R, -7, -4);
-  Info^.R.Top := Info^.R.Bottom - 20;
-  {X:=(Info^.R.Left+Info^.R.Right) div 2;
-   Y:=Info^.R.Bottom - 7;}
-  if Info^.TextSize >= 16 then
-    I := FW_BOLD
-  else
-    I := 0;
-  Font := CreateFont(Info^.TextSize, 0, 0, 0, I, 0, 0, 0, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH or FF_SWISS, nil);
-  DC := GetDC(Info^.H);
-  try
-    Font1 := SelectObject(DC, Font);
-    SetBkColor(DC, clWhite);
-    SetBkMode(DC, TRANSPARENT);
-    {SetTextAlign(DC, TA_BOTTOM or TA_CENTER);}
-    SkipDelay := false;
-    I := Info^.FlashCount;
-    if I < MIN_FLASH_COUNT then
-      I := MIN_FLASH_COUNT;
-    I := I * 10 - 5;
-    repeat
-      C := (I + 5) mod 10;
-      if C > 5 then
-        C := 10 - C;
-      {SetTextColor(DC, clWhite - ($203333 * C));}
-      SetTextColor(DC, clWhite - ($333300 * C));
-      DrawText(DC, Info^.Text, -1, Info^.R, DT_CENTER or DT_NOPREFIX or DT_WORDBREAK);
-      GDIFlush;
-      if Info^.Event = 0 then
-        Sleep(50)
-      else
-        if WaitForSingleObject(Info^.Event, 50) <> WAIT_TIMEOUT then
-        begin
-          SkipDelay := true;
-          Break;
-        end;
-      Dec(I);
-    until I < 0;
-    if not SkipDelay then
-    begin
-      if Info^.Event = 0 then
-      begin
-        I := Info^.Delay;
-        if I > MAX_DELAY then
-          I := MAX_DELAY;
-        I:=I*10;
-        repeat
-          if RedrawDisclaimer then
-          begin
-            RedrawDisclaimer:=false;
-            DrawText(DC, Info^.Text, -1, Info^.R, DT_CENTER or DT_NOPREFIX or DT_WORDBREAK);
-            GDIFlush;
-          end;
-          Sleep(100);
-          Dec(I);
-        until I < 0;
-      end
-      else
-      begin
-        repeat
-          if RedrawDisclaimer then
-          begin
-            RedrawDisclaimer:=false;
-            DrawText(DC, Info^.Text, -1, Info^.R, DT_CENTER or DT_NOPREFIX or DT_WORDBREAK);
-            GDIFlush;
-          end;
-          if WaitForSingleObject(Info^.Event, 100) <> WAIT_TIMEOUT then
-            SkipDelay := true;
-        until SkipDelay;
-      end;
-    end;
-    SelectObject(DC, Font1);
-  finally
-    ReleaseDC(Info^.H, DC);
-    DeleteObject(Font);
-    if Info^.Event <> 0 then
-      CloseHandle(Info^.Event);
-    Dispose(Info);
-  end;
-  Result := 0;
-end;
-
-function GetDisclaimer(Info: PDisclaimerInfo): THandle;
-var
-  Dummy: DWORD;
-  S: string;
-begin
-  Info^.TextSize := 10;
-  Info^.FlashCount := MIN_FLASH_COUNT;
-  Info^.Delay := 2;
-  S := 'QuArK comes with ABSOLUTELY NO WARRANTY; this is free software, and you are welcome '
-       + 'to redistribute it under certain conditions. For details, see ''?'', ''About''.';
-  {$IFDEF Debug}
-  S := 'DEBUG ' + QuArKVersion + ' ' + QuArKMinorVersion;
-  Info^.TextSize := 22;
-  {$ENDIF}
-  StrPCopy(Info^.Text, S); //DanielPharos: S must NOT be longer than 255 characters!
-  Result := CreateThread(nil, 0, @DisclaimerProc, Info, 0, Dummy);
-  SetThreadPriority(Result, THREAD_PRIORITY_ABOVE_NORMAL);
-end;
-
-function DisclaimerThread(F: TForm): THandle;
-var
-  Info: PDisclaimerInfo;
-begin
-  New(Info);
-  Info^.H := F.Handle;
-  Info^.R := F.ClientRect;
-  Info^.Event := 0;
-  Result := GetDisclaimer(Info);
-end;
-
-function OpenSplashScreen : TForm;
-var
- SplashScreen: TSplashScreen;
- Image1: TImage;
-begin
- SplashScreen:=TSplashScreen.CreateNew(Application);
- SplashScreen.Position:=poScreenCenter;
- SplashScreen.BorderStyle:=bsNone;
- SplashScreen.Color:=clWhite;
- {SplashScreen.FormStyle:=fsStayOnTop;}
- Image1:=TImage.Create(SplashScreen);
- Image1.Parent:=SplashScreen;
- Image1.Picture.Bitmap.LoadFromResourceName(HInstance, 'QUARKLOGO');
- Image1.AutoSize:=True;
- SplashScreen.ClientWidth:=Image1.Width;
- SplashScreen.ClientHeight:=Image1.Height;
- SplashScreen.OnClose:=SplashScreen.FormClose;
- SplashScreen.OnPaint:=SplashScreen.RedrawSplashScreen;
- SplashScreen.Show;
- SplashScreen.Update;
- Result:=TForm(SplashScreen);
 end;
 
 procedure OpenAboutBox;
@@ -389,50 +221,6 @@ begin
     end;
     ProcessRegistration;
   end;
-end;
-
-procedure TAboutBox.FormActivate(Sender: TObject);
-var
-  Info: PDisclaimerInfo;
-begin
-  OnActivate := nil;
-  Event := CreateEvent(nil, False, False, nil);
-  New(Info);
-  Info^.H := Panel1.Handle;
-  Info^.R := Image1.BoundsRect;
-  Info^.Event := 0;
-  DuplicateHandle(GetCurrentProcess, Event, GetCurrentProcess, @Info^.Event, 0, False, DUPLICATE_SAME_ACCESS);
-  CloseHandle(GetDisclaimer(Info));
-end;
-
-procedure TAboutBox.FormClose(Sender: TObject; var Action: TCloseAction);
-begin
-  if Event <> 0 then
-  begin
-    SetEvent(Event);
-    CloseHandle(Event);
-    Event:=0;
-    // Strange error if 'event' isn't set to 0 after call to CloseHandle(..)
-    // DanielPharos: That's because this procedure is called multiple times !!!
-  end;
-end;
-
-procedure TAboutBox.FormPaint(Sender: TObject);
-begin
-  RedrawDisclaimer:=true;
-end;
-
- {-------------------}
-
-procedure TSplashScreen.RedrawSplashScreen(Sender : Tobject);
-begin
- RedrawDisclaimer:=true;
-end;
-
-procedure TSplashScreen.FormClose(Sender : TObject; var Action : TCloseAction);
-begin
- //FIXME: Stop the disclaimer thread, if still running? Or should Qk1 do that?
- Action := caFree;
 end;
 
 end.
