@@ -22,8 +22,8 @@ unit Sprite;
 
 interface
 
-uses Windows, SysUtils, Classes, Python, qmath, qmatrices, PyMath, QkObjects,
-     Quarkx, Setup, Qk3D, QkImages, QkMdlObject;
+uses Windows, SysUtils, Classes, qmath, qmatrices, QkObjects,
+     Qk3D, QkImages, QkMdlObject;
 
 type
   QSprite = class(Q3DObject)
@@ -42,7 +42,7 @@ type
 
 implementation
 
-uses EdSceneObject, PyMapView, QkObjectClassList{$IFDEF PyProfiling}, Logging{$ENDIF};
+uses EdSceneObject, QkObjectClassList{$IFDEF PyProfiling}, Logging{$ENDIF};
 
 class function QSprite.TypeInfo;
 begin
