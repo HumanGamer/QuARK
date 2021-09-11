@@ -730,7 +730,7 @@ begin
   MyTVMinusSign:=BuildSign('-');
 {GrayBrush:=CreateSolidBrush(GrayColor);}
  PrevBrush:=SelectObject(DC, Brush);
- Font:=GetFontHandle(0);
+ Font:=GetFontHandle(FW_DONTCARE);
  BoldFont:=GetFontHandle(FW_BOLD);
  OldFont:=SelectObject(DC, BoldFont);
  PlusDC:=CreateCompatibleDC(DC);
