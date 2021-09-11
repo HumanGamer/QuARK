@@ -17,7 +17,6 @@ object SplashScreen: TSplashScreen
   OnClose = FormClose
   OnCreate = FormCreate
   OnDestroy = FormDestroy
-  OnPaint = FormPaint
   PixelsPerInch = 96
   TextHeight = 13
   object Image1: TImage

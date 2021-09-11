@@ -42,7 +42,6 @@ type
     Label1: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure FormActivate(Sender: TObject);
-    procedure FormPaint(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormDestroy(Sender : TObject);
   private
@@ -51,7 +50,7 @@ type
     TextColor: COLORREF;
     function GetWaitHandle: THandle;
   public
-    procedure RepaintBypass;
+    procedure UpdateDisclaimerColor;
     property WaitHandle: THandle read GetWaitHandle;
   end;
 
@@ -82,7 +81,7 @@ begin
       C := 10 - C;
     //Form.TextColor := clWhite - ($203333 * C);
     Form.TextColor := clWhite - ($333300 * C);
-    Form.Invalidate; //This will post a message to the message loop, waking it up.
+    Synchronize(Form.UpdateDisclaimerColor);
     Sleep(50);
     Dec(I);
   until I < 0;
@@ -140,12 +139,6 @@ begin
   Disclaimer.Resume;
 end;
 
-procedure TSplashScreen.FormPaint(Sender: TObject);
-begin
-  //Set the changed font-color for the disclaimer text.
-  Label1.Font.Color := TextColor;
-end;
-
 procedure TSplashScreen.FormClose(Sender : TObject; var Action : TCloseAction);
 begin
   //We are never going to need to show this again, so let's free it completely.
@@ -163,10 +156,13 @@ begin
   Result:=Disclaimer.Handle;
 end;
 
-procedure TSplashScreen.RepaintBypass;
+procedure TSplashScreen.UpdateDisclaimerColor;
 begin
-  Perform(WM_ERASEBKGND, 0, 0);
-  Perform(WM_PAINT, 0, 0);
+  //Set the changed font-color for the disclaimer text.
+  Label1.Font.Color := TextColor;
+
+  //This will post a message to the message loop, triggering a repaint.
+  Invalidate;
 end;
 
 end.
