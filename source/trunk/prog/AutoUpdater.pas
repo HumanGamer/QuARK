@@ -570,7 +570,7 @@ begin
       begin
         if not AutomaticCheck then
           if not UpdatesFound then
-            MessageBox(0, 'No updates were found.', 'QuArK', MB_TASKMODAL or MB_ICONINFORMATION or MB_OK);
+            Application.MessageBox('No updates were found.', 'QuArK', MB_TASKMODAL or MB_ICONINFORMATION or MB_OK);
       end;
     end
     else
@@ -585,11 +585,16 @@ begin
     if DaySpan(Now, QuArKCompileDate) >= QuArKDaysOld then
     begin
       Log(LOG_WARNING, 'Offline update: Old version of QuArK detected!');
-      if MessageBox(0, 'This version of QuArK is rather old. Do you want to open the QuArK website to check for updates?', 'QuArK', MB_TASKMODAL or MB_ICONINFORMATION or MB_YESNO) = IDYES then
+      if Application.MessageBox('This version of QuArK is rather old. Do you want to open the QuArK website to check for updates?', 'QuArK', MB_TASKMODAL or MB_ICONINFORMATION or MB_YESNO) = IDYES then
       begin
         if ShellExecute(0, 'open', QuArKWebsite, nil, nil, SW_SHOWDEFAULT) <= 32 then
-          MessageBox(0, 'Unable to open website: Call to ShellExecute failed!' + #13#10#13#10 + 'Please manually go to: ' + QuArKWebsite, 'QuArK', MB_TASKMODAL or MB_ICONEXCLAMATION or MB_OK);
+          Application.MessageBox('Unable to open website: Call to ShellExecute failed!' + #13#10#13#10 + 'Please manually go to: ' + QuArKWebsite, 'QuArK', MB_TASKMODAL or MB_ICONEXCLAMATION or MB_OK);
       end;
+    end
+    else
+    begin
+      if not AutomaticCheck then
+        Application.MessageBox('No updates were found.', 'QuArK', MB_TASKMODAL or MB_ICONINFORMATION or MB_OK);
     end;
   end;
 end;
@@ -615,7 +620,7 @@ begin
   end;
   if not PackageSelected then
   begin
-    MessageBox(0, PChar('No packages selected. Please first select packages to install, or click "Cancel".'), 'QuArK', MB_TASKMODAL or MB_ICONEXCLAMATION or MB_OK);
+    Application.MessageBox('No packages selected. Please first select packages to install, or click "Cancel".', 'QuArK', MB_TASKMODAL or MB_ICONEXCLAMATION or MB_OK);
     Exit;
   end;
   Close;
