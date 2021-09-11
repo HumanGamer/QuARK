@@ -23,7 +23,7 @@ unit RedLines;
 interface
 
 uses Windows, SysUtils, Classes, Controls, ExtCtrls, Graphics, Forms,
-     Python, Quarkx, PyToolbars, PyImages;
+     PyToolbars;
 
 type
   TRedLineButton = class(TMouseTracker)
@@ -49,7 +49,7 @@ procedure RedrawRedLines(nParent: TWinControl);
 
 implementation
 
-uses QkForm;
+uses Quarkx, QkForm, Python, PyImages;
 
  {-------------------}
 
