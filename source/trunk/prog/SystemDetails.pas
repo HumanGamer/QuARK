@@ -27,6 +27,7 @@ interface
 uses
   SysUtils, StrUtils, Windows, Classes, ExtraFunctionality;
 
+procedure LogSystemDetails;
 function CheckWindowsNT: Boolean;
 function CheckWindows98And2000: Boolean;
 function CheckWindowsMEAnd2000: Boolean;
@@ -2464,13 +2465,6 @@ end;
 initialization
 begin
   DriverBugs:=TStringList.Create;
-  //We should never allow an exception here, because then we'll exit with a vague runtime error!
-  //try
-    LogSystemDetails;
-  //except
-    //on E : Exception do
-      //Log(LOG_WARNING, 'Failed to get system information: '+E.Message); //Note: Do *NOT* put this through LoadStr; not loaded yet!
-  //end;
 end;
 
 finalization

@@ -424,10 +424,16 @@ begin
 
  // Splash & nag screens
  if LaunchOptions.DoSplash then
-   Splash:=OpenSplashScreen
+ begin
+   Splash:=OpenSplashScreen;
+   Application.ProcessMessages;
+ end
  else
    Splash:=nil;
  try
+   // Write system information to the log
+   LogSystemDetails;
+
    // Set-up the console
    Log(LOG_VERBOSE, 'Setting up console...');
    InitConsole;
@@ -446,7 +452,6 @@ begin
          S:=S+'Are you sure you want to start a new instance of QuArK?';
          if Windows.MessageBox(0, PChar(S), PChar('QuArK'), MB_TASKMODAL or MB_YESNO or MB_ICONWARNING or MB_DEFBUTTON2) = idNo then
          begin
-           Splash.Close;
            Application.Terminate;
            Exit;
          end;
