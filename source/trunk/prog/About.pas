@@ -54,7 +54,9 @@ type
     Registration: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure OKButtonClick(Sender: TObject);
-  public
+  protected
+    procedure MouseWheelDown(Sender: TObject; Shift: TShiftState; MousePos: TPoint; var Handled: Boolean); override;
+    procedure MouseWheelUp(Sender: TObject; Shift: TShiftState; MousePos: TPoint; var Handled: Boolean); override;
   end;
 
 procedure OpenAboutBox;
@@ -62,7 +64,7 @@ procedure ProcessRegistration;
 
 implementation
 
-uses Qk1, Quarkx, QkConsts;
+uses Messages, Qk1, Quarkx, QkConsts;
 
 const
   RegistrationKey = '\Software\Armin Rigo\QuakeMap';
@@ -141,6 +143,9 @@ procedure TAboutBox.FormCreate(Sender: TObject);
 var
   DateFormat: TFormatSettings;}
 begin
+  OnMouseWheelDown:=MouseWheelDown;
+  OnMouseWheelUp:=MouseWheelUp;
+
   Version.Caption := QuarkVersion + ' ' + QuArKMinorVersion;
   {*GetLocaleFormatSettings(LOCALE_SYSTEM_DEFAULT, DateFormat);}
   UsedCompilerLabel.Caption := FmtLoadStr1(5823, [QuArKUsedCompiler, DateToStr(QuArKCompileDate{*, DateFormat})]);
@@ -200,6 +205,18 @@ begin
     + #13#10#13#10
     + 'You may charge a fee for the physical act of transferring a copy, and '
     + 'you may at your option offer warranty protection in exchange for a fee.';
+end;
+
+procedure TAboutBox.MouseWheelDown(Sender: TObject; Shift: TShiftState; MousePos: TPoint; var Handled: Boolean);
+begin
+  Memo1.Perform(WM_VSCROLL, SB_LINEDOWN, 0);
+  Handled := true;
+end;
+
+procedure TAboutBox.MouseWheelUp(Sender: TObject; Shift: TShiftState; MousePos: TPoint; var Handled: Boolean);
+begin
+  Memo1.Perform(WM_VSCROLL, SB_LINEUP, 0);
+  Handled := true;
 end;
 
 procedure TAboutBox.OKButtonClick(Sender: TObject);
