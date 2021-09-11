@@ -22,8 +22,8 @@ unit TexHints;
 
 interface
 
-uses Windows, SysUtils, Classes, Graphics, Controls, Forms,
-     QkObjects, QkPixelSet, QkTextures;
+uses Windows, SysUtils, Classes, Graphics, Controls, Forms, QkObjects;
+
 type
   TTexHintWindow = class(THintWindow)
   protected
@@ -36,7 +36,7 @@ type
 
 implementation
 
-uses Setup, Game, Travail;
+uses Setup, Game, Travail, QkPixelSet, QkTextures;
 
 procedure TTexHintWindow.Paint;
 var
