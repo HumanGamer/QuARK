@@ -863,7 +863,7 @@ end;
 procedure TFormCfg.ClickInPalette(Sender: TToolbar97; Old, New: Integer);
 begin
  if PopupFormSpec='' then
-  MessageBeep(0)
+  MessageBeep(MB_OK)
  else
   if Old=New then
    Sender.Hide
@@ -1310,7 +1310,7 @@ begin
  PathEdit:=FindFormControl((Sender as TControl).Tag-1, False);
  if (PathEdit=Nil) or not (PathEdit is TEnterEdit) then
   begin
-   MessageBeep(0);
+   MessageBeep(MB_OK);
    Exit;
   end;
  PathEdit.SetFocus;
@@ -1686,11 +1686,11 @@ begin
        Q:=QObject(Msg.lParam);
        if not (Q is QPixelSet) then
         begin
-         MessageBeep(0);
+         MessageBeep(MB_OK);
          Exit;
         end;
        if PopupFormSpec='' then
-        MessageBeep(0)
+        MessageBeep(MB_OK)
        else
         begin
          PopupFormEdit.SetFocus;
@@ -3133,7 +3133,7 @@ begin
  case (Sender as TMenuItem).MenuIndex of
   cmd_AddSpec:
     if Form=Nil then
-     MessageBeep(0)
+     MessageBeep(MB_OK)
     else
      begin
       Q:=QInternal.Create(LoadStr1(146), Form);
@@ -3169,7 +3169,7 @@ begin
          InitControls;
         end
      else
-      MessageBeep(0);
+      MessageBeep(MB_OK);
     end;
   cmd_CopySpec:
     begin

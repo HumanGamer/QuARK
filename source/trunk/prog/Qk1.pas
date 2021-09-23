@@ -1903,7 +1903,7 @@ begin
        ConvertClass:=QFileObject(Q).TestConversionType(I);
        if ConvertClass=Nil then
         begin
-         MessageBeep(0);  { error }
+         MessageBeep(MB_OK);  { error }
          Break;
         end;
        ConvertClass.FileObjectClassInfo(Info);
@@ -1922,7 +1922,7 @@ begin
       until False;
      end
     else
-     MessageBeep(0);  { error }
+     MessageBeep(MB_OK);  { error }
    end;
   if Gr.SubElements.Count>0 then
    Gr.CopierObjets(False);

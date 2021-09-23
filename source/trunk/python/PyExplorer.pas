@@ -246,7 +246,7 @@ begin
  Result:=(callresult<>Nil) and PyObject_IsTrue(callresult);
  Py_XDECREF(callresult);
  if not Result and Beep then
-  MessageBeep(0);
+  MessageBeep(MB_OK);
 end;
 
 function TPythonExplorer.CopyFromOutside(SourceQ: QObject) : Boolean;

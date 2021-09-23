@@ -2236,7 +2236,7 @@ begin
   S:=BaseDir.Text;
   if S='' then
   begin
-    MessageBeep(0);
+    MessageBeep(MB_OK);
     Abort;
   end;
 

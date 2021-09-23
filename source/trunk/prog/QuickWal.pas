@@ -768,7 +768,7 @@ begin
  finally
   ProgressIndicatorStop;
  end;
- MessageBeep(0);
+ MessageBeep(MB_OK);
 end;
 
 (*procedure MakeFolder(var Folder, Parental: QObject; const Name: String);

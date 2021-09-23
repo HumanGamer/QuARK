@@ -442,7 +442,7 @@ begin
   wp_ToolbarButton1:
     if not MacroCommand(Msg.lParam) then
      begin
-      MessageBeep(0);
+      MessageBeep(MB_OK);
       Abort;
      end;
 {$IFNDEF NoMarsCaption}

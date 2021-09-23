@@ -205,7 +205,7 @@ begin
     begin
      ConvertClass:=(List[I] as QFileObject).TestConversionType(ListBox1.ItemIndex+1);
      if ConvertClass=Nil then
-      MessageBeep(0)
+      MessageBeep(MB_OK)
      else
       if not QFileObject(Gr.SubElements[Gr.SubElements.Add(ConvertClass.Create(List[I].Name, Gr))])
              .ConversionFrom(QFileObject(List[I])) then

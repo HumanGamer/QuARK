@@ -97,7 +97,7 @@ begin
    if ListView1.Selected=Nil then
     begin
      ListView1.SetFocus;
-     MessageBeep(0);
+     MessageBeep(MB_OK);
      Exit;
     end;
    AddOns:=MakeAddonsList; try

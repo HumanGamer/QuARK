@@ -1151,7 +1151,7 @@ begin
    begin
     id:=GetMenuDefaultItem(Mnu, 0, GMDI_GOINTOPOPUPS);
     if id=-1 then
-     MessageBeep(0)
+     MessageBeep(MB_OK)
     else
      PostMessage(Handle, wm_Command, id, 0);
    end

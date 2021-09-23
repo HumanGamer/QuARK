@@ -290,7 +290,7 @@ begin
   end;
  if Targ=Nil then
   begin
-   MessageBeep(0);
+   MessageBeep(MB_OK);
    Exit;
   end;
  Gr1:=CopyToOutside(Gr);
@@ -835,7 +835,7 @@ begin
      SpecDesc, S2, sp_Auto, Q));
   end
  else
-  MessageBeep(0);
+  MessageBeep(MB_OK);
 end;
 
 procedure TToolBoxForm.FormDeactivate(Sender: TObject);

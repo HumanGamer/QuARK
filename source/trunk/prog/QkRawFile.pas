@@ -379,7 +379,7 @@ var
 begin
  if Info.Stream<>Nil then
   begin
-   MessageBeep(0);
+   MessageBeep(MB_OK);
    Exit;
   end;
  StartPos:=PlayPosition;

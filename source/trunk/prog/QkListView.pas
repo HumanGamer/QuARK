@@ -453,7 +453,7 @@ begin
     try
      if Gr.SubElements.Count=0 then
       begin
-       MessageBeep(0);
+       MessageBeep(MB_OK);
        Exit;
       end;
      if NoTexte=0 then
@@ -499,7 +499,7 @@ begin
  if g_ListeActions.Count=0 then
   begin   { items were not accepted by FileObject }
    if Beep then
-    MessageBeep(0);
+    MessageBeep(MB_OK);
    Exit;
   end;
  g_NiveauAction:=g_NiveauAction or LocalActionFlags;
@@ -619,7 +619,7 @@ begin
   begin
    if SourceQ.SubElements.IndexOf(T)>=0 then
     begin
-     MessageBeep(0);  { déplacement sur un élément lui-même sélectionné }
+     MessageBeep(MB_OK);  { déplacement sur un élément lui-même sélectionné }
      Exit;
     end;
    T:=T.TvParent;
@@ -632,7 +632,7 @@ begin
 
  if Flags and (dfMoveHere or dfInsertGr) = 0 then
   begin
-   MessageBeep(0);  { aucune opération autorisée }
+   MessageBeep(MB_OK);  { aucune opération autorisée }
    Exit;
   end;
 

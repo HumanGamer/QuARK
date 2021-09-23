@@ -683,7 +683,7 @@ begin
      Exit;
     end;}
  end;
- MessageBeep(0);
+ MessageBeep(MB_OK);
  Abort;
 end;
 

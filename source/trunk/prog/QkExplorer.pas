@@ -1539,7 +1539,7 @@ begin
   begin
    if SourceQ.SubElements.IndexOf(T)>=0 then
     begin
-     MessageBeep(0);  { déplacement sur un élément lui-même sélectionné }
+     MessageBeep(MB_OK);  { déplacement sur un élément lui-même sélectionné }
      Exit;
     end;
    T:=T.TvParent;
@@ -1552,7 +1552,7 @@ begin
 
  if Flags and (dfMoveHere or dfInsertGr) = 0 then
   begin
-   MessageBeep(0);  { aucune opération autorisée }
+   MessageBeep(MB_OK);  { aucune opération autorisée }
    Exit;
   end;
 
@@ -1872,7 +1872,7 @@ begin
  if g_ListeActions.Count=0 then
   begin   { items were not accepted by the target group }
    if Beep then
-    MessageBeep(0);
+    MessageBeep(MB_OK);
   end
  else
   Result:=True;
@@ -1912,7 +1912,7 @@ begin
     T:=QObject(L[0]);
     if not Odd(T.Flags) then   { if ofTreeViewSubElement is not set }
      begin
-      MessageBeep(0);   { cannot delete a root }
+      MessageBeep(MB_OK);   { cannot delete a root }
       Exit;
      end;
     if NoTexte=0 then
@@ -2017,7 +2017,7 @@ begin
            Q:=Q.TvParent;
           try
            Result:=DoQueryEditing(Q);
-           if not Result then MessageBeep(0);
+           if not Result then MessageBeep(MB_OK);
           except
            on E: Exception do
             Application.ShowException(E);
