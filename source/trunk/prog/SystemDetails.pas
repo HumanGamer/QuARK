@@ -181,7 +181,7 @@ type
   private
     FName: string;
     FUser: string;
-    FSystemUpTime: Extended;
+    //FSystemUpTime: Extended;
     FBIOSExtendedInfo: string;
     FBIOSCopyright: string;
     FBIOSName: string;
@@ -189,14 +189,14 @@ type
     //FScrollLock: Boolean;
     //FNumLock: Boolean;
     //FCapsLock: Boolean;
-    function GetSystemUpTime: Extended;
+    //function GetSystemUpTime: Extended;
   public
     procedure GetInfo;
     procedure Report(var sl :TStringList);
   published
     property Name :string read FName write FName stored false;
     property User :string read FUser write FUser stored false;
-    property SystemUpTime :Extended read FSystemUpTime write FSystemUpTime stored false;
+    //property SystemUpTime :Extended read FSystemUpTime write FSystemUpTime stored false;
     property BIOSCopyright :string read FBIOSCopyright write FBIOSCopyright stored false;
     property BIOSDate :string read FBIOSDate write FBIOSDate stored false;
     property BIOSExtendedInfo :string read FBIOSExtendedInfo write FBIOSExtendedInfo stored false;
@@ -1342,15 +1342,17 @@ begin
   end;
 end;
 
-function TWorkstation.GetSystemUpTime: Extended;
+(*function TWorkstation.GetSystemUpTime: Extended;
 begin
+  //FIXME: On Windows Vista/Windows Server 2008:
+  //ULONGLONG GetTickCount64(); --> QWord = unsigned 64-bit integer...!
   try
-    FSystemUpTime:=GetTickCount/1000;//GetTimeStamp.QuadPart/GetTicksPerSecond(1);
+    FSystemUpTime:=GetTickCount/1000;
   except
     FSystemUpTime:=0;
   end;
   result:=FSystemUpTime;
-end;
+end;*)
 
 function GetMachine: string;
 var
@@ -1413,7 +1415,7 @@ const
   //rvVideoBiosVersion = 'VideoBiosVersion';
 begin
   Log(LOG_VERBOSE, 'Starting gathering workstation information...');
-  FSystemUpTime:=GetSystemUpTime;
+  //FSystemUpTime:=GetSystemUpTime;
   FName:=GetMachine;
   FUser:=GetUser;
   if WindowsPlatformCompatibility=osWinNTComp then
