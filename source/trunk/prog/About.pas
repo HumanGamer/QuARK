@@ -142,7 +142,7 @@ end;
  {-------------------}
 
 procedure TAboutBox.FormCreate(Sender: TObject);
-{* DanielPharos: Commented out thread-safe date-convertion with the asterix.
+{* DanielPharos: Commented out thread-safe date-conversion with the asterix.
   This because that is Delphi 7+, so it breaks compilation on Delphi 6.
 var
   DateFormat: TFormatSettings;}
