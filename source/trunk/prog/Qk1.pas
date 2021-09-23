@@ -26,7 +26,7 @@ uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   QkGroup, StdCtrls, ExtCtrls, CommCtrl, QkExplorer, QkObjects,
   QkFileObjects, Menus, TB97, QkFileExplorer, ShellApi,
-  QkForm, ComCtrls, Buttons;
+  QkForm, ComCtrls;
 
 const
   BlueHintPrefix = '?';
