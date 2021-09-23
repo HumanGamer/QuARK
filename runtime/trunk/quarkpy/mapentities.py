@@ -14,6 +14,7 @@ from maputils import *
 import maphandles
 import mapoptions
 import qhandles
+import qmacro
 
 
 #

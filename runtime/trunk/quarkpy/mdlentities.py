@@ -13,6 +13,7 @@ from mdlutils import *
 import mdlhandles
 import dlgclasses
 from qeditor import ico_dict # Get the dictionary list of all icon image files available.
+import qmacro
 import qtoolbar              # Get the toolbar functions to make buttons with.
 import qutils
 import os
