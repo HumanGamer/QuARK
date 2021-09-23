@@ -1273,7 +1273,6 @@ def paintframefill(editor, v):
                         backfacecolor2 = MapColor("BackFaceColor2", SS_MODEL)
                         if quarkx.setupsubset(SS_MODEL, "Options")["Options3Dviews_fillmesh2"] == "1":
                             comp.filltris = [(fillcolor,None)]*len(comp.triangles)
-                            v.repaint()
                         else:
                             if quarkx.setupsubset(SS_MODEL, "Options")["DBF"] != "1":
                                 if editor.ModelFaceSelList != []:
@@ -1282,7 +1281,7 @@ def paintframefill(editor, v):
                                     comp.filltris = [(None,None)]*len(comp.triangles)
                             else:
                                 comp.filltris = [(None,(backfacecolor1,backfacecolor2))]*len(comp.triangles)
-                            v.repaint()
+                        v.repaint()
                 except:
                     pass
 
@@ -1292,7 +1291,6 @@ def paintframefill(editor, v):
                     backfacecolor2 = MapColor("BackFaceColor2", SS_MODEL)
                     if quarkx.setupsubset(SS_MODEL, "Options")["Options3Dviews_fillmesh4"] == "1":
                         comp.filltris = [(fillcolor,None)]*len(comp.triangles)
-                        v.repaint()
                     else:
                         if quarkx.setupsubset(SS_MODEL, "Options")["DBF"] != "1":
                             if editor.ModelFaceSelList != []:
@@ -1301,7 +1299,7 @@ def paintframefill(editor, v):
                                 comp.filltris = [(None,None)]*len(comp.triangles)
                         else:
                             comp.filltris = [(None,(backfacecolor1,backfacecolor2))]*len(comp.triangles)
-                        v.repaint()
+                    v.repaint()
 
                 if v.info["viewname"] == "YZ":
                     fillcolor = MapColor("Options3Dviews_fillColor3", SS_MODEL)
@@ -1309,7 +1307,6 @@ def paintframefill(editor, v):
                     backfacecolor2 = MapColor("BackFaceColor2", SS_MODEL)
                     if quarkx.setupsubset(SS_MODEL, "Options")["Options3Dviews_fillmesh3"] == "1":
                         comp.filltris = [(fillcolor,None)]*len(comp.triangles)
-                        v.repaint()
                     else:
                         if quarkx.setupsubset(SS_MODEL, "Options")["DBF"] != "1":
                             if editor.ModelFaceSelList != []:
@@ -1318,7 +1315,7 @@ def paintframefill(editor, v):
                                 comp.filltris = [(None,None)]*len(comp.triangles)
                         else:
                             comp.filltris = [(None,(backfacecolor1,backfacecolor2))]*len(comp.triangles)
-                        v.repaint()
+                    v.repaint()
 
                 if v.info["viewname"] == "3Dwindow":
                     pass
@@ -1574,7 +1571,6 @@ def commonhandles(self, redraw=1):
             backfacecolor2 = MapColor("BackFaceColor2", SS_MODEL)
             if quarkx.setupsubset(SS_MODEL, "Options")["Options3Dviews_fillmesh2"] == "1":
                 comp.filltris = [(fillcolor,None)]*len(comp.triangles)
-                v.repaint()
             else:
                 if quarkx.setupsubset(SS_MODEL, "Options")["DBF"] != "1":
                     if self.ModelFaceSelList != []:
@@ -1583,7 +1579,7 @@ def commonhandles(self, redraw=1):
                         comp.filltris = [(None,None)]*len(comp.triangles)
                 else:
                     comp.filltris = [(None,(backfacecolor1,backfacecolor2))]*len(comp.triangles)
-                v.repaint()
+            v.repaint()
 
 
         if v.info["viewname"] == "XZ":
@@ -1592,7 +1588,6 @@ def commonhandles(self, redraw=1):
             backfacecolor2 = MapColor("BackFaceColor2", SS_MODEL)
             if quarkx.setupsubset(SS_MODEL, "Options")["Options3Dviews_fillmesh4"] == "1":
                 comp.filltris = [(fillcolor,None)]*len(comp.triangles)
-                v.repaint()
             else:
                 if quarkx.setupsubset(SS_MODEL, "Options")["DBF"] != "1":
                     if self.ModelFaceSelList != []:
@@ -1601,7 +1596,7 @@ def commonhandles(self, redraw=1):
                         comp.filltris = [(None,None)]*len(comp.triangles)
                 else:
                     comp.filltris = [(None,(backfacecolor1,backfacecolor2))]*len(comp.triangles)
-                v.repaint()
+            v.repaint()
 
 
         if v.info["viewname"] == "YZ":
@@ -1610,7 +1605,6 @@ def commonhandles(self, redraw=1):
             backfacecolor2 = MapColor("BackFaceColor2", SS_MODEL)
             if quarkx.setupsubset(SS_MODEL, "Options")["Options3Dviews_fillmesh3"] == "1":
                 comp.filltris = [(fillcolor,None)]*len(comp.triangles)
-                v.repaint()
             else:
                 if quarkx.setupsubset(SS_MODEL, "Options")["DBF"] != "1":
                     if self.ModelFaceSelList != []:
@@ -1619,7 +1613,7 @@ def commonhandles(self, redraw=1):
                         comp.filltris = [(None,None)]*len(comp.triangles)
                 else:
                     comp.filltris = [(None,(backfacecolor1,backfacecolor2))]*len(comp.triangles)
-                v.repaint()
+            v.repaint()
 
         try:
             if (currentview.info["viewname"] != "editors3Dview") and flagsmouse == 1040:
@@ -1631,7 +1625,6 @@ def commonhandles(self, redraw=1):
                     backfacecolor2 = MapColor("BackFaceColor2", SS_MODEL)
                     if quarkx.setupsubset(SS_MODEL, "Options")["Options3Dviews_fillmesh1"] == "1":
                         comp.filltris = [(fillcolor,None)]*len(comp.triangles)
-                        v.repaint()
                     else:
                         if quarkx.setupsubset(SS_MODEL, "Options")["DBF"] != "1":
                             if self.ModelFaceSelList != []:
@@ -1640,7 +1633,7 @@ def commonhandles(self, redraw=1):
                                 comp.filltris = [(None,None)]*len(comp.triangles)
                         else:
                             comp.filltris = [(None,(backfacecolor1,backfacecolor2))]*len(comp.triangles)
-                        v.repaint()
+                    v.repaint()
                 else:
                     pass
         except:
@@ -1656,7 +1649,6 @@ def commonhandles(self, redraw=1):
                     backfacecolor2 = MapColor("BackFaceColor2", SS_MODEL)
                     if quarkx.setupsubset(SS_MODEL, "Options")["Options3Dviews_fillmesh5"] == "1":
                         comp.filltris = [(fillcolor,None)]*len(comp.triangles)
-                        v.repaint()
                     else:
                         if quarkx.setupsubset(SS_MODEL, "Options")["DBF"] != "1":
                             if self.ModelFaceSelList != []:
@@ -1665,7 +1657,7 @@ def commonhandles(self, redraw=1):
                                 comp.filltris = [(None,None)]*len(comp.triangles)
                         else:
                             comp.filltris = [(None,(backfacecolor1,backfacecolor2))]*len(comp.triangles)
-                        v.repaint()
+                    v.repaint()
                 else:
                     pass
         except:
