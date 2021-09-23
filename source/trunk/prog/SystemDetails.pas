@@ -38,12 +38,6 @@ procedure WarnDriverBugs;
 procedure SetDllSearchPath;
 
 type
-  {$IFDEF Delphi4orNewerCompiler}
-     TLargInt = _LARGE_INTEGER;
-  {$ELSE}
-     TLargInt = TLargeInteger;
-  {$ENDIF}
-
   TCPUID = packed record
     EAX, EBX, ECX, EDX: LongWord;
   end;
@@ -303,6 +297,12 @@ implementation
 uses {$IFDEF CompiledWithDelphi2}ShellObj, OLE2, {$ELSE}ShlObj, ActiveX, {$ENDIF}TlHelp32, Psapi, Registry, Logging, QkExceptions;
 
 type
+  {$IFDEF Delphi4orNewerCompiler}
+     TLargInt = _LARGE_INTEGER;
+  {$ELSE}
+     TLargInt = TLargeInteger;
+  {$ENDIF}
+
   TPlatformType = (osWin95Comp, osWinNTComp);
   TPlatform = (osWin95, osWin98, osWin98SE, osWinME, osWinNT4, osWin2000, osWinXP, osWin2003, osWinVista, osWin7, osWin8, osWin81, osWin2008, osWin2008R2, osWin2012, osWin2012R2, osWin10, osWin2016, osWin2019, osWin2022, osWin11); //Note: Not all are currently detected!
   //FIXME: See: https://docs.microsoft.com/en-us/windows/win32/api/winnt/ns-winnt-osversioninfoexa
