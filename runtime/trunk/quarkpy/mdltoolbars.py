@@ -8,6 +8,7 @@ The model editor's "Toolbars" menu (to be extended by plug-ins)
 # FOUND IN FILE "COPYING.TXT"
 #
 
+import quarkx
 import qtoolbar
 from mdlutils import *
 import qeditor
@@ -356,12 +357,10 @@ class FaceCutter(qhandles.RectangleDragObject):
         x2, y2 = (x, y) # cursordragendpos
         view = self.view
         comp = editor.Root.currentcomponent
-        import qbaseeditor
-        from qbaseeditor import flagsmouse
 
         def redrawview(editor=editor, view=view):
             from qbaseeditor import flagsmouse
-            qbaseeditor.flagsmouse = 1032
+            flagsmouse = 1032
             import mdleditor
             mdleditor.setsingleframefillcolor(editor, view)
             view.repaint()
