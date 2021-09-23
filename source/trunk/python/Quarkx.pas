@@ -1772,12 +1772,16 @@ end;
 
 function xBeep(self, args: PyObject) : PyObject; cdecl;
 var
- Mb: Integer;
+ Mb: LongWord;
 begin
  Result:=Nil;
  try
   Mb:=0;
+  {$IFDEF PYTHON23}
+  if not PyArg_ParseTupleX(args, '|I', [@Mb]) then
+  {$ELSE}
   if not PyArg_ParseTupleX(args, '|i', [@Mb]) then
+  {$ENDIF}
    Exit;
   MessageBeep(Mb);
   Result:=PyNoResult;
