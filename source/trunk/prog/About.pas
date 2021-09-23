@@ -112,8 +112,12 @@ begin
   Reg := TRegistry.Create;
   try
     Reg.RootKey := HKEY_CURRENT_USER;
-    Reg.OpenKey(RegistrationKey, False);
-    S:=Reg.ReadString(RegistrationValueName);
+    if not Reg.OpenKey(RegistrationKey, False) then Exit;
+    try
+      S:=Reg.ReadString(RegistrationValueName);
+    finally
+      Reg.CloseKey;
+    end;
   finally
     Reg.Free;
   end;
@@ -231,8 +235,12 @@ begin
     Reg := TRegistry.Create;
     try
       Reg.RootKey := HKEY_CURRENT_USER;
-      Reg.OpenKey(RegistrationKey, True);
-      Reg.WriteString(RegistrationValueName, Edit1.Text);
+      if not Reg.OpenKey(RegistrationKey, True) then Exit;
+      try
+        Reg.WriteString(RegistrationValueName, Edit1.Text);
+      finally
+        Reg.CloseKey;
+      end;
     finally
       Reg.Free;
     end;
