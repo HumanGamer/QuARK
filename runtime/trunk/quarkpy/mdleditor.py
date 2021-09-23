@@ -9,7 +9,6 @@ Core of the Model editor.
 #
 
 from qbaseeditor import BaseEditor
-import qmacro
 import qmenu
 import qhandles
 import mdlbtns
