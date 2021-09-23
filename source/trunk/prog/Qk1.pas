@@ -250,6 +250,9 @@ var
   OldException: TExceptionEvent;
   LoadingComplete: Boolean = false;
 
+const
+  MaxRecentFilesUpperLimit = 20;
+
 {$R *.DFM}
 {$R ICONES\ICONES.RES}
 
@@ -1069,8 +1072,8 @@ begin
     MaxRecentFiles:=Round(SetupSubSet(ssGeneral, 'Display').GetFloatSpec('MaxRecentFiles', 5));
     if MaxRecentFiles<0 then
       MaxRecentFiles:=0;
-    if MaxRecentFiles>20 then //Let's set an upper limit
-      MaxRecentFiles:=20;
+    if MaxRecentFiles>MaxRecentFilesUpperLimit then //Let's set an upper limit
+      MaxRecentFiles:=MaxRecentFilesUpperLimit;
     for I:=0 to MaxRecentFiles-1 do //Loop over all the RecentFile menu-items
      if I<L.Count then
       begin
