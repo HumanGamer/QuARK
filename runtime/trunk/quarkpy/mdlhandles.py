@@ -20,7 +20,6 @@ import mdlutils
 from mdlutils import *
 import mdlentities
 import qmenu
-import qbaseeditor
 
 
 # Globals
