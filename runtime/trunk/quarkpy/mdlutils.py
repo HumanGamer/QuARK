@@ -4653,7 +4653,7 @@ def Update_Editor_Views(editor, option=4):
             if v.info["viewname"] == "3Dwindow" and v.info['type'] == "3D":
                 FullTrue3Dview = v
     if option == 7:
-        import qbaseeditor
+        # We need this further down
         from qbaseeditor import currentview
     for v in editor.layout.views:
         if v.info["viewname"] == "skinview":
