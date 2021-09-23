@@ -1261,8 +1261,8 @@ def paintframefill(editor, v):
 
     comp = editor.Root.currentcomponent
 
-    try:
-        for v in editor.layout.views:
+    for v in editor.layout.views:
+        try:
             if ((v.info["viewname"] == "editors3Dview" or v.info["viewname"] == "3Dwindow") and editor.dragobject != None):
                 pass
             else:
@@ -1326,8 +1326,8 @@ def paintframefill(editor, v):
                 ### Allows the drawing of the gridscale when actually panning.
                 import plugins.mdlgridscale
                 plugins.mdlgridscale.gridfinishdrawing(editor, v)
-    except:
-        pass
+        except:
+            pass
 
     if quarkx.setupsubset(SS_MODEL, "Options")["Options3Dviews_fillmesh2"] == "1":
         fillcolor = MapColor("Options3Dviews_fillColor2", SS_MODEL)
@@ -1401,8 +1401,8 @@ def commonhandles(self, redraw=1):
 ### 3D Views ONLY Section for special needs:
 ### =======================================
     if not isinstance(self.dragobject, qhandles.HandleDragObject):
-        try:
-            if (flagsmouse == 1032 or flagsmouse == 1040 or flagsmouse == 1048 or flagsmouse == 1056 or flagsmouse == 2056 or flagsmouse == 2064 or flagsmouse == 2080):
+        if (flagsmouse == 1032 or flagsmouse == 1040 or flagsmouse == 1048 or flagsmouse == 1056 or flagsmouse == 2056 or flagsmouse == 2064 or flagsmouse == 2080):
+            try:
                 if currentview.info["viewname"] == "editors3Dview":
                     if (flagsmouse == 2064 or flagsmouse == 2080) and (quarkx.setupsubset(SS_MODEL, "Options")["EditorTrue3Dmode"] == "1") and (quarkx.setupsubset(SS_MODEL, "Options")["MAIV"] == "1"):
                         modelaxis(currentview)
@@ -1442,8 +1442,8 @@ def commonhandles(self, redraw=1):
                         for h in currentview.handles:
                             h.draw(currentview, cv, None)
                         return
-        except:
-            pass
+            except:
+                pass
 
     try:
         if (currentview.info["viewname"] == "editors3Dview" or currentview.info["viewname"] == "3Dwindow") and (flagsmouse == 2064 or flagsmouse == 2080):
