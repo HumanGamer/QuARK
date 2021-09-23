@@ -445,17 +445,17 @@ begin
    if LaunchOptions.DoInstance and (SetupSubSet(ssGeneral, 'Startup').Specifics.Values['SingleInstance']<>'') then
    begin
      if MutexError = ERROR_ALREADY_EXISTS then
+     begin
+       S:='An instance of QuArK is already running. This can cause serious problems. ';
+       S:=S+'For example, changed configuration settings might not be saved, and QuArK might not update correctly.'#13#10;
+       S:=S+'This check can be disabled (at own risk!) in the configuration settings.'#13#10#13#10;
+       S:=S+'Are you sure you want to start a new instance of QuArK?';
+       if Windows.MessageBox(0, PChar(S), PChar('QuArK'), MB_TASKMODAL or MB_YESNO or MB_ICONWARNING or MB_DEFBUTTON2) = idNo then
        begin
-         S:='An instance of QuArK is already running. This can cause serious problems. ';
-         S:=S+'For example, changed configuration settings might not be saved, and QuArK might not update correctly.'#13#10;
-         S:=S+'This check can be disabled (at own risk!) in the configuration settings.'#13#10#13#10;
-         S:=S+'Are you sure you want to start a new instance of QuArK?';
-         if Windows.MessageBox(0, PChar(S), PChar('QuArK'), MB_TASKMODAL or MB_YESNO or MB_ICONWARNING or MB_DEFBUTTON2) = idNo then
-         begin
-           Application.Terminate;
-           Exit;
-         end;
+         Application.Terminate;
+         Exit;
        end;
+     end;
    end;
 
    { DanielPharos: It's safer to do the update-check BEFORE loading Python,
