@@ -570,7 +570,7 @@ def checkTriangle(tri, index):
 
 
 #
-#  Find a triangle based on the 3 vertex indexs that are given.
+#  Find a triangle based on the 3 vertex indices that are given.
 #  DanielPharos: Make sure v1, v2 and v3 are different!
 #
 def findTriangle(comp, v1, v2, v3):
