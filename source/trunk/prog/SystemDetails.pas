@@ -317,7 +317,15 @@ var
   DriverBugs: TStringList;
   SetDllDirectoryAvailable: Boolean;
 
-function FormatBytes(const Number: Cardinal) : String;
+function FormatBytes(const Number: Cardinal) : String; overload;
+begin
+  Result:=formatfloat('#,##',Number);
+  if Length(Result)=0 then
+    Result:='0';
+end;
+
+//Needed because Delphi 7 (at least) doesn't have an unsigned 64-bit integer.
+function FormatBytes(const Number: Int64) : String; overload;
 begin
   Result:=formatfloat('#,##',Number);
   if Length(Result)=0 then
@@ -1313,6 +1321,7 @@ begin
   Log(LOG_VERBOSE, 'Starting gathering memory information...');
   ZeroMemory(@MS,SizeOf(MS));
   MS.dwLength:=SizeOf(MS);
+  //FIXME: On Windows 2000 and higher: use GlobalMemoryStatusEx instead!   BOOL GlobalMemoryStatusEx(LPMEMORYSTATUSEX lpBuffer);
   GlobalMemoryStatus(MS);
   MemoryLoad:=MS.dwMemoryLoad;
   PhysicalTotal:=MS.dwTotalPhys;
@@ -1345,7 +1354,7 @@ end;
 (*function TWorkstation.GetSystemUpTime: Extended;
 begin
   //FIXME: On Windows Vista/Windows Server 2008:
-  //ULONGLONG GetTickCount64(); --> QWord = unsigned 64-bit integer...!
+  //ULONGLONG GetTickCount64(); --> Read in as QWORD!
   try
     FSystemUpTime:=GetTickCount/1000;
   except
@@ -1598,6 +1607,7 @@ procedure TDisplay.GetInfo;
 var
   rk :string;
   idata :DWORD;
+  qdata :QWORD;
   sl :tstringlist;
   i :integer;
   j :DWORD;
@@ -1886,19 +1896,32 @@ begin
 
                 if ValueExists(rvHardware+'.'+rvHWMem) then
                 begin
-                  try
-                    try
+                  idata:=GetRawDataType(rvHardware+'.'+rvHWMem);
+                  case idata of
+                    REG_QWORD:
+                    begin
+                      //Very modern systems use REG_QWORD (possible from Windows 2000 upwards)
+                      qdata:=ReadQWORD(rvHardware+'.'+rvHWMem);
+                    end;
+                    REG_DWORD:
+                    begin
                       //Modern systems use REG_DWORD
-                      idata:=readinteger(rvHardware+'.'+rvHWMem);
-                    except on ERegistryException do
+                      idata:=ReadDWORD(rvHardware+'.'+rvHWMem);
+                      qdata:=idata;
+                    end;
+                    REG_BINARY:
+                    begin
                       //Older systems use REG_BINARY
                       readbinarydata(rvHardware+'.'+rvHWMem,idata,4);
-                    end
-                  except
-                    Log(LOG_WARNING, 'Could not retrieve Video Hardware Memory size!');
-                    idata:=0;
+                      qdata:=idata;
+                    end;
+                    else
+                    begin
+                      Log(LOG_WARNING, 'Could not retrieve Video Hardware Memory size!');
+                      qdata:=0;
+                    end;
                   end;
-                  FMemory.Add(FormatBytes(idata));
+                  FMemory.Add(FormatBytes(qdata));
                 end
                 else
                   FMemory.Add('Unknown');

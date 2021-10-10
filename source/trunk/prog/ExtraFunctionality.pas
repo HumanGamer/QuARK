@@ -76,6 +76,8 @@ const
 
   UNLEN = 256; // Maximum user name length, in characters (not bytes), excluding terminating 0-characters.
 
+  REG_QWORD = 11; //Added in Windows 2000 //Also: REG_QWORD_LITTLE_ENDIAN
+
 var
   SetDllDirectory: function (lpPathName : LPCTSTR) : BOOL; stdcall;
   IsWow64Process: function (hProcess : THandle; var Wow64Process : BOOL): BOOL; stdcall;
@@ -95,6 +97,11 @@ type
    LongWord = DWORD;
    PLongWord = ^LongWord;
 {$ENDIF}
+
+type
+  QWORD = Int64; //Should be unsigned, but even Delphi 7 doesn't have that. Borland also uses Int64 instead in ActiveX.pas
+  PQWORD = ^QWORD;
+  LPQWORD = PQWORD;
 
 {$ifndef Delphi4orNewerCompiler} // FIXME: I'm not sure when this was introduced;
                                  // but it at least exists in Delphi 4

@@ -22,7 +22,7 @@ unit Reg2;
 
 interface
 
-uses Windows, Classes, SysUtils, Registry;
+uses Windows, Classes, SysUtils, Registry, ExtraFunctionality;
 
 type
  TRegistry2 = class(TRegistry)
@@ -31,16 +31,76 @@ type
                DontWrite: Boolean;
                Tag: Integer;}
                function ReadOpenKey(const KeyName: String) : Boolean;
+               function GetRawDataType(const ValueName: string): DWORD;
                function ReadDWORD(const Name: string) : DWORD;
+               function ReadQWORD(const Name: string) : QWORD;
                function TryReadDWORD(const Name: string; var Value: DWORD) : Boolean;
+               function TryReadQWORD(const Name: string; var Value: QWORD) : Boolean;
                function TryReadString(const Name: string; var Value: String) : Boolean;
                procedure WriteDWORD(const Name: string; Value: DWORD);
+               procedure WriteQWORD(const Name: string; Value: QWORD);
                function TryWriteDWORD(const Name: string; Value: DWORD) : Boolean;
+               function TryWriteQWORD(const Name: string; Value: QWORD) : Boolean;
                function TryWriteString(const Name, Value: string) : Boolean;
               end;
 
 implementation
 
+uses RTLConsts;
+
+//Note that we can't override the DataTypeToRegData function,
+//so it will not properly process REG_QWORD.
+
+//Copied from Registry.pas:
+procedure ReadError(const Name: string);
+begin
+  raise ERegistryException.CreateResFmt(@SInvalidRegType, [Name]);
+end;
+
+// ---
+
+{function TRegistry2.OpenKey(const KeyName: String; Create: Boolean) : Boolean;
+begin
+ if Create and (DontWrite or Assigned(OnWrite)) then
+  begin
+   Result:=OpenKey(KeyName, False);
+   if not Result then
+    begin
+     if DontWrite then Exit;
+     if Assigned(OnWrite) then OnWrite(Self);
+     if DontWrite then Exit;
+     Result:=OpenKey(KeyName, True);
+    end;
+  end
+ else
+  OpenKey:=inherited OpenKey(KeyName, Create);
+end;}
+
+function TRegistry2.ReadOpenKey(const KeyName: String) : Boolean;
+var
+  TempKey: HKey;
+  S: string;
+  Relative: Boolean;
+begin
+ Result:=False;
+ if KeyName='' then Exit;
+ S:=KeyName;
+ Relative:=S[1]<>'\';
+ if not Relative then Delete(S, 1, 1);
+ TempKey:=0;
+ Result:=RegOpenKeyEx(GetBaseKey(Relative), PChar(S), 0, KEY_READ, TempKey) = ERROR_SUCCESS;
+ if Result then
+  begin
+   if (CurrentKey<>0) and Relative then S:=CurrentPath+'\'+S;
+   ChangeKey(TempKey, S);
+  end;
+end;
+
+function TRegistry2.GetRawDataType(const ValueName: string): DWORD;
+begin
+  if RegQueryValueEx(CurrentKey, PChar(ValueName), nil, @Result, nil, nil) <> ERROR_SUCCESS then
+    ReadError(ValueName);
+end;
 
 // ---
 
@@ -132,41 +192,61 @@ end;
 
 // ---
 
-{function TRegistry2.OpenKey(const KeyName: String; Create: Boolean) : Boolean;
+function TRegistry2.ReadQWORD(const Name: string): QWORD;
+var
+  DataType: DWORD;
+  BufSize: Integer;
 begin
- if Create and (DontWrite or Assigned(OnWrite)) then
+  BufSize := SizeOf(Result);
+  DataType := REG_NONE;
+  if RegQueryValueEx(CurrentKey, PChar(Name), nil, @DataType, PByte(@Result),
+    @BufSize) <> ERROR_SUCCESS then
+    raise ERegistryException.CreateResFmt(@SRegGetDataFailed, [Name]);
+  if DataType <> REG_QWORD then ReadError(Name);
+end;
+
+function TRegistry2.TryReadQWORD(const Name: string; var Value: QWORD) : Boolean;
+var
+  Buffer: QWORD;
+  DataType, BufSize: DWORD;
+begin
+ BufSize := SizeOf(Buffer);
+ DataType := REG_NONE;
+ if (RegQueryValueEx(CurrentKey, PChar(Name), nil, @DataType, PByte(@Buffer),
+  @BufSize) <> ERROR_SUCCESS) or (DataType <> REG_QWORD) then
+   Result:=False
+  else
+   begin
+    Value:=Buffer;
+    Result:=True;
+   end;
+end;
+
+procedure TRegistry2.WriteQWORD(const Name: string; Value: QWORD);
+var
+  BufSize: DWORD;
+begin
+  BufSize := SizeOf(Value);
+  if RegSetValueEx(CurrentKey, PChar(Name), 0, REG_QWORD, @Value,
+    BufSize) <> ERROR_SUCCESS then
+    raise ERegistryException.CreateResFmt(@SRegSetDataFailed, [Name]);
+end;
+
+function TRegistry2.TryWriteQWORD(const Name: string; Value: QWORD) : Boolean;
+var
+ Buffer: QWORD;
+begin
+ if {not DontWrite and}
+ (not TryReadQWORD(Name, Buffer) or (Buffer<>Value)) then
   begin
-   Result:=OpenKey(KeyName, False);
-   if not Result then
-    begin
-     if DontWrite then Exit;
-     if Assigned(OnWrite) then OnWrite(Self);
-     if DontWrite then Exit;
-     Result:=OpenKey(KeyName, True);
-    end;
+  {if Assigned(OnWrite) then
+    OnWrite(Self);
+   if not DontWrite then}
+    Result:=RegSetValueEx(CurrentKey, PChar(Name), 0, REG_QWORD,
+     @Value, SizeOf(Value))=ERROR_SUCCESS;
   end
  else
-  OpenKey:=inherited OpenKey(KeyName, Create);
-end;}
-
-function TRegistry2.ReadOpenKey(const KeyName: String) : Boolean;
-var
-  TempKey: HKey;
-  S: string;
-  Relative: Boolean;
-begin
- Result:=False;
- if KeyName='' then Exit;
- S:=KeyName;
- Relative:=S[1]<>'\';
- if not Relative then Delete(S, 1, 1);
- TempKey:=0;
- Result:=RegOpenKeyEx(GetBaseKey(Relative), PChar(S), 0, KEY_READ, TempKey) = ERROR_SUCCESS;
- if Result then
-  begin
-   if (CurrentKey<>0) and Relative then S:=CurrentPath+'\'+S;
-   ChangeKey(TempKey, S);
-  end;
+  Result:=True;
 end;
 
 end.
