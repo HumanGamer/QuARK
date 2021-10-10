@@ -64,7 +64,7 @@ procedure ProcessRegistration;
 
 implementation
 
-uses Messages, Reg2, Qk1, Quarkx, QkConsts;
+uses Messages, Registry2, Qk1, Quarkx, QkConsts;
 
 const
   RegistrationKey = '\Software\Armin Rigo\QuakeMap';

@@ -185,7 +185,6 @@ uses
   QPAcc in 'prog\QPAcc.pas',
   QuickWal in 'prog\QuickWal.pas' {QuickWalParser},
   RedLines in 'prog\RedLines.pas',
-  Reg2 in 'prog\Reg2.pas',
   Running in 'prog\Running.pas' {RunForm},
   SearchHoles in 'prog\SearchHoles.pas',
   Setup in 'prog\Setup.pas',

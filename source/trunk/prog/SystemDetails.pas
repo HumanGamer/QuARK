@@ -294,7 +294,7 @@ type
 
 implementation
 
-uses {$IFDEF CompiledWithDelphi2}ShellObj, OLE2, {$ELSE}ShlObj, ActiveX, {$ENDIF}TlHelp32, Psapi, Registry, Reg2, Logging, QkExceptions;
+uses {$IFDEF CompiledWithDelphi2}ShellObj, OLE2, {$ELSE}ShlObj, ActiveX, {$ENDIF}TlHelp32, Psapi, Registry, Registry2, Logging, QkExceptions;
 
 type
   {$IFDEF Delphi4orNewerCompiler}

@@ -34,7 +34,7 @@ UnitAliases=WinTypes=Windows;WinProcs=Windows;DbiTypes=BDE;DbiProcs=BDE;DbiErrs=
 MapFile=3
 OutputObjs=0
 ConsoleApp=1
-DebugInfo=1
+DebugInfo=0
 RemoteSymbols=0
 MinStackSize=16384
 MaxStackSize=1048576
@@ -45,7 +45,7 @@ OutputDir=
 UnitOutputDir=
 PackageDLLOutputDir=
 PackageDCPOutputDir=
-SearchPath=$(DELPHI)\Lib\Debug
+SearchPath=
 Packages=Vcl50;Vclmid50;Inet50;Inetdb50;Vclx50;Vcldb50;Vclbde50;vcldbx50;vclado50;dclaxserver50;Dss50;TeeUI50;TeeDB50;Tee50;VCLIB50;vclie50;NMFast50;dclocx50;qrpt50;VclSmp50;TeeQR50;webmid50;ibevnt50;FSDC_ip50d_d5;FSDC_ip50_d5;o308_r50
 Conditionals=
 DebugSourceDirs=
@@ -60,9 +60,9 @@ DebugCWD=
 IncludeVerInfo=1
 AutoIncBuild=0
 MajorVer=6
-MinorVer=5
+MinorVer=6
 Release=0
-Build=4
+Build=8
 Debug=0
 PreRelease=1
 Special=0
@@ -73,37 +73,32 @@ CodePage=1252
 [Version Info Keys]
 CompanyName=http://quark.sourceforge.net/
 FileDescription=QuArK 3rd Party Components
-FileVersion=6.5.0.4
+FileVersion=6.6.0.8
 InternalName=VCLAr40
-LegalCopyright=Copyright 2006
+LegalCopyright=Copyright 2021
 LegalTrademarks=
 OriginalFilename=vclar40
 ProductName=QuArK -- Quake Army Knife -- 3D game editor
-ProductVersion=6.5
+ProductVersion=6.6
 Comments=QuArK Original Author: Armin Rigo
 [HistoryLists\hlDebugSourcePath]
 Count=1
 Item0=$(DELPHI)\Lib\Debug;.;.\components;.\components\zip;.\Prog;.\Prog\Model;.\Prog\Python;.\3dfx
 [HistoryLists\hlConditionals]
-Count=3
+Count=2
 Item0=PYTHON_BUNDLED;
-Item1=PYTHON22_OR_HIGHER
 Item2=PYTHON_BUNDLED;QUARK_DIRECT3D
 [HistoryLists\hlUnitAliases]
 Count=1
 Item0=WinTypes=Windows;WinProcs=Windows;DbiTypes=BDE;DbiProcs=BDE;DbiErrs=BDE;
 [HistoryLists\hlSearchPath]
-Count=1
-Item0=$(DELPHI)\Lib\Debug;.;.\components;.\components\zip;.\Prog;.\Prog\Model;.\Prog\Python;.\3dfx
+Count=2
+Item0=$(DELPHI)\Lib\Debug
+Item1=$(DELPHI)\Lib\Debug;.;.\components;.\components\zip;.\Prog;.\Prog\Model;.\Prog\Python;.\3dfx
 [HistoryLists\hlUnitOutputDirectory]
-Count=3
+Count=2
 Item0=C:\rubbish
-Item1=.\rubbish
-Item2=%temp%
+Item1=%temp%
 [HistoryLists\hlOutputDirectorry]
-Count=5
-Item0=d:\QuArK
-Item1=c:\progra~1\QuArK
-Item2=..\Runtime
-Item3=c:\QuArK
-Item4=c:\Quake\QuArK
+Count=1
+Item0=c:\QuArK

@@ -31,6 +31,7 @@ requires
 contains
   TB97 in 'Tb97.pas',
   TrackBar2 in 'TrackBar2.pas',
+  Registry2 in 'Registry2.pas',
   EnterEditCtrl in 'EnterEditCtrl.pas',
   PaintPanel in 'PaintPanel.pas',
   QSplitter in 'QSplitter.pas',

@@ -18,11 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 http://quark.sourceforge.net/ - Contact information in AUTHORS.TXT
 **************************************************************************)
-unit Reg2;
+unit Registry2;
 
 interface
 
-uses Windows, Classes, SysUtils, Registry, ExtraFunctionality;
+uses Windows, Classes, SysUtils, Registry;
+
+type
+  QWORD = Int64;
 
 type
  TRegistry2 = class(TRegistry)
@@ -47,6 +50,9 @@ type
 implementation
 
 uses RTLConsts;
+
+const
+  REG_QWORD = 11;
 
 //Note that we can't override the DataTypeToRegData function,
 //so it will not properly process REG_QWORD.

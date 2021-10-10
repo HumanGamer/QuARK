@@ -22,7 +22,7 @@ unit Setup;
 
 interface
 
-uses Windows, SysUtils, Classes, Graphics, Forms, Dialogs, Controls, Reg2,
+uses Windows, SysUtils, Classes, Graphics, Forms, Dialogs, Controls, Registry2,
      QkObjects, QkFileObjects;
 
 const
