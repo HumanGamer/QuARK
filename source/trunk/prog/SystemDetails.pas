@@ -1406,6 +1406,7 @@ end;
 procedure TWorkstation.GetInfo;
 var
   bdata: pchar;
+  dummy: Integer;
   //KeyState: TKeyBoardState;
 const
   bdatasize = 255;
@@ -1441,11 +1442,12 @@ begin
           bdata:=stralloc(bdatasize + 1); //Note: One larger for null-terminator
           try
             FillChar(bdata^,bdatasize+1,0);
-            readbinarydata(rvBIOSVersion,bdata^,bdatasize);
-            FBIOSCopyright:=strpas(pchar(bdata));
-          except
+            dummy:=bdatasize;
+            if TryReadBinaryData(rvBIOSVersion,bdata^,dummy) then
+              FBIOSCopyright:=strpas(pchar(bdata));
+          finally
+            strdispose(bdata);
           end;
-          strdispose(bdata);
         end;
         if ValueExists(rvBIOSDate) then
           FBIOSDate:=ReadString(rvBIOSDate);
@@ -1862,11 +1864,7 @@ begin
         MaxDev:=0;
         if OpenKey(rkVideoHardware,false) then
         begin
-          try
-            MaxDev:=readinteger('MaxObjectNumber');
-          except
-            MaxDev:=0;
-          end;
+          TryReadDWORD('MaxObjectNumber', MaxDev);
           CloseKey;
         end;
 

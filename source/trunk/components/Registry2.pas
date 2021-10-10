@@ -39,11 +39,13 @@ type
                function ReadQWORD(const Name: string) : QWORD;
                function TryReadDWORD(const Name: string; var Value: DWORD) : Boolean;
                function TryReadQWORD(const Name: string; var Value: QWORD) : Boolean;
+               function TryReadBinaryData(const Name: string; var Buffer; var BufSize: Integer) : Boolean;
                function TryReadString(const Name: string; var Value: String) : Boolean;
                procedure WriteDWORD(const Name: string; Value: DWORD);
                procedure WriteQWORD(const Name: string; Value: QWORD);
                function TryWriteDWORD(const Name: string; Value: DWORD) : Boolean;
                function TryWriteQWORD(const Name: string; Value: QWORD) : Boolean;
+               function TryWriteBinaryData(const Name: string; var Buffer; BufSize: Integer) : Boolean;
                function TryWriteString(const Name, Value: string) : Boolean;
               end;
 
@@ -110,10 +112,61 @@ end;
 
 // ---
 
+function TRegistry2.TryReadBinaryData(const Name: string; var Buffer; var BufSize: Integer) : Boolean;
+var
+  DataType: DWORD;
+  NewBufSize: Integer;
+begin
+  Result:=False;
+  NewBufSize := GetDataSize(Name);
+  if NewBufSize > BufSize then
+   begin
+    Result:=False;
+    Exit;
+   end;
+  DataType := REG_NONE;
+  if (RegQueryValueEx(CurrentKey, PChar(Name), nil, @DataType, PByte(Buffer),
+   @NewBufSize) = ERROR_SUCCESS)
+  and (DataType = REG_BINARY) then
+   begin
+    BufSize:=NewBufSize;
+    Result:=True;
+   end;
+end;
+
+function TRegistry2.TryWriteBinaryData(const Name: string; var Buffer; BufSize: Integer) : Boolean;
+var
+  bdata: pchar;
+begin
+ {if DontWrite then
+ begin
+   Result:=True;
+   Exit;
+ end;}
+ bdata:=stralloc(BufSize + 1); //Note: One larger for null-terminator
+ try
+  FillChar(bdata^, BufSize + 1, 0);
+  if (not TryReadBinaryData(Name, bdata, BufSize)) or (not CompareMem(@Buffer, bdata, BufSize)) then
+  begin
+  {if Assigned(OnWrite) then
+    OnWrite(Self);
+   if not DontWrite then}
+    Result:=RegSetValueEx(CurrentKey, PChar(Name), 0, REG_BINARY,
+     PChar(Buffer), BufSize+1)=ERROR_SUCCESS;
+  end
+  else
+   Result:=True;
+ finally
+  strdispose(bdata);
+ end;
+end;
+
+// ---
+
 function TRegistry2.TryReadString(const Name: string; var Value: String) : Boolean;
 var
   BufSize: Integer;
-  DataType: Cardinal;
+  DataType: DWORD;
   Courant: String;
 begin
   Result:=False;

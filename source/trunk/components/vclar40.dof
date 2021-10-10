@@ -87,7 +87,7 @@ Item0=$(DELPHI)\Lib\Debug;.;.\components;.\components\zip;.\Prog;.\Prog\Model;.\
 [HistoryLists\hlConditionals]
 Count=2
 Item0=PYTHON_BUNDLED;
-Item2=PYTHON_BUNDLED;QUARK_DIRECT3D
+Item1=PYTHON_BUNDLED;QUARK_DIRECT3D
 [HistoryLists\hlUnitAliases]
 Count=1
 Item0=WinTypes=Windows;WinProcs=Windows;DbiTypes=BDE;DbiProcs=BDE;DbiErrs=BDE;
