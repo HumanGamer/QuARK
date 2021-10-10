@@ -2336,10 +2336,10 @@ begin
  try
   Reg.RootKey:=HKEY_CLASSES_ROOT;
   if (not Reg.ReadOpenKey('.html') and not Reg.ReadOpenKey('.htm'))
-  or not Reg.ReadString('', S) then
+  or not Reg.TryReadString('', S) then
    OpenError(LoadStr1(5650));
   S:='\'+S+'\shell\open\command';
-  if not Reg.ReadOpenKey(S) or not Reg.ReadString('', ProgramCall) or (ProgramCall='') then
+  if not Reg.ReadOpenKey(S) or not Reg.TryReadString('', ProgramCall) or (ProgramCall='') then
    OpenError(FmtLoadStr1(5651, [S]));
  finally
   Reg.Free;

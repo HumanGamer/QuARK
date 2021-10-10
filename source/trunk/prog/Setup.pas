@@ -1082,23 +1082,23 @@ begin
   if not Reg.OpenKey('\.'+Ext, True) then Exit;
   try
    S:=Format(RegFileAssocFormat, [Ext]);
-   if not (Reg.ReadString('', S1) or (S=S1)) then
-    if not Reg.WriteString('', S) then Exit;
+   if not (Reg.TryReadString('', S1) or (S=S1)) then
+    if not Reg.TryWriteString('', S) then Exit;
   finally
    Reg.CloseKey;
   end;
   if not Reg.OpenKey('\'+ClassKey, True) then Exit;
   try
    S:=Format(RegFileDescrFormat, [Description]);
-   if not (Reg.ReadString('', S1) or (S=S1)) then
+   if not (Reg.TryReadString('', S1) or (S=S1)) then
     Reg.WriteString('', S);
   finally
    Reg.CloseKey;
   end;
   if not Reg.OpenKey('\'+ClassKey+'\shell\open\command', True) then Exit;
   try
-   if not (Reg.ReadString('', S) or (S=Command)) then
-    if not Reg.WriteString('', Command) then Exit;
+   if not (Reg.TryReadString('', S) or (S=Command)) then
+    if not Reg.TryWriteString('', Command) then Exit;
    {if (Icon>=0) and Reg.OpenKey('\'+S1+'\DefaultIcon', True) then
     Reg.WriteString('', Format('%s,%d', [Application.ExeName, Icon]));}
   finally
@@ -1165,9 +1165,9 @@ begin
        end;
 
       Active:=Reg.OpenKey('\.'+Ext, False)
-        and Reg.ReadString('', S1) and (S1<>'')
+        and Reg.TryReadString('', S1) and (S1<>'')
         and Reg.OpenKey('\'+S1+'\shell\open\command', False)
-        and Reg.ReadString('', S)
+        and Reg.TryReadString('', S)
         and (CompareText(S, Command) = 0);
       Reg.CloseKey;
 
@@ -1227,9 +1227,9 @@ begin
       begin
        Ext:=Copy(S, 2, P-2);
        Active:=Reg.OpenKey('\.'+Ext, False)
-        and Reg.ReadString('', S1)
+        and Reg.TryReadString('', S1)
         and (S1<>'') and Reg.OpenKey('\'+S1+'\shell\open\command', False)
-        and Reg.ReadString('', S)
+        and Reg.TryReadString('', S)
         and (CompareText(S, Command) = 0);
 
        if Active then   { must un-associate }

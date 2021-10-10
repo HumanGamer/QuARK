@@ -30,29 +30,34 @@ type
               {OnWrite: TNotifyEvent;
                DontWrite: Boolean;
                Tag: Integer;}
-               function ReadInteger(const Name: string; var Value: Integer) : Boolean;
-               function ReadString(const Name: string; var Value: String) : Boolean;
-               function WriteString(const Name, Value: string) : Boolean;
-               function WriteInteger(const Name: string; Value: Integer) : Boolean;
                function ReadOpenKey(const KeyName: String) : Boolean;
+               function ReadDWORD(const Name: string) : DWORD;
+               function TryReadDWORD(const Name: string; var Value: DWORD) : Boolean;
+               function TryReadString(const Name: string; var Value: String) : Boolean;
+               procedure WriteDWORD(const Name: string; Value: DWORD);
+               function TryWriteDWORD(const Name: string; Value: DWORD) : Boolean;
+               function TryWriteString(const Name, Value: string) : Boolean;
               end;
 
 implementation
 
-function TRegistry2.ReadString;
+
+// ---
+
+function TRegistry2.TryReadString(const Name: string; var Value: String) : Boolean;
 var
-  Len: Integer;
+  BufSize: Integer;
   DataType: Cardinal;
   Courant: String;
 begin
   Result:=False;
-  Len := GetDataSize(Name);
-  if Len > 0 then
+  BufSize := GetDataSize(Name);
+  if BufSize > 0 then
    begin
-    SetString(Courant, nil, Len);
+    SetString(Courant, nil, BufSize);
     DataType := REG_NONE;
     if (RegQueryValueEx(CurrentKey, PChar(Name), nil, @DataType, PByte(Courant),
-     @Len) = ERROR_SUCCESS)
+     @BufSize) = ERROR_SUCCESS)
     and ((DataType = REG_SZ) or (DataType = REG_EXPAND_SZ)) then
      begin
       SetLength(Courant, StrLen(PChar(Courant)));
@@ -62,12 +67,12 @@ begin
    end;
 end;
 
-function TRegistry2.WriteString;
+function TRegistry2.TryWriteString(const Name, Value: string) : Boolean;
 var
  Courant: String;
 begin
  if {not DontWrite and}
- (not ReadString(Name, Courant) or (Value<>Courant)) then
+ (not TryReadString(Name, Courant) or (Value<>Courant)) then
   begin
   {if Assigned(OnWrite) then
     OnWrite(Self);
@@ -79,39 +84,53 @@ begin
   Result:=True;
 end;
 
-function TRegistry2.ReadInteger;
-var
-  Courant: Integer;
-  DataType, Len: Cardinal;
+// ---
+
+function TRegistry2.ReadDWORD(const Name: string) : DWORD;
 begin
- Len:=SizeOf(Courant);
+  Result:=ReadInteger(Name);
+end;
+
+function TRegistry2.TryReadDWORD(const Name: string; var Value: DWORD) : Boolean;
+var
+  Buffer: DWORD;
+  DataType, BufSize: DWORD;
+begin
+ BufSize := SizeOf(Buffer);
  DataType := REG_NONE;
- if (RegQueryValueEx(CurrentKey, PChar(Name), nil, @DataType, PByte(@Courant),
-  @Len) <> ERROR_SUCCESS) or (DataType <> REG_DWORD) then
+ if (RegQueryValueEx(CurrentKey, PChar(Name), nil, @DataType, PByte(@Buffer),
+  @BufSize) <> ERROR_SUCCESS) or (DataType <> REG_DWORD) then
    Result:=False
   else
    begin
-    Value:=Courant;
+    Value:=Buffer;
     Result:=True;
    end;
 end;
 
-function TRegistry2.WriteInteger;
+procedure TRegistry2.WriteDWORD(const Name: string; Value: DWORD);
+begin
+  PutData(Name, @Value, SizeOf(DWORD), rdInteger);
+end;
+
+function TRegistry2.TryWriteDWORD(const Name: string; Value: DWORD) : Boolean;
 var
- Courant: Integer;
+ Buffer: DWORD;
 begin
  if {not DontWrite and}
- (not ReadInteger(Name, Courant) or (Courant<>Value)) then
+ (not TryReadDWORD(Name, Buffer) or (Buffer<>Value)) then
   begin
   {if Assigned(OnWrite) then
     OnWrite(Self);
    if not DontWrite then}
     Result:=RegSetValueEx(CurrentKey, PChar(Name), 0, REG_DWORD,
-     @Value, SizeOf(Integer))=ERROR_SUCCESS;
+     @Value, SizeOf(Value))=ERROR_SUCCESS;
   end
  else
   Result:=True;
 end;
+
+// ---
 
 {function TRegistry2.OpenKey(const KeyName: String; Create: Boolean) : Boolean;
 begin

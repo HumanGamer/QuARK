@@ -23,7 +23,7 @@ unit About;
 interface
 
 uses Windows, SysUtils, Classes, Graphics, Forms, Controls, StdCtrls,
-  ExtCtrls, Registry, Dialogs, QkForm, QkObjects, Reg2;
+  ExtCtrls, Registry, Dialogs, QkForm, QkObjects;
 
 type
   TAboutBox = class(TQkForm)
@@ -64,7 +64,7 @@ procedure ProcessRegistration;
 
 implementation
 
-uses Messages, Qk1, Quarkx, QkConsts;
+uses Messages, Reg2, Qk1, Quarkx, QkConsts;
 
 const
   RegistrationKey = '\Software\Armin Rigo\QuakeMap';
@@ -105,11 +105,11 @@ end;
 procedure ProcessRegistration;
 var
   S: String;
-  Reg: TRegistry;
+  Reg: TRegistry2;
 begin
   if RegisteredTo<>'' then
     Exit;
-  Reg := TRegistry.Create;
+  Reg := TRegistry2.Create;
   try
     Reg.RootKey := HKEY_CURRENT_USER;
     if not Reg.OpenKey(RegistrationKey, False) then Exit;
@@ -226,13 +226,13 @@ end;
 procedure TAboutBox.OKButtonClick(Sender: TObject);
 var
   S: string;
-  Reg: TRegistry;
+  Reg: TRegistry2;
 begin
   S := Edit1.Text;
   if DecodeEnregistrement(S) then
   begin
     MessageDlg(FmtLoadStr1(226, [S]), mtInformation, [mbOk], 0);
-    Reg := TRegistry.Create;
+    Reg := TRegistry2.Create;
     try
       Reg.RootKey := HKEY_CURRENT_USER;
       if not Reg.OpenKey(RegistrationKey, True) then Exit;

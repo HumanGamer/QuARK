@@ -294,7 +294,7 @@ type
 
 implementation
 
-uses {$IFDEF CompiledWithDelphi2}ShellObj, OLE2, {$ELSE}ShlObj, ActiveX, {$ENDIF}TlHelp32, Psapi, Registry, Logging, QkExceptions;
+uses {$IFDEF CompiledWithDelphi2}ShellObj, OLE2, {$ELSE}ShlObj, ActiveX, {$ENDIF}TlHelp32, Psapi, Registry, Reg2, Logging, QkExceptions;
 
 type
   {$IFDEF Delphi4orNewerCompiler}
@@ -1172,7 +1172,7 @@ begin
   RegisteredUser:='';
   RegisteredOrg:='';
   SerialNumber:='';
-  with TRegistry.create(KEY_READ) do
+  with TRegistry2.create(KEY_READ) do
   begin
     rootkey:=HKEY_LOCAL_MACHINE;
     if OpenKey(rkOSInfo,false) then
@@ -1368,7 +1368,7 @@ begin
   GetComputerName(PChar(buf),n);
   SetLength(buf,n-1);
   result:=buf;
-  with TRegistry.Create(KEY_READ) do
+  with TRegistry2.Create(KEY_READ) do
   begin
     rootkey:=HKEY_LOCAL_MACHINE;
     if OpenKey(rkMachine,false) then
@@ -1420,7 +1420,7 @@ begin
   FUser:=GetUser;
   if WindowsPlatformCompatibility=osWinNTComp then
   begin
-    with TRegistry.Create(KEY_READ) do
+    with TRegistry2.Create(KEY_READ) do
     begin
       rootkey:=HKEY_LOCAL_MACHINE;
       if OpenKey(rkBIOS,false) then
@@ -1468,7 +1468,7 @@ begin
   end;
 end;
 
-function GetStringOrBinary(RegKey: TRegistry; const ValueName, RootKeyName: String) : String;
+function GetStringOrBinary(RegKey: TRegistry2; const ValueName, RootKeyName: String) : String;
 var
   bdata :pchar;
   keytype :TRegDataType;
@@ -1531,7 +1531,7 @@ end;
 function GetClassDevices(const AStartKey,AClassName,AValueName :string; var AResult :TStrings) :string;
 var
   i,j :integer;
-  reg :TRegistry;
+  reg :TRegistry2;
   sl :TStringList;
   s,rclass :string;
 const
@@ -1540,7 +1540,7 @@ const
 begin
   Result:='';
   AResult.Clear;
-  reg:=TRegistry.Create(KEY_READ);
+  reg:=TRegistry2.Create(KEY_READ);
   with reg do
   begin
     RootKey:=HKEY_LOCAL_MACHINE;
@@ -1601,7 +1601,7 @@ var
   sl :tstringlist;
   i :integer;
   j :DWORD;
-  reg :TRegistry;
+  reg :TRegistry2;
   DevMode :TDevMode;
   MaxDev :DWORD;
   Found: Boolean;
@@ -1809,7 +1809,7 @@ begin
       Exit;
 
     Log(LOG_VERBOSE, 'Enumerating of display driver information...');
-    reg:=TRegistry.Create(KEY_READ);
+    reg:=TRegistry2.Create(KEY_READ);
     with reg do
     begin
       RootKey:=HKEY_LOCAL_MACHINE;
@@ -2035,7 +2035,7 @@ const
   rvDesc = 'Description';
 begin
   Log(LOG_VERBOSE, 'Starting gathering of DirectX system information...');
-  with TRegistry.Create(KEY_READ) do
+  with TRegistry2.Create(KEY_READ) do
   begin
     rootkey:=HKEY_LOCAL_MACHINE;
     if OpenKey(rkDirectX,false) then
@@ -2190,12 +2190,12 @@ procedure GetPythonDetails(var s: TStringlist);
   2.0 do not use the \Software\Python\PythonCore\CurrentVersion registry key.
 }
 var
-  R: TRegistry;
+  R: TRegistry2;
   v: string;
   installed: boolean;
 begin
   Log(LOG_VERBOSE, 'Starting gathering Python information...');
-  R:=TRegistry.Create(KEY_READ);
+  R:=TRegistry2.Create(KEY_READ);
   try
     R.RootKey:=HKEY_LOCAL_MACHINE;
     installed:=R.KeyExists('\SOFTWARE\Python\PythonCore\CurrentVersion');
