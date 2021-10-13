@@ -1,0 +1,416 @@
+QQRKSRC1
+
+{
+  Description = "D.I.P.R.I.P. Data Add-on"
+
+  Diprip directory infos.qctx =
+  {
+      Game = "Half-Life"
+      SourceDir = "diprip"
+      GameDir = "diprip"
+  }
+
+  Toolbox Folders.qtx =
+  {
+    Toolbox = "New map items..."
+    Root = "Diprip.qtxfolder"
+    Diprip.qtxfolder =
+    {
+      ;desc = "Created from diprip.fgd"
+      diprip_* entities.qtxfolder =
+      {
+        diprip_capturezone_CTF:b =
+        {
+          ;incl = "defpoly"
+          ;desc = "Diprip capture zone"
+          teamzone = "2"
+        }
+        diprip_capturezone_destruction:b =
+        {
+          ;incl = "defpoly"
+          ;desc = "Diprip capture zone"
+          teamzone = "2"
+          life = "3"
+        }
+        diprip_gamerules:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Proxy entity for DIPRIP Gamerules"
+        }
+        diprip_item_ammo_minigun:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Minigun Ammo"
+        }
+        diprip_item_ammo_mortar_grenade:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Mortar Grenade"
+        }
+        diprip_item_ammo_rockets:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Rockets"
+        }
+        diprip_item_ammo_team_pickup:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Team Pickup"
+          team = "2"
+          readFromScript = "1"
+          addOnStart = "0"
+          minigun = "100"
+          rockets = "3"
+          mortar = "2"
+        }
+        diprip_item_big_repairkit:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Big Repair Kit"
+        }
+        diprip_item_repairkit:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Repair Kit"
+        }
+        diprip_objective:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Diprip objective"
+          TeamOwner = "2"
+          GameType = "0"
+        }
+        diprip_objective_marker:e =
+        {
+          origin = "0 0 0"
+          ;desc = "Diprip objective marker"
+          TeamOwner = "2"
+        }
+        diprip_start_deathmatch:e =
+        {
+          origin = "0 0 0"
+          ;desc = "This entity indicates the position and facing direction at "
+           "which the player will spawn during a deathmatch map. Any number of"
+           " info_player_deathmatch entities may be placed in a map."
+        }
+        diprip_start_team_blue:e =
+        {
+          origin = "0 0 0"
+          ;desc = "This entity indicates the position and facing direction at "
+           "which the player will spawn during a deathmatch map. Any number of"
+           " info_player_deathmatch entities may be placed in a map."
+        }
+        diprip_start_team_red:e =
+        {
+          origin = "0 0 0"
+          ;desc = "This entity indicates the position and facing direction at "
+           "which the player will spawn during a deathmatch map. Any number of"
+           " info_player_deathmatch entities may be placed in a map."
+        }
+        diprip_teamzone:b =
+        {
+          ;incl = "defpoly"
+          ;desc = "Diprip team zone"
+          teamzoneowner = "2"
+        }
+        diprip_warm_up:b =
+        {
+          ;incl = "defpoly"
+          ;desc = "Diprip warm up"
+          timer = "30"
+        }
+      }
+    }
+  }
+  Entity Forms.fctx =
+  {
+    t_DIPRIP_Item:incl =
+    {
+      t_Targetname = "!"
+      t_Angles = "!"
+      t_Shadow = "!"
+      output#OnPlayerTouch: =
+      {
+        txt = "&"
+        hint = "Fires when the player touches this object"
+      }
+      fademindist: =
+      {
+        txt = "&"
+        hint = "Start Fade Dist/Pixels"
+      }
+      fademaxdist: =
+      {
+        txt = "&"
+        hint = "End Fade Dist/Pixels"
+      }
+      fadescale: =
+      {
+        txt = "&"
+        hint = "Fade Scale"
+      }
+      DefaultAnim: =
+      {
+        txt = "&"
+        hint = "Default Animation"
+      }
+      RespawnTime: =
+      {
+        txt = "&"
+        hint = "Respawn time"
+      }
+    }
+    t_diprip_item_repairkit:incl =
+    {
+      t_DIPRIP_Item = "!"
+    }
+    diprip_item_repairkit:form =
+    {
+      t_diprip_item_repairkit = "!"
+    }
+    t_diprip_item_big_repairkit:incl =
+    {
+      t_DIPRIP_Item = "!"
+    }
+    diprip_item_big_repairkit:form =
+    {
+      t_diprip_item_big_repairkit = "!"
+    }
+    t_diprip_item_ammo_rockets:incl =
+    {
+      t_DIPRIP_Item = "!"
+    }
+    diprip_item_ammo_rockets:form =
+    {
+      t_diprip_item_ammo_rockets = "!"
+    }
+    t_diprip_item_ammo_mortar_grenade:incl =
+    {
+      t_DIPRIP_Item = "!"
+    }
+    diprip_item_ammo_mortar_grenade:form =
+    {
+      t_diprip_item_ammo_mortar_grenade = "!"
+    }
+    t_diprip_item_ammo_minigun:incl =
+    {
+      t_DIPRIP_Item = "!"
+    }
+    diprip_item_ammo_minigun:form =
+    {
+      t_diprip_item_ammo_minigun = "!"
+    }
+    t_diprip_item_ammo_team_pickup:incl =
+    {
+      t_DIPRIP_Item = "!"
+      team: =
+      {
+        txt = "&"
+        hint = "Team Color"
+        typ = "C"
+        items = "team_blue"$0D"team_red"
+        values = "2"$0D"3"
+      }
+      readFromScript: =
+      {
+        txt = "&"
+        hint = "Use Default Ammo Values"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
+      }
+      addOnStart: =
+      {
+        txt = "&"
+        hint = "Add ammos on start"
+        typ = "C"
+        items = "No"$0D"Yes"
+        values = "0"$0D"1"
+      }
+      minigun: =
+      {
+        txt = "&"
+        hint = "Minigun ammo"
+      }
+      rockets: =
+      {
+        txt = "&"
+        hint = "Rocket ammo"
+      }
+      mortar: =
+      {
+        txt = "&"
+        hint = "Mortar ammo"
+      }
+    }
+    diprip_item_ammo_team_pickup:form =
+    {
+      t_diprip_item_ammo_team_pickup = "!"
+    }
+    t_diprip_objective:incl =
+    {
+      t_Targetname = "!"
+      TeamOwner: =
+      {
+        txt = "&"
+        hint = "Team Color"
+        typ = "C"
+        items = "team_blue"$0D"team_red"
+        values = "2"$0D"3"
+      }
+      GameType: =
+      {
+        txt = "&"
+        hint = "Game Type"
+        typ = "C"
+        items = "Deathmatch"$0D"Uranium Run"$0D"Destruction"
+        values = "0"$0D"1"$0D"2"
+      }
+    }
+    diprip_objective:form =
+    {
+      t_diprip_objective = "!"
+    }
+    t_diprip_objective_marker:incl =
+    {
+      t_Targetname = "!"
+      t_Parentname = "!"
+      TeamOwner: =
+      {
+        txt = "&"
+        hint = "Team Color"
+        typ = "C"
+        items = "team_blue"$0D"team_red"
+        values = "2"$0D"3"
+      }
+    }
+    diprip_objective_marker:form =
+    {
+      t_diprip_objective_marker = "!"
+    }
+    t_diprip_warm_up:incl =
+    {
+      t_Targetname = "!"
+      timer: =
+      {
+        txt = "&"
+        hint = "Time"
+      }
+    }
+    diprip_warm_up:form =
+    {
+      t_diprip_warm_up = "!"
+    }
+    t_diprip_capturezone_CTF:incl =
+    {
+      t_Targetname = "!"
+      teamzone: =
+      {
+        txt = "&"
+        hint = "Team Color"
+        typ = "C"
+        items = "team_blue"$0D"team_red"
+        values = "2"$0D"3"
+      }
+      output#OnTrigger: =
+      {
+        txt = "&"
+        hint = "Fired whenever someone brings a capture object to this object "
+         "zone."
+      }
+    }
+    diprip_capturezone_CTF:form =
+    {
+      t_diprip_capturezone_CTF = "!"
+    }
+    t_diprip_teamzone:incl =
+    {
+      t_Targetname = "!"
+      teamzoneowner: =
+      {
+        txt = "&"
+        hint = "Team Owner"
+        typ = "C"
+        items = "team_blue"$0D"team_red"
+        values = "2"$0D"3"
+      }
+    }
+    diprip_teamzone:form =
+    {
+      t_diprip_teamzone = "!"
+    }
+    t_diprip_capturezone_destruction:incl =
+    {
+      t_Targetname = "!"
+      teamzone: =
+      {
+        txt = "&"
+        hint = "Team Color"
+        typ = "C"
+        items = "team_blue"$0D"team_red"
+        values = "2"$0D"3"
+      }
+      output#OnDamageTrigger: =
+      {
+        txt = "&"
+        hint = "Fired whenever someone brings a capture object to this object "
+         "zone."
+      }
+      output#OnLevelDestroyedTrigger: =
+      {
+        txt = "&"
+        hint = "Fired whenever someone brings a capture object to this object "
+         "zone."
+      }
+      life: =
+      {
+        txt = "&"
+        hint = "Life"
+      }
+    }
+    diprip_capturezone_destruction:form =
+    {
+      t_diprip_capturezone_destruction = "!"
+    }
+    t_diprip_start_team_blue:incl =
+    {
+      t_PlayerClass = "!"
+      t_Angles = "!"
+    }
+    diprip_start_team_blue:form =
+    {
+      t_diprip_start_team_blue = "!"
+    }
+    t_diprip_start_team_red:incl =
+    {
+      t_PlayerClass = "!"
+      t_Angles = "!"
+    }
+    diprip_start_team_red:form =
+    {
+      t_diprip_start_team_red = "!"
+    }
+    t_diprip_start_deathmatch:incl =
+    {
+      t_PlayerClass = "!"
+      t_Angles = "!"
+    }
+    diprip_start_deathmatch:form =
+    {
+      t_diprip_start_deathmatch = "!"
+    }
+    t_diprip_gamerules:incl =
+    {
+      t_Targetname = "!"
+      input#SetMapType: =
+      {
+        txt = "&"
+        hint = "Set map type"
+      }
+    }
+    diprip_gamerules:form =
+    {
+      t_diprip_gamerules = "!"
+    }
+  }
+}
