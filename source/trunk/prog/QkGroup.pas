@@ -114,7 +114,7 @@ var
  Source: TMemoryStream;
  H: THandle;
  P: PChar;
- SourceTaille: Integer;
+ SourceTaille: DWORD;
 begin
  Result:=IsClipboardFormatAvailable(g_CF_QObjects);
  if Result and Assigned(PasteNow) then

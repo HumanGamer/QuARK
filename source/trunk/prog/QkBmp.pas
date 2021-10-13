@@ -53,7 +53,7 @@ var
 function CollerImage(PasteNow: QObject) : Boolean;
 var
  H: THandle;
- SourceTaille: Integer;
+ SourceTaille: DWORD;
  Source: TMemoryStream;
  Image: QBmp;
 begin
