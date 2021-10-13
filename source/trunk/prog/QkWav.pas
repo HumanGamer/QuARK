@@ -35,7 +35,7 @@ type
                   SoundEvent: THandle;
                   waveOut: HWaveOut;
                   WaveHdr: array[TBuffers] of TWaveHdr;
-                  OfsData, DataSize, BytesLeft, BytesPerTick: Integer;
+                  OfsData, DataSize, BytesLeft, BytesPerTick: TStreamPos;
                   Progress, Continous: Boolean;
                   procedure DisplayImage(nPos: Integer); virtual;
                   procedure InitStream(nPos: Integer); dynamic;
@@ -249,7 +249,8 @@ end;
 function QWav.GetDataInfo : TRawDataInfo;
 var
  S: TStream;
- Position0, Taille, TailleA, Pos1, ErrorCode: Integer;
+ Position0, Taille, TailleA, Pos1: TStreamPos;
+ ErrorCode: Integer;
  Header: TEnteteRiff;
  Typ: LongInt;
  WaveFmt: TWaveFmt;
