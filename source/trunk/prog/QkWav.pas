@@ -100,9 +100,7 @@ begin
  WaveFormatEx.nBlockAlign:=SndChannels*SndWidth;
  WaveFormatEx.nAvgBytesPerSec:=SndRate*WaveFormatEx.nBlockAlign;
  waveOut:=0;
- waveOutOpen(@waveOut, wave_Mapper, @WaveFormatEx, SoundEvent, 0,
-  CALLBACK_EVENT);
- if waveOut=0 then
+ if waveOutOpen(@waveOut, wave_Mapper, @WaveFormatEx, SoundEvent, 0, CALLBACK_EVENT) <> MMSYSERR_NOERROR then
   Raise EError(5603);
 
  FillChar(WaveHdr, SizeOf(WaveHdr), 0);
