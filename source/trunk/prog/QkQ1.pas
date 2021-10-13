@@ -42,7 +42,7 @@ type
  QTexture1 = class(QTextureFile)
              protected
                procedure ChargerFin(F: TStream; TailleRestante: Integer); virtual;
-              {procedure LireEnteteFichier(Source: TStream; const Nom: String; var SourceTaille: Integer); override;}
+              {procedure LireEnteteFichier(Source: TStream; const Nom: String; var SourceTaille: TStreamPos); override;}
                procedure SaveFile(Info: TInfoEnreg1); override;
                procedure LoadFile(F: TStream; FSize: TStreamPos); override;
              public

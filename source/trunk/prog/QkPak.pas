@@ -55,7 +55,7 @@ type
               end;
  QPak = class(QPakFolder)
         protected
-         {procedure LireEnteteFichier(Source: TStream; const Nom: String; var SourceTaille: Integer); override;}
+         {procedure LireEnteteFichier(Source: TStream; const Nom: String; var SourceTaille: TStreamPos); override;}
         public
           class function TypeInfo: String; override;
           procedure ObjectState(var E: TEtatObjet); override;

@@ -40,7 +40,7 @@ type
  QTexture2 = class(QTextureFile)
              protected
                procedure LoadTextureData(F: TStream; Base, Taille: Integer; const Header: TQ2Miptex; Offsets: PLongInt; NomTex, AnimTex: PChar);
-              {procedure LireEnteteFichier(Source: TStream; const Nom: String; var SourceTaille: Integer); override;}
+              {procedure LireEnteteFichier(Source: TStream; const Nom: String; var SourceTaille: TStreamPos); override;}
                procedure SaveFile(Info: TInfoEnreg1); override;
                procedure LoadFile(F: TStream; FSize: TStreamPos); override;
              public

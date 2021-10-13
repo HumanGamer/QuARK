@@ -33,7 +33,7 @@ QTextureKP = class(QTextureFile)
 {    static global_palette : QImage;}
   protected
     procedure Enregistrer(Info: TInfoEnreg1); override;
-    procedure Charger(F: TStream; Taille: Integer); override;
+    procedure Charger(F: TStream; Taille: TStreamPos); override;
   public
 {    constructor Create(const nName: String; nParent: QObject);
     destructor Destroy; override;
@@ -130,7 +130,7 @@ begin
     Result:=OpacityFromFlags(StrToIntDef(S,0), Info);
 end;
 
-procedure QTextureKP.Charger(F: TStream; Taille: Integer);
+procedure QTextureKP.Charger(F: TStream; Taille: TStreamPos);
 const
   Spec1 = 'Image#=';
   PosNb = 6;

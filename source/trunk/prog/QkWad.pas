@@ -164,7 +164,7 @@ begin
   end;
 end;
 
-(*procedure QWad.LireEnteteFichier(Source: TStream; const Nom: String; var SourceTaille: Integer);
+(*procedure QWad.LireEnteteFichier(Source: TStream; const Nom: String; var SourceTaille: TStreamPos);
 var
  Header: TWadHeader;
 begin

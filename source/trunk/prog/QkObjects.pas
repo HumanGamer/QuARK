@@ -1145,7 +1145,7 @@ end;
 var
  S: String;
  Source: TQStream;
- SourceTaille: Integer;
+ SourceTaille: TStreamPos;
 begin
  Result:=False;  { no automated copy }
  if FFlags and ofNotLoadedToMemory = 0 then
