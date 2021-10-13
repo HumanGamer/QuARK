@@ -1629,6 +1629,7 @@ const
   rvHWChip = 'ChipType';
   rvHWDAC = 'DacType';
   rvHWMem = 'MemorySize';
+  rvHWMemQW = 'qwMemorySize';
   rvProvider = 'ProviderName';
   rvDriverDate = 'DriverDate';
   rvDriverVersion = 'DriverVersion';
@@ -1892,7 +1893,12 @@ begin
                 FDAC.Add(GetStringOrBinary(reg, rvHardware+'.'+rvHWDAC, 'HKEY_LOCAL_MACHINE'));
                 FChipset.Add(GetStringOrBinary(reg, rvHardware+'.'+rvHWChip, 'HKEY_LOCAL_MACHINE'));
 
-                if ValueExists(rvHardware+'.'+rvHWMem) then
+                if ValueExists(rvHardware+'.'+rvHWMemQW) then
+                begin
+                  qdata:=ReadQWORD(rvHardware+'.'+rvHWMemQW);
+                  FMemory.Add(FormatBytes(qdata));
+                end
+                else if ValueExists(rvHardware+'.'+rvHWMem) then
                 begin
                   idata:=GetRawDataType(rvHardware+'.'+rvHWMem);
                   case idata of
