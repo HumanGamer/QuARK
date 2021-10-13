@@ -124,7 +124,7 @@ Function MyIntSpec(s:QSprFile; ident:String):INteger;
 
 implementation
 
-uses Quarkx, QkExceptions, QkPcx, QkTextures, QkObjectClassList;
+uses Math, Quarkx, QkExceptions, QkPcx, QkTextures, QkObjectClassList;
 
 {$R *.DFM}
 
@@ -323,14 +323,6 @@ begin
       F.WriteBuffer(P^, w);
     end;
   end;
-end;
-
-function Max(a,b:Longint):Longint;
-begin
-  if a>b then
-    result:=a
-  else
-    result:=b;
 end;
 
 const
