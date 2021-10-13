@@ -30,6 +30,7 @@ uses
 type
   TQForm2 = class(TQForm1)
     ListView1: TListView;
+    procedure FormCreate(Sender: TObject);
     procedure ListView1DblClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure ListView1StartDrag(Sender: TObject; var DragObject: TDragObject);
@@ -81,6 +82,12 @@ const
  LocalActionFlags = na_Select;
 
  {------------------------}
+
+procedure TQForm2.FormCreate(Sender: TObject);
+begin
+ inherited;
+ ListView1.DoubleBuffered:=True; //Delphi 7 and lower (at least) don't allow this in the .dfm file.
+end;
 
 procedure TQForm2.wmInternalMessage(var Msg: TMessage);
 begin
