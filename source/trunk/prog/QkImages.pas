@@ -35,9 +35,9 @@ type
            protected
              class function FileTypeDevIL : DevILType; virtual; abstract;
              class function FileTypeFreeImage : FREE_IMAGE_FORMAT; virtual; abstract;
-             procedure LoadFileDevIL(F: TStream; FSize: Integer);
+             procedure LoadFileDevIL(F: TStream; FSize: TStreamPos);
              procedure SaveFileDevIL(Info: TInfoEnreg1);
-             procedure LoadFileFreeImage(F: TStream; FSize: Integer);
+             procedure LoadFileFreeImage(F: TStream; FSize: TStreamPos);
              procedure SaveFileFreeImage(Info: TInfoEnreg1);
              procedure LoadFileDevILSettings; virtual;
              procedure SaveFileDevILSettings; virtual;
@@ -251,7 +251,7 @@ begin
   SetupDevILSettings;
 end;
 
-procedure QImage.LoadFileDevIL(F: TStream; FSize: Integer);
+procedure QImage.LoadFileDevIL(F: TStream; FSize: TStreamPos);
 const
   Spec1 = 'Image1=';
   Spec2 = 'Pal=';
@@ -680,7 +680,7 @@ begin
   Info.F.WriteBuffer(Pointer(RawBuffer)^,OutputSize);
 end;
 
-procedure QImage.LoadFileFreeImage(F: TStream; FSize: Integer);
+procedure QImage.LoadFileFreeImage(F: TStream; FSize: TStreamPos);
 const
   Spec1 = 'Image1=';
   Spec2 = 'Pal=';
