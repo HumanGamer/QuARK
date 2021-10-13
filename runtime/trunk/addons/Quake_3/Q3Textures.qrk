@@ -135,7 +135,7 @@ QQRKSRC1
         gothic_button/timbutton2.wl                 = { t_q3=! }
         gothic_button/timbuttonside.wl              = { t_q3=! }
       }
-      Catherdal.txlist =
+      Cathedral.txlist =
       {
         gothic_cath/graycathflesh1L.wl              = { t_q3=! }
         gothic_cath/graycathflesh1R.wl              = { t_q3=! }
