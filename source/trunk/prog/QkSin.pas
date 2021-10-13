@@ -30,7 +30,7 @@ type
  QTextureSin = class(QTexture2)
         protected
           procedure SaveFile(Info: TInfoEnreg1); override;
-          procedure LoadFile(F: TStream; FSize: Integer); override;
+          procedure LoadFile(F: TStream; FSize: TStreamPos); override;
         public
           class function TypeInfo: String; override;
           class function CustomParams : Integer; override;
@@ -92,7 +92,7 @@ begin
  Result:=mjSin;
 end;
 
-procedure QTextureSin.LoadFile(F: TStream; FSize: Integer);
+procedure QTextureSin.LoadFile(F: TStream; FSize: TStreamPos);
 const
  Spec1 = 'Image1=';
  Spec2 = 'Pal=';
@@ -100,7 +100,8 @@ const
 var
  Header: TSinHeader;
  Q2MipTex: TQ2MipTex;
- Base, I: Integer;
+ Base: TStreamPos;
+ I: Integer;
  Lmp: PPaletteLmp;
  Data: String;
  HasAlpha: Boolean;

@@ -29,7 +29,7 @@ type
  QM8  = class(QTexture2)
         protected
           procedure SaveFile(Info: TInfoEnreg1); override;
-          procedure LoadFile(F: TStream; FSize: Integer); override;
+          procedure LoadFile(F: TStream; FSize: TStreamPos); override;
         public
           class function CustomParams : Integer; override;
           class function TypeInfo: String; override;
@@ -38,7 +38,7 @@ type
         end;
  QHr2Model = class(QMd2File)
              protected
-               procedure LoadFile(F: TStream; FSize: Integer); override;
+               procedure LoadFile(F: TStream; FSize: TStreamPos); override;
                procedure SaveFile(Info: TInfoEnreg1); override;
              public
                class function TypeInfo: String; override;
@@ -89,14 +89,15 @@ begin
  Result:=mjHeretic2;
 end;
 
-procedure QM8.LoadFile(F: TStream; FSize: Integer);
+procedure QM8.LoadFile(F: TStream; FSize: TStreamPos);
 const
  Spec1 = 'Image1=';
  Spec2 = 'Pal=';
 var
  Header: TM8Header;
  Q2MipTex: TQ2MipTex;
- Base, I, W, H: Integer;
+ Base: TStreamPos;
+ I, W, H: Integer;
  Data: String;
 begin
  case ReadFormat of
@@ -215,10 +216,10 @@ begin
  Info.FileExt:=795;
 end;
 
-procedure QHr2Model.LoadFile(F: TStream; FSize: Integer);
+procedure QHr2Model.LoadFile(F: TStream; FSize: TStreamPos);
 var
  mdl: dmdl_t;
- Origine, Delta: LongInt;
+ Origine, Delta: TStreamPos;
  Hr2Entry: THr2Entry;
  Hr2Header: THr2Header;
  S: String;

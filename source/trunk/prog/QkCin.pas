@@ -190,7 +190,8 @@ end;
 
 function TCinDataInfo.ReadNewHeader : Integer;
 var
- nTag, Org, HCount: LongInt;
+ nTag, HCount: LongInt;
+ Org: TStreamPos;
  NewPalLmp: TPaletteLmp;
  NewPalette: PBitmapInfoColors;
 {I: Integer;}

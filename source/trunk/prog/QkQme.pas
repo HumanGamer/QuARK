@@ -33,7 +33,7 @@ type
         protected
           function OpenWindow(nOwner: TComponent) : TQForm1; override;
           procedure SaveFile(Info: TInfoEnreg1); override;
-          procedure LoadFile(F: TStream; FSize: Integer); override;
+          procedure LoadFile(F: TStream; FSize: TStreamPos); override;
         public
           class function TypeInfo: String; override;
           procedure ObjectState(var E: TEtatObjet); override;
@@ -53,15 +53,15 @@ type
  {------------------------}
 
 type
- QQme0  = class(QFileObject) public class function TypeInfo: String; override; protected procedure LoadFile(F: TStream; FSize: Integer); override; procedure SaveFile(Info: TInfoEnreg1); override; end;
- QQme1  = class(QMap       ) public class function TypeInfo: String; override; protected procedure LoadFile(F: TStream; FSize: Integer); override; procedure SaveFile(Info: TInfoEnreg1); override; end;
- QQme2  = class(QQuakeC    ) public class function TypeInfo: String; override; protected procedure LoadFile(F: TStream; FSize: Integer); override; procedure SaveFile(Info: TInfoEnreg1); override; end;
- QQme3  = class(QFileObject) public class function TypeInfo: String; override; protected procedure LoadFile(F: TStream; FSize: Integer); override; procedure SaveFile(Info: TInfoEnreg1); override; end;
- QQme4  = class(QTextureList)public class function TypeInfo: String; override; protected procedure LoadFile(F: TStream; FSize: Integer); override; procedure SaveFile(Info: TInfoEnreg1); override; end;
- QQme5  = class(QImport)     public class function TypeInfo: String; override; protected procedure LoadFile(F: TStream; FSize: Integer); override; procedure SaveFile(Info: TInfoEnreg1); override; end;
- QQme6  = class(QFileObject) public class function TypeInfo: String; override; protected procedure LoadFile(F: TStream; FSize: Integer); override; procedure SaveFile(Info: TInfoEnreg1); override; end;
- QQme7  = class(QExplorerGroup)public class function TypeInfo: String;override;protected procedure LoadFile(F: TStream; FSize: Integer); override; procedure SaveFile(Info: TInfoEnreg1); override; end;
- QQme8  = class(QMdlFile)    public class function TypeInfo: String; override; protected procedure LoadFile(F: TStream; FSize: Integer); override; procedure SaveFile(Info: TInfoEnreg1); override; end;
+ QQme0  = class(QFileObject) public class function TypeInfo: String; override; protected procedure LoadFile(F: TStream; FSize: TStreamPos); override; procedure SaveFile(Info: TInfoEnreg1); override; end;
+ QQme1  = class(QMap       ) public class function TypeInfo: String; override; protected procedure LoadFile(F: TStream; FSize: TStreamPos); override; procedure SaveFile(Info: TInfoEnreg1); override; end;
+ QQme2  = class(QQuakeC    ) public class function TypeInfo: String; override; protected procedure LoadFile(F: TStream; FSize: TStreamPos); override; procedure SaveFile(Info: TInfoEnreg1); override; end;
+ QQme3  = class(QFileObject) public class function TypeInfo: String; override; protected procedure LoadFile(F: TStream; FSize: TStreamPos); override; procedure SaveFile(Info: TInfoEnreg1); override; end;
+ QQme4  = class(QTextureList)public class function TypeInfo: String; override; protected procedure LoadFile(F: TStream; FSize: TStreamPos); override; procedure SaveFile(Info: TInfoEnreg1); override; end;
+ QQme5  = class(QImport)     public class function TypeInfo: String; override; protected procedure LoadFile(F: TStream; FSize: TStreamPos); override; procedure SaveFile(Info: TInfoEnreg1); override; end;
+ QQme6  = class(QFileObject) public class function TypeInfo: String; override; protected procedure LoadFile(F: TStream; FSize: TStreamPos); override; procedure SaveFile(Info: TInfoEnreg1); override; end;
+ QQme7  = class(QExplorerGroup)public class function TypeInfo: String;override;protected procedure LoadFile(F: TStream; FSize: TStreamPos); override; procedure SaveFile(Info: TInfoEnreg1); override; end;
+ QQme8  = class(QMdlFile)    public class function TypeInfo: String; override; protected procedure LoadFile(F: TStream; FSize: TStreamPos); override; procedure SaveFile(Info: TInfoEnreg1); override; end;
 
  {------------------------}
 
@@ -132,7 +132,7 @@ class function QQme6 .TypeInfo; begin TypeInfo:='.qme6';  end;
 class function QQme7 .TypeInfo; begin TypeInfo:='.qme7';  end;
 class function QQme8 .TypeInfo; begin TypeInfo:='.qme8';  end;
 
-function ReadAsQmeEntry(Q: QFileObject; SourceFile: TStream; Taille: Integer) : Boolean;
+function ReadAsQmeEntry(Q: QFileObject; SourceFile: TStream; Taille: TStreamPos) : Boolean;
 var
  I, Compte, TailleIds: Integer;
  Entetes, P: PEnteteNXF;
@@ -636,11 +636,20 @@ begin
     (CompareText(Copy(S, Length(S)-4, 4), '.qme') = 0) and (S[Length(S)] in ['0'..'8'])];
 end;
 
-procedure QQme.LoadFile(F: TStream; FSize: Integer);
+function MakeFileQObject(F: TStream; const FullName: String; nParent: QObject) : QFileObject;
+var
+  i: TStreamPos;
+begin
+  {wraparound for a stupid function OpenFileObjectData having obsolete parameters }
+  {tbd: clean this up in QkFileobjects and at all referencing places}
+ Result:=OpenFileObjectData(F, FullName, i, nParent);
+end;
+
+procedure QQme.LoadFile(F: TStream; FSize: TStreamPos);
 var
  Intro: TIntroQM;
  Entree: TEntreeRepQM;
- Origine: LongInt;
+ Origine: TStreamPos;
  Q: QObject;
  I: Integer;
 begin
@@ -659,8 +668,7 @@ begin
         if (Entree.Version<>VersionNXF) or (Entree.InfoType>=qmInfoTypeMax) then
          Raise EErrorFmt(5556, [LoadName, Entree.Version, Entree.InfoType]);
         F.Position:=Origine + Entree.Position;
-        Q:=OpenFileObjectData(F, CharToPas(Entree.Nom)+'.qme'+IntToStr(Entree.InfoType),
-            Entree.Taille, Self);
+        Q:=MakeFileQObject(F, CharToPas(Entree.Nom)+'.qme'+IntToStr(Entree.InfoType), Self); //FIXME: Previously used Entree.Taille as the third argument to OpenFileObjectData
         SubElements.Add(Q);
         LoadedItem(rf_Default, F, Q, Entree.Taille);
        end;

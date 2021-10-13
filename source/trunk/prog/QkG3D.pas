@@ -29,7 +29,7 @@ uses
 type
  QBspG3DFileHandler = class(QBspFileHandler)
   public
-   procedure LoadBsp(F: TStream; StreamSize: Integer); override;
+   procedure LoadBsp(F: TStream; StreamSize: TStreamPos); override;
    procedure SaveBsp(Info: TInfoEnreg1); override;
    function GetEntryName(const EntryIndex: Integer) : String; override;
    function GetLumpEdges: Integer; override;
@@ -135,16 +135,16 @@ class function QBspG3D.TypeInfo; begin TypeInfo:='.bspg3d'; end;
 
 function MakeFileQObject(F: TStream; const FullName: String; nParent: QObject) : QFileObject;
 var
-  i: LongInt;
+  i: TStreamPos;
 begin
   {wraparound for a stupid function OpenFileObjectData having obsolete parameters }
   {tbd: clean this up in QkFileobjects and at all referencing places}
  Result:=OpenFileObjectData(F, FullName, i, nParent);
 end;
 
-procedure QBspG3DFileHandler.LoadBsp(F: TStream; StreamSize: Integer);
+procedure QBspG3DFileHandler.LoadBsp(F: TStream; StreamSize: TStreamPos);
 var
- DataRemaining: Integer;
+ DataRemaining: TStreamPos;
  Chunk: TGBSP_Chunk;
  Header: TGBSP_Header;
  Q: QObject;
@@ -213,7 +213,7 @@ procedure QBspG3DFileHandler.SaveBsp(Info: TInfoEnreg1);
 var
   Chunk: TGBSP_Chunk;
   Header: TGBSP_Header;
-  ChunkOrigine, Fin: LongInt;
+  ChunkOrigine, Fin: TStreamPos;
   Q: QObject;
   I: Integer;
 begin

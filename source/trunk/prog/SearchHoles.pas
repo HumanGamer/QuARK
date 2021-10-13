@@ -38,7 +38,7 @@ uses Quarkx, qmath, PyObjects, PyMath, Qk3D, QkMapPoly, Travail;
 
 type
  TPolyedreEx = class(TPolyedre)
-                Precedent: LongInt;
+                Precedent: TStreamPos;
                end;
 
  {-------------------}
@@ -65,7 +65,8 @@ var
  Centre: TInfoSource;
  Liste: TMemoryStream;
  Sources: TMemoryStream;
- Sources0, Compteur: Integer;
+ Sources0: TStreamPos;
+ Compteur: Integer;
  TamponInterne: PTableauInfo;
 
   procedure Init;

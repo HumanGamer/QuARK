@@ -44,7 +44,7 @@ type
                procedure ChargerFin(F: TStream; TailleRestante: Integer); virtual;
               {procedure LireEnteteFichier(Source: TStream; const Nom: String; var SourceTaille: Integer); override;}
                procedure SaveFile(Info: TInfoEnreg1); override;
-               procedure LoadFile(F: TStream; FSize: Integer); override;
+               procedure LoadFile(F: TStream; FSize: TStreamPos); override;
              public
                class function TypeInfo: String; override;
                class procedure FileObjectClassInfo(var Info: TFileObjectClassInfo); override;
@@ -56,7 +56,7 @@ type
 
  QBsp1FileHandler = class(QBspFileHandler)
   public
-   procedure LoadBsp(F: TStream; StreamSize: Integer); override;
+   procedure LoadBsp(F: TStream; StreamSize: TStreamPos); override;
    procedure SaveBsp(Info: TInfoEnreg1); override;
    function GetEntryName(const EntryIndex: Integer) : String; override;
    function GetLumpEdges: Integer; override;
@@ -73,7 +73,7 @@ type
    function GetLumpVertexes: Integer; override;
  end;
 
-function CheckQ1Miptex(var Header: TQ1Miptex; FileSize: Integer) : Integer;
+function CheckQ1Miptex(var Header: TQ1Miptex; FileSize: TStreamPos) : TStreamPos;
 
 
 implementation
@@ -142,12 +142,12 @@ class function QBsp1c.TypeInfo; begin TypeInfo:='.c.bsp1'; {'MipTex.c.bsp1'}   e
 
  { --------------- }
 
-function CheckQ1Miptex(var Header: TQ1Miptex; FileSize: Integer) : Integer;
+function CheckQ1Miptex(var Header: TQ1Miptex; FileSize: TStreamPos) : TStreamPos;
 var
   I, J: Integer;
-  DataSize, MaxSize: Integer;
+  DataSize, MaxSize: TStreamPos;
 
-  function EndPos(I: Integer) : Integer;
+  function EndPos(I: Integer) : TStreamPos;
   begin
     Result:=Header.Indexes[I]+(DataSize shr (2*I));
   end;
@@ -204,7 +204,7 @@ procedure QTexture1.ChargerFin(F: TStream; TailleRestante: Integer);
 begin
 end;
 
-procedure QTexture1.LoadFile(F: TStream; FSize: Integer);
+procedure QTexture1.LoadFile(F: TStream; FSize: TStreamPos);
 const
   Spec1 = 'Image#=';
   PosNb = 6;
@@ -213,7 +213,7 @@ var
   Header: TQ1Miptex;
   V: array[1..2] of Single;
   I: Integer;
-  Base, Taille1, Max: LongInt;
+  Base, Taille1, Max: TStreamPos;
 begin
   case ReadFormat of
   rf_Default:
@@ -312,10 +312,19 @@ end;
 
  { --------------- }
 
-procedure QBsp1FileHandler.LoadBsp(F: TStream; StreamSize: Integer);
+function MakeFileQObject(F: TStream; const FullName: String; nParent: QObject) : QFileObject;
+var
+  i: TStreamPos;
+begin
+  {wraparound for a stupid function OpenFileObjectData having obsolete parameters }
+  {tbd: clean this up in QkFileobjects and at all referencing places}
+ Result:=OpenFileObjectData(F, FullName, i, nParent);
+end;
+
+procedure QBsp1FileHandler.LoadBsp(F: TStream; StreamSize: TStreamPos);
 var
  Header: TBsp1Header;
- Origine: LongInt;
+ Origine: TStreamPos;
  Q: QObject;
  I: Integer;
 begin
@@ -333,7 +342,7 @@ begin
       Raise EErrorFmt(5509, [82]);
 
     F.Position := Origine + Header.Entries[I].EntryPosition;
-    Q := OpenFileObjectData(F, Bsp1EntryNames[I], Header.Entries[I].EntrySize, FBsp);
+    Q := MakeFileQObject(F, Bsp1EntryNames[I], FBsp); //FIXME: Used Header.Entries[I].EntrySize as third argument to OpenFileObjectData.
     {if (I=LUMP_TEXTURES) and (Header.Signature = cSignatureBspHL) then
       Q.SetSpecificsList.Values['TextureType']:='.wad3_C';}
     FBsp.SubElements.Add(Q);
@@ -344,8 +353,8 @@ end;
 procedure QBsp1FileHandler.SaveBsp(Info: TInfoEnreg1);
 var
  Header: TBsp1Header;
- Origine, Fin: LongInt;
- Zero: Integer;
+ Origine, Fin: TStreamPos;
+ Zero: LongInt;
  Q: QObject;
  I: Integer;
 begin

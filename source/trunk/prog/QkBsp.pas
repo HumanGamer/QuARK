@@ -216,7 +216,7 @@ type
    FBsp: QBsp;
   public
    constructor Create(nBsp: QBsp);
-   procedure LoadBsp(F: TStream; StreamSize: Integer); virtual; abstract;
+   procedure LoadBsp(F: TStream; StreamSize: TStreamPos); virtual; abstract;
    procedure SaveBsp(Info: TInfoEnreg1); virtual; abstract;
    function GetHullType(Game: Char) : Char;
    class function BspType : Char; overload;
@@ -252,7 +252,7 @@ type
         protected
           function OpenWindow(nOwner: TComponent) : TQForm1; override;
           procedure SaveFile(Info: TInfoEnreg1); override;
-          procedure LoadFile(F: TStream; StreamSize: Integer); override;
+          procedure LoadFile(F: TStream; StreamSize: TStreamPos); override;
         public
          {FSurfaces: PSurfaceList;}
           FVertices: PVertexList;
@@ -375,7 +375,7 @@ type
  {------------------------}
 
 Function StringListFromEntityLump(const e_lump: String; ExistingAddons: QFileObject; var Found: TStringList): Integer;
-function DetermineIfSiN(F: TStream; FSize: Integer) : Boolean;
+function DetermineIfSiN(F: TStream; FSize: TStreamPos) : Boolean;
 
 implementation
 
@@ -566,14 +566,14 @@ begin
       Raise EErrorFmt(5509, [84]);
 end;
 
-function DetermineIfSiN(F: TStream; FSize: Integer) : Boolean;
+function DetermineIfSiN(F: TStream; FSize: TStreamPos) : Boolean;
 type
  TBspEntries = record
                EntryPosition: LongInt;
                EntrySize: LongInt;
               end;
 var
- Origine: LongInt;
+ Origine: TStreamPos;
  LumpHeader: TBspEntries;
  LumpAt168: Boolean;
  I: Integer;
@@ -629,7 +629,7 @@ begin
   end;
 end;
 
-procedure QBsp.LoadFile(F: TStream; StreamSize: Integer);
+procedure QBsp.LoadFile(F: TStream; StreamSize: TStreamPos);
 { (Comment by Decker 2001-01-21)
  Loads 4 bytes of signature, and 4 bytes of version, to determine what type of
  .BSP file it is. Then calls a specialized function to load the actual .BSP file-data

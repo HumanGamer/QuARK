@@ -28,7 +28,7 @@ uses
 type
   QOsFolder = class(QTextureList)
     protected
-      procedure LoadFile(F: TStream; FSize: Integer); override;
+      procedure LoadFile(F: TStream; FSize: TStreamPos); override;
     public
       procedure FinalizeFromText; override;
       procedure ReadFolder;
@@ -53,7 +53,7 @@ begin
   ReadFolder;
 end;
 
-procedure QOsFolder.LoadFile(F: TStream; FSize: Integer);
+procedure QOsFolder.LoadFile(F: TStream; FSize: TStreamPos);
 begin
   inherited;
   ReadFolder;

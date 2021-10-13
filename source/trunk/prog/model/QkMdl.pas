@@ -29,11 +29,11 @@ uses
 type
   QMdlFile = class(QModelFile)
   private
-//    procedure LoadHLModel(F: TStream; FSize: Integer);
-      Procedure ReadHL2Model(F: TStream; FileSize: Integer);
+//    procedure LoadHLModel(F: TStream; FSize: TStreamPos);
+      Procedure ReadHL2Model(F: TStream; FileSize: TStreamPos);
 //      function Loaded_HL2Skin(Comp: QComponent; const tex_name: string): QImage;
   protected
-    procedure LoadFile(F: TStream; FSize: Integer); override;
+    procedure LoadFile(F: TStream; FSize: TStreamPos); override;
     procedure SaveFile(Info: TInfoEnreg1); override;
   public
     class function TypeInfo: string; override;
@@ -118,7 +118,7 @@ end;
 //////////////////////////////////////////////////////
 
 {
-procedure QMdlFile.LoadHLModel(F: TStream; FSize: Integer);
+procedure QMdlFile.LoadHLModel(F: TStream; FSize: TStreamPos);
 const
   Spec1 = 'Tris=';
   Spec2 = 'Vertices=';
@@ -137,7 +137,8 @@ var
   Comp: QComponent;
   DFrame: QFrame;
   Skin: QImage;
-  f_origin, i, ii, jj, j, k, z: Integer;
+  f_origin: TStreamPos;
+  i, ii, jj, j, k, z: Integer;
   cmd, aa, bb: smallint;
   CTris: PComponentTris;
   CVert: vec3_p;
@@ -255,7 +256,7 @@ begin
           S := FloatSpecNameOf(Spec2);
           SetLength(S, (sizeof(vec3_t) * model.numverts) + Length(Spec2));
           PChar(CVert) := PChar(S) + Length(Spec2);
-          F.Seek(model.vertindex + f_Origin, soFromBeginning);
+          F.Seek(f_Origin + model.vertindex, soFromBeginning);
           F.ReadBuffer(CVert^, model.numverts * sizeof(vec3_t));
           DFrame.SpecificsAdd(S);
           // Load Textures
@@ -435,7 +436,7 @@ begin
   //F := TFileStream.Create(FName , fmOpenRead);
 end;
 
-Procedure QMdlFile.ReadHL2Model(F: TStream; FileSize: Integer);
+Procedure QMdlFile.ReadHL2Model(F: TStream; FileSize: TStreamPos);
 const
   SpecTris = 'Tris=';
   SpecVtx = 'Vertices=';
@@ -563,7 +564,7 @@ var
   Comp: QComponent;
 
   sizeset: Boolean;
-  org: Longint;
+  org: TStreamPos;
   fsize: array[1..2] of Single;
    t, base_tex_name: string;
 
@@ -797,7 +798,7 @@ texcoord:=@texbox;
 
 end;
 
-procedure QMdlFile.LoadFile(F: TStream; FSize: Integer);
+procedure QMdlFile.LoadFile(F: TStream; FSize: TStreamPos);
 const
   Spec1 = 'Tris=';
   Spec2 = 'Vertices=';

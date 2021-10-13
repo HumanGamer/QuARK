@@ -122,17 +122,17 @@ type
   QFileObjectClass = class of QFileObject;
   QFileObject = class(QObject)
                 private
-                  procedure LoadObjsFromText(F: TStream; Taille: Integer);
+                  procedure LoadObjsFromText(F: TStream; Taille: TStreamPos);
                   function GetObjectGameCode: Char;
                   procedure SetObjectGameCode(nCode: Char);
                 protected
                   function OpenWindow(nOwner: TComponent) : TQForm1; dynamic;
                   function ObtainWindow(nOwner: TComponent; State: TFileObjectWndState) : TQForm1;
-                  function ReadStandardFileHeading(Source: TStream; var SourceTaille: Integer) : Integer;
-                  procedure WriteStandardFileHeading(TotalSize: Integer; F: TStream);
-                  procedure LoadFile(F: TStream; FSize: Integer); override;
+                  function ReadStandardFileHeading(Source: TStream; var SourceTaille: TStreamPos) : Integer;
+                  procedure WriteStandardFileHeading(TotalSize: LongInt; F: TStream);
+                  procedure LoadFile(F: TStream; FSize: TStreamPos); override;
                   procedure SaveFile(Info: TInfoEnreg1); override;
-                 {function ChargerQuArK(F: TStream; Taille: Integer) : Boolean;
+                 {function ChargerQuArK(F: TStream; Taille: TStreamPos) : Boolean;
                   function SaveQuArK(Format: Integer; F: TStream) : Boolean;}
                   function LoadName: String;
                   procedure WriteSiblingsTo(Info1: TInfoEnreg1);
@@ -169,7 +169,7 @@ type
                 end;
  {QQuArKFileObject = class(QFileObject)
                      protected
-                       procedure LoadFile(F: TStream; FSize: Integer); override;
+                       procedure LoadFile(F: TStream; FSize: TStreamPos); override;
                        procedure SaveFile(Format: Integer; F: TStream); override;
                      end;}
   EQObjectFileNotFound = class(Exception);
@@ -184,7 +184,7 @@ procedure CopyToolbar(Source, Dest: TToolbar97);
 function GlobalDoAccept{(Sender: TObject)} : Boolean;
 function LocalDoAccept(Ac: TControl) : Boolean;
 function GlobalDoCancel{(Sender: TObject)} : Boolean;
-function OpenFileObjectData(F: TStream; const FullName: String; var Size: LongInt; nParent: QObject) : QFileObject;
+function OpenFileObjectData(F: TStream; const FullName: String; var Size: TStreamPos; nParent: QObject) : QFileObject;
 procedure DeleteTempFiles;
 function SaveObject(FFileObject: QFileObject; AskName, FileType: Integer; ParentForm: TCustomForm; AddToRecentsList: Boolean = true) : QFileObject;
 function GetFileRoot(Q: QObject) : QFileObject;
@@ -314,7 +314,7 @@ begin
  Result.Flags:=Result.Flags or ofFileLink;
 end;
 
-function OpenFileObjectData(F: TStream; const FullName: String; var Size: LongInt; nParent: QObject) : QFileObject;
+function OpenFileObjectData(F: TStream; const FullName: String; var Size: TStreamPos; nParent: QObject) : QFileObject;
 var
  Q: QObject;
 begin
@@ -327,10 +327,10 @@ begin
   end;
  Result:=QFileObject(Q);
 end;
-(*function OpenFileObjectData(F: TStream; const FullName: String; var Size: LongInt; nParent: QObject) : QFileObject;
+(*function OpenFileObjectData(F: TStream; const FullName: String; var Size: TStreamPos; nParent: QObject) : QFileObject;
 var
  Q: QObject;
- Origin, Size1: Integer;
+ Origin, Size1: TStreamPos;
 begin
  Origin:=F.Position;
  Q:=ConstructQObject(FullName, nParent);
@@ -538,7 +538,7 @@ begin
   Result:=Filename;
 end;
 
-function QFileObject.ReadStandardFileHeading(Source: TStream; var SourceTaille: Integer) : Integer;
+function QFileObject.ReadStandardFileHeading(Source: TStream; var SourceTaille: TStreamPos) : Integer;
 var
  Header: TFileHeaderBinary;
  S: String;
@@ -572,7 +572,7 @@ begin
  Result:=ReadFormat;
 end;
 
-procedure QFileObject.LoadFile(F: TStream; FSize: Integer);
+procedure QFileObject.LoadFile(F: TStream; FSize: TStreamPos);
 var
  Info: TFileObjectClassInfo;
 begin
@@ -594,7 +594,7 @@ begin
   end;
 end;
 
-(*procedure QQuArKFileObject.LoadFile(F: TStream; FSize: Integer);
+(*procedure QQuArKFileObject.LoadFile(F: TStream; FSize: TStreamPos);
 begin
  if (ReadFormat=rf_Private)
  or (ReadStandardFileHeading(F, FSize) <> rf_AsText) then
@@ -603,7 +603,7 @@ begin
   LoadObjsFromText(F, FSize);
 end;*)
 
-(*function ChargerQuArK(F: TStream; Taille: Integer) : Boolean;
+(*function ChargerQuArK(F: TStream; Taille: TStreamPos) : Boolean;
 begin
  if (ReadFormat=rf_Private)
  or (ReadStandardFileHeading(F, Taille) <> rf_AsText) then
@@ -615,7 +615,7 @@ begin
   end;
 end;*)
 
-procedure QFileObject.LoadObjsFromText(F: TStream; Taille: Integer);
+procedure QFileObject.LoadObjsFromText(F: TStream; Taille: TStreamPos);
 var
  S: String;
 begin
@@ -1175,7 +1175,7 @@ begin
    Raise EErrorFmt(5531, [Filename]);
 
  // SilverPaladin - 12/1/03 - Changed the error messages to a warning so that
- // the save of multiple files is not interupted for one file that is not yet
+ // the save of multiple files is not interrupted for one file that is not yet
  // supported.
  try
    SaveInFile(RecommendFormat, '');

@@ -28,7 +28,7 @@ uses
 type
  QRmfMapFile = class(QMapFile)
         protected
-          procedure LoadFile(F: TStream; FSize: Integer); override;
+          procedure LoadFile(F: TStream; FSize: TStreamPos); override;
           procedure SaveFile(Info: TInfoEnreg1); override;
         public
           class function TypeInfo: String; override;
@@ -95,7 +95,7 @@ begin
  Info.FileExt:=827;
 end;
 
-procedure QRmfMapFile.LoadFile(F: TStream; FSize: Integer);
+procedure QRmfMapFile.LoadFile(F: TStream; FSize: TStreamPos);
 
   function ReadRMFString : String;
   var

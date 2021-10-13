@@ -73,9 +73,9 @@ type
   end;
   QMd2File = class(QModelFile)
   protected
-    procedure LoadFile(F: TStream; FSize: Integer); override;
+    procedure LoadFile(F: TStream; FSize: TStreamPos); override;
     procedure SaveFile(Info: TInfoEnreg1); override;
-    function ReadMd2File(F: TStream; Origine: Integer; const mdl: dmdl_t) : QModelRoot;
+    function ReadMd2File(F: TStream; Origine: TStreamPos; const mdl: dmdl_t) : QModelRoot;
   public
     class function TypeInfo: String; override;
     class procedure FileObjectClassInfo(var Info: TFileObjectClassInfo); override;
@@ -100,7 +100,7 @@ begin
   Info.FileExt:=787;
 end;
 
-procedure QMd2File.LoadFile(F: TStream; FSize: Integer);
+procedure QMd2File.LoadFile(F: TStream; FSize: TStreamPos);
   procedure Check(Ofs, Num, Size1: Integer);
   begin
     if (Ofs<SizeOf(dmdl_t)) or (Ofs>FSize) or (Num<0) or (Ofs+Size1*Num>FSize) then
@@ -109,7 +109,7 @@ procedure QMd2File.LoadFile(F: TStream; FSize: Integer);
 
 var
   mdl: dmdl_t;
-  Origine: LongInt;
+  Origine: TStreamPos;
 begin
   case ReadFormat of
     rf_Default: begin  { as stand-alone file }
@@ -136,7 +136,7 @@ begin
   end;
 end;
 
-function QMd2File.ReadMd2File(F: TStream; Origine: Integer; const mdl: dmdl_t) : QModelRoot;
+function QMd2File.ReadMd2File(F: TStream; Origine: TStreamPos; const mdl: dmdl_t) : QModelRoot;
 const
   Spec1 = 'Tris=';
   Spec2 = 'Vertices=';
@@ -447,7 +447,7 @@ var
   Root: QModelRoot;
   Comp: QComponent;
   Components, Skins: TQList;
-  Position0, Taille1: LongInt;
+  Position0, Taille1: TStreamPos;
   L, GlCmds: TList;
   I, J, K, K1: Integer;
   SkinObj: QImage;

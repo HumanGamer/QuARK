@@ -32,7 +32,7 @@ type
                VPKRoot : PHLDirectoryItem;
               protected
                 procedure SaveFile(Info: TInfoEnreg1); override;
-                procedure LoadFile(F: TStream; FSize: Integer); override;
+                procedure LoadFile(F: TStream; FSize: TStreamPos); override;
               public
                 constructor Create(const nName: String; nParent: QObject);
                 destructor Destroy; override;
@@ -88,14 +88,14 @@ end;
 
 function MakeFileQObject(const FullName: String; nParent: QObject) : QFileObject;
 var
-  i: LongInt;
+  i: TStreamPos;
 begin
   {wraparound for a stupid function OpenFileObjectData having obsolete parameters }
   {tbd: clean this up in QkFileobjects and at all referencing places}
  Result:=OpenFileObjectData(nil, FullName, i, nParent);
 end;
 
-Function VPKAddRef(Ref: PQStreamRef; var S: TStream) : Integer;
+Function VPKAddRef(Ref: PQStreamRef; var S: TStream) : TStreamPos;
 var
   mem: TMemoryStream;
   filesize: hlUInt;
@@ -177,7 +177,7 @@ begin
   end;
 end;
 
-procedure QVPKFolder.LoadFile(F: TStream; FSize: Integer);
+procedure QVPKFolder.LoadFile(F: TStream; FSize: TStreamPos);
 var
   //RawBuffer: String;
   VPKDirectoryItem : PHLDirectoryItem;

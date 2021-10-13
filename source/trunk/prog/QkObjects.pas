@@ -152,6 +152,9 @@ const
   eoParentSel   = $80;  { internal use of TMyTreeView }
 
 type
+  //Just a convenience type to seemlessly support Delphi6+ large file support.
+  TStreamPos = {$ifdef Delphi6orNewerCompiler} Int64 {$else} Longint {$endif};
+
   TSpecificsList = TStringList;
   TQList = class;
   TQStream = class;
@@ -186,9 +189,9 @@ type
   PQStreamRef = ^TQStreamRef;
   TQStreamRef = record
                   Self: TQStream;
-                  Position: Longint;
-                  StreamSize: Longint;
- {AiV}            OnAccess: Function (Ref: PQStreamRef; var S: TStream) : Integer;
+                  Position: TStreamPos;
+                  StreamSize: TStreamPos;
+ {AiV}            OnAccess: Function (Ref: PQStreamRef; var S: TStream) : TStreamPos;
                   PUserData: Pointer;
                 end;
 
@@ -234,12 +237,12 @@ type
     procedure SaveFile(Info: TInfoEnreg1); virtual;
     { core function for writing to file, normally overridden,
       nature of Info varies per file format unit (e.g. QkSin) }
-    procedure LoadFile(F: TStream; FSize: Integer); virtual;
+    procedure LoadFile(F: TStream; FSize: TStreamPos); virtual;
     { core function for reading from file, normally overridden }
     procedure FixupReference; virtual;
     { normally does nothing, sometimes packs things up into a
       more efficient format, e.g. TTreeMapEntity origin (QkMapObject.pas)}
-    procedure ReadUnformatted(F: TStream; Size: Integer);
+    procedure ReadUnformatted(F: TStream; Size: TStreamPos);
     procedure SaveUnformatted(F: TStream);
     { for reading/writing raw data to/from a Data specific,
       used in overrides for Load/SaveFile }
@@ -258,7 +261,7 @@ type
     { prep for expansion in a treeview }
     procedure LoadAll;
     procedure AccesRec;
-    procedure Open(F: TQStream; Taille: Integer);
+    procedure Open(F: TQStream; Taille: TStreamPos);
     procedure SaveFile1(Info: TInfoEnreg1);
     destructor Destroy; override;
     procedure FixupAllReferences;
@@ -269,7 +272,7 @@ type
     { incr/decr Py reference count, frees if 0 }
     procedure Acces;
     { does actual full read-in }
-    procedure LoadInternal(F: TStream; FSize: Integer);
+    procedure LoadInternal(F: TStream; FSize: TStreamPos);
     function GetObjectSize(Loaded: TQStream; LoadNow: Boolean) : Integer;
     procedure ObjectState(var E: TEtatObjet); virtual;
     procedure DisplayDetails(SelIcon: Boolean; var D: TDisplayDetails); virtual;
@@ -322,7 +325,7 @@ type
     procedure PySetParent(nParent: QObject);
     function IsClosed: Boolean;
     property PyNoParent: Boolean write FPyNoParent;
-    function DirectDataAccess(var S: TStream; var Size: Integer) : Boolean;
+    function DirectDataAccess(var S: TStream; var Size: TStreamPos) : Boolean;
     { stuff that should be done when an object has been read in from text rep. }
     procedure FinalizeFromText; virtual;
     function WriteSubelements : Boolean; virtual;
@@ -367,7 +370,7 @@ type
     destructor Destroy; override;
     function Read(var Buffer; Count: Longint): Longint; override;
     function Write(const Buffer; Count: Longint): Longint; override;
-    function Seek(Offset: Longint; Origin: Word): Longint; override;
+    function Seek({$ifdef Delphi6orNewerCompiler} const {$endif} Offset: TStreamPos; Origin: {$ifdef Delphi6orNewerCompiler} TSeekOrigin {$else} Word {$endif}): TStreamPos; override;
     property Handle: Integer read FHandle;
   public
     { --- start of the QuArK-specific part --- }
@@ -377,7 +380,7 @@ type
    {destructor Destroy; override;}
     procedure AddRef;
     procedure Release;
-    function AddRefNode(a_StreamSize: Longint): PQStreamRef;
+    function AddRefNode(a_StreamSize: TStreamPos): PQStreamRef;
     procedure TemporaryClose;
     function ReopenAs(const FileName: String) : Boolean;
     function HasMultipleRefs: Boolean;
@@ -385,7 +388,7 @@ type
 
   TRawDataStream = class(TCustomMemoryStream)
   public
-    constructor Create(Source: PChar; Size: Longint);
+    constructor Create(Source: PChar; Size: TStreamPos);
     function Write(const Buffer; Count: Longint): Longint; override;
   end;
 
@@ -402,7 +405,7 @@ var
 (*CodeConstruction: Char;*)
 
 function FileAccessQ(const theFilename: String; Mode: TModeAcces) : TQStream;
-procedure LoadedItem(Format: Integer; F: TStream; Q: QObject; Size: Integer);
+procedure LoadedItem(Format: Integer; F: TStream; Q: QObject; Size: TStreamPos);
 (*function IntSpecNameOf(const Name: String) : String;*)
 function FloatSpecNameOf(const Name: String) : String;
 (*function IsIntSpec(const Name: String) : Boolean;*)
@@ -721,9 +724,9 @@ begin
     Result:=0;
 end;
 
-function TQStream.Seek(Offset: Longint; Origin: Word): Longint;
+function TQStream.Seek({$ifdef Delphi6orNewerCompiler} const {$endif} Offset: TStreamPos; Origin: {$ifdef Delphi6orNewerCompiler} TSeekOrigin {$else} Word {$endif}): TStreamPos;
 begin
-  Result:=FileSeek(FHandle, Offset, Origin);
+  Result:=FileSeek(FHandle, Offset, Integer(Origin));
 end;
 
 procedure TQStream.AddRef;
@@ -742,7 +745,7 @@ begin
 end;
 
 {AiV}
-Function DefaultAddRef(Ref: PQStreamRef; var S: TStream) : Integer;
+Function DefaultAddRef(Ref: PQStreamRef; var S: TStream) : TStreamPos;
 begin
   Ref^.Self.Position:=Ref^.Position;
   Ref^.Self.AddRef;
@@ -750,7 +753,7 @@ begin
   Result:=Ref^.StreamSize;
 end;
 
-function TQStream.AddRefNode(a_StreamSize: Longint): PQStreamRef;
+function TQStream.AddRefNode(a_StreamSize: TStreamPos): PQStreamRef;
 {$IFDEF StreamRefDEBUG}
 var
   StreamRefFile: TextFile;
@@ -931,7 +934,7 @@ end;
 
  {------------------------}
 
-constructor TRawDataStream.Create(Source: PChar; Size: Longint);
+constructor TRawDataStream.Create(Source: PChar; Size: TStreamPos);
 begin
   inherited Create;
   SetPointer(Source, Size);
@@ -1073,7 +1076,7 @@ end;}
 procedure QObject.Acces();
 var
   Source: TStream;
-  SourceSize: Integer;
+  SourceSize: TStreamPos;
 begin
   if (FFlags and ofNotLoadedToMemory = 0) or FLoading then
     Exit;
@@ -1194,7 +1197,7 @@ end;*)
 function QObject.Copying(F: TStream; TransfertSource: Boolean) : Boolean;
 var
   Source: TStream;
-  SourceTaille: Integer;
+  SourceTaille: TStreamPos;
 begin  { if possible, copy directly from the original file into the new one }
   Result:=False;
   if FFlags and ofNotLoadedToMemory = 0 then
@@ -1364,7 +1367,7 @@ type
                     NameSize: Byte;
                   end;
 
-procedure QObject.LoadInternal(F: TStream; FSize: Integer);
+procedure QObject.LoadInternal(F: TStream; FSize: TStreamPos);
 begin
   FLoading:=True;
   try
@@ -1383,10 +1386,11 @@ begin
     Abort;
 end;
 
-procedure QObject.LoadFile(F: TStream; FSize: Integer);
+procedure QObject.LoadFile(F: TStream; FSize: TStreamPos);
 var
   Name, Names, ExtraSizes: String;
-  DeltaPos, I, J, FileItemCount, Size, ExtraSize: Integer;
+  DeltaPos: TStreamPos;
+  I, J, FileItemCount, Size, ExtraSize: Integer;
   NamePtr: PChar;
   Info, FileItemInfo: PFileItemInfo;
   Q: QObject;
@@ -1547,10 +1551,11 @@ begin
   end;
 end;
 
-function QObject.DirectDataAccess(var S: TStream; var Size: Integer) : Boolean;
+function QObject.DirectDataAccess(var S: TStream; var Size: TStreamPos) : Boolean;
 var
   F: TStream;
-  ReadFormat, Taille, FileItemCount, ExtraSize, DeltaPos, J: Integer;
+  ReadFormat, FileItemCount, J: Integer;
+  Taille, ExtraSize, DeltaPos: TStreamPos;
   Info: TFileItemInfo;
   Info1: TFileObjectClassInfo;
   Name: String;
@@ -1684,9 +1689,9 @@ begin
   end;
 end;
 
-procedure LoadedItem(Format: Integer; F: TStream; Q: QObject; Size: Integer{; Delayed: Boolean});
+procedure LoadedItem(Format: Integer; F: TStream; Q: QObject; Size: TStreamPos{; Delayed: Boolean});
 var
-  nEnd: Integer;
+  nEnd: TStreamPos;
 begin
   if Q is QFileObject then
     QFileObject(Q).ReadFormat:=Format
@@ -1714,7 +1719,7 @@ begin
   F.Position:=nEnd;
 end;
 
-procedure QObject.Open(F: TQStream; Taille: Integer);
+procedure QObject.Open(F: TQStream; Taille: TStreamPos);
 begin
   FNode:=F.AddRefNode(Taille);
   FFlags:=FFlags or ofNotLoadedToMemory;
@@ -1943,7 +1948,7 @@ begin
   end;
 end;
 
-procedure QObject.ReadUnformatted(F: TStream; Size: Integer);
+procedure QObject.ReadUnformatted(F: TStream; Size: TStreamPos);
 const
   cSpec1 = 'Data=';
 var

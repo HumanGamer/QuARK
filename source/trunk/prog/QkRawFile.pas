@@ -49,12 +49,12 @@ type
  QRawFileObject = class(QFileObject)
                   protected
                     procedure SaveFile(Info: TInfoEnreg1); override;
-                    procedure LoadFile(F: TStream; FSize: Integer); override;
+                    procedure LoadFile(F: TStream; FSize: TStreamPos); override;
                     procedure SetWriteString(const WriteString: String);
                     function GetDataInfo : TRawDataInfo; virtual; abstract;
                     function OpenWindow(nOwner: TComponent) : TQForm1; override;
                   public
-                    function GetReadStream(var S: TStream) : Integer;
+                    function GetReadStream(var S: TStream) : TStreamPos;
                   end;
 
 type
@@ -185,7 +185,7 @@ end;
 procedure QRawFileObject.SaveFile;
 var
  Src: TStream;
- Taille: Integer;
+ Taille: TStreamPos;
 begin
  with Info do case Format of
   rf_Default: begin  { as stand-alone file }
@@ -219,7 +219,7 @@ begin
  Q.Specifics.Add(WriteString);
 end;
 
-function QRawFileObject.GetReadStream(var S: TStream) : Integer;
+function QRawFileObject.GetReadStream(var S: TStream) : TStreamPos;
 const
  Base = Length('Data=');
 var

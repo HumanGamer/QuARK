@@ -41,7 +41,7 @@ type
          texture_name: String;
         protected
          procedure SaveFile(Info: TInfoEnreg1); override;
-         procedure LoadFile(F: TStream; FSize: Integer); override;
+         procedure LoadFile(F: TStream; FSize: TStreamPos); override;
         public
          class function TypeInfo: String; override;
          class procedure FileObjectClassInfo(var Info: TFileObjectClassInfo); override;
@@ -158,10 +158,10 @@ begin
   Result:=ieResult[False];
 end;
 
-procedure QCoD2Material.LoadFile(F: TStream; FSize: Integer);
+procedure QCoD2Material.LoadFile(F: TStream; FSize: TStreamPos);
 var
   header: TCoD2MaterialHeader;
-  org: LongInt;
+  org: TStreamPos;
   S: String;
   C: Char;
 

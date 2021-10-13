@@ -34,7 +34,7 @@ type
           function SaveFileFreeImageSettings : Integer; override;
           class function FormatName : String; override;
           procedure SaveFile(Info: TInfoEnreg1); override;
-          procedure LoadFile(F: TStream; FSize: Integer); override;
+          procedure LoadFile(F: TStream; FSize: TStreamPos); override;
         public
           class function TypeInfo: String; override;
           class procedure FileObjectClassInfo(var Info: TFileObjectClassInfo); override;
@@ -109,7 +109,7 @@ begin
   Result:=PCX_DEFAULT;
 end;
 
-procedure QPcx.LoadFile(F: TStream; FSize: Integer);
+procedure QPcx.LoadFile(F: TStream; FSize: TStreamPos);
 const
  Spec1 = 'Image1=';
  Spec2 = 'Pal=';
@@ -122,7 +122,7 @@ var
  Byte1, Byte2: Byte;
  InBuffer: String;
  BufStart, BufEnd, BufMin: Integer;
- Origine: LongInt;
+ Origine: TStreamPos;
 
   LibraryToUse: string;
 begin

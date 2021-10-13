@@ -29,7 +29,7 @@ type
         protected
           class function FormatName : String; override;
           procedure SaveFile(Info: TInfoEnreg1); override;
-          procedure LoadFile(F: TStream; FSize: Integer); override;
+          procedure LoadFile(F: TStream; FSize: TStreamPos); override;
         public
           class function TypeInfo: String; override;
           class procedure FileObjectClassInfo(var Info: TFileObjectClassInfo); override;
@@ -66,7 +66,7 @@ begin
  Info.WndInfo:=[wiWindow];
 end;
 
-procedure QFtx.LoadFile(F: TStream; FSize: Integer);
+procedure QFtx.LoadFile(F: TStream; FSize: TStreamPos);
 const
   Spec1 = 'Image1=';
   Spec3 = 'Alpha=';

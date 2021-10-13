@@ -31,15 +31,15 @@ type
  QUnknown = class(QFileObject)
             protected
               function OpenWindow(nOwner: TComponent) : TQForm1; override;
-             {procedure LireEnteteFichier(Source: TStream; const Nom: String; var SourceTaille: Integer); override;}
+             {procedure LireEnteteFichier(Source: TStream; const Nom: String; var SourceTaille: TStreamPos); override;}
              {procedure SaveFile(Format: Integer; F: TStream); override;}
-             {procedure LoadFile(F: TStream; FSize: Integer); override;}
+             {procedure LoadFile(F: TStream; FSize: TStreamPos); override;}
             public
               class function TypeInfo: String; override;
               class procedure FileObjectClassInfo(var Info: TFileObjectClassInfo); override;
               function IsExplorerItem(Q: QObject) : TIsExplorerItem; override;
-              procedure ReadData(var Buf; BufSize: Integer);
-              function ReadDataSize : Integer;
+              procedure ReadData(var Buf; BufSize: TStreamPos);
+              function ReadDataSize : TStreamPos;
             end;
 
   TFQUnknown = class(TQForm1)
@@ -99,7 +99,7 @@ begin
   Result:=ieResult[True];
 end;
 
-procedure QUnknown.ReadData(var Buf; BufSize: Integer);
+procedure QUnknown.ReadData(var Buf; BufSize: TStreamPos);
 const
   cStart = Length('Data=');
 var
@@ -112,7 +112,7 @@ begin
   Move(PChar(S)[cStart], Buf, BufSize);
 end;
 
-function QUnknown.ReadDataSize : Integer;
+function QUnknown.ReadDataSize : TStreamPos;
 const
   cStart = Length('Data=');
 var

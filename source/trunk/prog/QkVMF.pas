@@ -32,7 +32,7 @@ type
         public
           class function TypeInfo: String; override;
           class procedure FileObjectClassInfo(var Info: TFileObjectClassInfo); override;
-          procedure LoadFile(F: TStream; FSize: Integer); override;
+          procedure LoadFile(F: TStream; FSize: TStreamPos); override;
           procedure SaveFile(Info: TInfoEnreg1); override;
         end;
 
@@ -852,7 +852,7 @@ begin
  Info.FileExt:=817;
 end;
 
-procedure QVMFFile.LoadFile(F: TStream; FSize: Integer);
+procedure QVMFFile.LoadFile(F: TStream; FSize: TStreamPos);
 var
  Root: TTreeMapBrush;
  ModeJeu: Char;

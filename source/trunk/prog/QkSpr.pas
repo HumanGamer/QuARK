@@ -67,7 +67,7 @@ type
     class procedure FileObjectClassInfo(var Info: TFileObjectClassInfo); override;
     procedure ObjectState(var E: TEtatObjet); override;
     function OpenWindow(nOwner: TComponent) : TQForm1; override;
-    procedure LoadFile(F: TStream; FSize: Integer); override;
+    procedure LoadFile(F: TStream; FSize: TStreamPos); override;
     procedure LoadQ1Spr(fs:TStream; PPPalette:PGameBuffer; Sprite: QSprite);
     procedure LoadHLSpr(Fs:TStream; Sprite: QSprite);
     Procedure WriteQ1Spr(F:TStream);
@@ -83,7 +83,7 @@ type
   public
     class function TypeInfo: String; override;
     class procedure FileObjectClassInfo(var Info: TFileObjectClassInfo); override;
-    procedure LoadFile(F: TStream; FSize: Integer); override;
+    procedure LoadFile(F: TStream; FSize: TStreamPos); override;
     procedure SaveFile(Info: TInfoEnreg1); override;
   end;
   TQSprForm = class(TQForm1)
@@ -136,10 +136,11 @@ begin
    Result:=[];
 end;
 
-procedure QSprFile.LoadFile(F: TStream; FSize: Integer);
+procedure QSprFile.LoadFile(F: TStream; FSize: TStreamPos);
 var
-  ID_SPRHEADER,head,ver,org:Longint;
-  pgb:PGameBuffer;
+  ID_SPRHEADER,head,ver: Longint;
+  org: TStreamPos;
+  pgb: PGameBuffer;
   spr: QSprite;
 begin
   case ReadFormat of
@@ -169,7 +170,8 @@ end;
 procedure QSprFile.LoadQ1Spr(fs:TStream; PPPalette:PGameBuffer; Sprite: QSprite);
 var
   dst:TQ1SprHeader;
-  group,ID_SPRHeader,i,j,pos,nopics{,noframes}:longint;
+  group,ID_SPRHeader,i,j,k,nopics{,noframes}:longint;
+  pos: TStreamPos;
   xoffset,yoffset,width,height:Longint;
   aPalette: TPaletteLmp;
   p: PChar;
@@ -216,7 +218,7 @@ begin
         Pos:=Fs.Position;
         Loaded_Frame(Sprite, format('Frame %d',[i]), [width,height], p, DeltaW, apalette,pout);
         Fs.Position:=Pos;
-        for Pos:=1 to height do begin
+        for k:=1 to height do begin
           Fs.ReadBuffer(P^, width);
           Inc(P, DeltaW);
         end;
@@ -434,7 +436,7 @@ begin
   end;
 end;
 
-procedure QSp2File.LoadFile(F: TStream; FSize: Integer);
+procedure QSp2File.LoadFile(F: TStream; FSize: TStreamPos);
 const
   ID_SP2Header = (ord('2') shl 24)+(ord('S')shl 16)+(ord('D') shl 8)+ord('I');
 var

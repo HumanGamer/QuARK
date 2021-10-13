@@ -42,7 +42,7 @@ type
                procedure LoadTextureData(F: TStream; Base, Taille: Integer; const Header: TQ2Miptex; Offsets: PLongInt; NomTex, AnimTex: PChar);
               {procedure LireEnteteFichier(Source: TStream; const Nom: String; var SourceTaille: Integer); override;}
                procedure SaveFile(Info: TInfoEnreg1); override;
-               procedure LoadFile(F: TStream; FSize: Integer); override;
+               procedure LoadFile(F: TStream; FSize: TStreamPos); override;
              public
                function BuildWalFileHeader : TQ2Miptex;
                class function TypeInfo: String; override;
@@ -56,7 +56,7 @@ type
 
  QBsp2FileHandler = class(QBspFileHandler)
   public
-   procedure LoadBsp(F: TStream; StreamSize: Integer); override;
+   procedure LoadBsp(F: TStream; StreamSize: TStreamPos); override;
    procedure SaveBsp(Info: TInfoEnreg1); override;
    function GetEntryName(const EntryIndex: Integer) : String; override;
    function GetLumpEdges: Integer; override;
@@ -310,10 +310,10 @@ begin
   F.Position:=Base+Taille;
 end;
 
-procedure QTexture2.LoadFile(F: TStream; FSize: Integer);
+procedure QTexture2.LoadFile(F: TStream; FSize: TStreamPos);
 var
   Header: TQ2Miptex;
-  Base: Integer;
+  Base: TStreamPos;
 begin
   case ReadFormat of
   rf_Default: { as stand-alone file }
@@ -411,10 +411,19 @@ end;
 
  { --------------- }
 
-procedure QBsp2FileHandler.LoadBsp(F: TStream; StreamSize: Integer);
+function MakeFileQObject(F: TStream; const FullName: String; nParent: QObject) : QFileObject;
+var
+  i: TStreamPos;
+begin
+  {wraparound for a stupid function OpenFileObjectData having obsolete parameters }
+  {tbd: clean this up in QkFileobjects and at all referencing places}
+ Result:=OpenFileObjectData(F, FullName, i, nParent);
+end;
+
+procedure QBsp2FileHandler.LoadBsp(F: TStream; StreamSize: TStreamPos);
 var
  Header: TBsp2Header;
- Origine: LongInt;
+ Origine: TStreamPos;
  Q: QObject;
  I: Integer;
 begin
@@ -444,7 +453,7 @@ begin
     end;
 
     F.Position:=Origine + Header.Entries[I].EntryPosition;
-    Q:=OpenFileObjectData(F, Bsp2EntryNames[I], Header.Entries[I].EntrySize, FBsp);
+    Q:=MakeFileQObject(F, Bsp2EntryNames[I], FBsp); //FIXME: Used Header.Entries[I].EntrySize as third argument to OpenFileObjectData.
     FBsp.SubElements.Add(Q);
     LoadedItem(rf_Default, F, Q, Header.Entries[I].EntrySize);
   end;
@@ -453,8 +462,8 @@ end;
 procedure QBsp2FileHandler.SaveBsp(Info: TInfoEnreg1);
 var
   Header: TBsp2Header;
-  Origine, Fin: LongInt;
-  Zero: Integer;
+  Origine, Fin: TStreamPos;
+  Zero: LongInt;
   Q: QObject;
   I: Integer;
 begin

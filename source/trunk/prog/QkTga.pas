@@ -35,7 +35,7 @@ type
           function SaveFileFreeImageSettings : Integer; override;
           class function FormatName : String; override;
           procedure SaveFile(Info: TInfoEnreg1); override;
-          procedure LoadFile(F: TStream; FSize: Integer); override;
+          procedure LoadFile(F: TStream; FSize: TStreamPos); override;
         public
           class function TypeInfo: String; override;
           class procedure FileObjectClassInfo(var Info: TFileObjectClassInfo); override;
@@ -108,7 +108,7 @@ begin
   Result:=TARGA_DEFAULT;
 end;
 
-procedure QTga.LoadFile(F: TStream; FSize: Integer);
+procedure QTga.LoadFile(F: TStream; FSize: TStreamPos);
 var
   LibraryToUse: string;
 begin

@@ -29,7 +29,7 @@ type
         protected
           class function FormatName : String; override;
           procedure SaveFile(Info: TInfoEnreg1); override;
-          procedure LoadFile(F: TStream; FSize: Integer); override;
+          procedure LoadFile(F: TStream; FSize: TStreamPos); override;
           procedure CheckTexName(const nName: String); //FIXME: Should probably inherit from QTexture...
         public
           class function TypeInfo: String; override;
@@ -231,10 +231,10 @@ begin
   rgb:=Image_Buffer;
 end;
 
-Procedure QM32.LoadFile(F: TStream; FSize: Integer);
+Procedure QM32.LoadFile(F: TStream; FSize: TStreamPos);
 var
   m32header: TM32Header;
-  org: Int64;
+  org: TStreamPos;
   S: string;
   I: Integer;
   rgb, a: string;

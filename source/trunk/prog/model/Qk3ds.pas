@@ -44,18 +44,18 @@ type
   end;
   Q3DSFile = class(QModelFile)
   private
-    BeginOfFile: Longint; // Can put here as it doesn't get saved.
-    Procedure ReadMainChunk(F: TStream; FSize: Integer; org: Longint; Root: QModelRoot);
-    Procedure ReadVersionChunk(F: TStream; FSize: Integer; Parent: TChunkHeader; org: Longint);
-    Procedure Read3dEditorChunk(F: TStream; FSize: Integer; Parent: TChunkHeader; org: Longint; Root: QModelRoot);
-    Procedure ReadObjects(F: TStream; FSize: Integer; Parent: TChunkHeader; org: Longint; Root: QModelRoot);
-    Procedure ReadObject(F: TStream; FSize: Integer; Parent: TChunkHeader; org: Longint; Root: QModelRoot);
-    Procedure ReadMesh(F: TStream; FSize: Integer; Parent: TChunkHeader; org: Longint; Comp: QComponent);
+    BeginOfFile: TStreamPos; // Can put here as it doesn't get saved.
+    Procedure ReadMainChunk(F: TStream; FSize: TStreamPos; org: TStreamPos; Root: QModelRoot);
+    Procedure ReadVersionChunk(F: TStream; FSize: TStreamPos; Parent: TChunkHeader; org: TStreamPos);
+    Procedure Read3dEditorChunk(F: TStream; FSize: TStreamPos; Parent: TChunkHeader; org: TStreamPos; Root: QModelRoot);
+    Procedure ReadObjects(F: TStream; FSize: TStreamPos; Parent: TChunkHeader; org: TStreamPos; Root: QModelRoot);
+    Procedure ReadObject(F: TStream; FSize: TStreamPos; Parent: TChunkHeader; org: TStreamPos; Root: QModelRoot);
+    Procedure ReadMesh(F: TStream; FSize: TStreamPos; Parent: TChunkHeader; org: TStreamPos; Comp: QComponent);
     Procedure SkipChunk(var s: TStream; Chunk: TChunkHeader);
     Function Overflowed(F: TStream; Parent: TChunkHeader): boolean;
-    Function SkipUntilFound(F: TStream; Parent: TChunkHeader; org: Longint; LookingFor: DWord): boolean;
+    Function SkipUntilFound(F: TStream; Parent: TChunkHeader; org: TStreamPos; LookingFor: DWord): boolean;
   protected
-    procedure LoadFile(F: TStream; FSize: Integer); override;
+    procedure LoadFile(F: TStream; FSize: TStreamPos); override;
     procedure SaveFile(Info: TInfoEnreg1); override;
   public
     class function TypeInfo: String; override;
@@ -83,7 +83,7 @@ begin
   s.position:=s.position + Chunk.Length-6;
 end;
 
-Procedure Q3dsFile.ReadVersionChunk(F: TStream; FSize: Integer; Parent: TChunkHeader; org: Longint);
+Procedure Q3dsFile.ReadVersionChunk(F: TStream; FSize: TStreamPos; Parent: TChunkHeader; org: TStreamPos);
 var
   chunk: TChunkHeader;
   version: dword;
@@ -96,7 +96,7 @@ begin
     raise exception.create('Invalid .3ds File version'#13#10'Q3dsfile.ReadVersionChunk: Version<>3');
 end;
 
-Procedure Q3dsFile.ReadMainChunk(F: TStream; FSize: Integer; org: Longint; Root: QModelRoot);
+Procedure Q3dsFile.ReadMainChunk(F: TStream; FSize: TStreamPos; org: TStreamPos; Root: QModelRoot);
 var
   chunk: TChunkHeader;
 begin
@@ -112,7 +112,7 @@ begin
   Result:=F.Position+sizeof(TChunkHeader)>BeginOfFile+Parent.length
 end;
 
-Function Q3dsFile.SkipUntilFound(F: TStream; Parent: TChunkHeader; org: Longint; LookingFor: DWord): boolean;
+Function Q3dsFile.SkipUntilFound(F: TStream; Parent: TChunkHeader; org: TStreamPos; LookingFor: DWord): boolean;
 var
   chunk: TChunkHeader;
   found: boolean;
@@ -135,7 +135,7 @@ begin
     f.position:=org;
 end;
 
-Procedure Q3dsFile.Read3dEditorChunk(F: TStream; FSize: Integer; Parent: TChunkHeader; org: Longint; Root: QModelRoot);
+Procedure Q3dsFile.Read3dEditorChunk(F: TStream; FSize: TStreamPos; Parent: TChunkHeader; org: TStreamPos; Root: QModelRoot);
 var
   chunk: TChunkHeader;
   found: boolean;
@@ -147,11 +147,11 @@ begin
   ReadObjects(F, FSize, Chunk, f.position-sizeof(chunk), Root);
 end;
 
-Procedure Q3dsFile.ReadObjects(F: TStream; FSize: Integer; Parent: TChunkHeader; org: Longint; Root: QModelRoot);
+Procedure Q3dsFile.ReadObjects(F: TStream; FSize: TStreamPos; Parent: TChunkHeader; org: TStreamPos; Root: QModelRoot);
 var
   objchunk: TChunkHeader;
   found: boolean;
-  org2: Integer;
+  org2: TStreamPos;
 begin
   found:=SkipUntilFound(F, Parent, Org, TAG_OBJECT);
   if not found then
@@ -179,7 +179,7 @@ begin
   until ch=#0;
 end;
 
-Procedure Q3dsFile.ReadObject(F: TStream; FSize: Integer; Parent: TChunkHeader; org: Longint; Root: QModelRoot);
+Procedure Q3dsFile.ReadObject(F: TStream; FSize: TStreamPos; Parent: TChunkHeader; org: TStreamPos; Root: QModelRoot);
 var
   chunk: TChunkHeader;
   found: boolean;
@@ -203,7 +203,7 @@ type
   end;
   ttexarray = array[0..0] of ttexvert;
 
-Procedure Q3dsFile.ReadMesh(F: TStream; FSize: Integer; Parent: TChunkHeader; org: Longint; Comp: QComponent);
+Procedure Q3dsFile.ReadMesh(F: TStream; FSize: TStreamPos; Parent: TChunkHeader; org: TStreamPos; Comp: QComponent);
 const
   Spec1 = 'Tris=';
   Spec2 = 'Vertices=';
@@ -217,7 +217,8 @@ var
   CVert: vec3_p;
   v: vec3_t;
   s: string;
-  i,k,org2: integer;
+  i,k: integer;
+  org2: TStreamPos;
   FrameObj: QFrame;
 begin
   org2:=org+6;
@@ -279,7 +280,7 @@ begin
   FrameObj.Specifics.Add(S);
 end;
 
-procedure Q3DSFile.LoadFile(F: TStream; FSize: Integer);
+procedure Q3DSFile.LoadFile(F: TStream; FSize: TStreamPos);
 var
   Root: QModelRoot;
 begin

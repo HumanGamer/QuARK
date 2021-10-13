@@ -41,7 +41,7 @@ type
         protected
           function OpenWindow(nOwner: TComponent) : TQForm1; override;
           procedure SaveFile(Info: TInfoEnreg1); override;
-          procedure LoadFile(F: TStream; FSize: Integer); override;
+          procedure LoadFile(F: TStream; FSize: TStreamPos); override;
         public
           class function TypeInfo: String; override;
           function TestConversionType(I: Integer) : QFileObjectClass; override;
@@ -54,7 +54,7 @@ type
                 protected
                  {function OpenWindow(nOwner: TComponent) : TQForm1; override;}
                   procedure SaveFile(Info: TInfoEnreg1); override;
-                  procedure LoadFile(F: TStream; FSize: Integer); override;
+                  procedure LoadFile(F: TStream; FSize: TStreamPos); override;
                 public
                   class function TypeInfo: String; override;
                   class procedure FileObjectClassInfo(var Info: TFileObjectClassInfo); override;
@@ -177,13 +177,22 @@ begin
  LoadFormat:=1;
 end;*)
 
-procedure QWad.LoadFile(F: TStream; FSize: Integer);
+function MakeFileQObject(F: TStream; const FullName: String; nParent: QObject) : QFileObject;
+var
+  i: TStreamPos;
+begin
+  {wraparound for a stupid function OpenFileObjectData having obsolete parameters }
+  {tbd: clean this up in QkFileobjects and at all referencing places}
+ Result:=OpenFileObjectData(F, FullName, i, nParent);
+end;
+
+procedure QWad.LoadFile(F: TStream; FSize: TStreamPos);
 var
  Header: TWadHeader;
  I: Integer;
  Entrees, P: PWadFileRec;
  Entrees_1, P_1: PWadDirectoryEntry;
- Origine: LongInt;
+ Origine: TStreamPos;
  Q: QObject;
  Prefix: String;
 begin
@@ -231,7 +240,7 @@ begin
                (P_1^.Taille<0) then
               Raise EErrorFmt(5509, [72]);
             F.Position:=P_1^.Position;
-            Q:=OpenFileObjectData(F, CharToPas(P_1^.Nom)+Prefix, P_1^.Taille, Self);
+            Q:=MakeFileQObject(F, CharToPas(P_1^.Nom)+Prefix, Self); //FIXME: Used P_1^.Taille as third argument to OpenFileObjectData.
             SubElements.Add(Q);
             LoadedItem(rf_Default, F, Q, P_1^.Taille);
             Inc(P_1);
@@ -261,7 +270,7 @@ begin
                (P^.Taille<0) then
               Raise EErrorFmt(5509, [72]);
             F.Position:=P^.Position;
-            Q:=OpenFileObjectData(F, CharToPas(P^.Nom)+Prefix+P^.InfoType, P^.Taille, Self);
+            Q:=MakeFileQObject(F, CharToPas(P^.Nom)+Prefix+P^.InfoType, Self); //FIXME: Used P^.Taille as third argument to OpenFileObjectData.
             SubElements.Add(Q);
             LoadedItem(rf_Default, F, Q, P^.Taille);
             Inc(P);
@@ -281,8 +290,9 @@ var
  Header: TWadHeader;
  Entree: TWadFileRec;
  Repertoire: TMemoryStream;
- Origine, Fin: LongInt;
- I, Zero: Integer;
+ Origine, Fin: TStreamPos;
+ I: Integer;
+ Zero: LongInt;
  Q: QObject;
  Tex: QPixelSet;
  TexFile: QTextureFile;
@@ -422,11 +432,11 @@ begin
   Result:=ieResult[Q is QFileObject];
 end;
 
-procedure QTextureList.LoadFile(F: TStream; FSize: Integer);
+procedure QTextureList.LoadFile(F: TStream; FSize: TStreamPos);
 var
  Count: LongInt;
  Positions, P: ^LongInt;
- Min, Origine: LongInt;
+ Min, Origine: TStreamPos;
  Q: QObject;
  MaxSize, Size: LongInt;
  Header: TQ1Miptex;
@@ -499,14 +509,14 @@ begin
            //Let's read this in anyway (for example: Half-Life .bsp's empty texture)
            if MaxSize>=0 then
              Size:=MaxSize;
-           Q:=OpenFileObjectData(F, S, Size, Self)
+           Q:=MakeFileQObject(F, S, Self) //FIXME: Used Size as third argument to OpenFileObjectData.
           end
          else
           if (CharModeJeu = mjHalfLife) or (CharModeJeu = mjCoF) then
            {Decker - If we're in Half-Life gamemode, then load as '.wad3_C' type}
-           Q:=OpenFileObjectData(F, S+'.wad3_C', Size, Self)
+           Q:=MakeFileQObject(F, S+'.wad3_C', Self) //FIXME: Used Size as third argument to OpenFileObjectData.
           else
-           Q:=OpenFileObjectData(F, S+'.wad_D', Size, Self);
+           Q:=MakeFileQObject(F, S+'.wad_D', Self); //FIXME: Used Size as third argument to OpenFileObjectData.
          SubElements.Add(Q);
          LoadedItem(rf_Default, F, Q, Size);
          Inc(P);
@@ -525,7 +535,7 @@ var
  Count: LongInt;
  I: Integer;
  Positions, P: ^LongInt;
- Origine, Fin, P1: LongInt;
+ Origine, Fin, P1: TStreamPos;
  Q: QObject;
  TexFile: QTextureFile;
 begin

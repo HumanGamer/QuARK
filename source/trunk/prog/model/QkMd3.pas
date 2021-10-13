@@ -30,7 +30,7 @@ uses Windows, SysUtils, StrUtils, Classes, QkObjects, QkForm, Graphics,
 type
   QMd3File = class(QModelFile)
     protected
-      procedure LoadFile(F: TStream; Taille: Integer); override;
+      procedure LoadFile(F: TStream; FSize: TStreamPos); override;
       procedure SaveFile(Info: TInfoEnreg1); override;
       Procedure ReadMesh(fs: TStream; Root: QModelRoot);
     public
@@ -324,7 +324,7 @@ var
   s: String;
   size: TPoint;
   sizeset: Boolean;
-  org: Longint;
+  org: TStreamPos;
   fsize: array[1..2] of Single;
   mn: String;
   Comp: QComponent;
@@ -633,9 +633,10 @@ begin
   result:=true;
 end;
 
-procedure QMd3File.LoadFile(F: TStream; Taille: Integer);
+procedure QMd3File.LoadFile(F: TStream; FSize: TStreamPos);
 var
-  i, org, org2, j: Longint;
+  i, j: Longint;
+  org, org2: TStreamPos;
   head: TMD3Header;
   tag: TMD3Tag;
   boundframe: TMD3BoundFrame;
@@ -649,7 +650,7 @@ var
 begin
   case ReadFormat of
     rf_Default: begin  { as stand-alone file }
-      if Taille<SizeOf(TMD3Header) then
+      if FSize<SizeOf(TMD3Header) then
         Raise EError(5519);
       org:=f.position;
       f.readbuffer(head, sizeof(head));
@@ -759,7 +760,7 @@ var
   Frames: TQList;
   FrameObj: QFrame;
   I, J, K, L: Longint;
-  Position0, Position1: LongInt;
+  Position0, Position1: TStreamPos;
   vec3: vec3_p;
   CVert, CVert2: vec3_p;
   CTris, CTriangles: PComponentTris;

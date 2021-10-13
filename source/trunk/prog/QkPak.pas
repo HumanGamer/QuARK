@@ -32,10 +32,10 @@ type
               private
                 procedure RecGO1(const SubPath: String; extracted: PyObject);
               protected
-                procedure EcrireEntreesPak(Info: TInfoEnreg1; Origine: LongInt; const Chemin: String; TailleNom: Integer; Repertoire: TStream);
+                procedure EcrireEntreesPak(Info: TInfoEnreg1; Origine: TStreamPos; const Chemin: String; TailleNom: Integer; Repertoire: TStream);
                 function OpenWindow(nOwner: TComponent) : TQForm1; override;
                 procedure SaveFile(Info: TInfoEnreg1); override;
-                procedure LoadFile(F: TStream; FSize: Integer); override;
+                procedure LoadFile(F: TStream; FSize: TStreamPos); override;
                 procedure SortPakFolder;
               public
                 class function TypeInfo: String; override;
@@ -177,13 +177,22 @@ begin
    Result:=[];
 end;
 
-procedure QPakFolder.LoadFile(F: TStream; FSize: Integer);
+function MakeFileQObject(F: TStream; const FullName: String; nParent: QObject) : QFileObject;
+var
+  i: TStreamPos;
+begin
+  {wraparound for a stupid function OpenFileObjectData having obsolete parameters }
+  {tbd: clean this up in QkFileobjects and at all referencing places}
+ Result:=OpenFileObjectData(F, FullName, i, nParent);
+end;
+
+procedure QPakFolder.LoadFile(F: TStream; FSize: TStreamPos);
 var
  Header: TIntroPakEx;
  I, J: Integer;
  Entrees1, P1: PChar;
  TailleNom: Integer;
- Origine: LongInt;
+ Origine: TStreamPos;
  Dossier, nDossier: QObject;
  Chemin, CheminPrec: String;
  Q: QObject;
@@ -270,7 +279,7 @@ begin
             Dossier:=nDossier;
            until False;
            F.Position:=PFinEntreePak(P1)^.Position;
-           Q:=OpenFileObjectData(F, Chemin, PFinEntreePak(P1)^.Taille, Dossier);
+           Q:=MakeFileQObject(F, Chemin, Dossier); //FIXME: Used PFinEntreePak(P1)^.Taille as third argument to OpenFileObjectData.
            Dossier.SubElements.Add(Q);
            LoadedItem(rf_Default, F, Q, PFinEntreePak(P1)^.Taille);
          end;
@@ -350,9 +359,10 @@ begin
   inherited;
 end;
 
-procedure QPakFolder.EcrireEntreesPak(Info: TInfoEnreg1; Origine: LongInt; const Chemin: String; TailleNom: Integer; Repertoire: TStream);
+procedure QPakFolder.EcrireEntreesPak(Info: TInfoEnreg1; Origine: TStreamPos; const Chemin: String; TailleNom: Integer; Repertoire: TStream);
 var
- I, Zero: Integer;
+ I: Integer;
+ Zero: LongInt;
  Entree: TFinEntreePak;
  Q: QObject;
  S: String;
@@ -398,7 +408,7 @@ procedure QPakFolder.SaveFile(Info: TInfoEnreg1);
 var
  Header: TIntroPakEx;
  Repertoire: TMemoryStream;
- Origine, Fin: LongInt;
+ Origine, Fin: TStreamPos;
 begin
  with Info do case Format of
   rf_Default: begin  { as stand-alone file }

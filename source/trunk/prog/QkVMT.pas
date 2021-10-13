@@ -36,7 +36,7 @@ type
            DefaultImageCache : QPixelSet;
          public
            procedure SaveFile(Info: TInfoEnreg1); override;
-           procedure LoadFile(F: TStream; FSize: Integer); override;
+           procedure LoadFile(F: TStream; FSize: TStreamPos); override;
            class function TypeInfo: String; override;
            class procedure FileObjectClassInfo(var Info: TFileObjectClassInfo); override;
            function DefaultImage : QPixelSet;
@@ -289,7 +289,7 @@ begin
  Raise EError(5696);
 end;
 
-procedure QVMTFile.LoadFile(F: TStream; FSize: Integer);
+procedure QVMTFile.LoadFile(F: TStream; FSize: TStreamPos);
 var
   Setup: QObject;
 

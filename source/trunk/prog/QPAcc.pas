@@ -103,7 +103,7 @@ procedure Compiler(Patch: TStrings; Source, Dest: TStream;
 
 implementation
 
-uses {Tableaux,} Quarkx, QkExceptions;
+uses {Tableaux,} QkObjects, Quarkx, QkExceptions;
 
 const
  FacteurT : ARRAY[1..6] OF LONGINT = (8, 8, 8, 36, 1, 4);
@@ -156,7 +156,7 @@ const
 var
  Zero: Vecteur;
  Header: TEntete;
- Origine: LongInt;
+ Origine: TStreamPos;
  Chaines: String;
 {St: TVarStruct;
  I: Integer;}

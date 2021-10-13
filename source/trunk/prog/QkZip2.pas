@@ -102,9 +102,9 @@ type
   private
 //    procedure RecGO1(const SubPath: String; extracted: PyObject);
   protected
-    procedure WritePakEntries(Info: TInfoEnreg1; Origine: LongInt; const Chemin: String; TailleNom: Integer; Repertoire: TStream; eocd: PEndOfCentralDir);
+    procedure WritePakEntries(Info: TInfoEnreg1; Origine: TStreamPos; const Chemin: String; TailleNom: Integer; Repertoire: TStream; eocd: PEndOfCentralDir);
     procedure SaveFile(Info: TInfoEnreg1); override;
-    procedure LoadFile(F: TStream; FSize: Integer); override;
+    procedure LoadFile(F: TStream; FSize: TStreamPos); override;
 //    function OpenWindow(nOwner: TComponent) : TQForm1; override;
 //    procedure SortPakFolder;
   public
@@ -221,7 +221,7 @@ begin
     inherited;
 end;
 
-procedure QZipFolder.WritePakEntries(Info: TInfoEnreg1; Origine: LongInt; const Chemin: String; TailleNom: Integer; Repertoire: TStream; eocd: PEndOfCentralDir);
+procedure QZipFolder.WritePakEntries(Info: TInfoEnreg1; Origine: TStreamPos; const Chemin: String; TailleNom: Integer; Repertoire: TStream; eocd: PEndOfCentralDir);
 var
   I: Integer;
   Q: QObject;
@@ -230,7 +230,7 @@ var
   TempStream,T2:TMemoryStream;
   tInfo: TInfoEnreg1;
   LFS: TLocalFileHeader;
-  OrgSize,Size,pos: Longint;
+  OrgSize,Size,pos: TStreamPos;
   crc: DWORD;
   cdir:TFileHeader;
   sig:Longint;
@@ -321,7 +321,8 @@ end;
 procedure QZipFolder.SaveFile(Info: TInfoEnreg1);
 var
   Repertoire: TMemoryStream;
-  Origine, Fin, sig: LongInt;
+  Origine, Fin: TStreamPos;
+  sig: LongInt;
   EOCDHeader: TEndOfCentralDir;
   comment: string;
 begin
@@ -365,7 +366,7 @@ begin
   end;
 end;
 
-Function ZipAddRef(Ref: PQStreamRef; var S: TStream) : Integer;
+Function ZipAddRef(Ref: PQStreamRef; var S: TStream) : TStreamPos;
 var
   mem: TMemoryStream;
   err: integer;
@@ -385,7 +386,7 @@ begin
   end;
 end;
 
-procedure QZipFolder.LoadFile(F: TStream; FSize: Integer);
+procedure QZipFolder.LoadFile(F: TStream; FSize: TStreamPos);
 var
   J: Integer;
   Dossier, nDossier: QObject;
@@ -393,9 +394,10 @@ var
   dummystring: String;
   Q: QObject;
   FH: TFileHeader;
-  org,Size:Longint;
+  org,Size:TStreamPos;
   files: TMemoryStream;
-  EoSig,s,nEnd: Longint;
+  EoSig,s: Longint;
+  nEnd:TStreamPos;
   eocd: TEndOfCentralDir;
   I:Smallint;
   eocd_found: boolean;

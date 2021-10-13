@@ -32,7 +32,7 @@ type
 //FIXME          procedure SaveFileDevILSettings; override;
           class function FormatName : String; override;
           procedure SaveFile(Info: TInfoEnreg1); override;
-          procedure LoadFile(F: TStream; FSize: Integer); override;
+          procedure LoadFile(F: TStream; FSize: TStreamPos); override;
         public
           class function TypeInfo: String; override;
           class procedure FileObjectClassInfo(var Info: TFileObjectClassInfo); override;
@@ -77,7 +77,7 @@ begin
   //FIXME
 end;*)
 
-procedure QIwi.LoadFile(F: TStream; FSize: Integer);
+procedure QIwi.LoadFile(F: TStream; FSize: TStreamPos);
 begin
   Log(LOG_VERBOSE,'Loading IWI file: %s',[self.name]);
   case ReadFormat of

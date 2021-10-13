@@ -74,7 +74,7 @@ type
   QShaderFile = class(QWad)
                 protected
                   procedure SaveFile(Info: TInfoEnreg1); override;
-                  procedure LoadFile(F: TStream; FSize: Integer); override;
+                  procedure LoadFile(F: TStream; FSize: TStreamPos); override;
                 public
                   class function TypeInfo: String; override;
                   class procedure FileObjectClassInfo(var Info: TFileObjectClassInfo); override;
@@ -82,7 +82,7 @@ type
                 end;
  QBsp3FileHandler = class(QBspFileHandler)
   public
-   procedure LoadBsp(F: TStream; StreamSize: Integer); override;
+   procedure LoadBsp(F: TStream; StreamSize: TStreamPos); override;
    procedure SaveBsp(Info: TInfoEnreg1); override;
    function GetEntryName(const EntryIndex: Integer) : String; override;
    function GetLumpEdges: Integer; override;
@@ -535,7 +535,7 @@ begin
   Result:=ieResult[False];
 end;
 
-procedure QShaderFile.LoadFile(F: TStream; FSize: Integer);
+procedure QShaderFile.LoadFile(F: TStream; FSize: TStreamPos);
 const
  ProgressStep = 4096;
 var
@@ -797,10 +797,19 @@ end;
 
  {------------------------}
 
-procedure QBsp3FileHandler.LoadBsp(F: TStream; StreamSize: Integer);
+function MakeFileQObject(F: TStream; const FullName: String; nParent: QObject) : QFileObject;
+var
+  i: TStreamPos;
+begin
+  {wraparound for a stupid function OpenFileObjectData having obsolete parameters }
+  {tbd: clean this up in QkFileobjects and at all referencing places}
+ Result:=OpenFileObjectData(F, FullName, i, nParent);
+end;
+
+procedure QBsp3FileHandler.LoadBsp(F: TStream; StreamSize: TStreamPos);
 var
  Header: TBsp3Header;
- Origine: LongInt;
+ Origine: TStreamPos;
  Q: QObject;
  I: Integer;
 begin
@@ -830,7 +839,7 @@ begin
     end;
 
     F.Position:=Origine + Header.Entries[I].EntryPosition;
-    Q:=OpenFileObjectData(F, Bsp3EntryNames[I], Header.Entries[I].EntrySize, FBsp);
+    Q:=MakeFileQObject(F, Bsp3EntryNames[I], FBsp); //FIXME: Used Header.Entries[I].EntrySize as third argument to OpenFileObjectData.
     FBsp.SubElements.Add(Q);
     LoadedItem(rf_Default, F, Q, Header.Entries[I].EntrySize);
   end;
@@ -839,8 +848,8 @@ end;
 procedure QBsp3FileHandler.SaveBsp(Info: TInfoEnreg1);
 var
   Header: TBsp3Header;
-  Origine, Fin: LongInt;
-  Zero: Integer;
+  Origine, Fin: TStreamPos;
+  Zero: LongInt;
   Q: QObject;
   I: Integer;
 begin

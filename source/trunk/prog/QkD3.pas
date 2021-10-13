@@ -74,7 +74,7 @@ type
   D3MaterialFile = class(QWad)
     protected
       procedure SaveFile(Info: TInfoEnreg1); override;
-      procedure LoadFile(F: TStream; FSize: Integer); override;
+      procedure LoadFile(F: TStream; FSize: TStreamPos); override;
     public
       class function TypeInfo: String; override;
       class procedure FileObjectClassInfo(var Info: TFileObjectClassInfo); override;
@@ -370,7 +370,7 @@ begin
   Result:=ieResult[False];
 end;
 
-procedure D3MaterialFile.LoadFile(F: TStream; FSize: Integer);
+procedure D3MaterialFile.LoadFile(F: TStream; FSize: TStreamPos);
 const
  ProgressStep = 4096;
 var

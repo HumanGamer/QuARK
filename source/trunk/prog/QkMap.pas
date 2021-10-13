@@ -70,7 +70,7 @@ type
         end;
  QMapFile = class(QMap)
             protected
-              procedure LoadFile(F: TStream; FSize: Integer); override;
+              procedure LoadFile(F: TStream; FSize: TStreamPos); override;
               procedure SaveFile(Info: TInfoEnreg1); override;
             end;
 
@@ -2552,7 +2552,7 @@ end;
 
  {------------------------}
 
-procedure QMapFile.LoadFile(F: TStream; FSize: Integer);
+procedure QMapFile.LoadFile(F: TStream; FSize: TStreamPos);
 var
  Racine: TTreeMapBrush;
  ModeJeu: Char;
