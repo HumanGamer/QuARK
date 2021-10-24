@@ -146,7 +146,7 @@ implementation
 
 uses StrUtils, Graphics, QkPak, Setup, QkUnknown, QkTextures, Travail, ToolBox1,
   QkImages, Game2, QkQuakeCtx, Config, PakFiles, QkExceptions, Quarkx, PyImages,
-  QkApplPaths, Qk1, QkSteamFS, Python, Logging, ExtraFunctionality;
+  QkApplPaths, Qk1, SteamFS, Python, Logging, ExtraFunctionality;
 
 var
  GameFiles: TQList = Nil;

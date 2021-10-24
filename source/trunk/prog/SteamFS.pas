@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 http://quark.sourceforge.net/ - Contact information in AUTHORS.TXT
 **************************************************************************)
-unit QkSteamFS;
+unit SteamFS;
 
 interface
 
-uses Windows, Classes, Forms;
+uses Windows, Classes;
 
 function RunSteam: Boolean;
 function RunSteamExtractor(const Filename : String) : Boolean;
