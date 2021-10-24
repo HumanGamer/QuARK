@@ -34,4 +34,4 @@ If the game has Steam-support, these additional tokens are available:
 <tr><td><tt>%steamcommon%</tt></td><td>The Steam Common directory's name.</td></tr>
 </table>
 
-<b>Note</b>: Some of these tokens change when you enable the "Run tools from base directory" option.
+<b>Note</b>: Some of these tokens change values when you enable the "Run tools from base directory" option.
