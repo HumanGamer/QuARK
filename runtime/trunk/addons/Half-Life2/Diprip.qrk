@@ -10,6 +10,22 @@ QQRKSRC1
       GameDir = "diprip"
   }
 
+  Textures.qtx =
+  {
+    ToolBox = "Texture Browser..."
+    Root = "Diprip Textures and Shaders.qtxfolder"
+    HTML = "intro.texturebrowser.html"
+
+    Diprip Textures and Shaders.qtxfolder =
+    {
+      Textures & Shaders.osfolder =
+      {
+        path = "diprip"
+        build = "1"
+      }
+    }
+  }
+
   Toolbox Folders.qtx =
   {
     Toolbox = "New map items..."
