@@ -5,7 +5,7 @@ QQRKSRC1
 
   Diprip directory infos.qctx =
   {
-      Game = "Half-Life"
+      Game = "Half-Life2"
       SourceDir = "diprip"
       GameDir = "diprip"
   }
