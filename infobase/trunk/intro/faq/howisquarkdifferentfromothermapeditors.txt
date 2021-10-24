@@ -17,9 +17,9 @@ of pillars but can't make up your mind about what texture to use on them,
 you can use a duplicator, and changing the texture on the original will
 automatically update the copies.
 
-A final difference is that QuArK is as far as we know the only GPL (Gnu Public
+A final difference is that QuArK is as far as we know the only GPL (GNU Public
 License) game editor that is being actively developed, and is easy to extend to
-accomodate a wide range of different games.  The GPL means, among other things,
+accommodate a wide range of different games.  The GPL means, among other things,
 that the QuArK developers can't impose any restrictions at all on what
 you do with it, unlike editors supported by games companies, which can't
 be used for games produced by other companies.  So if you are an aspiring
