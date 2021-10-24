@@ -311,7 +311,7 @@ begin
    SI.dwFlags:=STARTF_USECOUNTCHARS;
    FillChar(PI, SizeOf(PI), 0);
 
-   Log(LOG_INFO, 'Now starting external program "%s" from path "%s"...', [S, StartDir]); //FIXME: Move to dict!
+   Log(LOG_INFO, LoadStr1(5836), [S, StartDir]);
 
    I:=Pos('>', S);
    Verb:=(I>0) and (Copy(S,1,1)='<');

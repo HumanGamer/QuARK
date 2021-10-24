@@ -844,7 +844,7 @@ Strings = {
     5583: "Cannot open the palette to choose a color from",
     5584: "(missing caption)",
     5585: "Could not execute this program//Command line: '%s'\nDefault directory: '%s'",
-    5586: "QuArK could not execute this or these programs. You must be sure they are installed on your system, and then enter the path to them in the configuration dialog box. Do you want to enter the path now ?",
+    5586: "QuArK could not execute this or these programs. You must be sure they are installed on your system, and then enter the path to them in the configuration dialog box. Do you want to enter the path now?",
     5587: "Impossible to create the directory '%s'. Be sure you entered the path to %s correctly in the configuration dialog box//Error code %d",
     5588: "Texture '%s' not found.",
     5589: "%d textures written to '%s'.",
@@ -884,7 +884,7 @@ Strings = {
     5622: "Cannot use macro 'O' (Operation) without an object to operate on",
     5623: "Duplicator behaviour '%s' not found",
     5624: "This map contains a special Duplicator whose behaviour is unknown to QuArK 5//'Sym' is '%s'",
-    5625: "%s cannot run multiple TCs together :\n%s\nOnly the last one is used.",
+    5625: "%s cannot run multiple TCs together:\n%s\nOnly the last one is used.",
     5626: "the temporary directory '%s'",
     5627: "The directory to %s seems to be wrong : could not find %s. Do you want to enter the correct path now ?",
     5628: "Remove the temporary tag of file '%s' ? QuArK will then no more consider it a temporary file.",
@@ -1100,6 +1100,8 @@ Strings = {
     5832: "%s: exists",
     5833: "Dropping Python %s object from pool with non-one ref count of %d",
     5834: "%d new %s found in directory '%s'",
+    5835: "There are warnings:",
+    5836: "Now starting external program '%s' from path '%s'...",
 
     # DanielPharos would like to reserve 6000 .. 6099 for all renderers
     6000: "Unable to create SceneObject//%s",

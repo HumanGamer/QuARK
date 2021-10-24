@@ -125,7 +125,7 @@ begin
    DummyStringList:=GlobalWarnings;
    try
      GlobalWarnings:=Nil;
-     ShowTextBox('QuArK', 'There are warnings:', DummyStringList, mtWarning); //FIXME: Translation!
+     ShowTextBox('QuArK', LoadStr1(5835), DummyStringList, mtWarning);
    finally
      DummyStringList.Free;
    end;
