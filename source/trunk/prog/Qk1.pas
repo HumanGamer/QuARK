@@ -232,7 +232,7 @@ uses {$IFDEF Debug}MemTester, {$ENDIF}Undo, QkQuakeC, Setup, Config,
   ToolBox1, Game, QkOwnExplorer, ObjProp, qdraw, qmath, QkInclude,
   Running, Output1, QkTreeView, PyProcess, Console, Python, Quarkx, About,
   PyMapView, PyForms, Qk3D, EdSceneObject, QkObjectClassList, QkApplPaths,
-  QkExceptions, QkQuakeCtx, QkSteamFS, AutoUpdater, QkConsts, Toolbar1,
+  QkExceptions, QkQuakeCtx, AutoUpdater, QkConsts, Toolbar1,
   Splash, Logging, SystemDetails;
 
 type
