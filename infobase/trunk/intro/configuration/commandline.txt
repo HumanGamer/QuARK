@@ -7,7 +7,7 @@ Recognized parameters:
 <ul><li>/?: Displays a window containing this information.
 <li>/NOINSTANCE: Skips the single-instance check (use at own risk!)
 <li>/NOSPLASH: Skips the splash screen.  This will improve start-up time.
-<li>/NOUPDATE: Skips the update check.  This will prevent QuArK from checking for updates.
+<li>/NOUPDATE: Skips the update check.  This will prevent QuArK from checking for updates on start-up.
 </ul>
 
 Note: All other parameters will be interpreted as files to load.
