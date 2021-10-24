@@ -410,16 +410,17 @@ def RebuildAndRun(maplist, editor, runquake, text, forcepak, extracted, cfgfile,
                 console = BuildPgmConsole_Advanced
 
                 # Check first Default build-tool directory
-                if setup["BuildPgmsDir"] is None:
-                   cmdline2 = cmdline
-                else:
-                   cmdline2 = os.path.join(quarkx.resolvefilename(setup["BuildPgmsDir"], FT_TOOL)[0], cmdline)
-                if (not quarkx.getfileattr(cmdline2)==FA_FILENOTFOUND):
-                    # Success, use this build-tool!
-                    cmdline = cmdline2
+                if setup["BuildPgmsDir"] is not None:
+                    cmdline2 = os.path.join(quarkx.resolvefilename(setup["BuildPgmsDir"], FT_TOOL)[0], cmdline)
+                    if (quarkx.getfileattr(cmdline2)==FA_FILENOTFOUND):
+                        quarkx.log("Missing executable: %s" % (cmdline2, ), LOG_INFO)
+                    else:
+                        # Success, use this build-tool!
+                        cmdline = cmdline2
 
                 if (not cmdline) or (quarkx.getfileattr(cmdline)==FA_FILENOTFOUND):
                     desc = setup["BuildDesc%d" % pgrmnbr] or cmdline or pgrmx
+                    quarkx.log("Missing executable: %s" % (cmdline, ), LOG_INFO)
                     missing = "     %s\n%s" % (desc, missing)
                 else:
                     # Prepare to run this program
