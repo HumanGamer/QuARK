@@ -817,37 +817,35 @@ end;
 procedure BuildTextureFolders(const Base : String; var Q:QObject);
 var
  Path: String;
+ GamePaths: TStringList;
  SearchFolder, SearchResultList: QObject;
- FindError: Integer;
+ I, FindError: Integer;
  F: TSearchRec;
  Pak: QPakFolder;
  DiskFolder: QObject;
 begin
  Path:=ConcatPaths([QuakeDir, Base]);
- DiskFolder:=QTextureList.Create('Directories',Nil);
+ DiskFolder:=QTextureList.Create('Directories', Nil);
 
- //Find Doom 3 .material files in directory
+ GamePaths:=TStringList.Create;
  try
-  ParseRec(QuickResolveFilename(ConcatPaths([Path, GameMaterialsPath])), Base, '', DiskFolder);
- except
-  on E:Exception do
-   Log(LOG_WARNING, LoadStr1(5804), [ExceptAddr, FmtLoadStr1(5788, [E.Message])]);
- end;
+  GamePaths.Sorted:=True; //Required for Duplicates to work
+  GamePaths.Duplicates:=dupIgnore;	
+  GamePaths.Add(GameMaterialsPath); //Find Doom 3 .material files in directory
+  GamePaths.Add(GameShadersPath); //Find Quake 3: Arena .shader files in directory
+  GamePaths.Add(GameTexturesPath); //Find 'game' textures in directory
 
- //Find Quake 3: Arena .shader files in directory
- try
-  ParseRec(QuickResolveFilename(ConcatPaths([Path, GameShadersPath])), Base, '', DiskFolder);
- except
-  on E:Exception do
-   Log(LOG_WARNING, LoadStr1(5804), [ExceptAddr, FmtLoadStr1(5788, [E.Message])]);
- end;
-
- //Find 'game' textures in directory
- try
-  ParseRec(QuickResolveFilename(ConcatPaths([Path, GameTexturesPath])), Base, '', DiskFolder);
- except
-  on E:Exception do
-   Log(LOG_WARNING, LoadStr1(5804), [ExceptAddr, FmtLoadStr1(5788, [E.Message])]);
+  for I:=0 to GamePaths.Count - 1 do
+  begin
+   try
+    ParseRec(QuickResolveFilename(ConcatPaths([Path, GamePaths[I]])), Base, '', DiskFolder);
+   except
+    on E:Exception do
+     Log(LOG_WARNING, LoadStr1(5804), [ExceptAddr, FmtLoadStr1(5788, [E.Message])]);
+   end;
+  end;
+ finally
+  GamePaths.Free;
  end;
 
  if DiskFolder.SubElements.Count>0 then
