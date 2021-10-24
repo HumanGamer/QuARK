@@ -158,7 +158,6 @@ function GameModeOk(nMode: Char) : Boolean;
 
 function MapColors(L: TListeCouleurs) : TColor;
 function ModelColors(L: TModelColors) : TColor;
-function InternalVersion : Single;
 
  {------------------------}
 
@@ -391,8 +390,14 @@ var
  SetupQrk: QFileObject;
  V1, V2: String;
  T: TSetupSet;
- Version: TDouble;
+ Version: Single;
  I: Integer;
+
+ function InternalVersion : Single;
+ begin
+  Result:=g_SetupSet[ssGeneral].GetFloatSpec('InternalVersion', 0);
+ end;
+ 
 begin
  for T:=High(T) downto Low(T) do
   if g_SetupSet[T]<>Nil then
@@ -445,6 +450,7 @@ begin
     Halt(1);   { missing ":config" object }
    end;
  Version:=InternalVersion;
+ Log(LOG_INFO, LoadStr1(5837), [Version]);
 
   { loads Setup.qrk over the default configuration }
  LoadedSetupFileName:='';
@@ -460,7 +466,7 @@ begin
   end;
  except
   { could not load Setup.qrk - this is not a fatal error, continue execution }
-  Log(LOG_WARNING, 'Unable to load config file %s!', [SetupFileName]);
+  Log(LOG_WARNING, LoadStr1(5838), [SetupFileName]);
  end;
 
  if g_SetupSet[ssGeneral].GetFloatSpec('RunVersion', 5.901)<5.9005 then
@@ -963,7 +969,7 @@ begin
      Raise EErrorFmt(5599, [nMode]);
     if Confirm and (MessageDlg(FmtLoadStr1(5543, [nMode]), mtWarning, mbOkCancel, 0) <> mrOk) then
      Abort;
-    Log(LOG_INFO, 'Switching to gamemode: %s', [nMode]);
+    Log(LOG_INFO, LoadStr1(5839), [nMode]);
     ClearGameBuffers(True);
     g_SetupSet[ssGames].Specifics.Values['GameCfg']:=nMode;
    {SetupModified:=True;}
@@ -1047,11 +1053,6 @@ begin
      end;
    end;
  Result:='';
-end;
-
-function InternalVersion : Single;
-begin
- Result:=g_SetupSet[ssGeneral].GetFloatSpec('InternalVersion', 0);
 end;
 
 function MakeAssociation({Reg: TRegistry2;} const Ext, Command: String) : Boolean;

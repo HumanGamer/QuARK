@@ -1102,6 +1102,9 @@ Strings = {
     5834: "%d new %s found in directory '%s'",
     5835: "There are warnings:",
     5836: "Now starting external program '%s' from path '%s'...",
+    5837: "Loaded Setup.qrk with version: %f",
+    5838: "Unable to load config file '%s'!",
+    5839: "Switching to gamemode: %s",
 
     # DanielPharos would like to reserve 6000 .. 6099 for all renderers
     6000: "Unable to create SceneObject//%s",
