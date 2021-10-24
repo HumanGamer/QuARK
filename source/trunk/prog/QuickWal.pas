@@ -28,7 +28,7 @@ unit QuickWal;
 interface
 
 uses
-  Windows, Messages, QkObjects, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+  Windows, QkObjects, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   TB97, StdCtrls, ExtCtrls, QkForm;
 
 type
@@ -816,7 +816,7 @@ end;
 
 procedure BuildTextureFolders(const Base : String; var Q:QObject);
 var
- S, Path: String;
+ Path: String;
  SearchFolder, SearchResultList: QObject;
  FindError: Integer;
  F: TSearchRec;
@@ -825,18 +825,26 @@ var
 begin
  Path:=ConcatPaths([QuakeDir, Base]);
  DiskFolder:=QTextureList.Create('Directories',Nil);
+
+ //Find Doom 3 .material files in directory
  try
-  { Find Quake-3:Arena .shader files in directory }
-  S:=ConcatPaths([Path, GameShadersPath]);
-  ParseRec(S, Base, '', DiskFolder);
+  ParseRec(QuickResolveFilename(ConcatPaths([Path, GameMaterialsPath])), Base, '', DiskFolder);
  except
   on E:Exception do
    Log(LOG_WARNING, LoadStr1(5804), [ExceptAddr, FmtLoadStr1(5788, [E.Message])]);
  end;
+
+ //Find Quake 3: Arena .shader files in directory
  try
-  { Find 'game' textures in directory }
-  S:=ConcatPaths([Path, GameTexturesPath]);
-  ParseRec(S, Base, '', DiskFolder);
+  ParseRec(QuickResolveFilename(ConcatPaths([Path, GameShadersPath])), Base, '', DiskFolder);
+ except
+  on E:Exception do
+   Log(LOG_WARNING, LoadStr1(5804), [ExceptAddr, FmtLoadStr1(5788, [E.Message])]);
+ end;
+
+ //Find 'game' textures in directory
+ try
+  ParseRec(QuickResolveFilename(ConcatPaths([Path, GameTexturesPath])), Base, '', DiskFolder);
  except
   on E:Exception do
    Log(LOG_WARNING, LoadStr1(5804), [ExceptAddr, FmtLoadStr1(5788, [E.Message])]);
