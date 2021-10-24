@@ -1,0 +1,10 @@
+title: Configuration
+author: DanielPharos
+
+In order to make stuff for D.I.P.R.I.P., it is necessary to tweak some of the Configuration:
+<ul>
+<li><b>Steam Game</b>: Half-Life 2</li>
+<li><b>Game Directory</b>: Source SDK Base 2007</li>
+<li><b>Source SDK tools path</b>: %basepath%\..\SourceSDK\bin\source2007\bin</li>
+<li><b>Format and layout of the file archives</b>: Common directory</li>
+</ul>
