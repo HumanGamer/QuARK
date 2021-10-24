@@ -551,6 +551,9 @@ var
    if Setup.Specifics.Values['BuildPgmsDir']<>'' then
      path:=StringReplace(path, '%buildpgmsdir%', Setup.Specifics.Values['BuildPgmsDir'], [rfReplaceAll]);
 
+   if SetupGameSet.Specifics.Values['Steam']='1' then
+     path:=StringReplace(path, '%sourcesdkdir%', SourceSDKDir, [rfReplaceAll]); //Can contain %basepath%
+
    path:=StringReplace(path, '%mappath%', argument_mappath, [rfReplaceAll]);
    path:=StringReplace(path, '%mapfile%', argument_mapfile, [rfReplaceAll]);
    path:=StringReplace(path, '%mapfile_wrongslash%', argument_mapfile_wrongslash, [rfReplaceAll]);
@@ -562,10 +565,8 @@ var
    path:=StringReplace(path, '%basedir%', setupbasedir, [rfReplaceAll]);
    path:=StringReplace(path, '%quarkpath%', GetQPath(pQuArK), [rfReplaceAll]);
 
-   //Steam replacers:
    if SetupGameSet.Specifics.Values['Steam']='1' then
    begin
-     path:=StringReplace(path, '%sourcesdkdir%', SourceSDKDir, [rfReplaceAll]);
      path:=StringReplace(path, '%steampath%',    SteamSetup.Specifics.Values['SteamDirectory'], [rfReplaceAll]);
      path:=StringReplace(path, '%steamappid%',   SteamAppID, [rfReplaceAll]);
      path:=StringReplace(path, '%steamgamedir%', GetSteamGameDir, [rfReplaceAll]);
