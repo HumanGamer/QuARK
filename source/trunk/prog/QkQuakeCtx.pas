@@ -45,6 +45,7 @@ type
 function GetQuakeContext: TQList;
 function BuildQuakeCtxObjects(nClass: QObjectClass; const nName: String) : TQList;
 procedure ClearQuakeContext;
+function IsQuakeContextInited: Boolean;
 
 function OpacityFromFlags(Flags: Integer) : Integer;
 function OpacityToFlags(Flags: Integer; Alpha: Integer) : Integer;
@@ -155,6 +156,15 @@ end;
 
 var
  QuakeContext: TQList = Nil;
+
+function IsQuakeContextInited: Boolean;
+begin
+ //DanielPharos: Ugly hack to prevent some race-conditions,
+ //where GetQuakeContext gets called (specifically, by GettmpQuArK
+ //for path resolving) causing addons to be parsed before the includes
+ //in other addons are ready.
+ Result:=(QuakeContext <> Nil);
+end;
 
 procedure ClearQuakeContext;
 begin

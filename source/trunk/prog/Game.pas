@@ -339,18 +339,21 @@ var
  L: TQList;
  GameDir : String;
 begin
- { tiglari }
- L:=GetQuakeContext;
- for I:=L.Count-1 downto 0 do
-  begin
-   GameDir:=L[I].Specifics.Values['GameDir'];
-   if GameDir<>'' then
-    begin
-     Result:=ConvertPath(GameDir);
-     Exit;
-    end;
-  end;
- {/tiglari }
+ if IsQuakeContextInited then
+ begin
+  { tiglari }
+  L:=GetQuakeContext;
+  for I:=L.Count-1 downto 0 do
+   begin
+    GameDir:=L[I].Specifics.Values['GameDir'];
+    if GameDir<>'' then
+     begin
+      Result:=ConvertPath(GameDir);
+      Exit;
+     end;
+   end;
+  {/tiglari }
+ end;
  Result:=SetupGameSet.Specifics.Values['tmpQuArK'];
  if Result='' then
   Result:='tmpQuArK';
