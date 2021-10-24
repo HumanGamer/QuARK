@@ -22,8 +22,7 @@ unit QkTextBoxForm;
 
 interface
 
-uses Windows, SysUtils, Classes, Graphics, Forms, Controls, StdCtrls,
-  ExtCtrls, Dialogs;
+uses Windows, SysUtils, Classes, Forms, Controls, StdCtrls, ExtCtrls, Dialogs;
 
 type
   TFQTextBoxForm = class(TForm)
@@ -41,8 +40,8 @@ type
 
 procedure ShowTextBox(const nCaption, nLabel, nText: String); overload;
 procedure ShowTextBox(const nCaption, nLabel, nText: String; DlgType: TMsgDlgType); overload;
-procedure ShowTextBox(const nCaption, nLabel: String; nText: TStringList); overload;
-procedure ShowTextBox(const nCaption, nLabel: String; nText: TStringList; DlgType: TMsgDlgType); overload;
+procedure ShowTextBox(const nCaption, nLabel: String; const nText: TStringList); overload;
+procedure ShowTextBox(const nCaption, nLabel: String; const nText: TStringList; DlgType: TMsgDlgType); overload;
 
  {------------------------}
 
@@ -69,12 +68,12 @@ begin
   end;
 end;
 
-procedure ShowTextBox(const nCaption, nLabel: String; nText: TStringList);
+procedure ShowTextBox(const nCaption, nLabel: String; const nText: TStringList);
 begin
   ShowTextBox(nCaption, nLabel, nText, mtCustom);
 end;
 
-procedure ShowTextBox(const nCaption, nLabel: String; nText: TStringList; DlgType: TMsgDlgType);
+procedure ShowTextBox(const nCaption, nLabel: String; const nText: TStringList; DlgType: TMsgDlgType);
 var
   TextBoxForm: TFQTextBoxForm;
 begin
