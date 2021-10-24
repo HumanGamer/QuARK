@@ -14,7 +14,7 @@
 
 6.6.0 Beta 8
 ============
-* [DanielPharos]: Added HL1 D.I.P.R.I.P. addon.
+* [DanielPharos]: Added HL2 D.I.P.R.I.P. addon.
 
 * [DanielPharos]: Made the classname specific editable again in the Map Editor; this was
           - blocked in 6.6.0 Beta 3.
