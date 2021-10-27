@@ -10,6 +10,88 @@ QQRKSRC1
       GameDir = "ricochet"
   }
 
+  Textures.qtx =
+  {
+    ToolBox = "Texture Browser..."
+    Root = "Ricochet Textures.qtxfolder"
+    HTML = "intro.texturebrowser.html"
+
+    // Raw definition of WAD3 files
+    t_ri:incl = { s = "ricochet" d = "ricochet" h = "C" }
+
+    Ricochet Textures.qtxfolder =
+    {
+      Ricochet.txlist =
+      {
+        +0ARROW1.wl = {t_ri=!}
+        +0DISCBUT1.wl = {t_ri=!}
+        +0LIGHT1.wl = {t_ri=!}
+        +0LIGHT2.wl = {t_ri=!}
+        +0LIGHT3.wl = {t_ri=!}
+        +0SQUARE1.wl = {t_ri=!}
+        +1ARROW1.wl = {t_ri=!}
+        +1LIGHT1.wl = {t_ri=!}
+        +1LIGHT2.wl = {t_ri=!}
+        +1LIGHT3.wl = {t_ri=!}
+        +1SQUARE1.wl = {t_ri=!}
+        +2ARROW1.wl = {t_ri=!}
+        +2LIGHT1.wl = {t_ri=!}
+        +2LIGHT2.wl = {t_ri=!}
+        +2LIGHT3.wl = {t_ri=!}
+        +2SQUARE1.wl = {t_ri=!}
+        +3ARROW1.wl = {t_ri=!}
+        +3LIGHT1.wl = {t_ri=!}
+        +3LIGHT2.wl = {t_ri=!}
+        +3LIGHT3.wl = {t_ri=!}
+        +3SQUARE1.wl = {t_ri=!}
+        +4ARROW1.wl = {t_ri=!}
+        +4LIGHT1.wl = {t_ri=!}
+        +4LIGHT2.wl = {t_ri=!}
+        +4LIGHT3.wl = {t_ri=!}
+        +4SQUARE1.wl = {t_ri=!}
+        +5ARROW1.wl = {t_ri=!}
+        +5LIGHT1.wl = {t_ri=!}
+        +5LIGHT2.wl = {t_ri=!}
+        +5LIGHT3.wl = {t_ri=!}
+        +5SQUARE1.wl = {t_ri=!}
+        +6ARROW1.wl = {t_ri=!}
+        +6LIGHT1.wl = {t_ri=!}
+        +6LIGHT2.wl = {t_ri=!}
+        +6LIGHT3.wl = {t_ri=!}
+        +6SQUARE1.wl = {t_ri=!}
+        +7ARROW1.wl = {t_ri=!}
+        +7LIGHT1.wl = {t_ri=!}
+        +7LIGHT2.wl = {t_ri=!}
+        +7LIGHT3.wl = {t_ri=!}
+        +7SQUARE1.wl = {t_ri=!}
+        +ADISCBUT1.wl = {t_ri=!}
+        AAATRIGGER.wl = {t_ri=!}
+        ARROW1.wl = {t_ri=!}
+        BLACK.wl = {t_ri=!}
+        BUMPER1.wl = {t_ri=!}
+        CLIP.wl = {t_ri=!}
+        DISC_BLUE1.wl = {t_ri=!}
+        DISC_BLUE2.wl = {t_ri=!}
+        DISC_BLUE3.wl = {t_ri=!}
+        DISC_DUAL1.wl = {t_ri=!}
+        DISC_RED1.wl = {t_ri=!}
+        DISC_RED2.wl = {t_ri=!}
+        DISC_RED3.wl = {t_ri=!}
+        SCROLLPLAS1.wl = {t_ri=!}
+        SCROLLPLAS2.wl = {t_ri=!}
+        SKY.wl = {t_ri=!}
+        SQUAREBLUE.wl = {t_ri=!}
+        SQUARERED.wl = {t_ri=!}
+        SQUAREYEL.wl = {t_ri=!}
+        STRIP1A.wl = {t_ri=!}
+        TRIM_BLUE1.wl = {t_ri=!}
+        TRIM_RED1.wl = {t_ri=!}
+        TRIM_YELLOW1.wl = {t_ri=!}
+        {BLUE.wl = {t_ri=!}
+      }
+    }
+  }
+
   Toolbox Folders.qtx =
   {
     Toolbox = "New map items..."
