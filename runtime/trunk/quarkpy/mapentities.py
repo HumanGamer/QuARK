@@ -892,29 +892,38 @@ class DefaultDrawEntityLines:
                                 editor.layout.dataform.setdata(entityform, editor.layout.dataform.form)
                                 editor.buildhandles()
 
-                if entity["angles"] and ((quarkx.setupsubset()["LightingInnerConeKeyword"] != "" and entity[quarkx.setupsubset()["LightingInnerConeKeyword"]]) or (quarkx.setupsubset()["LightingOuterConeKeyword"] != "" and entity[quarkx.setupsubset()["LightingOuterConeKeyword"]])):
+                LightingInnerConeKeyword = quarkx.setupsubset()["LightingInnerConeKeyword"]
+                LightingOuterConeKeyword = quarkx.setupsubset()["LightingOuterConeKeyword"]
+                if entity["angles"] and ((LightingInnerConeKeyword != "") and entity[LightingInnerConeKeyword]) or ((LightingOuterConeKeyword != "") and entity[LightingOuterConeKeyword]):
+                    #FIXME: Make configurable
+                    NumberOfOuterConeLines = 18
+                    NumerOfInnerConeLines = 9
+
                     ### Draws the cone(s) for "light" spot entities.
                     direct = quarkx.vect(entity["angles"])
                     # 'pitch' below for HL2 only.
                     if entity['pitch']:
                         entity['pitch'] = '%f' % - direct.x
                     ### Draws the outer cone lines.
-                    if quarkx.setupsubset()["LightingOuterConeKeyword"] != "" and entity[quarkx.setupsubset()["LightingOuterConeKeyword"]]:
-                        cone = float(entity[quarkx.setupsubset()["LightingOuterConeKeyword"]])
-                        if not entity[quarkx.setupsubset()["LightingInnerConeKeyword"]]:
+                    if (LightingOuterConeKeyword != "") and entity[LightingOuterConeKeyword]:
+                        cone = float(entity[LightingOuterConeKeyword])
+                        if not entity[LightingInnerConeKeyword]:
                             cv.pencolor = color
                     elif entity['spotlightwidth']:
                         cone = float(entity['spotlightwidth'])/2.0
-                    for i in range(18):
-                        phi = i*pi2/18
-                        dirvectn=qhandles.angles2vec1(direct.x+cone*math.cos(phi),direct.y+cone*math.sin(phi),direct.z)
-                        cv.line(view.proj(org+dirvectn*radius),org1)
+                    else:
+                        cone = None
+                    if cone is not None:
+                        for i in range(NumberOfOuterConeLines):
+                            phi = i*pi2/NumberOfOuterConeLines
+                            dirvectn=qhandles.angles2vec1(direct.x+cone*math.cos(phi),direct.y+cone*math.sin(phi),direct.z)
+                            cv.line(view.proj(org+dirvectn*radius),org1)
                     ### Draws the inner cone lines.
-                    if quarkx.setupsubset()["LightingInnerConeKeyword"] != "" and entity[quarkx.setupsubset()["LightingInnerConeKeyword"]]:
-                        cone = float(entity[quarkx.setupsubset()["LightingInnerConeKeyword"]])
+                    if (LightingInnerConeKeyword != "") and entity[LightingInnerConeKeyword]:
+                        cone = float(entity[LightingInnerConeKeyword])
                         cv.pencolor = color
-                        for i in range(9):
-                            phi = i*pi2/9
+                        for i in range(NumerOfInnerConeLines):
+                            phi = i*pi2/NumerOfInnerConeLines
                             dirvectn = qhandles.angles2vec1(direct.x+cone*math.cos(phi),direct.y+cone*math.sin(phi),direct.z)
                             cv.line(view.proj(org+dirvectn*radius),org1)
                 else:
