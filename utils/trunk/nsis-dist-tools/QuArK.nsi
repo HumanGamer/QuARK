@@ -142,6 +142,32 @@ LangString TEXT_SEC02_DESC ${LANG_POLISH} "Help files."
 LangString TEXT_SEC02_DESC ${LANG_UKRAINIAN} "Help files."
 LangString TEXT_SEC02_DESC ${LANG_ARABIC} "Help files."
 
+LangString TEXT_SEC03_DESC ${LANG_ENGLISH} "Create various shortcuts for QuArK in the Start Menu."
+LangString TEXT_SEC03_DESC ${LANG_FRENCH} "Start Menu shortcuts."
+LangString TEXT_SEC03_DESC ${LANG_GERMAN} "Start Menu shortcuts."
+LangString TEXT_SEC03_DESC ${LANG_TRADCHINESE} "Start Menu shortcuts."
+LangString TEXT_SEC03_DESC ${LANG_DUTCH} "Creëert verschillende snelkoppelingen voor QuArK in het Start Menu."
+LangString TEXT_SEC03_DESC ${LANG_NORWEGIAN} "Start Menu shortcuts."
+LangString TEXT_SEC03_DESC ${LANG_FINNISH} "Start Menu shortcuts."
+LangString TEXT_SEC03_DESC ${LANG_GREEK} "Start Menu shortcuts."
+LangString TEXT_SEC03_DESC ${LANG_RUSSIAN} "Start Menu shortcuts."
+LangString TEXT_SEC03_DESC ${LANG_POLISH} "Start Menu shortcuts."
+LangString TEXT_SEC03_DESC ${LANG_UKRAINIAN} "Start Menu shortcuts."
+LangString TEXT_SEC03_DESC ${LANG_ARABIC} "Start Menu shortcuts."
+
+LangString TEXT_SEC04_DESC ${LANG_ENGLISH} "Creates an icon to launch QuArK on the desktop."
+LangString TEXT_SEC04_DESC ${LANG_FRENCH} "Desktop icon."
+LangString TEXT_SEC04_DESC ${LANG_GERMAN} "Desktop icon."
+LangString TEXT_SEC04_DESC ${LANG_TRADCHINESE} "Desktop icon."
+LangString TEXT_SEC04_DESC ${LANG_DUTCH} "Creëert een icoon om QuArK op te starten op het bureaublad."
+LangString TEXT_SEC04_DESC ${LANG_NORWEGIAN} "Desktop icon."
+LangString TEXT_SEC04_DESC ${LANG_FINNISH} "Desktop icon."
+LangString TEXT_SEC04_DESC ${LANG_GREEK} "Desktop icon."
+LangString TEXT_SEC04_DESC ${LANG_RUSSIAN} "Desktop icon."
+LangString TEXT_SEC04_DESC ${LANG_POLISH} "Desktop icon."
+LangString TEXT_SEC04_DESC ${LANG_UKRAINIAN} "Desktop icon."
+LangString TEXT_SEC04_DESC ${LANG_ARABIC} "Desktop icon."
+
 LangString TEXT_UNINSTALL1 ${LANG_ENGLISH} "This will remove ALL files in the QuArK folder and sub-folders including any custom files.$\n$\nMove any files you wish to save before clicking 'Yes' to continue this uninstall."
 LangString TEXT_UNINSTALL1 ${LANG_FRENCH} "This will remove ALL files in the QuArK folder and sub-folders including any custom files.$\n$\nMove any files you wish to save before clicking 'Yes' to continue this uninstall."
 LangString TEXT_UNINSTALL1 ${LANG_GERMAN} "This will remove ALL files in the QuArK folder and sub-folders including any custom files.$\n$\nMove any files you wish to save before clicking 'Yes' to continue this uninstall."
@@ -279,7 +305,7 @@ Section "$(TEXT_SEC02_TITLE)" SEC02
   File "${BUILDDIR}\help\*.*"
 SectionEnd
 
-Section -StartMenuIcons
+Section "$(TEXT_SEC03_TITLE)" SEC03
   ;SetShellVarContext all
   CreateDirectory "$SMPROGRAMS\QuArK"
   CreateShortCut "$SMPROGRAMS\QuArK\QuArK.lnk" "$INSTDIR\QuArK.exe"
@@ -290,7 +316,7 @@ Section -StartMenuIcons
   ;CreateShortCut "$SMPROGRAMS\QuArK\Uninstall.lnk" "$INSTDIR\uninst.exe"   ;Against Windows 95+ Guidelines; can be done through the Add/Remove Programs configuration screen panel.
 SectionEnd
 
-Section -DesktopIcon
+Section /o "$(TEXT_SEC04_TITLE)" SEC04
   ;SetShellVarContext all
   CreateShortCut "$DESKTOP\QuArK.lnk" "$INSTDIR\QuArK.exe"
 SectionEnd
@@ -417,6 +443,8 @@ SectionEnd
 !insertmacro MUI_FUNCTION_DESCRIPTION_BEGIN
   !insertmacro MUI_DESCRIPTION_TEXT ${SEC01} "$(TEXT_SEC01_DESC)"
   !insertmacro MUI_DESCRIPTION_TEXT ${SEC02} "$(TEXT_SEC02_DESC)"
+  !insertmacro MUI_DESCRIPTION_TEXT ${SEC03} "$(TEXT_SEC03_DESC)"
+  !insertmacro MUI_DESCRIPTION_TEXT ${SEC04} "$(TEXT_SEC04_DESC)"
 !insertmacro MUI_FUNCTION_DESCRIPTION_END
 
 Function .onInit
