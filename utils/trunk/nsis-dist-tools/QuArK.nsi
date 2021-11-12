@@ -8,6 +8,7 @@
 ; Modern UI 2 ------
 !include "MUI2.nsh"
 SetCompressor /SOLID lzma   ; We will use LZMA for best compression
+;RequestExecutionLevel admin
 
 !define BUILDDIR "C:\QuArK_installer_files"
 !define SPLASHDIR "C:\QuArK_installer_splash_image"
@@ -73,6 +74,7 @@ ShowUnInstDetails show
 !insertmacro MUI_UNPAGE_INSTFILES
 
 ; Language files
+;!define MUI_LANGDLL_ALLLANGUAGES
 !insertmacro MUI_LANGUAGE "English"
 !insertmacro MUI_LANGUAGE "French"
 !insertmacro MUI_LANGUAGE "German"
@@ -83,6 +85,7 @@ ShowUnInstDetails show
 !insertmacro MUI_LANGUAGE "Russian"
 !insertmacro MUI_LANGUAGE "Arabic"
 !insertmacro MUI_LANGUAGE "TradChinese"
+!insertmacro MUI_RESERVEFILE_LANGDLL
 
 ; Language strings
 LangString TEXT_SEC01_TITLE ${LANG_ENGLISH} "Main Program Files"
@@ -260,10 +263,6 @@ Section "$(TEXT_SEC02_TITLE)" SEC02
   File "${BUILDDIR}\help\*.*"
 SectionEnd
 
-Section -DesktopIcon
-  CreateShortCut "$DESKTOP\QuArK.lnk" "$INSTDIR\QuArK.exe"
-SectionEnd
-
 Section -StartMenuIcons
   CreateDirectory "$SMPROGRAMS\QuArK"
   CreateShortCut "$SMPROGRAMS\QuArK\QuArK.lnk" "$INSTDIR\QuArK.exe"
@@ -271,7 +270,11 @@ Section -StartMenuIcons
   CreateShortCut "$SMPROGRAMS\QuArK\Forum.lnk" "${PRODUCT_WEB_FORUM}"
   CreateShortCut "$SMPROGRAMS\QuArK\Online Infobase.lnk" "${PRODUCT_INFOBASE}"
   CreateShortCut "$SMPROGRAMS\QuArK\Readme.lnk" "$INSTDIR\README.txt"
-  ;CreateShortCut "$SMPROGRAMS\QuArK\Uninstall.lnk" "$INSTDIR\uninst.exe"   ;Against Windows 95+ Guidelines; can be done through the Add/Remove Programs configuration screen panel
+  ;CreateShortCut "$SMPROGRAMS\QuArK\Uninstall.lnk" "$INSTDIR\uninst.exe"   ;Against Windows 95+ Guidelines; can be done through the Add/Remove Programs configuration screen panel.
+SectionEnd
+
+Section -DesktopIcon
+  CreateShortCut "$DESKTOP\QuArK.lnk" "$INSTDIR\QuArK.exe"
 SectionEnd
 
 Section -Post
