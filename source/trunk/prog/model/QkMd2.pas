@@ -23,9 +23,9 @@ unit QkMd2;
 interface
 
 uses
-  SysUtils, Classes, QkObjects, QkFileObjects, QkImages, Python, Game, QkMdl, QMath,
-  Graphics, Windows, QkModelRoot, QkMdlObject, QkComponent, QkFrame,
-  Logging, Console, QkModelFile;
+  Types, SysUtils, Classes, QkObjects, QkFileObjects, QkImages, Python, Game,
+  QkMdl, QMath, Graphics, QkModelRoot, QkMdlObject, QkComponent, QkFrame,
+  QkModelFile;
 
 (***********  Quake 2 .md2 format  ***********)
 
@@ -86,7 +86,7 @@ const
 
 implementation
 
-uses QuarkX, QkExceptions, Setup, Travail, QkObjectClassList;
+uses QuarkX, QkExceptions, Setup, Travail, Logging, QkObjectClassList;
 
 class function QMd2File.TypeInfo;
 begin

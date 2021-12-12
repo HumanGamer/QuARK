@@ -22,7 +22,7 @@ unit QkHr2;
 
 interface
 
-uses Windows, SysUtils, Classes, Graphics, Dialogs, Controls,
+uses SysUtils, Classes, Graphics, Dialogs, Controls,
      QkObjects, QkFileObjects, QkTextures, QkMd2, QkQ2;
 
 type

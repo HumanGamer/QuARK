@@ -22,9 +22,8 @@ unit QkHL;
 
 interface
 
-uses Windows, SysUtils, Classes, Graphics, Dialogs, Controls,
-     QkObjects, QkFileObjects, QkTextures, QkWad,
-     QkQ1;
+uses SysUtils, Classes, Graphics, Dialogs, Controls,
+     QkObjects, QkFileObjects, QkTextures, QkWad, QkQ1;
 
 type
  QTextureHL = class(QTexture1)

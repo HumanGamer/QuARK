@@ -23,7 +23,7 @@ unit QkQ2;
 interface
 
 uses
-  Windows, Classes, QkObjects, QkFileObjects, QkTextures, QkBsp;
+  Classes, QkObjects, QkFileObjects, QkTextures, QkBsp;
 
 type
  TCompactTexName = array[0..31] of Byte;
@@ -74,7 +74,6 @@ type
  end;
 
 function CheckQ2MiptexEx(const Header: TQ2Miptex; HSize, FileSize: Integer; Offsets: PLongInt; Flags: Integer) : Integer;
-
 
 implementation
 

@@ -23,7 +23,7 @@ unit QkG3D;
 interface
 
 uses
-  SysUtils, Windows, Classes, QkFileObjects, QkObjects, QkText,
+  Windows, SysUtils, Classes, QkFileObjects, QkObjects, QkText,
   QkTextures, QkBsp, Setup, QkWad, QkPixelSet;
 
 type

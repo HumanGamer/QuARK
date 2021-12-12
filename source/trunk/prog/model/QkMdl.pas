@@ -23,8 +23,8 @@ unit QkMdl;
 interface
 
 uses
-  SysUtils, Classes, QkObjects, QkFileObjects, QkImages, Python, Game, QkModelFile, QMath,
-  Windows, QkMdlObject, QkFrame, QkComponent, Logging;
+  Types, SysUtils, Classes, QkObjects, QkFileObjects, QkImages, Python, Game,
+  QkModelFile, QMath, QkMdlObject, QkFrame, QkComponent, Logging;
 
 type
   QMdlFile = class(QModelFile)

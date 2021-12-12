@@ -23,7 +23,7 @@ unit QkQ3;
 interface
 
 uses
-  SysUtils, Windows, Classes, QkZip2, QkFileObjects, QkObjects, QkText,
+  Windows, SysUtils, Classes, QkZip2, QkFileObjects, QkObjects, QkText,
   QkTextures, QkBsp, Setup, QkWad, QkPixelSet;
 
 type

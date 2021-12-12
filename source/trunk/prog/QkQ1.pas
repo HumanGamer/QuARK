@@ -23,14 +23,8 @@ unit QkQ1;
 interface
 
 uses
-  Classes,
-  QkObjects,
-  QkFileObjects,
-  QkTextures,
-  QkBsp,
-  Sysutils,
-  Dialogs,
-  QkImages;
+  Classes, QkObjects, QkFileObjects, QkTextures, QkBsp, Sysutils,
+  Dialogs, QkImages;
 
 type
  TQ1Miptex = packed record
@@ -74,7 +68,6 @@ type
  end;
 
 function CheckQ1Miptex(var Header: TQ1Miptex; FileSize: TStreamPos) : TStreamPos;
-
 
 implementation
 

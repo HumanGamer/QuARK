@@ -22,9 +22,8 @@ unit QkSin;
 
 interface
 
-uses Windows, SysUtils, Classes, Graphics, Dialogs, Controls,
-     QkObjects, QkFileObjects, QkTextures, QkPak, qmath
-     ,QkQ2;
+uses SysUtils, Classes, Graphics, Dialogs, Controls,
+     QkObjects, QkFileObjects, QkTextures, QkPak, qmath, QkQ2;
 
 type
  QTextureSin = class(QTexture2)

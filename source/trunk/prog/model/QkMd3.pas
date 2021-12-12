@@ -22,10 +22,9 @@ unit QkMd3;
 
 interface
 
-uses Windows, SysUtils, StrUtils, Classes, QkObjects, QkForm, Graphics,
-     QkImages, qmath, QkTextures, QkFileObjects,
+uses Types, SysUtils, Classes, QkObjects, QkImages, QkTextures, QkFileObjects,
      QkModelFile, QkModelRoot, QkFrame, QkComponent, QkMdlObject, QkModelTag,
-     QkTagFrame, QkBoundFrame, QkMiscGroup, {QkFrameGroup,} qmatrices;
+     QkTagFrame, QkBoundFrame, QkMiscGroup{, QkFrameGroup};
 
 type
   QMd3File = class(QModelFile)
@@ -47,8 +46,8 @@ type
 
 implementation
 
-uses QuarkX, QkExceptions, Setup, QkObjectClassList, Game, QkQ3, QkPixelset,
-     QkPcx, QkApplPaths, Logging, Travail;
+uses StrUtils, QuarkX, QkExceptions, Setup, QkObjectClassList, Game, QkQ3,
+     QkPixelset, QkPcx, QkApplPaths, qmath, qmatrices, Logging, Travail;
 
 const
  MAX_QPATH = 64;

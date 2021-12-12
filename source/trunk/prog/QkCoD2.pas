@@ -56,7 +56,7 @@ type
 
 implementation
 
-uses SysUtils, Windows, Quarkx, QkExceptions, QkObjectClassList,
+uses Windows, SysUtils, Quarkx, QkExceptions, QkObjectClassList,
   Setup, Game, Logging, QkTextures, QkApplPaths, ExtraFunctionality;
 
 type

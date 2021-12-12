@@ -22,7 +22,7 @@ unit TexHints;
 
 interface
 
-uses Windows, SysUtils, Classes, Graphics, Controls, Forms, QkObjects;
+uses Types, SysUtils, Classes, Graphics, Controls, Forms, QkObjects;
 
 type
   TTexHintWindow = class(THintWindow)
