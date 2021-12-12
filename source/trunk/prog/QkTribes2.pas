@@ -39,7 +39,7 @@ type
 
 implementation
 
-uses Setup, Quarkx, Qk1, QkObjectClassList;
+uses Setup, Quarkx, QkObjectClassList;
 
 {---------------------}
 

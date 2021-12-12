@@ -25,8 +25,7 @@ interface
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   QkGroup, StdCtrls, ExtCtrls, CommCtrl, QkExplorer, QkObjects,
-  QkFileObjects, Menus, TB97, QkFileExplorer, ShellApi,
-  QkForm, ComCtrls;
+  QkFileObjects, Menus, TB97, QkFileExplorer, QkForm, ComCtrls;
 
 const
   BlueHintPrefix = '?';
@@ -228,7 +227,7 @@ var
 
 implementation
 
-uses {$IFDEF Debug}MemTester, {$ENDIF}Undo, QkQuakeC, Setup, Config,
+uses {$IFDEF Debug}MemTester, {$ENDIF}ShellApi, Undo, QkQuakeC, Setup, Config,
   ToolBox1, Game, QkOwnExplorer, ObjProp, qdraw, qmath, QkInclude,
   Running, Output1, QkTreeView, PyProcess, Console, Python, Quarkx, About,
   PyMapView, PyForms, Qk3D, EdSceneObject, QkObjectClassList, QkApplPaths,

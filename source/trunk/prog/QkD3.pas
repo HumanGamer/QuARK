@@ -34,8 +34,7 @@ unit QkD3;
 interface
 
 uses
-  Classes, SysUtils, Windows,
-  QkZip2, QkFileObjects, QkPixelSet, QkObjects, QkWad;
+  Windows, Classes, SysUtils, QkZip2, QkFileObjects, QkPixelSet, QkObjects, QkWad;
 
 type
   D3Pak = class(QZipPak)

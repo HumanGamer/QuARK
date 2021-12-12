@@ -44,7 +44,6 @@ uses Qk1, QkQme, QkMapPoly, qmath, Travail, Setup,
   Qk3D, QkBsp, Undo, Game, Quarkx, QkExceptions,
   QkObjectClassList, MapError, Logging, DispFace, QkConsts;
 
-
  {------------------------}
 
 function ReadEntityList(Root: TTreeMapBrush; const SourceFile: String; BSP: QBsp) : Char;

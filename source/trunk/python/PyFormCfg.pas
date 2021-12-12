@@ -23,7 +23,7 @@ unit PyFormCfg;
 interface
 
 uses Windows, Messages, SysUtils, Classes, Controls, Quarkx, FormCfg, Python,
-     StdCtrls, QkObjects, PyObjects, PyControls, QkForm;
+     StdCtrls, PyObjects, PyControls, QkForm;
 
 const
  df_Local     = 1;
@@ -65,7 +65,7 @@ var
 
 implementation
 
-uses Qk1, PyForms, Undo, QkFormCfg;
+uses Qk1, QkObjects, PyForms, Undo, QkFormCfg;
 
  {------------------------}
 
