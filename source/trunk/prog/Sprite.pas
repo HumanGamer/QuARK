@@ -22,7 +22,7 @@ unit Sprite;
 
 interface
 
-uses Windows, SysUtils, Classes, qmath, qmatrices, QkObjects,
+uses Types, SysUtils, Classes, qmath, qmatrices, QkObjects,
      Qk3D, QkImages, QkMdlObject;
 
 type
@@ -88,11 +88,11 @@ end;
 function QSprite.Triangles(var P: PComponentTris) : Integer;
 var
   p_o: PComponentTris;
-  size: tpoint;
+  size: TPoint;
 begin
-  size:=Skin0.getsize;
-  getmem(p_o, sizeof(TComponentTris)*2);
-  fillchar(p_o^, sizeof(TComponentTris)*2, #0);
+  size:=Skin0.GetSize;
+  GetMem(p_o, sizeof(TComponentTris)*2);
+  FillChar(p_o^, sizeof(TComponentTris)*2, #0);
   p:=p_o;
   p_o^[0].VertexNo:=0; P^[0].S:=0; P^[0].T:=0;
   p_o^[1].VertexNo:=1; P^[1].S:=size.x; P^[1].T:=0;
@@ -106,11 +106,11 @@ end;
 
 procedure QSprite.GetVertices(var p: vec3_p);
 var
-  size: tpoint;
+  size: TPoint;
   p_o: vec3_p;
 begin
-  getmem(p_o, sizeof(vec3_t)*4);
-  size:=Skin0.getsize;
+  size:=Skin0.GetSize;
+  GetMem(p_o, sizeof(vec3_t)*4);
   p:=p_o;
   p_o^:=vec3(0,0,0); inc(p_o);
   p_o^:=vec3(size.x,0,0);inc(p_o);
@@ -121,9 +121,9 @@ end;
 procedure QSprite.AddTo3DScene(Scene: TObject);
 var
   Info: PSpriteInfo;
-  size: tpoint;
+  size: TPoint;
 begin
-  size:=Skin0.getsize;
+  size:=Skin0.GetSize;
   New(Info);
   FillChar(Info^, SizeOf(TSpriteInfo), 0);
   Info^.Base:=Self;
