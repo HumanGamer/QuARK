@@ -2089,8 +2089,11 @@ begin
   with TCameraCoordinates(MapViewProj) do
    begin
     v1:=MakePyVect(Camera);
-    Result:=Py_BuildValueODD(v1, HorzAngle, -PitchAngle);
-    Py_DECREF(v1);
+    try
+      Result:=Py_BuildValueODD(v1, HorzAngle, -PitchAngle);
+    finally
+      Py_DECREF(v1);
+    end;
    end
  else
   Result:=PyNoResult;
