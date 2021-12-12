@@ -169,7 +169,7 @@ implementation
 uses qdraw, QkUnknown, Undo, TbPalette, QkFileObjects, Toolbar1, ToolBox1,
      Setup, QuarkX, QkExceptions, QkInclude, QkMacro, QkImages, QkTextures,
      Python, PyMacros, PyToolbars, PyForms, QkPixelSet, QkObjectClassList,
-     SystemDetails, ExtraFunctionality;
+     SystemDetails, Platform, ExtraFunctionality;
 
 const
  Differs = 5391;
@@ -863,7 +863,7 @@ end;
 procedure TFormCfg.ClickInPalette(Sender: TToolbar97; Old, New: Integer);
 begin
  if PopupFormSpec='' then
-  MessageBeep(MB_OK)
+  PlaySound(SOUND_ERROR)
  else
   if Old=New then
    Sender.Hide
@@ -1310,7 +1310,7 @@ begin
  PathEdit:=FindFormControl((Sender as TControl).Tag-1, False);
  if (PathEdit=Nil) or not (PathEdit is TEnterEdit) then
   begin
-   MessageBeep(MB_OK);
+   PlaySound(SOUND_ERROR);
    Exit;
   end;
  PathEdit.SetFocus;
@@ -1686,11 +1686,11 @@ begin
        Q:=QObject(Msg.lParam);
        if not (Q is QPixelSet) then
         begin
-         MessageBeep(MB_OK);
+         PlaySound(SOUND_ERROR);
          Exit;
         end;
        if PopupFormSpec='' then
-        MessageBeep(MB_OK)
+        PlaySound(SOUND_ERROR)
        else
         begin
          PopupFormEdit.SetFocus;
@@ -3133,7 +3133,7 @@ begin
  case (Sender as TMenuItem).MenuIndex of
   cmd_AddSpec:
     if Form=Nil then
-     MessageBeep(MB_OK)
+     PlaySound(SOUND_ERROR)
     else
      begin
       Q:=QInternal.Create(LoadStr1(146), Form);
@@ -3169,7 +3169,7 @@ begin
          InitControls;
         end
      else
-      MessageBeep(MB_OK);
+      PlaySound(SOUND_ERROR);
     end;
   cmd_CopySpec:
     begin

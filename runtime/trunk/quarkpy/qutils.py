@@ -122,6 +122,13 @@ LOG_WARNING  = 20
 LOG_INFO     = 30
 LOG_VERBOSE  = 40
 
+# Sound types for quarkx.beep (must be same as Platform.TSoundType!)
+SOUND_DEFAULT  = 0
+SOUND_INFO     = 1
+SOUND_QUESTION = 2
+SOUND_WARNING  = 3
+SOUND_ERROR    = 4
+
 # icon indexes of internal objects (to be used with quarkx.seticons; must be same as in QkObjects.pas!)
 iiUnknownFile           = 0
 iiExplorerGroup         = 1

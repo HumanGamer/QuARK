@@ -95,7 +95,7 @@ procedure ExecuteObjectMacros(Sender: TComponent; Obj: QObject);
 implementation
 
 uses qdraw, Forms, Game, Setup, QkExplorer, ToolBox1, QkMacro, QkInclude, Running,
-     FormCfg, Quarkx, QkExceptions, QkObjectClassList, QkFormCfg, Python, QkPixelSet;
+     FormCfg, Quarkx, QkExceptions, QkObjectClassList, QkFormCfg, Python, QkPixelSet, Platform;
 
 const
  typSeparator    = 'S';
@@ -599,7 +599,7 @@ begin
      Exit;
     end;}
  end;
- MessageBeep(MB_OK);
+ PlaySound(SOUND_ERROR);
  Abort;
 end;
 

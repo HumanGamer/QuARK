@@ -2756,7 +2756,7 @@ begin
    TrackPopupMenu(Menu, 0, ScreenPoint.X, ScreenPoint.Y, 0, g_Form1.Handle, Nil)
   end
  else
-  MessageBeep(MB_OK);
+  PlaySound(SOUND_ERROR);
  finally DestroyMenu(Menu); end;
 end;*)
 

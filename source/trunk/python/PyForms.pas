@@ -107,7 +107,7 @@ implementation
 
 uses PyMenus, PyToolbars, PyObjects, Setup, Qk1, QkConsts,
      PyFloating, PyFullscreen, PyExplorer, ComCtrls, QkTreeView,
-     EnterEditCtrl, TbPalette, HelpPopup1, Travail;
+     EnterEditCtrl, TbPalette, HelpPopup1, Travail, Platform;
 
 {$R *.DFM}
 
@@ -1151,7 +1151,7 @@ begin
    begin
     id:=GetMenuDefaultItem(Mnu, 0, GMDI_GOINTOPOPUPS);
     if id=-1 then
-     MessageBeep(MB_OK)
+     PlaySound(SOUND_ERROR)
     else
      PostMessage(Handle, wm_Command, id, 0);
    end

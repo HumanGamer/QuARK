@@ -94,7 +94,7 @@ uses Classes, Dialogs, Graphics, CommCtrl, ExtCtrls, Controls,
      PakFiles, Registry2, SearchHoles, QkMapPoly, HelpPopup1, QkFullScreenWindow,
      PyForms, QkPixelSet, Bezier, Logging, QkObjectClassList, QkTextBoxForm,
      QkApplPaths, MapError, StrUtils, QkImages, QkExceptions,
-     SystemDetails, ExtraFunctionality;
+     SystemDetails, ExtraFunctionality, Platform;
 
 const
  ToolBoxClosed = 0;
@@ -1772,18 +1772,18 @@ end;
 
 function xBeep(self, args: PyObject) : PyObject; cdecl;
 var
- Mb: LongWord;
+ SoundType: Cardinal;
 begin
  Result:=Nil;
  try
-  Mb:=0;
+  SoundType:=Cardinal(SOUND_DEFAULT);
   {$IFDEF PYTHON23}
-  if not PyArg_ParseTupleX(args, '|I', [@Mb]) then
+  if not PyArg_ParseTupleX(args, '|I', [@SoundType]) then
   {$ELSE}
-  if not PyArg_ParseTupleX(args, '|i', [@Mb]) then
+  if not PyArg_ParseTupleX(args, '|i', [@SoundType]) then
   {$ENDIF}
    Exit;
-  MessageBeep(Mb);
+  PlaySound(TSoundType(SoundType));
   Result:=PyNoResult;
  except
   Py_XDECREF(Result);

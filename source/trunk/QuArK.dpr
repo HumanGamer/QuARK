@@ -102,6 +102,7 @@ uses
   Output1 in 'prog\Output1.pas' {OutputDirDlg},
   PakFiles in 'prog\PakFiles.pas',
   PixelSetSizeCache in 'prog\PixelSetSizeCache.pas',
+  Platform in 'prog\Platform.pas',
   qdraw in 'prog\qdraw.pas',
   Qk1 in 'prog\Qk1.pas' {Form1},
   Qk3D in 'prog\Qk3D.pas',

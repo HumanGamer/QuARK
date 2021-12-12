@@ -132,7 +132,7 @@ function BrowseForTextureDlg(const TexName: String; SelectEventWnd: HWnd) : TToo
 implementation
 
 uses Graphics, Qk1, Travail, Setup, qmath, QkWad, QkInclude, QkMapPoly,
-  NewFolder, Undo, QkTextures, Quarkx, QuickWal, ToolBoxGroup, QkObjectClassList;
+  NewFolder, Undo, QkTextures, Quarkx, QuickWal, ToolBoxGroup, QkObjectClassList, Platform;
 
 {$R *.DFM}
 
@@ -290,7 +290,7 @@ begin
   end;
  if Targ=Nil then
   begin
-   MessageBeep(MB_OK);
+   PlaySound(SOUND_ERROR);
    Exit;
   end;
  Gr1:=CopyToOutside(Gr);
@@ -835,7 +835,7 @@ begin
      SpecDesc, S2, sp_Auto, Q));
   end
  else
-  MessageBeep(MB_OK);
+  PlaySound(SOUND_ERROR);
 end;
 
 procedure TToolBoxForm.FormDeactivate(Sender: TObject);

@@ -187,7 +187,7 @@ implementation
 uses QkWad, QkBsp, ToolBox1, QkImages, Setup, Travail, qmath, QkPcx,
   TbPalette, TbTexture, Undo, QkExplorer, QkPak, QkQuakeCtx, Quarkx, QkExceptions,
   CCode, PyObjects, QkHr2, QkHL, QkSin, QkFormCfg, Logging,
-  QkQ1, QkQ2, QkQ3, QkCoD2, QkObjectClassList, QkD3, QkApplPaths{, ExtraFunctionality};
+  QkQ1, QkQ2, QkQ3, QkCoD2, QkObjectClassList, QkD3, QkApplPaths, Platform{, ExtraFunctionality};
 
 {$R *.DFM}
 
@@ -2236,7 +2236,7 @@ begin
   S:=BaseDir.Text;
   if S='' then
   begin
-    MessageBeep(MB_OK);
+    PlaySound(SOUND_ERROR);
     Abort;
   end;
 

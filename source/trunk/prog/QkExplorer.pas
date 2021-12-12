@@ -22,7 +22,7 @@ unit QkExplorer;
 
 interface
 
-uses SysUtils, Windows, Messages, Classes, Controls, Menus,
+uses Windows, SysUtils, Messages, Classes, Controls, Menus,
      Forms, StdCtrls, ExtCtrls, Buttons, ComCtrls,
      EnterEditCtrl, QkObjects, QkTreeView,
      QkGroup, QkForm, QSplitter;
@@ -167,7 +167,7 @@ type
 
 implementation
 
-uses Qk1, QkExceptions, Undo, Travail, Quarkx, QkModelBone, QkFrame, Logging;
+uses Qk1, QkExceptions, Undo, Travail, Quarkx, QkModelBone, QkFrame, Logging, Platform;
 
  {------------------------}
 
@@ -1539,7 +1539,7 @@ begin
   begin
    if SourceQ.SubElements.IndexOf(T)>=0 then
     begin
-     MessageBeep(MB_OK);  { déplacement sur un élément lui-même sélectionné }
+     PlaySound(SOUND_DEFAULT);  { déplacement sur un élément lui-même sélectionné }
      Exit;
     end;
    T:=T.TvParent;
@@ -1552,7 +1552,7 @@ begin
 
  if Flags and (dfMoveHere or dfInsertGr) = 0 then
   begin
-   MessageBeep(MB_OK);  { aucune opération autorisée }
+   PlaySound(SOUND_ERROR);  { aucune opération autorisée }
    Exit;
   end;
 
@@ -1872,7 +1872,7 @@ begin
  if g_ListeActions.Count=0 then
   begin   { items were not accepted by the target group }
    if Beep then
-    MessageBeep(MB_OK);
+    PlaySound(SOUND_DEFAULT);
   end
  else
   Result:=True;
@@ -1912,7 +1912,7 @@ begin
     T:=QObject(L[0]);
     if not Odd(T.Flags) then   { if ofTreeViewSubElement is not set }
      begin
-      MessageBeep(MB_OK);   { cannot delete a root }
+      PlaySound(SOUND_ERROR);   { cannot delete a root }
       Exit;
      end;
     if NoTexte=0 then
@@ -2017,7 +2017,7 @@ begin
            Q:=Q.TvParent;
           try
            Result:=DoQueryEditing(Q);
-           if not Result then MessageBeep(MB_OK);
+           if not Result then PlaySound(SOUND_DEFAULT);
           except
            on E: Exception do
             Application.ShowException(E);

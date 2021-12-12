@@ -74,7 +74,7 @@ type
 
 implementation
 
-uses Qk1, Undo, Quarkx, PyImages, Game;
+uses Qk1, Undo, Quarkx, PyImages, Game, Platform;
 
 {$R *.DFM}
 
@@ -460,7 +460,7 @@ begin
     try
      if Gr.SubElements.Count=0 then
       begin
-       MessageBeep(MB_OK);
+       PlaySound(SOUND_DEFAULT);
        Exit;
       end;
      if NoTexte=0 then
@@ -506,7 +506,7 @@ begin
  if g_ListeActions.Count=0 then
   begin   { items were not accepted by FileObject }
    if Beep then
-    MessageBeep(MB_OK);
+    PlaySound(SOUND_DEFAULT);
    Exit;
   end;
  g_NiveauAction:=g_NiveauAction or LocalActionFlags;
@@ -626,7 +626,7 @@ begin
   begin
    if SourceQ.SubElements.IndexOf(T)>=0 then
     begin
-     MessageBeep(MB_OK);  { déplacement sur un élément lui-même sélectionné }
+     PlaySound(SOUND_DEFAULT);  { déplacement sur un élément lui-même sélectionné }
      Exit;
     end;
    T:=T.TvParent;
@@ -639,7 +639,7 @@ begin
 
  if Flags and (dfMoveHere or dfInsertGr) = 0 then
   begin
-   MessageBeep(MB_OK);  { aucune opération autorisée }
+   PlaySound(SOUND_ERROR);  { aucune opération autorisée }
    Exit;
   end;
 

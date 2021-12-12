@@ -74,7 +74,7 @@ var
 
 implementation
 
-uses Quarkx, QkExceptions, PyForms, QkMapObjects, QkMapPoly, QkTreeView, PyUndo;
+uses Quarkx, QkExceptions, PyForms, QkMapObjects, QkMapPoly, QkTreeView, PyUndo, Platform;
 
  {------------------------}
 
@@ -246,7 +246,7 @@ begin
  Result:=(callresult<>Nil) and PyObject_IsTrue(callresult);
  Py_XDECREF(callresult);
  if not Result and Beep then
-  MessageBeep(MB_OK);
+  PlaySound(SOUND_DEFAULT);
 end;
 
 function TPythonExplorer.CopyFromOutside(SourceQ: QObject) : Boolean;

@@ -54,7 +54,7 @@ type
 implementation
 
 uses Game, Qk1, Setup, QkGroup, QkObjects, QkFileObjects, Undo, Quarkx, QkExceptions,
-  PyImages, ToolBoxGroup, QkApplPaths, SystemDetails;
+  PyImages, ToolBoxGroup, QkApplPaths, SystemDetails, Platform;
 
 {$R *.DFM}
 
@@ -97,7 +97,7 @@ begin
    if ListView1.Selected=Nil then
     begin
      ListView1.SetFocus;
-     MessageBeep(MB_OK);
+     PlaySound(SOUND_DEFAULT);
      Exit;
     end;
    AddOns:=MakeAddonsList; try

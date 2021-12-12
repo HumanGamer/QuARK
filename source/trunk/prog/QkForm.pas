@@ -189,7 +189,7 @@ implementation
 uses QkFileObjects, qmath, Setup, Qk1, Toolbar1, ToolBox1,
      TbUndoMenu, Undo, ObjProp, Config, Game, Dialogs, Logging,
      QkMacro, FormCfg, Running, Output1, PyImages, Quarkx, QkConsts,
-     QkExplorer, PyToolbars, PyControls, QkFormCfg;
+     QkExplorer, PyToolbars, PyControls, QkFormCfg, Platform;
 
 const
  ActiveFontColor    = clWhite;
@@ -442,7 +442,7 @@ begin
   wp_ToolbarButton1:
     if not MacroCommand(Msg.lParam) then
      begin
-      MessageBeep(MB_OK);
+      PlaySound(SOUND_ERROR);
       Abort;
      end;
 {$IFNDEF NoMarsCaption}

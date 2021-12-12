@@ -233,7 +233,7 @@ uses {$IFDEF Debug}MemTester, {$ENDIF}Undo, QkQuakeC, Setup, Config,
   Running, Output1, QkTreeView, PyProcess, Console, Python, Quarkx, About,
   PyMapView, PyForms, Qk3D, EdSceneObject, QkObjectClassList, QkApplPaths,
   QkExceptions, QkQuakeCtx, AutoUpdater, QkConsts, Toolbar1,
-  Splash, Logging, SystemDetails;
+  Splash, Logging, SystemDetails, Platform;
 
 type
   TCmdLineOptions = record
@@ -1906,7 +1906,7 @@ begin
        ConvertClass:=QFileObject(Q).TestConversionType(I);
        if ConvertClass=Nil then
         begin
-         MessageBeep(MB_OK);  { error }
+         PlaySound(SOUND_ERROR);
          Break;
         end;
        ConvertClass.FileObjectClassInfo(Info);
@@ -1925,7 +1925,7 @@ begin
       until False;
      end
     else
-     MessageBeep(MB_OK);  { error }
+     PlaySound(SOUND_ERROR);
    end;
   if Gr.SubElements.Count>0 then
    Gr.CopierObjets(False);
@@ -2092,7 +2092,7 @@ begin
   Application.ShowException(E)
  else
   begin
-   MessageBeep(MB_ICONSTOP);
+   PlaySound(SOUND_ERROR);
    MessageDlg(E.Message+'.', mtError, [mbOk, mbHelp], E.HelpContext);
   end;*)
  if E is EAbort then
@@ -2100,7 +2100,7 @@ begin
    Result:=mrNone;
    Exit;   { silent exception }
   end;
- MessageBeep(MB_ICONSTOP);
+ PlaySound(SOUND_ERROR);
  Include(Buttons, mbIgnore);
  if E.HelpContext<>0 then Include(Buttons, mbHelp);
  S:=Format(Info, [GetExceptionMessage(E)]);

@@ -109,7 +109,7 @@ type
 
 implementation
 
-uses QkUnknown, Quarkx, QkExceptions;
+uses QkUnknown, Quarkx, QkExceptions, Platform;
 
 {$R *.DFM}
 
@@ -379,7 +379,7 @@ var
 begin
  if Info.Stream<>Nil then
   begin
-   MessageBeep(MB_OK);
+   PlaySound(SOUND_ERROR);
    Exit;
   end;
  StartPos:=PlayPosition;

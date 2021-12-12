@@ -28,7 +28,7 @@ unit QuickWal;
 interface
 
 uses
-  Windows, QkObjects, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+  QkObjects, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   TB97, StdCtrls, ExtCtrls, QkForm;
 
 type
@@ -66,7 +66,7 @@ function ListPakFiles(const Path: String) : TStringList;
 
 implementation
 
-uses QkGroup, Game, QkTextures, QkWad, QkExplorer, QkZip2,
+uses Platform, QkGroup, Game, QkTextures, QkWad, QkExplorer, QkZip2,
   Quarkx, QkExceptions, Travail, ToolBox1, QkPak, QkFileObjects, QkHL, ToolBoxGroup,
   Setup, Logging, QkQ3, OsFolder, QkD3, QkApplPaths;
 
@@ -768,7 +768,7 @@ begin
  finally
   ProgressIndicatorStop;
  end;
- MessageBeep(MB_OK);
+ PlaySound(SOUND_ERROR);
 end;
 
 (*procedure MakeFolder(var Folder, Parental: QObject; const Name: String);

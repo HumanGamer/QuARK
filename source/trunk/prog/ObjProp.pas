@@ -63,7 +63,7 @@ procedure ObjectProperties(QL: TQList; nPasteTo: TQkForm);  { assume QL is non-e
 
 implementation
 
-uses Qk1, QkGroup, Quarkx, QkExceptions, PyImages, Python, Travail, QkPixelSet;
+uses Qk1, QkGroup, Quarkx, QkExceptions, PyImages, Python, Travail, QkPixelSet, Platform;
 
 {$R *.DFM}
 
@@ -205,7 +205,7 @@ begin
     begin
      ConvertClass:=(List[I] as QFileObject).TestConversionType(ListBox1.ItemIndex+1);
      if ConvertClass=Nil then
-      MessageBeep(MB_OK)
+      PlaySound(SOUND_ERROR)
      else
       if not QFileObject(Gr.SubElements[Gr.SubElements.Add(ConvertClass.Create(List[I].Name, Gr))])
              .ConversionFrom(QFileObject(List[I])) then

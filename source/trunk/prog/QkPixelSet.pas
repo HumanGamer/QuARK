@@ -22,7 +22,7 @@ unit QkPixelSet;
 
 interface
 
-uses SysUtils, Windows, Classes, Graphics, Game, Python, QkObjects,
+uses Windows, SysUtils, Classes, Graphics, Game, Python, QkObjects,
      QkFileObjects;
 
 type
