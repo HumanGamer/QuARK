@@ -23,9 +23,9 @@ unit QkUnknown;
 interface
 
 uses
-  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+  Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   ExtCtrls, QkObjects, QkFileObjects, QkExplorer, StdCtrls,
-  Menus, TB97, QkForm, QkFormVw;
+  TB97, QkForm;
 
 type
  QUnknown = class(QFileObject)
