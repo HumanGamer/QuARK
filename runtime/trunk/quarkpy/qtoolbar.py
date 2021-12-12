@@ -9,7 +9,7 @@ Tool Bars and Buttons
 #
 
 import quarkx
-from qutils import *
+import qutils
 
 # button state (needs to match PyToolbars.pas)
 normal     = 0
@@ -31,7 +31,7 @@ class button:
         self.hint = hint
         self.state = normal
         self.caption = caption
-        self.hint = hintPlusInfobaselink(hint, infobaselink)
+        self.hint = qutils.hintPlusInfobaselink(hint, infobaselink)
         if capalways:
             self.capalways = 1
         if iconindex is None:
@@ -55,6 +55,7 @@ class button:
         self._icons = (icon, iconmouse, iconmouse, iconsel, iconsel, icon.disabledimage)
         self._cap = caption
         if caption:
+            global BtnText
             if BtnText:
                 self.icons = None
             else:
@@ -86,7 +87,7 @@ def menubutton(menu, hint, iconlist, iconindex, infobaselink=''):
 def doublebutton(onclick, menu, hint, iconlist, iconindex, infobaselink=''):
     "A button with both a menu and direct clicks (e.g. the grid and zoom buttons)."
 
-    hint = hintPlusInfobaselink(hint, infobaselink)
+    hint = qutils.hintPlusInfobaselink(hint, infobaselink)
     m = button(onclick, hint, iconlist, iconindex)
     m.menu = menu
     return m
@@ -98,15 +99,15 @@ def toggle(btn):
     quarkx.update()
 
 
+def macroclick(b):
+    if not (quarkx.clickform is None):
+        quarkx.clickform.macro(b.macro)
+
 def macrobtn(macro, hint, iconlist, iconindex, caption=None, infobaselink=""):
     "A button that executes a single macro command."
     b = button(macroclick, hint, iconlist, iconindex, caption, infobaselink)
     b.macro = macro
     return b
-
-def macroclick(b):
-    if not (quarkx.clickform is None):
-        quarkx.clickform.macro(b.macro)
 
 
 # a separator line in the toolbar
@@ -141,6 +142,5 @@ def BtnPrefChanged(level):
                             b.icons = b._icons
             tb.update()
 
-import qutils
 qutils.SetupRoutines.append(BtnPrefChanged)
 BtnText = quarkx.setupsubset(qutils.SS_GENERAL, "Display")["BtnText"]
