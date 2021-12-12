@@ -38,8 +38,7 @@ type
 
 implementation
 
-uses StrUtils, Windows, Setup, Travail, Quarkx, QkExceptions,
-     QkPixelSet, QkObjectClassList, ExtraFunctionality;
+uses StrUtils, Setup, Travail, Quarkx, QkExceptions, QkPixelSet, QkObjectClassList, ExtraFunctionality;
 
 const
  MIP32_VERSION = 4;
