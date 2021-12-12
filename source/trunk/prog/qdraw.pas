@@ -37,9 +37,13 @@ function Ligne95(var P1, P2: TPoint) : Boolean;
 
 procedure InitViewport16();
 
+ {------------------------}
+
+function DataToBmp16(const S: String; W: Integer) : HBitmap;
+
 implementation
 
-uses SystemDetails;
+uses QkPixelSet, SystemDetails;
 
 const
  Max95 = 8192;  { to clip coordinates x and y }
@@ -319,5 +323,89 @@ begin
    PolyPolyline95:=PolyPolyline16;
   end;
 end;
+
+ {------------------------}
+
+function DataToBmp16(const S: String; W: Integer) : HBitmap;
+type
+ TColors16 = array[0..15] of LongWord;
+const
+ Colors16 : TColors16 =
+  ($000000,
+   $800000,
+   $008000,
+   $808000,
+   $000080,
+   $800080,
+   $008080,
+   $C0C0C0,
+   $808080,
+   $FF0000,
+   $00FF00,
+   $FFFF00,
+   $0000FF,
+   $FF00FF,
+   $00FFFF,
+   $FFFFFF
+  );
+var
+ BmpInfo: record
+           bmiHeader: TBitmapInfoHeader;
+           bmiColors: TColors16;
+          end;
+ BitmapInfo: TBitmapInfo absolute BmpInfo;
+ ScanW: Integer;
+ DC: HDC;
+begin
+ if S='' then
+  Result:=0
+ else
+  begin
+   ScanW:=((W+7) and not 7) div 2;
+   FillChar(BmpInfo, SizeOf(BmpInfo), 0);
+   with BmpInfo.bmiHeader do
+    begin
+     biSize:=SizeOf(TBitmapInfoHeader);
+     biWidth:=W;
+     biHeight:=Length(S) div ScanW;
+     biPlanes:=1;
+     biBitCount:=4;
+    end;
+   BmpInfo.bmiColors:=Colors16;
+   DC:=GetDC(GetDesktopWindow);
+   try
+    Result:=CreateToDC(DC, BitmapInfo, PChar(S));
+   {Result:=CreateBitmap(W, BitmapInfo.bmiHeader.biHeight, 1, 4, Nil);
+    if Result<>0 then
+     SetDIBits(DC, Result, 0, BitmapInfo.bmiHeader.biHeight, PChar(S),
+      BitmapInfo, dib_Pal_Colors);}
+   finally
+    ReleaseDC(GetDesktopWindow, DC);
+   end;
+  end;
+end;
+
+(*procedure DataToBmp16(const S: String; W: Integer; Bmp: TBitmap);
+var
+ M: TMemoryStream;
+ FileHeader: TBitmapFileHeader;
+begin
+ M:=TMemoryStream.Create; try
+ FillChar(FileHeader, SizeOf(TBitmapFileHeader), 0);
+ FileHeader.bfType:=$4D42;
+ M.Write(FileHeader, SizeOf(FileHeader));
+ with BmpInfo.bmiHeader do
+  begin
+   biSize:=SizeOf(TBitmapInfoHeader);
+   biWidth:=W;
+   biHeight:=Length(S) div ScanW;
+   biPlanes:=1;
+   biBitCount:=4;
+  end;
+
+ Bmp.LoadFromStream(M);
+ finally M.Free; end;
+end;*)
+
 end.
 
