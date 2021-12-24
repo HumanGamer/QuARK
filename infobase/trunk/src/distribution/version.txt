@@ -1,7 +1,7 @@
 title: Changing the version number
 author: DanielPharos
 
-QuArK's version number is stored in several places:
+QuArK's version number is stored in several places within the code:
 
 <ol>
 <li>Delphi project: Project > Options > Version Info.</li>
@@ -10,3 +10,5 @@ QuArK's version number is stored in several places:
 <li><tt>qdictionnary.py</tt>: <code>Strings</code> entry 0.</li>
 <li><tt>NEWS.txt</tt>: Add a new header.</li>
 </ol>
+
+Note that it is also stored in the installer script: <ref>src/distribution/installer</ref>.

@@ -7,22 +7,46 @@ In preparation for creating the installer, you'll need to carry out a couple of 
 
 <ol><li>Download and install Nullsoft Scriptable Install System (NSIS) 2.0 beta 4 or higher from <a href="http://nsis.sourceforge.net">http://nsis.sourceforge.net</a>.
 </li>
-<li>Checkout the <tt>utils</tt> module from QuArK CVS on SourceForge. This module contains the scripts and other files you'll need to be able to create the distribution.</li>
+<li>Checkout the <tt>utils</tt> module from QuArK SVN on SourceForge. This module contains the scripts and other files you'll need to be able to create the distribution.</li>
 </ol>
 
 There are several steps in creating the installer:
+
 <ol>
-<li>Change "INSTALLER_EXENAME" to the name of the installer executable file.</li>
-<li>Change "PRODUCT_VERSION" to match the new version number.</li>
-<li>Change "InstallDir" to the new Program Files location.</li>
 <li>Create an empty folder (here we'll use "QuArK_installer_files" in the C:\ directory).</li>
-<li>Change "BUILDDIR" to the name of this new folder.</li>
-<li>Place the QuArK.exe, all runtime files and the help folder in the above folder.</li>
+<li>Place the QuArK.exe, all runtime files <u>and the help folder</u> in the above folder.</li>
 <li>Create an empty folder (here we'll use "QuArK_installer_splash_image" in the C:\ directory).</li>
 <li>Copy the install_header.bmp and install_splash.bmp files from utils\nsis-dist-tools folder to the above folder.</li>
-<li>Run the <tt>QuArK.nsi</tt> script. If you selected this option during the NSIS installation, right-clicking the file should provide you with that option. If not, open up NSIS.exe to start program
-select "MakeNSISW (compiler interface)", and drag the <tt>QuArK.nsi</tt> file into the compiler window, or use the "File > Load Script" method to open this file.</li>
-<li>The finished QuArK installer will be place in the same location as this file, ready for distribution!</li>
+<li>Create an empty folder (here we'll use "QuArK_installer_dependencies" in the C:\ directory).</li>
+<li>Copy the installer dependencies from utils\nsis-dist-tools folder to the above folder. Currently there are three:
+<code>
+VC2005SP1MFC
+VC2010SP1
+WindowsInstaller20
+</code>
+</li>
+<li>Open up your local copy of <tt>QuArK.nsi</tt>. You'll need to make some changes there:
+<ol>
+<li>Set the path to the files to create the installer with to the folder you just created:
+<code>!define BUILDDIR "C:\QuArK_installer_files"</code>
+It is advisable to simply create this directory and copy the files into it manually.</li>
+<li>Set the path to the installer images:
+<code>!define SPLASHDIR "C:\QuArK_installer_splash_image"</code></li>
+<li>Set the path to the installers of the dependencies you just created:
+<code>!define DEPENDENCYDIR "C:\QuArK_installer_dependencies"</code></li>
+<li>Update the version numbers and copyright year (if needed) in the follow lines:
+<code>!define INSTALLER_EXENAME "quark-win32-6.6.0beta8.exe"
+!define PRODUCT_COPYRIGHT "Copyright (c) 2022"
+!define PRODUCT_VERSION "6.6.0 Beta 8"
+!define PRODUCT_VERSION_NUMBER "6.6.8.0"
+!define PRODUCT_VERSION_STRING "6.6 (Beta-Release)"
+InstallDir "$PROGRAMFILES\QuArK 6.6.0 Beta 8"
+</code></li>
+</ol>
+</li>
+<li>If you are making an official release, don't forget to commit the updated <tt>QuArK.nsi</tt> file to the source code repository.</li>
+<li>Run the <tt>QuArK.nsi</tt> script. If you selected this option during the NSIS installation, right-clicking the file should provide you with that option. If not, open up NSIS.exe to start program select "MakeNSISW (compiler interface)", and drag the <tt>QuArK.nsi</tt> file into the compiler window, or use the "File > Load Script" method to open this file.</li>
+<li>The finished QuArK installer will be placed in the same folder as the <tt>QuArK.nsi</tt> file, ready for distribution!</li>
 </ol>
 
-This will produce the installer executable in the same folder as where <tt>QuArK.nsi</tt> is located.
+It is wise to verify the installer actually works.

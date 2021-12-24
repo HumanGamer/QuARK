@@ -11,10 +11,9 @@ A distribution consists of the following files:
 System executable containing the QuArK Windows binaries with a bundled
 Python micro-distribution and the Infobase.</li>
 <li><tt>quark-win32-*version*.zip</tt> - a zip archive containing the
-QuArK Windows binaries with a bundled Python micro-distribution and
-the Infobase.</li>
+QuArK Windows binaries with a bundled Python micro-distribution.</li>
 <li><tt>quark-src-*version*.zip</tt> - a zip archive containing full
-exports of the <tt>infobase</tt>, <tt>runtime</tt> and <tt>source</tt> CVS modules.</li>
+exports of the <tt>infobase</tt>, <tt>runtime</tt> and <tt>source</tt> SVN modules.</li>
 <li><tt>quark-help-*version*.zip</tt> - a zip archive containing the
 compiled Infobase.</li>
 </ul>
@@ -36,7 +35,7 @@ Windows binaries with a bundled Python micro-distribution and the
 Infobase.</li>
 <li><tt>quark-src-*date*.zip</tt> - a zip archive containing full
 exports of the <tt>infobase</tt>, <tt>runtime</tt> and <tt>source</tt>
-CVS modules.</li>
+SVN modules.</li>
 <li><tt>quark-help-*date*.zip</tt> - a zip archive containing the
 compiled Infobase.</li>
 </ul>
@@ -50,7 +49,7 @@ N.B. that dates should be in the format <tt>YYYYMMDD</tt>.
 
 Typically, QuArK snapshots are released every couple of weeks,
 although this may vary depending on how much work is being done.  If
-two weeks go by with very little CVS activity, there won't be much
+two weeks go by with very little SVN activity, there won't be much
 point in making a snapshot; equally, if things are frantic, it's
 likely we'll do snapshots more frequently.  Also, it depends how much
 time the release technicians have available.

@@ -50,26 +50,6 @@ new notification so that QuArK will tell people to update. Increasing
 the <tt>Notification_Main</tt> number under <tt>Startup:config</tt>
 in the Defaults.qrk file will prevent people that install the new
 version from receiving this notification too.</li>
-<li>Open up your local copy of <tt>QuArK.nsi</tt>. You'll need to
-make some changes there:
-<ol>
-<li>Update the version numbers:
-<code>!define INSTALLER_EXENAME "quark-win32-6.4.1beta3.exe"
-!define PRODUCT_VERSION "6.4.1 beta 3"
-InstallDir "$PROGRAMFILES\QuArK 6.4.1 beta 3"
-</code></li>
-<li>Set the path to the files to create the installer with:
-<code>!define BUILDDIR "C:\QuArK_installer_files"</code>
-It is advisable to simply create this directory and copy the files into
-it manually.</li>
-<li>Set the path to the installer images:
-<code>!define SPLASHDIR "C:\QuArK_installer_splash_image"</code></li>
-<li>Set the path to the installers of the dependencies:
-<code>!define DEPENDENCYDIR "C:\QuArK_installer_dependencies"</code></li>
-</ol>
-</li>
-<li>If you are making an official release, don't forget to commit the
-updated <tt>QuArK.nsi</tt> file to the source code repository.</li>
 <li>Create the installer; see <ref>src/distribution/installer</ref>.</li>
 <li>It's not a bad idea to run some tests at this point. Test the
 installer, and make sure the new release does not have any obvious
