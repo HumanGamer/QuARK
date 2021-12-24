@@ -415,7 +415,7 @@ function NormalSpecOfFloatSpec(const Name: String) : String;
 procedure CheckValidSpec(var Spec: String);
 function StringListConcatWithSeparator(const theStringList: TStrings; theStringSeparator: Byte) : String;
 {procedure FreeOldObjects;}
-{AiV}function QStreamAddRef(Ref: PQStreamRef; var S: TStream) : Integer;
+{AiV}function QStreamAddRef(Ref: PQStreamRef; var S: TStream) : TStreamPos;
 {procedure QStreamRelease(Ref: TTreeNode);}
 
 function CharToPas(C: array of Byte) : String;
@@ -847,7 +847,7 @@ begin
   Result:=FHandle>=0;
 end;
 
-function QStreamAddRef(Ref: PQStreamRef; var S: TStream) : Integer;
+function QStreamAddRef(Ref: PQStreamRef; var S: TStream) : TStreamPos;
 begin
   Result:=Ref^.OnAccess(Ref, S); {AiV}
 end;
