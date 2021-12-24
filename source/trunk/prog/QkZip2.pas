@@ -128,6 +128,11 @@ type
     procedure ObjectState(var E: TEtatObjet); override;
   end;
 
+implementation
+
+uses Travail, QkExplorer, Quarkx, QkExceptions, PyObjects, Game, crc32, UNZIP, ZIP, QkObjectClassList,
+     ExtraFunctionality;
+
 const
   cZIP_HEADER   = $04034B50;
   cCFILE_HEADER = $02014B50;
@@ -138,11 +143,6 @@ const
   cSHRUNK_COMPRESSION = 1;
   cIMPLODED_COMPRESSION = 6;
   cDEFLATED_COMPRESSION = 8;
-
-implementation
-
-uses Travail, QkExplorer, Quarkx, QkExceptions, PyObjects, Game, crc32, UNZIP, ZIP, QkObjectClassList,
-     ExtraFunctionality;
 
 function BuildLFH(ver, bit, com, las, crc, cmp, unc, fil, ext:longint) : TLocalFileHeader;
 begin
