@@ -407,7 +407,7 @@ begin
       org:=f.position;
 
       if (FSize < sizeof(TEndOfCentralDIR)) then
-        raise Exception.CreateFmt('File "%s" is corrupt, please correct or remove it.\nFilesize less than minimum required size (%d < %d).', [LoadName, FSize, sizeof(TEndOfCentralDIR)]);
+        raise EErrorFmt(5840, [LoadName, FSize, sizeof(TEndOfCentralDIR)]);
 
       f.seek(FSize-sizeof(TEndOfCentralDIR), soFromBeginning); // EOCD is stored at least -Sizeof(endofcentraldir) header
       eocd_found:=false;
@@ -423,12 +423,12 @@ begin
       if not eocd_found then
       begin
         f.seek(org, soFromBeginning); // Restore original file position, just in case
-        raise Exception.CreateFmt('File "%s" is corrupt. cEOCD_HEADER(%d) not found', [LoadName, cEOCD_HEADER]);
+        raise EErrorFmt(5841, [LoadName, cEOCD_HEADER]);
       end;
 
       f.readbuffer(eocd, sizeof(eocd));
       if eocd.disk_no<>0 then
-        raise Exception.CreateFmt('File "%s" cannot be loaded: it is spanned across several disks', [LoadName]);
+        raise EErrorFmt(5842, [LoadName]);
       if eocd.zipfilecomment_len <> 0 then
       begin
         setlength(dummystring, eocd.zipfilecomment_len);
@@ -450,7 +450,7 @@ begin
           begin
             files.ReadBuffer(s, 4); // Signature
             if s<>cCFILE_HEADER then
-              raise Exception.CreateFmt('Central directory for file "%s" is corrupt: %d<>%d(cCFILE_HEADER)', [LoadName, s, cCFILE_HEADER]);
+              raise EErrorFmt(5843, [LoadName, s, cCFILE_HEADER]);
 
             files.ReadBuffer(FH, sizeof(TFileHeader));
 

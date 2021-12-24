@@ -1105,6 +1105,10 @@ Strings = {
     5837: "Loaded Setup.qrk with version: %f",
     5838: "Unable to load config file '%s'!",
     5839: "Switching to gamemode: %s",
+    5840: "File '%s' is corrupt, please correct or remove it.\nFilesize less than minimum required size (%d < %d)",
+    5841: "File '%s' is corrupt. cEOCD_HEADER(%d) not found",
+    5842: "File '%s' cannot be loaded: it is spanned across several disks",
+    5843: "Central directory for file '%s' is corrupt: %d <> %d(cCFILE_HEADER)",
 
     # DanielPharos would like to reserve 6000 .. 6099 for all renderers
     6000: "Unable to create SceneObject//%s",
