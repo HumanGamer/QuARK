@@ -704,9 +704,7 @@ begin
   WriteLn(StreamRefFile, Format('Close %d', [Self.FHandle]));
   CloseFile(StreamRefFile);
   {$ENDIF}
-  { I'm assuming here that valid filehandles will be greater
-    than zero, since TemporaryClose sets fhandle to 0 }
-  if FHandle>0 then
+  if FHandle>=0 then
     FileClose(FHandle);
 end;
 
@@ -808,7 +806,7 @@ begin
     begin
       if Temporary then
       begin
-        if FHandle>0 then
+        if FHandle>=0 then
           TemporaryClose;
         DeleteFile(PChar(QFileList[I]));
       end;
@@ -826,7 +824,7 @@ end;
 procedure TQStream.TemporaryClose;
 begin
   FileClose(FHandle);
-  FHandle:=0;
+  FHandle:=-1;
 end;
 
 function TQStream.ReopenAs(const FileName: String) : Boolean;
