@@ -4,6 +4,7 @@ author: Decker
 <dl>
 <dt><a name=".AAS">   </a>.AAS   <dd>(binary)               A file that contains pathfinding information for <a href="#bot">bots</a> for <a href="#quake3">Quake-3:Arena</a> games. See <a href="#aas">Area Awareness System</a>.
 <dt><a name=".ACE">   </a>.ACE   <dd>(binary)               A compressed archive of files. See <a target=_blank href="http://www.winace.com">http://www.winace.com</a>.
+<dt><a name=".ASE">   </a>.ASE   <dd>(binary)               An <b>A</b>SCII <b>S</b>cene <b>E</b>xport model, used by <a href="#doom3">Doom 3</a>.
 <dt><a name=".BMP">   </a>.BMP   <dd>(binary)               The Windows <b>B</b>it<b>m</b>a<b>p</b> file format for storing graphical images.
 <dt><a name=".BSP">   </a>.BSP   <dd>(binary)               A compiled level for the <a href="#fps">FPS-game</a>. See also <a href="#bsp">bsp</a> and <a href="#buildtools">build tools</a>.
 <dt><a name=".DDS">   </a>.DDS   <dd>(binary)               A DirectDraw surface. Used by <a href="#directx">DirectX</a> for textures.
