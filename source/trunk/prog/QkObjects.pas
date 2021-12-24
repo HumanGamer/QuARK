@@ -765,12 +765,17 @@ begin
   WriteLn(StreamRefFile, Format('AddRefNode %d: %d (about to +1)', [Self.FHandle, RefCount1]));
   CloseFile(StreamRefFile);
   {$ENDIF}
-  Inc(RefCount1);
   New(Result);
-  Result^.Self:=Self;
-  Result^.Position:=Seek(a_StreamSize, soFromCurrent) - a_StreamSize;
-  Result^.StreamSize:=a_StreamSize;
-  Result^.OnAccess:=DefaultAddRef;
+  try
+   Result^.Self:=Self;
+   Result^.StreamSize:=a_StreamSize;
+   Result^.OnAccess:=DefaultAddRef;
+   Result^.Position:=Seek(a_StreamSize, soFromCurrent) - a_StreamSize;
+  except
+   Dispose(Result);
+   raise
+  end;
+  Inc(RefCount1);
 end;
 
 procedure TQStream.Release;

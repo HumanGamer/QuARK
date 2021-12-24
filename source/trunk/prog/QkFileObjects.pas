@@ -244,7 +244,14 @@ begin
  {if Source.Root=Nil then
    begin  { the file was not previously opened, create a new object }
     Result:=BuildFileRoot(theFilename, nParent);
-    Result.Open(Source, Source.Size);
+    try
+     Result.Open(Source, Source.Size);
+    except
+     //Trigger freeing of Result
+     Result.AddRef(+1);
+     Result.AddRef(-1);
+     raise;
+    end;
  (* Source.Root:=Result;
    {Result.AddRef(+1);}
    end
