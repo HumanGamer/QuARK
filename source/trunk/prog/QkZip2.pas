@@ -55,43 +55,43 @@ uses
 
 type
   TLocalfileheader = packed record
-    version_needed       : SmallInt;
-    bit_flag             : SmallInt;
-    compression_method   : SmallInt;
-    last_mod_datetime    : Longint;
-    crc_32               : Longint;
-    compressed           : Longint;
-    uncompressed         : Longint;
-    filename_len         : SmallInt;
-    extrafield_len       : SmallInt;
+    version_needed     : Word;
+    bit_flag           : Word;
+    compression_method : Word;
+    last_mod_datetime  : Longword;
+    crc_32             : Longword;
+    compressed         : Longword;
+    uncompressed       : Longword;
+    filename_len       : Word;
+    extrafield_len     : Word;
   end;
 
   TFileHeader = packed record
-    version_by            : smallint;
-    version_needed        : smallint;
-    bit_flag              : smallint;
-    compression_method    : smallint;   //  8
-    last_mod_datetime     : longint;
-    crc_32                : longint;
-    compressed            : longint;
-    uncompressed          : longint;    //  24
-    filename_len          : smallint;
-    extrafield_len        : smallint;
-    filecomment_len       : smallint;
-    disk_start_no         : smallint;
-    internal_attrs        : smallint;   //  34
-    external_attrs        : longint;
-    local_header_offset   : longint;    //  42
+    version_by            : Word;
+    version_needed        : Word;
+    bit_flag              : Word;
+    compression_method    : Word;     //  8
+    last_mod_datetime     : Longword;
+    crc_32                : Longword;
+    compressed            : Longword;
+    uncompressed          : Longword; //  24
+    filename_len          : Word;
+    extrafield_len        : Word;
+    filecomment_len       : Word;
+    disk_start_no         : Word;
+    internal_attrs        : Word;     //  34
+    external_attrs        : Longword;
+    local_header_offset   : Longword; //  42
   end;
 
   TEndOfCentralDir = packed record
-    disk_no             : smallint;
-    start_of_cd         : smallint;
-    no_entries_disk     : smallint;
-    no_entries          : smallint;  //  8
-    size_cd             : longint;
-    offset_CD           : longint;   //  16
-    zipfilecomment_len  : smallint;  //  18
+    disk_no             : Word;
+    start_of_cd         : Word;
+    no_entries_disk     : Word;
+    no_entries          : Word;     //  8
+    size_cd             : Longword;
+    offset_CD           : Longword; //  16
+    zipfilecomment_len  : Word;     //  18
   end;
 
   PEndOfCentralDir = ^TEndOfCentralDir;

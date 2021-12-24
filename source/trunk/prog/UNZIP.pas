@@ -46,16 +46,17 @@ implementation
 
 { pkzip header in front of every file in archive }
 type
+  //Same as in QkZip2.pas:
   TLocalfileheader = packed record
-    version_needed: Word;
-    bit_flag: Word;
-    compression_method: Word;
-    last_mod_datetime: Longword;
-    crc_32: Longword;
-    compressed: Longword;
-    uncompressed: Longword;
-    filename_len: Word;
-    extrafield_len: Word;
+    version_needed     : Word;
+    bit_flag           : Word;
+    compression_method : Word;
+    last_mod_datetime  : Longword;
+    crc_32             : Longword;
+    compressed         : Longword;
+    uncompressed       : Longword;
+    filename_len       : Word;
+    extrafield_len     : Word;
   end;
 
 {Error codes returned by the main unzip functions}
