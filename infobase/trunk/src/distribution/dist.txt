@@ -64,6 +64,8 @@ It is advisable to simply create this directory and copy the files into
 it manually.</li>
 <li>Set the path to the installer images:
 <code>!define SPLASHDIR "C:\QuArK_installer_splash_image"</code></li>
+<li>Set the path to the installers of the dependencies:
+<code>!define DEPENDENCYDIR "C:\QuArK_installer_dependencies"</code></li>
 </ol>
 </li>
 <li>If you are making an official release, don't forget to commit the
