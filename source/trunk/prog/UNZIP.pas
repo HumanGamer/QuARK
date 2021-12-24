@@ -35,9 +35,9 @@ unit UNZIP;
 
 interface
 
-uses SysUtils, Classes;
+uses SysUtils, Classes, QkObjects;
 
-function UnZipFile(fs: TStream; {<-- INPUT} ms: TStream {<-- OUTPUT}; offset: longint {Of LocalHeader in Zip File}): integer;
+function UnZipFile(fs: TStream; {<-- INPUT} ms: TStream {<-- OUTPUT}; offset: TStreamPos {Of LocalHeader in Zip File}): integer;
            {Returns Zero if all is well}
 
 implementation
@@ -548,14 +548,14 @@ begin
   else huft_build := huft_complete;
 end;
 
-function UnZipFile(fs: TStream; {<-- INPUT} ms: TStream {<-- OUTPUT}; offset: longint {Of LocalHeader in Zip File}): integer;
+function UnZipFile(fs: TStream; {<-- INPUT} ms: TStream {<-- OUTPUT}; offset: TStreamPos {Of LocalHeader in Zip File}): integer;
 var header: tlocalfileheader;
   originalcrc : Cardinal; {crc from zip-header}
   ziptype, aResult: integer;
   slide: PChar;
   sig: Cardinal;
   compsize, uncompsize, hufttype, reachedsize: Longint;
-  crc32val   : Cardinal; {crc calculated from data}
+  crc32val: Cardinal; {crc calculated from data}
   zipeof: boolean; {read over end of zip section for this file}
   previous_code: pprev; {previous code trie}
   actual_code: pcds; {actual code trie}
