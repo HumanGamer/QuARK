@@ -1,5 +1,8 @@
 title: Texture format
 author: DanielPharos
+extrafiles_dir: colorconverter
+extrafiles_binary: colorconverter\colorgrid.gif
+extrafiles_text: colorconverter\rgb.htm
 
 Image data, or textures, are stored in specifics of objects,
 or Pixel Set Descriptors (PSD) QuArK's internal image format.

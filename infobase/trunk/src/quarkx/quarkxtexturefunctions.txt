@@ -1,5 +1,12 @@
 title: Texture functions of the module quarkx
 author: cdunde
+extrafiles_dir: triangleUV
+extrafiles_text: triangleUV\triangleUV.htm
+extrafiles_binary: triangleUV\app.swf
+extrafiles_binary: triangleUV\bg2.jpg
+extrafiles_binary: triangleUV\diag01.gif
+extrafiles_binary: triangleUV\diag02.jpg
+extrafiles_binary: triangleUV\titlebg.jpg
 
 Functions for actually changing a texture image, weather it be in the
 <a href="intro.modeleditor.toolpalettes.paintmodes.html">Model Editor</a> as a <g>skin texture</g> or the

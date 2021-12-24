@@ -421,6 +421,26 @@ class File:
         self.filename = filename
         self.kw, self.text, self.lastmodifydate = parse(filename)
 
+class Extra:
+    def __init__(self, filename, parent):
+        self.filename = filename
+        self.parent = parent
+
+class ExtraDir(Extra):
+    def write(self, filewriter):
+        try:
+            os.mkdir(os.path.join(OutputPath, self.filename))
+        except (FileExistsError):
+            pass
+
+class ExtraFile(Extra):
+    def write(self, filewriter):
+        filewriter(self.filename, [open(os.path.join(self.parent.path, self.filename), "r").read()])
+
+class ExtraBinary(Extra):
+    def write(self, filewriter):
+        filewriter(self.filename, [open(os.path.join(self.parent.path, self.filename), "rb").read()], "wb")
+
 class Folder:
     def __init__(self, path, classif, parents, prev=None):
         self.prev = prev
@@ -464,7 +484,7 @@ class Folder:
         htmlpath = path2html(path)
         previous = None
         for foldername in self.kw.get("subdir", "").split():
-            folder = Folder(path + foldername + os.sep, classif + (str(len(self.folders) + 1),), parents + (self,), previous)
+            folder = Folder(self.path + foldername + os.sep, classif + (str(len(self.folders) + 1),), parents + (self,), previous)
             if folder.lastmodifydate > lastmodifydate:
                 lastmodifydate = folder.lastmodifydate
             self.folders.append(folder)
@@ -481,6 +501,27 @@ class Folder:
             file.kw["path"] = path  # tiglari         @: Gotta go away!
             self.files.append(file)  #@(kw, text)
             self.forgotten.remove(filename + EXTENSION)
+            for key in ("extrafiles_dir", "extrafiles_text", "extrafiles_binary"):
+                for extra_filename in file.kw.get(key, "").split():
+                    try:
+                        data = self.kw[key]
+                    except (KeyError):
+                        self.kw[key] = extra_filename
+                    else:
+                        self.kw[key] = data+"\n"+extra_filename
+        self.extras = []
+        for extra_filename in self.kw.get("extrafiles_dir", "").split():
+            self.extras.append(ExtraDir(extra_filename, self))
+            if extra_filename.lower() in self.forgotten:
+               self.forgotten.remove(extra_filename.lower())
+        for extra_filename in self.kw.get("extrafiles_text", "").split():
+            self.extras.append(ExtraFile(extra_filename, self))
+            if extra_filename.lower() in self.forgotten:
+               self.forgotten.remove(extra_filename.lower())
+        for extra_filename in self.kw.get("extrafiles_binary", "").split():
+            self.extras.append(ExtraBinary(extra_filename, self))
+            if extra_filename.lower() in self.forgotten:
+               self.forgotten.remove(extra_filename.lower())
         self.lastmodifydate = lastmodifydate
         self.kw["updateday"] = time.strftime("%d %b %Y", time.localtime(lastmodifydate))
         # Setup backwards navigation links
@@ -514,6 +555,8 @@ class Folder:
         if verboseMode:
             print('writing file: ' + self.kw["htmlfile"], "  [%s]" % self.kw["title"])
         filewriter(self.kw["htmlfile"], self.makefile(root))
+        for extra_file in self.extras:
+            extra_file.write(filewriter)
         for folder in self.folders:
             folder.writefiles(root, filewriter)
 
@@ -591,8 +634,8 @@ class Folder:
 
     def viewforgotten(self):
         for s in self.forgotten:
-            #if s[-1:]!="~" and s!="cvs" and s.find('.png')==-1 and s.find('.jpg')==-1 and s.find('.gif')==-1:
             if s[-1:]!="~" and s.find('.png')==-1 and s.find('.jpg')==-1 and s.find('.gif')==-1:
+            #if s[-1:]!="~":
                 print("NOTE: file '%s' not found in index" % (self.path+s))
         for folder in self.folders:
             folder.viewforgotten()
@@ -609,27 +652,27 @@ def run(filewriter):
             print(text)
         else:
             print("---" + text + "-"*(80-len(text)-3-1))
+
     # load format file
     # create additional output directories, if needed
     if PICLOC != '':
         if not os.path.exists(os.path.join(OutputPath, PICLOC)):
             os.mkdir(os.path.join(OutputPath, PICLOC))
+
     # recursively load everything in memory
     printline("FINDING ALL FILES")
     root = Folder("", (), ())
+
     # recursively set navigation links
     printline("SETTING UP NAVIGATION")
     root.navigation() # Decker
-    
+
     # recursively write everything to disk
     printline("WRITING FILES TO DISK")
     root.writefiles(root, filewriter)
-    for filename in root.kw.get("extrafiles_text", "").split():
-        filewriter(filename, [open(filename, "r").read()])
-    for filename in root.kw.get("extrafiles_binary", "").split():
-        filewriter(filename, [open(filename, "rb").read()], "wb")
+
     printline("PRINTING FORGOTTEN FILES")
-    root.forgotten = []
+    root.forgotten.clear() #Ignore all "forgotten" files from the root directory
     root.viewforgotten()
 
 localMode=0
@@ -639,6 +682,12 @@ for flag in sys.argv:
         localMode=1
     if flag=='-verbose':
         verboseMode=1
+
+if localMode:
+    print("Building for installer...")
+else:
+    print("Building for web deployment...")
+
 if not os.path.exists(OutputPath):
     os.mkdir(OutputPath)
 else:
