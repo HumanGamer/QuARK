@@ -129,7 +129,7 @@ type
 implementation
 
 uses Travail, QkExplorer, Quarkx, QkExceptions, PyObjects, Game, crc32, UNZIP, ZIP,
-     QkObjectClassList, ExtraFunctionality;
+     QkUnknown, QkObjectClassList, ExtraFunctionality;
 
 const
   cZIP_HEADER   = $04034B50;
@@ -494,25 +494,38 @@ begin
               Dossier:=nDossier;
             until False;
 
-            Size:=FH.compressed;
-
-            { if this file, really is a file and not just a path, then add it as a sub-element }
-            if fn[length(fn)]<>'/' then
+            if (FH.compressed = $FFFFFFFF) or (FH.uncompressed = $FFFFFFFF) or (FH.local_header_offset = $FFFFFFFF) then
             begin
-              Size:=Size + (FH.extrafield_len + FH.filename_len + 4 + sizeof(FH) + FH.filecomment_len);
-              Q:=OpenFileObjectData(nil, Chemin, Size, Dossier);
-              Dossier.SubElements.Add(Q);
-              F.Seek(Org + fh.local_header_offset, soBeginning);
-              {Copied From LoadedItem & Modified}
-              if Q is QFileObject then
-                QFileObject(Q).ReadFormat:=rf_default
-              else
-                Raise InternalE('LoadedItem '+Q.GetFullName+' '+IntToStr(rf_default));
-              nEnd:=F.Position+Size;
-              Q.Open(TQStream(F), Size);
-              F.Position:=nEnd;
-              {/Copied From LoadedItem & Modified}
-              Q.FNode^.OnAccess:=ZipAddRef;
+              //Zip64
+              //FIXME: Currently unhandled!
+              if fn[length(fn)]<>'/' then
+              begin
+                Q:=QUnknown.Create(Chemin, Dossier);
+                Dossier.SubElements.Add(Q);
+              end;
+            end
+            else
+            begin
+              Size:=FH.compressed;
+
+              { if this file, really is a file and not just a path, then add it as a sub-element }
+              if fn[length(fn)]<>'/' then
+              begin
+                Size:=Size + (FH.extrafield_len + FH.filename_len + 4 + sizeof(FH) + FH.filecomment_len);
+                Q:=OpenFileObjectData(nil, Chemin, Size, Dossier);
+                Dossier.SubElements.Add(Q);
+                F.Seek(Org + fh.local_header_offset, soBeginning);
+                {Copied From LoadedItem & Modified}
+                if Q is QFileObject then
+                  QFileObject(Q).ReadFormat:=rf_default
+                else
+                  Raise InternalE('LoadedItem '+Q.GetFullName+' '+IntToStr(rf_default));
+                nEnd:=F.Position+Size;
+                Q.Open(TQStream(F), Size);
+                F.Position:=nEnd;
+                {/Copied From LoadedItem & Modified}
+                Q.FNode^.OnAccess:=ZipAddRef;
+              end;
             end;
             ProgressIndicatorIncrement;
           end;
