@@ -22,7 +22,7 @@ unit ZIP;
 
 interface
 
-uses Forms, Sysutils, Classes, Windows, Dialogs;
+uses Sysutils, Classes;
 
 procedure CompressStream(var Input: TMemoryStream; var Output: TMemoryStream);
 

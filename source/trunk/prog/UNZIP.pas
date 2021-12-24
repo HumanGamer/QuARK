@@ -35,7 +35,7 @@ unit UNZIP;
 
 interface
 
-uses Windows, SysUtils, Classes;
+uses SysUtils, Classes;
 
 function UnZipFile(fs: TStream; {<-- INPUT} ms: TStream {<-- OUTPUT}; offset: longint {Of LocalHeader in Zip File}): integer;
            {Returns Zero if all is well}
