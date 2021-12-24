@@ -10,7 +10,7 @@ Before you'll be able to follow the process outlined below, you'll probably want
 <li>Please save the QuArK.map file, if it was generated. This will allow converting from memory addresses back to Delphi functions if a crash is reported.</li>
 <li>Put the new QuArK binary in the main runtime directory (where it belongs).</li>
 <li>Make sure that there are no stray files in the runtime directory, such as generated .pyc files.</li>
-<li>Built the new infobase by running its build.py. Manually copy the zip-files and sub-directories into the output.</li>
+<li>Built the new infobase by running its build.py (with the -local parameter). Manually any missing zip-files and sub-directories into the output.</li>
 <li>Delete the old runtime\help and copy the output from the infobase build there instead (and name this folder correctly!).</li>
 <li>Zip up the directory, each to a different zip-file, using the scheme from <ref>src/distribution/policy</ref>. No fancy zip-compressions, please! Any plain old unzipper should be able to unzip the files. If possible, use the Windows XP built-in zip functionality; this creates a pretty common denominator zip-file.</li>
 <li>Create a new snapshot-release in the QuArK-package using the SourceForge File Release System. Name this release 'snapshot YYYY-MM-DD', and add the zip-files to that new release. Don't forget to set the 'specifics' on the files correctly!</li>
