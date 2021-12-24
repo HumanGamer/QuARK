@@ -726,7 +726,7 @@ end;
 
 function TQStream.Seek({$ifdef Delphi6orNewerCompiler} const {$endif} Offset: TStreamPos; Origin: {$ifdef Delphi6orNewerCompiler} TSeekOrigin {$else} Word {$endif}): TStreamPos;
 begin
-  Result:=FileSeek(FHandle, Offset, Integer(Origin));
+  Result:=FileSeek(FHandle, Offset, Ord(Origin));
 end;
 
 procedure TQStream.AddRef;
