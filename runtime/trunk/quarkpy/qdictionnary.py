@@ -659,7 +659,7 @@ Strings = {
     5217: "'%s' : Cannot (un)do this operation any more because the file has been closed",
     # 5218: "Warning: the tree view you see is incomplete, because the Explorer views of QuArK cannot display the same objects more than once.",
     5219: "The file %s's \"save\" support has not (yet) been added. File ignored.",
-    5220: "'%s' : Invalid file size. The file is %d bytes length instead of %d",
+    5220: "'%s' : Invalid file size. The file is %u bytes length instead of %u",
     5221: "Cannot display '%s' in the tree view, because it is already visible in another Explorer views in QuArK.",
     5222: "This file contains a link to the file '%s' which cannot be found. The link has been ignored (and deleted).",
     5223: "Internal error (%s) - this program is buggy !//Please report: %0:s",
@@ -1105,10 +1105,10 @@ Strings = {
     5837: "Loaded Setup.qrk with version: %f",
     5838: "Unable to load config file '%s'!",
     5839: "Switching to gamemode: %s",
-    5840: "File '%s' is corrupt, please correct or remove it.\nFilesize less than minimum required size (%d < %d)",
-    5841: "File '%s' is corrupt. cEOCD_HEADER(%d) not found",
+    5840: "File '%s' is corrupt, please correct or remove it.\nFilesize less than minimum required size (%u < %u)",
+    5841: "File '%s' is corrupt. cEOCD_HEADER(%u) not found",
     5842: "File '%s' cannot be loaded: it is spanned across several disks",
-    5843: "Central directory for file '%s' is corrupt: %d <> %d(cCFILE_HEADER)",
+    5843: "Central directory for file '%s' is corrupt: %u <> cCFILE_HEADER(%u)",
 
     # DanielPharos would like to reserve 6000 .. 6099 for all renderers
     6000: "Unable to create SceneObject//%s",
