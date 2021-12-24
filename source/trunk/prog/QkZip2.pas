@@ -23,9 +23,7 @@ unit QkZip2;
 interface
 
 uses
-  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
-  QkObjects, QkFileObjects, TB97, QkFileExplorer, QkListView, BrowseForFolder,
-  ComCtrls, QkForm, QkGroup, Python, QkPak;
+  Windows, SysUtils, Classes, QkObjects, QkFileObjects, QkPak;
 
 {
   Zip File Structure is as follows:
