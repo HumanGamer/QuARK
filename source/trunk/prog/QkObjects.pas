@@ -361,19 +361,15 @@ type
     function FindLastShortName(const nName: String) : QObject;
   end;
 
-  TQStream = class(TStream)
+  TQStream = class(TFileStream)
   protected
-    FHandle: Integer;   { we cannot use TFileStream because this is private :-(  }
     RefCount1: Integer;
   public
-    constructor Create(const FileName: string; Mode: Word);
+    {$IFDEF StreamRefDEBUG}
+    constructor Create(const FileName: string; Mode: Word); overload;
+    constructor Create(const FileName: string; Mode: Word; Rights: Cardinal); overload;
     destructor Destroy; override;
-    function Read(var Buffer; Count: Longint): Longint; override;
-    function Write(const Buffer; Count: Longint): Longint; override;
-    function Seek({$ifdef Delphi6orNewerCompiler} const {$endif} Offset: TStreamPos; Origin: {$ifdef Delphi6orNewerCompiler} TSeekOrigin {$else} Word {$endif}): TStreamPos; override;
-    property Handle: Integer read FHandle;
-  public
-    { --- start of the QuArK-specific part --- }
+    {$ENDIF}
     Temporary: Boolean;
     DisableDelayLoading: Boolean;
    {Root: QObject;  { actually a QFileObject }
@@ -666,66 +662,38 @@ end;
 
  {------------------------}
 
-constructor TQStream.Create(const FileName: string; Mode: Word);
 {$IFDEF StreamRefDEBUG}
+constructor TQStream.Create(const FileName: string; Mode: Word);
+begin
+{$IFDEF MSWINDOWS}
+  Create(Filename, Mode, 0);
+{$ELSE}
+  Create(Filename, Mode, FileAccessRights);
+{$ENDIF}
+end;
+
+constructor TQStream.Create(const FileName: string; Mode: Word; Rights: Cardinal);
 var
   StreamRefFile: TextFile;
-{$ENDIF}
 begin
-  if Mode=fmCreate then
-  begin
-    FHandle:=FileCreate(FileName);
-    if FHandle<0 then
-      raise EErrorFmt(384, [FileName]);
-  end
-  else
-  begin
-    FHandle:=FileOpen(FileName, Mode);
-    if FHandle<0 then
-      raise EErrorFmt(385, [FileName]);
-  end;
-  {$IFDEF StreamRefDEBUG}
+  inherited Create(FileName, Mode, Rights);
   AssignFile(StreamRefFile, StreamRefDumpFile);
   Append(StreamRefFile);
   WriteLn(StreamRefFile, Format('Open %d: %s', [Self.FHandle, FileName]));
   CloseFile(StreamRefFile);
-  {$ENDIF}
 end;
 
 destructor TQStream.Destroy;
-{$IFDEF StreamRefDEBUG}
 var
   StreamRefFile: TextFile;
-{$ENDIF}
 begin
-  {$IFDEF StreamRefDEBUG}
   AssignFile(StreamRefFile, StreamRefDumpFile);
   Append(StreamRefFile);
   WriteLn(StreamRefFile, Format('Close %d', [Self.FHandle]));
   CloseFile(StreamRefFile);
-  {$ENDIF}
-  if FHandle>=0 then
-    FileClose(FHandle);
+  inherited Destroy;
 end;
-
-function TQStream.Read(var Buffer; Count: Longint): Longint;
-begin
-  Result:=FileRead(FHandle, Buffer, Count);
-  if Result=-1 then
-    Result:=0;
-end;
-
-function TQStream.Write(const Buffer; Count: Longint): Longint;
-begin
-  Result:=FileWrite(FHandle, Buffer, Count);
-  if Result=-1 then
-    Result:=0;
-end;
-
-function TQStream.Seek({$ifdef Delphi6orNewerCompiler} const {$endif} Offset: TStreamPos; Origin: {$ifdef Delphi6orNewerCompiler} TSeekOrigin {$else} Word {$endif}): TStreamPos;
-begin
-  Result:=FileSeek(FHandle, Offset, Ord(Origin));
-end;
+{$ENDIF}
 
 procedure TQStream.AddRef;
 {$IFDEF StreamRefDEBUG}
