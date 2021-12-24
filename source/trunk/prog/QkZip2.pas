@@ -128,8 +128,8 @@ type
 
 implementation
 
-uses Travail, QkExplorer, Quarkx, QkExceptions, PyObjects, Game, crc32, UNZIP, ZIP, QkObjectClassList,
-     ExtraFunctionality;
+uses Travail, QkExplorer, Quarkx, QkExceptions, PyObjects, Game, crc32, UNZIP, ZIP,
+     QkObjectClassList, ExtraFunctionality;
 
 const
   cZIP_HEADER   = $04034B50;
@@ -394,10 +394,10 @@ var
   FH: TFileHeader;
   org,Size:TStreamPos;
   files: TMemoryStream;
-  EoSig,s: Longint;
+  EoSig,FileSig: LongWord;
   nEnd:TStreamPos;
   eocd: TEndOfCentralDir;
-  I:Smallint;
+  I:Word;
   eocd_found: boolean;
 begin
   case ReadFormat of
@@ -448,9 +448,9 @@ begin
         try
           for i:=1 to eocd.no_entries do
           begin
-            files.ReadBuffer(s, 4); // Signature
-            if s<>cCFILE_HEADER then
-              raise EErrorFmt(5843, [LoadName, s, cCFILE_HEADER]);
+            files.ReadBuffer(FileSig, 4);
+            if FileSig<>cCFILE_HEADER then
+              raise EErrorFmt(5843, [LoadName, FileSig, cCFILE_HEADER]);
 
             files.ReadBuffer(FH, sizeof(TFileHeader));
 
