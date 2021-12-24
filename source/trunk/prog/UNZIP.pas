@@ -1772,7 +1772,7 @@ var header: tlocalfileheader;
   end;
 
 begin
-  fs.seek(offset, soFromBeginning);
+  fs.seek(offset, soBeginning);
   fs.readbuffer(sig, 4);
   fs.readbuffer(header, sizeof(tlocalfileheader));
   hufttype := 0;
@@ -1798,7 +1798,7 @@ begin
     exit;
   end;
   reachedsize := 0;
-  fs.seek(offset, soFromBeginning);
+  fs.seek(offset, soBeginning);
   zipeof := FALSE;
 
   getmem(slide, wsize);

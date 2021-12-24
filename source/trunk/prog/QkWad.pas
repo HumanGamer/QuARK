@@ -173,7 +173,7 @@ begin
   Raise EErrorFmt(5505, [Nom, Header.Signature, SignatureWad2]);
  if Header.PosRep + Header.NoOfFileEntries*SizeOf(TWadFileRec) > SourceTaille then
   Raise EErrorFmt(5186, [Nom]);
- Source.Seek(-SizeOf(Header), soFromCurrent);
+ Source.Seek(-SizeOf(Header), soCurrent);
  LoadFormat:=1;
 end;*)
 
@@ -501,7 +501,7 @@ begin
               end
              else
               Size:=0;   { assumes an empty texture (for Half-Life .bsp's) }
-             F.Seek(-SizeOf(Header), soFromCurrent);
+             F.Seek(-SizeOf(Header), soCurrent);
             end;
           end;
          if Size=0 then

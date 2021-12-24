@@ -118,9 +118,6 @@ Strings = {
     289: "||Red line : these red lines delimit which portion of the map are to be considered visible on the other view. The objects that are not visible on both map views are considered invisible, and if you see them on one view, they will be grayed out and not selectable with the mouse.\n\nMove these red lines if you need, for example, a quick way to select objects in a room without selecting the ceiling first every time : in this case, scroll the XZ view and/or move its red line until it is below the ceiling, so that the ceiling doesn't come in the way any more.|intro.mapeditor.menu.html#optionsmenu",
     # 290: "This would display help about entity if an entity was selected",
 
-    384: "Impossible to create the file :\n\n%s",
-    385: "QuArK failed to open the file :\n\n%s",
-
     389: "Add a Specific/Arg",
     390: "Delete Specific/Arg",
 

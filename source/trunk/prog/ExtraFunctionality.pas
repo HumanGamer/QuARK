@@ -90,6 +90,12 @@ const
   SM_CYVIRTUALSCREEN = 79;
 {$endif}
 
+{$ifndef Delphi6orNewerCompiler}
+type
+{ TStream seek origins }
+  TSeekOrigin = (soBeginning, soCurrent, soEnd);
+{$ENDIF}
+
 {$ifndef Delphi4orNewerCompiler}
 type
    Int64 = TLargeInteger;

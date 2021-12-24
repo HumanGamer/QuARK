@@ -150,17 +150,17 @@ begin
   Root := Loaded_Root;
   ObjectGameCode := mjHalflife;
   F.ReadBuffer(Header, sizeof(StudioHdr_T));
-  f.seek(f_origin + Header.bodypartindex, sofrombeginning);
+  f.seek(f_origin + Header.bodypartindex, sobeginning);
   for i := 0 to header.numbodyparts - 1 do begin
     f.readbuffer(bp, sizeof(mstudiobodyparts_t));
-    f.seek(f_origin + bp.modelindex, sofrombeginning);
+    f.seek(f_origin + bp.modelindex, sobeginning);
     for z := 0 to bp.nummodels-1 do begin
       f.readbuffer(model, sizeof(mstudiomodel_t));
-      f.seek(f_origin + model.meshindex, soFrombeginning);
+      f.seek(f_origin + model.meshindex, sobeginning);
       for j := 0 to model.nummesh - 1 do begin
         f.readbuffer(mesh, sizeof(mstudiomesh_t));
         Comp := Loaded_Component(Root, Format('Body%d.Model%d.Mesh%d', [i, z, j]));
-        f.seek(f_origin + mesh.trisIndex, sofrombeginning);
+        f.seek(f_origin + mesh.trisIndex, sobeginning);
         f.readbuffer(cmd, 2);
         k := 0;
         setlength(atri, mesh.numtris );
@@ -256,12 +256,12 @@ begin
           S := FloatSpecNameOf(Spec2);
           SetLength(S, (sizeof(vec3_t) * model.numverts) + Length(Spec2));
           PChar(CVert) := PChar(S) + Length(Spec2);
-          F.Seek(f_Origin + model.vertindex, soFromBeginning);
+          F.Seek(f_Origin + model.vertindex, soBeginning);
           F.ReadBuffer(CVert^, model.numverts * sizeof(vec3_t));
           DFrame.SpecificsAdd(S);
           // Load Textures
           if (header.numtextures > 0) and (header.textureindex <> 0) and (header.numtextures <= MAXSTUDIOSKINS) then begin
-            f.seek(f_origin + header.textureindex, soFromBeginning);
+            f.seek(f_origin + header.textureindex, soBeginning);
             for ii := 1 to header.numtextures do begin
               f.readbuffer(tex, sizeof(tex));
               Skin := Loaded_Skin(Comp, string(tex.name), [tex.width, tex.height], p, dw);
@@ -594,7 +594,7 @@ var
 
   begin
 
-  F.Seek(0,soFromBeginning);
+  F.Seek(0,soBeginning);
   F.ReadBuffer(mdl, SizeOf(mdl));
 
   ObjectGameCode := mjHL2;
@@ -712,7 +712,7 @@ var
   //-----------------------------------------------------------
   //-- LOAD TRIANGLES
   //-----------------------------------------------------------
-//  fs.seek(org+mhead.triangle_start, sofrombeginning);
+//  fs.seek(org+mhead.triangle_start, sobeginning);
 //  getmem(tris, triangle_num*sizeof(TMD3Triangle));
 //  fs.readbuffer(tris^, mhead.triangle_num*sizeof(TMD3Triangle));
 
@@ -721,7 +721,7 @@ tris := @tribox;
   //-- LOAD TEXTURE CO-ORDS
   //-----------------------------------------------------------
 
-//  fs.seek(org+mhead.TexVec_Start, sofrombeginning);
+//  fs.seek(org+mhead.TexVec_Start, sobeginning);
 //  getmem(texCoord, vertex_num*sizeof(TMD3TexVec));
 //  fs.readbuffer(texCoord^, mhead.vertex_num*sizeof(TMD3TexVec));
 texcoord:=@texbox;
@@ -762,7 +762,7 @@ texcoord:=@texbox;
   //-- LOAD FRAMES + VERTEXES
   //-----------------------------------------------------------
 
-//  fs.seek(org+mhead.Vertex_Start, sofrombeginning);
+//  fs.seek(org+mhead.Vertex_Start, sobeginning);
 
   for i:=1 to MeshFrame_num do
   begin
@@ -862,7 +862,7 @@ begin
           if (mdl.id <> SignatureMdl) or (mdl.version <> VersionMdl) then
             if ((mdl.id = SignatureHLMdl) or (mdl.id = SignatureHLMdlS)) and (mdl.version = VersionHLMdl) then begin
 //              Inc(FSize, SizeOf(Mdl));
-//              F.Seek(-SizeOf(Mdl), soFromCurrent);
+//              F.Seek(-SizeOf(Mdl), soCurrent);
 //              LoadHLModel(F, FSize);
 //              Exit;
               Raise EErrorFmt(5503, [LoadName])

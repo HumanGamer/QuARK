@@ -591,7 +591,7 @@ begin
   Origine:=F.Position;
   try
     //Jump the signature and version.
-    F.Seek(2*SizeOf(LongInt), soFromCurrent);
+    F.Seek(2*SizeOf(LongInt), soCurrent);
 
     //From reverse engineering, it seems that SiN BSP files have a different number of lumps.
     //We assume there's no padding between the header and the first lump.
@@ -646,7 +646,7 @@ begin
 
       F.ReadBuffer(Signature, SizeOf(Signature));
       F.ReadBuffer(Version, SizeOf(Version));
-      F.Seek(-(SizeOf(Signature)+SizeOf(Version)), soFromCurrent);
+      F.Seek(-(SizeOf(Signature)+SizeOf(Version)), soCurrent);
 
       case Signature of
         cSignatureBspQ1H2: { Quake 1 or Hexen 2 }

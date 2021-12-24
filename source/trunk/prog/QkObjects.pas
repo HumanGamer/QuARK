@@ -736,7 +736,7 @@ begin
    Result^.Self:=Self;
    Result^.StreamSize:=a_StreamSize;
    Result^.OnAccess:=DefaultAddRef;
-   Result^.Position:=Seek(a_StreamSize, soFromCurrent) - a_StreamSize;
+   Result^.Position:=Seek(a_StreamSize, soCurrent) - a_StreamSize;
   except
    Dispose(Result);
    raise
@@ -1185,7 +1185,7 @@ begin  { if possible, copy directly from the original file into the new one }
     if TransfertSource and (F is TQStream) then
     begin  { if the target is a TQStream, it can be used to replace the original source }
       QStreamRelease(FNode);
-      F.Seek(-SourceTaille, soFromCurrent);
+      F.Seek(-SourceTaille, soCurrent);
       FNode:=TQStream(F).AddRefNode(SourceTaille);
     end;
   finally {AiV}
@@ -1212,7 +1212,7 @@ begin  { if possible, copy directly from the original file into the new one }
   if F is TQStream then
    begin  { the target is a TQStream, so it can be used to replace the original source }
     QStreamRelease(FNode);
-    F.Seek(-SourceTaille, soFromCurrent);
+    F.Seek(-SourceTaille, soCurrent);
     FNode:=TQStream(F).AddRefNode(SourceTaille);
    end;
  finally
@@ -1442,7 +1442,7 @@ begin
       if I<0 then
         Raise EErrorFmt(5509, [54]);
 
-      F.Seek(I, soFromCurrent);
+      F.Seek(I, soCurrent);
       SetLength(ExtraSizes, ExtraSize);
       J:=F.Read(ExtraSizes[1], ExtraSize);
 
@@ -1454,7 +1454,7 @@ begin
         Dec(I, ExtraSize-J);
       end;
 
-      F.Seek(-ExtraSize-I, soFromCurrent);  { come back }
+      F.Seek(-ExtraSize-I, soCurrent);  { come back }
     end;
 
     Info:=FileItemInfo;
@@ -1603,7 +1603,7 @@ begin
         if J<0 then
           Exit;
 
-        F.Seek(J, soFromCurrent);
+        F.Seek(J, soCurrent);
         Size:=0;
         if ExtraSize > SizeOf(Size) then
           Exit;
@@ -1611,7 +1611,7 @@ begin
         if F.Read(Size, ExtraSize) < ExtraSize then
           Exit;
 
-        F.Seek(-ExtraSize-J, soFromCurrent);  { come back }
+        F.Seek(-ExtraSize-J, soCurrent);  { come back }
       end;
 
       Inc(DeltaPos, Size);

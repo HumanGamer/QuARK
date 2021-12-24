@@ -417,14 +417,14 @@ begin
   //-----------------------------------------------------------
   //-- LOAD TRIANGLES
   //-----------------------------------------------------------
-  fs.seek(org+mhead.triangle_start, sofrombeginning);
+  fs.seek(org+mhead.triangle_start, sobeginning);
   getmem(tris, mhead.triangle_num*sizeof(TMD3Triangle));
   fs.readbuffer(tris^, mhead.triangle_num*sizeof(TMD3Triangle));
 
   //-----------------------------------------------------------
   //-- LOAD TEXTURE CO-ORDS
   //-----------------------------------------------------------
-  fs.seek(org+mhead.TexVec_Start, sofrombeginning);
+  fs.seek(org+mhead.TexVec_Start, sobeginning);
   getmem(texCoord, mhead.vertex_num*sizeof(TMD3TexVec));
   fs.readbuffer(texCoord^, mhead.vertex_num*sizeof(TMD3TexVec));
 
@@ -474,7 +474,7 @@ begin
   //-----------------------------------------------------------
   //-- LOAD FRAMES + VERTEXES
   //-----------------------------------------------------------
-  fs.seek(org+mhead.Vertex_Start, sofrombeginning);
+  fs.seek(org+mhead.Vertex_Start, sobeginning);
   for i:=1 to mhead.Frame_num do
   begin
     Frame:=Loaded_Frame(Comp, format('Frame %d',[i]));
@@ -681,7 +681,7 @@ begin
       Misc:=Root.GetMisc;
       if head.BoundFrame_num<>0 then
       begin
-        f.seek(head.BoundFrame_offset + org,soFromBeginning);
+        f.seek(head.BoundFrame_offset + org,soBeginning);
         for i:=1 to head.boundframe_num do
         begin
           f.readbuffer(boundframe,sizeof(boundframe));
@@ -691,7 +691,7 @@ begin
         end;
         if head.Tag_num<>0 then
         begin
-          f.seek(head.Tag_offset + org,soFromBeginning);
+          f.seek(head.Tag_offset + org,soBeginning);
           Tags:=TQList.Create;
           try
             Misc.FindAllSubObjects('', QModelTag, nil, Tags);
@@ -717,12 +717,12 @@ begin
           finally
             Tags.Free;
           end;
-          f.seek(org2, sofrombeginning);
+          f.seek(org2, sobeginning);
         end;
       end;
       if head.Mesh_num<>0 then
       begin
-        f.seek(org + head.Surface_offset, sofrombeginning);
+        f.seek(org + head.Surface_offset, sobeginning);
         for i:=1 to head.Mesh_num do
         begin
           ReadMesh(f, Root);

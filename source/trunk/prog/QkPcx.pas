@@ -229,7 +229,7 @@ begin
       Specifics.Add(Data);  { "Data=xxxxx" }
 
        { reads the palette }
-      F.Seek(FSize+1, soFromCurrent);  { skips remaining data if any (should not) }
+      F.Seek(FSize+1, soCurrent);  { skips remaining data if any (should not) }
       Data:=Spec2;
       SetLength(Data, Length(Spec2)+pcxTaillePalette);
       F.ReadBuffer(Data[Length(Spec2)+1], pcxTaillePalette);

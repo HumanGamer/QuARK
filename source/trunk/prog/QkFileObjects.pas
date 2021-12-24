@@ -569,7 +569,7 @@ begin
                     ReadFormat:=rf_Private;
                    end;
   c_FileVersionText: begin
-                   Source.Seek(c_FileSignatureSize - Lu, soFromCurrent);
+                   Source.Seek(c_FileSignatureSize - Lu, soCurrent);
                    Dec(SourceTaille, c_FileSignatureSize);
                    ReadFormat:=rf_AsText;
                   end;

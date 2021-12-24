@@ -162,7 +162,7 @@ begin
     ReadObject(F, FSize, objchunk, f.position-sizeof(TChunkHeader), Root);
     if OverFlowed(F, Parent) then
       break;
-    f.seek(objchunk.length+org2, soFromBeginning);
+    f.seek(objchunk.length+org2, soBeginning);
     f.readbuffer(objchunk, sizeof(TChunkHeader));
   end;
 end;
@@ -222,7 +222,7 @@ var
   FrameObj: QFrame;
 begin
   org2:=org+6;
-  f.seek(org2, sofrombeginning);
+  f.seek(org2, sobeginning);
   Self.CantFindTexture(Comp, 'Texture1', point(512,512));
   found:=SkipUntilFound(F, Parent, Org, TAG_TEXVERTEX);
   if not found then
@@ -235,7 +235,7 @@ begin
   getmem(texvert, num_texvert * sizeof(ttexvert));
   try
     f.readbuffer(texvert^, num_texvert * sizeof(ttexvert));
-    f.seek(org2, sofrombeginning);
+    f.seek(org2, sobeginning);
     found:=SkipUntilFound(F, Parent, Org, TAG_TRIANGLE);
     if not found then
       raise exception.create('Cannot read .3ds File (mesh has no faces/triangles)'#13#10'Q3dsfile.ReadObject: SkipUntilFound(TAG_TRIANGLES)=false');
@@ -261,7 +261,7 @@ begin
   // Read Vertices                       //
   /////////////////////////////////////////
   FrameObj := Loaded_Frame(Comp, 'Frame');
-  f.seek(org2, sofrombeginning);
+  f.seek(org2, sobeginning);
   found:=SkipUntilFound(F, Parent, Org, TAG_VERTEX);
   if not found then
     raise exception.create('Cannot read .3ds File (mesh has no vertices)'#13#10'Q3dsfile.ReadObject: SkipUntilFound(TAG_VERTEX)=false');

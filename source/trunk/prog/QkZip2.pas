@@ -274,12 +274,12 @@ begin
             crc:=$FFFFFFFF;
             CalcCRC32(TempStream.Memory, TempStream.Size, crc);
             crc:=not crc;
-            TempStream.Seek(0, soFromBeginning);
+            TempStream.Seek(0, soBeginning);
             OrgSize:=TempStream.Size;
 
            { Compress Data From TempStream To T2}
             CompressStream(TempStream, T2);
-            T2.Seek(0, soFromBeginning);
+            T2.Seek(0, soBeginning);
             Size:=T2.Size;
           finally
             TempStream.Free;
@@ -347,7 +347,7 @@ begin
 
           EOCDHeader.offset_CD:=F.Position;
 
-          Repertoire.Seek(0, soFromBeginning);
+          Repertoire.Seek(0, soBeginning);
           F.CopyFrom(Repertoire, 0);
         finally
           Repertoire.Free;
@@ -409,20 +409,20 @@ begin
       if (FSize < sizeof(TEndOfCentralDIR)) then
         raise EErrorFmt(5840, [LoadName, FSize, sizeof(TEndOfCentralDIR)]);
 
-      f.seek(FSize-sizeof(TEndOfCentralDIR), soFromBeginning); // EOCD is stored at least -Sizeof(endofcentraldir) header
+      f.seek(FSize-sizeof(TEndOfCentralDIR), soBeginning); // EOCD is stored at least -Sizeof(endofcentraldir) header
       eocd_found:=false;
       while (f.position > org) do
       begin
         f.ReadBuffer(eosig, 4);                         // check for cEOCD_HEADER signature
         eocd_found := (eosig = cEOCD_HEADER);
         if not eocd_found then
-          f.seek(-5, soFromCurrent)                     // Skip back 1 byte, and recheck
+          f.seek(-5, soCurrent)                     // Skip back 1 byte, and recheck
         else
           break;
       end;
       if not eocd_found then
       begin
-        f.seek(org, soFromBeginning); // Restore original file position, just in case
+        f.seek(org, soBeginning); // Restore original file position, just in case
         raise EErrorFmt(5841, [LoadName, cEOCD_HEADER]);
       end;
 
@@ -438,11 +438,11 @@ begin
           Specifics.Values['temp']:= '1';
         end;
       end;
-      f.seek(org + eocd.offset_cd, soFromBeginning); {seek to central directory}
+      f.seek(org + eocd.offset_cd, soBeginning); {seek to central directory}
       files:=TMemoryStream.Create;    {ms for central directory}
       try
         files.CopyFrom(f, eocd.size_cd); {read in central dir}
-        files.seek(0, soFromBeginning);
+        files.seek(0, soBeginning);
 
         ProgressIndicatorStart(5461, eocd.no_entries);
         try
@@ -502,7 +502,7 @@ begin
               Size:=Size + (FH.extrafield_len + FH.filename_len + 4 + sizeof(FH) + FH.filecomment_len);
               Q:=OpenFileObjectData(nil, Chemin, Size, Dossier);
               Dossier.SubElements.Add(Q);
-              F.Seek(Org + fh.local_header_offset, soFromBeginning);
+              F.Seek(Org + fh.local_header_offset, soBeginning);
               {Copied From LoadedItem & Modified}
               if Q is QFileObject then
                 QFileObject(Q).ReadFormat:=rf_default

@@ -151,11 +151,11 @@ begin
       if (head<>ID_SPRHEADER) then
         raise EErrorFmt(5797, [head,ID_SPRHEADER]);
       f.ReadBuffer(ver,4);
-      f.seek(org,soFromBeginning);
+      f.seek(org,soBeginning);
       spr:=getsprite;
       if (ver=1) then begin
           pgb:=GameBuffer(mjQuake);
-          f.seek(org,soFromBeginning); // something happens to f after gamebuffer is called, so i reset the position to org.
+          f.seek(org,soBeginning); // something happens to f after gamebuffer is called, so i reset the position to org.
           LoadQ1Spr(f, pgb, spr);
         end
       else if (ver=2)  then

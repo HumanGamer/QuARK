@@ -152,12 +152,12 @@ var
    if RMFVersion < 1.0 then
    begin
      F.ReadBuffer(DummyInteger, SizeOf(Integer));
-     F.Seek(DummyInteger + 3 * SizeOf(Byte), soFromCurrent);
+     F.Seek(DummyInteger + 3 * SizeOf(Byte), soCurrent);
    end
    else
-     F.Seek(SizeOf(DWORD) + 3 * SizeOf(Byte), soFromCurrent);
+     F.Seek(SizeOf(DWORD) + 3 * SizeOf(Byte), soCurrent);
    F.ReadBuffer(DummyInteger, SizeOf(Integer));
-   F.Seek(OldPos, soFromBeginning);
+   F.Seek(OldPos, soBeginning);
    IsBrush:=(DummyInteger<>0);
    if IsBrush then
      Entite:=TTreeMapBrush.Create('CMapEntity', parent) //Temp name
@@ -380,7 +380,7 @@ var
    begin
      // kill group information .. unfortunate
      F.ReadBuffer(DummyInteger, SizeOf(Integer));
-     F.Seek(DummyInteger, soFromCurrent);
+     F.Seek(DummyInteger, soCurrent);
    end
    else
    begin
@@ -540,7 +540,7 @@ begin
         begin
           //Not supported at all; skip this data
           F.ReadBuffer(DummyInteger, SizeOf(Integer));
-          F.Seek(old_group_bytes * DummyInteger, soFromCurrent);
+          F.Seek(old_group_bytes * DummyInteger, soCurrent);
         end;
 
         // load paths
