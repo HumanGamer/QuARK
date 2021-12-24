@@ -152,7 +152,7 @@ might not want to be contacted about QuArK.  Please don't bother people this way
 if you need help: see section 5.
 
 Additionally, there's the people that made QuArk possible through donations.
-They are listed in 'DONATORS.txt'. Thank you all!
+They are listed in 'DONATORS.txt'.  Thank you all!
 
 
 9. What is the GameCodeList.txt file?
