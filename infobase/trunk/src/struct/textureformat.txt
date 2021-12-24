@@ -12,7 +12,7 @@ There are three specifics:
 
 Usually, there's only one image per texture, so there is only an <g>Image1</g>.
 If the texture doesn't contain any alpha-color data, <g>Alpha</g> doesn't exist.
-If the picture isn't a paletted image, like a pcx file, <g>Pal</g> doesn't exist.
+If the picture isn't a paletted image, like a <g>.pcx</g> file, <g>Pal</g> doesn't exist.
 
 There are two different formats that QuArK uses internally,
 and every loaded image is converted to those formats on load:
