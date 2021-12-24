@@ -152,7 +152,7 @@ const
   eoParentSel   = $80;  { internal use of TMyTreeView }
 
 type
-  //Just a convenience type to seemlessly support Delphi6+ large file support.
+  //Just a convenience type to seamlessly support Delphi6+ large file support.
   TStreamPos = {$ifdef Delphi6orNewerCompiler} Int64 {$else} Longint {$endif};
 
   TSpecificsList = TStringList;
