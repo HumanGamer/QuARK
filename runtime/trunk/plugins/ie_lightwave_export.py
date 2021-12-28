@@ -1,6 +1,6 @@
 """   QuArK  -  Quake Army Knife
 
-QuArK Model Editor importer for Quake 2 .md2 model files.
+QuArK Model Editor importer for Lightwave .lwo model files.
 """
 #
 # THIS FILE IS PROTECTED BY THE GNU GENERAL PUBLIC LICENCE
@@ -8,7 +8,7 @@ QuArK Model Editor importer for Quake 2 .md2 model files.
 #
 
 Info = {
-   "plug-in":       "ie_md2_exporter",
+   "plug-in":       "ie_lwo_exporter",
    "desc":          "Export selected meshes to LightWave File Format (.lwo). Original code from Blender, lightwave_import.py, author - Anthony D'Agostino (Scorpius)",
    "date":          "June 21 2008",
    "author":        "cdunde/DanielPharos",
