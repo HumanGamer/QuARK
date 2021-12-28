@@ -5,6 +5,6 @@ Installing Delphi is a simple matter of running the executable which you downloa
 
 Installing the necessary components is covered in the Configuration section, below.
 
-Delphi 6 Personal Edition takes a tad over 100MB to install, Delphi 7 Personal Edition is probably a bit larger.  You should also allow at least 20MB for all the QuArK source (which can be obtained from the SourceForge CVS repository).
+Delphi 6 Personal Edition takes a tad over 100MB to install, Delphi 7 Personal Edition is probably a bit larger.  You should also allow at least 250MB for all the QuArK source (20MB if you are selective during check-out), which can be obtained from the SourceForge code repository.
 
 If you are lucky enough to have access to a better copy of Delphi (e.g. one of the Professional or Enterprise editions), great!  But you can fully compile QuArK with the Personal Editions.
