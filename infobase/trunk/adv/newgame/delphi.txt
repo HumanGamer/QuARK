@@ -12,7 +12,7 @@ alphanumerics assigned on the basis of what kind of engine is used:
 A complete list of the gamecodes that have been checked out thus far is
 given in the GameCodeList.txt file located in QuArK's main runtime
 folder.  As people use these codes this text file should be updated and
-committed to the CVS archives to maintain control and avoid confutation.
+committed to the source code repository to maintain control and avoid confusion.
 
 Engines that do use shaders and might acquire curves should go into the
 last range (Quake 3 & other advanced).
