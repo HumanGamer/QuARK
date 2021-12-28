@@ -21,12 +21,20 @@ We won't be covering everything in that file, just certain points as needed.
 
 <a name="fileheader"></a>
 <u><b><i>File Header</i></b></u> :<br>
-At the very top and bottom of you file you should setup its version control code. This is used by us at QuArK when
-you send us a copy to go into the Official Set for distribution with furture releases....you ARE going to share
-it with us aren't you? At the very top the header would be as shown below:
-<code>
-#$Header: /cvsroot/quark/infobase/intro/modeleditor/importexport/codeelements.txt,v 1.2 2008/12/10 03:02:36 cdunde Exp $
+At the very top and bottom of you file you should put a comment about what model format this plugin handles. Next,
+put in a mention of the GPL license, followed by a variable called <g>Info</g> which will tell QuArK some information
+about the plugin.
 
+At the very top the header would be as shown below:
+<code>
+"""   QuArK  -  Quake Army Knife
+
+QuArK Model Editor importer for Quake 2 .md2 model files.
+"""
+#
+# THIS FILE IS PROTECTED BY THE GNU GENERAL PUBLIC LICENCE
+# FOUND IN FILE "COPYING.TXT"
+#
 
 Info = {
    "plug-in":       "ie_md2_importer",
@@ -38,25 +46,13 @@ Info = {
    "quark":         "Version 6.6.0 Beta 2" }
 </code>
 What you enter for the <g>Info</g> is up to you but we would like to know who made it and any acknowledgements to
-others that might have helped or were authors of files you used as a guide, that's only fair. Then at the very
-bottom add the following code for your files history:
-<code>
-# ----------- REVISION HISTORY ------------
-#
-# $Log: codeelements.txt,v $
-# Revision 1.2  2008/12/10 03:02:36  cdunde
-# Update
-#
-# Revision 1.1  2008/07/28 22:40:28  cdunde
-# Update
-#
-#
-</code>
+others that might have helped or were authors of files you used as a guide, that's only fair.
+
 The file name <b>MUST</b> start with <b>ie_</b> or it will not show up on the QuArK Importer\Exporter menu,
 that is what QuArK uses to identify and load it by. Also, to be consistent with other files please use its
 file type, in this case <b>md2</b>, and whether it is an importer or exporter for the rest of its name and
 please make two separate files, one for each operation. That way users can tell at a glance that both operations
-exist and it's easer for any possible future additions and changes.
+exist and it's easier for any possible future additions and changes.
 
 <a name="fileimports"></a>
 <u><b><i>File Imports</i></b></u> :<br>
