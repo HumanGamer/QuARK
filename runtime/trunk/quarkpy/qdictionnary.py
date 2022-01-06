@@ -283,6 +283,7 @@ Strings = {
     827: "WorldCraft Rich Map Format file (*.rmf)|*.rmf",
     828: "Call of Duty 2 Bsp Files (*.d3dbsp)|*.d3dbsp",
     829: "Call of Duty 2 Material Files (*.)|*.",
+    830: "KEX Pak Files (*.kpf)|*.kpf",
 
     2368: "Skins",
     2369: "Frames",
@@ -588,6 +589,7 @@ Strings = {
     5150: "WorldCraft Rich Map Format file",
     5151: "Call of Duty 2 Bsp file",
     5152: "Call of Duty 2 Material file",
+    5153: "KEX Pak file",
 
     5155: "Quake Context",
     5156: "Tool bar",

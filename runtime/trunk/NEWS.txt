@@ -14,6 +14,8 @@
 
 6.6.0 Beta 8
 ============
+* [DanielPharos]: Added support for KEX Engine archives (.kpf files).
+
 * [DanielPharos]: Added support for loading files larger than 2GB.
 
 * [DanielPharos]: Added 4 view Qoole style map editor layout.

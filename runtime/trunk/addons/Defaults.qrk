@@ -234,6 +234,7 @@ QQRKSRC1
         .ncf = "1"     incf = '5'
         .vpk = "1"     ivpk = '5'
         .vl2 = "1"     ivl2 = '5'
+        .kpf = "1"     ikpf = '5'
         .qc  = "1"     iqc  = '8'
         .hc  = "1"     ihc  = '8'
         .cs  = "1"     ics  = '8'
@@ -292,6 +293,7 @@ QQRKSRC1
         .ncf = ""
         .vpk = ""
         .vl2 = ""
+        .kpf = ""
         .qc  = "Notepad.exe"
         .hc  = "Notepad.exe"
         .cs  = "Notepad.exe"
@@ -8458,6 +8460,7 @@ QQRKSRC1
       .ncf: = { Txt="NCF archives" externaledit = ! }
       .vpk: = { Txt="VPK archives" externaledit = ! }
       .vl2: = { Txt="VL2 archives" externaledit = ! }
+      .kpf: = { Txt="KPF archives" externaledit = ! }
       .qc:  = { Txt="QC scripts" externaledit = ! }
       .hc:  = { Txt="HC scripts" externaledit = ! }
       .cs:  = { Txt="CS scripts" externaledit = ! }
@@ -8540,6 +8543,7 @@ QQRKSRC1
       .ncf: = {Typ="X" Cap=".ncf" Txt="PACK files for Left 4 Dead"}
       .vpk: = {Typ="X" Cap=".vpk" Txt="PACK files for Left 4 Dead"}
       .vl2: = {Typ="X" Cap=".vl2" Txt="PACK files for Tribe 2"}
+      .kpf: = {Typ="X" Cap=".kpf" Txt="PACK files for KEX Engine"}
       .qc:  = {Typ="X" Cap=".qc"  Txt="QuakeC Code (Quake 1)"}
       .hc:  = {Typ="X" Cap=".hc"  Txt="HexenC Code (Hexen II)"}
       .cs:  = {Typ="X" Cap=".cs"  Txt="Tribes 2 Code"}

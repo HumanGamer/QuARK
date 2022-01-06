@@ -136,6 +136,7 @@ uses
   QkInclude in 'prog\QkInclude.pas',
   QkIwi in 'prog\QkIwi.pas',
   QkJpg in 'prog\QkJpg.pas',
+  QkKEX in 'prog\QkKEX.pas',
   QkListView in 'prog\QkListView.pas' {QForm2},
   QkMacro in 'prog\QkMacro.pas',
   QkMap in 'prog\QkMap.pas' {FQMap},
