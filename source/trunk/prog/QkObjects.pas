@@ -413,7 +413,7 @@ function StringListConcatWithSeparator(const theStringList: TStrings; theStringS
 {AiV}function QStreamAddRef(Ref: PQStreamRef; var S: TStream) : TStreamPos;
 {procedure QStreamRelease(Ref: TTreeNode);}
 
-function CharToPas(C: array of Byte) : String;
+function CharToPas(const C: array of Byte) : String;
 procedure PasToChar(var C: array of Byte; const S: String);
 function IntToPackedStr(Value: Integer) : String;
 function PackedStrToInt(const S: String) : Integer;
@@ -521,7 +521,7 @@ end;
 
  {------------------------}
 
-function CharToPas(C: array of Byte) : String;
+function CharToPas(const C: array of Byte) : String;
 var
   I: Integer;
 begin
