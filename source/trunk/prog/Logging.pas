@@ -35,12 +35,12 @@ function GetLogLevel : Cardinal;
 
 Procedure Log(const s: string); overload;
 Procedure Log(level: cardinal; const s: string); overload;
-Procedure Log(const s: string; args: array of const); overload;
-Procedure Log(level: cardinal; const s: string; args: array of const); overload;
+Procedure Log(const s: string; const args: array of const); overload;
+Procedure Log(level: cardinal; const s: string; const args: array of const); overload;
 Procedure Log(Logger: TLogName; const s: string); overload;
 Procedure Log(Logger: TLogName; level: cardinal; const s: string); overload;
-Procedure Log(Logger: TLogName; const s: string; args: array of const); overload;
-Procedure Log(Logger: TLogName; level: cardinal; const s: string; args: array of const); overload;
+Procedure Log(Logger: TLogName; const s: string; const args: array of const); overload;
+Procedure Log(Logger: TLogName; level: cardinal; const s: string; const args: array of const); overload;
 
 const
   LOG_FILENAME = 'QUARK.LOG';
@@ -164,12 +164,12 @@ begin
     aLog(LOG_DEFAULT, s);
 end;
 
-Procedure Log(const s: string; args: array of const);
+Procedure Log(const s: string; const args: array of const);
 begin
   aLog(LOG_DEFAULT, format(s, args));
 end;
 
-Procedure Log(level: cardinal; const s: string; args: array of const);
+Procedure Log(level: cardinal; const s: string; const args: array of const);
 begin
   if level<=Loglevel then
     aLog(LOG_DEFAULT, format(s, args));
@@ -186,12 +186,12 @@ begin
     aLog(Logger, s);
 end;
 
-Procedure Log(Logger: TLogName; const s: string; args: array of const);
+Procedure Log(Logger: TLogName; const s: string; const args: array of const);
 begin
   aLog(Logger, format(s, args));
 end;
 
-Procedure Log(Logger: TLogName; level: cardinal; const s: string; args: array of const);
+Procedure Log(Logger: TLogName; level: cardinal; const s: string; const args: array of const);
 begin
   if level<=Loglevel then
     aLog(Logger, format(s, args));

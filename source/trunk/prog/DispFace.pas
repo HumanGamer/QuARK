@@ -21,7 +21,7 @@ http://quark.sourceforge.net/ - Contact information in AUTHORS.TXT
 unit DispFace;
 
 interface
-uses SysUtils, qmath, Python, QkObjects, QkMappoly;
+uses SysUtils, qmath, Python, QkMappoly;
 
 type
  TControlPoints3 = {array of} vec3_t;
@@ -39,8 +39,8 @@ type
    FMeshCache: TMeshBuf3;
    public
      procedure setpower(pwr: integer);
-     procedure addnormals(normalpoints : array of double);
-     procedure adddists(row : integer; distances : array of double);
+     procedure addnormals(const normalpoints : array of double);
+     procedure adddists(row : integer; const distances : array of double);
      function PyGetAttr(attr: PChar) : PyObject; override;
  end;
 
@@ -75,7 +75,7 @@ begin
   end;
 end;
 
-procedure TDispFace.addnormals(normalpoints : array of double);
+procedure TDispFace.addnormals(const normalpoints : array of double);
 begin
 end;
 
@@ -90,7 +90,7 @@ begin
     setlength(dists[i],meshsize);
 end;
 
-procedure TDispFace.adddists(row : integer; distances : array of double);
+procedure TDispFace.adddists(row : integer; const distances : array of double);
 var
   i:integer;
 begin

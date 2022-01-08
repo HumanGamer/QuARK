@@ -201,7 +201,7 @@ type
 
 {--------------------------}
 
-Function BeforeZero(S: array of byte; SLength: Integer): string;
+Function BeforeZero(const S: array of byte; SLength: Integer): string;
 var
   i: integer;
 begin
