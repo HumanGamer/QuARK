@@ -22,7 +22,7 @@ unit QkBoundFrame;
 
 interface
 
-uses QkMdlObject, QkObjects, qmath, Windows, Graphics, Python, Sysutils, QkModelTag;
+uses Windows, Sysutils, QkMdlObject, QkObjects, qmath, Graphics, Python;
 
 type
   QBoundFrame = class(QMdlObject)

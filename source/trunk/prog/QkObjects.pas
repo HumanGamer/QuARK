@@ -30,9 +30,8 @@ interface
 
 {$I DelphiVer.inc}
 
-uses SysUtils, Messages, Classes, Clipbrd, Windows,
-     Controls, Graphics, Forms, qmath, Menus,
-     CommCtrl, Python;
+uses SysUtils, Messages, Classes, Windows, Controls, Graphics, Forms, qmath,
+  Menus, CommCtrl, Python;
 
 const
   iiUnknownFile           = 0;

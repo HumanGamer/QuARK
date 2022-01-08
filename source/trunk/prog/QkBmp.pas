@@ -22,8 +22,7 @@ unit QkBmp;
 
 interface
 
-uses Windows, Classes, Qk1, QkImages, QkPixelSet, QkObjects, QkFileObjects,
-     QkDevIL, QkFreeImage;
+uses Windows, Classes, QkImages, QkObjects, QkFileObjects, QkDevIL, QkFreeImage;
 
 type
  QBmp = class(QImage)
@@ -45,7 +44,7 @@ type
 
 implementation
 
-uses SysUtils, Setup, Quarkx, QkObjectClassList, Game, QkExceptions, Logging;
+uses SysUtils, Qk1, Setup, Quarkx, QkObjectClassList, Game, QkExceptions, Logging;
 
 var
  Chain1: TClipboardHandler;

@@ -22,7 +22,7 @@ unit QkFrame;
 
 interface
 
-uses Windows, SysUtils, Classes, QkObjects, Qk3D, PyMath, Python, QkMdlObject,
+uses Windows, SysUtils, Classes, QkObjects, Qk3D, Python, QkMdlObject,
      QMath, QkModelBone, qmatrices;
 
 type
@@ -55,7 +55,7 @@ type
 implementation
 
 uses Quarkx, QkExceptions, PyObjects, QkObjectClassList, QkComponent, QkModelRoot,
-     QkModelTag, QkFrameGroup, QkMiscGroup, QkTagFrame;
+     QkModelTag, QkFrameGroup, QkMiscGroup, QkTagFrame, PyMath;
 
 function QFrame.IsAllowedParent(Parent: QObject) : Boolean;
 begin

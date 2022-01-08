@@ -125,7 +125,7 @@ procedure ClearWireframeCache;
 
 implementation
 
-uses QkQuakeCtx, QkUnknown, PyObjects, Quarkx{$IFDEF PyProfiling}, Logging{$ENDIF};
+uses PyObjects, Quarkx{$IFDEF PyProfiling}, Logging{$ENDIF};
 
  {------------------------}
 
