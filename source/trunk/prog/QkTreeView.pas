@@ -426,7 +426,7 @@ var
     if (NewWidth > MaxPixelWidth) then MaxPixelWidth := NewWidth;
   end;
 
-  function DisplayItems(X: Integer; List: TQList; Expected: Integer; Flags: Integer) : Boolean;
+  function DisplayItems(X: Integer; const List: TQList; Expected: Integer; Flags: Integer) : Boolean;
   const
    Mode: array[Boolean] of Integer = (0, ILD_BLEND50);
    DescMargin = 19;
@@ -1040,7 +1040,8 @@ procedure TMyTreeView.CheckInternalState;
   begin
    Raise InternalE('TMyTreeView.CheckInternalState: '+S);
   end;
-  procedure RecEmptyCheck(L: TQList; Special: QObject);
+
+  procedure RecEmptyCheck(const L: TQList; Special: QObject);
   var
    J: Integer;
    Test: QObject;
@@ -1057,7 +1058,8 @@ procedure TMyTreeView.CheckInternalState;
      RecEmptyCheck(Test.SubElements, Nil);
     end;
   end;
-  procedure RecCheck(L: TQList; TopLevel: Boolean);
+
+  procedure RecCheck(const L: TQList; TopLevel: Boolean);
   var
    J: Integer;
    Test: QObject;
@@ -1220,7 +1222,7 @@ begin
  Result:=Roots.IndexOf(Q)>=0;
 end;
 
-function CountVisibleItems(L: TQList; Ignore: Integer) : Integer;
+function CountVisibleItems(const L: TQList; Ignore: Integer) : Integer;
 var
  I: Integer;
  Q: QObject;
@@ -1806,24 +1808,23 @@ begin
  VertScrollBar.Position:=VSB;
 end;
 
-(*procedure ClearSelection1(L: TQList);
-var
- I: Integer;
- Q: QObject;
-begin
- for I:=0 to L.Count-1 do
+(*procedure TMyTreeView.ClearSelection;
+  procedure ClearSelection1(const L: TQList);
+  var
+   I: Integer;
+   Q: QObject;
   begin
-   Q:=L[I];
-   if Q.SelMult<>smSousSelVide then
+   for I:=0 to L.Count-1 do
     begin
-     Q.SelMult:=smSousSelVide;
-     if Q.Flags and ofNotLoadedToMemory = 0 then
-      ClearSelection1(Q.SubElements);
+     Q:=L[I];
+     if Q.SelMult<>smSousSelVide then
+      begin
+       Q.SelMult:=smSousSelVide;
+       if Q.Flags and ofNotLoadedToMemory = 0 then
+        ClearSelection1(Q.SubElements);
+      end;
     end;
   end;
-end;
-
-procedure TMyTreeView.ClearSelection;
 begin
  ClearSelection1(Roots);
  Invalidate;
