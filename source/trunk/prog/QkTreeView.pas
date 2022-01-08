@@ -850,7 +850,7 @@ end;
 procedure TMyTreeView.SetFocused1(nFocused: QObject);
 var
  nParent: QObject;
- L: TList;
+ L: TQList;
 begin
  FFocusList.Clear;
  while nFocused<>Nil do
