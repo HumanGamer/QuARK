@@ -23,7 +23,7 @@ unit Duplicator;
 interface
 
 uses Windows, SysUtils, Classes, Graphics, QkObjects, QkMapObjects,
-     qmath, Python, PyObjects, PyMath;
+     qmath, Python;
 
 type
  TDuplicator = class(TTreeMapEntity)
@@ -57,8 +57,8 @@ type
 
 implementation
 
-uses Quarkx, QkExceptions, Setup, QkFileObjects, PyMapView, QkMapPoly, Qk3D,
-     QkObjectClassList, Undo, EdSceneObject;
+uses Quarkx, QkExceptions, Setup, QkFileObjects, PyMapView, PyMath, PyObjects,
+     Qk3D, QkMapPoly, QkObjectClassList, Undo, EdSceneObject;
 
  {------------------------}
 

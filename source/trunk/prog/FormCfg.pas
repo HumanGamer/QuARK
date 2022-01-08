@@ -25,7 +25,7 @@ interface
 {$I DelphiVer.inc}
 
 uses SysUtils, Classes, Controls, Graphics, Forms, StdCtrls, ExtCtrls,
-     QkObjects, qmath, Windows, ComCtrls, Messages, TB97, Dialogs,
+     QkObjects, Windows, ComCtrls, Messages, TB97, Dialogs,
      Menus, CommCtrl, EnterEditCtrl, TrackBar2, QkForm, Game, BrowseForFolder,
      CursorScrollBox, Spin, SmArrowBtn, QkFormCfg, QkApplPaths;
 
@@ -135,7 +135,7 @@ type
               OnChange: TNotifyEvent;
               Modified, AllowEdit, AllowEditName, InternalEditing, NoSpecifics,
               NoHeader, AddRemaining, NoClientAlign: Boolean;
-              Delta: TDouble;
+              Delta: Double;
               TxtSpec, TxtArg: Integer;
               EditNames, HintPrefix: String;
               OnNeedGameInfo: TNeedGameInfoEvent;
@@ -166,7 +166,7 @@ function FontToString(Font: TFont) : String;
 
 implementation
 
-uses qdraw, QkUnknown, Undo, TbPalette, QkFileObjects, Toolbar1, ToolBox1,
+uses qdraw, qmath, QkUnknown, Undo, TbPalette, QkFileObjects, Toolbar1, ToolBox1,
      Setup, QuarkX, QkExceptions, QkInclude, QkMacro, QkImages, QkTextures,
      Python, PyMacros, PyToolbars, PyForms, QkPixelSet, QkObjectClassList,
      SystemDetails, Platform, ExtraFunctionality;

@@ -41,8 +41,6 @@ procedure Resample(SrcPalette: PPaletteLmp; Source: PChar;
 
 implementation
 
-uses Windows;
-
 (*procedure MemSet(var Buf; C: Char; Count: Integer); stdcall; assembler;
 asm
  {$I DELPHIC.ASM}
