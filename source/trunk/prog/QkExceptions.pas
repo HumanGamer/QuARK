@@ -28,7 +28,7 @@ function GetExceptionMessage(E: Exception) : String;
 procedure LogAndWarn(const WarnMessage : String);
 procedure LogAndRaiseError(const ErrMessage : String);
 function EError(Res: Integer) : Exception;
-function EErrorFmt(Res: Integer; Fmt: array of const) : Exception;
+function EErrorFmt(Res: Integer; const Fmt: array of const) : Exception;
 function InternalE(const Hint: String) : Exception;
 
 procedure GlobalWarning(const Texte: String);
@@ -84,7 +84,7 @@ begin
  EError:=Exception.Create(LoadStr1(Res));
 end;
 
-function EErrorFmt(Res: Integer; Fmt: array of const) : Exception;
+function EErrorFmt(Res: Integer; const Fmt: array of const) : Exception;
 begin
  PythonCodeEnd;
  EErrorFmt:=Exception.Create(FmtLoadStr1(Res, Fmt));

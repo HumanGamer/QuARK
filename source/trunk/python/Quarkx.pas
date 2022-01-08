@@ -53,7 +53,7 @@ var
 procedure InitPython;
 procedure ShutdownPython;
 function LoadStr1(I: Integer) : String;
-function FmtLoadStr1(I: Integer; Args: array of const) : String;
+function FmtLoadStr1(I: Integer; const Args: array of const) : String;
 function PyNoResult : PyObject;
 function GetEmptyTuple : PyObject;
 procedure SimpleDestructor(o: PyObject); cdecl;
@@ -3446,7 +3446,7 @@ begin
  end;
 end;
 
-function FmtLoadStr1(I: Integer; Args: array of const) : String;
+function FmtLoadStr1(I: Integer; const Args: array of const) : String;
 begin
  Result:=Format(LoadStr1(I), Args);
 end;
