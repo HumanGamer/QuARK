@@ -1850,25 +1850,25 @@ begin
   else
     ClassKey:='SYSTEM\CurrentControlSet\Services\Class';
 
+  FAdapter.Clear;
+  FDevices.Clear;
+  FDAC.Clear;
+  FChipset.Clear;
+  FMemory.Clear;
+  FProvider.Clear;
+  FDriverDate.Clear;
+  FDriverVersion.Clear;
+  Log(LOG_VERBOSE, 'Gathering of display driver information...');
+  rk:=GetClassDevices(ClassKey,rvVideoClass,DescValue,FDevices);
+  Found:=False;
+
+  //Something went wrong!
+  if rk='' then
+    Exit;
+
+  Log(LOG_VERBOSE, 'Enumerating of display driver information...');
   sl:=tstringlist.create;
   try
-    FAdapter.Clear;
-    FDevices.Clear;
-    FDAC.Clear;
-    FChipset.Clear;
-    FMemory.Clear;
-    FProvider.Clear;
-    FDriverDate.Clear;
-    FDriverVersion.Clear;
-    Log(LOG_VERBOSE, 'Gathering of display driver information...');
-    rk:=GetClassDevices(ClassKey,rvVideoClass,DescValue,FDevices);
-    Found:=False;
-
-    //Something went wrong!
-    if rk='' then
-      Exit;
-
-    Log(LOG_VERBOSE, 'Enumerating of display driver information...');
     reg:=TRegistry2.Create(KEY_READ);
     with reg do
     begin
@@ -1994,26 +1994,26 @@ begin
       end;
       free;
     end;
-
-    Log(LOG_VERBOSE, 'Gathering of 3D accelerator information...');
-    FAcc.Clear;
-    GetClassDevices(ClassKey,rv3DClass,DescValue,FAcc);
-
-    Log(LOG_VERBOSE, 'Gathering of display modes information...');
-    FModes.Clear;
-    j:=0;
-    ZeroMemory(@DevMode,SizeOf(DevMode));
-    DevMode.dmSize:=sizeof(DevMode);
-    while EnumDisplaySettings(nil,j,DevMode) do
-    begin
-      with Devmode do
-      begin
-        FModes.Add(Format('%d x %d - %d bit',[dmPelsWidth,dmPelsHeight,dmBitsPerPel]));
-        Inc(j);
-      end;
-    end;
   finally
     sl.free;
+  end;
+
+  Log(LOG_VERBOSE, 'Gathering of 3D accelerator information...');
+  FAcc.Clear;
+  GetClassDevices(ClassKey,rv3DClass,DescValue,FAcc);
+
+  Log(LOG_VERBOSE, 'Gathering of display modes information...');
+  FModes.Clear;
+  j:=0;
+  ZeroMemory(@DevMode,SizeOf(DevMode));
+  DevMode.dmSize:=sizeof(DevMode);
+  while EnumDisplaySettings(nil,j,DevMode) do
+  begin
+    with Devmode do
+    begin
+      FModes.Add(Format('%d x %d - %d bit - %d Hz',[dmPelsWidth,dmPelsHeight,dmBitsPerPel,dmDisplayFrequency]));
+      Inc(j);
+    end;
   end;
 end;
 
@@ -2067,6 +2067,10 @@ begin
       add('    Driver date: '    +DriverDate[i]);
       add('    Driver version: ' +DriverVersion[i]);
     end;
+    (*for i:=0 to Accelerator.count-1 do
+    begin
+      add(format('[Accelerator %d] %s', [i+1,Accelerator[i]]));
+    end;*)
     (*for i:=0 to Modes.Count-1 do
     begin
       add(format('[Mode %d] %s', [i+1,Modes[i]]));
