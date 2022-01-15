@@ -1783,18 +1783,16 @@ class Rotator2D(DragObject):
     InfiniteMouse = 1
 
     def __init__(self, view, x, y, redcolor=None, todo=None):
-        info = view.info
-        center = info["center"]
-        DragObject.__init__(self, view, x, y, view.proj(center).z)
-        self.data = info, info["angle"], info["vangle"], info["sfx"]
+        DragObject.__init__(self, view, x, y)
+        self.data = view.info["angle"], view.info["vangle"], view.info["sfx"]
 
     def dragto(self, x, y, flags):
-        info, angle, vangle, scroll = self.data
+        angle, vangle, scroll = self.data
         #
         # Rotate the view. You can adjust the sensibility below.
         #
-        info["angle"] = angle + (x-self.x0)*0.02
-        info["vangle"] = vangle + (y-self.y0)*0.01
+        self.view.info["angle"] = angle + (x-self.x0)*0.02
+        self.view.info["vangle"] = vangle + (y-self.y0)*0.01
 
         #
         # First part of methods for rotation in the Model Editors 3D views.
@@ -1824,8 +1822,7 @@ class Rotator2D(DragObject):
         self.view.repaint()
 
     def ok(self, editor, x, y, flags):
-        info = self.view.info
-        info["angle"] = info["angle"] % pi2
+        self.view.info["angle"] = self.view.info["angle"] % pi2
 
 #
 # Function to build a DragObject in response to a MB_STARTDRAG.
