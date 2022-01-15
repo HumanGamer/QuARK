@@ -3620,7 +3620,7 @@ QQRKSRC1
     {
       Help = "This is ammo for the plasmagun."
       t_ammo_size = !
-      mdl = "models/powerups/ammo/plasmagunam.md3"
+      mdl = "models/powerups/ammo/plasmaam.md3"
       wait: =
       {
         Txt = "&"
