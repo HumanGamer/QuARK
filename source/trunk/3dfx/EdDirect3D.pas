@@ -775,6 +775,8 @@ begin
           begin
             Distance2:=Sqr(OpenGLAveragePosition[0]-PL.Position[0])+Sqr(OpenGLAveragePosition[1]-PL.Position[1])+Sqr(OpenGLAveragePosition[2]-PL.Position[2]);
             //Distance2 = distance squared.
+            if Distance2<rien then
+              Distance2:=rien;
             Brightness:=PL.Brightness / Distance2; //FIXME: Not sure if this is right!
             for LightNR:=0 to MaxLights-1 do
             begin
