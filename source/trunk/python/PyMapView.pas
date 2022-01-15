@@ -619,14 +619,20 @@ var
  DC: HDC;
 begin
  DC:=GetDC(Handle);
- SetBkColor(DC, ColorToRGB(clInactiveCaption));
- SetTextColor(DC, ColorToRGB(clInactiveCaptionText));
- Rect:=ClientRect;
- Brush:=CreateSolidBrush(ColorToRGB(clInactiveCaption));
- FillRect(DC, Rect, Brush);
- DeleteObject(Brush);
- DrawText(DC, PChar(S), Length(S), Rect, DT_NOCLIP or DT_WORDBREAK);
- ReleaseDC(Handle, DC);
+ try
+  SetBkColor(DC, ColorToRGB(clInactiveCaption));
+  SetTextColor(DC, ColorToRGB(clInactiveCaptionText));
+  Rect:=ClientRect;
+  Brush:=CreateSolidBrush(ColorToRGB(clInactiveCaption));
+  try
+    FillRect(DC, Rect, Brush);
+  finally
+    DeleteObject(Brush);
+  end;
+  DrawText(DC, PChar(S), Length(S), Rect, DT_NOCLIP or DT_WORDBREAK);
+ finally
+  ReleaseDC(Handle, DC);
+ end;
 end;
 
 (*procedure TPyMapView.ReorderDrawing(F: TWinControl);

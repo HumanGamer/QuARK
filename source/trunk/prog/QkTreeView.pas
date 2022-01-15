@@ -387,8 +387,11 @@ begin
   else
   begin
     DC := GetDC(0);
-    MemBitmap := CreateCompatibleBitmap(DC, ClientRect.Right, ClientRect.Bottom);
-    ReleaseDC(0, DC);
+    try
+      MemBitmap := CreateCompatibleBitmap(DC, ClientRect.Right, ClientRect.Bottom);
+    finally
+      ReleaseDC(0, DC);
+    end;
     MemDC := CreateCompatibleDC(0);
     OldBitmap := SelectObject(MemDC, MemBitmap);
     try
