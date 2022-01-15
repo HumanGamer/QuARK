@@ -856,12 +856,10 @@ class DragObject:
     handle = None
     hint = None
 
-    def __init__(self, view, x, y, z):
+    def __init__(self, view, x, y):
         self.view = view
         self.x0 = x
         self.y0 = y
-        self.z0 = z
-        self.pt0 = view.space(x, y, z)
         self.scrolltimer = None
 
     def dragto(self, x, y, flags):
@@ -916,7 +914,9 @@ class RedImageDragObject(DragObject):
     "Dragging that draws a red wireframe image of something."
 
     def __init__(self, view, x, y, z, redcolor):
-        DragObject.__init__(self, view, x, y, z)
+        DragObject.__init__(self, view, x, y)
+        self.z0 = z
+        self.pt0 = view.space(x, y, z)
         self.x = x        ## Added this for Terrain objects - cdunde 05-14-05
         self.y = y        ## Added this for Terrain objects - cdunde 05-14-05
         self.z = z        ## Added this for Terrain objects - cdunde 05-14-05
@@ -1389,14 +1389,12 @@ class FreeZoomDragObject(DragObject):
     # MODE required !
 
     def __init__(self, viewlist, view, x, y):
-        self.x0 = x
-        self.y0 = y
+        DragObject.__init__(self, view, x, y)
         self.scale0 = view.info["scale"]
         if view.info.has_key("custom"):
             self.viewlist = [view]
         else:
             self.viewlist = viewlist
-        self.view = view
 
     def dragto(self, x, y, flags):
         # moving the mouse RIGHT means zoom IN
@@ -1470,10 +1468,10 @@ class ScrollViewDragObject(DragObject):
     InfiniteMouse = 1
 
     def __init__(self, editor, view, x, y):
+        DragObject.__init__(self, view, x, y)
         hbar, vbar = view.scrollbars
-        self.view = view
-        self.x0 = hbar[0] + x
-        self.y0 = vbar[0] + y
+        self.x0 += hbar[0]
+        self.y0 += vbar[0]
         self.scroller = MakeScroller(editor.layout, view)
 
     def dragto(self, x, y, flags):
@@ -1496,9 +1494,7 @@ class FreeViewDragObject(AnimatedDragObject):
     InfiniteMouse = 1
 
     def __init__(self, editor, view, x, y):
-        self.view = view
-        self.x0 = x
-        self.y0 = y
+        AnimatedDragObject.__init__(self, view, x, y)
         self.pos0, self.roll0, self.pitch0 = self.view.cameraposition
         #
         # Read sensitivity (neg. numbers invert movements).
@@ -1525,9 +1521,7 @@ class WalkDragObject(AnimatedDragObject):
     InfiniteMouse = 1
 
     def __init__(self, editor, view, x, y):
-        self.view = view
-        self.x0 = x
-        self.y0 = y
+        AnimatedDragObject.__init__(self, view, x, y)
         self.pos0, self.roll0, self.pitch0 = self.view.cameraposition
         #
         # Read sensitivity (neg. numbers invert movements).
@@ -1559,9 +1553,7 @@ class SideStepDragObject(AnimatedDragObject):
     InfiniteMouse = 1
 
     def __init__(self, editor, view, x, y):
-        self.view = view
-        self.x0 = x
-        self.y0 = y
+        AnimatedDragObject.__init__(self, view, x, y)
         self.camerapos0 = self.view.cameraposition
         if self.camerapos0 is None: return
         forward = angles2vec1(self.camerapos0[2]*rad2deg, self.camerapos0[1]*rad2deg, 0)
