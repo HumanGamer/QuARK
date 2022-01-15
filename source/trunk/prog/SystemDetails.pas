@@ -1927,7 +1927,7 @@ begin
 
             if rk<>'' then
             begin
-              rk:=copy(rk,pos('Machine\',rk)+8,255);
+              rk:=copy(rk,pos('Machine\',rk)+8,MaxInt);
               if OpenKey(rk,false) then
               begin
                 FAdapter.Add(GetStringOrBinary(reg, rvHardware+'.'+rvHWVideo, 'HKEY_LOCAL_MACHINE'));
