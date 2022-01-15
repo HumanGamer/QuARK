@@ -15,6 +15,7 @@ import maphandles
 import mapoptions
 import qhandles
 import qmacro
+import qmenu
 
 
 #
@@ -173,11 +174,8 @@ class DuplicatorType(EntityType):
     "Duplicators"
 
     def applylinear(entity, matrix):
-        try:
-            import mapduplicator
-            mapduplicator.DupManager(entity).applylinear(matrix)
-        except:
-            pass
+        import mapduplicator
+        mapduplicator.DupManager(entity).applylinear(matrix)
 
     def dataformname(o):
         import mapduplicator
@@ -513,9 +511,7 @@ class FaceType(EntityManager):
 class BezierType(EntityManager):
     "Bezier Patches"
 
-    # tiglari
     def menubegin(o, editor):
-        import mapmenus
         import mapbtns
 
         def swapclick(m, o=o, editor=editor):
@@ -532,8 +528,6 @@ class BezierType(EntityManager):
         swap = qmenu.item("&Swap sides",swapclick,"Flip visible side of patch")
 
         return [texpop, swap]
-
-    # /tiglari
 
     def tex_handles(o, editor, view):
         import mapbezier
