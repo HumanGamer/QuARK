@@ -2260,6 +2260,17 @@ begin
           else
            begin
             { this looks like adding an attribute-value pair to L }
+            if ((Result=mjQuake) or (Result=mjMohaa)) and (CompareText(S1, 'origin')=0) then
+             begin
+              //Mohaa maps can have a double space in the "origin" specifics
+              //if the number only has a single digit before the decimal point.
+              I:=Pos('  ', S);
+              if (I<>0) then
+               begin
+                Result:=mjMohaa;
+                System.Delete(S, I, 1);
+               end;
+            end;
             L.Add(S1+'='+S);
             { stuff for dealing with model attributes in BSP entity lists }
             if (BSP<>Nil) and (CompareText(S1, 'model')=0) and (S<>'') and (S[1]='*') then
