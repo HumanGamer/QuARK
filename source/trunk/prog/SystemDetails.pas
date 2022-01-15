@@ -1920,15 +1920,9 @@ begin
         begin
           if OpenKey(rkVideoHardware,false) then
           begin
-            if ValueExists(rvVideoKey1+IntToStr(i)) then
-              rk:=ReadString(rvVideoKey1+IntToStr(i))
-            else
-            begin
-              if ValueExists(rvVideoKey2+IntToStr(i)) then
-                rk:=ReadString(rvVideoKey2+IntToStr(i))
-              else
+            if not TryReadString(rvVideoKey1+IntToStr(i), rk) then
+              if not TryReadString(rvVideoKey2+IntToStr(i), rk) then
                 rk:='';
-            end;
             CloseKey;
 
             if rk<>'' then
