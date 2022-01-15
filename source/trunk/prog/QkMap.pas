@@ -478,8 +478,8 @@ var
  { Rowdy, for Doom 3 and Quake 4 stuff}
  MapVersion: Integer;
 
- //For MOHAA's patchDef2 detection:
- MOHAAPatchDef2Detected: Boolean;
+ //For Ritual's patchDef2 detection:
+ RitualPatchDef2Detected: Boolean;
 
  procedure SetSinFlag;
    {DECKER - since SetFlagPos is only used by SetSinFlag, it can as well be a private-local procedure/}
@@ -1077,7 +1077,7 @@ expected one.
  { sort of like Sin, but simpler; we just read the flags without
    bothering to check that they're not the same as the defaults }
 
- procedure ReadMohaaSurfaceParms(Surface: TTexturedTreeMap);
+ procedure ReadRitualSurfaceParms(Surface: TTexturedTreeMap);
  var
    Val: String;
  begin
@@ -1272,11 +1272,11 @@ expected one.
    ReadSymbol(sNumValueToken);
    if SymbolType = sStringToken then
    begin
-     MOHAAPatchDef2Detected := True;
-     ReadMohaaSurfaceParms(B);
+     RitualPatchDef2Detected := True;
+     ReadRitualSurfaceParms(B);
    end
    else
-     MOHAAPatchDef2Detected := False;
+     RitualPatchDef2Detected := False;
    ReadSymbol(sBracketRight);
    // Nr 1: Width (many lines of control points there are)
    // Nr 2: Height (how many control points on each line)
@@ -1691,7 +1691,7 @@ expected one.
           //FIXME: Could also be bad Call of Duty 2 file (when the 'iwmap 4' header is missing)
          end
         else
-         begin  { Quake 2, Heretic2 and Mohaa : read the three fields }
+         begin  { Quake 2, Heretic2, FAKK2, EF2, Mohaa : read the three fields }
           ContentsFlags:=NumericValue1;
           Surface.Specifics.Values['Contents']:=IntToStr(NumericValue1);
           Surface.Specifics.Values['Flags']:=IntToStr(Round(NumericValue));
@@ -1700,10 +1700,13 @@ expected one.
           ReadSymbol(sNumValueToken);
           if Result=mjQuake then
             Result:=mjNotQuake1;
-          if SymbolType=sStringToken then // Mohaa
+          if SymbolType=sStringToken then // FAKK2, EF2 or Mohaa
           begin
-            Result:=mjMOHAA;
-            ReadMohaaSurfaceParms(Surface);
+            if (CharModeJeu<>mjFAKK2) and (CharModeJeu<>mjMOHAA) and (CharModeJeu<>mjEF2) then
+              Result:=mjMOHAA
+            else
+              Result:=CharModeJeu;
+            ReadRitualSurfaceParms(Surface);
           end
           else if SymbolType=sNumValueToken then //CoD1 or KMQuake2
           begin
@@ -2328,8 +2331,11 @@ begin
                  EntiteBezier:=MapStructureB;
                end;
                ReadPatchDef2();
-               if MOHAAPatchDef2Detected then
-                 Result:=mjMOHAA;
+               if RitualPatchDef2Detected then
+                 if (CharModeJeu<>mjFAKK2) and (CharModeJeu<>mjMOHAA) and (CharModeJeu<>mjEF2) then
+                   Result:=mjMOHAA
+                 else
+                   Result:=CharModeJeu;
              end
              else if LowerCase(s)='patchdef3' then
              begin
@@ -2767,7 +2773,7 @@ begin
    PY[3]:=(-P0.X*P1.Y+P0.Y*P1.X)/D;
 end;
 
-procedure MohaaSurfaceParms(F: TTexturedTreeMap; var S: String);
+procedure RitualSurfaceParms(F: TTexturedTreeMap; var S: String);
 var
   Q: QPixelSet;
   S1, SpecStr, Spec, Val, Val2: String;
@@ -4083,8 +4089,8 @@ begin
       if S3='' then S3:='0';
       S:=S+' '+S1+' '+S2+' '+S3;
 
-      if MapSaveSettings.GameCode=mjMOHAA then
-        MohaaSurfaceParms(F, S)
+      if (MapSaveSettings.GameCode=mjFAKK2) or (MapSaveSettings.GameCode=mjEF2) or (MapSaveSettings.GameCode=mjMOHAA) then
+        RitualSurfaceParms(F, S)
       else if (MapSaveSettings.GameCode=mjCOD) then
         S:=S+' '+F.Specifics.Values['CoD_samplesize']
       else if F.Specifics.Values['KMQuake2_color']<>'' then //if (MapSaveSettings.GameCode=mjKMQuake2) then
@@ -4160,13 +4166,13 @@ begin
 
    { We should start saving the other values too, once we've
      figured out what they actually are... }
-   if MapSaveSettings.GameCode=mjMOHAA then
+   if (MapSaveSettings.GameCode=mjFAKK2) or (MapSaveSettings.GameCode=mjEF2) or (MapSaveSettings.GameCode=mjMOHAA) then
    begin
      case MapSaveSettings.PatchDefVersion of
      2: S:=Format('   ( %d %d 0 0 0', [cp.W, cp.H]);
      3: S:=Format('   ( %d %d 0 0 0 0 0', [cp.W, cp.H]); //FIXME: SubDivisions?
      end;
-     MohaaSurfaceParms(TMesh(ObjectToSave), S);
+     RitualSurfaceParms(TMesh(ObjectToSave), S);
      S:=S+' )';
      Target.Add(S);
    end
