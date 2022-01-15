@@ -78,6 +78,20 @@ const
 
   REG_QWORD = 11; //Added in Windows 2000 //Also: REG_QWORD_LITTLE_ENDIAN
 
+  {$EXTERNALSYM COLORMGMTCAPS}
+  COLORMGMTCAPS = 121;   { Color Management caps                 }
+
+  { Color Management Capabilities }
+
+  {$EXTERNALSYM CM_NONE}
+  CM_NONE       = 0;     { ICM not supported          }
+  {$EXTERNALSYM CM_DEVICE_ICM}
+  CM_DEVICE_ICM = 1;     { Can perform ICM on either the device driver or the device itself }
+  {$EXTERNALSYM CM_GAMMA_RAMP}
+  CM_GAMMA_RAMP = 2;     { Supports GetDeviceGammaRamp and SetDeviceGammaRamp }
+  {$EXTERNALSYM CM_CMYK_COLOR}
+  CM_CMYK_COLOR = 4;     { Accepts CMYK color space ICC color profile }
+
 var
   SetDllDirectory: function (lpPathName : LPCTSTR) : BOOL; stdcall;
   IsWow64Process: function (hProcess : THandle; var Wow64Process : BOOL): BOOL; stdcall;

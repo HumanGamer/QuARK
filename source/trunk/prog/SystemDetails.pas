@@ -31,6 +31,7 @@ procedure LogSystemDetails;
 function CheckWindowsNT: Boolean;
 function CheckWindows98And2000: Boolean;
 function CheckWindowsMEAnd2000: Boolean;
+function CheckWindows2000: Boolean;
 function ProcessExists(const exeFileName: String): Boolean;
 function WindowExists(const WindowName: String): Boolean;
 function RetrieveModuleFilename(ModuleHandle: HMODULE): String;
@@ -213,12 +214,16 @@ type
               tcCharRotationAny,tcScaleIndependent,tcDoubledCharScaling,tcIntMultiScaling,
               tcAnyMultiExactScaling,tcDoubleWeightChars,tcItalics,tcUnderlines,
               tcStrikeouts,tcRasterFonts,tcVectorFonts,tcNoScrollUsingBlts);
+  TShadeBlendCap = (sbConstAlpha,sbGradRect,sbGradTri,sbPixelAlpha,sbPremultAlpha);
+  TColorMgmtCap = (cmCMYKColor,cmDeviceICM,cmGammaRamp);
 
   TCurveCaps = set of TCurveCap;
   TLineCaps = set of TLineCap;
   TPolygonCaps = set of TPolygonCap;
   TRasterCaps = set of TRasterCap;
   TTextCaps = set of TTextCap;
+  TShadeBlendCaps = set of TShadeBlendCap;
+  TColorMgmtCaps = set of TColorMgmtCap;
 
   TDisplay = class(TPersistent)
   private
@@ -236,6 +241,8 @@ type
     FPolygonCaps: TPolygonCaps;
     FRasterCaps: TRasterCaps;
     FTextCaps: TTextCaps;
+    FShadeBlendCaps: TShadeBlendCaps;
+    FColorMgmtCaps: TColorMgmtCaps;
     FMemory: TStrings;
     FChipset: TStrings;
     FDevices: TStrings;
@@ -275,6 +282,8 @@ type
     property LineCaps :TLineCaps read FLineCaps write FLineCaps stored false;
     property PolygonCaps :TPolygonCaps read FPolygonCaps write FPolygonCaps stored false;
     property TextCaps :TTextCaps read FTextCaps write FTextCaps stored false;
+    property ShadeBlendCaps :TShadeBlendCaps read FShadeBlendCaps write FShadeBlendCaps stored false;
+    property ColorMgmtCaps :TColorMgmtCaps read FColorMgmtCaps write FColorMgmtCaps stored false;
     property Modes :TStrings read FModes write FModes stored False;
   end;
 
@@ -1180,7 +1189,7 @@ begin
   RegisteredUser:='';
   RegisteredOrg:='';
   SerialNumber:='';
-  with TRegistry2.create(KEY_READ) do
+  with TRegistry2.Create(KEY_READ) do
   begin
     rootkey:=HKEY_LOCAL_MACHINE;
     if OpenKey(rkOSInfo,false) then
@@ -1648,7 +1657,7 @@ const
   DescValue = 'DriverDesc';
 begin
   Log(LOG_VERBOSE, 'Starting gathering of DISPLAY system information...');
-  l_hdc := GetDC(0);
+  l_hdc := GetDC(0); //FIXME: This only retrieves the primary monitor!
   if l_hdc = 0 then
     raise exception.Create('Unable to get DC of entire screen');
   try
@@ -1656,7 +1665,7 @@ begin
     FHorzRes:=GetDeviceCaps(l_hdc,windows.HORZRES);
     FVertRes:=GetDeviceCaps(l_hdc,windows.VERTRES);
     FColorDepth:=GetDeviceCaps(l_hdc,BITSPIXEL);
-   
+
     case GetDeviceCaps(l_hdc,windows.TECHNOLOGY) of
       DT_PLOTTER:    FTechnology:='Vector Plotter';
       DT_RASDISPLAY: FTechnology:='Raster Display';
@@ -1666,134 +1675,172 @@ begin
       DT_METAFILE:   FTechnology:='Metafile';
       DT_DISPFILE:   FTechnology:='Display File';
     end;
-   
+
     FHorzSize:=GetDeviceCaps(l_hdc,HORZSIZE);
     FVertSize:=GetDeviceCaps(l_hdc,VERTSIZE);
     FPixelWidth:=GetDeviceCaps(l_hdc,ASPECTX);
     FPixelHeight:=GetDeviceCaps(l_hdc,ASPECTY);
     FPixelDiagonal:=GetDeviceCaps(l_hdc,ASPECTXY);
-   
+
     FCurveCaps:=[];
-    if GetDeviceCaps(l_hdc,windows.CURVECAPS)<>CC_NONE then
+    I:=GetDeviceCaps(l_hdc,windows.CURVECAPS);
+    if I<>CC_NONE then
     begin
-      if (GetDeviceCaps(l_hdc,windows.CURVECAPS) and CC_CIRCLES)=CC_CIRCLES then
+      if (I and CC_CIRCLES)=CC_CIRCLES then
         FCurveCaps:=FCurveCaps+[ccCircles];
-      if (GetDeviceCaps(l_hdc,windows.CURVECAPS) and CC_PIE)=CC_PIE then
+      if (I and CC_PIE)=CC_PIE then
         FCurveCaps:=FCurveCaps+[ccPieWedges];
-      if (GetDeviceCaps(l_hdc,windows.CURVECAPS) and CC_CHORD)=CC_CHORD then
+      if (I and CC_CHORD)=CC_CHORD then
         FCurveCaps:=FCurveCaps+[ccChords];
-      if (GetDeviceCaps(l_hdc,windows.CURVECAPS) and CC_ELLIPSES)=CC_ELLIPSES then
+      if (I and CC_ELLIPSES)=CC_ELLIPSES then
         FCurveCaps:=FCurveCaps+[ccEllipses];
-      if (GetDeviceCaps(l_hdc,windows.CURVECAPS) and CC_WIDE)=CC_WIDE then
+      if (I and CC_WIDE)=CC_WIDE then
         FCurveCaps:=FCurveCaps+[ccWideBorders];
-      if (GetDeviceCaps(l_hdc,windows.CURVECAPS) and CC_STYLED)=CC_STYLED then
+      if (I and CC_STYLED)=CC_STYLED then
         FCurveCaps:=FCurveCaps+[ccStyledBorders];
-      if (GetDeviceCaps(l_hdc,windows.CURVECAPS) and CC_WIDESTYLED)=CC_WIDESTYLED then
+      if (I and CC_WIDESTYLED)=CC_WIDESTYLED then
         FCurveCaps:=FCurveCaps+[ccWideStyledBorders];
-      if (GetDeviceCaps(l_hdc,windows.CURVECAPS) and CC_INTERIORS)=CC_INTERIORS then
+      if (I and CC_INTERIORS)=CC_INTERIORS then
         FCurveCaps:=FCurveCaps+[ccInteriors];
-      if (GetDeviceCaps(l_hdc,windows.CURVECAPS) and CC_ROUNDRECT)=CC_ROUNDRECT then
+      if (I and CC_ROUNDRECT)=CC_ROUNDRECT then
         FCurveCaps:=FCurveCaps+[ccRoundedRects];
     end;
-   
+
     FLineCaps:=[];
-    if GetDeviceCaps(l_hdc,windows.LINECAPS)<>LC_NONE then
+    I:=GetDeviceCaps(l_hdc,windows.LINECAPS);
+    if I<>LC_NONE then
     begin
-      if (GetDeviceCaps(l_hdc,windows.LINECAPS) and LC_POLYLINE)=LC_POLYLINE then
+      if (I and LC_POLYLINE)=LC_POLYLINE then
         FLineCaps:=FLineCaps+[lcPolylines];
-      if (GetDeviceCaps(l_hdc,windows.LINECAPS) and LC_MARKER)=LC_MARKER then
+      if (I and LC_MARKER)=LC_MARKER then
         FLineCaps:=FLineCaps+[lcMarkers];
-      if (GetDeviceCaps(l_hdc,windows.LINECAPS) and LC_POLYMARKER)=LC_POLYMARKER then
+      if (I and LC_POLYMARKER)=LC_POLYMARKER then
         FLineCaps:=FLineCaps+[lcMultipleMarkers];
-      if (GetDeviceCaps(l_hdc,windows.LINECAPS) and LC_WIDE)=LC_WIDE then
+      if (I and LC_WIDE)=LC_WIDE then
         FLineCaps:=FLineCaps+[lcWideLines];
-      if (GetDeviceCaps(l_hdc,windows.LINECAPS) and LC_STYLED)=LC_STYLED then
+      if (I and LC_STYLED)=LC_STYLED then
         FLineCaps:=FLineCaps+[lcStyledLines];
-      if (GetDeviceCaps(l_hdc,windows.LINECAPS) and LC_WIDESTYLED)=LC_WIDESTYLED then
+      if (I and LC_WIDESTYLED)=LC_WIDESTYLED then
         FLineCaps:=FLineCaps+[lcWideStyledLines];
-      if (GetDeviceCaps(l_hdc,windows.LINECAPS) and LC_INTERIORS)=LC_INTERIORS then
+      if (I and LC_INTERIORS)=LC_INTERIORS then
         FLineCaps:=FLineCaps+[lcInteriors];
     end;
-   
+
     FPolygonCaps:=[];
-    if GetDeviceCaps(l_hdc,POLYGONALCAPS)<>PC_NONE then
+    I:=GetDeviceCaps(l_hdc,POLYGONALCAPS);
+    if I<>PC_NONE then
     begin
-      if (GetDeviceCaps(l_hdc,POLYGONALCAPS) and PC_POLYGON)=PC_POLYGON then
+      if (I and PC_POLYGON)=PC_POLYGON then
         FPolygonCaps:=FPolygonCaps+[pcAltFillPolygons];
-      if (GetDeviceCaps(l_hdc,POLYGONALCAPS) and PC_RECTANGLE)=PC_RECTANGLE then
+      if (I and PC_RECTANGLE)=PC_RECTANGLE then
         FPolygonCaps:=FPolygonCaps+[pcRectangles];
-      if (GetDeviceCaps(l_hdc,POLYGONALCAPS) and PC_WINDPOLYGON)=PC_WINDPOLYGON then
+      if (I and PC_WINDPOLYGON)=PC_WINDPOLYGON then
         FPolygonCaps:=FPolygonCaps+[pcWindingFillPolygons];
-      if (GetDeviceCaps(l_hdc,POLYGONALCAPS) and PC_SCANLINE)=PC_SCANLINE then
+      if (I and PC_SCANLINE)=PC_SCANLINE then
         FPolygonCaps:=FPolygonCaps+[pcSingleScanlines];
-      if (GetDeviceCaps(l_hdc,POLYGONALCAPS) and PC_WIDE)=PC_WIDE then
+      if (I and PC_WIDE)=PC_WIDE then
         FPolygonCaps:=FPolygonCaps+[pcWideBorders];
-      if (GetDeviceCaps(l_hdc,POLYGONALCAPS) and PC_STYLED)=PC_STYLED then
+      if (I and PC_STYLED)=PC_STYLED then
         FPolygonCaps:=FPolygonCaps+[pcStyledBorders];
-      if (GetDeviceCaps(l_hdc,POLYGONALCAPS) and PC_WIDESTYLED)=PC_WIDESTYLED then
+      if (I and PC_WIDESTYLED)=PC_WIDESTYLED then
         FPolygonCaps:=FPolygonCaps+[pcWideStyledBorders];
-      if (GetDeviceCaps(l_hdc,POLYGONALCAPS) and PC_INTERIORS)=PC_INTERIORS then
+      if (I and PC_INTERIORS)=PC_INTERIORS then
         FPolygonCaps:=FPolygonCaps+[pcInteriors];
     end;
-   
+
     FRasterCaps:=[];
-    if (GetDeviceCaps(l_hdc,windows.RASTERCAPS) and RC_BANDING)=RC_BANDING then
+    I:=GetDeviceCaps(l_hdc,windows.RASTERCAPS);
+    if (I and RC_BANDING)=RC_BANDING then
       FRasterCaps:=FRasterCaps+[rcRequiresBanding];
-    if (GetDeviceCaps(l_hdc,windows.RASTERCAPS) and RC_BITBLT)=RC_BITBLT then
+    if (I and RC_BITBLT)=RC_BITBLT then
       FRasterCaps:=FRasterCaps+[rcTranserBitmaps];
-    if (GetDeviceCaps(l_hdc,windows.RASTERCAPS) and RC_BITMAP64)=RC_BITMAP64 then
+    if (I and RC_BITMAP64)=RC_BITMAP64 then
       FRasterCaps:=FRasterCaps+[rcBitmaps64K];
-    if (GetDeviceCaps(l_hdc,windows.RASTERCAPS) and RC_DI_BITMAP)=RC_DI_BITMAP then
+    if (I and RC_DI_BITMAP)=RC_DI_BITMAP then
       FRasterCaps:=FRasterCaps+[rcSetGetDIBits];
-    if (GetDeviceCaps(l_hdc,windows.RASTERCAPS) and RC_DIBTODEV)=RC_DIBTODEV then
+    if (I and RC_DIBTODEV)=RC_DIBTODEV then
       FRasterCaps:=FRasterCaps+[rcSetDIBitsToDevice];
-    if (GetDeviceCaps(l_hdc,windows.RASTERCAPS) and RC_FLOODFILL)=RC_FLOODFILL then
+    if (I and RC_FLOODFILL)=RC_FLOODFILL then
       FRasterCaps:=FRasterCaps+[rcFloodfills];
-    if (GetDeviceCaps(l_hdc,windows.RASTERCAPS) and RC_GDI20_OUTPUT)=RC_GDI20_OUTPUT then
+    if (I and RC_GDI20_OUTPUT)=RC_GDI20_OUTPUT then
       FRasterCaps:=FRasterCaps+[rcWindows2xFeatures];
-    if (GetDeviceCaps(l_hdc,windows.RASTERCAPS) and RC_PALETTE)=RC_PALETTE then
+    if (I and RC_PALETTE)=RC_PALETTE then
       FRasterCaps:=FRasterCaps+[rcPaletteBased];
-    if (GetDeviceCaps(l_hdc,windows.RASTERCAPS) and RC_SCALING)=RC_SCALING then
+    if (I and RC_SCALING)=RC_SCALING then
       FRasterCaps:=FRasterCaps+[rcScaling];
-    if (GetDeviceCaps(l_hdc,windows.RASTERCAPS) and RC_STRETCHBLT)=RC_STRETCHBLT then
+    if (I and RC_STRETCHBLT)=RC_STRETCHBLT then
       FRasterCaps:=FRasterCaps+[rcStretchBlt];
-    if (GetDeviceCaps(l_hdc,windows.RASTERCAPS) and RC_STRETCHDIB)=RC_STRETCHDIB then
+    if (I and RC_STRETCHDIB)=RC_STRETCHDIB then
       FRasterCaps:=FRasterCaps+[rcStretchDIBits];
-   
+
     FTextCaps:=[];
-    if (GetDeviceCaps(l_hdc,windows.TEXTCAPS) and TC_OP_CHARACTER)=TC_OP_CHARACTER then
+    I:=GetDeviceCaps(l_hdc,windows.TEXTCAPS);
+    if (I and TC_OP_CHARACTER)=TC_OP_CHARACTER then
       FTextCaps:=FTextCaps+[tcCharOutPrec];
-    if (GetDeviceCaps(l_hdc,windows.TEXTCAPS) and TC_OP_STROKE)=TC_OP_STROKE then
+    if (I and TC_OP_STROKE)=TC_OP_STROKE then
       FTextCaps:=FTextCaps+[tcStrokeOutPrec];
-    if (GetDeviceCaps(l_hdc,windows.TEXTCAPS) and TC_CP_STROKE)=TC_CP_STROKE then
+    if (I and TC_CP_STROKE)=TC_CP_STROKE then
       FTextCaps:=FTextCaps+[tcStrokeClipPrec];
-    if (GetDeviceCaps(l_hdc,windows.TEXTCAPS) and TC_CR_90)=TC_CR_90 then
+    if (I and TC_CR_90)=TC_CR_90 then
       FTextCaps:=FTextCaps+[tcCharRotation90];
-    if (GetDeviceCaps(l_hdc,windows.TEXTCAPS) and TC_CR_ANY)=TC_CR_ANY then
+    if (I and TC_CR_ANY)=TC_CR_ANY then
       FTextCaps:=FTextCaps+[tcCharRotationAny];
-    if (GetDeviceCaps(l_hdc,windows.TEXTCAPS) and TC_SF_X_YINDEP)=TC_SF_X_YINDEP then
+    if (I and TC_SF_X_YINDEP)=TC_SF_X_YINDEP then
       FTextCaps:=FTextCaps+[tcScaleIndependent];
-    if (GetDeviceCaps(l_hdc,windows.TEXTCAPS) and TC_SA_DOUBLE)=TC_SA_DOUBLE then
+    if (I and TC_SA_DOUBLE)=TC_SA_DOUBLE then
       FTextCaps:=FTextCaps+[tcDoubledCharScaling];
-    if (GetDeviceCaps(l_hdc,windows.TEXTCAPS) and TC_SA_INTEGER)=TC_SA_INTEGER then
+    if (I and TC_SA_INTEGER)=TC_SA_INTEGER then
       FTextCaps:=FTextCaps+[tcIntMultiScaling];
-    if (GetDeviceCaps(l_hdc,windows.TEXTCAPS) and TC_SA_CONTIN)=TC_SA_CONTIN then
+    if (I and TC_SA_CONTIN)=TC_SA_CONTIN then
       FTextCaps:=FTextCaps+[tcAnyMultiExactScaling];
-    if (GetDeviceCaps(l_hdc,windows.TEXTCAPS) and TC_EA_DOUBLE)=TC_EA_DOUBLE then
+    if (I and TC_EA_DOUBLE)=TC_EA_DOUBLE then
       FTextCaps:=FTextCaps+[tcDoubleWeightChars];
-    if (GetDeviceCaps(l_hdc,windows.TEXTCAPS) and TC_IA_ABLE)=TC_IA_ABLE then
+    if (I and TC_IA_ABLE)=TC_IA_ABLE then
       FTextCaps:=FTextCaps+[tcItalics];
-    if (GetDeviceCaps(l_hdc,windows.TEXTCAPS) and TC_UA_ABLE)=TC_UA_ABLE then
+    if (I and TC_UA_ABLE)=TC_UA_ABLE then
       FTextCaps:=FTextCaps+[tcUnderlines];
-    if (GetDeviceCaps(l_hdc,windows.TEXTCAPS) and  TC_SO_ABLE)=TC_SO_ABLE then
+    if (I and TC_SO_ABLE)=TC_SO_ABLE then
       FTextCaps:=FTextCaps+[tcStrikeouts];
-    if (GetDeviceCaps(l_hdc,windows.TEXTCAPS) and TC_RA_ABLE)=TC_RA_ABLE then
+    if (I and TC_RA_ABLE)=TC_RA_ABLE then
       FTextCaps:=FTextCaps+[tcRasterFonts];
-    if (GetDeviceCaps(l_hdc,windows.TEXTCAPS) and TC_VA_ABLE)=TC_VA_ABLE then
+    if (I and TC_VA_ABLE)=TC_VA_ABLE then
       FTextCaps:=FTextCaps+[tcVectorFonts];
-    if (GetDeviceCaps(l_hdc,windows.TEXTCAPS) and TC_SCROLLBLT)=TC_SCROLLBLT then
+    if (I and TC_SCROLLBLT)=TC_SCROLLBLT then
       FTextCaps:=FTextCaps+[tcNoScrollUsingBlts];
 
+    FShadeBlendCaps:=[];
+    if CheckWindows98And2000 then
+    begin
+      I:=GetDeviceCaps(l_hdc,windows.SHADEBLENDCAPS);
+      if I<>SB_NONE then
+      begin
+        if (I and SB_CONST_ALPHA)=SB_CONST_ALPHA then
+          FShadeBlendCaps:=FShadeBlendCaps+[sbConstAlpha];
+        if (I and SB_PIXEL_ALPHA)=SB_PIXEL_ALPHA then
+          FShadeBlendCaps:=FShadeBlendCaps+[sbPixelAlpha];
+        if (I and SB_PREMULT_ALPHA)=SB_PREMULT_ALPHA then
+          FShadeBlendCaps:=FShadeBlendCaps+[sbPremultAlpha];
+        if (I and SB_GRAD_RECT)=SB_GRAD_RECT then
+          FShadeBlendCaps:=FShadeBlendCaps+[sbGradRect];
+        if (I and SB_GRAD_TRI)=SB_GRAD_TRI then
+          FShadeBlendCaps:=FShadeBlendCaps+[sbGradTri];
+      end;
+    end;
+
+    FColorMgmtCaps:=[];
+    if CheckWindows2000 then
+    begin
+      I:=GetDeviceCaps(l_hdc,{windows.}ExtraFunctionality.COLORMGMTCAPS);
+      if I<>CM_NONE then
+      begin
+        if (I and CM_CMYK_COLOR)=CM_CMYK_COLOR then
+          FColorMgmtCaps:=FColorMgmtCaps+[cmCMYKColor];
+        if (I and CM_DEVICE_ICM)=CM_DEVICE_ICM then
+          FColorMgmtCaps:=FColorMgmtCaps+[cmDeviceICM];
+        if (I and CM_GAMMA_RAMP)=CM_GAMMA_RAMP then
+          FColorMgmtCaps:=FColorMgmtCaps+[cmGammaRamp];
+      end;
+    end;
   finally
     ReleaseDC(0, l_hdc);
   end;
@@ -2400,6 +2447,11 @@ end;
 function CheckWindowsMEAnd2000: Boolean;
 begin
   Result:=(WindowsPlatform<>osWin95) and (WindowsPlatform<>osWin98) and (WindowsPlatform<>osWin98SE) and (WindowsPlatform<>osWinNT4);
+end;
+
+function CheckWindows2000: Boolean;
+begin
+  Result:=(WindowsPlatform<>osWin95) and (WindowsPlatform<>osWin98) and (WindowsPlatform<>osWin98SE) and (WindowsPlatform<>osWinME) and (WindowsPlatform<>osWinNT4);
 end;
 
 procedure WarnDriverBugs;
