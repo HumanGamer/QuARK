@@ -64,7 +64,7 @@ uses QkConsts;
 
 const
   FLASH_COUNT = 3; //Must be larger than zero!
-  AFTER_FLASH_DELAY = 1400; //in ms
+  AFTER_FLASH_DELAY = 1200; //in ms
 
 {$R *.DFM}
 
