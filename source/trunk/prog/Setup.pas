@@ -1067,6 +1067,8 @@ var
  Description: String;
  ClassKey: String;
 begin
+ Log(LOG_VERBOSE, LoadStr1(5847), [Ext]);
+
  QClassPtr:=RequestClassOfType('.'+Ext);
  Description:=Ext;
  ClassKey:=Format(RegFileAssocFormat, [Ext]);
@@ -1080,26 +1082,52 @@ begin
  Reg:=TRegistry2.Create;
  try
   Reg.RootKey:=HKEY_CLASSES_ROOT;
-  if not Reg.OpenKey('\.'+Ext, True) then Exit;
+  if not Reg.OpenKey('\.'+Ext, True) then
+   begin
+    Log(LOG_WARNING, FmtLoadStr1(5613, [Ext]) + LoadStr1(5848));
+    Exit;
+   end;
   try
    S:=Format(RegFileAssocFormat, [Ext]);
    if not (Reg.TryReadString('', S1) or (S=S1)) then
-    if not Reg.TryWriteString('', S) then Exit;
+    if not Reg.TryWriteString('', S) then
+     begin
+      Log(LOG_WARNING, FmtLoadStr1(5613, [Ext]) + LoadStr1(5844));
+      Exit;
+     end;
   finally
    Reg.CloseKey;
   end;
-  if not Reg.OpenKey('\'+ClassKey, True) then Exit;
+
+  if not Reg.OpenKey('\'+ClassKey, True) then
+   begin
+    Log(LOG_WARNING, FmtLoadStr1(5613, [Ext]) + LoadStr1(5849));
+    Exit;
+   end;
   try
    S:=Format(RegFileDescrFormat, [Description]);
    if not (Reg.TryReadString('', S1) or (S=S1)) then
-    Reg.WriteString('', S);
+    if not Reg.TryWriteString('', S) then
+     begin
+      Log(LOG_WARNING, FmtLoadStr1(5613, [Ext]) + LoadStr1(5845));
+      Exit;
+     end;
   finally
    Reg.CloseKey;
   end;
-  if not Reg.OpenKey('\'+ClassKey+'\shell\open\command', True) then Exit;
+
+  if not Reg.OpenKey('\'+ClassKey+'\shell\open\command', True) then
+   begin
+    Log(LOG_WARNING, FmtLoadStr1(5613, [Ext]) + LoadStr1(5850));
+    Exit;
+   end;
   try
    if not (Reg.TryReadString('', S) or (S=Command)) then
-    if not Reg.TryWriteString('', Command) then Exit;
+    if not Reg.TryWriteString('', Command) then
+     begin
+      Log(LOG_WARNING, FmtLoadStr1(5613, [Ext]) + LoadStr1(5846));
+      Exit;
+     end;
    {if (Icon>=0) and Reg.OpenKey('\'+S1+'\DefaultIcon', True) then
     Reg.WriteString('', Format('%s,%d', [Application.ExeName, Icon]));}
   finally
