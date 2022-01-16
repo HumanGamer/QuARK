@@ -1131,7 +1131,8 @@ begin
    P:=Pos('=',S);
    if (P>1) and (S[1]='.') and (P<Length(S)) then
     begin   { must be activated }
-     if not MakeAssociation({Reg,} Copy(S, 2, P-2), Command) then
+     Ext:=Copy(S, 2, P-2);
+     if not MakeAssociation({Reg,} Ext, Command) then
       GlobalWarning(FmtLoadStr1(5616, [Ext]));
     end;
   end;
