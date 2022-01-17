@@ -6,7 +6,7 @@
 ;   http://nsis.sourceforge.net
 
 ; Modern UI 2 ------
-!include "MUI2.nsh"
+!include MUI2.nsh
 SetCompressor /SOLID lzma   ; We will use LZMA for best compression
 ;RequestExecutionLevel admin
 
@@ -353,7 +353,7 @@ VIAddVersionKey /LANG=${LANG_ARABIC} "ProductVersion" "${PRODUCT_VERSION_STRING}
 
 ; Windows Installer ------
 
-;The SP1 2005 installer lowered the requirements to Windows Installer 2.0.
+;The VC++ Runtime SP1 2005 installer lowered the requirements to Windows Installer 2.0.
 
 ;https://docs.microsoft.com/en-us/windows/win32/msi/released-versions-of-windows-installer
 
@@ -604,7 +604,7 @@ Section "$(TEXT_SEC03_TITLE)" SEC03
   ;DevIL.dll needs VC2005 runtime (MSVCP80.dll, MSVCR80.dll)
   ;HLLib.dll needs VC2010 runtime (MSVCP100.dll, MSVCR100.dll)
   ;md5dll.dll needs default VC runtime (msvcrt.dll)
-  ;python.dll needs VC2003 runtime (MSVCR71.dll) Note that there are no VC2003, so we will have to include this library manually.
+  ;python.dll needs VC2003 runtime (MSVCR71.dll) ;Note that there are no VC2003, so we will have to include this library manually.
 
   Call InstallWinInstall ;First, we need to install Windows Install 3.1 (minimum) in order to run the rest of the installers.
   Call InstallVC2005Redist
@@ -615,6 +615,7 @@ SectionEnd
 
 Section "$(TEXT_SEC04_TITLE)" SEC04
   ;SetShellVarContext all
+  SetOutPath $INSTDIR ;To set the working directory for the shortcuts
   CreateDirectory "$SMPROGRAMS\QuArK"
   CreateShortCut "$SMPROGRAMS\QuArK\QuArK.lnk" "$INSTDIR\QuArK.exe"
   CreateShortCut "$SMPROGRAMS\QuArK\Website.lnk" "$INSTDIR\${PRODUCT_NAME}.url"
@@ -626,6 +627,7 @@ SectionEnd
 
 Section /o "$(TEXT_SEC05_TITLE)" SEC05
   ;SetShellVarContext all
+  SetOutPath $INSTDIR ;To set the working directory for the shortcuts
   CreateShortCut "$DESKTOP\QuArK.lnk" "$INSTDIR\QuArK.exe"
 SectionEnd
 
