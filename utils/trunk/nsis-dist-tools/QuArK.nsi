@@ -7,6 +7,7 @@
 
 ; Modern UI 2 ------
 !include MUI2.nsh
+!include WinVer.nsh
 SetCompressor /SOLID lzma   ; We will use LZMA for best compression
 ;RequestExecutionLevel admin
 
@@ -185,11 +186,11 @@ LangString TEXT_SEC02_DESC ${LANG_POLISH} "Help files."
 LangString TEXT_SEC02_DESC ${LANG_UKRAINIAN} "Help files."
 LangString TEXT_SEC02_DESC ${LANG_ARABIC} "Help files."
 
-LangString TEXT_SEC03_DESC ${LANG_ENGLISH} "Install dependencies that QuArK needs, such as the Visual C runtime files."
+LangString TEXT_SEC03_DESC ${LANG_ENGLISH} "Install dependencies that QuArK needs, such as DirectX."
 LangString TEXT_SEC03_DESC ${LANG_FRENCH} "Dependencies."
 LangString TEXT_SEC03_DESC ${LANG_GERMAN} "Dependencies."
 LangString TEXT_SEC03_DESC ${LANG_TRADCHINESE} "Dependencies."
-LangString TEXT_SEC03_DESC ${LANG_DUTCH} "Installeer benodigde afhankelijkheden, zoals de Visual C runtime bestanden."
+LangString TEXT_SEC03_DESC ${LANG_DUTCH} "Installeer benodigde afhankelijkheden, zoals DirectX."
 LangString TEXT_SEC03_DESC ${LANG_NORWEGIAN} "Dependencies."
 LangString TEXT_SEC03_DESC ${LANG_FINNISH} "Dependencies."
 ;LangString TEXT_SEC03_DESC ${LANG_GREEK} "Dependencies."
@@ -358,11 +359,17 @@ VIAddVersionKey /LANG=${LANG_ARABIC} "ProductVersion" "${PRODUCT_VERSION_STRING}
 ;https://docs.microsoft.com/en-us/windows/win32/msi/released-versions-of-windows-installer
 
 Function InstallWinInstall
-  SetOutPath $TEMP
-  File "${DEPENDENCYDIR}\WindowsInstaller20\InstMsiA.exe"
-  ExecWait "$TEMP\InstMsiA.exe /q"
-  Delete "$TEMP\InstMsiA.exe"
-  ; FIXME: Check return code: ERROR_SUCCESS_REBOOT_REQUIRED (or ERROR_SUCCESS)
+  ${If} ${IsWin95}
+  ${OrIf} ${IsWin98}
+  ${OrIf} ${IsWinME}
+  ${OrIf} ${IsWinNT4}
+  ${OrIf} ${IsWin2000}
+    SetOutPath $TEMP
+    File "${DEPENDENCYDIR}\WindowsInstaller20\InstMsiA.exe"
+    ExecWait "$TEMP\InstMsiA.exe /q"
+    Delete "$TEMP\InstMsiA.exe"
+    ; FIXME: Check return code: ERROR_SUCCESS_REBOOT_REQUIRED (or ERROR_SUCCESS)
+  ${EndIf}
 FunctionEnd
 
 ; Windows Installer end ------
@@ -494,6 +501,48 @@ FunctionEnd
 ;FunctionEnd
 ; VC Redist end ------
 
+; DirectX installer ------
+
+; https://aka.ms/dxsetup
+
+Function InstallDirectX
+  ;Note: Not supported on Windows 95 or NT 4.
+  ${If} ${IsWin98}
+  ${OrIf} ${IsWinME}
+    SetOutPath $TEMP
+    File "${DEPENDENCYDIR}\DirectX\directx-9-0c-oct-06-directx_oct2006_redist.exe"
+    ExecWait "$TEMP\directx-9-0c-oct-06-directx_oct2006_redist.exe /Q /T:$\"$TEMP\DirectX$\""
+    Delete "$TEMP\directx-9-0c-oct-06-directx_oct2006_redist.exe"
+    ExecWait "$TEMP\DirectX\DXSETUP.exe /silent"
+    RMDir /r $TEMP\DirectX
+    Goto AlreadyInstalled
+  ${Else}
+    ${If} ${IsWin2000}
+      SetOutPath $TEMP
+      File "${DEPENDENCYDIR}\DirectX\directx_feb2010_redist.exe"
+      ExecWait "$TEMP\directx_feb2010_redist.exe /Q /T:$\"$TEMP\DirectX$\""
+      Delete "$TEMP\directx_feb2010_redist.exe"
+      ExecWait "$TEMP\DirectX\DXSETUP.exe /silent"
+      RMDir /r $TEMP\DirectX
+      Goto AlreadyInstalled
+    ${Else}
+      ${If} ${IsWinXP}
+      ${OrIf} ${IsWin2003}
+        SetOutPath $TEMP
+        File "${DEPENDENCYDIR}\DirectX\directx_Jun2010_redist.exe"
+        ExecWait "$TEMP\directx_Jun2010_redist.exe /Q /T:$\"$TEMP\DirectX$\""
+        Delete "$TEMP\directx_Jun2010_redist.exe"
+        ExecWait "$TEMP\DirectX\DXSETUP.exe /silent"
+        RMDir /r $TEMP\DirectX
+        Goto AlreadyInstalled
+      ${EndIf}
+    ${EndIf}
+  ${EndIf}
+
+AlreadyInstalled:
+FunctionEnd
+; DirectX installer end ------
+
 Section "$(TEXT_SEC01_TITLE)" SEC01
   SetOutPath "$INSTDIR\addons\6DX"
   File "${BUILDDIR}\addons\6DX\*.*"
@@ -611,6 +660,8 @@ Section "$(TEXT_SEC03_TITLE)" SEC03
   ;Call InstallVC2008Redist
   Call InstallVC2010Redist
   ;Call InstallVC2013Redist
+
+  Call InstallDirectX
 SectionEnd
 
 Section "$(TEXT_SEC04_TITLE)" SEC04
