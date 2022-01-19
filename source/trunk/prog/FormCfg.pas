@@ -2415,6 +2415,8 @@ begin
                 end;
           else  begin   { edit box by default }
                  if S[1]<>'E' then S:='!';
+                 if (Length(S) < 2) then
+                  S:=S+' ';
                  if (S[2]='F') and (Spec<>'') then
                   Spec:=FloatSpecNameOf(Spec);
                  ReadOnly:=(Length(S)>=3) and (S[3]='R');
