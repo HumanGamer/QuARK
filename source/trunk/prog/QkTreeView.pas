@@ -397,7 +397,7 @@ begin
     try
       DC := BeginPaint(Handle, PS);
       try
-        Perform(WM_ERASEBKGND, MemDC, MemDC);
+        Perform(WM_ERASEBKGND, WPARAM(MemDC), LPARAM(MemDC));
         DoPaint(MemDC, PS);
         BitBlt(DC, 0, 0, ClientRect.Right, ClientRect.Bottom, MemDC, 0, 0, SRCCOPY);
       finally

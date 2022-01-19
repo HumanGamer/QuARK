@@ -188,7 +188,7 @@ begin
     MemDC := CreateCompatibleDC(DC);
     OldBitmap := SelectObject(MemDC, MemBitmap);
     try
-      Perform(WM_ERASEBKGND, MemDC, MemDC);
+      Perform(WM_ERASEBKGND, WPARAM(MemDC), LPARAM(MemDC));
       DoPaint(MemDC, PaintInfo);
       BitBlt(DC, 0, 0, ClientRect.Right, ClientRect.Bottom, MemDC, 0, 0, SRCCOPY);
     finally
