@@ -143,7 +143,7 @@ type
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
     function MenuShortcut(var Msg: TWMKeyDown) : Boolean;
-    function ProcessEditMsg(lParam: LongInt) : LongInt;
+    function ProcessEditMsg(lParam: LPARAM) : LongInt;
    {procedure RestorePosition(const Tag: String);}
     function RestorePositionTb(const Config: String; SubTb: Boolean; SepWidth: TControl) : QObject;
     procedure RestorePositionFrom(const Tag: String; Source: QObject);
@@ -167,8 +167,8 @@ type
  {------------------------}
 
 procedure ActivateNow(Form: TCustomForm);
-procedure PosteMessageFiches(wParam, lParam: Integer);
-procedure EnvoieMessageFiches(wParam, lParam: Integer);
+procedure PosteMessageFiches(wParam: WPARAM; lParam: LPARAM);
+procedure EnvoieMessageFiches(wParam: WPARAM; lParam: LPARAM);
 procedure SetMarsCapActive(nActive: Boolean);
 
 function GetObjectResult(Q: QObject) : LongInt;
@@ -265,7 +265,7 @@ end;
 
  {------------------------}
 
-procedure PosteMessageFiches(wParam, lParam: Integer);
+procedure PosteMessageFiches(wParam: WPARAM; lParam: LPARAM);
 var
  I: Integer;
 begin
@@ -273,7 +273,7 @@ begin
   PostMessage(Screen.Forms[I].Handle, wm_InternalMessage, wParam, lParam);
 end;
 
-procedure EnvoieMessageFiches(wParam, lParam: Integer);
+procedure EnvoieMessageFiches(wParam: WPARAM; lParam: LPARAM);
 var
  I: Integer;
 begin
@@ -662,7 +662,7 @@ begin
  Result:=False;
 end;
 
-function TQkForm.ProcessEditMsg(lParam: LongInt) : LongInt;
+function TQkForm.ProcessEditMsg(lParam: LPARAM) : LongInt;
 var
  Ac: TControl;
  EditH: HWnd;

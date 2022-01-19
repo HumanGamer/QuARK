@@ -559,7 +559,7 @@ begin
       case MessageDlg(LoadStr1(5620), mtConfirmation, mbYesNoCancel, 0) of
        mrYes: begin
                with ValidParentForm(Sender as TControl) do
-                Perform(wm_InternalMessage, wp_LoadLinFile, LongInt(PChar(LinFile)));
+                Perform(wm_InternalMessage, wp_LoadLinFile, LPARAM(PChar(LinFile)));
                Raise EError(5621);
               end;
        mrNo: ;
@@ -578,7 +578,7 @@ begin
         begin
          Q.Acces;
          ValidParentForm(Sender as TControl).Perform(wm_InternalMessage,
-          wp_SetFormCfg, LongInt(Q));
+          wp_SetFormCfg, LPARAM(Q));
          Exit;
         end;
       end;

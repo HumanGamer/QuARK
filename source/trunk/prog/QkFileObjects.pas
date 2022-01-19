@@ -2092,7 +2092,7 @@ begin
    else
     begin
      Extra:=ValidParentForm(g_WorkingExplorer);
-     Extra.Perform(wm_InternalMessage, SendMsg, LongInt(Self));
+     Extra.Perform(wm_InternalMessage, SendMsg, LPARAM(Self));
     end;
    Q:=Self;
    repeat
@@ -2101,9 +2101,9 @@ begin
       F:=Nil;
       while EnumObjectWindow(F) do
        if F<>Extra then
-        F.Perform(wm_InternalMessage, SendMsg, LongInt(Self));
+        F.Perform(wm_InternalMessage, SendMsg, LPARAM(Self));
       if (g_Form1.Explorer.Roots.Count>0) and (Q=g_Form1.Explorer.Roots[0]) then
-       g_Form1.Perform(wm_InternalMessage, SendMsg, LongInt(Self));
+       g_Form1.Perform(wm_InternalMessage, SendMsg, LPARAM(Self));
      end;
     Q:=Q.FParent;
    until Q=Nil;
