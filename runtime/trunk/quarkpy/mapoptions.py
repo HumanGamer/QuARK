@@ -90,7 +90,7 @@ def Plugins1Click(item):
         ci["Form"] = "PluginInfo"
         try:
             ci.shortname = info["plug-in"]
-        except:
+        except KeyError:
             pass
         group.appenditem(ci)
     quarkx.openconfigdlg("List of Plug-ins", group)
@@ -244,7 +244,7 @@ def OptionsMenu():
     "The Options menu, with its shortcuts."
 
     PlugIns = qmenu.item("List of Plug-ins...", Plugins1Click, "lists loaded plug-ins")
-    Config1 = qmenu.item("Confi&guration...", Config1Click,  hint = "|Configuration...:\n\nThis leads to the Configuration-Window where all elements of QuArK are setup. From the way the Editor looks and operates to Specific Game Configuration and Mapping or Modeling variables.\n\nBy pressing the F1 key one more time, or clicking the 'InfoBase' button below, you will be taken directly to the Infobase section that covers all of these areas, which can greatly assist you in setting up QuArK for a particular game you wish to map or model for.|intro.configuration.html")
+    Config1 = qmenu.item("Confi&guration...", Config1Click, hint = "|Configuration...:\n\nThis leads to the Configuration-Window where all elements of QuArK are setup. From the way the Editor looks and operates to Specific Game Configuration and Mapping or Modeling variables.\n\nBy pressing the F1 key one more time, or clicking the 'InfoBase' button below, you will be taken directly to the Infobase section that covers all of these areas, which can greatly assist you in setting up QuArK for a particular game you wish to map or model for.|intro.configuration.html")
     Options1 = qmenu.popup("&Options", items+[qmenu.sep, PlugIns, Config1, qmenu.sep, consolelog, clearconsolelog], Options1Click)
 
     import plugins.mapgridscale #FIXME: Remove dependency!

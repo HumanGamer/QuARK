@@ -160,8 +160,6 @@ def ArbRotationMatrix(normal, angle):
      # normal: normal vector for the view plane
      # texpdest: new position of the reference vector texp4
      # texp4: reference vector (handle position minus rotation center)
-     # g1: if True, snap angle to grid
-    SNAP = 0.998
     cosangle = math.cos(angle)
     sinangle = math.sin(angle)
 #    oldcos = cosangle
