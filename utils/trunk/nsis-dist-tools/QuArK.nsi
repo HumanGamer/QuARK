@@ -356,8 +356,8 @@ VIAddVersionKey /LANG=${LANG_ARABIC} "ProductVersion" "${PRODUCT_VERSION_STRING}
 
 Function InstallWinNT4SP3
   ${IfNot} ${IsWinNT4}
-  ${OfIf} ${AtLeastServicePack} 3
-    Call AlreadyInstalled
+  ${OrIf} ${AtLeastServicePack} 3
+    Goto AlreadyInstalled
   ${EndIf}
 
   SetOutPath $TEMP
@@ -604,7 +604,7 @@ AlreadyInstalled:
 FunctionEnd
 ; DirectX installer end ------
 
-Section "$(TEXT_SEC01_TITLE)" SEC01
+Section "!$(TEXT_SEC01_TITLE)" SEC01
   SetOutPath "$INSTDIR\addons\6DX"
   File "${BUILDDIR}\addons\6DX\*.*"
   SetOutPath "$INSTDIR\addons\Alice"
