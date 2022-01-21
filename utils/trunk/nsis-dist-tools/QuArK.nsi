@@ -352,6 +352,23 @@ VIAddVersionKey /LANG=${LANG_ARABIC} "FileVersion" "${PRODUCT_VERSION_NUMBER}"
 VIAddVersionKey /LANG=${LANG_ARABIC} "ProductVersion" "${PRODUCT_VERSION_STRING}"
 ; MUI end ------
 
+; Windows NT SP3 installer ------
+
+Function InstallWinNT4SP3
+  ${IfNot} ${IsWinNT4}
+  ${OfIf} ${AtLeastServicePack} 3
+    Call AlreadyInstalled
+  ${EndIf}
+
+  SetOutPath $TEMP
+  File "${DEPENDENCYDIR}\WinNT4\winnt40sp3.exe"
+  ExecWait "$TEMP\winnt40sp3.exe"
+  Delete "$TEMP\winnt40sp3.exe"
+AlreadyInstalled:
+FunctionEnd
+
+; Windows NT SP3 installer end ------
+
 ; Windows Installer ------
 
 ;The VC++ Runtime SP1 2005 installer lowered the requirements to Windows Installer 2.0.
@@ -516,6 +533,35 @@ FunctionEnd
 ;FunctionEnd
 ; VC Redist end ------
 
+; Internet Explorer 4 installer ------
+
+Function InstallIE4SP2
+  ${IfNot} ${IsWin95}
+  ${AndIfNot} ${IsWinNT4}
+    Goto AlreadyInstalled
+  ${EndIf}
+
+  ;Windows 95C and higher already include IE4
+  ${If} ${IsWin95}
+  ${AndIf} ${AtMostServicePack} 2
+    Goto AlreadyInstalled
+  ${EndIf}
+
+  ;Official documentation says:
+  ;- For Microsoft Windows NT:
+  ;  You must be running Service Pack 3 (or higher)
+  Call InstallWinNT4SP3
+
+  SetOutPath $TEMP
+  File "${DEPENDENCYDIR}\Microsoft Internet Explorer 4.01 SP2\*.*"
+  ExecWait "$TEMP\IE4SETUP.EXE /Q /T:$\"$TEMP\IE4Setup$\"" ;FIXME: Untested if this actually installs too, or only extracts!
+  Delete "$TEMP\*.*"
+  RMDir /r $TEMP\IE4Setup
+AlreadyInstalled:
+FunctionEnd
+
+; Internet Explorer 4 installer end ------
+
 ; DirectX installer ------
 
 ; https://aka.ms/dxsetup
@@ -675,6 +721,8 @@ Section "$(TEXT_SEC03_TITLE)" SEC03
   ;Call InstallVC2008Redist
   Call InstallVC2010Redist
   ;Call InstallVC2013Redist
+
+  Call InstallIE4SP2
 
   Call InstallDirectX
 SectionEnd
