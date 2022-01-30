@@ -1,7 +1,7 @@
 QQRKSRC1
 
 {
-  Description = "Sven Co-op Data Add-on"
+  Description = "Sven Co-op 4.8 Data Add-on"
 
   SvenCoop directory infos.qctx =
   {
@@ -57,13 +57,6 @@ QQRKSRC1
             linearmax = "5"
             spawnflags = "4"
           }
-          ambient_music:e =
-          {
-            origin = "0 0 0"
-            ;desc = "Ambient Music"
-            volume = "10"
-            spawnflags = "1"
-          }
         }
         ammo_* entities.qtxfolder =
         {
@@ -76,11 +69,6 @@ QQRKSRC1
           {
             origin = "0 0 0"
             ;desc = "5.56mm round box"
-          }
-          ammo_556clip:e =
-          {
-            origin = "0 0 0"
-            ;desc = "5.56mm M16 rifle magazine"
           }
           ammo_762:e =
           {
@@ -105,7 +93,7 @@ QQRKSRC1
           ammo_ARgrenades:e =
           {
             origin = "0 0 0"
-            ;desc = "M16's M203 grenades (x2)"
+            ;desc = "M16's M203 grenades"
           }
           ammo_buckshot:e =
           {
@@ -125,23 +113,17 @@ QQRKSRC1
           ammo_rpgclip:e =
           {
             origin = "0 0 0"
-            ;desc = "Rockets (x2)"
+            ;desc = "Rockets"
           }
           ammo_spore:e =
           {
             origin = "0 0 0"
             ;desc = "Spore plant"
-            movetype = "8"
           }
           ammo_sporeclip:e =
           {
             origin = "0 0 0"
             ;desc = "Spore"
-          }
-          ammo_uziclip:e =
-          {
-            origin = "0 0 0"
-            ;desc = "9mm Uzi magazine"
           }
         }
         button_* entities.qtxfolder =
@@ -154,7 +136,6 @@ QQRKSRC1
             renderfx = "0"
             rendermode = "0"
             rendercolor = "0 0 0"
-            use_type = "3"
           }
         }
         custom_* entities.qtxfolder =
@@ -300,11 +281,6 @@ QQRKSRC1
             ;desc = "Render Controls"
             armorvalue = "0"
           }
-          env_render_individual:e =
-          {
-            origin = "0 0 0"
-            ;desc = "Per-player render settings for entities"
-          }
           env_sentence:e =
           {
             origin = "0 0 0"
@@ -346,27 +322,13 @@ QQRKSRC1
             framerate = "10.0"
             model = "sprites/glow01.spr"
             scale = "1"
-            vp_type = "0"
           }
           env_spritetrain:e =
           {
             origin = "0 0 0"
             ;desc = "Sprite Train"
             model = "sprites/glow01.spr"
-          }
-          env_weather:b =
-          {
-            ;incl = "defpoly"
-            ;desc = "Weather Effect"
-            spawnflags = "1"
-            drop_scale = "1"
-            drop_vp_type = "0"
-            splash_scale = "1"
-            splash_vp_type = "0"
-            speed = "50"
-            density = "30"
-            angle_variance = "10"
-            speed_variance = "10"
+            speed = "64"
           }
           env_xenmaker:e =
           {
@@ -401,10 +363,12 @@ QQRKSRC1
             ;incl = "defpoly"
             ;desc = "Button"
             speed = "5"
-            health = "0"
             sounds = "0"
             wait = "3"
-            use_type = "3"
+            locked_sound = "0"
+            unlocked_sound = "0"
+            locked_sentence = "0"
+            unlocked_sentence = "0"
           }
           func_clip:b =
           {
@@ -418,17 +382,6 @@ QQRKSRC1
             ;incl = "defpoly"
             ;desc = "Conveyor Belt"
             speed = "100"
-          }
-          func_detail:b =
-          {
-            ;incl = "defpoly"
-            ;desc = "Detail Brushes"
-            zhlt_detaillevel = "1"
-            zhlt_chopdown = "0"
-            zhlt_chopup = "0"
-            zhlt_coplanarpriority = "0"
-            zhlt_clipnodedetaillevel = "1"
-            zhlt_noclip = "0"
           }
           func_door:b =
           {
@@ -451,8 +404,6 @@ QQRKSRC1
           {
             ;incl = "defpoly"
             ;desc = "Non-entity solid brush group"
-            zhlt_coplanarpriority = "0"
-            zhlt_noclip = "0"
           }
           func_guntarget:b =
           {
@@ -477,18 +428,6 @@ QQRKSRC1
           {
             ;incl = "defpoly"
             ;desc = "Ladder"
-          }
-          func_mirror:b =
-          {
-            ;incl = "defpoly"
-            ;desc = "Mirror"
-          }
-          func_monitor:b =
-          {
-            ;incl = "defpoly"
-            ;desc = "Monitor"
-            width = "512"
-            height = "512"
           }
           func_monsterclip:b =
           {
@@ -534,11 +473,6 @@ QQRKSRC1
             height = "0"
             rotation = "0"
           }
-          func_portal:b =
-          {
-            ;incl = "defpoly"
-            ;desc = "Portal"
-          }
           func_pushable:b =
           {
             ;incl = "defpoly"
@@ -563,7 +497,6 @@ QQRKSRC1
             wait = "3"
             delay = "0"
             distance = "90"
-            use_type = "3"
           }
           func_rotating:b =
           {
@@ -574,7 +507,7 @@ QQRKSRC1
             fanfriction = "20"
             sounds = "0"
             spawnflags = "512"
-            m_iObeyTriggerMode = "1"
+            m_iObeyTriggerMode = "0"
             spawnorigin = "0 0 0"
             dmg = "0"
           }
@@ -632,8 +565,13 @@ QQRKSRC1
           {
             ;incl = "defpoly"
             ;desc = "Moving platform"
+            movesnd = "0"
+            stopsnd = "0"
+            speed = "64"
             dmg = "0"
             skin = "0"
+            volume = "0.85"
+            m_iObeyTriggerMode = "0"
           }
           func_traincontrols:b =
           {
@@ -691,14 +629,12 @@ QQRKSRC1
           {
             origin = "0 0 0"
             ;desc = "Initial player equipment"
-            equipmode = "0"
-            inventorymode = "0"
           }
           game_player_hurt:e =
           {
             origin = "0 0 0"
             ;desc = "Hurts player who fires"
-            dmg = "65535"
+            dmg = "999"
           }
           game_player_team:e =
           {
@@ -734,7 +670,7 @@ QQRKSRC1
             origin = "0 0 0"
             ;desc = "HUD Text Message"
             x = "-1"
-            y = "0.67"
+            y = "-1"
             effect = "0"
             color = "100 100 100"
             color2 = "240 110 0"
@@ -760,12 +696,6 @@ QQRKSRC1
         }
         info_* entities.qtxfolder =
         {
-          info_angularfade:e =
-          {
-            origin = "0 0 0"
-            ;desc = "Texture name : the speed at which light fade as its directi"
-             "on becomes parallel to the texture (default 1.0)"
-          }
           info_bigmomma:e =
           {
             origin = "0 0 0"
@@ -773,79 +703,15 @@ QQRKSRC1
             radius = "0"
             reachdelay = "0"
           }
-          info_compile_parameters:e =
-          {
-            origin = "0 0 0"
-            ;desc = "Map Compile Parameters"
-            verbose = "0"
-            noinfo = "0"
-            nolog = "0"
-            dev = "0"
-            estimate = "0"
-            chart = "0"
-            threads = "0"
-            priority = "0"
-            texdata = "0"
-            lightdata = "0"
-            csg = "0"
-            csg_nowadtextures = "0"
-            csg_noclip = "0"
-            csg_clipeconomy = "0"
-            csg_cliptype = "0"
-            csg_noskyclip = "0"
-            csg_wadautodetect = "0"
-            csg_nonulltex = "0"
-            csg_nullifytrigger = "0"
-            csg_nolightopt = "0"
-            csg_notextconvert = "0"
-            bsp = "0"
-            bsp_subdivide = "0"
-            bsp_maxnodesize = "0"
-            bsp_notjunc = "0"
-            bsp_nobrink = "0"
-            bsp_noclip = "0"
-            bsp_nofill = "0"
-            bsp_noinsidefill = "0"
-            bsp_noopt = "0"
-            bsp_noclipnodemerge = "0"
-            bsp_nonulltex = "0"
-            bsp_nohull2 = "0"
-            bsp_viewportal = "0"
-            vis = "0"
-            rad = "0"
-            rad_vismatrix = "0"
-            rad_bounce = "0"
-            rad_circus = "0"
-            rad_nospread = "0"
-            rad_nopaque = "0"
-            rad_notexscale = "0"
-            rad_subdivide = "0"
-            rad_nolerp = "0"
-            rad_noskyfix = "0"
-            rad_incremental = "0"
-            rad_dump = "0"
-            rad_customshadowwithbounce = "0"
-            rad_rgbtransfers = "0"
-            rad_minlight = "0"
-            rad_compresstransfers = "0"
-            rad_compressrgbtransfers = "0"
-            rad_softsky = "0"
-            rad_blockopaque = "0"
-            rad_notextures = "0"
-            rad_noemitterrange = "0"
-            rad_nobleedfix = "0"
-          }
-          info_hullshape:b =
-          {
-            ;incl = "defpoly"
-            ;desc = "Hull shape definition"
-            defaulthulls = "0"
-            disabled = "0"
-          }
           info_intermission:e =
           {
             origin = "0 0 0"
             ;desc = "Intermission Spot"
+          }
+          info_landmark:e =
+          {
+            origin = "0 0 0"
+            ;desc = "Transition Landmark"
           }
           info_monster_goal:e =
           {
@@ -875,12 +741,6 @@ QQRKSRC1
             origin = "0 0 0"
             ;desc = "info_null (spotlight target)"
           }
-          info_overview_point:e =
-          {
-            origin = "0 0 0"
-            ;desc = "Disable VIS here for overview"
-            reverse = "0"
-          }
           info_player_coop:e =
           {
             origin = "0 0 0"
@@ -894,30 +754,17 @@ QQRKSRC1
           info_player_dm2:e =
           {
             origin = "0 0 0"
-            ;desc = "Hidden deathmatch start (not visible in map list)"
+            ;desc = "Hidden deathmatch starting point (not visible in maplist)"
           }
           info_player_start:e =
           {
             origin = "0 0 0"
-            ;desc = "Single player start (and multi-player initial viewpoint)"
-          }
-          info_smoothvalue:e =
-          {
-            origin = "0 0 0"
-            ;desc = "Texture name : Threshold of smooth angle"
-          }
-          info_sunlight:e =
-          {
-            origin = "0 0 0"
-            ;desc = "light_environment information that affects model brightness"
-            angles = "0 0 0"
-            pitch = "-90"
-            _light = "0 0 0 100"
+            ;desc = "Single Player start position"
           }
           info_target:e =
           {
             origin = "0 0 0"
-            ;desc = "Generic target"
+            ;desc = "Beam Target"
           }
           info_teleport_destination:e =
           {
@@ -929,11 +776,6 @@ QQRKSRC1
           {
             origin = "0 0 0"
             ;desc = "Texture Light Definitions"
-          }
-          info_translucent:e =
-          {
-            origin = "0 0 0"
-            ;desc = "Texture name : translucent amount (0.0-1.0)"
           }
         }
         item_* entities.qtxfolder =
@@ -983,44 +825,6 @@ QQRKSRC1
             origin = "0 0 0"
             ;desc = "Helmet"
           }
-          item_inventory:e =
-          {
-            origin = "0 0 0"
-            ;desc = "Inventory item"
-            activate_limit = "0"
-            collect_limit = "0"
-            weight = "1.0"
-            filter_npc_classifications = "0"
-            item_group_required_num = "0"
-            item_group_canthave_num = "0"
-            carried_hidden = "1"
-            carried_skin = "0"
-            carried_body = "0"
-            carried_sequencename = "carried"
-            carried_sequence = "1"
-            return_timelimit = "60.0"
-            return_delay_respawn = "0"
-            holder_timelimit = "0"
-            holder_time_activate_wait = "0"
-            holder_time_wearout = "0"
-            holder_can_activate = "0"
-            holder_timelimit_wait_until_activated = "1"
-            holder_can_drop = "1"
-            holder_keep_on_death = "0"
-            holder_keep_on_respawn = "0"
-            effects_wait_until_activated = "0"
-            effects_permanent = "0"
-            effect_glow = "0 0 0"
-            effect_block_weapons = "0"
-            effect_invulnerable = "0"
-            effect_invisible = "0"
-            effect_nonsolid = "0"
-            effect_respiration = "0.0"
-            effect_friction = "100.0"
-            effect_gravity = "100.0"
-            effect_speed = "100.0"
-            effect_damage = "100.0"
-          }
           item_longjump:e =
           {
             origin = "0 0 0"
@@ -1045,26 +849,12 @@ QQRKSRC1
         }
         light_* entities.qtxfolder =
         {
-          light_bounce:e =
-          {
-            origin = "0 0 0"
-            ;desc = "Bounce light control"
-            style = "0"
-            convertto = "light"
-          }
           light_environment:e =
           {
             origin = "0 0 0"
             ;desc = "Environment"
             pitch = "0"
             _light = "255 255 128 200"
-          }
-          light_shadow:e =
-          {
-            origin = "0 0 0"
-            ;desc = "Dynamic shadow control"
-            style = "0"
-            convertto = "light"
           }
           light_spot:e =
           {
@@ -1076,13 +866,6 @@ QQRKSRC1
             _light = "255 255 128 200"
             _sky = "0"
             style = "0"
-          }
-          light_surface:e =
-          {
-            origin = "0 0 0"
-            ;desc = "Advanced texture light"
-            _light = "255 255 255 80"
-            convertto = "light"
           }
         }
         momentary_* entities.qtxfolder =
@@ -1100,7 +883,6 @@ QQRKSRC1
             sounds = "0"
             distance = "90"
             returnspeed = "0"
-            use_type = "2"
           }
         }
         monster_* entities.qtxfolder =
@@ -1119,7 +901,6 @@ QQRKSRC1
           {
             origin = "0 0 0"
             ;desc = "Alien Grunt"
-            weapons = "0"
           }
           monster_alien_slave:e =
           {
@@ -1180,11 +961,6 @@ QQRKSRC1
           {
             origin = "0 0 0"
             ;desc = "Big Mamma"
-          }
-          monster_blkop_apache:e =
-          {
-            origin = "0 0 0"
-            ;desc = "Black Ops Apache"
           }
           monster_blkop_osprey:e =
           {
@@ -1247,7 +1023,6 @@ QQRKSRC1
             origin = "0 0 0"
             ;desc = "Generic Script Monster"
             sequence = "0"
-            disableai = "0"
           }
           monster_gman:e =
           {
@@ -1349,8 +1124,7 @@ QQRKSRC1
           {
             origin = "0 0 0"
             ;desc = "Heavy Weapons Grunt"
-            weapons = "1"
-            disable_minigun_drop = "1"
+            weapons = "0"
           }
           monster_hwgrunt_repel:e =
           {
@@ -1429,7 +1203,6 @@ QQRKSRC1
           {
             origin = "0 0 0"
             ;desc = "Pit Drone"
-            initammo = "6"
           }
           monster_rat:e =
           {
@@ -1636,7 +1409,7 @@ QQRKSRC1
             change_rendermode = "0"
             notsolid = "-1"
             gag = "-1"
-            weapons = "0"
+            weapons = "1"
             is_squad_leader = "0"
             bloodcolor = "0"
             health = "0"
@@ -1659,28 +1432,11 @@ QQRKSRC1
             newunit = "1"
             defaultteam = "0"
             freeroam = "0"
-            scversion2 = "525"
+            scversion2 = "480"
           }
         }
         path_* entities.qtxfolder =
         {
-          path_condition:e =
-          {
-            origin = "0 0 0"
-            ;desc = "NPC Path Condition"
-            delay_interval = "0.1"
-            mindistance = "0"
-            maxdistance = "0"
-            priority = "0"
-            pre_location = "0"
-            selecttype = "0"
-          }
-          path_condition_controller:e =
-          {
-            origin = "0 0 0"
-            ;desc = "NPC Path Condition Controller"
-            selecttype = "0"
-          }
           path_corner:e =
           {
             origin = "0 0 0"
@@ -1689,28 +1445,32 @@ QQRKSRC1
             speed = "0"
             yaw_speed = "0"
           }
+          path_group:e =
+          {
+            origin = "0 0 0"
+            ;desc = "Path Group"
+            requiredrange = "0"
+            priority = "0"
+            selecttype = "0"
+          }
+          path_patrol:e =
+          {
+            origin = "0 0 0"
+            ;desc = "Monster path entity"
+            movementtype = "0"
+            approachtype = "0"
+            delay = "0"
+            radius = "0"
+            healthbonus = "0"
+            limit = "0"
+            waituntilfull = "0"
+            path_priority = "0"
+          }
           path_track:e =
           {
             origin = "0 0 0"
             ;desc = "Train Track Path"
-            newspeed = "-1"
-            maxspeed = "-1"
             speed = "0"
-          }
-          path_waypoint:e =
-          {
-            origin = "0 0 0"
-            ;desc = "NPC Path Waypoint"
-            movementtype = "0"
-            radius = "0"
-            useangles = "0"
-            wait_activity = "0"
-            wait_time = "0"
-            waituntilfull = "0"
-            occupant_radius_check = "0"
-            occupant_limit = "0"
-            force_complete = "0"
-            restart_delay = "0"
           }
         }
         player_* entities.qtxfolder =
@@ -1796,40 +1556,22 @@ QQRKSRC1
             deceleration = "500"
             turnspeed = "40"
             mouse_action_0_0 = "0"
-            mouse_block_drag_0_0 = "0"
             mouse_action_1_0 = "0"
-            mouse_block_drag_1_0 = "0"
             mouse_action_2_0 = "0"
-            mouse_block_drag_2_0 = "0"
             mouse_action_0_1 = "0"
-            mouse_block_drag_0_1 = "0"
             mouse_action_1_1 = "0"
-            mouse_block_drag_1_1 = "0"
             mouse_action_2_1 = "0"
-            mouse_block_drag_2_1 = "0"
-            mouse_digital_action_reset = "0"
-            max_player_count = "1"
-            hud_health = "0"
-            hud_flashlight = "0"
-            hud_weapons = "0"
           }
           trigger_cameratarget:b =
           {
             ;incl = "defpoly"
             ;desc = "Camera Target"
             mouse_action_0_0 = "0"
-            mouse_block_drag_0_0 = "0"
             mouse_action_1_0 = "0"
-            mouse_block_drag_1_0 = "0"
             mouse_action_2_0 = "0"
-            mouse_block_drag_2_0 = "0"
             mouse_action_0_1 = "0"
-            mouse_block_drag_0_1 = "0"
             mouse_action_1_1 = "0"
-            mouse_block_drag_1_1 = "0"
             mouse_action_2_1 = "0"
-            mouse_block_drag_2_1 = "0"
-            mouse_digital_action_reset = "0"
           }
           trigger_cdaudio:b =
           {
@@ -1845,29 +1587,14 @@ QQRKSRC1
           trigger_changelevel:b =
           {
             ;incl = "defpoly"
-            ;desc = "Trigger Change level"
-            keep_inventory = "1"
+            ;desc = "Trigger: Change level"
             changedelay = "0"
-            percent_of_players = "0"
-          }
-          trigger_changemaxammo:e =
-          {
-            origin = "0 0 0"
-            ;desc = "Trigger Change Max Ammo"
-            message = "9mm"
-            m_iMaxAmmo = "100"
-            m_Mode = "0"
           }
           trigger_changemodel:e =
           {
             origin = "0 0 0"
             ;desc = "Trigger Change Model"
             skin = "0"
-          }
-          trigger_changesky:e =
-          {
-            origin = "0 0 0"
-            ;desc = "Trigger Change Sky"
           }
           trigger_changetarget:e =
           {
@@ -1903,40 +1630,13 @@ QQRKSRC1
           trigger_counter:b =
           {
             ;incl = "defpoly"
-            ;desc = "Trigger Counter"
+            ;desc = "Trigger counter"
             count = "2"
           }
           trigger_createentity:e =
           {
             origin = "0 0 0"
             ;desc = "Create Entity"
-          }
-          trigger_cyclicobserver:e =
-          {
-            origin = "0 0 0"
-            ;desc = "Controls observer cyclic mode"
-            m_Mode = "0"
-          }
-          trigger_effect:e =
-          {
-            origin = "0 0 0"
-            ;desc = "Trigger Effect"
-            effect_glow_mode = "0"
-            effect_glow = "0 0 0"
-            effect_block_weapons_mode = "0"
-            effect_invulnerable_mode = "0"
-            effect_invisible_mode = "0"
-            effect_nonsolid_mode = "0"
-            effect_respiration_mode = "0"
-            effect_respiration = "0.0"
-            effect_friction_mode = "0"
-            effect_friction = "0.0"
-            effect_gravity_mode = "0"
-            effect_gravity = "0.0"
-            effect_speed_mode = "0"
-            effect_speed = "0.0"
-            effect_damage_mode = "0"
-            effect_damage = "0.0"
           }
           trigger_endsection:b =
           {
@@ -1963,7 +1663,7 @@ QQRKSRC1
           trigger_hurt:b =
           {
             ;incl = "defpoly"
-            ;desc = "Trigger Hurt"
+            ;desc = "Trigger player hurt"
             dmg = "10"
             delay = "0"
             damagetype = "0"
@@ -1971,7 +1671,7 @@ QQRKSRC1
           trigger_hurt_remote:e =
           {
             origin = "0 0 0"
-            ;desc = "Trigger Hurt (non-touch)"
+            ;desc = "Hurt something"
             dmg = "10"
             armordmg = "0"
             delay = "1"
@@ -2000,12 +1700,6 @@ QQRKSRC1
             ;desc = "Trigger: Activate multiple"
             wait = "10"
           }
-          trigger_numericdisplay:e =
-          {
-            origin = "0 0 0"
-            ;desc = "Numeric Display"
-            frags = "0.1"
-          }
           trigger_once:b =
           {
             ;incl = "defpoly"
@@ -2021,25 +1715,27 @@ QQRKSRC1
           {
             origin = "0 0 0"
             ;desc = "Trigger Random"
-            min_delay = "3.0"
-            max_delay = "7.0"
+            target_count = "4"
           }
           trigger_random_time:e =
           {
             origin = "0 0 0"
             ;desc = "Trigger Random Time"
+            target_count = "4"
+            min_delay = "3.0"
+            max_delay = "7.0"
           }
           trigger_random_unique:e =
           {
             origin = "0 0 0"
             ;desc = "Trigger Random Unique"
+            target_count = "8"
           }
           trigger_relay:e =
           {
             origin = "0 0 0"
             ;desc = "Trigger Relay"
             triggerstate = "0"
-            m_flDelayBeforeReset = "0"
           }
           trigger_renameplayer:e =
           {
@@ -2056,18 +1752,11 @@ QQRKSRC1
             origin = "0 0 0"
             ;desc = "Custom Save Data"
           }
-          trigger_script:e =
-          {
-            origin = "0 0 0"
-            ;desc = "Loads a script and executes a script function on trigger"
-            m_iMode = "1"
-          }
           trigger_setcvar:e =
           {
             origin = "0 0 0"
-            ;desc = "Sets a CVAR"
+            ;desc = "Sets a CVar"
             m_iszCVarToChange = "mp_allowmonsterinfo"
-            SetType = "0"
           }
           trigger_setorigin:e =
           {
@@ -2083,11 +1772,8 @@ QQRKSRC1
           trigger_teleport:b =
           {
             ;incl = "defpoly"
-            ;desc = "Trigger Teleport"
+            ;desc = "Trigger teleport"
             teleport_cooldown = "1"
-            teleport_ignore_delay = "0"
-            teleport_start_inactive = "0"
-            teleport_if_blocked = "0"
           }
           trigger_track_goal:e =
           {
@@ -2134,12 +1820,6 @@ QQRKSRC1
           {
             origin = "0 0 0"
             ;desc = "Crowbar"
-          }
-          weapon_displacer:e =
-          {
-            origin = "0 0 0"
-            ;desc = "Displacer"
-            m_TertiaryMode = "0"
           }
           weapon_eagle:e =
           {
@@ -2205,11 +1885,6 @@ QQRKSRC1
           {
             origin = "0 0 0"
             ;desc = "Satchel Charge"
-          }
-          weapon_shockrifle:e =
-          {
-            origin = "0 0 0"
-            ;desc = "Shock Rifle"
           }
           weapon_shotgun:e =
           {
@@ -2293,21 +1968,12 @@ QQRKSRC1
     }
     Entity Forms.fctx =
     {
-      t_Mandatory:incl =
-      {
-        ondestroyfn: =
-        {
-          txt = "&"
-          hint = "OnDestroy Function"
-        }
-      }
       t_worldspawn:incl =
       {
-        t_Mandatory = "!"
         message: =
         {
           txt = "&"
-          hint = "Map description / title"
+          hint = "Map Description / Title"
         }
         skyname: =
         {
@@ -2327,7 +1993,7 @@ QQRKSRC1
         WaveHeight: =
         {
           txt = "&"
-          hint = "Default wave height"
+          hint = "Default Wave Height"
         }
         MaxRange: =
         {
@@ -2337,12 +2003,12 @@ QQRKSRC1
         chaptertitle: =
         {
           txt = "&"
-          hint = "Chapter title message"
+          hint = "Chapter Title Message"
         }
         startdark: =
         {
           txt = "&"
-          hint = "Level fade in"
+          hint = "Level Fade In"
           typ = "C"
           items = "No"$0D"Yes"
           values = "0"$0D"1"
@@ -2358,7 +2024,7 @@ QQRKSRC1
         newunit: =
         {
           txt = "&"
-          hint = "New level unit"
+          hint = "New Level Unit"
           typ = "C"
           items = "No, keep current"$0D"Yes, clear previous levels"
           values = "0"$0D"1"
@@ -2366,12 +2032,12 @@ QQRKSRC1
         mapteams: =
         {
           txt = "&"
-          hint = "Map team List"
+          hint = "Map Team List"
         }
         defaultteam: =
         {
           txt = "&"
-          hint = "Default team"
+          hint = "Default Team"
           typ = "C"
           items = "Fewest Players"$0D"First Team"
           values = "0"$0D"1"
@@ -2379,7 +2045,7 @@ QQRKSRC1
         freeroam: =
         {
           txt = "&"
-          hint = "Roaming monsters (node graph)"
+          hint = "Roaming Monsters (node graph)"
           typ = "C"
           items = "No"$0D"Yes"
           values = "0"$0D"1"
@@ -2388,11 +2054,6 @@ QQRKSRC1
         {
           txt = "&"
           hint = "Custom Sentences File"
-        }
-        materials_file: =
-        {
-          txt = "&"
-          hint = "Custom Materials File"
         }
         globalsoundlist: =
         {
@@ -2412,22 +2073,10 @@ QQRKSRC1
         scversion2: =
         {
           txt = "&"
-          hint = "Minimum game version"
+          hint = "Minimum game version:"
           typ = "C"
-          items = "5.25 Patch"$0D"5.24 Patch"$0D"5.23 Patch"$0D"5.22 Patch"$0D"5"
-           ".21 Patch"$0D"5.20 Patch"$0D"5.19 Patch"$0D"5.18 Patch"$0D"5.17 Patc"
-           "h"$0D"5.16 Patch"$0D"5.15 Patch"$0D"5.14 Patch"$0D"5.13 Patch"$0D"5."
-           "12 Patch"$0D"5.11 Patch"$0D"5.10 Patch"$0D"5.09 Patch"$0D"5.08 Patch"
-           $0D"5.07 Patch"$0D"5.06 Patch"$0D"5.05 Patch"$0D"5.04 Patch"$0D"5.03 "
-           "Patch"$0D"5.02 Patch"$0D"5.01 Patch"$0D"5.0 Milestone"$0D"4.8 Update"
-           $0D"4.7 Update"$0D"4.6 Update"$0D"4.5 Update"$0D"4.07 Hotfix"$0D"4.06"
-           " Hotfix"$0D"4.05 Hotfix"$0D"4.0b1 Milestone"$0D"4.0 Internal"$0D"3.0"
-           " (or earlier)"
-          values = "525"$0D"524"$0D"523"$0D"522"$0D"521"$0D"520"$0D"519"$0D"518"$0D
-           "517"$0D"516"$0D"515"$0D"514"$0D"513"$0D"512"$0D"511"$0D"510"$0D"509"$0D
-           "508"$0D"507"$0D"506"$0D"505"$0D"504"$0D"503"$0D"502"$0D"501"$0D"500"$0D
-           "480"$0D"470"$0D"460"$0D"450"$0D"407"$0D"406"$0D"405"$0D"401"$0D"400"$0D
-           "300"
+          items = "4.8 Update"
+          values = "480"
         }
       }
       worldspawn:form =
@@ -2492,60 +2141,12 @@ QQRKSRC1
           values = "0"$0D"1"
         }
       }
-      t_ZHLTbmodel:incl =
-      {
-        zhlt_usemodel: =
-        {
-          txt = "&"
-          hint = "ZHLT Template Model Target"
-        }
-        zhlt_copylight: =
-        {
-          txt = "&"
-          hint = "ZHLT Copy Lighting From Target"
-        }
-        zhlt_noclip: =
-        {
-          txt = "&"
-          hint = "ZHLT Disable Clipping"
-          typ = "C"
-          items = "Default"$0D"Always non-solid"
-          values = "0"$0D"1"
-        }
-        zhlt_invisible: =
-        {
-          txt = "&"
-          hint = "ZHLT Invisible"
-          typ = "C"
-          items = "Visible (default)"$0D"Invisible"
-          values = "0"$0D"1"
-        }
-        zhlt_customshadow: =
-        {
-          txt = "&"
-          hint = "ZHLT Custom Shadow (when opaque)"
-        }
-        zhlt_embedlightmap: =
-        {
-          txt = "&"
-          hint = "ZHLT Embed Light Map (when translucent)"
-          typ = "C"
-          items = "No (default)"$0D"Yes"
-          values = "0"$0D"1"
-        }
-        zhlt_embedlightmapresolution: =
-        {
-          txt = "&"
-          hint = "ZHLT Embed Light Map Resolution"
-        }
-      }
       t_ZHLT:incl =
       {
-        t_ZHLTbmodel = "!"
         zhlt_lightflags: =
         {
           txt = "&"
-          hint = "ZHLT Light Flags"
+          hint = "ZHLT Lightflags"
           typ = "C"
           items = "Default"$0D"Embedded Fix"$0D"Opaque (blocks light)"$0D"Opaque"
            " + Embedded fix"$0D"Opaque + Concave Fix"
@@ -2554,7 +2155,7 @@ QQRKSRC1
         light_origin: =
         {
           txt = "&"
-          hint = "ZHLT Light Origin Target"
+          hint = "Light Origin Target"
         }
       }
       t_ZHLTpoint:incl =
@@ -2562,12 +2163,12 @@ QQRKSRC1
         _fade: =
         {
           txt = "&"
-          hint = "ZHLT Light Fade"
+          hint = "ZHLT Fade"
         }
         _falloff: =
         {
           txt = "&"
-          hint = "ZHLT Light Falloff"
+          hint = "ZHLT Falloff"
           typ = "C"
           items = "Default"$0D"Inverse Linear"$0D"Inverse Square"
           values = "0"$0D"1"$0D"2"
@@ -2592,12 +2193,9 @@ QQRKSRC1
           items = "None"$0D"Object Default"$0D"Machine"$0D"Player"$0D"Human Pass"
            "ive"$0D"Human Military"$0D"Alien Military"$0D"Alien Passive"$0D"Alie"
            "n Monster"$0D"Alien Prey"$0D"Alien Predator"$0D"Insect"$0D"Player Al"
-           "ly"$0D"Player Hornet/Snark"$0D"Alien Hornet/Snark"$0D"X-Race"$0D"X-R"
-           "ace: Shocktrooper/Voltigore"$0D"Team 1"$0D"Team 2"$0D"Team 3"$0D"Tea"
-           "m 4"
+           "ly"$0D"Player Hornet/Snark"$0D"Alien Hornet/Snark"$0D"X-Race"
           values = "-1"$0D"0"$0D"1"$0D"2"$0D"3"$0D"4"$0D"5"$0D"6"$0D"7"$0D"8"$0D
-           "9"$0D"10"$0D"11"$0D"12"$0D"13"$0D"14"$0D"15"$0D"16"$0D"17"$0D"18"$0D
-           "19"
+           "9"$0D"10"$0D"11"$0D"12"$0D"13"$0D"14"
         }
       }
       t_Angles:incl =
@@ -2610,7 +2208,6 @@ QQRKSRC1
       }
       t_Targetname:incl =
       {
-        t_Mandatory = "!"
         targetname: =
         {
           txt = "&"
@@ -2634,24 +2231,6 @@ QQRKSRC1
         spawnflags: =
         {
           txt = "&"
-          typ = "X128"
-          cap = "TOUCH Only"
-        }
-        spawnflags: =
-        {
-          txt = "&"
-          typ = "X256"
-          cap = "USE Only"
-        }
-        spawnflags: =
-        {
-          txt = "&"
-          typ = "X512"
-          cap = "Can Use w/o LoS"
-        }
-        spawnflags: =
-        {
-          txt = "&"
           typ = "X1024"
           cap = "Disable Respawn"
         }
@@ -2664,9 +2243,9 @@ QQRKSRC1
            "ast Wide Pulse"$0D"Slow Strobe"$0D"Fast Strobe"$0D"Faster Strobe"$0D
            "Slow Flicker"$0D"Fast Flicker"$0D"Slow Fade Away"$0D"Fast Fade Away"$0D
            "Slow Become Solid"$0D"Fast Become Solid"$0D"Constant Glow"$0D"Distor"
-           "t"$0D"Hologram (Distort + fade)"$0D"Glow Shell"
+           "t"$0D"Hologram (Distort + fade)"
           values = "0"$0D"1"$0D"2"$0D"3"$0D"4"$0D"9"$0D"10"$0D"11"$0D"12"$0D"13"$0D
-           "5"$0D"6"$0D"7"$0D"8"$0D"14"$0D"15"$0D"16"$0D"19"
+           "5"$0D"6"$0D"7"$0D"8"$0D"14"$0D"15"$0D"16"
         }
         rendermode: =
         {
@@ -2691,35 +2270,14 @@ QQRKSRC1
           txt = "&"
           hint = "Gravity Setting"
           typ = "C"
-          items = "Unmoveable"$0D"Fall to the ground (default)"$0D"Hover in the "
-           "air"$0D"Hover in the air, ignore brush collision"
-          values = "-1"$0D"0"$0D"5"$0D"8"
-        }
-      }
-      t_ExclusiveHold:incl =
-      {
-        exclusivehold: =
-        {
-          txt = "&"
-          hint = "Exclusive Hold"
-          typ = "C"
-          items = "No"$0D"Yes"
-          values = "0"$0D"1"
-        }
-      }
-      t_CustomRespawnDelay:incl =
-      {
-        m_flCustomRespawnTime: =
-        {
-          txt = "&"
-          hint = "Custom respawn time"
+          items = "Fall to the ground (default)"$0D"Hover in the air"
+          values = "0"$0D"5"
         }
       }
       t_Weapon:incl =
       {
         bbox = '-16 -16 0 16 16 32'
         t_Pickup = "!"
-        t_CustomRespawnDelay = "!"
         dmg: =
         {
           txt = "&"
@@ -2754,25 +2312,11 @@ QQRKSRC1
           txt = "&"
           hint = "Sound Replacement File"
         }
-        CustomSpriteDir: =
-        {
-          txt = "&"
-          hint = "Custom sprite directory"
-        }
-        IsNotAmmoItem: =
-        {
-          txt = "&"
-          hint = "Is Ammo Item"
-          typ = "C"
-          items = "Yes"$0D"No"
-          values = "0"$0D"1"
-        }
       }
       t_Ammo:incl =
       {
         bbox = '-8 -8 0 8 8 16'
         t_Pickup = "!"
-        t_CustomRespawnDelay = "!"
         model: =
         {
           txt = "&"
@@ -2786,7 +2330,6 @@ QQRKSRC1
       {
         bbox = '-8 -8 0 8 8 16'
         t_Pickup = "!"
-        t_CustomRespawnDelay = "!"
         model: =
         {
           txt = "&"
@@ -2813,7 +2356,7 @@ QQRKSRC1
         sequence: =
         {
           txt = "&"
-          hint = "Sequence Number (overrides name)"
+          hint = "Animation Sequence (Number)"
         }
         scale: =
         {
@@ -2840,15 +2383,6 @@ QQRKSRC1
       {
         bbox = '-8 -8 0 8 8 16'
         t_Pickup = "!"
-        solid: =
-        {
-          txt = "&"
-          hint = "Solid Setting"
-          typ = "C"
-          items = "Hollow"$0D"Touch on edge, non-blocking (default)"$0D"Touch on"
-           " edge, blocking (requires hull sizes!)"
-          values = "-1"$0D"0"$0D"2"
-        }
         model: =
         {
           txt = "&"
@@ -2875,7 +2409,7 @@ QQRKSRC1
         sequence: =
         {
           txt = "&"
-          hint = "Sequence Number (overrides name)"
+          hint = "Animation Sequence (Number)"
         }
         scale: =
         {
@@ -2920,106 +2454,6 @@ QQRKSRC1
           hint = "Kill Target"
         }
       }
-      t_InventoryRules:incl =
-      {
-        item_name_required: =
-        {
-          txt = "&"
-          hint = "Inventory: Need item(s)"
-        }
-        item_group_required: =
-        {
-          txt = "&"
-          hint = "Inventory: Need item(s) from group(s)"
-        }
-        item_group_required_num: =
-        {
-          txt = "&"
-          hint = "Inventory: Item count in group need have (0 = all)"
-        }
-        item_name_canthave: =
-        {
-          txt = "&"
-          hint = "Inventory: CAN'T have item"
-        }
-        item_group_canthave: =
-        {
-          txt = "&"
-          hint = "Inventory: CAN'T have item from group"
-        }
-        item_group_canthave_num: =
-        {
-          txt = "&"
-          hint = "Inventory: Item count in group CAN'T have (0 = all)"
-        }
-        pass_ignore_use_triggers: =
-        {
-          txt = "&"
-          hint = "On pass: Ignore item's on use triggers?"
-          typ = "C"
-          items = "No"$0D"Yes"
-          values = "0"$0D"1"
-        }
-        pass_drop_item_name: =
-        {
-          txt = "&"
-          hint = "On pass: Drop item(s)"
-        }
-        pass_drop_item_group: =
-        {
-          txt = "&"
-          hint = "On pass: Drop item(s) from group(s)"
-        }
-        pass_ignore_drop_triggers: =
-        {
-          txt = "&"
-          hint = "On pass: Ignore item's on drop triggers?"
-          typ = "C"
-          items = "No"$0D"Yes"
-          values = "0"$0D"1"
-        }
-        pass_return_item_name: =
-        {
-          txt = "&"
-          hint = "On pass: Return item(s)"
-        }
-        pass_return_item_group: =
-        {
-          txt = "&"
-          hint = "On pass: Return item(s) from group(s)"
-        }
-        pass_ignore_return_triggers: =
-        {
-          txt = "&"
-          hint = "On pass: Ignore item's on return triggers?"
-          typ = "C"
-          items = "No"$0D"Yes"
-          values = "0"$0D"1"
-        }
-        pass_destroy_item_name: =
-        {
-          txt = "&"
-          hint = "On pass: Destroy item(s)"
-        }
-        pass_destroy_item_group: =
-        {
-          txt = "&"
-          hint = "On pass: Destroy item(s) from group(s)"
-        }
-        pass_ignore_destroy_triggers: =
-        {
-          txt = "&"
-          hint = "On pass: Ignore item's on destroy triggers?"
-          typ = "C"
-          items = "No"$0D"Yes"
-          values = "0"$0D"1"
-        }
-        target_on_fail: =
-        {
-          txt = "&"
-          hint = "Target: Inventory rules failed"
-        }
-      }
       t_RenderFxChoices:incl =
       {
         renderfx: =
@@ -3040,7 +2474,6 @@ QQRKSRC1
       t_RenderFields:incl =
       {
         t_RenderFxChoices = "!"
-        t_Appearflags = "!"
         rendermode: =
         {
           txt = "&"
@@ -3134,17 +2567,6 @@ QQRKSRC1
           values = "0"$0D"1"$0D"2"
         }
       }
-      t_NotRevivable:incl =
-      {
-        is_not_revivable: =
-        {
-          txt = "&"
-          hint = "Is not revivable"
-          typ = "C"
-          items = "No"$0D"Yes"
-          values = "0"$0D"1"
-        }
-      }
       t_Monster:incl =
       {
         t_Targetname = "!"
@@ -3152,7 +2574,6 @@ QQRKSRC1
         t_RenderFields = "!"
         t_Angles = "!"
         t_AttackObject = "!"
-        t_NotRevivable = "!"
         spawnflags: =
         {
           txt = "&"
@@ -3237,7 +2658,7 @@ QQRKSRC1
           txt = "&"
           hint = "Is Player Ally?"
           typ = "C"
-          items = "No (Default)"$0D"Yes"
+          items = "No"$0D"Yes"
           values = "0"$0D"1"
         }
         displayname: =
@@ -3289,10 +2710,15 @@ QQRKSRC1
           items = "Map Default"$0D"Never"$0D"Always"
           values = "0"$0D"1"$0D"2"
         }
-        path_name: =
+        goal_ent: =
         {
           txt = "&"
-          hint = "Path Name"
+          hint = "First Patrol Waypoint"
+        }
+        goal_group: =
+        {
+          txt = "&"
+          hint = "Patrol Group"
         }
         guard_ent: =
         {
@@ -3311,14 +2737,6 @@ QQRKSRC1
         {
           txt = "&"
           hint = "Un-Use Sentence"
-        }
-        is_player_ally: =
-        {
-          txt = "&"
-          hint = "Is Player Ally?"
-          typ = "C"
-          items = "Yes (Default)"$0D"No"
-          values = "0"$0D"1"
         }
       }
       t_GibShooterBase:incl =
@@ -3391,11 +2809,13 @@ QQRKSRC1
       t_Breakable:incl =
       {
         t_Targetname = "!"
-        t_Targetx = "!"
         t_Global = "!"
         t_AttackObject = "!"
-        t_RenderFields = "!"
-        t_ZHLT = "!"
+        target: =
+        {
+          txt = "&"
+          hint = "Target on break"
+        }
         health: =
         {
           txt = "&"
@@ -3426,6 +2846,11 @@ QQRKSRC1
           items = "Random direction; no velocity"$0D"Relative to attack/dmg./mat"
            "."
           values = "0"$0D"1"
+        }
+        delay: =
+        {
+          txt = "&"
+          hint = "Delay before fire"
         }
         gibmodel: =
         {
@@ -3466,169 +2891,21 @@ QQRKSRC1
           hint = "Sound Replacement File"
         }
       }
-      t_BaseLockable:incl =
-      {
-        locked_sound: =
-        {
-          txt = "&"
-          hint = "Locked Sound"
-          typ = "C"
-          items = "None"$0D"Access Denied"$0D"Small zap"$0D"Buzz"$0D"Buzz Off"$0D
-           "Latch Locked"
-          values = "0"$0D"2"$0D"8"$0D"10"$0D"11"$0D"12"
-        }
-        unlocked_sound: =
-        {
-          txt = "&"
-          hint = "Unlocked Sound"
-          typ = "C"
-          items = "None"$0D"Big zap & Warmup"$0D"Access Granted"$0D"Quick Combol"
-           "ock"$0D"Power Deadbolt 1"$0D"Power Deadbolt 2"$0D"Plunger"$0D"Small "
-           "zap"$0D"Keycard Sound"$0D"Buzz"$0D"Latch Unlocked"$0D"Lightswitch"
-          values = "0"$0D"1"$0D"3"$0D"4"$0D"5"$0D"6"$0D"7"$0D"8"$0D"9"$0D"10"$0D
-           "13"$0D"14"
-        }
-        locked_sentence: =
-        {
-          txt = "&"
-          hint = "Locked Sentence"
-          typ = "C"
-          items = "None"$0D"Gen. Access Denied"$0D"Security Lockout"$0D"Blast Do"
-           "or"$0D"Fire Door"$0D"Chemical Door"$0D"Radiation Door"$0D"Gen. Conta"
-           "inment"$0D"Maintenance Door"$0D"Broken Shut Door"
-          values = "0"$0D"1"$0D"2"$0D"3"$0D"4"$0D"5"$0D"6"$0D"7"$0D"8"$0D"9"
-        }
-        unlocked_sentence: =
-        {
-          txt = "&"
-          hint = "Unlocked Sentence"
-          typ = "C"
-          items = "None"$0D"Gen. Access Granted"$0D"Security Disengaged"$0D"Blas"
-           "t Door"$0D"Fire Door"$0D"Chemical Door"$0D"Radiation Door"$0D"Gen. C"
-           "ontainment"$0D"Maintenance area"
-          values = "0"$0D"1"$0D"2"$0D"3"$0D"4"$0D"5"$0D"6"$0D"7"$0D"8"
-        }
-        locked_sound_override: =
-        {
-          txt = "&"
-          hint = "Locked Sound Override"
-        }
-        unlocked_sound_override: =
-        {
-          txt = "&"
-          hint = "Unlocked Sound Override"
-        }
-        locked_sentence_override: =
-        {
-          txt = "&"
-          hint = "Locked Sentence Override"
-        }
-        unlocked_sentence_override: =
-        {
-          txt = "&"
-          hint = "Unlocked Sentence Override"
-        }
-      }
-      t_StartStopable:incl =
-      {
-        fireonstart: =
-        {
-          txt = "&"
-          hint = "Fire On Start"
-        }
-        fireonstart_triggerstate: =
-        {
-          txt = "&"
-          hint = "Fire On Start Trigger State"
-          typ = "C"
-          items = "Off"$0D"On"$0D"Toggle"
-          values = "0"$0D"1"$0D"2"
-        }
-        fireonstop: =
-        {
-          txt = "&"
-          hint = "Fire On Stop"
-        }
-        fireonstop_triggerstate: =
-        {
-          txt = "&"
-          hint = "Fire On Stop Trigger State"
-          typ = "C"
-          items = "Off"$0D"On"$0D"Toggle"
-          values = "0"$0D"1"$0D"2"
-        }
-      }
-      t_OpenClosable:incl =
-      {
-        fireonopening: =
-        {
-          txt = "&"
-          hint = "Fire On Open Start"
-        }
-        fireonopening_triggerstate: =
-        {
-          txt = "&"
-          hint = "Fire On Open Start Trigger State"
-          typ = "C"
-          items = "Off"$0D"On"$0D"Toggle"
-          values = "0"$0D"1"$0D"2"
-        }
-        fireonclosing: =
-        {
-          txt = "&"
-          hint = "Fire On Close Start"
-        }
-        fireonclosing_triggerstate: =
-        {
-          txt = "&"
-          hint = "Fire On Close Start Trigger State"
-          typ = "C"
-          items = "Off"$0D"On"$0D"Toggle"
-          values = "0"$0D"1"$0D"2"
-        }
-        fireonopened: =
-        {
-          txt = "&"
-          hint = "Fire On Open End"
-        }
-        fireonopened_triggerstate: =
-        {
-          txt = "&"
-          hint = "Fire On Open End Trigger State"
-          typ = "C"
-          items = "Off"$0D"On"$0D"Toggle"
-          values = "0"$0D"1"$0D"2"
-        }
-        fireonclosed: =
-        {
-          txt = "&"
-          hint = "Fire On Close End"
-        }
-        fireonclosed_triggerstate: =
-        {
-          txt = "&"
-          hint = "Fire On Close End Trigger State"
-          typ = "C"
-          items = "Off"$0D"On"$0D"Toggle"
-          values = "0"$0D"1"$0D"2"
-        }
-      }
       t_Door:incl =
       {
         t_Appearflags = "!"
-        t_Global = "!"
         t_Targetname = "!"
-        t_Targetx = "!"
+        t_Target = "!"
+        t_RenderFields = "!"
+        t_Global = "!"
+        t_Angles = "!"
         t_FilterIn = "!"
         t_FilterOut = "!"
-        t_InventoryRules = "!"
-        t_AttackObject = "!"
-        t_RenderFields = "!"
-        t_Angles = "!"
-        t_ZHLT = "!"
-        t_BaseLockable = "!"
-        t_StartStopable = "!"
-        t_OpenClosable = "!"
+        killtarget: =
+        {
+          txt = "&"
+          hint = "KillTarget"
+        }
         speed: =
         {
           txt = "&"
@@ -3650,14 +2927,6 @@ QQRKSRC1
           values = "0"$0D"1"$0D"2"$0D"3"$0D"4"$0D"5"$0D"6"$0D"7"$0D"8"$0D"9"$0D"1"
            "0"
         }
-        movesnd_loop: =
-        {
-          txt = "&"
-          hint = "Move Sound Loops?"
-          typ = "C"
-          items = "No"$0D"Yes"
-          values = "0"$0D"1"
-        }
         stopsnd: =
         {
           txt = "&"
@@ -3667,16 +2936,6 @@ QQRKSRC1
            "op"$0D"Chunk"$0D"Light airbrake"$0D"Metal Slide Stop"$0D"Metal Lock "
            "Stop"$0D"Snappy Metal Stop"
           values = "0"$0D"1"$0D"2"$0D"3"$0D"4"$0D"5"$0D"6"$0D"7"$0D"8"
-        }
-        noise1: =
-        {
-          txt = "&"
-          hint = "Move Sound Override"
-        }
-        noise2: =
-        {
-          txt = "&"
-          hint = "Stop Sound Override"
         }
         wait: =
         {
@@ -3698,10 +2957,65 @@ QQRKSRC1
           txt = "&"
           hint = "Message if triggered"
         }
+        delay: =
+        {
+          txt = "&"
+          hint = "Delay before fire"
+        }
+        fireonopen: =
+        {
+          txt = "&"
+          hint = "Fire on Open"
+        }
+        netname: =
+        {
+          txt = "&"
+          hint = "Fire on Close"
+        }
         health: =
         {
           txt = "&"
           hint = "Strength"
+        }
+        locked_sound: =
+        {
+          txt = "&"
+          hint = "Locked Sound"
+          typ = "C"
+          items = "None"$0D"Access Denied"$0D"Small zap"$0D"Buzz"$0D"Buzz Off"$0D
+           "Latch Locked"
+          values = "0"$0D"2"$0D"8"$0D"10"$0D"11"$0D"12"
+        }
+        unlocked_sound: =
+        {
+          txt = "&"
+          hint = "Unlocked Sound"
+          typ = "C"
+          items = "None"$0D"Big zap & Warmup"$0D"Access Granted"$0D"Quick Combol"
+           "ock"$0D"Power Deadbolt 1"$0D"Power Deadbolt 2"$0D"Plunger"$0D"Small "
+           "zap"$0D"Keycard Sound"$0D"Buzz"$0D"Latch Unlocked"
+          values = "0"$0D"1"$0D"3"$0D"4"$0D"5"$0D"6"$0D"7"$0D"8"$0D"9"$0D"10"$0D
+           "13"
+        }
+        locked_sentence: =
+        {
+          txt = "&"
+          hint = "Locked Sentence"
+          typ = "C"
+          items = "None"$0D"Gen. Access Denied"$0D"Security Lockout"$0D"Blast Do"
+           "or"$0D"Fire Door"$0D"Chemical Door"$0D"Radiation Door"$0D"Gen. Conta"
+           "inment"$0D"Maintenance Door"$0D"Broken Shut Door"
+          values = "0"$0D"1"$0D"2"$0D"3"$0D"4"$0D"5"$0D"6"$0D"7"$0D"8"$0D"9"
+        }
+        unlocked_sentence: =
+        {
+          txt = "&"
+          hint = "Unlocked Sentence"
+          typ = "C"
+          items = "None"$0D"Gen. Access Granted"$0D"Security Disengaged"$0D"Blas"
+           "t Door"$0D"Fire Door"$0D"Chemical Door"$0D"Radiation Door"$0D"Gen. C"
+           "ontainment"$0D"Maintenance area"
+          values = "0"$0D"1"$0D"2"$0D"3"$0D"4"$0D"5"$0D"6"$0D"7"$0D"8"
         }
         _minlight: =
         {
@@ -3766,7 +3080,7 @@ QQRKSRC1
         {
           txt = "&"
           typ = "X256"
-          cap = "USE Only"
+          cap = "Use Only"
         }
         spawnflags: =
         {
@@ -3924,12 +3238,6 @@ QQRKSRC1
           txt = "&"
           typ = "X512"
           cap = "Use Relations"
-        }
-        spawnflags: =
-        {
-          txt = "&"
-          typ = "X1024"
-          cap = "Player can't fire"
         }
         master: =
         {
@@ -4190,14 +3498,6 @@ QQRKSRC1
           values = "0"$0D"1"$0D"2"$0D"3"$0D"4"$0D"5"$0D"6"$0D"7"$0D"8"$0D"9"$0D"1"
            "0"$0D"11"$0D"12"$0D"13"
         }
-        movesnd_loop: =
-        {
-          txt = "&"
-          hint = "Move Sound Loops?"
-          typ = "C"
-          items = "No"$0D"Yes"
-          values = "0"$0D"1"
-        }
         stopsnd: =
         {
           txt = "&"
@@ -4207,16 +3507,6 @@ QQRKSRC1
            "ev stop"$0D"heavy elev stop"$0D"rack stop"$0D"rail stop"$0D"squeek s"
            "top"$0D"quick stop"
           values = "0"$0D"1"$0D"2"$0D"3"$0D"4"$0D"5"$0D"6"$0D"7"$0D"8"
-        }
-        noise: =
-        {
-          txt = "&"
-          hint = "Move Sound Override"
-        }
-        noise1: =
-        {
-          txt = "&"
-          hint = "Stop Sound Override"
         }
         volume: =
         {
@@ -4229,24 +3519,12 @@ QQRKSRC1
           hint = "Sound Replacement File"
         }
       }
-      t_BasePlat:incl =
-      {
-        t_Appearflags = "!"
-        t_StartStopable = "!"
-        t_OpenClosable = "!"
-        dmg: =
-        {
-          txt = "&"
-          hint = "Damage inflicted when blocked"
-        }
-      }
       t_Trackchange:incl =
       {
         t_Targetname = "!"
         t_RenderFields = "!"
         t_Global = "!"
         t_PlatSounds = "!"
-        t_BasePlat = "!"
         height: =
         {
           txt = "&"
@@ -4313,21 +3591,18 @@ QQRKSRC1
           txt = "&"
           hint = "Move/Rotate speed"
         }
-        noise2: =
-        {
-          txt = "&"
-          hint = "Blocked Sound"
-        }
       }
       t_Trigger:incl =
       {
-        t_Targetx = "!"
+        t_Target = "!"
         t_Targetname = "!"
         t_FilterIn = "!"
         t_FilterOut = "!"
-        t_InventoryRules = "!"
-        t_ZHLTbmodel = "!"
-        t_Appearflags = "!"
+        killtarget: =
+        {
+          txt = "&"
+          hint = "Kill target"
+        }
         netname: =
         {
           txt = "&"
@@ -4345,6 +3620,11 @@ QQRKSRC1
           typ = "C"
           items = "No Sound"
           values = "0"
+        }
+        delay: =
+        {
+          txt = "&"
+          hint = "Delay before trigger"
         }
         message: =
         {
@@ -4394,63 +3674,6 @@ QQRKSRC1
           txt = "&"
           typ = "X32"
           cap = "Fire On Exit"
-        }
-      }
-      t_PortalBase:incl =
-      {
-        t_Targetname = "!"
-        t_Target = "!"
-        t_Angles = "!"
-        spawnflags: =
-        {
-          txt = "&"
-          typ = "X1"
-          cap = "Solid"
-        }
-        spawnflags: =
-        {
-          txt = "&"
-          typ = "X2"
-          cap = "Start Disabled"
-        }
-        spawnflags: =
-        {
-          txt = "&"
-          typ = "X16"
-          cap = "Render only every 2nd frame"
-        }
-        zoom: =
-        {
-          txt = "&"
-          hint = "Zoom"
-        }
-        fps: =
-        {
-          txt = "&"
-          hint = "Max FPS"
-        }
-        mindist: =
-        {
-          txt = "&"
-          hint = "Min Render Distance"
-        }
-        maxdist: =
-        {
-          txt = "&"
-          hint = "Max Render Distance"
-        }
-        textureMode: =
-        {
-          txt = "&"
-          hint = "Texture Mode"
-          typ = "C"
-          items = "{ Textures"$0D"All Textures"$0D"Named Texture"
-          values = "0"$0D"1"$0D"2"
-        }
-        textureName: =
-        {
-          txt = "&"
-          hint = "Texture Name"
         }
       }
       t_aiscripted_sequence:incl =
@@ -4655,19 +3878,19 @@ QQRKSRC1
         {
           txt = "&"
           typ = "X2"
-          cap = "Small Radius (~384)"
+          cap = "Small Radius"
         }
         spawnflags: =
         {
           txt = "&"
           typ = "X4"
-          cap = "Medium Radius (~768)"
+          cap = "Medium Radius"
         }
         spawnflags: =
         {
           txt = "&"
           typ = "X8"
-          cap = "Large Radius (~1536)"
+          cap = "Large Radius"
         }
         spawnflags: =
         {
@@ -4679,7 +3902,7 @@ QQRKSRC1
         {
           txt = "&"
           typ = "X32"
-          cap = "Un-looped|Cyclic"
+          cap = "Unlooped|Cyclic"
         }
         spawnflags: =
         {
@@ -4687,46 +3910,28 @@ QQRKSRC1
           typ = "X64"
           cap = "User Only (+origin)"
         }
+        spawnflags: =
+        {
+          txt = "&"
+          typ = "X2097152"
+          cap = "(Radius flags"
+        }
+        spawnflags: =
+        {
+          txt = "&"
+          typ = "X4194304"
+          cap = "  ignored for"
+        }
+        spawnflags: =
+        {
+          txt = "&"
+          typ = "X8388608"
+          cap = " Linear mode)"
+        }
       }
       ambient_generic:form =
       {
         t_ambient_generic = "!"
-      }
-      t_ambient_music:incl =
-      {
-        t_Targetname = "!"
-        message: =
-        {
-          txt = "&"
-          hint = "Sound File"
-        }
-        volume: =
-        {
-          txt = "&"
-          hint = "Volume (10 = loudest)"
-        }
-        spawnflags: =
-        {
-          txt = "&"
-          typ = "X1"
-          cap = "Start Silent"
-        }
-        spawnflags: =
-        {
-          txt = "&"
-          typ = "X2"
-          cap = "Loop"
-        }
-        spawnflags: =
-        {
-          txt = "&"
-          typ = "X4"
-          cap = "Activator Only"
-        }
-      }
-      ambient_music:form =
-      {
-        t_ambient_music = "!"
       }
       t_ammo_357:incl =
       {
@@ -4745,15 +3950,6 @@ QQRKSRC1
       ammo_556:form =
       {
         t_ammo_556 = "!"
-      }
-      t_ammo_556clip:incl =
-      {
-        t_Ammo = "!"
-        t_Targetx = "!"
-      }
-      ammo_556clip:form =
-      {
-        t_ammo_556clip = "!"
       }
       t_ammo_762:incl =
       {
@@ -4841,15 +4037,6 @@ QQRKSRC1
         bbox = '-16 -16 -16 16 16 16'
         t_Ammo = "!"
         t_Targetx = "!"
-        movetype: =
-        {
-          txt = "&"
-          hint = "Gravity Setting"
-          typ = "C"
-          items = "Unmoveable"$0D"Fall to the ground (OP4 maps only)"$0D"Hover i"
-           "n the air"$0D"Hover in the air, ignore brush collision"
-          values = "-1"$0D"0"$0D"5"$0D"8"
-        }
       }
       ammo_spore:form =
       {
@@ -4863,15 +4050,6 @@ QQRKSRC1
       ammo_sporeclip:form =
       {
         t_ammo_sporeclip = "!"
-      }
-      t_ammo_uziclip:incl =
-      {
-        t_Ammo = "!"
-        t_Targetx = "!"
-      }
-      ammo_uziclip:form =
-      {
-        t_ammo_uziclip = "!"
       }
       t_button_target:incl =
       {
@@ -4924,14 +4102,6 @@ QQRKSRC1
         {
           txt = "&"
           hint = "FX Color (R G B)"
-        }
-        use_type: =
-        {
-          txt = "&"
-          hint = "Use Type"
-          typ = "C"
-          items = "Off"$0D"On"$0D"Set"$0D"Toggle"
-          values = "0"$0D"1"$0D"2"$0D"3"
         }
       }
       button_target:form =
@@ -5056,51 +4226,6 @@ QQRKSRC1
         {
           txt = "&"
           hint = "Sound 9"
-        }
-        sky_1: =
-        {
-          txt = "&"
-          hint = "Sky map 1"
-        }
-        sky_2: =
-        {
-          txt = "&"
-          hint = "Sky map 2"
-        }
-        sky_3: =
-        {
-          txt = "&"
-          hint = "Sky map 3"
-        }
-        sky_4: =
-        {
-          txt = "&"
-          hint = "Sky map 4"
-        }
-        sky_5: =
-        {
-          txt = "&"
-          hint = "Sky map 5"
-        }
-        sky_6: =
-        {
-          txt = "&"
-          hint = "Sky map 6"
-        }
-        sky_7: =
-        {
-          txt = "&"
-          hint = "Sky map 7"
-        }
-        sky_8: =
-        {
-          txt = "&"
-          hint = "Sky map 8"
-        }
-        sky_9: =
-        {
-          txt = "&"
-          hint = "Sky map 9"
         }
       }
       custom_precache:form =
@@ -5252,65 +4377,6 @@ QQRKSRC1
       cycler_wreckage:form =
       {
         t_cycler_wreckage = "!"
-      }
-      t_BaseCustomEntity:incl =
-      {
-        m_iszScriptFile: =
-        {
-          txt = "&"
-          hint = "Script file"
-        }
-      }
-      t_BaseCharger:incl =
-      {
-        t_Global = "!"
-        t_RenderFields = "!"
-        t_ZHLT = "!"
-        _minlight: =
-        {
-          txt = "&"
-          hint = "Minimum light level"
-        }
-        soundlist: =
-        {
-          txt = "&"
-          hint = "Sound Replacement File"
-        }
-        CustomJuice: =
-        {
-          txt = "&"
-          hint = "Custom Juice Amount"
-        }
-        CustomRechargeTime: =
-        {
-          txt = "&"
-          hint = "Custom Recharge Time"
-        }
-        TriggerOnEmpty: =
-        {
-          txt = "&"
-          hint = "Trigger On Empty"
-        }
-        TriggerOnRecharged: =
-        {
-          txt = "&"
-          hint = "Trigger on Recharged"
-        }
-        CustomDeniedSound: =
-        {
-          txt = "&"
-          hint = "Custom Denied Sound"
-        }
-        CustomStartSound: =
-        {
-          txt = "&"
-          hint = "Custom Start Sound"
-        }
-        CustomLoopSound: =
-        {
-          txt = "&"
-          hint = "Custom Loop Sound"
-        }
       }
       t_BeamStartEnd:incl =
       {
@@ -5534,7 +4600,6 @@ QQRKSRC1
       t_env_bubbles:incl =
       {
         t_Targetname = "!"
-        t_ZHLTbmodel = "!"
         density: =
         {
           txt = "&"
@@ -5942,89 +5007,11 @@ QQRKSRC1
       {
         t_env_render = "!"
       }
-      t_env_render_individual:incl =
-      {
-        t_Targetname = "!"
-        t_RenderFields = "!"
-        spawnflags: =
-        {
-          txt = "&"
-          typ = "X1"
-          cap = "No Renderfx"
-        }
-        spawnflags: =
-        {
-          txt = "&"
-          typ = "X2"
-          cap = "No Renderamt"
-        }
-        spawnflags: =
-        {
-          txt = "&"
-          typ = "X4"
-          cap = "No Rendermode"
-        }
-        spawnflags: =
-        {
-          txt = "&"
-          typ = "X8"
-          cap = "No Rendercolor"
-        }
-        spawnflags: =
-        {
-          txt = "&"
-          typ = "X16"
-          cap = "Auto Apply"
-        }
-        spawnflags: =
-        {
-          txt = "&"
-          typ = "X32"
-          cap = "Start On"
-        }
-        spawnflags: =
-        {
-          txt = "&"
-          typ = "X64"
-          cap = "Affect Activator (ignore netname)"
-        }
-        spawnflags: =
-        {
-          txt = "&"
-          typ = "X128"
-          cap = "Use Entity to copy from"
-        }
-        target: =
-        {
-          txt = "&"
-          hint = "Entity to affect"
-        }
-        netname: =
-        {
-          txt = "&"
-          hint = "Player to affect"
-        }
-        message: =
-        {
-          txt = "&"
-          hint = "Entity to copy from"
-        }
-      }
-      env_render_individual:form =
-      {
-        t_env_render_individual = "!"
-      }
       t_env_sentence:incl =
       {
         bbox = '-16 -16 -16 16 16 16'
         t_Target = "!"
         t_Targetname = "!"
-        spawnflags: =
-        {
-          txt = "&"
-          typ = "X1"
-          cap = "Activator Only"
-        }
         _text: =
         {
           txt = "&"
@@ -6106,13 +5093,6 @@ QQRKSRC1
       }
       t_env_sound:incl =
       {
-        t_Targetname = "!"
-        spawnflags: =
-        {
-          txt = "&"
-          typ = "X1"
-          cap = "USE Only"
-        }
         radius: =
         {
           txt = "&"
@@ -6188,15 +5168,6 @@ QQRKSRC1
           txt = "&"
           hint = "Scale"
         }
-        vp_type: =
-        {
-          txt = "&"
-          hint = "Draw Type / Orientation"
-          typ = "C"
-          items = "Default"$0D"Parallel"$0D"Parallel Upright"$0D"Parallel Orient"
-           "ated"$0D"Facing Upright"$0D"Orientated"
-          values = "0"$0D"3"$0D"1"$0D"5"$0D"2"$0D"4"
-        }
         spawnflags: =
         {
           txt = "&"
@@ -6220,38 +5191,23 @@ QQRKSRC1
       {
         t_env_sprite = "!"
       }
-      t_BaseTrain:incl =
+      t_env_spritetrain:incl =
       {
         t_Targetname = "!"
-        t_Global = "!"
-        t_RenderFields = "!"
-        t_PlatSounds = "!"
         target: =
         {
           txt = "&"
           hint = "First stop target"
         }
-        speed: =
-        {
-          txt = "&"
-          hint = "Speed (units per second)"
-        }
-        m_iObeyTriggerMode: =
-        {
-          txt = "&"
-          hint = "Obey Trigger Mode"
-          typ = "C"
-          items = "No"$0D"Yes"
-          values = "0"$0D"1"
-        }
-      }
-      t_env_spritetrain:incl =
-      {
-        t_BaseTrain = "!"
         model: =
         {
           txt = "&"
           hint = "Sprite Name"
+        }
+        speed: =
+        {
+          txt = "&"
+          hint = "Speed (units per second)"
         }
         scale: =
         {
@@ -6262,81 +5218,6 @@ QQRKSRC1
       env_spritetrain:form =
       {
         t_env_spritetrain = "!"
-      }
-      t_env_weather:incl =
-      {
-        t_Targetname = "!"
-        t_RenderFields = "!"
-        t_Angles = "!"
-        t_ZHLTbmodel = "!"
-        spawnflags: =
-        {
-          txt = "&"
-          typ = "X1"
-          cap = "Start On"
-        }
-        drop_model: =
-        {
-          txt = "&"
-          hint = "Sprite (or Model) name"
-        }
-        drop_scale: =
-        {
-          txt = "&"
-          hint = "Sprite Scale"
-        }
-        drop_vp_type: =
-        {
-          txt = "&"
-          hint = "Sprite Draw Type / Orientation"
-          typ = "C"
-          items = "Default"$0D"Parallel"$0D"Parallel Upright"$0D"Parallel Orient"
-           "ated"$0D"Facing Upright"$0D"Orientated"
-          values = "0"$0D"3"$0D"1"$0D"5"$0D"2"$0D"4"
-        }
-        splash_model: =
-        {
-          txt = "&"
-          hint = "Splash Sprite (or Model) name"
-        }
-        splash_scale: =
-        {
-          txt = "&"
-          hint = "Splash Sprite Scale"
-        }
-        splash_vp_type: =
-        {
-          txt = "&"
-          hint = "Splash Sprite Draw Type / Orientation"
-          typ = "C"
-          items = "Default"$0D"Parallel"$0D"Parallel Upright"$0D"Parallel Orient"
-           "ated"$0D"Facing Upright"$0D"Orientated"
-          values = "0"$0D"3"$0D"1"$0D"5"$0D"2"$0D"4"
-        }
-        speed: =
-        {
-          txt = "&"
-          hint = "Speed"
-        }
-        density: =
-        {
-          txt = "&"
-          hint = "Density"
-        }
-        angle_variance: =
-        {
-          txt = "&"
-          hint = "Angle Variance"
-        }
-        speed_variance: =
-        {
-          txt = "&"
-          hint = "Speed Variance"
-        }
-      }
-      env_weather:form =
-      {
-        t_env_weather = "!"
       }
       t_env_xenmaker:incl =
       {
@@ -6439,6 +5320,14 @@ QQRKSRC1
       t_func_breakable:incl =
       {
         t_Breakable = "!"
+        t_AttackObject = "!"
+        t_RenderFields = "!"
+        t_ZHLT = "!"
+        killtarget: =
+        {
+          txt = "&"
+          hint = "KillTarget"
+        }
         spawnflags: =
         {
           txt = "&"
@@ -6505,14 +5394,12 @@ QQRKSRC1
       t_func_button:incl =
       {
         t_Global = "!"
+        t_AttackObject = "!"
         t_Targetname = "!"
         t_Targetx = "!"
-        t_InventoryRules = "!"
-        t_AttackObject = "!"
         t_RenderFields = "!"
         t_Angles = "!"
         t_ZHLT = "!"
-        t_BaseLockable = "!"
         speed: =
         {
           txt = "&"
@@ -6545,11 +5432,6 @@ QQRKSRC1
           values = "0"$0D"1"$0D"2"$0D"3"$0D"4"$0D"5"$0D"6"$0D"7"$0D"8"$0D"9"$0D"1"
            "0"$0D"11"$0D"14"
         }
-        noise: =
-        {
-          txt = "&"
-          hint = "Sound Override"
-        }
         wait: =
         {
           txt = "&"
@@ -6579,18 +5461,50 @@ QQRKSRC1
           typ = "X256"
           cap = "Touch Activates"
         }
+        locked_sound: =
+        {
+          txt = "&"
+          hint = "Locked Sound"
+          typ = "C"
+          items = "None"$0D"Access Denied"$0D"Small zap"$0D"Buzz"$0D"Buzz Off"$0D
+           "Latch Locked"
+          values = "0"$0D"2"$0D"8"$0D"10"$0D"11"$0D"12"
+        }
+        unlocked_sound: =
+        {
+          txt = "&"
+          hint = "Unlocked Sound"
+          typ = "C"
+          items = "None"$0D"Big zap & Warmup"$0D"Access Granted"$0D"Quick Combol"
+           "ock"$0D"Power Deadbolt 1"$0D"Power Deadbolt 2"$0D"Plunger"$0D"Small "
+           "zap"$0D"Keycard Sound"$0D"Buzz"$0D"Latch Unlocked"$0D"Lightswitch"
+          values = "0"$0D"1"$0D"3"$0D"4"$0D"5"$0D"6"$0D"7"$0D"8"$0D"9"$0D"10"$0D
+           "13"$0D"14"
+        }
+        locked_sentence: =
+        {
+          txt = "&"
+          hint = "Locked Sentence"
+          typ = "C"
+          items = "None"$0D"Gen. Access Denied"$0D"Security Lockout"$0D"Blast Do"
+           "or"$0D"Fire Door"$0D"Chemical Door"$0D"Radiation Door"$0D"Gen. Conta"
+           "inment"$0D"Maintenance Door"$0D"Broken Shut Door"
+          values = "0"$0D"1"$0D"2"$0D"3"$0D"4"$0D"5"$0D"6"$0D"7"$0D"8"$0D"9"
+        }
+        unlocked_sentence: =
+        {
+          txt = "&"
+          hint = "Unlocked Sentence"
+          typ = "C"
+          items = "None"$0D"Gen. Access Granted"$0D"Security Disengaged"$0D"Blas"
+           "t Door"$0D"Fire Door"$0D"Chemical Door"$0D"Radiation Door"$0D"Gen. C"
+           "ontainment"$0D"Maintenance area"
+          values = "0"$0D"1"$0D"2"$0D"3"$0D"4"$0D"5"$0D"6"$0D"7"$0D"8"
+        }
         _minlight: =
         {
           txt = "&"
           hint = "Minimum light level"
-        }
-        use_type: =
-        {
-          txt = "&"
-          hint = "Use Type"
-          typ = "C"
-          items = "Off"$0D"On"$0D"Set"$0D"Toggle"
-          values = "0"$0D"1"$0D"2"$0D"3"
         }
       }
       func_button:form =
@@ -6601,7 +5515,6 @@ QQRKSRC1
       {
         t_Targetname = "!"
         t_Angles = "!"
-        t_ZHLTbmodel = "!"
         spawnflags: =
         {
           txt = "&"
@@ -6637,12 +5550,6 @@ QQRKSRC1
           txt = "&"
           typ = "X32"
           cap = "Everything else"
-        }
-        spawnflags: =
-        {
-          txt = "&"
-          typ = "X64"
-          cap = "item_inv (thrown)"
         }
         frags: =
         {
@@ -6688,49 +5595,11 @@ QQRKSRC1
       {
         t_func_conveyor = "!"
       }
-      t_func_detail:incl =
-      {
-        zhlt_detaillevel: =
-        {
-          txt = "&"
-          hint = "Detail level"
-        }
-        zhlt_chopdown: =
-        {
-          txt = "&"
-          hint = "Lower its level to chop others"
-        }
-        zhlt_chopup: =
-        {
-          txt = "&"
-          hint = "Raise its level to get chopped"
-        }
-        zhlt_coplanarpriority: =
-        {
-          txt = "&"
-          hint = "Priority when faces overlap"
-        }
-        zhlt_clipnodedetaillevel: =
-        {
-          txt = "&"
-          hint = "Detail level of clip hulls"
-        }
-        zhlt_noclip: =
-        {
-          txt = "&"
-          hint = "Disable clipping"
-          typ = "C"
-          items = "Default"$0D"Always non-solid"
-          values = "0"$0D"1"
-        }
-      }
-      func_detail:form =
-      {
-        t_func_detail = "!"
-      }
       t_func_door:incl =
       {
         t_Door = "!"
+        t_AttackObject = "!"
+        t_ZHLT = "!"
       }
       func_door:form =
       {
@@ -6739,6 +5608,7 @@ QQRKSRC1
       t_func_door_rotating:incl =
       {
         t_Door = "!"
+        t_ZHLT = "!"
         spawnflags: =
         {
           txt = "&"
@@ -6790,19 +5660,6 @@ QQRKSRC1
       }
       t_func_group:incl =
       {
-        zhlt_coplanarpriority: =
-        {
-          txt = "&"
-          hint = "Priority when faces overlap"
-        }
-        zhlt_noclip: =
-        {
-          txt = "&"
-          hint = "Disable clipping"
-          typ = "C"
-          items = "Default"$0D"Always non-solid"
-          values = "0"$0D"1"
-        }
       }
       func_group:form =
       {
@@ -6815,12 +5672,6 @@ QQRKSRC1
         t_AttackObject = "!"
         t_Global = "!"
         t_ZHLT = "!"
-        spawnflags: =
-        {
-          txt = "&"
-          typ = "X1"
-          cap = "Start On"
-        }
         speed: =
         {
           txt = "&"
@@ -6853,7 +5704,19 @@ QQRKSRC1
       }
       t_func_healthcharger:incl =
       {
-        t_BaseCharger = "!"
+        t_Global = "!"
+        t_RenderFields = "!"
+        t_ZHLT = "!"
+        _minlight: =
+        {
+          txt = "&"
+          hint = "Minimum light level"
+        }
+        soundlist: =
+        {
+          txt = "&"
+          hint = "Sound Replacement File"
+        }
       }
       func_healthcharger:form =
       {
@@ -6864,6 +5727,11 @@ QQRKSRC1
         t_Targetname = "!"
         t_RenderFields = "!"
         t_ZHLT = "!"
+        _minlight: =
+        {
+          txt = "&"
+          hint = "Minimum light level"
+        }
         style: =
         {
           txt = "&"
@@ -6903,7 +5771,6 @@ QQRKSRC1
       t_func_ladder:incl =
       {
         t_Targetname = "!"
-        t_ZHLTbmodel = "!"
         spawnflags: =
         {
           txt = "&"
@@ -6915,36 +5782,9 @@ QQRKSRC1
       {
         t_func_ladder = "!"
       }
-      t_func_mirror:incl =
-      {
-        t_PortalBase = "!"
-      }
-      func_mirror:form =
-      {
-        t_func_mirror = "!"
-      }
-      t_func_monitor:incl =
-      {
-        t_PortalBase = "!"
-        width: =
-        {
-          txt = "&"
-          hint = "Width (Resolution)"
-        }
-        height: =
-        {
-          txt = "&"
-          hint = "Height (Resolution)"
-        }
-      }
-      func_monitor:form =
-      {
-        t_func_monitor = "!"
-      }
       t_func_monsterclip:incl =
       {
         t_Targetname = "!"
-        t_ZHLTbmodel = "!"
       }
       func_monsterclip:form =
       {
@@ -6953,7 +5793,6 @@ QQRKSRC1
       t_func_mortar_field:incl =
       {
         t_Targetname = "!"
-        t_ZHLTbmodel = "!"
         m_flSpread: =
         {
           txt = "&"
@@ -6990,7 +5829,6 @@ QQRKSRC1
       t_func_op4mortarcontroller:incl =
       {
         t_Target = "!"
-        t_ZHLTbmodel = "!"
         mortar_axis: =
         {
           txt = "&"
@@ -7078,7 +5916,6 @@ QQRKSRC1
         t_Global = "!"
         t_RenderFields = "!"
         t_PlatSounds = "!"
-        t_BasePlat = "!"
         t_ZHLT = "!"
         spawnflags: =
         {
@@ -7112,7 +5949,6 @@ QQRKSRC1
         t_Global = "!"
         t_RenderFields = "!"
         t_PlatSounds = "!"
-        t_BasePlat = "!"
         t_Angles = "!"
         t_ZHLT = "!"
         spawnflags: =
@@ -7158,35 +5994,10 @@ QQRKSRC1
       {
         t_func_platrot = "!"
       }
-      t_func_portal:incl =
-      {
-        t_PortalBase = "!"
-        spawnflags: =
-        {
-          txt = "&"
-          typ = "X4"
-          cap = "Teleport"
-        }
-        spawnflags: =
-        {
-          txt = "&"
-          typ = "X8"
-          cap = "No GL ClipPlanes"
-        }
-        spawnflags: =
-        {
-          txt = "&"
-          typ = "X32"
-          cap = "Shoot through"
-        }
-      }
-      func_portal:form =
-      {
-        t_func_portal = "!"
-      }
       t_func_pushable:incl =
       {
         t_Breakable = "!"
+        t_AttackObject = "!"
         t_RenderFields = "!"
         t_ZHLT = "!"
         spawnflags: =
@@ -7268,7 +6079,19 @@ QQRKSRC1
       }
       t_func_recharge:incl =
       {
-        t_BaseCharger = "!"
+        t_Global = "!"
+        t_RenderFields = "!"
+        t_ZHLT = "!"
+        _minlight: =
+        {
+          txt = "&"
+          hint = "Minimum light level"
+        }
+        soundlist: =
+        {
+          txt = "&"
+          hint = "Sound Replacement File"
+        }
       }
       func_recharge:form =
       {
@@ -7279,11 +6102,9 @@ QQRKSRC1
         t_Targetname = "!"
         t_Target = "!"
         t_Global = "!"
-        t_InventoryRules = "!"
         t_RenderFields = "!"
         t_Angles = "!"
         t_ZHLT = "!"
-        t_BaseLockable = "!"
         changetarget: =
         {
           txt = "&"
@@ -7312,11 +6133,6 @@ QQRKSRC1
           items = "Squeaky"$0D"Squeaky Pneumatic"$0D"Ratchet Groan"$0D"Clean Rat"
            "chet"$0D"Gas Clunk"
           values = "21"$0D"22"$0D"23"$0D"24"$0D"25"
-        }
-        noise: =
-        {
-          txt = "&"
-          hint = "Sound Override"
         }
         wait: =
         {
@@ -7376,14 +6192,6 @@ QQRKSRC1
         {
           txt = "&"
           hint = "_minlight"
-        }
-        use_type: =
-        {
-          txt = "&"
-          hint = "Use Type"
-          typ = "C"
-          items = "Off"$0D"On"$0D"Set"$0D"Toggle"
-          values = "0"$0D"1"$0D"2"$0D"3"
         }
       }
       func_rot_button:form =
@@ -7533,8 +6341,6 @@ QQRKSRC1
       }
       t_func_tankcontrols:incl =
       {
-        t_ZHLTbmodel = "!"
-        t_InventoryRules = "!"
         target: =
         {
           txt = "&"
@@ -7662,21 +6468,6 @@ QQRKSRC1
            "Rail 7"
           values = "0"$0D"1"$0D"2"$0D"3"$0D"4"$0D"5"$0D"6"
         }
-        noise: =
-        {
-          txt = "&"
-          hint = "Move Sound Override"
-        }
-        noise1: =
-        {
-          txt = "&"
-          hint = "Brake Sound Override"
-        }
-        noise2: =
-        {
-          txt = "&"
-          hint = "Start Sound Override"
-        }
         wheels: =
         {
           txt = "&"
@@ -7717,11 +6508,6 @@ QQRKSRC1
           txt = "&"
           hint = "Minimum light level"
         }
-        soundlist: =
-        {
-          txt = "&"
-          hint = "Sound Replacement File"
-        }
       }
       func_tracktrain:form =
       {
@@ -7729,8 +6515,6 @@ QQRKSRC1
       }
       t_func_traincontrols:incl =
       {
-        t_ZHLTbmodel = "!"
-        t_InventoryRules = "!"
         target: =
         {
           txt = "&"
@@ -7743,10 +6527,43 @@ QQRKSRC1
       }
       t_func_train:incl =
       {
-        t_BaseTrain = "!"
+        t_Targetname = "!"
+        t_Global = "!"
+        t_RenderFields = "!"
         t_AttackObject = "!"
         t_ZHLT = "!"
-        t_StartStopable = "!"
+        target: =
+        {
+          txt = "&"
+          hint = "First stop target"
+        }
+        movesnd: =
+        {
+          txt = "&"
+          hint = "Move Sound"
+          typ = "C"
+          items = "No Sound"$0D"big elev 1"$0D"big elev 2"$0D"tech elev 1"$0D"te"
+           "ch elev 2"$0D"tech elev 3"$0D"freight elev 1"$0D"freight elev 2"$0D"h"
+           "eavy elev"$0D"rack elev"$0D"rail elev"$0D"squeek elev"$0D"odd elev 1"
+           $0D"odd elev 2"
+          values = "0"$0D"1"$0D"2"$0D"3"$0D"4"$0D"5"$0D"6"$0D"7"$0D"8"$0D"9"$0D"1"
+           "0"$0D"11"$0D"12"$0D"13"
+        }
+        stopsnd: =
+        {
+          txt = "&"
+          hint = "Stop Sound"
+          typ = "C"
+          items = "No Sound"$0D"big elev stop1"$0D"big elev stop2"$0D"freight el"
+           "ev stop"$0D"heavy elev stop"$0D"rack stop"$0D"rail stop"$0D"squeek s"
+           "top"$0D"quick stop"
+          values = "0"$0D"1"$0D"2"$0D"3"$0D"4"$0D"5"$0D"6"$0D"7"$0D"8"
+        }
+        speed: =
+        {
+          txt = "&"
+          hint = "Speed (units per second)"
+        }
         avelocity: =
         {
           txt = "&"
@@ -7761,6 +6578,19 @@ QQRKSRC1
         {
           txt = "&"
           hint = "Contents"
+        }
+        volume: =
+        {
+          txt = "&"
+          hint = "Sound Volume 0.0 - 1.0"
+        }
+        m_iObeyTriggerMode: =
+        {
+          txt = "&"
+          hint = "Obey Trigger Mode"
+          typ = "C"
+          items = "No"$0D"Yes"
+          values = "0"$0D"1"
         }
         _minlight: =
         {
@@ -7842,7 +6672,7 @@ QQRKSRC1
         {
           txt = "&"
           typ = "X256"
-          cap = "USE Only"
+          cap = "Use Only"
         }
         skin: =
         {
@@ -7868,7 +6698,7 @@ QQRKSRC1
       t_game_counter:incl =
       {
         t_Targetname = "!"
-        t_Targetx = "!"
+        t_Target = "!"
         spawnflags: =
         {
           txt = "&"
@@ -7910,7 +6740,7 @@ QQRKSRC1
       t_game_counter_set:incl =
       {
         t_Targetname = "!"
-        t_Targetx = "!"
+        t_Target = "!"
         spawnflags: =
         {
           txt = "&"
@@ -7980,12 +6810,11 @@ QQRKSRC1
       t_game_player_equip:incl =
       {
         t_Targetname = "!"
-        t_Targetx = "!"
         spawnflags: =
         {
           txt = "&"
           typ = "X1"
-          cap = "USE Only"
+          cap = "Use Only"
         }
         spawnflags: =
         {
@@ -7999,33 +6828,15 @@ QQRKSRC1
           typ = "X4"
           cap = "Re-Equip on Use"
         }
-        spawnflags: =
-        {
-          txt = "&"
-          typ = "X8"
-          cap = "Append Map CFG"
-        }
         master: =
         {
           txt = "&"
           hint = "Team Master"
         }
-        equipmode: =
+        target: =
         {
           txt = "&"
-          hint = "Equip mode"
-          typ = "C"
-          items = "Give items"$0D"Modify inventory"
-          values = "0"$0D"1"
-        }
-        inventorymode: =
-        {
-          txt = "&"
-          hint = "Inventory mode"
-          typ = "C"
-          items = "Set items"$0D"Add items"$0D"Subtract items"$0D"Remove items"$0D
-           "Restock items"$0D"Limit items"
-          values = "0"$0D"1"$0D"2"$0D"3"$0D"4"$0D"5"
+          hint = "Player Targetname"
         }
       }
       game_player_equip:form =
@@ -8035,7 +6846,6 @@ QQRKSRC1
       t_game_player_hurt:incl =
       {
         t_Targetname = "!"
-        t_Targetx = "!"
         dmg: =
         {
           txt = "&"
@@ -8096,7 +6906,6 @@ QQRKSRC1
       t_game_score:incl =
       {
         t_Targetname = "!"
-        t_Targetx = "!"
         spawnflags: =
         {
           txt = "&"
@@ -8126,7 +6935,7 @@ QQRKSRC1
       }
       t_game_slot_counter:incl =
       {
-        t_Targetx = "!"
+        t_Target = "!"
         frags: =
         {
           txt = "&"
@@ -8193,7 +7002,7 @@ QQRKSRC1
       t_game_text:incl =
       {
         t_Targetname = "!"
-        t_Targetx = "!"
+        t_Target = "!"
         spawnflags: =
         {
           txt = "&"
@@ -8232,12 +7041,12 @@ QQRKSRC1
         color: =
         {
           txt = "&"
-          hint = "Color 1 (Add 4th number >0 for opaque)"
+          hint = "Color1"
         }
         color2: =
         {
           txt = "&"
-          hint = "Color 2 (Add 4th number >0 for opaque)"
+          hint = "Color2"
         }
         fadein: =
         {
@@ -8280,7 +7089,6 @@ QQRKSRC1
       t_game_zone_player:incl =
       {
         t_Targetname = "!"
-        t_ZHLTbmodel = "!"
         spawnflags: =
         {
           txt = "&"
@@ -8350,13 +7158,6 @@ QQRKSRC1
       {
         t_infodecal = "!"
       }
-      t_info_angularfade:incl =
-      {
-      }
-      info_angularfade:form =
-      {
-        t_info_angularfade = "!"
-      }
       t_info_bigmomma:incl =
       {
         bbox = '-24 -24 0 24 24 16'
@@ -8418,638 +7219,6 @@ QQRKSRC1
       {
         t_info_bigmomma = "!"
       }
-      t_info_compile_parameters:incl =
-      {
-        spawnflags: =
-        {
-          txt = "&"
-          typ = "X1"
-          cap = "Ignore shared settings"
-        }
-        spawnflags: =
-        {
-          txt = "&"
-          typ = "X2"
-          cap = "Ignore CSG settings"
-        }
-        spawnflags: =
-        {
-          txt = "&"
-          typ = "X4"
-          cap = "Ignore BSP settings"
-        }
-        spawnflags: =
-        {
-          txt = "&"
-          typ = "X8"
-          cap = "Ignore VIS settings"
-        }
-        spawnflags: =
-        {
-          txt = "&"
-          typ = "X16"
-          cap = "Ignore RAD settings"
-        }
-        verbose: =
-        {
-          txt = "&"
-          hint = "Verbose messages?"
-          typ = "C"
-          items = "[ Unset ]"$0D"No"$0D"Yes"
-          values = "0"$0D"-1"$0D"1"
-        }
-        noinfo: =
-        {
-          txt = "&"
-          hint = "Don't show tool configuration information?"
-          typ = "C"
-          items = "[ Unset ]"$0D"No"$0D"Yes"
-          values = "0"$0D"-1"$0D"1"
-        }
-        nolog: =
-        {
-          txt = "&"
-          hint = "Don't generate compile log file?"
-          typ = "C"
-          items = "[ Unset ]"$0D"No"$0D"Yes"
-          values = "0"$0D"-1"$0D"1"
-        }
-        dev: =
-        {
-          txt = "&"
-          hint = "Developer message level"
-          typ = "C"
-          items = "[ Unset ]"$0D"None"$0D"Error"$0D"Warning"$0D"Info"$0D"Fluff"$0D
-           "Spam"$0D"Mega spam"
-          values = "0"$0D"-1"$0D"1"$0D"2"$0D"3"$0D"4"$0D"5"$0D"6"
-        }
-        estimate: =
-        {
-          txt = "&"
-          hint = "Estimate compile times?"
-          typ = "C"
-          items = "[ Unset ]"$0D"No"$0D"Yes"
-          values = "0"$0D"-1"$0D"0"
-        }
-        chart: =
-        {
-          txt = "&"
-          hint = "Display statistics charts?"
-          typ = "C"
-          items = "[ Unset ]"$0D"No"$0D"Yes"
-          values = "0"$0D"-1"$0D"1"
-        }
-        threads: =
-        {
-          txt = "&"
-          hint = "CPU thread count (0 for auto/max)"
-        }
-        priority: =
-        {
-          txt = "&"
-          hint = "CPU process priority"
-          typ = "C"
-          items = "[ Unset ]"$0D"Low"$0D"Normal"$0D"High"
-          values = "0"$0D"1"$0D"2"$0D"3"
-        }
-        texdata: =
-        {
-          txt = "&"
-          hint = "Texture data memory (KiB)"
-        }
-        lightdata: =
-        {
-          txt = "&"
-          hint = "Lighting data memory (KiB)"
-        }
-        csg: =
-        {
-          txt = "&"
-          hint = "--- Perform CSG stage? ---"
-          typ = "C"
-          items = "[ Unset ]"$0D"No"$0D"Yes"$0D"Yes, entity updates only mode"
-          values = "0"$0D"-1"$0D"1"$0D"2"
-        }
-        csg_nowadtextures: =
-        {
-          txt = "&"
-          hint = "No WAD textures? (Embed textures into BSP.)"
-          typ = "C"
-          items = "[ Unset ]"$0D"No"$0D"Yes"
-          values = "0"$0D"-1"$0D"1"
-        }
-        csg_noclip: =
-        {
-          txt = "&"
-          hint = "Disable clipping hull generation?"
-          typ = "C"
-          items = "[ Unset ]"$0D"No"$0D"Yes"
-          values = "0"$0D"-1"$0D"1"
-        }
-        csg_clipeconomy: =
-        {
-          txt = "&"
-          hint = "Strip redundant clip nodes? (Economy mode.)"
-          typ = "C"
-          items = "[ Unset ]"$0D"No"$0D"Yes"
-          values = "0"$0D"-1"$0D"1"
-        }
-        csg_cliptype: =
-        {
-          txt = "&"
-          hint = "Clipping hull type"
-          typ = "C"
-          items = "[ Unset ]"$0D"Smallest"$0D"Normalized"$0D"Simple (most compac"
-           "t)"$0D"Precise (recommended)"$0D"Legacy"
-          values = "0"$0D"-1"$0D"1"$0D"2"$0D"3"$0D"4"
-        }
-        csg_hullfile: =
-        {
-          txt = "&"
-          hint = "Custom hull file"
-        }
-        csg_noskyclip: =
-        {
-          txt = "&"
-          hint = "Disable sky clipping?"
-          typ = "C"
-          items = "[ Unset ]"$0D"No"$0D"Yes"
-          values = "0"$0D"-1"$0D"1"
-        }
-        csg_tiny: =
-        {
-          txt = "&"
-          hint = "Minimum brush face surface area before it is discarded"
-        }
-        csg_brushunion: =
-        {
-          txt = "&"
-          hint = "Threshold to warn about overlapping brushes"
-        }
-        csg_nullfile: =
-        {
-          txt = "&"
-          hint = "NULL texture substitutions file"
-        }
-        csg_wadcfgfile: =
-        {
-          txt = "&"
-          hint = "WAD configuration file"
-        }
-        csg_wadcfgname: =
-        {
-          txt = "&"
-          hint = "WAD configuration name"
-        }
-        csg_wadautodetect: =
-        {
-          txt = "&"
-          hint = "WAD auto detect?"
-          typ = "C"
-          items = "[ Unset ]"$0D"No"$0D"Yes"
-          values = "0"$0D"-1"$0D"1"
-        }
-        csg_nonulltex: =
-        {
-          txt = "&"
-          hint = "Don't strip null texture faces?"
-          typ = "C"
-          items = "[ Unset ]"$0D"No"$0D"Yes"
-          values = "0"$0D"-1"$0D"1"
-        }
-        csg_nullifytrigger: =
-        {
-          txt = "&"
-          hint = "Strip trigger texture faces?"
-          typ = "C"
-          items = "[ Unset ]"$0D"No"$0D"Yes"
-          values = "0"$0D"-1"$0D"1"
-        }
-        csg_nolightopt: =
-        {
-          txt = "&"
-          hint = "Don't optimize engine light entities?"
-          typ = "C"
-          items = "[ Unset ]"$0D"No"$0D"Yes"
-          values = "0"$0D"-1"$0D"1"
-        }
-        csg_notextconvert: =
-        {
-          txt = "&"
-          hint = "Don't convert game_text from ANSI to UTF-8 format?"
-          typ = "C"
-          items = "[ Unset ]"$0D"No"$0D"Yes"
-          values = "0"$0D"-1"$0D"1"
-        }
-        csg_scale: =
-        {
-          txt = "&"
-          hint = "Scale the world (USE AT OWN RISK!)"
-        }
-        bsp: =
-        {
-          txt = "&"
-          hint = "--- Perform BSP stage? ---"
-          typ = "C"
-          items = "[ Unset ]"$0D"No"$0D"Yes"$0D"Yes, leak only mode"
-          values = "0"$0D"-1"$0D"1"$0D"2"
-        }
-        bsp_subdivide: =
-        {
-          txt = "&"
-          hint = "Face subdivide size (64-528)"
-        }
-        bsp_maxnodesize: =
-        {
-          txt = "&"
-          hint = "Maximum portal node size (64-1024)"
-        }
-        bsp_notjunc: =
-        {
-          txt = "&"
-          hint = "Don't break edges on t-junctions?"
-          typ = "C"
-          items = "[ Unset ]"$0D"No"$0D"Yes (not recommended)"
-          values = "0"$0D"-1"$0D"1"
-        }
-        bsp_nobrink: =
-        {
-          txt = "&"
-          hint = "Don't smooth brinks?"
-          typ = "C"
-          items = "[ Unset ]"$0D"No"$0D"Yes (not recommended)"
-          values = "0"$0D"-1"$0D"1"
-        }
-        bsp_noclip: =
-        {
-          txt = "&"
-          hint = "Don't process the clipping hull?"
-          typ = "C"
-          items = "[ Unset ]"$0D"No"$0D"Yes (not recommended)"
-          values = "0"$0D"-1"$0D"1"
-        }
-        bsp_nofill: =
-        {
-          txt = "&"
-          hint = "Don't fill outside? (Leaks will be masked.)"
-          typ = "C"
-          items = "[ Unset ]"$0D"No"$0D"Yes (not recommended)"
-          values = "0"$0D"-1"$0D"1"
-        }
-        bsp_noinsidefill: =
-        {
-          txt = "&"
-          hint = "Don't fill empty spaces?"
-          typ = "C"
-          items = "[ Unset ]"$0D"No"$0D"Yes"
-          values = "0"$0D"-1"$0D"1"
-        }
-        bsp_noopt: =
-        {
-          txt = "&"
-          hint = "Don't optimize planes?"
-          typ = "C"
-          items = "[ Unset ]"$0D"No"$0D"Yes (not recommended)"
-          values = "0"$0D"-1"$0D"1"
-        }
-        bsp_noclipnodemerge: =
-        {
-          txt = "&"
-          hint = "Don't optimize clip nodes?"
-          typ = "C"
-          items = "[ Unset ]"$0D"No"$0D"Yes (not recommended)"
-          values = "0"$0D"-1"$0D"1"
-        }
-        bsp_nonulltex: =
-        {
-          txt = "&"
-          hint = "Don't strip NULL textures?"
-          typ = "C"
-          items = "[ Unset ]"$0D"No"$0D"Yes (not recommended)"
-          values = "0"$0D"-1"$0D"1"
-        }
-        bsp_nohull2: =
-        {
-          txt = "&"
-          hint = "Don't generate hull 2? (Big monsters & pushable fall out map!)"
-          typ = "C"
-          items = "[ Unset ]"$0D"No"$0D"Yes"
-          values = "0"$0D"-1"$0D"1"
-        }
-        bsp_viewportal: =
-        {
-          txt = "&"
-          hint = "Show portal boundaries in PTS file?"
-          typ = "C"
-          items = "[ Unset ]"$0D"No"$0D"Yes"
-          values = "0"$0D"-1"$0D"1"
-        }
-        vis: =
-        {
-          txt = "&"
-          hint = "--- Perform VIS stage? ---"
-          typ = "C"
-          items = "[ Unset ]"$0D"No"$0D"Yes"$0D"Yes, fast mode"$0D"Yes, full mod"
-           "e"
-          values = "0"$0D"-1"$0D"1"$0D"2"$0D"3"
-        }
-        rad: =
-        {
-          txt = "&"
-          hint = "--- Perform RAD stage? ---"
-          typ = "C"
-          items = "[ Unset ]"$0D"No"$0D"Yes"$0D"Yes, fast mode"$0D"Yes, extra mo"
-           "de"
-          values = "0"$0D"-1"$0D"1"$0D"2"$0D"3"
-        }
-        rad_waddir: =
-        {
-          txt = "&"
-          hint = "WAD search directory"
-        }
-        rad_vismatrix: =
-        {
-          txt = "&"
-          hint = "Use visibility matrix?"
-          typ = "C"
-          items = "[ Unset ]"$0D"Normal (65,536 patch limit)"$0D"Sparse"$0D"None"
-           " (slowest but most accurate lighting)"
-          values = "0"$0D"-1"$0D"1"$0D"2"
-        }
-        rad_bounce: =
-        {
-          txt = "&"
-          hint = "Bounces"
-        }
-        rad_ambient: =
-        {
-          txt = "&"
-          hint = "Ambient world light (R G B)"
-        }
-        rad_limiter: =
-        {
-          txt = "&"
-          hint = "Light clipping threshold (-1 for none)"
-        }
-        rad_circus: =
-        {
-          txt = "&"
-          hint = "Circus mode?"
-          typ = "C"
-          items = "[ Unset ]"$0D"No"$0D"Yes"
-          values = "0"$0D"-1"$0D"1"
-        }
-        rad_nospread: =
-        {
-          txt = "&"
-          hint = "Disable sunlight spread angles?"
-          typ = "C"
-          items = "[ Unset ]"$0D"No"$0D"Yes"
-          values = "0"$0D"-1"$0D"1"
-        }
-        rad_nopaque: =
-        {
-          txt = "&"
-          hint = "Disable opaque light flags?"
-          typ = "C"
-          items = "[ Unset ]"$0D"No"$0D"Yes"
-          values = "0"$0D"-1"$0D"1"
-        }
-        rad_smooth: =
-        {
-          txt = "&"
-          hint = "Smoothing threshold for blending (In degrees)"
-        }
-        rad_smooth2: =
-        {
-          txt = "&"
-          hint = "Smoothing threshold between different textures"
-        }
-        rad_chop: =
-        {
-          txt = "&"
-          hint = "Patch size for normal textures"
-        }
-        rad_texchop: =
-        {
-          txt = "&"
-          hint = "Patch size for texture light faces"
-        }
-        rad_notexscale: =
-        {
-          txt = "&"
-          hint = "Scale patches with texture scale?"
-          typ = "C"
-          items = "[ Unset ]"$0D"No"$0D"Yes"
-          values = "0"$0D"1"$0D"-1"
-        }
-        rad_subdivide: =
-        {
-          txt = "&"
-          hint = "Patch subdivide?"
-          typ = "C"
-          items = "[ Unset ]"$0D"No"$0D"Yes"
-          values = "0"$0D"-1"$0D"1"
-        }
-        rad_coring: =
-        {
-          txt = "&"
-          hint = "Lighting threshold before blackness"
-        }
-        rad_dlight: =
-        {
-          txt = "&"
-          hint = "Direct lighting threshold"
-        }
-        rad_dscale: =
-        {
-          txt = "&"
-          hint = "Direct lighting scale"
-        }
-        rad_nolerp: =
-        {
-          txt = "&"
-          hint = "Disable interpolation? (Nearest point instead.)"
-          typ = "C"
-          items = "[ Unset ]"$0D"No"$0D"Yes"
-          values = "0"$0D"-1"$0D"1"
-        }
-        rad_fade: =
-        {
-          txt = "&"
-          hint = "Global fade (Larger values = shorter lights)"
-        }
-        rad_texlightgap: =
-        {
-          txt = "&"
-          hint = "Global gap distance for texture lights"
-        }
-        rad_scale: =
-        {
-          txt = "&"
-          hint = "Global light scaling"
-        }
-        rad_colourscale: =
-        {
-          txt = "&"
-          hint = "Per-colour light scaling (R G B)"
-        }
-        rad_gamma: =
-        {
-          txt = "&"
-          hint = "Global gamma"
-        }
-        rad_colourgamma: =
-        {
-          txt = "&"
-          hint = "Per-colour gamma (R G B)"
-        }
-        rad_sky: =
-        {
-          txt = "&"
-          hint = "Ambient sunlight shade contribution"
-        }
-        rad_lights: =
-        {
-          txt = "&"
-          hint = "Light textures file"
-        }
-        rad_noskyfix: =
-        {
-          txt = "&"
-          hint = "Disable sky light being global?"
-          typ = "C"
-          items = "[ Unset ]"$0D"No"$0D"Yes"
-          values = "0"$0D"-1"$0D"1"
-        }
-        rad_incremental: =
-        {
-          txt = "&"
-          hint = "Use/create an incremental transfer list file?"
-          typ = "C"
-          items = "[ Unset ]"$0D"No"$0D"Yes"
-          values = "0"$0D"-1"$0D"1"
-        }
-        rad_dump: =
-        {
-          txt = "&"
-          hint = "Dump light patches to a file for debugging?"
-          typ = "C"
-          items = "[ Unset ]"$0D"No"$0D"Yes"
-          values = "0"$0D"-1"$0D"1"
-        }
-        rad_colourjitter: =
-        {
-          txt = "&"
-          hint = "Adds noise, independent colours, for dithering (R G B)"
-        }
-        rad_jitter: =
-        {
-          txt = "&"
-          hint = "Adds noise, monochromatic, for dithering (R G B)"
-        }
-        rad_customshadowwithbounce: =
-        {
-          txt = "&"
-          hint = "Enables custom shadows with bounce light?"
-          typ = "C"
-          items = "[ Unset ]"$0D"No"$0D"Yes"
-          values = "0"$0D"-1"$0D"1"
-        }
-        rad_rgbtransfers: =
-        {
-          txt = "&"
-          hint = "Enable RGB transfers? (For custom shadows.)"
-          typ = "C"
-          items = "[ Unset ]"$0D"No"$0D"Yes"
-          values = "0"$0D"-1"$0D"1"
-        }
-        rad_minlight: =
-        {
-          txt = "&"
-          hint = "Minimum final light (0-255)"
-        }
-        rad_compresstransfers: =
-        {
-          txt = "&"
-          hint = "Compress transfers?"
-          typ = "C"
-          items = "[ Unset ]"$0D"32-bit"$0D"16-bit"$0D"8-bit"
-          values = "0"$0D"-1"$0D"1"$0D"2"
-        }
-        rad_compressrgbtransfers: =
-        {
-          txt = "&"
-          hint = "Compress RGB transfers?"
-          typ = "C"
-          items = "[ Unset ]"$0D"96-bit"$0D"48-bit"$0D"32-bit"$0D"24-bit"
-          values = "0"$0D"-1"$0D"1"$0D"2"$0D"3"
-        }
-        rad_softsky: =
-        {
-          txt = "&"
-          hint = "Smooth skylight?"
-          typ = "C"
-          items = "[ Unset ]"$0D"No"$0D"Yes"
-          values = "0"$0D"-1"$0D"1"
-        }
-        rad_depth: =
-        {
-          txt = "&"
-          hint = "Thickness of translucent faces"
-        }
-        rad_blockopaque: =
-        {
-          txt = "&"
-          hint = "Remove the black areas around opaque entities?"
-          typ = "C"
-          items = "[ Unset ]"$0D"No"$0D"Yes"
-          values = "0"$0D"-1"$0D"1"
-        }
-        rad_notextures: =
-        {
-          txt = "&"
-          hint = "Don't load textures?"
-          typ = "C"
-          items = "[ Unset ]"$0D"No"$0D"Yes"
-          values = "0"$0D"-1"$0D"1"
-        }
-        rad_texreflectgamma: =
-        {
-          txt = "&"
-          hint = "Reflection gamma"
-        }
-        rad_texreflectscale: =
-        {
-          txt = "&"
-          hint = "Reflection scale"
-        }
-        rad_blur: =
-        {
-          txt = "&"
-          hint = "Enlarge light map sample to blur the light map"
-        }
-        rad_noemitterrange: =
-        {
-          txt = "&"
-          hint = "Don't fix pointy texture lights?"
-          typ = "C"
-          items = "[ Unset ]"$0D"No"$0D"Yes"
-          values = "0"$0D"-1"$0D"1"
-        }
-        rad_nobleedfix: =
-        {
-          txt = "&"
-          hint = "Don't fix wall bleeding problem for large blur value?"
-          typ = "C"
-          items = "[ Unset ]"$0D"No"$0D"Yes"
-          values = "0"$0D"-1"$0D"1"
-        }
-      }
-      info_compile_parameters:form =
-      {
-        t_info_compile_parameters = "!"
-      }
       t_info_intermission:incl =
       {
         bbox = '-4 -4 -4 4 4 4'
@@ -9060,33 +7229,14 @@ QQRKSRC1
       {
         t_info_intermission = "!"
       }
-      t_info_hullshape:incl =
+      t_info_landmark:incl =
       {
-        targetname: =
-        {
-          txt = "&"
-          hint = "Name"
-        }
-        defaulthulls: =
-        {
-          txt = "&"
-          hint = "Set as default shape"
-          typ = "C"
-          items = "No"$0D"Hull 1"$0D"Hull 2"$0D"Hull 3"
-          values = "0"$0D"2"$0D"4"$0D"8"
-        }
-        disabled: =
-        {
-          txt = "&"
-          hint = "Disable"
-          typ = "C"
-          items = "No"$0D"Yes"
-          values = "0"$0D"1"
-        }
+        bbox = '-4 -4 -4 4 4 4'
+        t_Targetname = "!"
       }
-      info_hullshape:form =
+      info_landmark:form =
       {
-        t_info_hullshape = "!"
+        t_info_landmark = "!"
       }
       t_info_monster_goal:incl =
       {
@@ -9168,53 +7318,9 @@ QQRKSRC1
       {
         t_info_monster_goal = "!"
       }
-      t_NodeBase:incl =
-      {
-        hinttype: =
-        {
-          txt = "&"
-          hint = "Hint type"
-          typ = "C"
-          items = "None"$0D"World machinery"$0D"World blinking light"$0D"World h"
-           "uman blood"$0D"World alien blood"
-          values = "0"$0D"4"$0D"8"$0D"10"$0D"11"
-        }
-        activity: =
-        {
-          txt = "&"
-          hint = "Hint activity"
-          typ = "C"
-          items = "None"$0D"Reset"$0D"Idle"$0D"Guard"$0D"Walk"$0D"Run"$0D"Fly"$0D
-           "Swim"$0D"Hop"$0D"Leap"$0D"Fall"$0D"Land"$0D"Strafe left"$0D"Strafe r"
-           "ight"$0D"Roll left"$0D"Roll right"$0D"Turn left"$0D"Turn Right"$0D"C"
-           "rouch"$0D"Crouch idle"$0D"Stand up from crouch"$0D"Use"$0D"Signal 1"$0D
-           "Signal 2"$0D"Signal 3"$0D"Twitch"$0D"Cower"$0D"Small flinch"$0D"Big "
-           "flinch"$0D"Range attack 1"$0D"Range attack 2"$0D"Melee attack 1"$0D"M"
-           "elee attack 2"$0D"Reload"$0D"Arm"$0D"Disarm"$0D"Eat"$0D"Die simple"$0D
-           "Die backward"$0D"Die forward"$0D"Die violent"$0D"Barnacle hit"$0D"Ba"
-           "rnacle pull"$0D"Barnacle chomp"$0D"Barnacle chew"$0D"Sleep"$0D"Inspe"
-           "ct floor"$0D"Inspect wall"$0D"Idle angry"$0D"Walk hurt"$0D"Run hurt"$0D
-           "Hover"$0D"Glide"$0D"Fly left"$0D"Fly right"$0D"Detect scent"$0D"Snif"
-           "f"$0D"Bite"$0D"Threat display"$0D"Fear display"$0D"Excited"$0D"Speci"
-           "al attack 1"$0D"Special attack 2"$0D"Combat idle"$0D"Walk scared"$0D
-           "Run scared"$0D"Victory dance"$0D"Die head shot"$0D"Die chest shot"$0D
-           "Die gut shot"$0D"Die back shot"$0D"Flinch head"$0D"Flinch chest"$0D"F"
-           "linch stomach"$0D"Flinch left arm"$0D"Flinch right arm"$0D"Flinch le"
-           "ft leg"$0D"Flinch right leg"
-          values = "-1"$0D"0"$0D"1"$0D"2"$0D"3"$0D"4"$0D"5"$0D"6"$0D"7"$0D"8"$0D
-           "9"$0D"10"$0D"11"$0D"12"$0D"13"$0D"14"$0D"15"$0D"16"$0D"17"$0D"18"$0D
-           "19"$0D"20"$0D"21"$0D"22"$0D"23"$0D"24"$0D"25"$0D"26"$0D"27"$0D"28"$0D
-           "29"$0D"30"$0D"31"$0D"32"$0D"33"$0D"34"$0D"35"$0D"36"$0D"37"$0D"38"$0D
-           "39"$0D"40"$0D"41"$0D"42"$0D"43"$0D"44"$0D"45"$0D"46"$0D"47"$0D"48"$0D
-           "49"$0D"50"$0D"51"$0D"52"$0D"53"$0D"54"$0D"55"$0D"56"$0D"57"$0D"58"$0D
-           "59"$0D"60"$0D"61"$0D"62"$0D"63"$0D"64"$0D"65"$0D"66"$0D"67"$0D"68"$0D
-           "69"$0D"70"$0D"71"$0D"72"$0D"73"$0D"74"$0D"75"$0D"76"
-        }
-      }
       t_info_node:incl =
       {
         bbox = '-24 -24 -4 24 24 4'
-        t_NodeBase = "!"
       }
       info_node:form =
       {
@@ -9223,7 +7329,6 @@ QQRKSRC1
       t_info_node_air:incl =
       {
         bbox = '-32 -32 0 32 32 64'
-        t_NodeBase = "!"
       }
       info_node_air:form =
       {
@@ -9237,22 +7342,6 @@ QQRKSRC1
       info_null:form =
       {
         t_info_null = "!"
-      }
-      t_info_overview_point:incl =
-      {
-        bbox = '-4 -4 -4 4 4 4'
-        reverse: =
-        {
-          txt = "&"
-          hint = "Reversed"
-          typ = "C"
-          items = "No"$0D"Yes"
-          values = "0"$0D"1"
-        }
-      }
-      info_overview_point:form =
-      {
-        t_info_overview_point = "!"
       }
       t_info_player_coop:incl =
       {
@@ -9286,42 +7375,6 @@ QQRKSRC1
       {
         t_info_player_start = "!"
       }
-      t_info_smoothvalue:incl =
-      {
-        bbox = '-4 -4 -4 4 4 4'
-      }
-      info_smoothvalue:form =
-      {
-        t_info_smoothvalue = "!"
-      }
-      t_info_sunlight:incl =
-      {
-        bbox = '-4 -4 -4 4 4 4'
-        target: =
-        {
-          txt = "&"
-          hint = "Target"
-        }
-        angles: =
-        {
-          txt = "&"
-          hint = "Pitch Yaw Roll (Y Z X)"
-        }
-        pitch: =
-        {
-          txt = "&"
-          hint = "Pitch"
-        }
-        _light: =
-        {
-          txt = "&"
-          hint = "Brightness"
-        }
-      }
-      info_sunlight:form =
-      {
-        t_info_sunlight = "!"
-      }
       t_info_target:incl =
       {
         bbox = '-4 -4 -4 4 4 4'
@@ -9335,12 +7388,6 @@ QQRKSRC1
       {
         bbox = '-16 -16 0 16 16 72'
         t_PlayerClass = "!"
-        spawnflags: =
-        {
-          txt = "&"
-          typ = "X32"
-          cap = "Trigger on arrival"
-        }
         teleport_cooldown: =
         {
           txt = "&"
@@ -9353,25 +7400,17 @@ QQRKSRC1
       }
       t_info_texlights:incl =
       {
-        bbox = '-4 -4 -4 4 4 4'
+        bbox = '-16 -16 -16 16 16 16'
       }
       info_texlights:form =
       {
         t_info_texlights = "!"
       }
-      t_info_translucent:incl =
-      {
-        bbox = '-4 -4 -4 4 4 4'
-      }
-      info_translucent:form =
-      {
-        t_info_translucent = "!"
-      }
       t_item_airtank:incl =
       {
         bbox = '-16 -16 0 16 16 24'
-        t_Targetx = "!"
         t_Item = "!"
+        t_Targetx = "!"
       }
       item_airtank:form =
       {
@@ -9380,8 +7419,8 @@ QQRKSRC1
       t_item_antidote:incl =
       {
         bbox = '-4 -4 0 4 4 16'
-        t_Targetx = "!"
         t_Item = "!"
+        t_Targetx = "!"
       }
       item_antidote:form =
       {
@@ -9390,8 +7429,8 @@ QQRKSRC1
       t_item_armorvest:incl =
       {
         bbox = '-11 -11 0 11 11 36'
-        t_Targetx = "!"
         t_Item = "!"
+        t_Targetx = "!"
       }
       item_armorvest:form =
       {
@@ -9400,8 +7439,8 @@ QQRKSRC1
       t_item_battery:incl =
       {
         bbox = '-4 -4 0 4 4 16'
-        t_Targetx = "!"
         t_Item = "!"
+        t_Targetx = "!"
         health: =
         {
           txt = "&"
@@ -9448,8 +7487,8 @@ QQRKSRC1
       t_item_healthkit:incl =
       {
         bbox = '-12 -12 0 12 12 8'
-        t_Targetx = "!"
         t_Item = "!"
+        t_Targetx = "!"
         health: =
         {
           txt = "&"
@@ -9468,455 +7507,18 @@ QQRKSRC1
       t_item_helmet:incl =
       {
         bbox = '-8 -8 0 8 8 20'
-        t_Targetx = "!"
         t_Item = "!"
+        t_Targetx = "!"
       }
       item_helmet:form =
       {
         t_item_helmet = "!"
       }
-      t_item_inventory:incl =
-      {
-        t_ItemWithDefaultModel = "!"
-        t_Targetx = "!"
-        item_name: =
-        {
-          txt = "&"
-          hint = "Item name"
-        }
-        item_group: =
-        {
-          txt = "&"
-          hint = "Item group name"
-        }
-        display_name: =
-        {
-          txt = "&"
-          hint = "Display name (HUD)"
-        }
-        description: =
-        {
-          txt = "&"
-          hint = "Description (HUD)"
-        }
-        item_icon: =
-        {
-          txt = "&"
-          hint = "Item icon (HUD)"
-        }
-        activate_limit: =
-        {
-          txt = "&"
-          hint = "Self-activation limit (0 = infinite)"
-        }
-        collect_limit: =
-        {
-          txt = "&"
-          hint = "Collection limit (0 = infinite)"
-        }
-        weight: =
-        {
-          txt = "&"
-          hint = "Item weight (0-100)"
-        }
-        filter_targetnames: =
-        {
-          txt = "&"
-          hint = "Collect: Entity target names"
-        }
-        filter_classnames: =
-        {
-          txt = "&"
-          hint = "Collect: Entity class names"
-        }
-        filter_teams: =
-        {
-          txt = "&"
-          hint = "Collect: Teams"
-        }
-        filter_npc_classifications: =
-        {
-          txt = "&"
-          hint = "Collect: NPC classifications"
-          typ = "C"
-          items = "No filter"$0D"None"$0D"Machine"$0D"Player"$0D"Human Passive"$0D
-           "Human Military"$0D"Alien Military"$0D"Alien Passive"$0D"Alien Monste"
-           "r"$0D"Alien Prey"$0D"Alien Predator"$0D"Insect"$0D"Player Ally"$0D"P"
-           "layer Hornet/Snark"$0D"Alien Hornet/Snark"$0D"X-Race"$0D"X-Race: Sho"
-           "cktrooper/Voltigore"$0D"Team 1"$0D"Team 2"$0D"Team 3"$0D"Team 4"
-          values = "0"$0D"-1"$0D"1"$0D"2"$0D"3"$0D"4"$0D"5"$0D"6"$0D"7"$0D"8"$0D
-           "9"$0D"10"$0D"11"$0D"12"$0D"13"$0D"14"$0D"15"$0D"16"$0D"17"$0D"18"$0D
-           "19"
-        }
-        item_name_required: =
-        {
-          txt = "&"
-          hint = "Collect: Need item(s)"
-        }
-        item_group_required: =
-        {
-          txt = "&"
-          hint = "Collect: Need item(s) from group(s)"
-        }
-        item_group_required_num: =
-        {
-          txt = "&"
-          hint = "Collect: Item count in group need have (0 = all)"
-        }
-        item_name_moved: =
-        {
-          txt = "&"
-          hint = "Collect: Item(s) moved"
-        }
-        item_name_canthave: =
-        {
-          txt = "&"
-          hint = "Collect: CAN'T have item"
-        }
-        item_group_canthave: =
-        {
-          txt = "&"
-          hint = "Collect: CAN'T have item from group"
-        }
-        item_group_canthave_num: =
-        {
-          txt = "&"
-          hint = "Collect: Item count in group CAN'T have (0 = all)"
-        }
-        item_name_not_moved: =
-        {
-          txt = "&"
-          hint = "Collect: Item(s) NOT moved"
-        }
-        carried_hidden: =
-        {
-          txt = "&"
-          hint = "Carried: Hide item (3rd person)"
-          typ = "C"
-          items = "No"$0D"Yes"
-          values = "0"$0D"1"
-        }
-        carried_skin: =
-        {
-          txt = "&"
-          hint = "Carried: Skin"
-        }
-        carried_body: =
-        {
-          txt = "&"
-          hint = "Carried: Body"
-        }
-        carried_sequencename: =
-        {
-          txt = "&"
-          hint = "Carried: Sequence Name"
-        }
-        carried_sequence: =
-        {
-          txt = "&"
-          hint = "Carried: Sequence Number (overrides name)"
-        }
-        return_timelimit: =
-        {
-          txt = "&"
-          hint = "Return: Wait (-1 = never)"
-        }
-        return_delay_respawn: =
-        {
-          txt = "&"
-          hint = "Return: Delay respawn (materialisation)"
-          typ = "C"
-          items = "No"$0D"Yes"
-          values = "0"$0D"1"
-        }
-        holder_timelimit: =
-        {
-          txt = "&"
-          hint = "Holder: Hold time limit (0 = never)"
-        }
-        holder_time_activate_wait: =
-        {
-          txt = "&"
-          hint = "Holder: Delay between self-activations (0 = none)"
-        }
-        holder_time_wearout: =
-        {
-          txt = "&"
-          hint = "Holder: Wearing out trigger time (0 = none)"
-        }
-        holder_can_activate: =
-        {
-          txt = "&"
-          hint = "Holder: Allowed to self-activate"
-          typ = "C"
-          items = "No"$0D"Yes"
-          values = "0"$0D"1"
-        }
-        holder_timelimit_wait_until_activated: =
-        {
-          txt = "&"
-          hint = "Holder: Hold time limit doesn't start until item activated"
-          typ = "C"
-          items = "No"$0D"Yes"
-          values = "0"$0D"1"
-        }
-        holder_can_drop: =
-        {
-          txt = "&"
-          hint = "Holder: Allowed to drop"
-          typ = "C"
-          items = "No"$0D"Yes"
-          values = "0"$0D"1"
-        }
-        holder_keep_on_death: =
-        {
-          txt = "&"
-          hint = "Holder: Keep item on death"
-          typ = "C"
-          items = "No"$0D"Yes"
-          values = "0"$0D"1"
-        }
-        holder_keep_on_respawn: =
-        {
-          txt = "&"
-          hint = "Holder: Keep item on respawn"
-          typ = "C"
-          items = "No"$0D"Yes"
-          values = "0"$0D"1"
-        }
-        target_on_collect: =
-        {
-          txt = "&"
-          hint = "Target: On collect (self)"
-        }
-        target_on_collect_team: =
-        {
-          txt = "&"
-          hint = "Target: On collect (team)"
-        }
-        target_on_collect_other: =
-        {
-          txt = "&"
-          hint = "Target: On collect (others)"
-        }
-        target_cant_collect: =
-        {
-          txt = "&"
-          hint = "Target: On can't collect (self)"
-        }
-        target_cant_collect_team: =
-        {
-          txt = "&"
-          hint = "Target: On can't collect (team)"
-        }
-        target_cant_collect_other: =
-        {
-          txt = "&"
-          hint = "Target: On can't collect (others)"
-        }
-        target_on_drop: =
-        {
-          txt = "&"
-          hint = "Target: On drop (self)"
-        }
-        target_on_drop_team: =
-        {
-          txt = "&"
-          hint = "Target: On drop (team)"
-        }
-        target_on_drop_other: =
-        {
-          txt = "&"
-          hint = "Target: On drop (others)"
-        }
-        target_cant_drop: =
-        {
-          txt = "&"
-          hint = "Target: On can't drop (self)"
-        }
-        target_cant_drop_team: =
-        {
-          txt = "&"
-          hint = "Target: On can't drop (team)"
-        }
-        target_cant_drop_other: =
-        {
-          txt = "&"
-          hint = "Target: On can't drop (others)"
-        }
-        target_on_activate: =
-        {
-          txt = "&"
-          hint = "Target: On self-activate (self)"
-        }
-        target_on_activate_team: =
-        {
-          txt = "&"
-          hint = "Target: On self-activate (team)"
-        }
-        target_on_activate_other: =
-        {
-          txt = "&"
-          hint = "Target: On self-activate (others)"
-        }
-        target_cant_activate: =
-        {
-          txt = "&"
-          hint = "Target: On can't self-activate (self)"
-        }
-        target_cant_activate_team: =
-        {
-          txt = "&"
-          hint = "Target: On can't self-activate (team)"
-        }
-        target_cant_activate_other: =
-        {
-          txt = "&"
-          hint = "Target: On can't self-activate (others)"
-        }
-        target_on_use: =
-        {
-          txt = "&"
-          hint = "Target: On use by trigger (self)"
-        }
-        target_on_use_team: =
-        {
-          txt = "&"
-          hint = "Target: On use by trigger (team)"
-        }
-        target_on_use_other: =
-        {
-          txt = "&"
-          hint = "Target: On use by trigger (others)"
-        }
-        target_on_wearing_out: =
-        {
-          txt = "&"
-          hint = "Target: On wearing out (self)"
-        }
-        target_on_wearing_out_team: =
-        {
-          txt = "&"
-          hint = "Target: On wearing out (team)"
-        }
-        target_on_wearing_out_other: =
-        {
-          txt = "&"
-          hint = "Target: On wearing out (others)"
-        }
-        target_on_return: =
-        {
-          txt = "&"
-          hint = "Target: On return (self)"
-        }
-        target_on_return_team: =
-        {
-          txt = "&"
-          hint = "Target: On return (team)"
-        }
-        target_on_return_other: =
-        {
-          txt = "&"
-          hint = "Target: On return (other)"
-        }
-        target_on_materialise: =
-        {
-          txt = "&"
-          hint = "Target: On materialise after return"
-        }
-        target_on_destroy: =
-        {
-          txt = "&"
-          hint = "Target: On destroy"
-        }
-        effects_wait_until_activated: =
-        {
-          txt = "&"
-          hint = "Effects: Wait until item is self-activated?"
-          typ = "C"
-          items = "No"$0D"Yes"
-          values = "0"$0D"1"
-        }
-        effects_permanent: =
-        {
-          txt = "&"
-          hint = "Effects: Permanent? (Until respawn)"
-          typ = "C"
-          items = "No"$0D"Yes"
-          values = "0"$0D"1"
-        }
-        effect_glow: =
-        {
-          txt = "&"
-          hint = "Effects: Glow shell color (R G B)"
-        }
-        effect_block_weapons: =
-        {
-          txt = "&"
-          hint = "Effects: Block weapons"
-          typ = "C"
-          items = "No"$0D"Yes"
-          values = "0"$0D"1"
-        }
-        effect_invulnerable: =
-        {
-          txt = "&"
-          hint = "Effects: Invulnerable"
-          typ = "C"
-          items = "No"$0D"Yes"
-          values = "0"$0D"1"
-        }
-        effect_invisible: =
-        {
-          txt = "&"
-          hint = "Effects: Invisible"
-          typ = "C"
-          items = "No"$0D"Yes"
-          values = "0"$0D"1"
-        }
-        effect_nonsolid: =
-        {
-          txt = "&"
-          hint = "Effects: Non-solid"
-          typ = "C"
-          items = "No"$0D"Yes"
-          values = "0"$0D"1"
-        }
-        effect_respiration: =
-        {
-          txt = "&"
-          hint = "Effects: Time before drown (seconds)"
-        }
-        effect_friction: =
-        {
-          txt = "&"
-          hint = "Effects: Friction modifier (%)"
-        }
-        effect_gravity: =
-        {
-          txt = "&"
-          hint = "Effects: Gravity modifier (%)"
-        }
-        effect_speed: =
-        {
-          txt = "&"
-          hint = "Effects: Speed modifier (%)"
-        }
-        effect_damage: =
-        {
-          txt = "&"
-          hint = "Effects: Damage modifier (%)"
-        }
-      }
-      item_inventory:form =
-      {
-        t_item_inventory = "!"
-      }
       t_item_longjump:incl =
       {
         bbox = '-14 -14 0 14 14 36'
-        t_Targetx = "!"
         t_Item = "!"
+        t_Targetx = "!"
       }
       item_longjump:form =
       {
@@ -9944,8 +7546,8 @@ QQRKSRC1
       t_item_security:incl =
       {
         bbox = '-12 -12 0 12 12 1'
-        t_Targetx = "!"
         t_Item = "!"
+        t_Targetx = "!"
       }
       item_security:form =
       {
@@ -9954,8 +7556,8 @@ QQRKSRC1
       t_item_suit:incl =
       {
         bbox = '-15 -15 0 15 15 64'
-        t_Targetx = "!"
         t_Item = "!"
+        t_Targetx = "!"
         spawnflags: =
         {
           txt = "&"
@@ -9990,61 +7592,6 @@ QQRKSRC1
       {
         t_light = "!"
       }
-      t_light_bounce:incl =
-      {
-        bbox = '-4 -4 -4 4 4 4'
-        target: =
-        {
-          txt = "&"
-          hint = "Target solid entity"
-        }
-        targetname: =
-        {
-          txt = "&"
-          hint = "Name"
-        }
-        style: =
-        {
-          txt = "&"
-          hint = "Appearance (no name allowed)"
-          typ = "C"
-          items = "Normal"$0D"Fluorescent flicker"$0D"Slow, strong pulse"$0D"Slo"
-           "w pulse, no black"$0D"Gentle pulse"$0D"Flicker A"$0D"Flicker B"$0D"C"
-           "andle A"$0D"Candle B"$0D"Candle C"$0D"Fast strobe"$0D"Slow strobe"$0D
-           "Underwater mutation"
-          values = "0"$0D"10"$0D"2"$0D"11"$0D"5"$0D"1"$0D"6"$0D"3"$0D"7"$0D"8"$0D
-           "4"$0D"9"$0D"12"
-        }
-        pattern: =
-        {
-          txt = "&"
-          hint = "Custom Appearance"
-        }
-        convertto: =
-        {
-          txt = "&"
-          hint = "Classname in game"
-          typ = "C"
-          items = "light"$0D"light_spot"
-          values = "light"$0D"light_spot"
-        }
-        spawnflags: =
-        {
-          txt = "&"
-          typ = "X1"
-          cap = "Initially dark"
-        }
-        spawnflags: =
-        {
-          txt = "&"
-          typ = "X2048"
-          cap = "Not in Deathmatch"
-        }
-      }
-      light_bounce:form =
-      {
-        t_light_bounce = "!"
-      }
       t_light_environment:incl =
       {
         t_Targetname = "!"
@@ -10060,74 +7607,10 @@ QQRKSRC1
           txt = "&"
           hint = "Brightness"
         }
-        _diffuse_light: =
-        {
-          txt = "&"
-          hint = "Ambient Color"
-        }
-        _spread: =
-        {
-          txt = "&"
-          hint = "Sun Spread"
-        }
       }
       light_environment:form =
       {
         t_light_environment = "!"
-      }
-      t_light_shadow:incl =
-      {
-        target: =
-        {
-          txt = "&"
-          hint = "Target solid entity"
-        }
-        targetname: =
-        {
-          txt = "&"
-          hint = "Name"
-        }
-        style: =
-        {
-          txt = "&"
-          hint = "Appearance (no name allowed)"
-          typ = "C"
-          items = "Normal"$0D"Fluorescent flicker"$0D"Slow, strong pulse"$0D"Slo"
-           "w pulse, no black"$0D"Gentle pulse"$0D"Flicker A"$0D"Flicker B"$0D"C"
-           "andle A"$0D"Candle B"$0D"Candle C"$0D"Fast strobe"$0D"Slow strobe"$0D
-           "Underwater mutation"
-          values = "0"$0D"10"$0D"2"$0D"11"$0D"5"$0D"1"$0D"6"$0D"3"$0D"7"$0D"8"$0D
-           "4"$0D"9"$0D"12"
-        }
-        pattern: =
-        {
-          txt = "&"
-          hint = "Custom Appearance"
-        }
-        convertto: =
-        {
-          txt = "&"
-          hint = "Classname in game"
-          typ = "C"
-          items = "light"$0D"light_spot"
-          values = "light"$0D"light_spot"
-        }
-        spawnflags: =
-        {
-          txt = "&"
-          typ = "X1"
-          cap = "Initially dark"
-        }
-        spawnflags: =
-        {
-          txt = "&"
-          typ = "X2048"
-          cap = "Not in Deathmatch"
-        }
-      }
-      light_shadow:form =
-      {
-        t_light_shadow = "!"
       }
       t_light_spot:incl =
       {
@@ -10190,128 +7673,6 @@ QQRKSRC1
       {
         t_light_spot = "!"
       }
-      t_light_surface:incl =
-      {
-        bbox = '-4 -4 -4 4 4 4'
-        _tex: =
-        {
-          txt = "&"
-          hint = "Texture name"
-        }
-        _frange: =
-        {
-          txt = "&"
-          hint = "Filter max distance"
-        }
-        _fdist: =
-        {
-          txt = "&"
-          hint = "Filter max dist to plane"
-        }
-        _fclass: =
-        {
-          txt = "&"
-          hint = "Filter entity classname"
-        }
-        _fname: =
-        {
-          txt = "&"
-          hint = "Filter entity name"
-        }
-        _light: =
-        {
-          txt = "&"
-          hint = "Texture brightness"
-        }
-        _texcolor: =
-        {
-          txt = "&"
-          hint = "Color(replace texture color)"
-        }
-        _cone: =
-        {
-          txt = "&"
-          hint = "Inner(bright) angle(90default)"
-        }
-        _cone2: =
-        {
-          txt = "&"
-          hint = "Outer(fading) angle(90default)"
-        }
-        _scale: =
-        {
-          txt = "&"
-          hint = "Adjust emit scale(1.0default)"
-        }
-        _chop: =
-        {
-          txt = "&"
-          hint = "Grid size of sampling"
-        }
-        _texlightgap: =
-        {
-          txt = "&"
-          hint = "Dark gap in front of texlight"
-          typ = "C"
-          items = "Default (no gap)"$0D"0.0 - no gap"$0D"3.0 - small gap"$0D"12."
-           "0 - large gap"
-          values = $0D"0.0"$0D"3.0"$0D"12.0"
-        }
-        _fast: =
-        {
-          txt = "&"
-          hint = "Fast"
-          typ = "C"
-          items = "Auto"$0D"Yes"$0D"No"
-          values = $0D"1"$0D"2"
-        }
-        convertto: =
-        {
-          txt = "&"
-          hint = "Classname in game"
-          typ = "C"
-          items = "light"$0D"light_spot"
-          values = "light"$0D"light_spot"
-        }
-        targetname: =
-        {
-          txt = "&"
-          hint = "Name"
-        }
-        style: =
-        {
-          txt = "&"
-          hint = "Appearance (no name allowed)"
-          typ = "C"
-          items = "Normal"$0D"Fluorescent flicker"$0D"Slow, strong pulse"$0D"Slo"
-           "w pulse, no black"$0D"Gentle pulse"$0D"Flicker A"$0D"Flicker B"$0D"C"
-           "andle A"$0D"Candle B"$0D"Candle C"$0D"Fast strobe"$0D"Slow strobe"$0D
-           "Underwater mutation"
-          values = $0D"10"$0D"2"$0D"11"$0D"5"$0D"1"$0D"6"$0D"3"$0D"7"$0D"8"$0D"4"
-           $0D"9"$0D"12"
-        }
-        pattern: =
-        {
-          txt = "&"
-          hint = "Custom Appearance"
-        }
-        spawnflags: =
-        {
-          txt = "&"
-          typ = "X1"
-          cap = "Initially dark"
-        }
-        spawnflags: =
-        {
-          txt = "&"
-          typ = "X2048"
-          cap = "Not in Deathmatch"
-        }
-      }
-      light_surface:form =
-      {
-        t_light_surface = "!"
-      }
       t_momentary_door:incl =
       {
         t_Door = "!"
@@ -10355,11 +7716,6 @@ QQRKSRC1
            "atic"$0D"Ratchet Groan"$0D"Clean Ratchet"$0D"Gas Clunk"
           values = "0"$0D"1"$0D"2"$0D"3"$0D"4"$0D"5"$0D"6"$0D"7"$0D"8"$0D"9"$0D"2"
            "1"$0D"22"$0D"23"$0D"24"$0D"25"
-        }
-        noise: =
-        {
-          txt = "&"
-          hint = "Sound Override"
         }
         distance: =
         {
@@ -10406,14 +7762,6 @@ QQRKSRC1
           txt = "&"
           hint = "_minlight"
         }
-        use_type: =
-        {
-          txt = "&"
-          hint = "Use Type"
-          typ = "C"
-          items = "Off"$0D"On"$0D"Set"$0D"Toggle"
-          values = "0"$0D"1"$0D"2"$0D"3"
-        }
       }
       momentary_rot_button:form =
       {
@@ -10452,15 +7800,6 @@ QQRKSRC1
       {
         bbox = '-32 -32 0 32 32 64'
         t_Monster = "!"
-        weapons: =
-        {
-          txt = "&"
-          hint = "Weapons"
-          typ = "C"
-          items = "Hivehand Only"$0D"Hivehand + Snarks"$0D"Melee-Only"$0D"Melee-"
-           "Only + Snarks"
-          values = "1"$0D"3"$0D"8"$0D"10"
-        }
         netname: =
         {
           txt = "&"
@@ -10727,27 +8066,6 @@ QQRKSRC1
       {
         t_monster_blkop_osprey = "!"
       }
-      t_monster_blkop_apache:incl =
-      {
-        bbox = '-360 -360 -172 360 360 8'
-        t_Monster = "!"
-        spawnflags: =
-        {
-          txt = "&"
-          typ = "X8"
-          cap = "NoWreckage"
-        }
-        spawnflags: =
-        {
-          txt = "&"
-          typ = "X64"
-          cap = "Start Inactive"
-        }
-      }
-      monster_blkop_apache:form =
-      {
-        t_monster_blkop_apache = "!"
-      }
       t_monster_bloater:incl =
       {
         bbox = '-16 -16 0 16 16 72'
@@ -10919,14 +8237,6 @@ QQRKSRC1
           typ = "X8"
           cap = "Head Controller"
         }
-        disableai: =
-        {
-          txt = "&"
-          hint = "Disable AI"
-          typ = "C"
-          items = "No"$0D"Yes"
-          values = "0"$0D"1"
-        }
       }
       monster_generic:form =
       {
@@ -11016,10 +8326,8 @@ QQRKSRC1
           txt = "&"
           hint = "Weapons"
           typ = "C"
-          items = "MP5"$0D"MP5 + HG"$0D"M16 + GL"$0D"Shotgun"$0D"Shotgun + HG"$0D
-           "Rocket Launcher"$0D"Rocket Launcher + HG"$0D"Sniper Rifle"$0D"Sniper"
-           " Rifle + HG"
-          values = "1"$0D"3"$0D"5"$0D"8"$0D"10"$0D"64"$0D"66"$0D"128"$0D"130"
+          items = "MP5"$0D"MP5 + HG"$0D"M16 + GL"$0D"Shotgun"$0D"Shotgun + HG"
+          values = "1"$0D"3"$0D"5"$0D"8"$0D"10"
         }
         sequence: =
         {
@@ -11195,9 +8503,8 @@ QQRKSRC1
           hint = "Weapons"
           typ = "C"
           items = "MP5"$0D"MP5 + HG"$0D"M16 + GL"$0D"Shotgun"$0D"Shotgun + HG"$0D
-           "Rocket Launcher"$0D"Rocket Launcher + HG"$0D"Sniper Rifle"$0D"Sniper"
-           " Rifle + HG"
-          values = "1"$0D"3"$0D"5"$0D"8"$0D"10"$0D"64"$0D"66"$0D"128"$0D"130"
+           "Rocket Launcher"$0D"Rocket Launcher + HG"
+          values = "1"$0D"3"$0D"5"$0D"8"$0D"10"$0D"64"$0D"66"
         }
       }
       monster_human_grunt:form =
@@ -11226,8 +8533,8 @@ QQRKSRC1
           hint = "Weapons"
           typ = "C"
           items = "Default"$0D"MP5"$0D"MP5 + HG"$0D"M16 + GL"$0D"Shotgun"$0D"Sho"
-           "tgun + HG"$0D"Saw"$0D"None"
-          values = "0"$0D"1"$0D"3"$0D"5"$0D"8"$0D"10"$0D"16"$0D"32"
+           "tgun + HG"$0D"Saw"
+          values = "0"$0D"1"$0D"3"$0D"5"$0D"8"$0D"10"$0D"16"
         }
         head: =
         {
@@ -11381,18 +8688,10 @@ QQRKSRC1
         weapons: =
         {
           txt = "&"
-          hint = "Secondary Weapon"
+          hint = "Drop Minigun"
           typ = "C"
-          items = "Random Pistol"$0D"Glock"$0D"Desert Eagle"$0D"357 Python"
-          values = "0"$0D"1"$0D"2"$0D"3"
-        }
-        disable_minigun_drop: =
-        {
-          txt = "&"
-          hint = "Disable Minigun Drop"
-          typ = "C"
-          items = "No (default)"$0D"Yes"
-          values = "0"$0D"1"
+          items = "Yes (on death)"$0D"No"
+          values = "0"$0D"256"
         }
       }
       monster_hwgrunt:form =
@@ -11719,11 +9018,6 @@ QQRKSRC1
           txt = "&"
           hint = "Squad Name"
         }
-        initammo: =
-        {
-          txt = "&"
-          hint = "Initial Ammo"
-        }
       }
       monster_pitdrone:form =
       {
@@ -11963,7 +9257,6 @@ QQRKSRC1
       {
         bbox = '-14 -14 22 14 14 72'
         t_Monster = "!"
-        t_TalkMonster = "!"
         body: =
         {
           txt = "&"
@@ -12228,7 +9521,7 @@ QQRKSRC1
           txt = "&"
           hint = "Make Player Allys"
           typ = "C"
-          items = "Default (0)"$0D"Opposite (1)"
+          items = "NO"$0D"YES"
           values = "0"$0D"1"
         }
         delay: =
@@ -12246,10 +9539,10 @@ QQRKSRC1
           txt = "&"
           hint = "Custom Health"
         }
-        path_name: =
+        goal_ent: =
         {
           txt = "&"
-          hint = "Path Name"
+          hint = "Goal Entity:"
         }
       }
       monstermaker:form =
@@ -12341,7 +9634,7 @@ QQRKSRC1
           txt = "&"
           hint = "Is Player Ally"
           typ = "C"
-          items = "No (Default)"$0D"Yes"
+          items = "No"$0D"Yes"
           values = "0"$0D"1"
         }
       }
@@ -12407,268 +9700,154 @@ QQRKSRC1
       {
         t_path_corner = "!"
       }
-      t_path_condition_controller:incl =
+      t_path_group:incl =
       {
         t_Targetname = "!"
+        aliasname: =
+        {
+          txt = "&"
+          hint = "(NPC Only) Group Name"
+        }
         spawnflags: =
         {
           txt = "&"
-          typ = "X1"
+          typ = "X8"
           cap = "Start Off"
-        }
-        pathcondition_list: =
-        {
-          txt = "&"
-          hint = "Path_condition List"
-        }
-        selecttype: =
-        {
-          txt = "&"
-          hint = "Selection Mode"
-          typ = "C"
-          items = "First Found (Default)"$0D"Random"$0D"Nearest to NPC"
-          values = "0"$0D"1"$0D"2"
-        }
-      }
-      path_condition_controller:form =
-      {
-        t_path_condition_controller = "!"
-      }
-      t_path_condition:incl =
-      {
-        t_Targetname = "!"
-        spawnflags: =
-        {
-          txt = "&"
-          typ = "X1"
-          cap = "Start Off"
-        }
-        delay_interval: =
-        {
-          txt = "&"
-          hint = "Delay Interval"
-        }
-        conditions_reference: =
-        {
-          txt = "&"
-          hint = "Conditions (Definition Name)"
-        }
-        mindistance: =
-        {
-          txt = "&"
-          hint = "Min Distance"
-        }
-        maxdistance: =
-        {
-          txt = "&"
-          hint = "Max Distance"
-        }
-        starttrigger: =
-        {
-          txt = "&"
-          hint = "Trigger on Stop Condition"
-        }
-        priority: =
-        {
-          txt = "&"
-          hint = "Priority Level"
-        }
-        selecttype: =
-        {
-          txt = "&"
-          hint = "Priority Override"
-          typ = "C"
-          items = "None (Default)"$0D"Ignore Following"$0D"Ignore Following and "
-           "Guarding"$0D"Ignore Following, Guarding, and Scripts"
-          values = "0"$0D"1"$0D"2"$0D"3"
-        }
-        pre_location: =
-        {
-          txt = "&"
-          hint = "Pre-Waypoint Destination"
-          typ = "C"
-          items = "None (Default)"$0D"Use This Origin"$0D"Enemy"$0D"Dead Enemy"$0D
-           "Sound"$0D"Scent"$0D"Near Hiding Spot"$0D"Far Hiding Spot"$0D"Named E"
-           "ntity"$0D"Entity by Key:Value"
-          values = "0"$0D"1"$0D"2"$0D"3"$0D"4"$0D"5"$0D"6"$0D"7"$0D"8"$0D"9"
-        }
-        pre_location_values: =
-        {
-          txt = "&"
-          hint = "Pre-Waypoint Parameters"
-        }
-        selecttype: =
-        {
-          txt = "&"
-          hint = "Waypoint Selection"
-          typ = "C"
-          items = "Start Waypoint"$0D"Nearest Waypoint to NPC"$0D"Random Waypoin"
-           "t"
-          values = "0"$0D"1"$0D"2"
         }
         path_start: =
         {
           txt = "&"
-          hint = "Start Waypoint"
+          hint = "Starting point"
         }
-        waypoint_list: =
+        requiredrange: =
         {
           txt = "&"
-          hint = "Path_Waypoint List"
+          hint = "Active Radius"
         }
-        key_filter: =
+        priority: =
         {
           txt = "&"
-          hint = "NPC Keyvalue Filter"
+          hint = "Group Priority Level"
         }
-        npc_trigger_target: =
+        selecttype: =
         {
           txt = "&"
-          hint = "NPC Trigger Target"
-        }
-        npc_trigger_interval: =
-        {
-          txt = "&"
-          hint = "NPC Trigger Interval"
-        }
-        m_szASConditionsName: =
-        {
-          txt = "&"
-          hint = "Angelscript condition name"
+          hint = "Point Selection"
+          typ = "C"
+          items = "Pick nearest in group"$0D"Pick the entry point"
+          values = "0"$0D"1"
         }
       }
-      path_condition:form =
+      path_group:form =
       {
-        t_path_condition = "!"
+        t_path_group = "!"
       }
-      t_path_waypoint:incl =
+      t_path_patrol:incl =
       {
         t_Targetname = "!"
+        spawnflags: =
+        {
+          txt = "&"
+          typ = "X8"
+          cap = "Start Off"
+        }
+        spawnflags: =
+        {
+          txt = "&"
+          typ = "X16"
+          cap = "Entry Point"
+        }
+        spawnflags: =
+        {
+          txt = "&"
+          typ = "X32"
+          cap = "Toggle On Reach"
+        }
         target: =
         {
           txt = "&"
-          hint = "Next Path_waypoint"
+          hint = "Next Waypoint"
         }
-        alternate_target: =
+        message: =
         {
           txt = "&"
-          hint = "Alternate Next Path_waypoint"
+          hint = "Target On Pass"
         }
         movementtype: =
         {
           txt = "&"
-          hint = "Move to Position"
+          hint = "Movement Type"
           typ = "C"
-          items = "Walk"$0D"Run"$0D"Teleport"$0D"Turn to Face"$0D"Don't Move"
-          values = "0"$0D"1"$0D"2"$0D"3"$0D"4"
+          items = "Walk"$0D"Run"
+          values = "0"$0D"1"
+        }
+        approachtype: =
+        {
+          txt = "&"
+          hint = "Approach Conditions"
+          typ = "C"
+          items = "No enemy"$0D"No enemy in sight"$0D"Ignore enemies"$0D"Goal Is"
+           " Closer Than Enemy"$0D"G.C.T.E./Enemy occluded"$0D"If can't attack"$0D
+           "Has Enemy"$0D"Has New Enemy"$0D"Has Enemy & Can See Enemy"
+          values = "0"$0D"1"$0D"2"$0D"3"$0D"4"$0D"5"$0D"6"$0D"7"$0D"8"
+        }
+        delay: =
+        {
+          txt = "&"
+          hint = "Wait"
+        }
+        animation: =
+        {
+          txt = "&"
+          hint = "Action Animation"
         }
         radius: =
         {
           txt = "&"
-          hint = "Move within Radius"
+          hint = "Goal Radius"
         }
-        useangles: =
+        healthbonus: =
         {
           txt = "&"
-          hint = "Face Waypoint Direction"
-          typ = "C"
-          items = "No (default)"$0D"Yes"
-          values = "0"$0D"1"
+          hint = "Health Bonus"
         }
-        trigger_on_arrival: =
+        enemyname: =
         {
           txt = "&"
-          hint = "Trigger on Arrival"
+          hint = "Target Enemy"
         }
-        arrival_animation: =
+        limit: =
         {
           txt = "&"
-          hint = "Arrival Animation"
+          hint = "Max. monster count"
         }
-        trigger_after_arrival: =
-        {
-          txt = "&"
-          hint = "Trigger after Arrival Animation"
-        }
-        wait_activity: =
-        {
-          txt = "&"
-          hint = "Wait Activity"
-          typ = "C"
-          items = "Play Wait Animation (default)"$0D"Look around"$0D"Investigate"
-           " Area"$0D"Use AI"
-          values = "0"$0D"1"$0D"2"$0D"3"
-        }
-        wait_animation: =
-        {
-          txt = "&"
-          hint = "Wait Animation"
-        }
-        wait_time: =
-        {
-          txt = "&"
-          hint = "Wait Time"
-        }
-        wait_master: =
-        {
-          txt = "&"
-          hint = "Wait Master"
-        }
-        waituntilfull: =
-        {
-          txt = "&"
-          hint = "Wait Here Until Full"
-          typ = "C"
-          items = "No (default)"$0D"Yes"
-          values = "0"$0D"1"
-        }
-        departure_animation: =
-        {
-          txt = "&"
-          hint = "Departure Animation"
-        }
-        trigger_on_departure: =
-        {
-          txt = "&"
-          hint = "Trigger on Departure"
-        }
-        occupant_radius_check: =
-        {
-          txt = "&"
-          hint = "Occupant Radius"
-        }
-        occupant_limit: =
-        {
-          txt = "&"
-          hint = "Maximum # Occupants"
-        }
-        overflow_waypoint: =
+        overflow: =
         {
           txt = "&"
           hint = "Overflow Waypoint"
         }
-        force_complete: =
+        waituntilfull: =
         {
           txt = "&"
-          hint = "Force Waypoint Completion"
+          hint = "Wait until full"
           typ = "C"
-          items = "No (default)"$0D"Yes"
+          items = "No"$0D"Yes"
           values = "0"$0D"1"
         }
-        stop_trigger: =
+        path_group: =
         {
           txt = "&"
-          hint = "Trigger on Stop Condition"
+          hint = "Path Group Name"
         }
-        restart_delay: =
+        path_priority: =
         {
           txt = "&"
-          hint = "Delay before Return"
+          hint = "Patrol Priority Level"
         }
       }
-      path_waypoint:form =
+      path_patrol:form =
       {
-        t_path_waypoint = "!"
+        t_path_patrol = "!"
       }
       t_path_track:incl =
       {
@@ -12718,20 +9897,10 @@ QQRKSRC1
           txt = "&"
           hint = "Fire on dead end"
         }
-        newspeed: =
-        {
-          txt = "&"
-          hint = "New Train Speed"
-        }
-        maxspeed: =
-        {
-          txt = "&"
-          hint = "New Maximum Speed"
-        }
         speed: =
         {
           txt = "&"
-          hint = "New Train Speed (Legacy)"
+          hint = "New Train Speed"
         }
       }
       path_track:form =
@@ -12809,7 +9978,6 @@ QQRKSRC1
       t_player_respawn_zone:incl =
       {
         t_Targetname = "!"
-        t_ZHLTbmodel = "!"
         zonetype: =
         {
           txt = "&"
@@ -13028,7 +10196,6 @@ QQRKSRC1
         t_Angles = "!"
         t_RenderFields = "!"
         t_AttackObject = "!"
-        t_NotRevivable = "!"
         spawnflags: =
         {
           txt = "&"
@@ -13146,7 +10313,7 @@ QQRKSRC1
           txt = "&"
           hint = "Is Player Ally"
           typ = "C"
-          items = "Default (0)"$0D"Opposite (1)"
+          items = "No"$0D"Yes"
           values = "0"$0D"1"
         }
         change_rendermode: =
@@ -13186,11 +10353,9 @@ QQRKSRC1
           items = "Default / No setting"$0D"MP5"$0D"MP5 + HG"$0D"M16 + GL"$0D"Sh"
            "otgun / Sniper Rifle"$0D"Shotgun / Sniper Rifle + HG"$0D"SAW (human_"
            "grunt_ally only!)"$0D"No Weapons (male_assassin only!)"$0D"Rocket La"
-           "uncher"$0D"Rocket Launcher + HG"$0D"Sniper Rifle (human_grunt only!)"
-           $0D"Sniper Rifle + HG (human_grunt only!)"$0D"Don't drop weapon (HWG "
-           "etc)"
+           "uncher"$0D"Rocket Launcher + HG"$0D"Don't drop weapon (HWG etc)"
           values = "0"$0D"1"$0D"3"$0D"5"$0D"8"$0D"10"$0D"16"$0D"32"$0D"64"$0D"66"
-           $0D"128"$0D"130"$0D"256"
+           $0D"256"
         }
         squadname: =
         {
@@ -13254,10 +10419,10 @@ QQRKSRC1
           items = "Map Default"$0D"Never"$0D"Always"
           values = "0"$0D"1"$0D"2"
         }
-        path_name: =
+        goal_ent: =
         {
           txt = "&"
-          hint = "Path Name"
+          hint = "Goal Entity"
         }
         guard_ent: =
         {
@@ -13278,11 +10443,6 @@ QQRKSRC1
         {
           txt = "&"
           hint = "P_model (Weapons Only)"
-        }
-        function_name: =
-        {
-          txt = "&"
-          hint = "Angelscript function name"
         }
       }
       squadmaker:form =
@@ -13343,7 +10503,6 @@ QQRKSRC1
       t_trigger_autosave:incl =
       {
         t_Targetname = "!"
-        t_ZHLTbmodel = "!"
         master: =
         {
           txt = "&"
@@ -13403,7 +10562,7 @@ QQRKSRC1
         {
           txt = "&"
           typ = "X32"
-          cap = "No Instant Turn"
+          cap = "Instant Turn"
         }
         spawnflags: =
         {
@@ -13422,12 +10581,6 @@ QQRKSRC1
           txt = "&"
           typ = "X256"
           cap = "Player Invulnerable"
-        }
-        spawnflags: =
-        {
-          txt = "&"
-          typ = "X512"
-          cap = "Ignore Hold Time"
         }
         speed: =
         {
@@ -13455,23 +10608,15 @@ QQRKSRC1
           hint = "Left Click Action"
           typ = "C"
           items = "No Action"$0D"Trigger Off"$0D"Trigger On"$0D"Trigger Toggle"$0D
-           "Remove"$0D"Hurt"$0D"Heal"$0D"Spawn"$0D"Teleport"$0D"Teleport Away"$0D
-           "Create Explosion"$0D"Drag"$0D"Exit Camera (Non-forced only)"
+           "Remove"$0D"Hurt"$0D"Heal"$0D"Spawn"$0D"Teleport"$0D"Teleport away"$0D
+           "Create Explosion"$0D"Drag"
           values = "0"$0D"1"$0D"2"$0D"3"$0D"4"$0D"5"$0D"6"$0D"7"$0D"8"$0D"9"$0D"1"
-           "0"$0D"11"$0D"255"
+           "0"$0D"11"
         }
         mouse_param_0_0: =
         {
           txt = "&"
           hint = "Left Click Param"
-        }
-        mouse_block_drag_0_0: =
-        {
-          txt = "&"
-          hint = "Left Click Block Drag Repeating Action"
-          typ = "C"
-          items = "No"$0D"Yes"
-          values = "0"$0D"1"
         }
         mouse_action_1_0: =
         {
@@ -13479,23 +10624,15 @@ QQRKSRC1
           hint = "Right Click Action"
           typ = "C"
           items = "No Action"$0D"Trigger Off"$0D"Trigger On"$0D"Trigger Toggle"$0D
-           "Remove"$0D"Hurt"$0D"Heal"$0D"Spawn"$0D"Teleport"$0D"Teleport Away"$0D
-           "Create Explosion"$0D"Drag"$0D"Exit Camera (Non-forced only)"
+           "Remove"$0D"Hurt"$0D"Heal"$0D"Spawn"$0D"Teleport"$0D"Teleport away"$0D
+           "Create Explosion"$0D"Drag"
           values = "0"$0D"1"$0D"2"$0D"3"$0D"4"$0D"5"$0D"6"$0D"7"$0D"8"$0D"9"$0D"1"
-           "0"$0D"11"$0D"255"
+           "0"$0D"11"
         }
         mouse_param_1_0: =
         {
           txt = "&"
           hint = "Right Click Param"
-        }
-        mouse_block_drag_1_0: =
-        {
-          txt = "&"
-          hint = "Right Click Block Drag Repeating Action"
-          typ = "C"
-          items = "No"$0D"Yes"
-          values = "0"$0D"1"
         }
         mouse_action_2_0: =
         {
@@ -13503,23 +10640,15 @@ QQRKSRC1
           hint = "Third Click Action"
           typ = "C"
           items = "No Action"$0D"Trigger Off"$0D"Trigger On"$0D"Trigger Toggle"$0D
-           "Remove"$0D"Hurt"$0D"Heal"$0D"Spawn"$0D"Teleport"$0D"Teleport Away"$0D
-           "Create Explosion"$0D"Drag"$0D"Exit Camera (Non-forced only)"
+           "Remove"$0D"Hurt"$0D"Heal"$0D"Spawn"$0D"Teleport"$0D"Teleport away"$0D
+           "Create Explosion"$0D"Drag"
           values = "0"$0D"1"$0D"2"$0D"3"$0D"4"$0D"5"$0D"6"$0D"7"$0D"8"$0D"9"$0D"1"
-           "0"$0D"11"$0D"255"
+           "0"$0D"11"
         }
         mouse_param_2_0: =
         {
           txt = "&"
           hint = "Third Click Param"
-        }
-        mouse_block_drag_2_0: =
-        {
-          txt = "&"
-          hint = "Third Click Block Drag Repeating Action"
-          typ = "C"
-          items = "No"$0D"Yes"
-          values = "0"$0D"1"
         }
         mouse_action_0_1: =
         {
@@ -13527,23 +10656,15 @@ QQRKSRC1
           hint = "Left Double Click Action"
           typ = "C"
           items = "No Action"$0D"Trigger Off"$0D"Trigger On"$0D"Trigger Toggle"$0D
-           "Remove"$0D"Hurt"$0D"Heal"$0D"Spawn"$0D"Teleport"$0D"Teleport Away"$0D
-           "Create Explosion"$0D"Drag"$0D"Exit Camera (Non-forced only)"
+           "Remove"$0D"Hurt"$0D"Heal"$0D"Spawn"$0D"Teleport"$0D"Teleport away"$0D
+           "Create Explosion"$0D"Drag"
           values = "0"$0D"1"$0D"2"$0D"3"$0D"4"$0D"5"$0D"6"$0D"7"$0D"8"$0D"9"$0D"1"
-           "0"$0D"11"$0D"255"
+           "0"$0D"11"
         }
         mouse_param_0_1: =
         {
           txt = "&"
-          hint = "Left Double Click Param"
-        }
-        mouse_block_drag_0_1: =
-        {
-          txt = "&"
-          hint = "Left Double Click Block Drag Repeating Action"
-          typ = "C"
-          items = "No"$0D"Yes"
-          values = "0"$0D"1"
+          hint = "Left Click Param"
         }
         mouse_action_1_1: =
         {
@@ -13551,23 +10672,15 @@ QQRKSRC1
           hint = "Right Double Click Action"
           typ = "C"
           items = "No Action"$0D"Trigger Off"$0D"Trigger On"$0D"Trigger Toggle"$0D
-           "Remove"$0D"Hurt"$0D"Heal"$0D"Spawn"$0D"Teleport"$0D"Teleport Away"$0D
-           "Create Explosion"$0D"Drag"$0D"Exit Camera (Non-forced only)"
+           "Remove"$0D"Hurt"$0D"Heal"$0D"Spawn"$0D"Teleport"$0D"Teleport away"$0D
+           "Create Explosion"$0D"Drag"
           values = "0"$0D"1"$0D"2"$0D"3"$0D"4"$0D"5"$0D"6"$0D"7"$0D"8"$0D"9"$0D"1"
-           "0"$0D"11"$0D"255"
+           "0"$0D"11"
         }
         mouse_param_1_1: =
         {
           txt = "&"
-          hint = "Right Double Click Param"
-        }
-        mouse_block_drag_1_1: =
-        {
-          txt = "&"
-          hint = "Right Double Click Block Drag Repeating Action"
-          typ = "C"
-          items = "No"$0D"Yes"
-          values = "0"$0D"1"
+          hint = "Right Click Param"
         }
         mouse_action_2_1: =
         {
@@ -13575,97 +10688,15 @@ QQRKSRC1
           hint = "Third Double Click Action"
           typ = "C"
           items = "No Action"$0D"Trigger Off"$0D"Trigger On"$0D"Trigger Toggle"$0D
-           "Remove"$0D"Hurt"$0D"Heal"$0D"Spawn"$0D"Teleport"$0D"Teleport Away"$0D
-           "Create Explosion"$0D"Drag"$0D"Exit Camera (Non-forced only)"
+           "Remove"$0D"Hurt"$0D"Heal"$0D"Spawn"$0D"Teleport"$0D"Teleport away"$0D
+           "Create Explosion"$0D"Drag"
           values = "0"$0D"1"$0D"2"$0D"3"$0D"4"$0D"5"$0D"6"$0D"7"$0D"8"$0D"9"$0D"1"
-           "0"$0D"11"$0D"255"
+           "0"$0D"11"
         }
         mouse_param_2_1: =
         {
           txt = "&"
           hint = "Third Double Click Param"
-        }
-        mouse_block_drag_2_1: =
-        {
-          txt = "&"
-          hint = "Third Double Click Block Drag Repeating Action"
-          typ = "C"
-          items = "No"$0D"Yes"
-          values = "0"$0D"1"
-        }
-        mouse_digital_action_reset: =
-        {
-          txt = "&"
-          hint = "Mouse Digital Action Reset Time"
-        }
-        m_iszASMouseEventCallbackName: =
-        {
-          txt = "&"
-          hint = "AS Mouse Event Callback Name"
-        }
-        m_iszASKeyInputCallbackName: =
-        {
-          txt = "&"
-          hint = "AS Key Input Callback Name"
-        }
-        m_iszOverridePlayerTargetname: =
-        {
-          txt = "&"
-          hint = "Set Player Targetname"
-        }
-        m_iszTargetWhenPlayerStartsUsing: =
-        {
-          txt = "&"
-          hint = "Target when player starts using"
-        }
-        m_iszTargetWhenPlayerStopsUsing: =
-        {
-          txt = "&"
-          hint = "Target when player stops using"
-        }
-        m_iszTurnedOffTarget: =
-        {
-          txt = "&"
-          hint = "Target when turned off"
-        }
-        max_player_count: =
-        {
-          txt = "&"
-          hint = "Max Players"
-        }
-        max_player_target: =
-        {
-          txt = "&"
-          hint = "Target: Player tried to use, but Max Players reached"
-        }
-        hud_health: =
-        {
-          txt = "&"
-          hint = "HUD: Health and Battery"
-          typ = "C"
-          items = "Show Health and Battery"$0D"Hide Health and Battery"
-          values = "0"$0D"1"
-        }
-        hud_flashlight: =
-        {
-          txt = "&"
-          hint = "HUD: Flashlight"
-          typ = "C"
-          items = "Show Flashlight"$0D"Hide Flashlight"
-          values = "0"$0D"1"
-        }
-        hud_weapons: =
-        {
-          txt = "&"
-          hint = "HUD: Weapons"
-          typ = "C"
-          items = "Show Weapons"$0D"Hide Weapons"
-          values = "0"$0D"1"
-        }
-        cursor_sprite: =
-        {
-          txt = "&"
-          hint = "Custom Cursor (Sprite)"
         }
       }
       trigger_camera:form =
@@ -13675,7 +10706,6 @@ QQRKSRC1
       t_trigger_cameratarget:incl =
       {
         t_Targetname = "!"
-        t_ZHLTbmodel = "!"
         spawnflags: =
         {
           txt = "&"
@@ -13702,14 +10732,6 @@ QQRKSRC1
           txt = "&"
           hint = "Left Click Param"
         }
-        mouse_block_drag_0_0: =
-        {
-          txt = "&"
-          hint = "Left Click Block Drag Repeating Action"
-          typ = "C"
-          items = "No"$0D"Yes"
-          values = "0"$0D"1"
-        }
         mouse_target_0_0: =
         {
           txt = "&"
@@ -13728,14 +10750,6 @@ QQRKSRC1
         {
           txt = "&"
           hint = "Right Click Param"
-        }
-        mouse_block_drag_1_0: =
-        {
-          txt = "&"
-          hint = "Right Click Block Drag Repeating Action"
-          typ = "C"
-          items = "No"$0D"Yes"
-          values = "0"$0D"1"
         }
         mouse_target_1_0: =
         {
@@ -13756,14 +10770,6 @@ QQRKSRC1
           txt = "&"
           hint = "Third Click Param"
         }
-        mouse_block_drag_2_0: =
-        {
-          txt = "&"
-          hint = "Third Click Block Drag Repeating Action"
-          typ = "C"
-          items = "No"$0D"Yes"
-          values = "0"$0D"1"
-        }
         mouse_target_2_0: =
         {
           txt = "&"
@@ -13782,14 +10788,6 @@ QQRKSRC1
         {
           txt = "&"
           hint = "Left Double Click Param"
-        }
-        mouse_block_drag_0_1: =
-        {
-          txt = "&"
-          hint = "Left Double Click Block Drag Repeating Action"
-          typ = "C"
-          items = "No"$0D"Yes"
-          values = "0"$0D"1"
         }
         mouse_target_0_1: =
         {
@@ -13810,14 +10808,6 @@ QQRKSRC1
           txt = "&"
           hint = "Right Double Click Param"
         }
-        mouse_block_drag_1_1: =
-        {
-          txt = "&"
-          hint = "Right Double Click Block Drag Repeating Action"
-          typ = "C"
-          items = "No"$0D"Yes"
-          values = "0"$0D"1"
-        }
         mouse_target_1_1: =
         {
           txt = "&"
@@ -13837,23 +10827,10 @@ QQRKSRC1
           txt = "&"
           hint = "Third Double Click Param"
         }
-        mouse_block_drag_2_1: =
-        {
-          txt = "&"
-          hint = "Third Double Click Block Drag Repeating Action"
-          typ = "C"
-          items = "No"$0D"Yes"
-          values = "0"$0D"1"
-        }
         mouse_target_2_1: =
         {
           txt = "&"
           hint = "Third Double Click Target"
-        }
-        mouse_digital_action_reset: =
-        {
-          txt = "&"
-          hint = "Mouse Digital Action Reset Time"
         }
       }
       trigger_cameratarget:form =
@@ -13863,7 +10840,6 @@ QQRKSRC1
       t_trigger_cdaudio:incl =
       {
         t_Targetname = "!"
-        t_ZHLTbmodel = "!"
         health: =
         {
           txt = "&"
@@ -13897,9 +10873,31 @@ QQRKSRC1
       }
       t_trigger_changelevel:incl =
       {
-        t_Targetname = "!"
-        t_InventoryRules = "!"
-        t_ZHLTbmodel = "!"
+        targetname: =
+        {
+          txt = "&"
+          hint = "Name"
+        }
+        map: =
+        {
+          txt = "&"
+          hint = "New map name"
+        }
+        landmark: =
+        {
+          txt = "&"
+          hint = "Landmark name"
+        }
+        changetarget: =
+        {
+          txt = "&"
+          hint = "Change Target"
+        }
+        changedelay: =
+        {
+          txt = "&"
+          hint = "Delay before change target"
+        }
         spawnflags: =
         {
           txt = "&"
@@ -13918,102 +10916,10 @@ QQRKSRC1
           typ = "X4"
           cap = "No CVAR override"
         }
-        map: =
-        {
-          txt = "&"
-          hint = "New map name"
-        }
-        landmark: =
-        {
-          txt = "&"
-          hint = "Landmark name"
-        }
-        keep_inventory: =
-        {
-          txt = "&"
-          hint = "Players take inventory to new map"
-          typ = "C"
-          items = "No"$0D"Yes"
-          values = "0"$0D"1"
-        }
-        changetarget: =
-        {
-          txt = "&"
-          hint = "Change Target"
-        }
-        changedelay: =
-        {
-          txt = "&"
-          hint = "Delay before change target"
-        }
-        percent_of_players: =
-        {
-          txt = "&"
-          hint = "Percentage of players needed"
-        }
       }
       trigger_changelevel:form =
       {
         t_trigger_changelevel = "!"
-      }
-      t_trigger_changemaxammo:incl =
-      {
-        t_Targetname = "!"
-        target: =
-        {
-          txt = "&"
-          hint = "Trigger after fire"
-        }
-        spawnflags: =
-        {
-          txt = "&"
-          typ = "X1"
-          cap = "All players"
-        }
-        spawnflags: =
-        {
-          txt = "&"
-          typ = "X2"
-          cap = "Remove excess ammo"
-        }
-        spawnflags: =
-        {
-          txt = "&"
-          typ = "X4"
-          cap = "Set ammo to new max"
-        }
-        message: =
-        {
-          txt = "&"
-          hint = "Ammo name"
-          typ = "C"
-          items = "9mm Rounds"$0D"Crossbow Bolts"$0D".357 Rounds"$0D"Uranium Amm"
-           "o"$0D"Hand Grenades"$0D"Hornets"$0D"5.56 Rounds"$0D"AR Grenades"$0D"H"
-           "ealth (Medkit Ammo)"$0D"Rockets"$0D"Satchel Charges"$0D"Shock Rifle "
-           "Ammo"$0D"Shotgun Ammo"$0D"Sniper Rifle Ammo"$0D"Spore Launcher Ammo"$0D
-           "Snarks"$0D"Trip Mines"
-          values = "9mm"$0D"bolts"$0D"357"$0D"uranium"$0D"Hand Grenade"$0D"Horne"
-           "ts"$0D"556"$0D"ARgrenades"$0D"health"$0D"rockets"$0D"Satchel Charge"$0D
-           "shock charges"$0D"buckshot"$0D"m40a1"$0D"sporeclip"$0D"Snarks"$0D"Tr"
-           "ip Mine"
-        }
-        m_iMaxAmmo: =
-        {
-          txt = "&"
-          hint = "Value to use"
-        }
-        m_Mode: =
-        {
-          txt = "&"
-          hint = "Change Max Ammo Mode"
-          typ = "C"
-          items = "Set"$0D"Reset"$0D"Add"$0D"Subtract"
-          values = "0"$0D"1"$0D"2"$0D"3"
-        }
-      }
-      trigger_changemaxammo:form =
-      {
-        t_trigger_changemaxammo = "!"
       }
       t_trigger_changemodel:incl =
       {
@@ -14039,8 +10945,8 @@ QQRKSRC1
       }
       t_trigger_changetarget:incl =
       {
-        t_Targetname = "!"
         t_Targetx = "!"
+        t_Targetname = "!"
         m_iszNewTarget: =
         {
           txt = "&"
@@ -14050,42 +10956,6 @@ QQRKSRC1
       trigger_changetarget:form =
       {
         t_trigger_changetarget = "!"
-      }
-      t_trigger_changesky:incl =
-      {
-        t_Targetname = "!"
-        skyname: =
-        {
-          txt = "&"
-          hint = "Sky Name"
-        }
-        color: =
-        {
-          txt = "&"
-          hint = "Color"
-        }
-        spawnflags: =
-        {
-          txt = "&"
-          typ = "X1"
-          cap = "All players"
-        }
-        spawnflags: =
-        {
-          txt = "&"
-          typ = "X2"
-          cap = "No clients"
-        }
-        spawnflags: =
-        {
-          txt = "&"
-          typ = "X4"
-          cap = "Update server"
-        }
-      }
-      trigger_changesky:form =
-      {
-        t_trigger_changesky = "!"
       }
       t_trigger_changevalue:incl =
       {
@@ -14425,7 +11295,6 @@ QQRKSRC1
       {
         t_Trigger = "!"
         t_Targetname = "!"
-        t_ZHLTbmodel = "!"
         spawnflags: =
         {
           txt = "&"
@@ -14450,7 +11319,6 @@ QQRKSRC1
       t_trigger_createentity:incl =
       {
         t_Targetname = "!"
-        t_Targetx = "!"
         m_iszCrtEntChildClass: =
         {
           txt = "&"
@@ -14461,152 +11329,19 @@ QQRKSRC1
           txt = "&"
           hint = "Child Targetname"
         }
+        m_iszTriggerAfter: =
+        {
+          txt = "&"
+          hint = "Trigger after spawn"
+        }
       }
       trigger_createentity:form =
       {
         t_trigger_createentity = "!"
       }
-      t_trigger_cyclicobserver:incl =
-      {
-        bbox = '-8 -8 -8 8 8 8'
-        t_Targetname = "!"
-        t_Target = "!"
-        m_Mode: =
-        {
-          txt = "&"
-          hint = "Mode to use"
-          typ = "C"
-          items = "Off"$0D"On"$0D"Toggle"
-          values = "0"$0D"1"$0D"2"
-        }
-      }
-      trigger_cyclicobserver:form =
-      {
-        t_trigger_cyclicobserver = "!"
-      }
-      t_trigger_effect:incl =
-      {
-        t_Targetname = "!"
-        t_Target = "!"
-        effect_glow_mode: =
-        {
-          txt = "&"
-          hint = "Glow shell mode"
-          typ = "C"
-          items = "No change"$0D"Add"$0D"Subtract"
-          values = "0"$0D"1"$0D"2"
-        }
-        effect_glow: =
-        {
-          txt = "&"
-          hint = "Glow shell color (R G B)"
-        }
-        effect_block_weapons_mode: =
-        {
-          txt = "&"
-          hint = "Block weapons"
-          typ = "C"
-          items = "No change"$0D"Add"$0D"Subtract"
-          values = "0"$0D"1"$0D"2"
-        }
-        effect_invulnerable_mode: =
-        {
-          txt = "&"
-          hint = "Invulnerable"
-          typ = "C"
-          items = "No change"$0D"Add"$0D"Subtract"
-          values = "0"$0D"1"$0D"2"
-        }
-        effect_invisible_mode: =
-        {
-          txt = "&"
-          hint = "Invisible"
-          typ = "C"
-          items = "No change"$0D"Add"$0D"Subtract"
-          values = "0"$0D"1"$0D"2"
-        }
-        effect_nonsolid_mode: =
-        {
-          txt = "&"
-          hint = "Non-solid"
-          typ = "C"
-          items = "No change"$0D"Add"$0D"Subtract"
-          values = "0"$0D"1"$0D"2"
-        }
-        effect_respiration_mode: =
-        {
-          txt = "&"
-          hint = "Time before drown mode"
-          typ = "C"
-          items = "No change"$0D"Add"$0D"Subtract"
-          values = "0"$0D"1"$0D"2"
-        }
-        effect_respiration: =
-        {
-          txt = "&"
-          hint = "Time before drown (seconds)"
-        }
-        effect_friction_mode: =
-        {
-          txt = "&"
-          hint = "Friction modifier mode"
-          typ = "C"
-          items = "No change"$0D"Add"$0D"Subtract"
-          values = "0"$0D"1"$0D"2"
-        }
-        effect_friction: =
-        {
-          txt = "&"
-          hint = "Friction modifier (%)"
-        }
-        effect_gravity_mode: =
-        {
-          txt = "&"
-          hint = "Gravity modifier mode"
-          typ = "C"
-          items = "No change"$0D"Add"$0D"Subtract"
-          values = "0"$0D"1"$0D"2"
-        }
-        effect_gravity: =
-        {
-          txt = "&"
-          hint = "Gravity modifier (%)"
-        }
-        effect_speed_mode: =
-        {
-          txt = "&"
-          hint = "Speed modifier mode"
-          typ = "C"
-          items = "No change"$0D"Add"$0D"Subtract"
-          values = "0"$0D"1"$0D"2"
-        }
-        effect_speed: =
-        {
-          txt = "&"
-          hint = "Speed modifier (%)"
-        }
-        effect_damage_mode: =
-        {
-          txt = "&"
-          hint = "Damage modifier mode"
-          typ = "C"
-          items = "No change"$0D"Add"$0D"Subtract"
-          values = "0"$0D"1"$0D"2"
-        }
-        effect_damage: =
-        {
-          txt = "&"
-          hint = "Damage modifier (%)"
-        }
-      }
-      trigger_effect:form =
-      {
-        t_trigger_effect = "!"
-      }
       t_trigger_endsection:incl =
       {
         t_Targetname = "!"
-        t_ZHLTbmodel = "!"
         section: =
         {
           txt = "&"
@@ -14709,8 +11444,6 @@ QQRKSRC1
       {
         t_Targetname = "!"
         t_Target = "!"
-        t_InventoryRules = "!"
-        t_ZHLTbmodel = "!"
         spawnflags: =
         {
           txt = "&"
@@ -14740,12 +11473,6 @@ QQRKSRC1
           txt = "&"
           typ = "X32"
           cap = "TouchClientOnly"
-        }
-        spawnflags: =
-        {
-          txt = "&"
-          typ = "X64"
-          cap = "Affect non-moving NPC's"
         }
         master: =
         {
@@ -14913,7 +11640,6 @@ QQRKSRC1
       t_trigger_monsterjump:incl =
       {
         t_Angles = "!"
-        t_ZHLTbmodel = "!"
         master: =
         {
           txt = "&"
@@ -14946,59 +11672,6 @@ QQRKSRC1
       trigger_multiple:form =
       {
         t_trigger_multiple = "!"
-      }
-      t_trigger_numericdisplay:incl =
-      {
-        bbox = '-16 -16 -16 16 16 16'
-        t_Targetname = "!"
-        spawnflags: =
-        {
-          txt = "&"
-          typ = "X1"
-          cap = "Start On"
-        }
-        spawnflags: =
-        {
-          txt = "&"
-          typ = "X2"
-          cap = "Cyclic"
-        }
-        spawnflags: =
-        {
-          txt = "&"
-          typ = "X4"
-          cap = "Ignore leading zeroes"
-        }
-        spawnflags: =
-        {
-          txt = "&"
-          typ = "X8"
-          cap = "Zero as leading"
-        }
-        target: =
-        {
-          txt = "&"
-          hint = "Entity to track"
-        }
-        netname: =
-        {
-          txt = "&"
-          hint = "Key to read"
-        }
-        message: =
-        {
-          txt = "&"
-          hint = "Base digit name"
-        }
-        frags: =
-        {
-          txt = "&"
-          hint = "Update delay"
-        }
-      }
-      trigger_numericdisplay:form =
-      {
-        t_trigger_numericdisplay = "!"
       }
       t_trigger_once:incl =
       {
@@ -15052,9 +11725,113 @@ QQRKSRC1
       {
         t_trigger_push = "!"
       }
-      t_BaseRandom:incl =
+      t_trigger_random:incl =
       {
         t_Targetname = "!"
+        target_count: =
+        {
+          txt = "&"
+          hint = "Target Count"
+        }
+        target1: =
+        {
+          txt = "&"
+          hint = "Target 1"
+        }
+        target2: =
+        {
+          txt = "&"
+          hint = "Target 2"
+        }
+        target3: =
+        {
+          txt = "&"
+          hint = "Target 3"
+        }
+        target4: =
+        {
+          txt = "&"
+          hint = "Target 4"
+        }
+        target5: =
+        {
+          txt = "&"
+          hint = "Target 5"
+        }
+      }
+      trigger_random:form =
+      {
+        t_trigger_random = "!"
+      }
+      t_trigger_random_time:incl =
+      {
+        t_Targetname = "!"
+        spawnflags: =
+        {
+          txt = "&"
+          typ = "X1"
+          cap = "Start On"
+        }
+        spawnflags: =
+        {
+          txt = "&"
+          typ = "X2"
+          cap = "Trigger Once"
+        }
+        target_count: =
+        {
+          txt = "&"
+          hint = "Target Count"
+        }
+        target1: =
+        {
+          txt = "&"
+          hint = "Target 1"
+        }
+        target2: =
+        {
+          txt = "&"
+          hint = "Target 2"
+        }
+        target3: =
+        {
+          txt = "&"
+          hint = "Target 3"
+        }
+        target4: =
+        {
+          txt = "&"
+          hint = "Target 4"
+        }
+        target5: =
+        {
+          txt = "&"
+          hint = "Target 5"
+        }
+        min_delay: =
+        {
+          txt = "&"
+          hint = "Minimum Delay (0 = off)"
+        }
+        max_delay: =
+        {
+          txt = "&"
+          hint = "Maximum Delay (0 = off)"
+        }
+      }
+      trigger_random_time:form =
+      {
+        t_trigger_random_time = "!"
+      }
+      t_trigger_random_unique:incl =
+      {
+        t_Targetname = "!"
+        spawnflags: =
+        {
+          txt = "&"
+          typ = "X1"
+          cap = "Re-usable"
+        }
         target_count: =
         {
           txt = "&"
@@ -15100,112 +11877,6 @@ QQRKSRC1
           txt = "&"
           hint = "Target 8"
         }
-        target9: =
-        {
-          txt = "&"
-          hint = "Target 9"
-        }
-        target10: =
-        {
-          txt = "&"
-          hint = "Target 10"
-        }
-        target11: =
-        {
-          txt = "&"
-          hint = "Target 11"
-        }
-        target12: =
-        {
-          txt = "&"
-          hint = "Target 12"
-        }
-        target13: =
-        {
-          txt = "&"
-          hint = "Target 13"
-        }
-        target14: =
-        {
-          txt = "&"
-          hint = "Target 14"
-        }
-        target15: =
-        {
-          txt = "&"
-          hint = "Target 15"
-        }
-        target16: =
-        {
-          txt = "&"
-          hint = "Target 16"
-        }
-      }
-      t_trigger_random:incl =
-      {
-        t_BaseRandom = "!"
-        spawnflags: =
-        {
-          txt = "&"
-          typ = "X1"
-          cap = "Start On (Timed only)"
-        }
-        spawnflags: =
-        {
-          txt = "&"
-          typ = "X2"
-          cap = "Trigger Once (Timed only)"
-        }
-        spawnflags: =
-        {
-          txt = "&"
-          typ = "X4"
-          cap = "Reusable (Unique only)"
-        }
-        spawnflags: =
-        {
-          txt = "&"
-          typ = "X8"
-          cap = "Timed"
-        }
-        spawnflags: =
-        {
-          txt = "&"
-          typ = "X16"
-          cap = "Unique"
-        }
-        min_delay: =
-        {
-          txt = "&"
-          hint = "Minimum Delay (0 = off)"
-        }
-        max_delay: =
-        {
-          txt = "&"
-          hint = "Maximum Delay (0 = off)"
-        }
-      }
-      trigger_random:form =
-      {
-        t_trigger_random = "!"
-      }
-      t_trigger_random_time:incl =
-      {
-        t_trigger_random = "!"
-      }
-      trigger_random_time:form =
-      {
-        t_trigger_random_time = "!"
-      }
-      t_trigger_random_unique:incl =
-      {
-        t_BaseRandom = "!"
-        spawnflags: =
-        {
-          txt = "&"
-          typ = "X1"
-          cap = "Re-usable"
-        }
       }
       trigger_random_unique:form =
       {
@@ -15221,12 +11892,6 @@ QQRKSRC1
           typ = "X1"
           cap = "Remove On fire"
         }
-        spawnflags: =
-        {
-          txt = "&"
-          typ = "X64"
-          cap = "Keep '!activator'"
-        }
         triggerstate: =
         {
           txt = "&"
@@ -15234,11 +11899,6 @@ QQRKSRC1
           typ = "C"
           items = "Off"$0D"On"$0D"Toggle"
           values = "0"$0D"1"$0D"2"
-        }
-        m_flDelayBeforeReset: =
-        {
-          txt = "&"
-          hint = "Delay Before Reset"
         }
       }
       trigger_relay:form =
@@ -15275,18 +11935,6 @@ QQRKSRC1
           typ = "X1"
           cap = "Respawn Target"
         }
-        spawnflags: =
-        {
-          txt = "&"
-          typ = "X2"
-          cap = "Respawn dead players"
-        }
-        spawnflags: =
-        {
-          txt = "&"
-          typ = "X4"
-          cap = "Don't move living players"
-        }
       }
       trigger_respawn:form =
       {
@@ -15320,75 +11968,34 @@ QQRKSRC1
       {
         t_trigger_save = "!"
       }
-      t_trigger_script:incl =
-      {
-        t_Targetname = "!"
-        t_Targetx = "!"
-        m_iszScriptFile: =
-        {
-          txt = "&"
-          hint = "Script to load"
-        }
-        m_iszScriptFunctionName: =
-        {
-          txt = "&"
-          hint = "Function to execute on trigger"
-        }
-        m_flThinkDelta: =
-        {
-          txt = "&"
-          hint = "Time between thinks"
-        }
-        m_iMode: =
-        {
-          txt = "&"
-          hint = "Mode"
-          typ = "C"
-          items = "Trigger"$0D"Think"
-          values = "1"$0D"2"
-        }
-        spawnflags: =
-        {
-          txt = "&"
-          typ = "X1"
-          cap = "Start on"
-        }
-      }
-      trigger_script:form =
-      {
-        t_trigger_script = "!"
-      }
       t_trigger_setcvar:incl =
       {
         t_Targetname = "!"
         m_iszCVarToChange: =
         {
           txt = "&"
-          hint = "CVAR (only these are allowed)"
+          hint = "CVar (only these are allowed)"
           typ = "C"
           items = "mp_allowmonsterinfo"$0D"mp_banana"$0D"mp_barnacle_paralyze"$0D
            "mp_disablegaussjump"$0D"mp_disable_autoclimb"$0D"mp_disable_pcbalanc"
            "ing"$0D"mp_disable_player_rappel"$0D"mp_dropweapons"$0D"mp_falldamag"
            "e"$0D"mp_flashlight"$0D"mp_forcerespawn"$0D"mp_fraglimit"$0D"mp_grap"
-           "ple_mode"$0D"mp_monsterpoints"$0D"mp_noblastgibs"$0D"mp_nomedkit"$0D
-           "mp_no_akimbo_uzis"$0D"mp_npckill"$0D"mp_pcbalancing_factorlist"$0D"m"
-           "p_respawndelay"$0D"mp_timelimit"$0D"mp_weaponstay"$0D"mp_weapon_resp"
-           "awndelay"$0D"mp_ammo_respawndelay"$0D"mp_item_respawndelay"$0D"npc_d"
-           "ropweapons"$0D"skill"$0D"sk_* (see skill.cfg)"$0D"sv_ai_enemy_detect"
-           "ion_mode"$0D"sv_accelerate"$0D"sv_airaccelerate"$0D"sv_friction"$0D"s"
-           "v_gravity"$0D"sv_maxspeed"$0D"sv_wateraccelerate"$0D"sv_waterfrictio"
-           "n"
+           "ple_mode"$0D"mp_monsterpoints"$0D"mp_no_akimbo_uzis"$0D"mp_noblastgi"
+           "bs"$0D"mp_nomedkit"$0D"mp_npckill"$0D"mp_pcbalancing_factorlist"$0D"m"
+           "p_respawndelay"$0D"mp_timelimit"$0D"mp_weaponstay"$0D"sk_* (see skil"
+           "l.cfg)"$0D"skill"$0D"sv_accelerate"$0D"sv_airaccelerate"$0D"sv_airmo"
+           "ve"$0D"sv_friction"$0D"sv_gravity"$0D"sv_maxspeed"$0D"sv_wateraccele"
+           "rate"$0D"sv_waterfriction"
           values = "mp_allowmonsterinfo"$0D"mp_banana"$0D"mp_barnacle_paralyze"$0D
            "mp_disablegaussjump"$0D"mp_disable_autoclimb"$0D"mp_disable_pcbalanc"
            "ing"$0D"mp_disable_player_rappel"$0D"mp_dropweapons"$0D"mp_falldamag"
            "e"$0D"mp_flashlight"$0D"mp_forcerespawn"$0D"mp_fraglimit"$0D"mp_grap"
-           "ple_mode"$0D"mp_monsterpoints"$0D"mp_noblastgibs"$0D"mp_nomedkit"$0D
-           "mp_no_akimbo_uzis"$0D"mp_npckill"$0D"mp_pcbalancing_factorlist"$0D"m"
-           "p_respawndelay"$0D"mp_timelimit"$0D"mp_weaponstay"$0D"mp_weapon_resp"
-           "awndelay"$0D"mp_ammo_respawndelay"$0D"mp_item_respawndelay"$0D"npc_d"
-           "ropweapons"$0D"skill"$0D"sk_"$0D"sv_ai_enemy_detection_mode"$0D"sv_a"
-           "ccelerate"$0D"sv_airaccelerate"$0D"sv_friction"$0D"sv_gravity"$0D"sv"
-           "_maxspeed"$0D"sv_wateraccelerate"$0D"sv_waterfriction"
+           "ple_mode"$0D"mp_monsterpoints"$0D"mp_no_akimbo_uzis"$0D"mp_noblastgi"
+           "bs"$0D"mp_nomedkit"$0D"mp_npckill"$0D"mp_pcbalancing_factorlist"$0D"m"
+           "p_respawndelay"$0D"mp_timelimit"$0D"mp_weaponstay"$0D"sk_"$0D"skill"$0D
+           "sv_accelerate"$0D"sv_airaccelerate"$0D"sv_airmove"$0D"sv_friction"$0D
+           "sv_gravity"$0D"sv_maxspeed"$0D"sv_wateraccelerate"$0D"sv_waterfricti"
+           "on"
         }
         message: =
         {
@@ -15399,14 +12006,6 @@ QQRKSRC1
         {
           txt = "&"
           hint = "Trigger after set"
-        }
-        SetType: =
-        {
-          txt = "&"
-          hint = "Which CVARs to set"
-          typ = "C"
-          items = "All"$0D"Engine"$0D"Angelscript"
-          values = "0"$0D"1"$0D"2"
         }
       }
       trigger_setcvar:form =
@@ -15555,34 +12154,22 @@ QQRKSRC1
           typ = "X1024"
           cap = "Rotate (Dest Angles)"
         }
+        spawnflags: =
+        {
+          txt = "&"
+          typ = "X2048"
+          cap = "Ignore Delays"
+        }
+        spawnflags: =
+        {
+          txt = "&"
+          typ = "X4096"
+          cap = "Start Inactive"
+        }
         teleport_cooldown: =
         {
           txt = "&"
           hint = "Teleport Cooldown Delay"
-        }
-        teleport_ignore_delay: =
-        {
-          txt = "&"
-          hint = "Ignore Delays"
-          typ = "C"
-          items = "No"$0D"Yes"
-          values = "0"$0D"1"
-        }
-        teleport_start_inactive: =
-        {
-          txt = "&"
-          hint = "Start Inactive"
-          typ = "C"
-          items = "No"$0D"Yes"
-          values = "0"$0D"1"
-        }
-        teleport_if_blocked: =
-        {
-          txt = "&"
-          hint = "Teleport If Blocked"
-          typ = "C"
-          items = "No"$0D"Yes"
-          values = "0"$0D"1"
         }
       }
       trigger_teleport:form =
@@ -15599,21 +12186,10 @@ QQRKSRC1
           typ = "X1"
           cap = "Stopped Only"
         }
-        spawnflags: =
-        {
-          txt = "&"
-          typ = "X2"
-          cap = "Don't move if no path available"
-        }
         path_name: =
         {
           txt = "&"
           hint = "Path Name"
-        }
-        m_iszSoundNoPath: =
-        {
-          txt = "&"
-          hint = "Sound to play if no path is available"
         }
       }
       trigger_track_goal:form =
@@ -15623,7 +12199,6 @@ QQRKSRC1
       t_trigger_transition:incl =
       {
         t_Targetname = "!"
-        t_ZHLTbmodel = "!"
       }
       trigger_transition:form =
       {
@@ -15662,16 +12237,6 @@ QQRKSRC1
           txt = "&"
           hint = "No Vote Target"
         }
-        m_iszYesString: =
-        {
-          txt = "&"
-          hint = "Yes string (optional)"
-        }
-        m_iszNoString: =
-        {
-          txt = "&"
-          hint = "No string (optional)"
-        }
       }
       trigger_vote:form =
       {
@@ -15681,7 +12246,6 @@ QQRKSRC1
       {
         t_Weapon = "!"
         t_Targetx = "!"
-        t_ExclusiveHold = "!"
       }
       weapon_357:form =
       {
@@ -15691,7 +12255,6 @@ QQRKSRC1
       {
         t_Weapon = "!"
         t_Targetx = "!"
-        t_ExclusiveHold = "!"
       }
       weapon_9mmAR:form =
       {
@@ -15701,7 +12264,6 @@ QQRKSRC1
       {
         t_Weapon = "!"
         t_Targetx = "!"
-        t_ExclusiveHold = "!"
       }
       weapon_9mmhandgun:form =
       {
@@ -15711,7 +12273,6 @@ QQRKSRC1
       {
         t_Weapon = "!"
         t_Targetx = "!"
-        t_ExclusiveHold = "!"
         sequence: =
         {
           txt = "&"
@@ -15729,95 +12290,15 @@ QQRKSRC1
       {
         t_Weapon = "!"
         t_Targetx = "!"
-        t_ExclusiveHold = "!"
       }
       weapon_crowbar:form =
       {
         t_weapon_crowbar = "!"
       }
-      t_weapon_displacer:incl =
-      {
-        t_Weapon = "!"
-        t_Targetx = "!"
-        t_ExclusiveHold = "!"
-        spawnflags: =
-        {
-          txt = "&"
-          typ = "X64"
-          cap = "Random Destination"
-        }
-        spawnflags: =
-        {
-          txt = "&"
-          typ = "X128"
-          cap = "Rotate (Dest Angles)"
-        }
-        spawnflags: =
-        {
-          txt = "&"
-          typ = "X256"
-          cap = "Keep Angles"
-        }
-        spawnflags: =
-        {
-          txt = "&"
-          typ = "X512"
-          cap = "Keep velocity"
-        }
-        spawnflags: =
-        {
-          txt = "&"
-          typ = "X4096"
-          cap = "Ignore delay"
-        }
-        m_TertiaryMode: =
-        {
-          txt = "&"
-          hint = "Tertiary fire mode"
-          typ = "C"
-          items = "Default (weaponmode_displacer)"$0D"Disable"$0D"Enable"
-          values = "0"$0D"1"$0D"2"
-        }
-        m_flPortalSpeed: =
-        {
-          txt = "&"
-          hint = "Portal Speed"
-        }
-        m_flPortalRadius: =
-        {
-          txt = "&"
-          hint = "Portal Radius"
-        }
-        m_iszTeleportDestination: =
-        {
-          txt = "&"
-          hint = "Teleport destination"
-        }
-        m_flPrimaryAmmoNeeded: =
-        {
-          txt = "&"
-          hint = "Ammo needed/used to fire primary"
-        }
-        m_flSecondaryAmmoNeeded: =
-        {
-          txt = "&"
-          hint = "Ammo needed/used to fire secondary"
-        }
-        m_flTertiaryAmmoNeeded: =
-        {
-          txt = "&"
-          hint = "Ammo needed/used to fire tertiary"
-        }
-      }
-      weapon_displacer:form =
-      {
-        t_weapon_displacer = "!"
-      }
       t_weapon_eagle:incl =
       {
         t_Weapon = "!"
         t_Targetx = "!"
-        t_ExclusiveHold = "!"
       }
       weapon_eagle:form =
       {
@@ -15827,7 +12308,6 @@ QQRKSRC1
       {
         t_Weapon = "!"
         t_Targetx = "!"
-        t_ExclusiveHold = "!"
       }
       weapon_egon:form =
       {
@@ -15837,7 +12317,6 @@ QQRKSRC1
       {
         t_Weapon = "!"
         t_Targetx = "!"
-        t_ExclusiveHold = "!"
       }
       weapon_gauss:form =
       {
@@ -15847,7 +12326,6 @@ QQRKSRC1
       {
         t_Weapon = "!"
         t_Targetx = "!"
-        t_ExclusiveHold = "!"
       }
       weapon_grapple:form =
       {
@@ -15857,7 +12335,6 @@ QQRKSRC1
       {
         t_Weapon = "!"
         t_Targetx = "!"
-        t_ExclusiveHold = "!"
       }
       weapon_handgrenade:form =
       {
@@ -15867,7 +12344,6 @@ QQRKSRC1
       {
         t_Weapon = "!"
         t_Targetx = "!"
-        t_ExclusiveHold = "!"
       }
       weapon_hornetgun:form =
       {
@@ -15877,7 +12353,6 @@ QQRKSRC1
       {
         t_Weapon = "!"
         t_Targetx = "!"
-        t_ExclusiveHold = "!"
       }
       weapon_m16:form =
       {
@@ -15887,7 +12362,6 @@ QQRKSRC1
       {
         t_Weapon = "!"
         t_Targetx = "!"
-        t_ExclusiveHold = "!"
       }
       weapon_m249:form =
       {
@@ -15897,7 +12371,6 @@ QQRKSRC1
       {
         t_Weapon = "!"
         t_Targetx = "!"
-        t_ExclusiveHold = "!"
       }
       weapon_medkit:form =
       {
@@ -15916,7 +12389,6 @@ QQRKSRC1
       {
         t_Weapon = "!"
         t_Targetx = "!"
-        t_ExclusiveHold = "!"
       }
       weapon_pipewrench:form =
       {
@@ -15926,7 +12398,6 @@ QQRKSRC1
       {
         t_Weapon = "!"
         t_Targetx = "!"
-        t_ExclusiveHold = "!"
       }
       weapon_rpg:form =
       {
@@ -15936,26 +12407,15 @@ QQRKSRC1
       {
         t_Weapon = "!"
         t_Targetx = "!"
-        t_ExclusiveHold = "!"
       }
       weapon_satchel:form =
       {
         t_weapon_satchel = "!"
       }
-      t_weapon_shockrifle:incl =
-      {
-        t_Weapon = "!"
-        t_Targetx = "!"
-      }
-      weapon_shockrifle:form =
-      {
-        t_weapon_shockrifle = "!"
-      }
       t_weapon_shotgun:incl =
       {
         t_Weapon = "!"
         t_Targetx = "!"
-        t_ExclusiveHold = "!"
       }
       weapon_shotgun:form =
       {
@@ -15965,7 +12425,6 @@ QQRKSRC1
       {
         t_Weapon = "!"
         t_Targetx = "!"
-        t_ExclusiveHold = "!"
       }
       weapon_snark:form =
       {
@@ -15975,7 +12434,6 @@ QQRKSRC1
       {
         t_Weapon = "!"
         t_Targetx = "!"
-        t_ExclusiveHold = "!"
       }
       weapon_sniperrifle:form =
       {
@@ -15985,7 +12443,6 @@ QQRKSRC1
       {
         t_Weapon = "!"
         t_Targetx = "!"
-        t_ExclusiveHold = "!"
       }
       weapon_sporelauncher:form =
       {
@@ -15995,7 +12452,6 @@ QQRKSRC1
       {
         t_Weapon = "!"
         t_Targetx = "!"
-        t_ExclusiveHold = "!"
       }
       weapon_tripmine:form =
       {
@@ -16005,7 +12461,6 @@ QQRKSRC1
       {
         t_Weapon = "!"
         t_Targetx = "!"
-        t_ExclusiveHold = "!"
       }
       weapon_uzi:form =
       {
@@ -16015,7 +12470,6 @@ QQRKSRC1
       {
         t_Weapon = "!"
         t_Targetx = "!"
-        t_ExclusiveHold = "!"
       }
       weapon_uziakimbo:form =
       {
@@ -16024,7 +12478,6 @@ QQRKSRC1
       t_weaponbox:incl =
       {
         t_Item = "!"
-        t_CustomRespawnDelay = "!"
         bullet9mm: =
         {
           txt = "&"
