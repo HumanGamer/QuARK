@@ -37,6 +37,7 @@ between gamemodes.}
  mjHalfLife     = '3';
  mjGenesis3D    = '4';
  mjCoF          = '5';
+ mjSC           = '6';  { Sven Co-op }
  {..up to '9' Quake-style games may exist..}
 
  mjQuake2       = 'A';

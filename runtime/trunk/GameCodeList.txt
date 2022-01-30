@@ -31,6 +31,7 @@ Code    abbreviation            Name          or Screen name    Date taken
  3      Half-Life       Half-Life             Decker            01/30/2001
  4      Genesis3D       Genesis3D             SpaceDog          unknown
  5      CoF             Cry of Fear           DanielPharos      05/27/2021
+ 6      SC              Sven Co-op            DanielPharos      01/30/2022
 
 
  A      Q2              Quake 2               SpaceDog/Akuma    unknown
