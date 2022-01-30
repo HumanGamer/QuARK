@@ -191,7 +191,7 @@ type
                   Position: TStreamPos;
                   StreamSize: TStreamPos;
  {AiV}            OnAccess: Function (Ref: PQStreamRef; var S: TStream) : TStreamPos;
-                  PUserData: Pointer;
+                  PUserData: Pointer; //Used for GCF's, NCF's, VPK's
                 end;
 
   TInfoEnreg1 = class
