@@ -861,7 +861,9 @@ statediagram =                                                                  
                                                                                                 \
 ,'STATE_CHOICES3'       :[(TYPE_SPLITTER_COLON     ,'STATE_CHOICES4'       ,None)             ] \
                                                                                                 \
-,'STATE_CHOICES4'       :[(TYPE_STRING             ,'STATE_CHOICES5'       ,AddKeyChoiceDesc) ] \
+,'STATE_CHOICES4'       :[(TYPE_STRING             ,'STATE_CHOICES5'       ,AddKeyChoiceDesc)   \
+# Sven Co-op dialect:
+                         ,(TYPE_NUMERIC            ,'STATE_CHOICES5'       ,AddKeyChoiceDesc) ] \
 # JackHammer dialect:
 ,'STATE_CHOICES5'       :[(TYPE_SPLITTER_COLON     ,'STATE_CHOICES6'       ,None)               \
                          ,(TYPE_SPLITTER_SQUARE_E  ,'STATE_KEYSBEGIN'      ,EndKeyChoices)      \
