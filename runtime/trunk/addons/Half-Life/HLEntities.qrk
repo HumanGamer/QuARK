@@ -890,38 +890,6 @@ QQRKSRC1
         }
     }
 
-    Sven-Coop Entities.qtxfolder =
-    {
-        ;desc = "Send additions/corrections to mufasa@columbus.rr.com"
-
-        SVC Entities.qtxfolder = {
-                squadmaker:e = { t_orig_ang=! ;desc="Squad Maker"
-                        monstercount="-1"
-                        respawn_as_playerally="0"
-                        delay="5"
-                        m_imaxlivechildren="5"
-                        weapons="1"
-                        change_rendermode="0"
-                        new_model=""
-                        new_body="-1"
-                        trigger_condition="0"
-                        notsolid="-1"
-                        gag="-1"
-                        is_squad_leader="0"
-                        squadname=""
-                }
-                trigger_random:e = { origin="0 0 0" ;desc="Trigger Random"
-                        target_count="4"
-                }
-                trigger_random_time:e = { origin="0 0 0" ;desc="Trigger Random Time"
-                        target_count="4"
-                        min_delay="3.0"
-                        max_delay="7.0"
-                }
-                weapon_uzi:e = { t_orig_ang=! ;desc="Single UZI (2 Uzis for Akimbo)" }
-        }
-    }
-
     Front Line Force Entities.qtxfolder =
     {
         ;desc = "Send additions/corrections to nemesis232@hotmail.com"
@@ -2465,335 +2433,13 @@ $0D"models/wire_red32.mdl"
 //
 // The Sherman Project
 //
-	t_tsp_teamid:incl = {
-		teamid: = { txt="&" typ="C" hint="Team ID"
+        t_tsp_teamid:incl = {
+            teamid: = { txt="&" typ="C" hint="Team ID"
                         items=  "Good guys"
                              $0D"Bad guys"
                              $0D"special"
-			values="0"$0D"1"$0D"2"
-		}
-	}
-
-//
-// Sven-Coop
-//
-        t_svc_HTML:incl = {
-            HTML = "*http://www.svencoop.com"
-        }
-
-        f_svc_basetank:form = {
-            relation_player:    = { typ="C" txt="&" hint="R Player"
-                items =
-                       "Ally"
-                    $0D"Friend"
-                    $0D"No Relation"
-                    $0D"Dislike"
-                    $0D"Hate"
-                    $0D"Nemesis"
-                values =
-                       "-2"
-                    $0D"-1"
-                    $0D"0"
-                    $0D"1"
-                    $0D"2"
-                    $0D"3"
+                        values="0"$0D"1"$0D"2"
             }
-            relation_none:    = { typ="C" txt="&" hint="R Unknown"
-                items =
-                       "Ally"
-                    $0D"Friend"
-                    $0D"No Relation"
-                    $0D"Dislike"
-                    $0D"Hate"
-                    $0D"Nemesis"
-                values =
-                       "-2"
-                    $0D"-1"
-                    $0D"0"
-                    $0D"1"
-                    $0D"2"
-                    $0D"3"
-            }
-            relation_machine:    = { typ="C" txt="&" hint="R Machine"
-                items =
-                       "Ally"
-                    $0D"Friend"
-                    $0D"No Relation"
-                    $0D"Dislike"
-                    $0D"Hate"
-                    $0D"Nemesis"
-                values =
-                       "-2"
-                    $0D"-1"
-                    $0D"0"
-                    $0D"1"
-                    $0D"2"
-                    $0D"3"
-            }
-            relation_human_passive:    = { typ="C" txt="&" hint="R Human Passive"
-                items =
-                       "Ally"
-                    $0D"Friend"
-                    $0D"No Relation"
-                    $0D"Dislike"
-                    $0D"Hate"
-                    $0D"Nemesis"
-                values =
-                       "-2"
-                    $0D"-1"
-                    $0D"0"
-                    $0D"1"
-                    $0D"2"
-                    $0D"3"
-            }
-            relation_human_militar:    = { typ="C" txt="&" hint="R Human Militar"
-                items =
-                       "Ally"
-                    $0D"Friend"
-                    $0D"No Relation"
-                    $0D"Dislike"
-                    $0D"Hate"
-                    $0D"Nemesis"
-                values =
-                       "-2"
-                    $0D"-1"
-                    $0D"0"
-                    $0D"1"
-                    $0D"2"
-                    $0D"3"
-            }
-            relation_alien_militar:    = { typ="C" txt="&" hint="R Alien Militar"
-                items =
-                       "Ally"
-                    $0D"Friend"
-                    $0D"No Relation"
-                    $0D"Dislike"
-                    $0D"Hate"
-                    $0D"Nemesis"
-                values =
-                       "-2"
-                    $0D"-1"
-                    $0D"0"
-                    $0D"1"
-                    $0D"2"
-                    $0D"3"
-            }
-            relation_alien_passive:    = { typ="C" txt="&" hint="R Alien Passive"
-                items =
-                       "Ally"
-                    $0D"Friend"
-                    $0D"No Relation"
-                    $0D"Dislike"
-                    $0D"Hate"
-                    $0D"Nemesis"
-                values =
-                       "-2"
-                    $0D"-1"
-                    $0D"0"
-                    $0D"1"
-                    $0D"2"
-                    $0D"3"
-            }
-            relation_alien_monster:    = { typ="C" txt="&" hint="R Alien Monster"
-                items =
-                       "Ally"
-                    $0D"Friend"
-                    $0D"No Relation"
-                    $0D"Dislike"
-                    $0D"Hate"
-                    $0D"Nemesis"
-                values =
-                       "-2"
-                    $0D"-1"
-                    $0D"0"
-                    $0D"1"
-                    $0D"2"
-                    $0D"3"
-            }
-            relation_alien_prey:    = { typ="C" txt="&" hint="R Alien Prey"
-                items =
-                       "Ally"
-                    $0D"Friend"
-                    $0D"No Relation"
-                    $0D"Dislike"
-                    $0D"Hate"
-                    $0D"Nemesis"
-                values =
-                       "-2"
-                    $0D"-1"
-                    $0D"0"
-                    $0D"1"
-                    $0D"2"
-                    $0D"3"
-            }
-            relation_alien_predator:    = { typ="C" txt="&" hint="R Alien Predator"
-                items =
-                       "Ally"
-                    $0D"Friend"
-                    $0D"No Relation"
-                    $0D"Dislike"
-                    $0D"Hate"
-                    $0D"Nemesis"
-                values =
-                       "-2"
-                    $0D"-1"
-                    $0D"0"
-                    $0D"1"
-                    $0D"2"
-                    $0D"3"
-            }
-            relation_insect:    = { typ="C" txt="&" hint="R Insect"
-                items =
-                       "Ally"
-                    $0D"Friend"
-                    $0D"No Relation"
-                    $0D"Dislike"
-                    $0D"Hate"
-                    $0D"Nemesis"
-                values =
-                       "-2"
-                    $0D"-1"
-                    $0D"0"
-                    $0D"1"
-                    $0D"2"
-                    $0D"3"
-            }
-            relation_player_ally:    = { typ="C" txt="&" hint="R Player Ally"
-                items =
-                       "Ally"
-                    $0D"Friend"
-                    $0D"No Relation"
-                    $0D"Dislike"
-                    $0D"Hate"
-                    $0D"Nemesis"
-                values =
-                       "-2"
-                    $0D"-1"
-                    $0D"0"
-                    $0D"1"
-                    $0D"2"
-                    $0D"3"
-            }
-            relation_player_bioweapon:    = { typ="C" txt="&" hint="R Player BioWeapon"
-                items =
-                       "Ally"
-                    $0D"Friend"
-                    $0D"No Relation"
-                    $0D"Dislike"
-                    $0D"Hate"
-                    $0D"Nemesis"
-                values =
-                       "-2"
-                    $0D"-1"
-                    $0D"0"
-                    $0D"1"
-                    $0D"2"
-                    $0D"3"
-            }
-            relation_monster_bioweapon:    = { typ="C" txt="&" hint="R Monster BioWeapon"
-                items =
-                       "Ally"
-                    $0D"Friend"
-                    $0D"No Relation"
-                    $0D"Dislike"
-                    $0D"Hate"
-                    $0D"Nemesis"
-                values =
-                       "-2"
-                    $0D"-1"
-                    $0D"0"
-                    $0D"1"
-                    $0D"2"
-                    $0D"3"
-            }
-        }
-        t_svc_basetank:incl = {
-                svc: = {
-                    Typ = "B"
-                    Txt = "(Sven-Coop)"
-                    Cap = "Push..."
-                    form = "f_svc_basetank:form"
-                    Hint = "Sven-Coop settings"
-                }
-        }
-
-        f_svc_monster_barney:form = {
-            is_player_ally:    = { typ="C" txt="&" hint="Is Player Ally"
-                items =
-                       "No"
-                    $0D"Yes"
-                values =
-                       "1"
-                    $0D"0"
-            }
-        }
-        t_svc_monster_barney:incl = {
-                svc: = {
-                    Typ = "B"
-                    Txt = "(Sven-Coop)"
-                    Cap = "Push..."
-                    form = "f_svc_monster_barney:form"
-                    Hint = "Sven-Coop settings"
-                }
-        }
-
-        f_svc_monster_grunt_repel:form = {
-            weapons:    = { typ="C" txt="&" hint="Weapons"
-                items =
-                       "9mmAR"
-                    $0D"9mmAR + HG"
-                    $0D"9mmAR + GL"
-                    $0D"Shotgun"
-                    $0D"Shotgun + HG"
-                values =
-                       "1"
-                    $0D"3"
-                    $0D"5"
-                    $0D"8"
-                    $0D"10"
-            }
-        }
-        t_svc_monster_grunt_repel:incl = {
-                svc: = {
-                    Typ = "B"
-                    Txt = "(Sven-Coop)"
-                    Cap = "Push..."
-                    form = "f_svc_monster_grunt_repel:form"
-                    Hint = "Sven-Coop settings"
-                }
-        }
-
-        f_svc_monster_osprey:form = {
-            health:    = { txt="&" hint="Health" }
-        }
-        t_svc_monster_osprey:incl = {
-                svc: = {
-                    Typ = "B"
-                    Txt = "(Sven-Coop)"
-                    Cap = "Push..."
-                    form = "f_svc_monster_osprey:form"
-                    Hint = "Sven-Coop settings"
-                }
-        }
-
-        f_svc_monstermaker:form = {
-            respawn_as_playerally:    = { typ="C" txt="&" hint="Make Player Allys"
-                items =
-                       "NO"
-                    $0D"YES"
-                values =
-                       "0"
-                    $0D"1"
-            }
-        }
-        t_svc_monstermaker:incl = {
-                svc: = {
-                    Typ = "B"
-                    Txt = "(Sven-Coop)"
-                    Cap = "Push..."
-                    form = "f_svc_monstermaker:form"
-                    Hint = "Sven-Coop settings"
-                }
         }
 
 //
@@ -3509,7 +3155,6 @@ $0D"Hornet Gun"
                 t_angles = !
                 t_spirit_movewith = !
                 t_tfc_settings = !
-                t_svc_basetank = !
         }
         t_platsound:incl = {
                 movesnd: = { Typ="C" Txt="&"
@@ -8959,7 +8604,6 @@ $0D"monster_handgrenade"
                           $0D"-1 no limit"
                 }
                 t_angles = !
-                t_svc_monstermaker = !
         }
         monster_alien_controller:form = { t_monster = ! bbox = '-16 -16 0 16 16 72' }
         monster_alien_grunt:form = {
@@ -8993,7 +8637,6 @@ $0D"monster_handgrenade"
                         Hint = "List of use/unuse sentences for Barney"
                 }
                 t_op4_suspicious = !
-                t_svc_monster_barney = !
         }
         monster_barney_dead:form = {
                 bbox = '-16 -16 0 16 16 72'
@@ -9040,9 +8683,7 @@ $0D"monster_handgrenade"
                 t_monster = !
         }
         monster_gman:form = { t_monster = ! bbox = '-16 -16 0 16 16 72'}
-        monster_grunt_repel:form = { t_monster = ! bbox = '-16 -16 0 16 16 72'
-                t_svc_monster_grunt_repel = !
-        }
+        monster_grunt_repel:form = { t_monster = ! bbox = '-16 -16 0 16 16 72'}
         monster_handgrenade:form = { t_weapon = ! t_targetx = ! }
         monster_headcrab:form = { t_monster = ! bbox = '-16 -16 0 16 16 36' }
         monster_hevsuit_dead:form = {
@@ -9119,7 +8760,6 @@ $0D"monster_handgrenade"
                 bbox = '-480 -480 -112 480 480 24'
                 spawnflags: = { Txt="&" Typ="X64" Cap="Start Inactive" }
                 t_monster = !
-                t_svc_monster_osprey = !
         }
         monster_rat:form = {
                 Help = "This monster does not have any AI"
@@ -12191,142 +11831,6 @@ $0D"weapon_smokegrenade"
                              $0D"Suit"
                         Values = "44"$0D"42"$0D"43"$0D"45"
                 }
-        }
-
-//
-// Sven-Coop
-//
-        squadmaker:form = {
-            t_svc_HTML = !
-            bbox = '-16 -16 -16 16 16 16'
-            t_Targetname = !
-            t_Angles = !
-            t_rendermode = !
-            target:    = { txt="&" hint="Target On Release" }
-            monstertype:    = { txt="&" hint="Monster Type" }
-            netname:    = { txt="&" hint="Childrens' Name" }
-            spawnflags:    = { txt="&" typ="X1" cap="Start ON" hint="" }
-            spawnflags:    = { txt="&" typ="X4" cap="Cyclic" hint="" }
-            spawnflags:    = { txt="&" typ="X8" cap="MonsterClip" hint="" }
-            spawnflags:    = { txt="&" typ="X16" cap="Prisoner" hint="" }
-            spawnflags:    = { txt="&" typ="X128" cap="WaitForScript" hint="" }
-            monstercount:    = { txt="&" hint=" monster count " }
-            respawn_as_playerally:    = { typ="C" txt="&" hint="Make Player Allys"
-                items =
-                       "NO"
-                    $0D"YES"
-                values =
-                       "0"
-                    $0D"1"
-            }
-            delay:    = { txt="&" hint="Frequency" }
-            m_imaxlivechildren:    = { txt="&" hint="Max live children" }
-            weapons:    = { typ="C" txt="&" hint="HumanGrunt Weapons"
-                items =
-                       "9mmAR"
-                    $0D"9mmAR + HG"
-                    $0D"9mmAR + GL"
-                    $0D"Shotgun"
-                    $0D"Shotgun + HG"
-                values =
-                       "1"
-                    $0D"3"
-                    $0D"5"
-                    $0D"8"
-                    $0D"10"
-            }
-            change_rendermode:    = { typ="C" txt="&" hint="Override Render Mode"
-                items =
-                       "No"
-                    $0D"Yes"
-                values =
-                       "0"
-                    $0D"1"
-            }
-            new_model:    = { txt="&" hint="Model name" }
-            new_body:    = { txt="&" hint="Body (-1 off)" }
-            trigger_target:    = { txt="&" hint="TriggerTarget" }
-            trigger_condition:    = { typ="C" txt="&" hint="Trigger Condition"
-                items =
-                       "No Trigger"
-                    $0D"See Player, Mad at Player"
-                    $0D"Take Damage"
-                    $0D"50% Health Remaining"
-                    $0D"Death"
-                    $0D"Hear World"
-                    $0D"Hear Player"
-                    $0D"Hear Combat"
-                    $0D"See Player Unconditional"
-                    $0D"See Player, Not In Combat"
-                values =
-                       "0"
-                    $0D"1"
-                    $0D"2"
-                    $0D"3"
-                    $0D"4"
-                    $0D"7"
-                    $0D"8"
-                    $0D"9"
-                    $0D"10"
-                    $0D"11"
-            }
-            notsolid:    = { typ="C" txt="&" hint="Not Solid (-1 Monster Standard)"
-                items =
-                       "Standard"
-                    $0D"No"
-                    $0D"Yes"
-                values =
-                       "-1"
-                    $0D"0"
-                    $0D"1"
-            }
-            gag:    = { typ="C" txt="&" hint="Gag (-1 Monster Standard)"
-                items =
-                       "Standard"
-                    $0D"No"
-                    $0D"Yes"
-                values =
-                       "-1"
-                    $0D"0"
-                    $0D"1"
-            }
-            is_squad_leader:    = { typ="C" txt="&" hint="Squad Leader"
-                items =
-                       "No"
-                    $0D"Yes"
-                values =
-                       "0"
-                    $0D"1"
-            }
-            squadname:    = { txt="&" hint="Squadname" }
-        }
-        trigger_random:form = {
-            t_svc_HTML = !
-            t_Targetname = !
-            target_count:    = { txt="&" hint="Target Count" }
-            target1:    = { txt="&" hint="Target1" }
-            target2:    = { txt="&" hint="Target2" }
-            target3:    = { txt="&" hint="Target3" }
-            target4:    = { txt="&" hint="Target4" }
-            target5:    = { txt="&" hint="Target5" }
-        }
-        trigger_random_time:form = {
-            t_svc_HTML = !
-            t_Targetname = !
-            spawnflags:    = { txt="&" typ="X1" cap="Start On" hint="" }
-            target_count:    = { txt="&" hint="Target Count" }
-            target1:    = { txt="&" hint="Target1" }
-            target2:    = { txt="&" hint="Target2" }
-            target3:    = { txt="&" hint="Target3" }
-            target4:    = { txt="&" hint="Target4" }
-            target5:    = { txt="&" hint="Target5" }
-            min_delay:    = { txt="&" hint="Minimum Random Delay 0=off" }
-            max_delay:    = { txt="&" hint="Maximum Random Delay 0=off" }
-        }
-        weapon_uzi:form = {
-            t_svc_HTML = !
-            t_Weapon = !
-            t_Targetx = !
         }
 
 //
