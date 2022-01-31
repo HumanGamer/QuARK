@@ -1114,6 +1114,7 @@ Strings = {
     5848: " Could not open CLASSES_ROOT Registry key.",
     5849: " Could not open class Registry key.",
     5850: " Could not open command open Registry key.",
+    5851: "Unable to find Root-object '%s'",
 
     # DanielPharos would like to reserve 6000 .. 6099 for all renderers
     6000: "Unable to create SceneObject//%s",

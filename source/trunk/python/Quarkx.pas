@@ -2706,7 +2706,11 @@ begin
      S:=Q.Specifics.Values['Root'];
      if S='' then Continue;   { no data }
      T:=Q.SubElements.FindName(S);
-     if T=Nil then Continue;   { no data }
+     if T=Nil then
+      begin
+       Log(LOG_WARNING, LoadStr1(5851), [S]);
+       Continue;
+      end;
      S:=Q.Specifics.Values['ToolBox'];
 
      AlreadyOpen:=ToolBoxClosed;
