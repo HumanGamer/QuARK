@@ -543,7 +543,7 @@ Strings = {
     4463: "Invalid quaternion operation",
 
     4614: "&More >>",
-    4616: "                     *** EXCEPTION REPORT ***\n\n%s       Address in the program : %p (%p)\n",
+    4616: "                     *** EXCEPTION REPORT ***\n\n%s %s\nAddress in the program: %p (%p)\n",
     4617: "\n\nPlease report this error to the QuArK development team, so that they can fix the issue promptly.",
     4618: "//Description of the invalid polygon :",
     4620: "Impossible to create the surface for a polygon//Three aligned points don't define a plane.",

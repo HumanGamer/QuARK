@@ -2134,6 +2134,7 @@ procedure TForm1.AppExceptionMore(Sender: TObject);
 const
  DlgW  = 372;
  MemoH = 160;
+ Margin = 8;
 var
 {E: Exception;}
  Msg: String;
@@ -2149,14 +2150,13 @@ begin
    Msg:=Hint;
   end;
  L:=TStringList.Create; try
- L.Add(FmtLoadStr1(4616, [QuarkVersion, ExceptAddr, @TForm1.AppException]));
+ L.Add(FmtLoadStr1(4616, [QuarkVersion, QuArKMinorVersion, ExceptAddr, @TForm1.AppException]));
  P:=Pos('//', Msg);
  if P=0 then
   L.Add(Msg+'.')
  else
   begin
    L.Add(Copy(Msg, 1, P-1)+'.');
-   L.Add('');
    L.Add(Copy(Msg, P+2, MaxInt));
   end;
  L.Add(LoadStr1(4617));
@@ -2165,7 +2165,7 @@ begin
  if Delta<0 then Delta:=0;
  with TMemo.Create(Dlg) do
   begin
-   SetBounds(10, Dlg.ClientHeight, Dlg.ClientWidth+Delta-20, MemoH-10);
+   SetBounds(Margin, Dlg.ClientHeight, Dlg.ClientWidth + Delta - (2 * Margin), MemoH - Margin);
    Parent:=Dlg;
    Lines.Text:={$IFDEF Debug}'!! DEBUG !!'+{$ENDIF}L.Text;
    ScrollBars:=ssVertical;
