@@ -76,7 +76,7 @@ type
  {------------------------}
 
 function TestConversionQC(var I: Integer) : QFileObjectClass;
-procedure CompilerPatches(L: TQList; var CfgFile: String);
+procedure CompilerPatches(const L: TQList; var CfgFile: String);
 
  {------------------------}
 
@@ -100,7 +100,7 @@ begin
  end;
 end;
 
-procedure AffecteTouches(var CfgFile: String; Touches: TStrings);
+procedure AffecteTouches(var CfgFile: String; const Touches: TStrings);
 var
  KeyDlg: TKeyDlg;
  I: Integer;
@@ -116,7 +116,7 @@ begin
      if Copy(S,1,1)=#255 then
       with KeyDlg.ListView1.Items.Add do
        begin
-        Caption:=Copy(S,2,255);
+        Caption:=Copy(S,2,MaxInt);
         SubItems.Add(Touches[I+1]);
         SubItems.Add(Touches[I+2]);
         Touches.Delete(I+2);
@@ -139,7 +139,7 @@ begin
   end;
 end;
 
-procedure CompilerPatches(L: TQList; var CfgFile: String);
+procedure CompilerPatches(const L: TQList; var CfgFile: String);
 var
  SL, SL1: TStringList;
  I: Integer;
