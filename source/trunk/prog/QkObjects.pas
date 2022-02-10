@@ -192,6 +192,9 @@ type
                   StreamSize: TStreamPos;
  {AiV}            OnAccess: Function (Ref: PQStreamRef; var S: TStream) : TStreamPos;
                   PUserData: Pointer; //Used for GCF's, NCF's, VPK's
+                  DKTaille: Integer; //Used for Daikatana PAK's
+                  DKCompressLen: Integer; //Used for Daikatana PAK's
+                  DKCompressType: Integer; //Used for Daikatana PAK's
                 end;
 
   TInfoEnreg1 = class
@@ -1827,7 +1830,7 @@ begin
           S:=Specifics[I];
           J:=Pos('=',S)-1;
           if J<0 then
-            Raise InternalE('Specifics='+Copy(S,1,25));
+            Raise InternalE('Specifics='+Copy(S,1,25)); //FIXME: 25?
           ItemInfo^.NameSize:=J;
           Names:=Names + Copy(S, 1, J);
           Inc(ItemInfo);

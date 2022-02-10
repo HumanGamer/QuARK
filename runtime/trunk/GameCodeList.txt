@@ -39,6 +39,7 @@ Code    abbreviation            Name          or Screen name    Date taken
  C      Sin             Sin                   Tiglari           02/02/2001
  D      KingPin         KingPin               Alexander         04/26/2000
  E      SOF             Solder of Fortune     Decker            02/11/2001
+ F      DK              Daikatana             DanielPharos      02/10/2022
  Z      6DX             6DX game engine       Jacob Marner      03/06/2001
 
 

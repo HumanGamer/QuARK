@@ -1115,6 +1115,8 @@ Strings = {
     5849: " Could not open class Registry key.",
     5850: " Could not open command open Registry key.",
     5851: "Unable to find Root-object '%s'",
+    5852: "SiN Pak file with wrong extension",
+    5853: "Pak file with bad SiN extension",
 
     # DanielPharos would like to reserve 6000 .. 6099 for all renderers
     6000: "Unable to create SceneObject//%s",

@@ -45,6 +45,7 @@ between gamemodes.}
  mjSin          = 'C';
  mjKingPin      = 'D';
  mjSOF          = 'E';  { Soldier Of Fortune }
+ mjDK           = 'F';  { Daikatana }
  {..space for more Quake-2 style games..}
  mj6DX          = 'Z';
 

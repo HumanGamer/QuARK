@@ -108,7 +108,7 @@ implementation
 
 uses Travail, QkExplorer, Quarkx, QkExceptions, PyObjects, Game, QkSin,
  Qkzip2, QkQ3, QkD3, QkCoD2, QkSylphis, QkObjectClassList, QkBsp,
- BrowseForFolder, Logging, ExtraFunctionality;
+ BrowseForFolder, Setup, Logging, ExtraFunctionality;
 
 {$R *.DFM}
 
@@ -129,6 +129,88 @@ const
   TFinEntreePak = record
                    Position, Taille: LongInt;
                   end;
+
+  PFinEntreeDaikatanaPak = ^TFinEntreeDaikatanaPak;
+  TFinEntreeDaikatanaPak = record
+                   FinEntreePak: TFinEntreePak;
+                   CompressLen, CompressType: LongInt;
+                  end;
+
+ {------------------------}
+
+function DaikatanaPakAddRef(Ref: PQStreamRef; var S: TStream) : TStreamPos;
+var
+  mem: TMemoryStream;
+  Pos, I: Integer;
+  B: Byte;
+  C: Char;
+  offset: Integer;
+  buffer: PChar;
+begin
+  Ref^.Self.Position:=Ref^.Position;
+  mem:=TMemoryStream.Create;
+  Pos:=0;
+  while Pos < Ref^.DKCompressLen do
+  begin
+    Ref^.Self.Read(B, 1);
+    Pos:=Pos+1;
+    if B = 255 then
+    begin
+      // terminator
+      break
+    end
+    else if B < 64 then
+    begin
+      // uncompressed block
+      for i := -1 to B-1 do
+      begin
+        Ref^.Self.Read(C, 1);
+        Pos:=Pos+1;
+        mem.Write(C, 1);
+      end;
+    end
+    else if B < 128 then
+    begin
+      // rlz
+      C:=#0;
+      for i := 62 to B-1 do
+      begin
+        mem.Write(C, 1);
+      end;
+    end
+    else if B < 192 then
+    begin
+      // run length encode
+      Ref^.Self.Read(C, 1);
+      Pos:=Pos+1;
+      for i := 126 to B-1 do
+      begin
+        mem.Write(C, 1);
+      end;
+    end
+    else if B < 254 then
+    begin
+      // reference previous data
+      Ref^.Self.Read(C, 1);
+      Pos:=Pos+1;
+      offset:=Integer(C)+2;
+      GetMem(buffer, B - 190);
+      try
+        mem.seek(-offset, soFromCurrent);
+        mem.Read(buffer^, B - 190);
+        mem.seek(0, soFromEnd);
+        mem.Write(buffer^, B - 190);
+      finally
+        FreeMem(buffer);
+      end;
+    end;
+  end;
+  if mem.size <> Ref^.DKTaille then
+    raise EErrorFmt(5815, [0]);
+  Result:=mem.Size;
+  mem.Position:=0;
+  S:=mem;
+end;
 
  {------------------------}
 
@@ -189,7 +271,8 @@ end;
 procedure QPakFolder.LoadFile(F: TStream; FSize: TStreamPos);
 var
  Header: TIntroPakEx;
- I, J: Integer;
+ I, J, K: Integer;
+ EntrySize: TStreamPos;
  Entrees1, P1: PChar;
  TailleNom: Integer;
  Origine: TStreamPos;
@@ -211,15 +294,19 @@ begin
       else
        J:=SizeOf(TIntroPakEx);
       F.ReadBuffer(Header, J);
+      if CharModeJeu = mjDK then
+       K:=SizeOf(TFinEntreeDaikatanaPak)
+      else
+       K:=SizeOf(TFinEntreePak);
       if Header.Intro.Signature=SignaturePACK then
        begin
-        if Self is QSinPak then Log(LOG_WARNING, 'SiN Pak file with wrong extension!'); //FIXME: Move to dict!
+        if Self is QSinPak then Log(LOG_WARNING, LoadStr1(5852));
         TailleNom:=TailleNomFichPACK
        end
       else
        if Header.Intro.Signature=SignatureSPAK then
         begin
-         if not (Self is QSinPak) then Log(LOG_WARNING, 'Pak file with bad SiN extension!'); //FIXME: Move to dict!
+         if not (Self is QSinPak) then Log(LOG_WARNING, LoadStr1(5853));
          TailleNom:=TailleNomFichSPAK
         end
        else
@@ -238,7 +325,7 @@ begin
       try
        F.ReadBuffer(Entrees1^, Header.Intro.TailleRep);
        P1:=Entrees1;
-       Header.Intro.TailleRep:=Header.Intro.TailleRep div (TailleNom+SizeOf(TFinEntreePak));
+       Header.Intro.TailleRep:=Header.Intro.TailleRep div (TailleNom+K);
        Dossier:=Self;
        CheminPrec:='';
        for I:=1 to Header.Intro.TailleRep do
@@ -279,11 +366,33 @@ begin
             Dossier:=nDossier;
            until False;
            F.Position:=PFinEntreePak(P1)^.Position;
-           Q:=MakeFileQObject(F, Chemin, Dossier); //FIXME: Used PFinEntreePak(P1)^.Taille as third argument to OpenFileObjectData.
-           Dossier.SubElements.Add(Q);
-           LoadedItem(rf_Default, F, Q, PFinEntreePak(P1)^.Taille);
+           if (CharModeJeu = mjDK) and (PFinEntreeDaikatanaPak(P1)^.CompressType <> 0) then
+           begin
+             //This is a compressed Daikatana file
+             EntrySize:=PFinEntreeDaikatanaPak(P1)^.CompressLen;
+             Q:=OpenFileObjectData(nil, Chemin, EntrySize, Dossier);
+             Dossier.SubElements.Add(Q);
+             {Copied From LoadedItem & Modified}
+             if Q is QFileObject then
+               QFileObject(Q).ReadFormat:=rf_default
+             else
+               Raise InternalE('LoadedItem '+Q.GetFullName+' '+IntToStr(rf_default));
+             Q.Open(TQStream(F), PFinEntreeDaikatanaPak(P1)^.CompressLen);
+             {/Copied From LoadedItem & Modified}
+             Q.FNode^.OnAccess:=DaikatanaPakAddRef;
+             Q.FNode^.DKTaille:=PFinEntreePak(P1)^.Taille;
+             Q.FNode^.DKCompressLen:=PFinEntreeDaikatanaPak(P1)^.CompressLen;
+             Q.FNode^.DKCompressType:=PFinEntreeDaikatanaPak(P1)^.CompressType;
+           end
+           else
+           begin
+             EntrySize:=PFinEntreePak(P1)^.Taille;
+             Q:=OpenFileObjectData(F, Chemin, EntrySize, Dossier);
+             Dossier.SubElements.Add(Q);
+             LoadedItem(rf_Default, F, Q, PFinEntreePak(P1)^.Taille);
+           end;
          end;
-         Inc(P1, SizeOf(TFinEntreePak));
+         Inc(P1, K);
         end;
       finally
         FreeMem(Entrees1);
@@ -361,7 +470,7 @@ end;
 
 procedure QPakFolder.EcrireEntreesPak(Info: TInfoEnreg1; Origine: TStreamPos; const Chemin: String; TailleNom: Integer; Repertoire: TStream);
 var
- I: Integer;
+ I, J: Integer;
  Zero: LongInt;
  Entree: TFinEntreePak;
  Q: QObject;
@@ -369,6 +478,10 @@ var
  Info1: TPakSibling;
 begin
  Acces;
+ if CharModeJeu = mjDK then
+  J:=SizeOf(TFinEntreeDaikatanaPak)
+ else
+  J:=SizeOf(TFinEntreePak);
  ProgressIndicatorStart(5442, SubElements.Count); try
  Info1:=TPakSibling.Create; try
  Info1.BaseFolder:=Chemin;
@@ -397,7 +510,7 @@ begin
      SetLength(S, TailleNom);
      FillChar((PChar(S)+Zero)^, TailleNom-Zero, 0);
      Repertoire.WriteBuffer(PChar(S)^, TailleNom);
-     Repertoire.WriteBuffer(Entree, SizeOf(Entree));
+     Repertoire.WriteBuffer(Entree, J);
     end;
    ProgressIndicatorIncrement;
   end;
