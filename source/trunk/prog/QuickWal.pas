@@ -332,7 +332,7 @@ begin
      Tex:=Loaded.SubElements[I];
      if Tex is QTextureFile then
       begin
-       Q:=Link1(Folder, Loaded.Name+'/', Tex.Name, 's', Base, Index);
+       Q:=Link1(Folder, Loaded.Name+'/', Tex.Name, 's', Base);
        Q.Name:=Tex.Name;
        Q.Specifics.Values['d']:=FolderName + Loaded.Name;
        if Tex is QTextureHL then
