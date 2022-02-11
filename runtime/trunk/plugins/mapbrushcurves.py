@@ -84,7 +84,7 @@ def intersectionPoint2d(p0, d0, p1, d1):
             return None
     det = d0.x*d1.y-d1.x*d0.y
     if det==0.0:
-        return 0  # lines paralell
+        return 0  # lines parallel
     s = (p0.y*d1.x - p1.y*d1.x - d1.y*p0.x +d1.y*p1.x)/det
     return p0+s*d0
 
