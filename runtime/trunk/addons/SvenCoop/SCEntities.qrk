@@ -1777,7 +1777,7 @@ QQRKSRC1
           }
           trigger_autosave:b =
           {
-            ;incl = "defpoly"
+            ;incl = "trigger"
             ;desc = "AutoSave Trigger"
           }
           trigger_camera:e =
@@ -1810,7 +1810,7 @@ QQRKSRC1
           }
           trigger_cameratarget:b =
           {
-            ;incl = "defpoly"
+            ;incl = "trigger"
             ;desc = "Camera Target"
             mouse_action_0_0 = "0"
             mouse_block_drag_0_0 = "0"
@@ -1828,7 +1828,7 @@ QQRKSRC1
           }
           trigger_cdaudio:b =
           {
-            ;incl = "defpoly"
+            ;incl = "trigger"
             ;desc = "Trigger CD Audio"
             health = "-1"
           }
@@ -1839,7 +1839,7 @@ QQRKSRC1
           }
           trigger_changelevel:b =
           {
-            ;incl = "defpoly"
+            ;incl = "trigger"
             ;desc = "Trigger Change level"
             keep_inventory = "1"
             changedelay = "0"
@@ -1897,7 +1897,7 @@ QQRKSRC1
           }
           trigger_counter:b =
           {
-            ;incl = "defpoly"
+            ;incl = "trigger"
             ;desc = "Trigger Counter"
             count = "2"
           }
@@ -1935,7 +1935,7 @@ QQRKSRC1
           }
           trigger_endsection:b =
           {
-            ;incl = "defpoly"
+            ;incl = "trigger"
             ;desc = "EndSection Trigger"
           }
           trigger_entity_iterator:e =
@@ -1951,13 +1951,13 @@ QQRKSRC1
           }
           trigger_gravity:b =
           {
-            ;incl = "defpoly"
+            ;incl = "trigger"
             ;desc = "Trigger Gravity"
             gravity = "1"
           }
           trigger_hurt:b =
           {
-            ;incl = "defpoly"
+            ;incl = "trigger"
             ;desc = "Trigger Hurt"
             dmg = "10"
             delay = "0"
@@ -1984,14 +1984,14 @@ QQRKSRC1
           }
           trigger_monsterjump:b =
           {
-            ;incl = "defpoly"
+            ;incl = "trigger"
             ;desc = "Trigger monster jump"
             speed = "40"
             height = "128"
           }
           trigger_multiple:b =
           {
-            ;incl = "defpoly"
+            ;incl = "trigger"
             ;desc = "Trigger: Activate multiple"
             wait = "10"
           }
@@ -2003,12 +2003,12 @@ QQRKSRC1
           }
           trigger_once:b =
           {
-            ;incl = "defpoly"
+            ;incl = "trigger"
             ;desc = "Trigger: Activate once"
           }
           trigger_push:b =
           {
-            ;incl = "defpoly"
+            ;incl = "trigger"
             ;desc = "Trigger push"
             speed = "40"
           }
@@ -2077,7 +2077,7 @@ QQRKSRC1
           }
           trigger_teleport:b =
           {
-            ;incl = "defpoly"
+            ;incl = "trigger"
             ;desc = "Trigger Teleport"
             teleport_cooldown = "1"
             teleport_ignore_delay = "0"
@@ -2091,7 +2091,7 @@ QQRKSRC1
           }
           trigger_transition:b =
           {
-            ;incl = "defpoly"
+            ;incl = "trigger"
             ;desc = "Trigger: Select Transition Area"
           }
           trigger_vote:e =
