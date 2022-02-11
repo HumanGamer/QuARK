@@ -686,8 +686,8 @@ procedure TToolBoxForm.FormClose(Sender: TObject;
  I: Integer;
  S: String;}
 begin
-(*Explorer.MAJAffichage(Nil);
- try
+ Explorer.MAJAffichage(Nil);
+(*try
   if ModifiedFiles<>Nil then
    begin
     S:=LoadStr1(5529);
