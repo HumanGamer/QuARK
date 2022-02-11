@@ -785,9 +785,8 @@ begin
   { TREL } Ord('T')+256*Ord('R')+65536*Ord('E')+16777216*Ord('L'):
      BrowseToolBox(GetToolBoxSingleName);
   { TXLI } Ord('T')+256*Ord('X')+65536*Ord('L')+16777216*Ord('I'):
-     with TQuickWalParser.Create(Application) do
+     with TQuickWalParser.Create(Application, Self) do
       try
-       Toolbox:=Self;
        ShowModal;
       finally
        Free;

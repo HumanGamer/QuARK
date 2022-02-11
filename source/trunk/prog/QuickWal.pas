@@ -51,15 +51,16 @@ type
     procedure OkBtnClick(Sender: TObject);
     procedure FormActivate(Sender: TObject);
     procedure FormCreate(Sender: TObject);
-  private
-  public
+  protected
     Toolbox: TForm;
+  public
+    constructor Create(AOwner: TComponent; AToolbox: TForm); reintroduce;
   end;
 
 procedure BuildTextureFolders(const Base: String; var Q: QObject);
-procedure BuildDynamicFolders(const Base: String; var Q: QObject; merged, allshaders: boolean; Filter: String);
-procedure BuildStaticFolders(const Base: String; var Q: QObject; merged, allshaders: boolean; Filter: String);
-procedure MergeTextureFolders(const Base: String; var Q: QObject; allshaders: boolean; Filter: String);
+procedure BuildDynamicFolders(const Base: String; var Q: QObject; merged, allshaders: boolean; const Filter: String);
+procedure BuildStaticFolders(const Base: String; var Q: QObject; merged, allshaders: boolean; const Filter: String);
+procedure MergeTextureFolders(const Base: String; var Q: QObject; allshaders: boolean; const Filter: String);
 function ListPakFiles(const Path: String) : TStringList;
 
  {------------------------}
@@ -711,6 +712,12 @@ begin
 end;
 
 
+constructor TQuickWalParser.Create(AOwner: TComponent; AToolbox: TForm);
+begin
+ inherited Create(AOwner);
+ Toolbox:=AToolbox;
+end;
+
 procedure TQuickWalParser.CancelBtnClick(Sender: TObject);
 begin
  Close;
@@ -778,7 +785,7 @@ begin
   Parental.SubElements.Add(Folder);
 end;*)
 
-procedure BuildDynamicFolders(const Base : String; var Q:QObject; merged, allshaders: Boolean; Filter: String);
+procedure BuildDynamicFolders(const Base : String; var Q:QObject; merged, allshaders: Boolean; const Filter: String);
 var
   OsF : QObject;
 begin
@@ -798,7 +805,7 @@ begin
     BuildTextureFolders(Base, OsF)
 end;
 
-procedure BuildStaticFolders(const Base : String; var Q:QObject; merged, allshaders: Boolean; Filter: String);
+procedure BuildStaticFolders(const Base : String; var Q:QObject; merged, allshaders: Boolean; const Filter: String);
 var
   TxF : QObject;
 begin
@@ -940,7 +947,7 @@ end;
 
 
 
-procedure MergeTextureFolders(const Base : String; var Q:QObject; allshaders: boolean; Filter: String);
+procedure MergeTextureFolders(const Base : String; var Q:QObject; allshaders: boolean; const Filter: String);
 var
   S, Path, PakExt, ShaderExt, TexturesPath: String;
   SearchFolder : QObject;
@@ -1048,8 +1055,9 @@ begin
    if FolderFilter then
      S:=ConcatPaths([S,Filter]);
    if Filter<>'' then
-     Filter:=Filter+'/';
-   ParseTextureFolders(S, Base, Filter, Q);
+     ParseTextureFolders(S, Base, Filter+'/', Q)
+   else
+     ParseTextureFolders(S, Base, Filter, Q);
   except
    on E:Exception do
     Log(LOG_WARNING, LoadStr1(5804), [ExceptAddr, FmtLoadStr1(5788, [E.Message])]);
