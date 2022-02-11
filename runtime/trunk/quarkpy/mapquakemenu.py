@@ -594,6 +594,9 @@ def onclick(m):
 def QuakeMenu(editor):
     "The Quake menu, with its shortcuts."
 
+    for item in (leakMenuItem, portalsMenuItem, brushnumsMenuItem):
+        item.editor=editor
+
      # this menu is read from UserData.qrk.
 
     items = []
@@ -601,15 +604,20 @@ def QuakeMenu(editor):
     gamename = quarkx.setupsubset().shortname
     #firstcmd = FirstBuildCmd()
     sourcename = "UserData %s.qrk" % gamename
-    ud = LoadPoolObj(sourcename, quarkx.openfileobj, sourcename)
-    ud = ud.findname("Menu.qrk")
+    try:
+        ud = LoadPoolObj(sourcename, quarkx.openfileobj, sourcename)
+    except:
+        quarkx.msgbox("QuArK fail to load the file '%s'. Its menu will not be displayed." % (sourcename, ), MT_ERROR, MB_OK)
+        ud = None
+    else:
+        ud = ud.findname("Menu.qrk")
     if ud is not None:
         for p in ud.subitems:
             txt = p["Txt"]
             if txt=="-":
                 items.append(qmenu.sep)
             else:
-                m = qmenu.item(txt, qmenuitem1click, "|The commands in this menu lets you run your map with the game. The most common commands are the first few ones, which lets you try your map as a one-step operation.\n\nBefore a map can be played, it must be compiled (translated into a .bsp file). This is done by other programs that QuArK will call for you. See the Configuration dialog box, under the page of the game you wish to map for, where you must tell QuArK where these build programs are installed. The programs themselves are available in Build Packs, one for each game you want to make maps for, and that can be downloaded from http://dynamic.gamespy.com/~quark/.|intro.mapeditor.menu.html#gamemenu")
+                m = qmenu.item(txt, qmenuitem1click, "|The commands in this menu lets you run your map with the game. The most common commands are the first few ones, which lets you try your map as a one-step operation.\n\nBefore a map can be played, it must be compiled (translated into a .bsp file). This is done by other programs that QuArK will call for you. See the Configuration dialog box, under the page of the game you wish to map for, where you must tell QuArK where these build programs are installed. The programs themselves are available in Build Packs, one for each game you want to make maps for, and that can be downloaded from http://quark.sourceforge.net/download_tools.php.|intro.mapeditor.menu.html#gamemenu")
                 m.info = p
                 #if IsBsp(editor) and p[firstcmd]:
                 #    m.state = qmenu.disabled
@@ -619,7 +627,6 @@ def QuakeMenu(editor):
                 items.append(m)
         items.append(qmenu.sep)
         for item in (leakMenuItem, portalsMenuItem, brushnumsMenuItem):
-            item.editor=editor
             items.append(item)
         items.append(qmenu.sep)
         items.append(qmenu.item("&Customize menu...", Customize1Click, "customizes this menu"))

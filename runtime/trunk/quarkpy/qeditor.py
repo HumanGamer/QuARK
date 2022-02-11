@@ -1157,8 +1157,13 @@ class UserDataPanel:
     def __init__(self, panel, hint, filename, sourcename, result=None):
         self.sourcename = sourcename
         self.filename = filename
-        ud = LoadPoolObj(sourcename, quarkx.openfileobj, sourcename)
-        self.objlist = ud.findname(filename).subitems
+        try:
+            ud = LoadPoolObj(sourcename, quarkx.openfileobj, sourcename)
+        except:
+            quarkx.msgbox("QuArK fail to load the file '%s'. Its panel data will not be displayed." % (sourcename, ), MT_ERROR, MB_OK)
+            self.objlist = []
+        else:
+            self.objlist = ud.findname(filename).subitems
         btnpanel = panel.newbtnpanel()
         btnpanel.buttons = self.buildbuttons(btnpanel)
         btnpanel.info = self
@@ -1239,7 +1244,11 @@ class UserDataPanel:
         self.save()
 
     def save(self):
-        file = LoadPoolObj(self.sourcename, quarkx.openfileobj, self.sourcename)
+        try:
+            file = LoadPoolObj(self.sourcename, quarkx.openfileobj, self.sourcename)
+        except:
+            quarkx.msgbox("QuArK fail to load the file '%s'. Its panel data will not be saved." % (self.sourcename, ), MT_ERROR, MB_OK)
+            return
         ud = file.findname(self.filename)
         for i in range(ud.itemcount-1, -1, -1):
             ud.removeitem(i)
