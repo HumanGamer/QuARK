@@ -1,0 +1,21 @@
+QQRKSRC1
+// Sven Co-op textures file for QuArK
+
+{
+  QuArKProtected = "1"
+  Description = "Sven Co-op Textures"
+
+  Textures.qtx =
+  {
+    Toolbox = "Texture Browser..."
+    Root = "Sven Co-op Textures.qtxfolder"
+    HTML = "intro.texturebrowser.html"
+    Sven Co-op Textures.qtxfolder =
+    {
+      Dynamically Found.osfolder =
+      {
+        path = "svencoop"
+      }
+    }
+  }
+}

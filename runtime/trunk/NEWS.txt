@@ -14,6 +14,8 @@
 
 6.6.0 Beta 8
 ============
+* [DanielPharos]: Added Sven Co-op 5 support.
+
 * [DanielPharos]: Added support for KEX Engine archives (.kpf files).
 
 * [DanielPharos]: Added support for loading files larger than 2GB.

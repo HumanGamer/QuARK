@@ -493,6 +493,8 @@ begin
       try
         if CharModeJeu=mjCoF then
          ModeJeu:=mjCoF
+        else if CharModeJeu=mjSC then
+         ModeJeu:=mjSC
         else
          ModeJeu:=mjHalfLife;
         g_MapError.Clear;

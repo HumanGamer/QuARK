@@ -1,0 +1,112 @@
+QQRKSRC1
+// Sven Co-op definition file for QuArK
+
+{
+  QuArKProtected = "1"
+  Description = "Base Sven Co-op data"
+
+  Sven Co-op setup.qctx =
+  {
+    Game = "SvenCoop"
+    HTML = "index.html"
+
+    SFSkills = '256 512 1024 2048'   // must be 4 to 6 values : easy/medium/hard/deathm.[/coop/single]
+  }
+  NewFiles.qtx =
+  {
+    ToolBox = "New files..."
+    Root = "Sven Co-op file types.qtxfolder"
+    Sven Co-op file types.qtxfolder =
+    {
+      Texture Wad.wad = { }
+    }
+  }
+  walltex:incl =
+  {
+    tex = "FIFTIES_WALL14Y"
+  }
+  floortex:incl =
+  {
+    tex = "-3FIFTIES_F01"
+  }
+  ceiltex:incl =
+  {
+    tex = "SKY"
+  }
+  NewMap:incl =
+  {
+    Game = "SvenCoop"
+    Root = "worldspawn:b"
+    worldspawn:b =
+    {
+      skyname = "2desert"
+      Border walls:g =
+      {
+        East wall:p =
+        {
+          west:f =  { v = '256 0 272 256 -128 272 256 0 400'       walltex = ! }
+          east:f =  { v = '272 0 272 272 128 272 272 0 400'        walltex = ! }
+          south:f = { v = '432 -192 272 560 -192 272 432 -192 400' walltex = ! }
+          north:f = { v = '432 192 272 304 192 272 432 192 400'    walltex = ! }
+          down:f =  { v = '432 0 -96 560 0 -96 432 -128 -96'       walltex = ! }
+          up:f =    { v = '432 0 96 560 0 96 432 128 96'           walltex = ! }
+        }
+        West wall:p =
+        {
+          west:f =  { v = '-272 0 272 -272 -128 272 -272 0 400'    walltex = ! }
+          east:f =  { v = '-256 0 272 -256 128 272 -256 0 400'     walltex = ! }
+          south:f = { v = '432 -192 272 560 -192 272 432 -192 400' walltex = ! }
+          north:f = { v = '432 192 272 304 192 272 432 192 400'    walltex = ! }
+          down:f =  { v = '432 0 -96 560 0 -96 432 -128 -96'       walltex = ! }
+          up:f =    { v = '432 0 96 560 0 96 432 128 96'           walltex = ! }
+        }
+        North wall:p =
+        {
+          west:f =  { v = '-256 0 272 -256 -128 272 -256 0 400'    walltex = ! }
+          east:f =  { v = '256 0 272 256 128 272 256 0 400'        walltex = ! }
+          south:f = { v = '432 192 272 560 192 272 432 192 400'    walltex = ! }
+          north:f = { v = '432 208 272 304 208 272 432 208 400'    walltex = ! }
+          down:f =  { v = '432 0 -96 560 0 -96 432 -128 -96'       walltex = ! }
+          up:f =    { v = '432 0 96 560 0 96 432 128 96'           walltex = ! }
+        }
+        South wall:p =
+        {
+          west:f =  { v = '-256 0 272 -256 -128 272 -256 0 400'    walltex = ! }
+          east:f =  { v = '256 0 272 256 128 272 256 0 400'        walltex = ! }
+          south:f = { v = '432 -208 272 560 -208 272 432 -208 400' walltex = ! }
+          north:f = { v = '432 -192 272 304 -192 272 432 -192 400' walltex = ! }
+          down:f =  { v = '432 0 -96 560 0 -96 432 -128 -96'       walltex = ! }
+          up:f =    { v = '432 0 96 560 0 96 432 128 96'           walltex = ! }
+        }
+        Sky:p =
+        {
+          west:f =  { v = '-256 0 272 -256 -128 272 -256 0 400'    ceiltex = ! }
+          east:f =  { v = '256 0 272 256 128 272 256 0 400'        ceiltex = ! }
+          south:f = { v = '432 -192 272 560 -192 272 432 -192 400' ceiltex = ! }
+          north:f = { v = '432 192 272 304 192 272 432 192 400'    ceiltex = ! }
+          down:f =  { v = '432 0 96 560 0 96 432 -128 96'          ceiltex = ! }
+          up:f =    { v = '432 0 112 560 0 112 432 128 112'        ceiltex = ! }
+        }
+        Floor:p =
+        {
+          west:f =  { v = '-256 0 272 -256 -128 272 -256 0 400'    floortex = ! }
+          east:f =  { v = '256 0 272 256 128 272 256 0 400'        floortex = ! }
+          south:f = { v = '432 -192 272 560 -192 272 432 -192 400' floortex = ! }
+          north:f = { v = '432 192 272 304 192 272 432 192 400'    floortex = ! }
+          down:f =  { v = '432 0 -112 560 0 -112 432 -128 -112'    floortex = ! }
+          up:f =    { v = '432 0 -96 560 0 -96 432 128 -96'        floortex = ! }
+        }
+      }
+      info_player_start:e =
+      {
+        origin = "-144 0 -60"
+        angle = "360"
+      }
+      light:e =
+      {
+        _light = "255 255 255 300"
+        origin = "0 0 0"
+      }
+    }
+  }
+}

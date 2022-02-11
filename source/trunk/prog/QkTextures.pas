@@ -1070,7 +1070,7 @@ begin
           end
           else
           begin
-            if CharModeJeu<>mjCoF then
+            if (CharModeJeu<>mjCoF) and (CharModeJeu<>mjSC) then
               ChangeGameMode(mjHalfLife, True);
             Ext:='.wad3_'+Ext;   { Half-Life .wad file }
           end;
