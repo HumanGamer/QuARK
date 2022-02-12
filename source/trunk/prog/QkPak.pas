@@ -333,64 +333,70 @@ begin
          SetString(Chemin, P1, TailleNom);
          SetLength(Chemin, StrLen(PChar(Chemin)));
          Inc(P1, TailleNom);
+
          {Decker - Open only PAK-entries that have a size bigger than zero.
           Fixes problem with opening BlueShift PAK0.PAK file, which have an entry
           that was only a folder; "sound/holo/" with size zero.}
-         if (PFinEntreePak(P1)^.Taille>0) then
-         begin
-           if (PFinEntreePak(P1)^.Position+PFinEntreePak(P1)^.Taille > FSize)
-           or (PFinEntreePak(P1)^.Position<SizeOf(TIntroPak))
-           {or (PFinEntreePak(P1)^.Taille<0)} then
-            Raise EErrorFmt(5509, [62]);
-           if Copy(Chemin, 1, Length(CheminPrec)) = CheminPrec then
-            Delete(Chemin, 1, Length(CheminPrec))
-           else
-            begin
-             Dossier:=Self;
-             CheminPrec:='';
-            end;
-           repeat
-            J:=Pos('/', Chemin);
-            if J=0 then Break;
-            nDossier:=Dossier.SubElements.FindName(Copy(Chemin, 1, J-1) + '.pakfolder');
-            if nDossier=Nil then
-             begin
-              nDossier:=QPakFolder.Create(Copy(Chemin, 1, J-1), Dossier);
-             {K:=0;
-              while (K<Dossier.SubElements.Count) and (Dossier.SubElements[K] is QPakFolder) do
-               Inc(K);}
-              Dossier.SubElements.{Insert(K,} Add(nDossier);
-             end;
-            CheminPrec:=CheminPrec + Copy(Chemin, 1, J);
-            Delete(Chemin, 1, J);
-            Dossier:=nDossier;
-           until False;
-           F.Position:=PFinEntreePak(P1)^.Position;
-           if (CharModeJeu = mjDK) and (PFinEntreeDaikatanaPak(P1)^.CompressType <> 0) then
+         if (PFinEntreePak(P1)^.Taille<=0) then
+          begin
+           Inc(P1, K);
+           continue;
+          end;
+
+         if ((CharModeJeu <> mjDK) and (PFinEntreePak(P1)^.Position+PFinEntreePak(P1)^.Taille > FSize))
+         or ((CharModeJeu = mjDK) and (PFinEntreePak(P1)^.Position+PFinEntreeDaikatanaPak(P1)^.CompressLen > FSize))
+         or (PFinEntreePak(P1)^.Position<SizeOf(TIntroPak))
+         {or (PFinEntreePak(P1)^.Taille<0)} then
+          Raise EErrorFmt(5509, [62]);
+
+         if Copy(Chemin, 1, Length(CheminPrec)) = CheminPrec then
+          Delete(Chemin, 1, Length(CheminPrec))
+         else
+          begin
+           Dossier:=Self;
+           CheminPrec:='';
+          end;
+         repeat
+          J:=Pos('/', Chemin);
+          if J=0 then Break;
+          nDossier:=Dossier.SubElements.FindName(Copy(Chemin, 1, J-1) + '.pakfolder');
+          if nDossier=Nil then
            begin
-             //This is a compressed Daikatana file
-             EntrySize:=PFinEntreeDaikatanaPak(P1)^.CompressLen;
-             Q:=OpenFileObjectData(nil, Chemin, EntrySize, Dossier);
-             Dossier.SubElements.Add(Q);
-             {Copied From LoadedItem & Modified}
-             if Q is QFileObject then
-               QFileObject(Q).ReadFormat:=rf_default
-             else
-               Raise InternalE('LoadedItem '+Q.GetFullName+' '+IntToStr(rf_default));
-             Q.Open(TQStream(F), PFinEntreeDaikatanaPak(P1)^.CompressLen);
-             {/Copied From LoadedItem & Modified}
-             Q.FNode^.OnAccess:=DaikatanaPakAddRef;
-             Q.FNode^.DKTaille:=PFinEntreePak(P1)^.Taille;
-             Q.FNode^.DKCompressLen:=PFinEntreeDaikatanaPak(P1)^.CompressLen;
-             Q.FNode^.DKCompressType:=PFinEntreeDaikatanaPak(P1)^.CompressType;
-           end
-           else
-           begin
-             EntrySize:=PFinEntreePak(P1)^.Taille;
-             Q:=OpenFileObjectData(F, Chemin, EntrySize, Dossier);
-             Dossier.SubElements.Add(Q);
-             LoadedItem(rf_Default, F, Q, PFinEntreePak(P1)^.Taille);
+            nDossier:=QPakFolder.Create(Copy(Chemin, 1, J-1), Dossier);
+           {K:=0;
+            while (K<Dossier.SubElements.Count) and (Dossier.SubElements[K] is QPakFolder) do
+             Inc(K);}
+            Dossier.SubElements.{Insert(K,} Add(nDossier);
            end;
+          CheminPrec:=CheminPrec + Copy(Chemin, 1, J);
+          Delete(Chemin, 1, J);
+          Dossier:=nDossier;
+         until False;
+         F.Position:=PFinEntreePak(P1)^.Position;
+         if (CharModeJeu = mjDK) and (PFinEntreeDaikatanaPak(P1)^.CompressType <> 0) then
+         begin
+           //This is a compressed Daikatana file
+           EntrySize:=PFinEntreeDaikatanaPak(P1)^.CompressLen;
+           Q:=OpenFileObjectData(nil, Chemin, EntrySize, Dossier);
+           Dossier.SubElements.Add(Q);
+           {Copied From LoadedItem & Modified}
+           if Q is QFileObject then
+             QFileObject(Q).ReadFormat:=rf_default
+           else
+             Raise InternalE('LoadedItem '+Q.GetFullName+' '+IntToStr(rf_default));
+           Q.Open(TQStream(F), PFinEntreeDaikatanaPak(P1)^.CompressLen);
+           {/Copied From LoadedItem & Modified}
+           Q.FNode^.OnAccess:=DaikatanaPakAddRef;
+           Q.FNode^.DKTaille:=PFinEntreePak(P1)^.Taille;
+           Q.FNode^.DKCompressLen:=PFinEntreeDaikatanaPak(P1)^.CompressLen;
+           Q.FNode^.DKCompressType:=PFinEntreeDaikatanaPak(P1)^.CompressType;
+         end
+         else
+         begin
+           EntrySize:=PFinEntreePak(P1)^.Taille;
+           Q:=OpenFileObjectData(F, Chemin, EntrySize, Dossier);
+           Dossier.SubElements.Add(Q);
+           LoadedItem(rf_Default, F, Q, PFinEntreePak(P1)^.Taille);
          end;
          Inc(P1, K);
         end;
