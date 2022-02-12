@@ -334,21 +334,6 @@ begin
          SetLength(Chemin, StrLen(PChar(Chemin)));
          Inc(P1, TailleNom);
 
-         {Decker - Open only PAK-entries that have a size bigger than zero.
-          Fixes problem with opening BlueShift PAK0.PAK file, which have an entry
-          that was only a folder; "sound/holo/" with size zero.}
-         if (PFinEntreePak(P1)^.Taille<=0) then
-          begin
-           Inc(P1, K);
-           continue;
-          end;
-
-         if ((CharModeJeu <> mjDK) and (PFinEntreePak(P1)^.Position+PFinEntreePak(P1)^.Taille > FSize))
-         or ((CharModeJeu = mjDK) and (PFinEntreePak(P1)^.Position+PFinEntreeDaikatanaPak(P1)^.CompressLen > FSize))
-         or (PFinEntreePak(P1)^.Position<SizeOf(TIntroPak))
-         {or (PFinEntreePak(P1)^.Taille<0)} then
-          Raise EErrorFmt(5509, [62]);
-
          if Copy(Chemin, 1, Length(CheminPrec)) = CheminPrec then
           Delete(Chemin, 1, Length(CheminPrec))
          else
@@ -372,6 +357,22 @@ begin
           Delete(Chemin, 1, J);
           Dossier:=nDossier;
          until False;
+
+         {Decker - Open only PAK-entries that have a size bigger than zero.
+          Fixes problem with opening BlueShift PAK0.PAK file, which have an entry
+          that was only a folder; "sound/holo/" with size zero.}
+         if (PFinEntreePak(P1)^.Taille<=0) then
+          begin
+           Inc(P1, K);
+           continue;
+          end;
+
+         if ((CharModeJeu <> mjDK) and (PFinEntreePak(P1)^.Position+PFinEntreePak(P1)^.Taille > FSize))
+         or ((CharModeJeu = mjDK) and (PFinEntreePak(P1)^.Position+PFinEntreeDaikatanaPak(P1)^.CompressLen > FSize))
+         or (PFinEntreePak(P1)^.Position<SizeOf(TIntroPak))
+         {or (PFinEntreePak(P1)^.Taille<0)} then
+          Raise EErrorFmt(5509, [62]);
+
          F.Position:=PFinEntreePak(P1)^.Position;
          if (CharModeJeu = mjDK) and (PFinEntreeDaikatanaPak(P1)^.CompressType <> 0) then
          begin
