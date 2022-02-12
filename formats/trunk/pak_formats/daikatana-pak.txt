@@ -1,0 +1,47 @@
+// Daikatana .pak format. It's similar to Quake/Quake2 format, but supports compressed files as well.
+// I think that only the following file types are compressed: .tga .bmp .wal .pcx .bsp
+// I wouldn't rely on this list when unpacking, but when packing, only compress those.
+
+// the structs are based on pakextract.c from https://github.com/yquake2/pakextract
+// all ints are 32bit Little Endian.
+
+struct pak_header
+{
+	char signature[4]; // {'P','A','C','K'}, like in Quake/Quake2
+	int dir_offset;    // offset of the files directory within the pak file
+	int dir_length;    // length of all directory entries in bytes (=> we have dir_length/72 directory entries)
+		// 72 because sizeof(directory_entry) == 72 in Daikatana (in contrast to Quake where it's 64)
+};
+
+struct directory_entry
+{
+	char file_name[56];
+	int file_pos;       // offset of entry's data within whole file
+	int file_length;    // in case of is_compressed: size after decompression (else size in pak)
+	// the following two are new in Daikatana:
+	int compressed_length; // size of compressed data in the pak
+	int is_compressed;     // 0: uncompressed, else compressed
+};
+
+
+Pseudocode to uncompress compressed data:
+	while not done:
+		read a byte (unsigned char) _x_.
+		// x is never written to output, only used to determine what to do
+		if      x < 64:
+			x+1 bytes of uncompressed data follow (just read+write them as they are)
+		else if x < 128:
+			// run-length encoded zeros
+			write (x - 62) zero-bytes to output
+		else if x < 192:
+			// run-length encoded data
+			read one byte, write it (x-126) times to output
+		else if x < 254:
+			// this references previously uncompressed data
+			read one byte to get _offset_
+			read (x-190) bytes from the already uncompressed and written output data,
+				starting at (offset+2) bytes before the current write position
+				(and add them to output, of course)
+		else if x == 255:
+			you're done decompressing (used as terminator)
+			// but I'd also abort once compressed_length bytes are read, to be sure
