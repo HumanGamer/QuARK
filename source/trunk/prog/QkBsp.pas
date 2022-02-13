@@ -346,11 +346,17 @@ const
 
 (***********  Valve .bsp format  ***********)
 const
- cSignatureValve      = $50534256; {"VBSP" 4-letter header}
+ cSignatureBspValve   = $50534256; {"VBSP" 4-letter header}
 
  cVersionBspHL2       = $00000013; {Half-Life 2}
  cVersionBspHL2HDR    = $00000014; {Half-Life 2 with HDR lighting}
  cVersionBspHL2V21    = $00000015; {Half-Life 2 with various changes}
+
+(***********  Other .bsp format  ***********)
+const
+ cSignatureBspOther   = $20505342; {"BSP " 4-letter header}
+
+ cVersionBspOverDose  = $00000055; {OverDose} //FIXME: Untested
 
 (*const
   HEADER_LUMPS = 64; //From HL2's bspfile.h
@@ -843,10 +849,10 @@ begin
 
             else {version unknown}
               Raise EErrorFmt(5572, [LoadName, Version, cVersionBspWarsow]);
-            end;
+          end;
         end;
 
-        cSignatureValve: { Valve BSP format }
+        cSignatureBspValve: { Valve BSP format }
         begin
           case Version of
             cVersionBspHL2: { Half-Life 2 }
@@ -865,6 +871,19 @@ begin
             begin
               Raise EErrorFmt(5602, [LoadName, Version, cVersionBspHL2V21]);
 (*              ObjectGameCode := mjHL2;*)
+            end;
+
+            else {version unknown}
+              Raise EErrorFmt(5572, [LoadName, Version, cVersionBspHL2]);
+          end;
+        end;
+
+        cSignatureBspOther: { Other BSP format }
+        begin
+          case Version of
+            cVersionBspOverDose: { OverDose }
+            begin
+              Raise EErrorFmt(5602, [LoadName, Version, cSignatureBspWarsow]);
             end;
 
             else {version unknown}
