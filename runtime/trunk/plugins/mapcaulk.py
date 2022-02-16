@@ -44,6 +44,7 @@ Info = {
 
 import quarkx
 import quarkpy.mapentities
+import quarkpy.qmenu
 import tagging
 from quarkpy.maputils import *
 
@@ -84,7 +85,7 @@ def polymenu(o, editor, oldmenu=quarkpy.mapentities.PolyhedronType.menu.im_func)
                         undo.setspec(face,'tex',CaulkTexture())
             editor.ok(undo,'Caulk poly')
 
-        caulkItem = qmenu.item('Caulk non-selected',applyCaulk,"|Caulk texture faces that aren't selected or tagged")
+        caulkItem = quarkpy.qmenu.item('Caulk non-selected',applyCaulk,"|Caulk texture faces that aren't selected or tagged")
         #
         # fancy Python list-management to put the item where we want it
         #
@@ -112,7 +113,7 @@ def facemenu(o, editor, oldmenu=quarkpy.mapentities.FaceType.menu.im_func):
      #           pass
 
         texpop = findlabelled(menu,'texpop')
-        caulkItem = qmenu.item('Caulk face',applyCaulk,"|Put caulk texture on the face")
+        caulkItem = quarkpy.qmenu.item('Caulk face',applyCaulk,"|Put caulk texture on the face")
         texpop.items.append(caulkItem)
 
     return menu

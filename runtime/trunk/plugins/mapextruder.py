@@ -18,7 +18,7 @@ Info = {
    "quark":         "Version 6.2"
 }
 
-from quarkpy.qdictionnary import Strings
+import quarkx
 import quarkpy.qhandles
 import quarkpy.qtoolbar
 import quarkpy.mapduplicator

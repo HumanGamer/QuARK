@@ -6,8 +6,8 @@
 #
 ######################################################
 
+import quarkx
 from quarkpy.qutils import *
-import quarkpy.qhandles
 
 # globals
 set_error = None
