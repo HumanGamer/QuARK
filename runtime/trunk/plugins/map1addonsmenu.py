@@ -30,11 +30,11 @@ import quarkpy.qmenu
 
 # Global variables, the sub-menuitems/popup-menus
 
-ShapesMenu = qmenu.popup("&Shape programs", [], None, "|Shape programs:\n\nThese are programs that can make different shapes to use in your maps.\n\nOne that I recommend is 'MGS-object builder' and can be downloaded from the Yahoo QuArK group site at\n\nhttp://groups.yahoo.com/group/quark/files/\n\nIf you find any programs that may help others, please let us know by making a posting to the QuArK groups site at\n\nhttp://groups.yahoo.com/group/quark/", "intro.mapeditor.menu.html#addonsmenu")
+ShapesMenu = quarkpy.qmenu.popup("&Shape programs", [], None, "|Shape programs:\n\nThese are programs that can make different shapes to use in your maps.\n\nOne that I recommend is 'MGS-object builder' and can be downloaded from the Yahoo QuArK group site at\n\nhttp://groups.yahoo.com/group/quark/files/\n\nIf you find any programs that may help others, please let us know by making a posting to the QuArK groups site at\n\nhttp://groups.yahoo.com/group/quark/", "intro.mapeditor.menu.html#addonsmenu")
 
-TerrainMenu = qmenu.popup("&Terrain programs", [], None, "|Terrain programs:\n\nThis category is for your terrain programs for making landscape layouts in your maps.\n\nOne that I recommend is 'Terrain Generator' and can be downloaded from its own site at\n\nhttp://countermap.counter-strike.net/Nemesis/index.php?p=1\n\nIf you find any programs that may help others, please let us know by making a posting to the QuArK groups site at\n\nhttp://groups.yahoo.com/group/quark/", "intro.mapeditor.menu.html#addonsmenu")
+TerrainMenu = quarkpy.qmenu.popup("&Terrain programs", [], None, "|Terrain programs:\n\nThis category is for your terrain programs for making landscape layouts in your maps.\n\nOne that I recommend is 'Terrain Generator' and can be downloaded from its own site at\n\nhttp://countermap.counter-strike.net/Nemesis/index.php?p=1\n\nIf you find any programs that may help others, please let us know by making a posting to the QuArK groups site at\n\nhttp://groups.yahoo.com/group/quark/", "intro.mapeditor.menu.html#addonsmenu")
 
-OtherMenu = qmenu.popup("&Other programs", [], None, "|Other programs:\n\nThis category is for all other types of programs that can export to a map file for your use in QuArK.\n\nIf you find any programs that may help others, please let us know by making a posting to the QuArK groups site at\n\nhttp://groups.yahoo.com/group/quark/", "intro.mapeditor.menu.html#addonsmenu")
+OtherMenu = quarkpy.qmenu.popup("&Other programs", [], None, "|Other programs:\n\nThis category is for all other types of programs that can export to a map file for your use in QuArK.\n\nIf you find any programs that may help others, please let us know by making a posting to the QuArK groups site at\n\nhttp://groups.yahoo.com/group/quark/", "intro.mapeditor.menu.html#addonsmenu")
 
 # The main Addons-menu (and shortcuts if any)
 AddonsMenu = [ShapesMenu, TerrainMenu, OtherMenu] # The Addons menu items
@@ -54,5 +54,5 @@ def Func1Click(self):
 # Add a menu item to the Addons->OtherMenu category
 
 
-OtherMenu.items.append(qmenu.sep)
+OtherMenu.items.append(quarkpy.qmenu.sep)
 OtherMenu.items.append(quarkpy.qmenu.item("Import any map file", Func1Click, "|Import any map file:\n\nThis item function allows you to load any map file into the existing editor to be added to the map you are working on.\n\nBecause it also may import entities, you may half to delete some of them like its info_player_start.\n\nThis function is created by the plugins/map1loadanymap.py file.|intro.mapeditor.menu.html#addonsmenu"))

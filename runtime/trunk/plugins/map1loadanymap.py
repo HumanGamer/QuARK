@@ -16,8 +16,10 @@ Info = {
    "author e-mail": "cdunde1@attbi.com",
    "quark":         "Version 6.4" }
 
+import quarkx
 import quarkpy.qmacro
 import quarkpy.qtoolbar
+import quarkpy.mapbtns
 from quarkpy.maputils import *
 
 
