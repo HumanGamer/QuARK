@@ -9,9 +9,7 @@
 import math
 import quarkx
 import quarkpy.qbaseeditor
-import quarkpy.mapmenus
 import quarkpy.bspcommands
-import quarkpy.maphandles
 import quarkpy.mapentities
 import quarkpy.dlgclasses
 import mapmadsel
