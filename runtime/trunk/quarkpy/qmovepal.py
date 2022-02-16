@@ -9,9 +9,10 @@ The Movement Toolbar Palette.
 #
 
 import quarkx
-import qtoolbar
+import qeditor
 import qmacro
-from qeditor import *
+import qtoolbar
+from qutils import *
 from qdictionnary import Strings
 
 
@@ -259,7 +260,7 @@ class MdlConfigDialog(qmacro.dialogbox):
 
 
 
-class ToolMoveBar(ToolBar):
+class ToolMoveBar(qeditor.ToolBar):
     "The Movement Tool Palette."
 
     Caption = "Movement Tool Palette"
