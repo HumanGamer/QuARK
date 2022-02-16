@@ -19,6 +19,7 @@ Info = {
 
 from quarkpy.maputils import *
 import quarkpy.qmacro
+import quarkpy.qmenu
 import quarkpy.qtoolbar
 
 # ****************** Add Menu Items Dialog ******************

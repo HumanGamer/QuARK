@@ -20,6 +20,7 @@ import struct
 import quarkx
 import quarkpy.qmacro
 import quarkpy.mapmenus
+import quarkpy.qmenu
 from quarkpy.qeditor import *
 from quarkpy.mapduplicator import *
 from quarkpy.qhandles import *

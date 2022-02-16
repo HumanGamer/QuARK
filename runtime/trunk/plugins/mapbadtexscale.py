@@ -19,6 +19,7 @@ Info = {
 
 from quarkpy.maputils import *
 import quarkpy.mapmenus
+import quarkpy.qmenu
 import quarkpy.dlgclasses
 import quarkpy.mapsearch
 from quarkpy import guiutils
@@ -101,14 +102,14 @@ class BadTexScaleDlg (quarkpy.dlgclasses.LiveEditDlg):
         #
         # FIXME: dumb hack, revise mapmadsel
         #
-        m = qmenu.item("",None)
+        m = quarkpy.qmenu.item("",None)
         m.object=self.pack.baddies[index]
         mapmadsel.ZoomToMe(m)
         mapmadsel.SelectMe(m)
         #
         # Some grotty crap to set the mpp to the face page
         #
-        Spec1 = qmenu.item("", quarkpy.mapmenus.set_mpp_page, "")
+        Spec1 = quarkpy.qmenu.item("", quarkpy.mapmenus.set_mpp_page, "")
         Spec1.page = 3 # face properties page
         quarkpy.mapmenus.set_mpp_page(Spec1) 
 
@@ -247,5 +248,5 @@ def badClick(m):
     BadTexScaleDlg(quarkx.clickform, 'badtexscale', editor, setup, action, onclosing)
 
 
-quarkpy.mapsearch.items.append(qmenu.item('Find Bad Tex Scale', badClick,
+quarkpy.mapsearch.items.append(quarkpy.qmenu.item('Find Bad Tex Scale', badClick,
  "|Find Bad Tex Scale:\n\nThis finds faces whose texture axes are almost parallel.|intro.mapeditor.menu.html#searchmenu"))
