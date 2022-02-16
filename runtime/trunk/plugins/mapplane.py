@@ -17,15 +17,11 @@ Info = {
 
 
 import quarkx
-import quarkpy.mapmenus
-import quarkpy.mapentities
-import quarkpy.mapeditor
 import quarkpy.mapcommands
-import quarkpy.mapoptions
 import quarkpy.maphandles
-import quarkpy.dlgclasses
 import quarkpy.mapduplicator
 StandardDuplicator = quarkpy.mapduplicator.StandardDuplicator
+import quarkpy.qmenu
 from quarkpy.maputils import *
 from tagging import *
 
@@ -50,12 +46,12 @@ class PlaneHandle(quarkpy.maphandles.CenterHandle):
                  undo.setspec(plane, spec, val.tuple)
             editor.ok(undo,"Glue plane to tagged")
 
-        tagitem = qmenu.item("Tag Plane", tagplane)
-        glueitem = qmenu.item("Glue to tagged plane", glueplane)
+        tagitem = quarkpy.qmenu.item("Tag Plane", tagplane)
+        glueitem = quarkpy.qmenu.item("Glue to tagged plane", glueplane)
 
         tagged = gettaggedplane(editor)
         if tagged is None:
-            glueitem.state=qmenu.disabled
+            glueitem.state=quarkpy.qmenu.disabled
         return [tagitem, glueitem]+oldmenu
 
     def pozzies(self):
@@ -185,16 +181,16 @@ def make3points(m):
     editor.ok(undo,"Create 3point plane")
     editor.layout.explorer.uniquesel=plane
 
-planeItem = qmenu.item("Plane from tagged points", make3points)
+planeItem = quarkpy.qmenu.item("Plane from tagged points", make3points)
 
 def commandsclick(menu, oldcommand=quarkpy.mapcommands.onclick):
     editor=mapeditor()
     if editor is None: return
     plane=gettaggedplane(editor)
     if plane is None:
-       planeItem.state=qmenu.disabled
+       planeItem.state=quarkpy.qmenu.disabled
     else:
-       planeItem.state=qmenu.normal
+       planeItem.state=quarkpy.qmenu.normal
 
 #quarkpy.mapcommands.onclick = commandsclick
 

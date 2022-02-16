@@ -20,6 +20,7 @@ import quarkx
 import quarkpy.mapmenus
 import quarkpy.mapcommands
 import quarkpy.maphandles
+import quarkpy.qmenu
 import mapmadsel
 
 from quarkpy.maputils import *
@@ -70,14 +71,14 @@ def AlignClick(m):
 
 
 def makeitem(mode):
-    item=qmenu.item("Align "+mode,AlignClick)
+    item=quarkpy.qmenu.item("Align "+mode,AlignClick)
     item.mode=mode
     return item
 
 alignlist = map(makeitem,["east","west","north","south","up","down"])
 
-menswap = qmenu.item("Swap Selection",SwapClick)
-menalign = qmenu.popup("Align Group",alignlist)
+menswap = quarkpy.qmenu.item("Swap Selection",SwapClick)
+menalign = quarkpy.qmenu.popup("Align Group",alignlist)
 
 def commandsclick(menu, oldcommand=quarkpy.mapcommands.onclick):
     oldcommand(menu)
@@ -85,18 +86,18 @@ def commandsclick(menu, oldcommand=quarkpy.mapcommands.onclick):
     if editor is None : return
     sel = editor.layout.explorer.sellist
     menhint = "|Swap Selection:\n\nSwap first and second elements of 2 selected items."
-    menswap.state=qmenu.disabled
+    menswap.state=quarkpy.qmenu.disabled
     if len(sel)<2:
         menhint=menhint+"\n\nThis menu item requires that two items be selected; you don't have enough.|intro.mapeditor.menu.html#makeprism"
     elif len(sel)>2:
         menhint=menhint+"\n\nThis menu item requires that two items be selected, you have too many.|intro.mapeditor.menu.html#makeprism"
     menswap.hint = menhint
     if len(sel)==2:
-        menswap.state=qmenu.normal
-    menswap.state=qmenu.normal
+        menswap.state=quarkpy.qmenu.normal
+    menswap.state=quarkpy.qmenu.normal
 
     alignhint = "|Align selected:\n\nAlign items in selection along their bounding box edges, or along the edges of a marked object (RMB I Navigate Tree I <item> \ Mark)."
-    menalign.state=qmenu.normal
+    menalign.state=quarkpy.qmenu.normal
     marked=mapmadsel.getstashed(editor)
     if marked is None:
         menalign.text = "Align selected (to bbox edge)"
@@ -105,13 +106,13 @@ def commandsclick(menu, oldcommand=quarkpy.mapcommands.onclick):
     if len(sel)<2:
         if marked is None:
             alignhint=alignhint+"\n\nThis menu item requires that two or more items be selected, or that something be marked; neither of these are true.|intro.mapeditor.menu.html#makeprism"
-            menalign.state=qmenu.disabled
+            menalign.state=quarkpy.qmenu.disabled
         elif len(sel)<1:
             alignhhint=alignhint+"\n\nNothing to align.|intro.mapeditor.menu.html#makeprism"
-            menaligned.state=qmenu.disabled
+            menaligned.state=quarkpy.qmenu.disabled
         elif sel[0] is marked:
             alignhint=alignhint+"\n\nNo point in aligning something to itself (the selected item is also the marked one).|intro.mapeditor.menu.html#makeprism"
-            menalign.state=qmenu.disabled
+            menalign.state=quarkpy.qmenu.disabled
     menalign.hint=alignhint
 
 quarkpy.mapcommands.onclick = commandsclick

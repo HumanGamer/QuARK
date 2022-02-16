@@ -18,9 +18,10 @@ Info = {
 
 
 import quarkx
-import quarkpy.mapmenus
 import quarkpy.mapcommands
+import quarkpy.mapoptions
 import quarkpy.dlgclasses
+import quarkpy.qmenu
 import quarkpy.qtoolbar
 from quarkpy.maputils import *
 
@@ -144,7 +145,7 @@ quarkpy.mapoptions.items.append(quarkpy.mapoptions.toggleitem("Developer Mode","
 
 hint = "|Reload:\n\nThis is a 'Developer Mode' function to help with debugging, etc.|intro.mapeditor.menu.html#heapstatus"
 
-menheapstatus = qmenu.item("HeapStatus",HeapStatusClick,hint)
+menheapstatus = quarkpy.qmenu.item("HeapStatus",HeapStatusClick,hint)
 
 if quarkx.setupsubset(SS_MAP, "Options")["Developer"]:
   quarkpy.mapcommands.items.append(menheapstatus)

@@ -21,6 +21,7 @@ from quarkpy.maputils import *
 import quarkpy.dlgclasses
 import quarkpy.mapsearch
 import quarkpy.qmacro
+import quarkpy.qmenu
 import mapmadsel
 import quarkx
 
@@ -98,7 +99,7 @@ class MicroKillDlg(quarkpy.dlgclasses.LiveEditDlg):
         #
         # FIXME: dumb hack, revise mapmadsel
         #
-        m = qmenu.item("",None)
+        m = quarkpy.qmenu.item("",None)
         m.object=self.pack.thinnies[index]
         mapmadsel.ZoomToMe(m)
         mapmadsel.SelectMe(m)
@@ -271,5 +272,5 @@ def thinClick(m):
     MicroKillDlg(quarkx.clickform, 'microkill', editor, setup, action, onclosing)
 
 
-quarkpy.mapsearch.items.append(qmenu.item('Find &Microbrushes', thinClick,
+quarkpy.mapsearch.items.append(quarkpy.qmenu.item('Find &Microbrushes', thinClick,
  "|Find Microbrushes:\n\nThis function identifies brushes that are suspiciously small, at least in one dimension.", "intro.mapeditor.menu.html#searchmenu"))

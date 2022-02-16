@@ -344,7 +344,7 @@ def commands1click(menu, oldclick = quarkpy.mapcommands.onclick):
     if ":d" in map(lambda obj: obj.type, editor.layout.explorer.sellist):   # any Duplicator selected ?
         dissociate.state = 0
     else:
-        dissociate.state = qmenu.disabled
+        dissociate.state = quarkpy.qmenu.disabled
 
 quarkpy.mapcommands.items.append(quarkpy.qmenu.sep)   # separator
 quarkpy.mapcommands.items.append(dissociate)
@@ -394,4 +394,4 @@ quarkpy.mapduplicator.DupCodes.update({
 def resetTextureCycleClick(m):
     quarkpy.mapduplicator.Dup_Tex_Dicts={}
 
-quarkpy.mapcommands.items.append(qmenu.item("Reset Texture Cycle",resetTextureCycleClick,"|Reset Texture Cycle:\n\nReload files specifying texture cycles for duplicators.|intro.mapeditor.menu.html#disdupimages"))
+quarkpy.mapcommands.items.append(quarkpy.qmenu.item("Reset Texture Cycle",resetTextureCycleClick,"|Reset Texture Cycle:\n\nReload files specifying texture cycles for duplicators.|intro.mapeditor.menu.html#disdupimages"))

@@ -69,7 +69,7 @@ types = {
 STASH_KEY = 'mapmadsel_stash'
 
 def stashitem(o):
-    item = qmenu.item('Mark '+types[o.type], StashMe, "mark for tree-restructuring")
+    item = quarkpy.qmenu.item('Mark '+types[o.type], StashMe, "mark for tree-restructuring")
     item.object = o
     return item
 
@@ -97,13 +97,13 @@ def getrestrictor(e):
 def setrestrictor(e, o):
     editor = mapeditor()
     nt.uniquetag(e, RESTRICT_KEY, o)
-    menrestsel.state = qmenu.checked
+    menrestsel.state = quarkpy.qmenu.checked
     editor.invalidateviews()
 
 def clearrestrictor(e):
     nt.cleartags(e, RESTRICT_KEY)
-    #menrestsel.state = qmenu.disabled
-    menrestsel.state = qmenu.normal
+    #menrestsel.state = quarkpy.qmenu.disabled
+    menrestsel.state = quarkpy.qmenu.normal
     e.invalidateviews()
 
 #
@@ -117,15 +117,15 @@ def clearrestrictor(e):
 #
 def navTreePopupItems(current, editor, restricted):
     name = current.shortname
-    select = qmenu.item("&Select",SelectMe,"Select")
-    stash = qmenu.item("&Mark", StashMe, "|Marking is a preliminary for the `Reorganize Tree' operations, which help to (re)organize the group-structure in the tree-view.\n\nFor example you can mark a group, and then later insert a selected entity into it, or mark an entity, and later insert it into or over (in the treeview) the selected group.\n\nReorganize Tree operations that can't be applied sensibly to the selected and marked objects are supposed to be greyed out; if they aren't it's a bug.")
-    restrict = qmenu.item("&Restrict", RestrictByMe, "|Restricts selections to being within this.\n\nGood if for example you want to work on the details of a desk or staircase for a while.")
-    zoom = qmenu.item("&Zoom", ZoomToMe, "Fill the views with selected.")
+    select = quarkpy.qmenu.item("&Select",SelectMe,"Select")
+    stash = quarkpy.qmenu.item("&Mark", StashMe, "|Marking is a preliminary for the `Reorganize Tree' operations, which help to (re)organize the group-structure in the tree-view.\n\nFor example you can mark a group, and then later insert a selected entity into it, or mark an entity, and later insert it into or over (in the treeview) the selected group.\n\nReorganize Tree operations that can't be applied sensibly to the selected and marked objects are supposed to be greyed out; if they aren't it's a bug.")
+    restrict = quarkpy.qmenu.item("&Restrict", RestrictByMe, "|Restricts selections to being within this.\n\nGood if for example you want to work on the details of a desk or staircase for a while.")
+    zoom = quarkpy.qmenu.item("&Zoom", ZoomToMe, "Fill the views with selected.")
     if restricted:
-      select.state=qmenu.disabled
+      select.state=quarkpy.qmenu.disabled
     if current.type == ":e" or current.type == ":f":
-      restrict.state = qmenu.disabled
-    item = qmenu.popup(name,[zoom,select,restrict,stash],None,"|This is the name of some group or brush entity that contains what you have selected.\n\nLook at its submenu for stuff you can do!\n\nIf there's a bar in the menu, then the `Restrict Selections' menu item is checked, and you can only select stuff above the bar.")
+      restrict.state = quarkpy.qmenu.disabled
+    item = quarkpy.qmenu.popup(name,[zoom,select,restrict,stash],None,"|This is the name of some group or brush entity that contains what you have selected.\n\nLook at its submenu for stuff you can do!\n\nIf there's a bar in the menu, then the `Restrict Selections' menu item is checked, and you can only select stuff above the bar.")
     item.menuicon = current.geticon(1)
     item.object = current
     stash.object = select.object = restrict.object = zoom.object = current
@@ -147,8 +147,8 @@ def buildParentPopupList(o, parentpopupitems, editor):
   #  while current.name != "worldspawn:b":
     while current != None:
         list.append(parentpopupitems(current, editor, restricted))
-        if current==restrictor and menrestsel.state == qmenu.checked:
-            list.append(qmenu.sep)
+        if current==restrictor and menrestsel.state == quarkpy.qmenu.checked:
+            list.append(quarkpy.qmenu.sep)
             restricted = 1
         current = current.treeparent
   #  list.reverse()
@@ -158,7 +158,7 @@ def buildParentPopupList(o, parentpopupitems, editor):
 def buildParentPopup(o,parentpopup, parentpopupitems, editor=None):
     list = buildParentPopupList(o,parentpopupitems, editor)
     if list == []:
-        parentpopup.state=qmenu.disabled
+        parentpopup.state=quarkpy.qmenu.disabled
     else:
         parentpopup.items = list
     return parentpopup
@@ -169,7 +169,7 @@ def buildParentPopup(o,parentpopup, parentpopupitems, editor=None):
 #   make more, with replacement for navTreePopupItems.
 #
 def navTreePopup(o,editor):
-    parentSelPop = qmenu.popup("&Navigate Tree", hint = "|The submenu that appears comprises the currently selected object at the top, and below it, the map objects (polys, groups & brush entities) that are above it in the group tree-structure.\n\nIf you put the cursor over one of these, you will get a further sub-menu with relevant commands to select from.")
+    parentSelPop = quarkpy.qmenu.popup("&Navigate Tree", hint = "|The submenu that appears comprises the currently selected object at the top, and below it, the map objects (polys, groups & brush entities) that are above it in the group tree-structure.\n\nIf you put the cursor over one of these, you will get a further sub-menu with relevant commands to select from.")
     return buildParentPopup(o,parentSelPop,navTreePopupItems,editor)
 
 
@@ -334,7 +334,7 @@ def selectMeFunc(editor, object):
     if object.treeparent is None:
         return
 
-    Spec1 = qmenu.item("", quarkpy.mapmenus.set_mpp_page, "")
+    Spec1 = quarkpy.qmenu.item("", quarkpy.mapmenus.set_mpp_page, "")
     Spec1.page = 0
     quarkpy.mapmenus.set_mpp_page(Spec1)
 
@@ -372,11 +372,11 @@ def insertinto(o):
   editor=mapeditor()
   marked = getstashed(editor)
   if not insert_ok(marked, o):
-    item = qmenu.item("Insert marked into this",InsertIntoMe,"Mark something to insert it somewhere")
-    item.state=qmenu.disabled
+    item = quarkpy.qmenu.item("Insert marked into this",InsertIntoMe,"Mark something to insert it somewhere")
+    item.state=quarkpy.qmenu.disabled
     return item
   text = "Insert "+`marked.shortname`+" into this"
-  item = qmenu.item(text,InsertIntoMe,"Insert what you marked into this")
+  item = quarkpy.qmenu.item(text,InsertIntoMe,"Insert what you marked into this")
   item.object = o
   item.text = text
   item.marked = marked
@@ -392,11 +392,11 @@ def insertover(o):
   editor=mapeditor()
   marked = getstashed(editor)
   if not insert_ok(marked, o.treeparent):
-    item = qmenu.item("Insert marked over this",InsertOverMe,"Mark something to insert it places")
-    item.state=qmenu.disabled
+    item = quarkpy.qmenu.item("Insert marked over this",InsertOverMe,"Mark something to insert it places")
+    item.state=quarkpy.qmenu.disabled
     return item
   text = "Insert "+`marked.shortname`+" over this"
-  item = qmenu.item(text,InsertOverMe,"|Insert what you marked over the position of this in the tree-view")
+  item = quarkpy.qmenu.item(text,InsertOverMe,"|Insert what you marked over the position of this in the tree-view")
   item.object = o
   item.marked = marked
   item.text = text
@@ -412,11 +412,11 @@ def insertme(o):
   editor=mapeditor()
   marked = getstashed(editor)
   if not insert_ok(o,marked):
-    item = qmenu.item("Insert this into marked",InsertMeInto,"Mark something to insert stuff into it")
-    item.state=qmenu.disabled
+    item = quarkpy.qmenu.item("Insert this into marked",InsertMeInto,"Mark something to insert stuff into it")
+    item.state=quarkpy.qmenu.disabled
     return item
   text = "Insert this into "+`marked.shortname`
-  item = qmenu.item(text,InsertMeInto,"")
+  item = quarkpy.qmenu.item(text,InsertMeInto,"")
   item.object = o
   item.text = text
   item.marked = marked
@@ -433,13 +433,13 @@ def facelift(o):
     editor = mapeditor()
     marked = getstashed(editor)
     help = "|Lifts face to marked group, removing coplanar faces within that group."
-    item = qmenu.item("&Lift to marked group",LiftMe,help)
+    item = quarkpy.qmenu.item("&Lift to marked group",LiftMe,help)
     if marked is None:
-        item.state = qmenu.disabled
+        item.state = quarkpy.qmenu.disabled
         item.hint = item.hint+"\n\nFor this item to be enabled, there must be a marked group containing the face (Navigate tree|<some containing group>|Mark)."
         return item
     if not checktree(marked,o):
-        item.state = qmenu.disabled
+        item.state = quarkpy.qmenu.disabled
         item.hint = item.hint+"\n\nFor this item to be enabled, the marked group must contain the face"
         return item
     item.marked = marked
@@ -468,10 +468,10 @@ exttext = "|Extends the selection from this face to all the faces that make a si
 
 def extendtolinked(editor,o):
   "extend the selection to the linked faces"
-  item = qmenu.item("to &Linked faces",ExtendToLinkedClick,"Extend Selection to Linked Faces")
+  item = quarkpy.qmenu.item("to &Linked faces",ExtendToLinkedClick,"Extend Selection to Linked Faces")
   tag = o.getint("_tag")
   if tag == 0:
-    item.state=qmenu.disabled
+    item.state=quarkpy.qmenu.disabled
   item.o = o
   item.tag = tag
   return item
@@ -498,14 +498,14 @@ def ExtendToLinkedClick(m):
 
 def extmenuitem(String, ClickFunction,o, helptext=""):
   "make a menu-item with a side attached"
-  item = qmenu.item(String, ClickFunction, helptext)
+  item = quarkpy.qmenu.item(String, ClickFunction, helptext)
   item.obj = o
   return item
 
 def madfacemenu(o, editor, oldmenu=quarkpy.mapentities.FaceType.menu.im_func):
   "the new right-mouse menu for faces"
   menu = oldmenu(o, editor)
-  menu[:0] = [qmenu.popup("&Extend Selection",
+  menu[:0] = [quarkpy.qmenu.popup("&Extend Selection",
                 [extendtolinked(editor,o),
                  extmenuitem("to Adjacent faces",ExtendSelClick,o,exttext)]),
               navTreePopup(o, editor),
@@ -528,7 +528,7 @@ def reorganizePopItems(o):
             insertme(o)]
 
 def restructurepopup(o):
-    reorganizePop = qmenu.popup("&Reorganize Tree", hint="Reorganize structure of grouping tree")
+    reorganizePop = quarkpy.qmenu.popup("&Reorganize Tree", hint="Reorganize structure of grouping tree")
     reorganizePop.items = reorganizePopItems(o)
     return reorganizePop
 
@@ -539,7 +539,7 @@ def madpolymenu(o, editor, oldmenu=quarkpy.mapentities.PolyhedronType.menu.im_fu
                 navTreePopup(o, editor),
                 restructurepopup(o),
   #              menrestsel,
-                qmenu.sep]
+                quarkpy.qmenu.sep]
     return menu
 
 quarkpy.mapentities.PolyhedronType.menu = madpolymenu
@@ -558,7 +558,7 @@ def madgroupmenu(o, editor, oldmenu=quarkpy.mapentities.GroupType.menu.im_func):
               navTreePopup(o, editor),
               restructurepopup(o),
 #              menrestsel,
-              qmenu.sep]
+              quarkpy.qmenu.sep]
   return menu
 
 quarkpy.mapentities.GroupType.menu = madgroupmenu
@@ -574,7 +574,7 @@ def madbezmenu(o, editor, oldmenu=quarkpy.mapentities.BezierType.menu.im_func):
   menu = oldmenu(o, editor)
   menu[:0] = [navTreePopup(o, editor),
               restructurepopup(o),
-              qmenu.sep]
+              quarkpy.qmenu.sep]
   return menu
 
 quarkpy.mapentities.BezierType.menu = madbezmenu
@@ -586,7 +586,7 @@ def madentmenu(o, editor, oldmenu=quarkpy.mapentities.EntityType.menu.im_func):
   menu[:0] = [navTreePopup(o, editor),
               restructurepopup(o),
 #              menrestsel,
-              qmenu.sep]
+              quarkpy.qmenu.sep]
   return menu
 
 quarkpy.mapentities.EntityType.menu = madentmenu
@@ -596,7 +596,7 @@ def madbrushentmenu(o, editor, oldmenu=quarkpy.mapentities.BrushEntityType.menu.
   menu = oldmenu(o, editor)
   menu[:0] = [navTreePopup(o, editor),
               restructurepopup(o),
-              qmenu.sep]
+              quarkpy.qmenu.sep]
   return menu
 
 quarkpy.mapentities.BrushEntityType.menu = madbrushentmenu
@@ -760,9 +760,9 @@ def ExtendSelClick(m):
 
 
 def madclick(editor, view, x, y, oldclick=quarkpy.maphandles.ClickOnView):
-  if mennosel.state == qmenu.checked:
+  if mennosel.state == quarkpy.qmenu.checked:
     return []
-  if menrestsel.state == qmenu.checked:
+  if menrestsel.state == quarkpy.qmenu.checked:
     restrictor = getrestrictor(editor)
     if restrictor is not None:
       return view.clicktarget(restrictor, x, y)
@@ -771,7 +771,7 @@ def madclick(editor, view, x, y, oldclick=quarkpy.maphandles.ClickOnView):
 quarkpy.maphandles.ClickOnView = madclick
 
 def maddrawview(view, mapobj, mode, olddraw=quarkpy.qbaseeditor.drawview):
-  if menrestsel.state == qmenu.checked:
+  if menrestsel.state == quarkpy.qmenu.checked:
     editor = mapeditor()
     restrictor=getrestrictor(editor)
 #    if view.info["type"]=="3D":
@@ -793,10 +793,10 @@ def RestSelClick(m):
 def NoSelClick(m):
   editor=mapeditor()
   if editor==None: return
-  if mennosel.state == qmenu.checked:
-    mennosel.state = qmenu.normal
+  if mennosel.state == quarkpy.qmenu.checked:
+    mennosel.state = quarkpy.qmenu.normal
   else:
-    mennosel.state = qmenu.checked
+    mennosel.state = quarkpy.qmenu.checked
 
 
 def UnrestrictClick(m):
@@ -922,7 +922,7 @@ def linredmenu(self, editor, view):
     def browseSelClick(m, editor=editor):
         browseListFunc(editor, editor.layout.explorer.sellist)
 
-    item = qmenu.item('&Browse Selection',browseSelClick,browseHelpString)
+    item = quarkpy.qmenu.item('&Browse Selection',browseSelClick,browseHelpString)
     return [item]
 
 quarkpy.qhandles.LinRedHandle.menu=linredmenu
@@ -932,7 +932,7 @@ def multreemenu(sellist, editor, oldmenu=quarkpy.mapmenus.MultiSelMenu):
     def browseSelClick(m,editor=editor,sellist=sellist):
         browseListFunc(editor,sellist)
 
-    item = qmenu.item('&Browse Selection', browseSelClick,browseHelpString)
+    item = quarkpy.qmenu.item('&Browse Selection', browseSelClick,browseHelpString)
     return [item]+oldmenu(sellist, editor)
 
 quarkpy.mapmenus.MultiSelMenu = multreemenu
@@ -980,15 +980,15 @@ mennosel = quarkpy.qmenu.item("No Selection in Map Views", NoSelClick, "|No Sele
 
 menunrestrict = quarkpy.qmenu.item("&Unrestrict Selection",UnrestrictClick,"|Unrestrict Selection:\n\nWhen selection is restricted (see the Containing Groups right-mouse menu), clicking on this will unrestrict the selection & restore things to normal.|intro.mapeditor.menu.html#invertface")
 
-browseItem = qmenu.item("Browse Multiple Selection",browseMulClick,browseHelpString)
+browseItem = quarkpy.qmenu.item("Browse Multiple Selection",browseMulClick,browseHelpString)
 
-zoomItem = qmenu.item("&Zoom to selection", ZoomToMe, "|Zoom to selection:\n\nZooms the map views in to the selection.|intro.mapeditor.menu.html#invertface")
+zoomItem = quarkpy.qmenu.item("&Zoom to selection", ZoomToMe, "|Zoom to selection:\n\nZooms the map views in to the selection.|intro.mapeditor.menu.html#invertface")
 
 def menunrestrictenable(editor):
   if getrestrictor(editor) is None:
-    menunrestrict.state=qmenu.disabled
+    menunrestrict.state=quarkpy.qmenu.disabled
   else:
-    menunrestrict.state=qmenu.normal
+    menunrestrict.state=quarkpy.qmenu.normal
 
 for menitem, keytag in [(menextsel, "Extend Selection"),
                         (menunrestrict, "Unrestrict Selection"),
@@ -1004,37 +1004,37 @@ for menitem, keytag in [(menextsel, "Extend Selection"),
 # -- selection menu items
 #
 
-stashItem = qmenu.item("&Mark selection", StashMe, "|Mark selection:\n\nThis command designates the selection as a special element for other (mostly somewhat advanced) commands, such as 'Lift face to marked group' on the face RMB, or the 'Reorganize Tree' commands on various map object RMB's.|intro.mapeditor.menu.html#invertface")
+stashItem = quarkpy.qmenu.item("&Mark selection", StashMe, "|Mark selection:\n\nThis command designates the selection as a special element for other (mostly somewhat advanced) commands, such as 'Lift face to marked group' on the face RMB, or the 'Reorganize Tree' commands on various map object RMB's.|intro.mapeditor.menu.html#invertface")
 
-clearItem = qmenu.item("Clear Mark", ClearMarkClick, "|Clear Mark:\n\nThis cancels the Mark selection.|intro.mapeditor.menu.html#invertface")
+clearItem = quarkpy.qmenu.item("Clear Mark", ClearMarkClick, "|Clear Mark:\n\nThis cancels the Mark selection.|intro.mapeditor.menu.html#invertface")
 
 def selectionclick(menu, oldcommand=quarkpy.mapselection.onclick):
-#    reorganizePop.state = parentSelPop.state=qmenu.disabled
-    menrestsel.state=menextsel.state=qmenu.disabled
-    meninvertfacesel.state = stashItem.state = zoomItem.state = qmenu.disabled
+#    reorganizePop.state = parentSelPop.state=quarkpy.qmenu.disabled
+    menrestsel.state=menextsel.state=quarkpy.qmenu.disabled
+    meninvertfacesel.state = stashItem.state = zoomItem.state = quarkpy.qmenu.disabled
     oldcommand(menu)
     editor = mapeditor()
     if editor is None: return
     menunrestrictenable(editor)
     sellist = editor.layout.explorer.sellist
     if filter(lambda x:x.type==':f', sellist):
-        meninvertfacesel.state=qmenu.normal
+        meninvertfacesel.state=quarkpy.qmenu.normal
     if len(sellist)>1:
 #cdunde-to keep Cancel Selection and Make Detail functions active
-        browseItem.state=quarkpy.mapselection.removeItem.state=quarkpy.mapselection.makedetail.state=qmenu.normal
+        browseItem.state=quarkpy.mapselection.removeItem.state=quarkpy.mapselection.makedetail.state=quarkpy.qmenu.normal
     else:
-        browseItem.state=qmenu.disabled
+        browseItem.state=quarkpy.qmenu.disabled
     if len(sellist)==1:
-        menrestsel.state=qmenu.normal
+        menrestsel.state=quarkpy.qmenu.normal
 #cdunde-to toggel each other
-    if menunrestrict.state==qmenu.normal:
-        menrestsel.state=qmenu.disabled
+    if menunrestrict.state==quarkpy.qmenu.normal:
+        menrestsel.state=quarkpy.qmenu.disabled
     sel = editor.layout.explorer.uniquesel
     marked = getstashed(editor)
     if marked is None:
-        clearItem.state=qmenu.disabled
+        clearItem.state=quarkpy.qmenu.disabled
     else:
-        clearItem.state=qmenu.normal
+        clearItem.state=quarkpy.qmenu.normal
 
     if sel is None: return
 
@@ -1044,19 +1044,19 @@ def selectionclick(menu, oldcommand=quarkpy.mapselection.onclick):
 #    for popup, items in ((parentSelPop, buildParentPopupList(sel,navTreePopupItems),editor),
 #                         (reorganizePop, reorganizePopItems(sel))):
 #        popup.items = items
-#        popup.state=qmenu.normal
+#        popup.state=quarkpy.qmenu.normal
     stashItem.object = zoomItem.object = sel
-    stashItem.state = zoomItem.state = qmenu.normal
+    stashItem.state = zoomItem.state = quarkpy.qmenu.normal
 #    debug('greetings mortals')
-#    if menrestsel.state != qmenu.checked:
-#        menrestsel.state=qmenu.normal
+#    if menrestsel.state != quarkpy.qmenu.checked:
+#        menrestsel.state=quarkpy.qmenu.normal
     if sel.type == ':f':
         menextsel.state = quarkpy.qmenu.normal
 
 
-quarkpy.mapselection.onclick = selectionclick  
+quarkpy.mapselection.onclick = selectionclick
 
-quarkpy.mapselection.items.append(qmenu.sep)
+quarkpy.mapselection.items.append(quarkpy.qmenu.sep)
 #
 # Canned cuz not working
 #
@@ -1074,5 +1074,5 @@ quarkpy.mapselection.items.append(clearItem)
 #
 #  -- options menu items
 #
-quarkpy.mapoptions.items.append(qmenu.sep)
+quarkpy.mapoptions.items.append(quarkpy.qmenu.sep)
 quarkpy.mapoptions.items.append(mennosel)

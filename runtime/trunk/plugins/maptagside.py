@@ -59,13 +59,13 @@ import maptagpoint
 
 
 def ToggleCheck(m):
-  if m.state == qmenu.checked:
-    m.state = qmenu.normal
+  if m.state == quarkpy.qmenu.checked:
+    m.state = quarkpy.qmenu.normal
   else:
-    m.state = qmenu.checked
+    m.state = quarkpy.qmenu.checked
 
 def toggleitem(text,hint):
-  item = qmenu.item(text,ToggleCheck,hint)
+  item = quarkpy.qmenu.item(text,ToggleCheck,hint)
   return item
 
 def cyclenext(i, len):
@@ -133,7 +133,7 @@ class MakeTexMultDlg(quarkpy.qmacro.dialogbox):
             "Close"))
 
     def onclose(self, dlg):
-      requestmultiplier.state=qmenu.normal
+      requestmultiplier.state=quarkpy.qmenu.normal
       self.editor.texmult = None
       quarkpy.qmacro.dialogbox.onclose(self,dlg)
 
@@ -141,14 +141,14 @@ class MakeTexMultDlg(quarkpy.qmacro.dialogbox):
 def WrapMultClick(m):
   editor = mapeditor()
   if editor is None: return
-  if requestmultiplier.state==qmenu.checked:
- #    requestmultiplier.state=qmenu.normal
+  if requestmultiplier.state==quarkpy.qmenu.checked:
+ #    requestmultiplier.state=quarkpy.qmenu.normal
      editor.texmult.close()
   else:
-    requestmultiplier.state=qmenu.checked
+    requestmultiplier.state=quarkpy.qmenu.checked
     MakeTexMultDlg(quarkx.clickform,editor)
 
-requestmultiplier=qmenu.item("Texture Wrap Multiplier",WrapMultClick,"|When this item is checked, if you wrap a texture across a set of faces (around pillar or across tagged faces), the texture is scaled in the direction of fitting so as to fit as many times as specified in the dialog box.\n\nThe multiplier stays active until the dialog box is closed.  The 'preserve aspect ration' menu item controls whether the texture scales correspondingly in the other direction.")
+requestmultiplier=quarkpy.qmenu.item("Texture Wrap Multiplier",WrapMultClick,"|When this item is checked, if you wrap a texture across a set of faces (around pillar or across tagged faces), the texture is scaled in the direction of fitting so as to fit as many times as specified in the dialog box.\n\nThe multiplier stays active until the dialog box is closed.  The 'preserve aspect ration' menu item controls whether the texture scales correspondingly in the other direction.")
 
 
 #
@@ -164,9 +164,9 @@ def objectmenu(o, editor, oldmenu=quarkpy.mapentities.EntityManager.menu.im_func
 
 def snapobj(editor,o):
   tagged=gettagged(editor)
-  item=qmenu.item("Snap to tagged",SnapClick)
+  item=quarkpy.qmenu.item("Snap to tagged",SnapClick)
   if tagged is None:
-    item.state=qmenu.disabled
+    item.state=quarkpy.qmenu.disabled
   else:
     item.o = o
   return item
@@ -212,13 +212,13 @@ def projectpointtoplane(p,n1,o2,n2):
 
 
 def projecttex(editor,o):
-  item=qmenu.item("&Project tex. from tagged",ProjTexClick,"|Projects the texture of the tagged face onto the selected one, or those in the selected item, so that a texture can be wrapped without seams over an irregular assortment of faces.\n\nTextures aren't projected onto faces that are too close to perpendicular to the projecting face.")
+  item=quarkpy.qmenu.item("&Project tex. from tagged",ProjTexClick,"|Projects the texture of the tagged face onto the selected one, or those in the selected item, so that a texture can be wrapped without seams over an irregular assortment of faces.\n\nTextures aren't projected onto faces that are too close to perpendicular to the projecting face.")
   tagged=gettaggedtexplane(editor)
 #  item.single = 0 # overrideable below, controls same-name check
   if tagged is None:
-    item.state = qmenu.disabled
+    item.state = quarkpy.qmenu.disabled
   elif o.type==":f" and math.fabs(tagged.normal*o.normal)<.001:
-    item.state=qmenu.disabled
+    item.state=quarkpy.qmenu.disabled
 #    item.single = 1
   else:
     item.olist = [o]
@@ -302,7 +302,7 @@ def new_ok(self, editor,undo,old,new,oldok=quarkpy.qhandles.GenericHandle.ok.im_
   codrug = codrag(editor,undo,old,new)
   if codrug >= 0:
     oldok(self,editor,undo,old,new)
-  if codrug==1 and menmultisellinkdrag.state==qmenu.normal:
+  if codrug==1 and menmultisellinkdrag.state==quarkpy.qmenu.normal:
     editor.layout.explorer.sellist=new
 
 quarkpy.qhandles.GenericHandle.ok = new_ok
@@ -360,7 +360,7 @@ def codrag(editor,undo,old,new):
     quarkx.msgbox("The dragged "+typenames[type]+" contains linked faces that are not coplanar.\n\nYou should fix this and then use the 'Glue linked faces' speedmenu item to align the linked faces elsewhere in the map",
        MT_WARNING,MB_OK)
     return 0
-  if mengluelinkedondrag.state==qmenu.normal:
+  if mengluelinkedondrag.state==quarkpy.qmenu.normal:
     size = len(dragdict.keys())
     response = quarkx.msgbox("This object is linked to other faces.  Do you want to drag them too?",MT_INFORMATION,MB_YES_NO_CANCEL)
     if response == MR_NO:
@@ -375,13 +375,13 @@ menlinkonglue=toggleitem("Link on Glue","|Link on Glue:\n\nWhen this option is c
 
 menmultisellinkdrag=toggleitem("MultiSelect on Linked Drag","|MultiSelect on Linked Drag:\n\nWhen this option is checked, when a face is dragged that is linked to others, they all become the multi-selection after the drag.\n\nWhen it is unchecked, the selection remains unchanged.|intro.mapeditor.menu.html#optionsmenu")
 
-#menmultisellinkdrag.state=qmenu.checked
+#menmultisellinkdrag.state=quarkpy.qmenu.checked
 
 mengluelinkedondrag=toggleitem("Silent Glue Linked on Drag","|Silent Glue Linked on Drag:\n\nWhen this option is checked, when something is dragged, faces linked to its faces will be dragged along too.|intro.mapeditor.menu.html#optionsmenu")
 
-#mengluelinkedondrag.state=qmenu.checked
+#mengluelinkedondrag.state=quarkpy.qmenu.checked
 
-quarkpy.mapoptions.items.append(qmenu.sep)
+quarkpy.mapoptions.items.append(quarkpy.qmenu.sep)
 quarkpy.mapoptions.items.append(menmultisellinkdrag)
 quarkpy.mapoptions.items.append(menlinkonglue)
 quarkpy.mapoptions.items.append(mengluelinkedondrag)
@@ -552,7 +552,7 @@ def intersecting_sides(side1, side2):
 
 def gluemenuitem(String, ClickFunction,o, helptext='', infobaselink=''):
   "make a menu-item with a side attached"
-  item = qmenu.item(String, ClickFunction, helptext,infobaselink=infobaselink)
+  item = quarkpy.qmenu.item(String, ClickFunction, helptext,infobaselink=infobaselink)
   item.side = o
   return item
 
@@ -762,7 +762,7 @@ def GlueSideClick(m):
     undo.exchange(side, new)
     editor.layout.explorer.sellist = []
     editor.ok(undo, ActionString)
-    if gluit and menlinkonglue.state==qmenu.checked:
+    if gluit and menlinkonglue.state==quarkpy.qmenu.checked:
         if quarkx.msgbox("Link glued face?",MT_CONFIRMATION,MB_YES|MB_NO)==MR_YES:
             m.side=new
             LinkFaceClick(m,0)
@@ -784,7 +784,7 @@ def removefromtaggedstate(menuitem, editor, o):
       count = taglist.count(o)
       if count:
         return
-  menuitem.state = qmenu.disabled
+  menuitem.state = quarkpy.qmenu.disabled
 
 def AddtoTaggedClick(m):
   "expects the selected face to be attached to m as .side"
@@ -823,7 +823,7 @@ def SelectTaggedClick(m):
 def aligntexstate(aligntex, tagged, o):
   "sorts out what kind of abuttment, if any for tagged side and this one"
   if tagged is None or o is tagged or tagged.treeparent is None:
-     aligntex.state = qmenu.disabled
+     aligntex.state = quarkpy.qmenu.disabled
      return
 #  if coplanar_adjacent_sides(tagged, o):
   if abs(tagged.normal*o.normal)>.999999:  # they are almost parallel
@@ -831,7 +831,7 @@ def aligntexstate(aligntex, tagged, o):
   elif intersecting_sides(tagged, o):
     aligntex.abuttype = 1
   else:
-    aligntex.state = qmenu.disabled
+    aligntex.state = quarkpy.qmenu.disabled
 
 
 def wraptex(orig, side):
@@ -955,23 +955,23 @@ def AlignTexClick(m):
 #  debug('what abut')
   if m.abuttype == 1:
     side2=side.copy()
-    if tomirroritem.state==qmenu.checked:
+    if tomirroritem.state==quarkpy.qmenu.checked:
        side2.swapsides()
     newside = wraptex(tagged, side2)
-    if tomirroritem.state==qmenu.checked:
+    if tomirroritem.state==quarkpy.qmenu.checked:
        newside.swapsides()
   else:
 #    debug('abut 0')
     newside=side.copy()
-    if tomirroritem.state==qmenu.checked:
+    if tomirroritem.state==quarkpy.qmenu.checked:
        newside.swapsides()
     newside = projecttexfrom(tagged, newside)
-    if tomirroritem.state==qmenu.checked:
+    if tomirroritem.state==quarkpy.qmenu.checked:
        newside.swapsides()
 
   undo.exchange(side, newside)
   editor.ok(undo, ActionString)
-  if checkshifttagged.state == qmenu.checked:
+  if checkshifttagged.state == quarkpy.qmenu.checked:
     m.side = newside
     TagSideClick(m)
 
@@ -1081,7 +1081,7 @@ def pillarwrapdisabler(menuitem, tagged, o):
   #
 
   except Bail:
-    menuitem.state = qmenu.disabled
+    menuitem.state = quarkpy.qmenu.disabled
     return 0
 
 def PillarWrapClick(m):
@@ -1093,7 +1093,7 @@ def PillarWrapClick(m):
   
   (faces, circuit, gap) = (m.wraplist, m.circuit, m.horiz)
   editor = mapeditor()
-  if requestmultiplier.state == qmenu.checked:
+  if requestmultiplier.state == quarkpy.qmenu.checked:
     multiplier, = editor.texmult.src["mult"]
   else:
     multiplier = 0
@@ -1135,7 +1135,7 @@ def PillarWrapClick(m):
   newaxes = [tp[1], tp[2]]
   secaxis = 1 - primaxis
   newaxes[primaxis] = tp[0]+stretched[primaxis]
-  if checkaspectratio.state == qmenu.checked:
+  if checkaspectratio.state == quarkpy.qmenu.checked:
 #    squawk("preserving aspect")
     newaxes[secaxis] = tp[0]+stretched[secaxis]
 #  newaxes = (tp[0]+stretched[0], tp[0]+stretched[1])
@@ -1300,7 +1300,7 @@ def wraptaggedstate(menuitem, o):
      menuitem.horiz = horiz
      menuitem.texorigshift = texorigshift
    except Bail:
-     menuitem.state = qmenu.disabled
+     menuitem.state = quarkpy.qmenu.disabled
      return
 
 
@@ -1353,33 +1353,33 @@ mirroraligntext = "|Like aligntex, but wraps from a mirror-image of the face.\n\
 wraptext = "|Wraps from the tagged face, around pillar in direction of selected, scaling to eliminate seams.\n\nWon't work if the edges to be wrapped around aren't all paralell, and scales texture minimally to fit.  `preserve aspect ratio' option controls whether one or both texture dimensions are scaled.|maped.plugins.tagside.html#texture"
 
 aspecttext = "|If checked, aspect ratio of textures is preserved when texture is scaled wrapping around multiple sides (pillar and multi-wrap).\n\n Click to toggle check."
-checkaspectratio = qmenu.item("Preserve aspect ratio", ToggleCheck, aspecttext)
+checkaspectratio = quarkpy.qmenu.item("Preserve aspect ratio", ToggleCheck, aspecttext)
 
 tomirrortext = "|If checked, texture is mirrored so as to look good when wrapped/projected to a wall-maker brush-face, etc."
-tomirroritem = qmenu.item("To mirror", ToggleCheck,tomirrortext)
+tomirroritem = quarkpy.qmenu.item("To mirror", ToggleCheck,tomirrortext)
 
 selecttaggedtext = "Tagged items become multi-selection"
 
 shifttagtext = "|If checked, selected side becomes tagged side after `wrap texture from tagged' operation.\n\n  Click to toggle check."
-checkshifttagged = qmenu.item("Shift tagged to selected", ToggleCheck, shifttagtext)
+checkshifttagged = quarkpy.qmenu.item("Shift tagged to selected", ToggleCheck, shifttagtext)
 
 def tagpopup(editor, o):
   addtotagged = gluemenuitem("&Add to tagged", AddtoTaggedClick, o, "Adds side to tagged list")
   removefromtagged = gluemenuitem("&Remove from tagged", RemovefromTaggedClick, o, "Takes side off tagged list")
   removefromtaggedstate(removefromtagged, editor,o)
-  selecttagged = qmenu.item("&Select tagged list", SelectTaggedClick,selecttaggedtext)
+  selecttagged = quarkpy.qmenu.item("&Select tagged list", SelectTaggedClick,selecttaggedtext)
   if gettaggedlist(editor) is None:
-    selecttagged.state = qmenu.disabled
+    selecttagged.state = quarkpy.qmenu.disabled
   else:
     selecttagged.taglist = gettaggedlist(editor)
   if gettaggedlist(editor) is None and gettagged(editor) is None:
-        addtotagged.state = qmenu.disabled
+        addtotagged.state = quarkpy.qmenu.disabled
 
   list = [addtotagged,
           removefromtagged,
           selecttagged,
           mencleartag]
-  tagpop = qmenu.popup("&More Tagging", list, None, "More commands for managing tags")
+  tagpop = quarkpy.qmenu.popup("&More Tagging", list, None, "More commands for managing tags")
   tagpop.label = 'tagpop'
   return tagpop
 
@@ -1395,12 +1395,12 @@ def wrappopup(o, tagged):
   if tagged != None:
     pillarwrapdisabler(pillarwrap, tagged, o)
   else:
-    pillarwrap.state = qmenu.disabled
+    pillarwrap.state = quarkpy.qmenu.disabled
   aligntexstate(aligntex, tagged, o)
   aligntexstate(mirrortex, tagged, o)
-  if aligntex.state == qmenu.normal:
-    aligntex.state = qmenu.default
-  if mirrortex.state == qmenu.normal:
+  if aligntex.state == quarkpy.qmenu.normal:
+    aligntex.state = quarkpy.qmenu.default
+  if mirrortex.state == quarkpy.qmenu.normal:
     mirrortex.mirror=1
   wraptaggedstate(wraptagged, o)
   list = [aligntex,
@@ -1408,13 +1408,13 @@ def wrappopup(o, tagged):
 #          projexttex(editor,o),
           pillarwrap,
           wraptagged,
-          qmenu.sep,
+          quarkpy.qmenu.sep,
           checkaspectratio,
 #          tomirroritem,
           requestmultiplier,
           checkshifttagged
          ]
-  popup = qmenu.popup("&Wrapping", list, None, wrappoptext)
+  popup = quarkpy.qmenu.popup("&Wrapping", list, None, wrappoptext)
   popup.label = 'wrappopup'
   return popup
 
@@ -1485,9 +1485,9 @@ def LinkFaceClick(m, glue=1):
 
 def gluelinked(o):
   tag = o.getint("_tag")
-  item =  qmenu.item("&Glue linked",GlueLinkedClick,"Glue linked items to this")
+  item = quarkpy.qmenu.item("&Glue linked",GlueLinkedClick,"Glue linked items to this")
   if tag == 0:
-    item.state = qmenu.disabled
+    item.state = quarkpy.qmenu.disabled
   else:
      item.tag = tag
      item.object = o
@@ -1540,9 +1540,9 @@ def UnlinkAllClick(m):
 
 def selectmenuitem(o,text,command,help):
   tag = o.getint("_tag")
-  item =  qmenu.item(text,command,help)
+  item = quarkpy.qmenu.item(text,command,help)
   if tag == 0:
-    item.state = qmenu.disabled
+    item.state = quarkpy.qmenu.disabled
   else:
      item.tag = tag
      item.object = o
@@ -1579,12 +1579,12 @@ def LinkSelClick(m):
 
 
 def breaksharedface(e,o):
-  faceitem = qmenu.item("&Break shared face",BreakFaceClick,"|Breaks a shared face into independent faces that are linked. (So that for example they can have different textures, or the same texture differently aligned)")
+  faceitem = quarkpy.qmenu.item("&Break shared face",BreakFaceClick,"|Breaks a shared face into independent faces that are linked. (So that for example they can have different textures, or the same texture differently aligned)")
   faceitem.object = o
   faceitem.editor = e
   faceitem.polys = o.faceof
   if len(faceitem.polys) < 2:
-    faceitem.state = qmenu.disabled
+    faceitem.state = quarkpy.qmenu.disabled
   return faceitem
 
 def BreakFaceClick(m):
@@ -1625,7 +1625,7 @@ def tagmenu(o, editor, oldfacemenu = quarkpy.mapentities.FaceType.menu.im_func):
 #  aligntex = gluemenuitem("&Wrap texture from tagged", AlignTexClick, o, aligntext)
   tagpop = tagpopup(editor, o)
   wrappop = wrappopup(o, tagged)
-  linkpopup = qmenu.popup("&Linking",
+  linkpopup = quarkpy.qmenu.popup("&Linking",
      [      selectmenuitem(o,"&Glue linked",GlueLinkedClick,"|Glue to this face all faces that are linked to it.\n\n (This one stays still; the others move.)\n\nSince linked sides are supposed to be coplanar, if they aren't they're drawn in dotted red lines."),
       selectmenuitem(o,"&Select linked faces",SelectClick,"|Select all faces linked to this face.\n\nSo that you can for example select all the faces linked this one, and drag or shear them as a multiselection, rather than first move one and then glue the others to it."),
       selectmenuitem(o,"&Unlink face",UnlinkFaceClick,"|Unlink this face from the ones it's linked to"),
@@ -1633,23 +1633,23 @@ def tagmenu(o, editor, oldfacemenu = quarkpy.mapentities.FaceType.menu.im_func):
       linktotagged
      ], None, linktext)
   if o is tagged:
-    glueitem.state = qmenu.disabled
-    linktotagged.state = qmenu.disabled
-    wrappop.state = qmenu.disabled
-    tagpop.state = qmenu.disabled
+    glueitem.state = quarkpy.qmenu.disabled
+    linktotagged.state = quarkpy.qmenu.disabled
+    wrappop.state = quarkpy.qmenu.disabled
+    tagpop.state = quarkpy.qmenu.disabled
     if o.getint("_tag") == 0:
-      linkpopup.state = qmenu.disabled
+      linkpopup.state = quarkpy.qmenu.disabled
   if tagged is None:
       if o.getint("_tag") == 0:
-        linkpopup.state = qmenu.disabled
+        linkpopup.state = quarkpy.qmenu.disabled
       if gettaggedpt(editor) is None:
-        glueitem.state = qmenu.disabled
+        glueitem.state = quarkpy.qmenu.disabled
       else:
         glueitem.hint = gluepttext
-      linktotagged.state = qmenu.disabled
+      linktotagged.state = quarkpy.qmenu.disabled
 #      if not gettaggedlist(editor):
-#        wrappop.state = qmenu.disabled
-#        tagpop.state = qmenu.disabled
+#        wrappop.state = quarkpy.qmenu.disabled
+#        tagpop.state = quarkpy.qmenu.disabled
 
   texpop = findlabelled(menu,'texpop')
   projtex = projecttex(editor,o)
@@ -1665,7 +1665,7 @@ def tagmenu(o, editor, oldfacemenu = quarkpy.mapentities.FaceType.menu.im_func):
 #              projecttex(editor,o),
 #              wrappop,
               breaksharedface(editor,o),
-              qmenu.sep]
+              quarkpy.qmenu.sep]
   return menu
 
 
@@ -1688,7 +1688,7 @@ def tagvertmenu(self, editor, view, oldvertmenu = quarkpy.maphandles.VertexHandl
   item = gluemenuitem("&Align face to tagged", GlueSideClick, face, verttext)
   item.fulcrum = self.pos
   if face is None:
-    item.state = qmenu.disabled
+    item.state = quarkpy.qmenu.disabled
   menu[:0] = [item]
   return menu
 
@@ -1728,8 +1728,8 @@ typenames = {
 
 
 def cutpoly(editor, o):
-  item = qmenu.item("Cut poly &along tagged",CutPolyClick,"|Cuts this poly along the plane of the tagged face.")
-  item.state = qmenu.disabled
+  item = quarkpy.qmenu.item("Cut poly &along tagged",CutPolyClick,"|Cuts this poly along the plane of the tagged face.")
+  item.state = quarkpy.qmenu.disabled
   tagged = gettaggedplane(editor)
   if tagged is None:
     return item
@@ -1751,7 +1751,7 @@ def cutpoly(editor, o):
         piece.removeitem(face)
   item.pieces = (piece1,piece2)
   item.o = o
-  item.state=qmenu.normal
+  item.state=quarkpy.qmenu.normal
   return item
 
 def CutPolyClick(m):
@@ -1765,10 +1765,10 @@ def CutPolyClick(m):
 
 def gluepoly(editor, o):
   typename = typenames[o.type]
-  item = qmenu.item("Glue &linked faces",GluePolyClick,"|Faces that are linked to faces in this "+typename+" get glued to them")
+  item = quarkpy.qmenu.item("Glue &linked faces",GluePolyClick,"|Faces that are linked to faces in this "+typename+" get glued to them")
   tagdict = getspecdict("_tag",o)
   if tagdict == {}:
-    item.state=qmenu.disabled
+    item.state=quarkpy.qmenu.disabled
     return item
   item.dict = tagdict
   item.o = o
@@ -1797,7 +1797,7 @@ def tagpolymenu(o, editor, oldmenu=quarkpy.mapentities.PolyhedronType.menu.im_fu
               projecttex(editor,o),
               mergepolys.mergepoly(editor,o), # now in mapmergepoly
               cutpoly(editor,o),
-              qmenu.sep]
+              quarkpy.qmenu.sep]
   return menu
 
 quarkpy.mapentities.PolyhedronType.menu = tagpolymenu
@@ -1808,7 +1808,7 @@ def taggroupmenu(o, editor,oldmenu=quarkpy.mapentities.GroupType.menu.im_func):
   menu[:0] = [gluepoly(editor,o),
               mergepolys.groupmergepoly(editor,o),
               projecttex(editor,o),
-              qmenu.sep]
+              quarkpy.qmenu.sep]
   return menu
 
 quarkpy.mapentities.GroupType.menu = taggroupmenu
@@ -1818,7 +1818,7 @@ def tagbrushmenu(o, editor,oldmenu=quarkpy.mapentities.BrushEntityType.menu.im_f
   menu = oldmenu(o, editor)
   menu[:0] = [gluepoly(editor,o),
               projecttex(editor,o),
-              qmenu.sep]
+              quarkpy.qmenu.sep]
   return menu
 
 quarkpy.mapentities.BrushEntityType.menu = tagbrushmenu
@@ -1834,63 +1834,63 @@ def commandsclick(menu, oldcommand=quarkpy.mapcommands.onclick):
   oldcommand(menu)
   editor = mapeditor()
   if editor is None: return
-  menaddtotagged.state=qmenu.disabled
+  menaddtotagged.state=quarkpy.qmenu.disabled
   selection = editor.layout.explorer.sellist
   if isfaces(selection):
-     menlinksel.state = qmenu.normal
+     menlinksel.state = quarkpy.qmenu.normal
   else:
-     menlinksel.state = qmenu.disabled
+     menlinksel.state = quarkpy.qmenu.disabled
   if isoneface(selection):
     face = selection[0]
-    mentagside.state = qmenu.normal
+    mentagside.state = quarkpy.qmenu.normal
     tag = face.getint("_tag")
 #
 # This below overloads the menu, I think.
 #    if tag==0:
-#      mengluelinked.state = qmenu.disabled
+#      mengluelinked.state = quarkpy.qmenu.disabled
 #    else:
-#      mengluelinked.state = qmenu.normal
+#      mengluelinked.state = quarkpy.qmenu.normal
 #      mengluelinked.object = face
 #      mengluelinked.tag = tag
   else:
     face = None
-    mentagside.state = qmenu.disabled
-#    mengluelinked.state = qmenu.disabled
+    mentagside.state = quarkpy.qmenu.disabled
+#    mengluelinked.state = quarkpy.qmenu.disabled
   tagged = gettaggedplane(editor)
   if tagged is None:
     if gettaggedpt(editor):
-      mencleartag.state = qmenu.normal
-      menglueside.state = qmenu.normal
+      mencleartag.state = quarkpy.qmenu.normal
+      menglueside.state = quarkpy.qmenu.normal
     else:
       if not gettaggedlist(editor):
-        mencleartag.state = qmenu.disabled
-      menglueside.state = qmenu.disabled
-    menaligntex.state = qmenu.disabled
+        mencleartag.state = quarkpy.qmenu.disabled
+      menglueside.state = quarkpy.qmenu.disabled
+    menaligntex.state = quarkpy.qmenu.disabled
   else:
     if isoneface(selection) and selection[0] is not tagged:
-       menaddtotagged.state=qmenu.normal
-    mencleartag.state = qmenu.normal
-    menglueside.state = len(selection)==0 and qmenu.disabled
+       menaddtotagged.state=quarkpy.qmenu.normal
+    mencleartag.state = quarkpy.qmenu.normal
+    menglueside.state = len(selection)==0 and quarkpy.qmenu.disabled
     if face is None or tagged is face:
-      menaligntex.state = qmenu.disabled
+      menaligntex.state = quarkpy.qmenu.disabled
     else:
-      menaligntex.state = qmenu.normal
+      menaligntex.state = quarkpy.qmenu.normal
       aligntexstate(menaligntex, tagged, face)
   try:
     if not editor.tagging is None:
-       mencleartag.state = qmenu.normal
+       mencleartag.state = quarkpy.qmenu.normal
   except AttributeError:
     pass
 
-mentagside  = qmenu.item("&Tag side", TagSideClick, tagtext)
-mencleartag = qmenu.item("&Clear Tag", ClearTagClick, "|Clear Tag:\n\nClears (cancels) all the tags that have been set.|intro.mapeditor.menu.html#commandsmenu")
-menglueside = qmenu.item("&Glue to Tagged", GlueSideClick, "|Glue to Tagged:\n\nMoves & aligns the selected side to tagged side.|intro.mapeditor.menu.html#commandsmenu")
-menaddtotagged = qmenu.item("&Add to tagged", AddtoTaggedClick, "|Add to tagged:\n\nAdds side to tagged list.|intro.mapeditor.menu.html#commandsmenu")
-menaligntex = qmenu.item("&Wrap texture from tagged", AlignTexClick, aligntext)
-menlinksel  = qmenu.item("&Link selected",LinkSelClick,"|Link selected:\n\nLink the selected faces.\n\nWhat the Link selection command then does is 'link' all of the selected faces so that if one is moved, you will be invited to move all the others with it.\n\nSee the infobase for more on how to select items and activate this function.|intro.mapeditor.menu.html#commandsmenu")
-#mengluelinked = qmenu.item("Gl&ue linked",GlueLinkedClick,"|Glue linked:\n\nGlue linked faces to the selected one.|intro.mapeditor.menu.html#commandsmenu")
+mentagside  = quarkpy.qmenu.item("&Tag side", TagSideClick, tagtext)
+mencleartag = quarkpy.qmenu.item("&Clear Tag", ClearTagClick, "|Clear Tag:\n\nClears (cancels) all the tags that have been set.|intro.mapeditor.menu.html#commandsmenu")
+menglueside = quarkpy.qmenu.item("&Glue to Tagged", GlueSideClick, "|Glue to Tagged:\n\nMoves & aligns the selected side to tagged side.|intro.mapeditor.menu.html#commandsmenu")
+menaddtotagged = quarkpy.qmenu.item("&Add to tagged", AddtoTaggedClick, "|Add to tagged:\n\nAdds side to tagged list.|intro.mapeditor.menu.html#commandsmenu")
+menaligntex = quarkpy.qmenu.item("&Wrap texture from tagged", AlignTexClick, aligntext)
+menlinksel  = quarkpy.qmenu.item("&Link selected",LinkSelClick,"|Link selected:\n\nLink the selected faces.\n\nWhat the Link selection command then does is 'link' all of the selected faces so that if one is moved, you will be invited to move all the others with it.\n\nSee the infobase for more on how to select items and activate this function.|intro.mapeditor.menu.html#commandsmenu")
+#mengluelinked = quarkpy.qmenu.item("Gl&ue linked",GlueLinkedClick,"|Glue linked:\n\nGlue linked faces to the selected one.|intro.mapeditor.menu.html#commandsmenu")
 
-quarkpy.mapcommands.items.append(qmenu.sep)   # separator
+quarkpy.mapcommands.items.append(quarkpy.qmenu.sep)   # separator
 quarkpy.mapcommands.items.append(mentagside)
 quarkpy.mapcommands.items.append(mencleartag)
 quarkpy.mapcommands.items.append(menglueside)
@@ -1927,9 +1927,9 @@ def selectionclick(menu, oldselect=quarkpy.mapselection.onclick):
         if list is not None:
             list = [list]
     if list is None:
-        menselecttagged.state=qmenu.disabled
+        menselecttagged.state=quarkpy.qmenu.disabled
     else:
-        menselecttagged.state=qmenu.normal
+        menselecttagged.state=quarkpy.qmenu.normal
         menselecttagged.taglist = list
 
 quarkpy.mapselection.onclick = selectionclick
