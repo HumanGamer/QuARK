@@ -13,7 +13,7 @@ import quarkpy.bspcommands
 import quarkpy.mapentities
 import quarkpy.dlgclasses
 import mapmadsel
-
+import quarkpy.qmenu
 from quarkpy.maputils import *
 
 #
@@ -227,9 +227,9 @@ def NodesClick(m,editor=None):
         editor.layout.explorer.uniquesel=nodes
         editor.nodes=nodes
 
-planesitem=qmenu.item('Get Planes',PlanesClick)
-nodesitem=qmenu.item('Get Nodes',NodesClick)
-planecheckitem=qmenu.item('Check Planes',CheckPlanesClick)
+planesitem=quarkpy.qmenu.item('Get Planes',PlanesClick)
+nodesitem=quarkpy.qmenu.item('Get Nodes',NodesClick)
+planecheckitem=quarkpy.qmenu.item('Check Planes',CheckPlanesClick)
 
 quarkpy.bspcommands.items.append(planesitem)
 quarkpy.bspcommands.items.append(nodesitem)
@@ -472,9 +472,9 @@ class PlaneType(quarkpy.mapentities.EntityManager):
         def splitNodesClick(m,o=o,editor=editor):
             findSplitNodes(editor,o)
 
-        collectItem=qmenu.item("Select Faces",collectFacesClick,"|Select the faces lying on this plane")
-        nearItem = qmenu.item("Near Planes",nearPlanesClick,"|Find the planes near this one")
-        splitItem = qmenu.item("Split Nodes",splitNodesClick,"|Find the nodes split by this plane")
+        collectItem=quarkpy.qmenu.item("Select Faces",collectFacesClick,"|Select the faces lying on this plane")
+        nearItem = quarkpy.qmenu.item("Near Planes",nearPlanesClick,"|Find the planes near this one")
+        splitItem = quarkpy.qmenu.item("Split Nodes",splitNodesClick,"|Find the nodes split by this plane")
         return [collectItem, nearItem, splitItem]
 
 class HullType(quarkpy.mapentities.GroupType):
@@ -486,7 +486,7 @@ class HullType(quarkpy.mapentities.GroupType):
             for face in o.subitems:
                 face.flags = face.flags & ~2
 
-        faceItem = qmenu.item("Show Faces",showFaces)
+        faceItem = quarkpy.qmenu.item("Show Faces",showFaces)
         return [faceItem]
 
 def nodeBox(o):
@@ -557,7 +557,7 @@ class NodeType(quarkpy.mapentities.GroupType):
             undo.put(o,poly)
             editor.ok(undo,"Add bbox Poly")
 
-        polyItem=qmenu.item("Add BBox poly", bboxPoly)
+        polyItem=quarkpy.qmenu.item("Add BBox poly", bboxPoly)
 
 
 #
@@ -567,7 +567,7 @@ class NodeType(quarkpy.mapentities.GroupType):
 #            faces=o.faces
 #            debug(`faces`)
 #
-#        faceItem=qmenu.item("Show Faces",showFaceClick)
+#        faceItem=quarkpy.qmenu.item("Show Faces",showFaceClick)
 
         return [polyItem]
 
