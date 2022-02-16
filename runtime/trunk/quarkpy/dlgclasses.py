@@ -8,10 +8,11 @@
 #
 ######################################
 
+import quarkx
+import qeditor
 import qmacro
 import qtoolbar
-from qutils import *
-from qeditor import *
+import qutils
 
 class placepersistent_dialogbox(qmacro.dialogbox):
   def __init__(self, form, src, label, **buttons):
@@ -39,7 +40,7 @@ class placepersistent_dialogbox(qmacro.dialogbox):
         df.sep = self.dfsep
         df.setdata(src, f)
         df.onchange = self.datachange
-        df.flags = DF_AUTOFOCUS
+        df.flags = qeditor.DF_AUTOFOCUS
         dlg.show()
 
   def windowrect(self):
@@ -84,7 +85,7 @@ class LiveEditDlg (placepersistent_dialogbox):
            exit = qtoolbar.button(
             self.cancel,
             "close dialog",
-            ico_editor, 0,
+            qutils.ico_editor, 0,
             "Exit"))
 
     def cancel(self, dlg):
@@ -118,10 +119,10 @@ class LiveButtonDlg(LiveEditDlg):
 
 class LiveBrowserDlg(LiveButtonDlg):
 
-    endcolor = AQUA
+    endcolor = qutils.AQUA
     size = (220,160)
     dfsep = 0.35
-    dlgflags = FWF_KEEPFOCUS
+    dlgflags = qutils.FWF_KEEPFOCUS
 
 
     def __init__(self, label, editor, pack, moresetup=None, moreaction=None, onclosing=None):
