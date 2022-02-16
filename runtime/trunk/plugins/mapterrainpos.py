@@ -25,27 +25,13 @@ Info = {
    "author e-mail": "cdunde1@comcast.net",
    "quark":         "Version 6.4" }
 
+import math
+import quarkx
 import quarkpy.dlgclasses
 from quarkpy.maputils import *
-
-# Below not sure what I need
-import quarkx
-import quarkpy.mapmenus      # don't think I need this one
-import quarkpy.mapentities
-import quarkpy.qmenu
 import quarkpy.mapeditor
-import quarkpy.qbaseeditor
 import quarkpy.mapcommands
-import quarkpy.mapoptions   # don't think I need this one
-import quarkpy.qhandles          # duped below
-from quarkpy.qhandles import *
-import quarkpy.maphandles        # and may not need this too
-import quarkpy.mapbtns
-
-import mapfacemenu
-import maptagside            # from plugins\mapmakextree.py
-import math                      # from plugins\mapfacemenu.py
-import quarkpy.qmacro            # from plugins\mapfacemenu.py
+import plugins.mapterrainmodes
 
 ### General def's that can be used by any Dialog ###
 
