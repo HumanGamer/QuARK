@@ -8,11 +8,10 @@ Various Model editor utility functions.
 # FOUND IN FILE "COPYING.TXT"
 #
 
+import math
 import quarkx
 import qutils
-import qhandles
 from qeditor import *
-from math import *
 
 ### Globals
 keyframesrotation = 0
@@ -539,9 +538,9 @@ def checktuplepos(tuple1, tuple2):
 #
 def ProjectKeepingLength(A,C,L):
     def NormaliseVect(v1, v2):
-        le = sqrt( pow(v2.x - v1.x, 2) +
-                   pow(v2.y - v1.y, 2) +
-                   pow(v2.z - v1.z, 2) )
+        le = math.sqrt( pow(v2.x - v1.x, 2) +
+                        pow(v2.y - v1.y, 2) +
+                        pow(v2.z - v1.z, 2) )
         if (le <> 0):
             v = quarkx.vect( \
                 (v2.x - v1.x) / le, \
@@ -694,6 +693,7 @@ def fixUpVertexNos(tris, index):
 ###############################
 
 def KeyframeLinearInterpolation(editor, sellistPerComp, IPF, keyframenbr1, keyframenbr2):
+    import qhandles
     undo = quarkx.action()
     msg = str(int(round(1/IPF)-2)) + " key frames added"
     # To handle models that have bones and multiple components.
@@ -3405,7 +3405,7 @@ def addbone(editor, comp, pos):
     new_bone['parent_name'] = "None"
     new_bone.position = pos
     new_bone['position'] = pos.tuple
-    new_bone.rotmatrix = quarkx.matrix((sqrt(2)/2, -sqrt(2)/2, 0), (sqrt(2)/2, sqrt(2)/2, 0), (0, 0, 1))
+    new_bone.rotmatrix = quarkx.matrix((math.sqrt(2)/2, -math.sqrt(2)/2, 0), (math.sqrt(2)/2, math.sqrt(2)/2, 0), (0, 0, 1))
     new_bone['draw_offset'] = (0.0,0.0,0.0)
     new_bone['scale'] = (1.0,)
     new_bone['_color'] = MapColor("BoneHandles", SS_MODEL)

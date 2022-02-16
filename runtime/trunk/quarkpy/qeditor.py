@@ -12,6 +12,7 @@ import quarkx
 import qtoolbar
 import qmacro
 import qmenu
+import qutils
 from qutils import *
 import math
 
@@ -347,7 +348,7 @@ def Arrow(canvas, view, p1, p2, text=None):
         p3 = p3.normalized
         eye = view.vector(p2).normalized   # vector from p2 pointing to the eye
 
-        arrowx, arrowy = quarkx.setupsubset(SS_MAP, "Display")["ArrowSize"]
+        arrowx, arrowy = quarkx.setupsubset(qutils.SS_MAP, "Display")["ArrowSize"]
 
         p4 = arrowy*(eye ^ p3)    # cross product
         p5 = p2 - arrowx*p3
@@ -443,7 +444,7 @@ class SimpleCancelDlgBox(qmacro.dialogbox):
 
     def __init__(self, form, src):
         qmacro.dialogbox.__init__(self, form, src,
-          cancel = qtoolbar.button(self.cancel, "close this box", ico_editor, 0, "Cancel"))
+          cancel = qtoolbar.button(self.cancel, "close this box", qutils.ico_editor, 0, "Cancel"))
 
     def cancel(self, m):
         self.src = None
@@ -462,7 +463,7 @@ class SimpleCancelDlgBox(qmacro.dialogbox):
 class XYZDialog(SimpleCancelDlgBox):
     "A simple dialog box to enter a x, y, z vector."
 
-    endcolor = AQUA
+    endcolor = qutils.AQUA
     size = (330,125)
     dfsep = 0.45
     dlgdef = """
@@ -502,7 +503,7 @@ class CustomGridDlgBox(SimpleCancelDlgBox):
     # Dialog box shape
     #
 
-    endcolor = SILVER
+    endcolor = qutils.SILVER
     size = (300,120)
     dlgdef = """
       {
@@ -556,7 +557,7 @@ class CustomZoomDlgBox(SimpleCancelDlgBox):
     # Dialog box shape
     #
 
-    endcolor = LIME
+    endcolor = qutils.LIME
     size = (300,186)
     dlgdef = """
       {
@@ -610,13 +611,13 @@ def CustomZoom(views):
 def getzoommenu(zoombtn):
     def zoomclick(m, views=zoombtn.views):
         editor = mapeditor()
-        if editor.MODE == SS_MODEL:
+        if editor.MODE == qutils.SS_MODEL:
             import mdlmgr
             mdlmgr.treeviewselchanged = 1
         setviews(views, "scale", m.scale)
     def customzoom(m, views=zoombtn.views):
         editor = mapeditor()
-        if editor.MODE == SS_MODEL:
+        if editor.MODE == qutils.SS_MODEL:
             import mdlmgr
             mdlmgr.treeviewselchanged = 1
         CustomZoom(views)
@@ -658,7 +659,7 @@ def getzoommenu(zoombtn):
 
 
 def notimplemented(*any):
-    quarkx.msgbox("This command is not implemented yet.", MT_ERROR, MB_OK)
+    quarkx.msgbox("This command is not implemented yet.", qutils.MT_ERROR, qutils.MB_OK)
 
 
 #def foreachcontrol(callback):
@@ -677,11 +678,11 @@ def notimplemented(*any):
 
 def ImageWrapper(self, desc, *extra):
     try:
-        self.Images = apply(LoadPoolObj, (desc, quarkx.loadimages) + extra)
+        self.Images = apply(qutils.LoadPoolObj, (desc, quarkx.loadimages) + extra)
         return 1
     except:
         quarkx.msgbox("QuArK ran out of system resources loading the file '%s'. The %s will not be displayed." % (extra[0], desc),
-          MT_ERROR, MB_OK)
+          qutils.MT_ERROR, qutils.MB_OK)
 
 
 class Compass:
@@ -815,7 +816,7 @@ class Compass:
         cv.fontcolor = 0x2020B0
         cv.fontsize = 8
         angle(48+dx, 47-dy, "O")
-        cv.fontcolor = BLACK
+        cv.fontcolor = qutils.BLACK
         angle(48-dy, 48-dx, "90")
         angle(48-dx, 48+dy, "180")
         angle(48+dy, 48+dx, "270")
@@ -829,8 +830,8 @@ class ZoomBar:
     CENTER       = 0.6
     PIXELSCALE   = 0.06
 
-    def __init__(self, views, panel, mode=SS_MAP, result=None):
-        if mode == SS_MODEL:
+    def __init__(self, views, panel, mode=qutils.SS_MAP, result=None):
+        if mode == qutils.SS_MODEL:
             self.INITIALSCALE = 2.0
             self.CENTER       = 3.0
         self.views = views
@@ -840,7 +841,7 @@ class ZoomBar:
             self.ctrl = panel.newimagectrl(self.Images[0])
             self.ctrl.onclick = self.ZoomClick
             self.ctrl.ondraw = self.ZoomDraw
-            self.ctrl.hint = hintPlusInfobaselink("View zoom||View zoom:\n\nThis zooms the map views in and out.", "intro.mapeditor.compass.html#zoom")
+            self.ctrl.hint = qutils.hintPlusInfobaselink("View zoom||View zoom:\n\nThis zooms the map views in and out.", "intro.mapeditor.compass.html#zoom")
             if result is not None:
                 result.append(self.ctrl)
 
@@ -881,7 +882,7 @@ class ZoomBar:
 
     def Update(self, scale1):
         editor = mapeditor()
-        if (editor is not None) and (editor.MODE == SS_MODEL):
+        if (editor is not None) and (editor.MODE == qutils.SS_MODEL):
             import mdlmgr
             mdlmgr.treeviewselchanged = 1
         #
@@ -929,7 +930,7 @@ class VBar:
             self.ctrl = panel.newimagectrl(self.Images[0])
             self.ctrl.onclick = self.VBarClick
             self.ctrl.ondraw = self.VBarDraw
-            self.ctrl.hint = hintPlusInfobaselink("View X-axis rotation||View X-axis rotation:\n\nThis rotates the map views on the X-axis.", "intro.mapeditor.compass.html#xaxis")
+            self.ctrl.hint = qutils.hintPlusInfobaselink("View X-axis rotation||View X-axis rotation:\n\nThis rotates the map views on the X-axis.", "intro.mapeditor.compass.html#xaxis")
             if result is not None:
                 result.append(self.ctrl)
 
@@ -980,7 +981,7 @@ class MultiPanesPanel:
     "Wrapper for a multi-pages panel."
 
     def __init__(self, panel, pagebtns, n):
-        top = quarkx.setupsubset(SS_GENERAL, "Display")["MppTopBtns"]
+        top = quarkx.setupsubset(qutils.SS_GENERAL, "Display")["MppTopBtns"]
         line = []
         lines = [line]
         pagebtns = pagebtns[:]
@@ -1158,9 +1159,9 @@ class UserDataPanel:
         self.sourcename = sourcename
         self.filename = filename
         try:
-            ud = LoadPoolObj(sourcename, quarkx.openfileobj, sourcename)
+            ud = qutils.LoadPoolObj(sourcename, quarkx.openfileobj, sourcename)
         except:
-            quarkx.msgbox("QuArK fail to load the file '%s'. Its panel data will not be displayed." % (sourcename, ), MT_ERROR, MB_OK)
+            quarkx.msgbox("QuArK fail to load the file '%s'. Its panel data will not be displayed." % (sourcename, ), qutils.MT_ERROR, qutils.MB_OK)
             self.objlist = []
         else:
             self.objlist = ud.findname(filename).subitems
@@ -1245,9 +1246,9 @@ class UserDataPanel:
 
     def save(self):
         try:
-            file = LoadPoolObj(self.sourcename, quarkx.openfileobj, self.sourcename)
+            file = qutils.LoadPoolObj(self.sourcename, quarkx.openfileobj, self.sourcename)
         except:
-            quarkx.msgbox("QuArK fail to load the file '%s'. Its panel data will not be saved." % (self.sourcename, ), MT_ERROR, MB_OK)
+            quarkx.msgbox("QuArK fail to load the file '%s'. Its panel data will not be saved." % (self.sourcename, ), qutils.MT_ERROR, qutils.MB_OK)
             return
         ud = file.findname(self.filename)
         for i in range(ud.itemcount-1, -1, -1):
@@ -1367,37 +1368,37 @@ def ToolsMenu(editor, toolbars):
 #
 # Icons for the layout of the Map/Model Editor
 #
-ico_dict['ico_maped'] = LoadIconSet1("maped", 1.0)
-ico_dict['ico_mdled'] = LoadIconSet1("mdled", 1.0)
-ico_dict['ico_mdlskv'] = LoadIconSet1("mdlskv", 1.0)
-ico_dict['ico_mdltools'] = LoadIconSet1("mdltools", 1.0)
-ico_dict['ico_mapedsm'] = LoadIconSet1("mapedsm", 0.5)    # small
-ico_maped_y = ico_dict['ico_maped'][0][0].size[1] + 7
+qutils.ico_dict['ico_maped'] = qutils.LoadIconSet1("maped", 1.0)
+qutils.ico_dict['ico_mdled'] = qutils.LoadIconSet1("mdled", 1.0)
+qutils.ico_dict['ico_mdlskv'] = qutils.LoadIconSet1("mdlskv", 1.0)
+qutils.ico_dict['ico_mdltools'] = qutils.LoadIconSet1("mdltools", 1.0)
+qutils.ico_dict['ico_mapedsm'] = qutils.LoadIconSet1("mapedsm", 0.5)    # small
+ico_maped_y = qutils.ico_dict['ico_maped'][0][0].size[1] + 7
 
 
 #
 # Set the "Red lines" icons
 #
-quarkx.redlinesicons = (ico_dict['ico_maped'][0][5],
-  ico_dict['ico_maped'][1][5], ico_dict['ico_maped'][2][5],
-  ico_dict['ico_maped'][0][4], ico_dict['ico_maped'][1][4],
-  ico_dict['ico_maped'][2][4])
+quarkx.redlinesicons = (qutils.ico_dict['ico_maped'][0][5],
+  qutils.ico_dict['ico_maped'][1][5], qutils.ico_dict['ico_maped'][2][5],
+  qutils.ico_dict['ico_maped'][0][4], qutils.ico_dict['ico_maped'][1][4],
+  qutils.ico_dict['ico_maped'][2][4])
 
 
 #
 # Functions to read common setup entries.
 #
 
-def MapColor(tag, mode=SS_MAP):
+def MapColor(tag, mode=qutils.SS_MAP):
     return quarkx.setupsubset(mode, "Colors").getint(tag)
 
-def MapOption(tag, mode=SS_MAP):
+def MapOption(tag, mode=qutils.SS_MAP):
     return quarkx.setupsubset(mode, "Options")[tag]
 
-def MdlOption(tag, mode=SS_MODEL):
+def MdlOption(tag, mode=qutils.SS_MODEL):
     return quarkx.setupsubset(mode, "Options")[tag]
 
-def SetMapOption(tag, value=None, mode=SS_MAP):   # default is to toggle value
+def SetMapOption(tag, value=None, mode=qutils.SS_MAP):   # default is to toggle value
     setup = quarkx.setupsubset(mode, "Options")
     if value is None:
         value=not setup[tag]
@@ -1447,7 +1448,7 @@ def TexModeMenu(editor, view):
     "Menu items to set the textured mode of 'view'."
 
     def setviewmode(menu, editor=editor, view=view):
-        if editor.MODE == SS_MODEL:
+        if editor.MODE == qutils.SS_MODEL:
             import mdlmgr
             mdlmgr.treeviewselchanged = 1
         view.viewmode = menu.mode
@@ -1461,14 +1462,14 @@ def TexModeMenu(editor, view):
             except:
                 pass
             editor.dragobject = None
-        if editor.MODE == SS_MODEL:
+        if editor.MODE == qutils.SS_MODEL:
             import mdlmgr
             mdlmgr.treeviewselchanged = 0
         if view.info["type"] == "2D":
             view.info["scale"] = 2.0
             view.info["angle"] = -0.7
             view.info["vangle"] = 0.3
-            rotationmode = quarkx.setupsubset(SS_MODEL, "Options").getint("3DRotation")
+            rotationmode = quarkx.setupsubset(qutils.SS_MODEL, "Options").getint("3DRotation")
             modelcenter = view.info["center"]
             if rotationmode == 0:
                 center = quarkx.vect(0,0,0) ### For resetting the Original QuArK rotation and "Lock to center of 3Dview" methods.
@@ -1489,7 +1490,7 @@ def TexModeMenu(editor, view):
     List = [Mod1, Mod2, Mod3]
     for menu in List:
         menu.state = menu.mode==view.viewmode and qmenu.radiocheck
-    if editor.MODE == SS_MODEL:
+    if editor.MODE == qutils.SS_MODEL:
         import mdloptions
         DrawBBoxes = mdloptions.toggleitem("&Draw Bounding Boxes", "DrawBBoxes", (1,1),
             hint="|Draw Bounding Boxes:\n\nWhen checked this activates the display of model bounding boxes if any. Also known as 'hit boxes' for Half-Life and by other names for different model formats.|intro.modeleditor.rmbmenus.html#viewsrmbmenus")
@@ -1502,8 +1503,8 @@ def TexModeMenu(editor, view):
             List = [Reset3D] + [DrawBBoxes, UseCompColors] + List
         else:
             List = [DrawBBoxes, UseCompColors] + List
-        DrawBBoxes.state = quarkx.setupsubset(SS_MODEL,"Options").getint("DrawBBoxes")
-        UseCompColors.state = quarkx.setupsubset(SS_MODEL,"Options").getint("CompColors")
+        DrawBBoxes.state = quarkx.setupsubset(qutils.SS_MODEL,"Options").getint("DrawBBoxes")
+        UseCompColors.state = quarkx.setupsubset(qutils.SS_MODEL,"Options").getint("CompColors")
 
     return List
 
@@ -1520,7 +1521,7 @@ def htmldoc(doc):
             if doc:
                 break
         else:
-            quarkx.msgbox("No help document available.", MT_ERROR, MB_OK)
+            quarkx.msgbox("No help document available.", qutils.MT_ERROR, qutils.MB_OK)
             return
     quarkx.htmldoc(doc)
 
@@ -1559,7 +1560,7 @@ def FindSelectable(root, singletype=None, types=None):
             result.append(o)
             return 0
         try:
-            return not (int(o[";view"]) & VF_CANTSELECT)
+            return not (int(o[";view"]) & qutils.VF_CANTSELECT)
         except:
             return 1
     lst = [root]

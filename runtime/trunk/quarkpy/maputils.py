@@ -8,9 +8,7 @@ Various Map editor utilities.
 # FOUND IN FILE "COPYING.TXT"
 #
 
-import math
 import quarkx
-import qtoolbar
 from qeditor import *
 from qdictionnary import Strings
 
@@ -38,6 +36,7 @@ def chooselocaltexture(item):
     mapbtns.applytexture(editor, item.text)
 
 def loadlocaltextures(item):
+    import qmenu
     editor = mapeditor()
     if editor is None: return
     items = []
@@ -58,6 +57,7 @@ class MapUserDataPanel(UserDataPanel):
         mapbtns.mapbuttonclick(btn)
 
     def buildbuttons(self, btnpanel):
+        import qtoolbar
         Btns = []
         ico_maped=ico_dict['ico_maped']
         for tb, icon in (("New map items...", 25), ("Texture Browser...", 26)):
@@ -160,6 +160,7 @@ def ArbRotationMatrix(normal, angle):
      # normal: normal vector for the view plane
      # texpdest: new position of the reference vector texp4
      # texp4: reference vector (handle position minus rotation center)
+    import math
     cosangle = math.cos(angle)
     sinangle = math.sin(angle)
 #    oldcos = cosangle
@@ -318,6 +319,7 @@ def IsBsp(editor):
 #  (tangent at the midpoints of the edges)
 #
 def warpedCircleFrom4Points(n, points):
+    import math
     #
     # get the corners
     #
