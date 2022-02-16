@@ -81,9 +81,9 @@ class RendererBar(quarkpy.qeditor.ToolBar):
     DefaultPos = ((0, 0, 0, 0), 'topdock', 684, 0, 0)
 
     def buildbuttons(self, layout):
-        if not quarkpy.qeditor.ico_dict.has_key('ico_renderer'):
-            quarkpy.qeditor.ico_dict['ico_renderer']=quarkpy.qutils.LoadIconSet1("renderer", 1.0)
-        icons = quarkpy.qeditor.ico_dict['ico_renderer']
+        if not quarkpy.qutils.ico_dict.has_key('ico_renderer'):
+            quarkpy.qutils.ico_dict['ico_renderer']=quarkpy.qutils.LoadIconSet1("renderer", 1.0)
+        icons = quarkpy.qutils.ico_dict['ico_renderer']
 
 
 # See the quarkpy/qtoolbar.py file for the class button: definition
