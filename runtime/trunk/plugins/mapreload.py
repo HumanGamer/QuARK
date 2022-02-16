@@ -20,6 +20,7 @@ Info = {
 import quarkx
 import quarkpy.mapcommands
 import quarkpy.qmacro
+import quarkpy.qmenu
 import quarkpy.qtoolbar
 
 from quarkpy.maputils import *
@@ -131,7 +132,7 @@ def ReloadClick(m):
 
 hint = "|Reload:\n\nThis is a 'Developer Mode' function to help with debugging, etc.|intro.mapeditor.menu.html#reload"
 
-menreload = qmenu.item("Reload",ReloadClick,hint)
+menreload = quarkpy.qmenu.item("Reload",ReloadClick,hint)
 
 if quarkx.setupsubset(SS_MAP, "Options")["Developer"]:
   quarkpy.mapcommands.items.append(menreload)

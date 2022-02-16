@@ -20,6 +20,7 @@ Info = {
 from quarkpy.maputils import *
 import quarkpy.dlgclasses
 import quarkpy.mapsearch
+import quarkpy.qmenu
 import mapmadsel
 import quarkx
 
@@ -96,7 +97,7 @@ class ThinFaceDlg (quarkpy.dlgclasses.LiveEditDlg):
         #
         # FIXME: dumb hack, revise mapmadsel
         #
-        m = qmenu.item("",None)
+        m = quarkpy.qmenu.item("",None)
         m.object=self.pack.useless[index]
         mapmadsel.ZoomToMe(m)
         mapmadsel.SelectMe(m)
@@ -286,5 +287,5 @@ def thinClick(m):
     ThinFaceDlg(quarkx.clickform, 'thinface', editor, setup, action, onclosing)
 
 
-quarkpy.mapsearch.items.append(qmenu.item('Find &Thin Faces', thinClick,
+quarkpy.mapsearch.items.append(quarkpy.qmenu.item('Find &Thin Faces', thinClick,
   "|Find Thin Faces:\n\nThis function will search for and identifies brushes with faces that are suspiciously thin.", "intro.mapeditor.menu.html#searchmenu"))
