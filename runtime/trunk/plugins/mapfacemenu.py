@@ -267,8 +267,8 @@ def newclick(popup, oldclick = quarkpy.mapcommands.onclick):
     editor = mapeditor()
     if editor is None: return
     obj = editor.layout.explorer.uniquesel
-    ForceAngle1.state = (obj is None or not (obj.type in (':f', ':e', ':b'))) and qmenu.disabled
-    faceonly = (obj is None or (obj.type != ':f')) and qmenu.disabled
+    ForceAngle1.state = (obj is None or not (obj.type in (':f', ':e', ':b'))) and quarkpy.qmenu.disabled
+    faceonly = (obj is None or (obj.type != ':f')) and quarkpy.qmenu.disabled
     Orientation1.state = faceonly
     DeleteSide1.state = faceonly
     MakeCone1.state = faceonly
