@@ -1,4 +1,4 @@
-"""   QuArK  -  Quake Army Knife Bezier shape makers
+"""   QuArK  -  Quake Army Knife Terrainmaker
 
 """
 #
@@ -16,16 +16,14 @@ Info = {
 }
 
 
-import quarkx                    # may not need
-import quarkpy.mapoptions        # may not need
+import quarkx
+import quarkpy.mapeditor
 from quarkpy.maputils import *   # may not need
 from quarkpy.qhandles import *   # may not need
 from quarkpy.qutils import *     # may not need
 from quarkpy.mapduplicator import *
-
+#StandardDuplicator = quarkpy.mapduplicator.StandardDuplicator
 import quarkpy.mapentities
-import quarkpy.mapmenus
-StandardDuplicator = quarkpy.mapduplicator.StandardDuplicator
 from quarkpy.perspective import *
 
 #
@@ -48,7 +46,7 @@ class TerrainDuplicator2(StandardDuplicator):
 
   def makeTerrain2(self, loops, wedges, o, wedgeunits=32, sameheight="", detailmesh=""):
 
-      global replygiven  # new Rowdys suggestion stops repeted error msgs
+      global replygiven  # new Rowdys suggestion stops repeated error msgs
 
       def newfinishdrawing(editor, view, oldfinish=quarkpy.mapeditor.MapEditor.finishdrawing):
           oldfinish(editor, view)
