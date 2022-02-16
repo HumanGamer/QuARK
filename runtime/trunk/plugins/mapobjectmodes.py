@@ -22,15 +22,11 @@ import quarkpy.qtoolbar
 import quarkpy.qhandles
 from quarkpy.maputils import *
 import quarkpy.maptools
-import quarkpy.maphandles
 import quarkpy.mapbtns
 from math import pi, sin, cos, fmod
 import mapdragmodes
-import quarkpy.qbaseeditor
 import quarkpy.dlgclasses
 # For hollowing Torus
-import quarkpy.mapcommands
-import quarkpy.mapentities
 import plugins.mapcsg
 
 
