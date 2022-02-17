@@ -18,7 +18,9 @@ Info = {
    "quark":         "Version 6" }
 
 
+import quarkx
 import quarkpy.qhandles
+import quarkpy.qmenu
 import quarkpy.qtoolbar
 from quarkpy.mdlmgr import *
 import quarkpy.mdleditor
@@ -78,9 +80,9 @@ def lockzclick(m):
         quarkx.setupsubset(SS_MODEL, "Options")["setLock_Z"] = "0"
 
 
-Lock_X = qmenu.item("Lock &X", lockxclick, "lock x axis movement")  # Commands menu item
-Lock_Y = qmenu.item("Lock &Y", lockyclick, "lock y axis movement")  # Commands menu item
-Lock_Z = qmenu.item("Lock &Z", lockzclick, "lock z axis movement")  # Commands menu item
+Lock_X = quarkpy.qmenu.item("Lock &X", lockxclick, "lock x axis movement")  # Commands menu item
+Lock_Y = quarkpy.qmenu.item("Lock &Y", lockyclick, "lock y axis movement")  # Commands menu item
+Lock_Z = quarkpy.qmenu.item("Lock &Z", lockzclick, "lock z axis movement")  # Commands menu item
 
 
 ### Start of 3D views Options Dialog ###
@@ -1101,12 +1103,12 @@ class BBoxMakerDragObject(parent):
 
 def DialogViewsClick(m):
     editor = mapeditor()
-    m = qmenu.item("Dummy", None, "")
+    m = quarkpy.qmenu.item("Dummy", None, "")
     OptionsViewsClick(m)
 
 def ColorsClick(m):
     editor = mapeditor()
-    m = qmenu.item("Dummy", None, "")
+    m = quarkpy.qmenu.item("Dummy", None, "")
     quarkx.openconfigdlg("Model:Colors")
 
 def BBoxClick(m):

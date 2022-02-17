@@ -19,12 +19,13 @@ Info = {
 
 import math
 import quarkx
+import quarkpy.qmacro
+import quarkpy.qmenu
 import quarkpy.qtoolbar
 import quarkpy.dlgclasses
 import quarkpy.mdleditor
 import quarkpy.mdlhandles
 import quarkpy.mdlutils
-from quarkpy import qmacro
 from quarkpy.maputils import *
 from quarkpy.qdictionnary import Strings
 
@@ -4793,7 +4794,7 @@ def macro_oneclick(self, index=0):
     elif index == 3:
         Restore(editor, image)
 
-qmacro.MACRO_oneclick = macro_oneclick
+quarkpy.qmacro.MACRO_oneclick = macro_oneclick
 
 #
 # We're going to trigger these actions both by menu
@@ -5354,7 +5355,7 @@ def ColorPicker(editor, view, x, y, flagsmouse, modelfacelist):
                 clickedpixel = quarkx.getpixel(texshortname, texparent, pixU, pixV)
                 quarkx.setupsubset(SS_MODEL, "Colors")["Paint_RGBPenColor"] = clickedpixel
 
-        m = qmenu.item("Dummy", None, "")
+        m = quarkpy.qmenu.item("Dummy", None, "")
         ColorSelectorClick(m)
 
     if tb1.tb.buttons[2].state == quarkpy.qtoolbar.selected and flagsmouse == 288:
@@ -5387,7 +5388,7 @@ def ColorPicker(editor, view, x, y, flagsmouse, modelfacelist):
                 clickedpixel = quarkx.getpixel(texshortname, texparent, pixU, pixV)
                 quarkx.setupsubset(SS_MODEL, "Colors")["Paint_RGBBrushColor"] = clickedpixel
 
-        m = qmenu.item("Dummy", None, "")
+        m = quarkpy.qmenu.item("Dummy", None, "")
         ColorSelectorClick(m)
 
 
@@ -5409,12 +5410,12 @@ def DialogClick(m): # Not being used right now, maybe for Airbrush or Patterns l
                 return
             else:
                 o = editor.layout.explorer.sellist
-                m = qmenu.item("Dummy", None, "")
+                m = quarkpy.qmenu.item("Dummy", None, "")
                 m.o = o
  #(change)               mapterrainpos.Selector1Click(m)
 
         elif quarkx.setupsubset(SS_MODEL, "Building").getint("PaintMode") > 0:
-            m = qmenu.item("Dummy", None, "")
+            m = quarkpy.qmenu.item("Dummy", None, "")
  #(change)           mapterrainpos.PaintBrushClick(m)
 
         else:

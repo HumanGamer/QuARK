@@ -17,12 +17,13 @@ Info = {
    "quark":         "Version 6.5" }
 
 
+import math
 import quarkx
-import quarkpy.qtoolbar
 import quarkpy.qhandles
+import quarkpy.qmenu
+import quarkpy.qtoolbar
 from quarkpy.maputils import *
 import quarkpy.mdltoolbars
-from math import pi, sin, cos, fmod
 import mapdragmodes
 import quarkpy.dlgclasses
 import quarkpy.mdlutils
@@ -419,18 +420,18 @@ def DialogClick(m):
                 return
             else:
                 o = editor.layout.explorer.sellist
-                m = qmenu.item("Dummy", None, "")
+                m = quarkpy.qmenu.item("Dummy", None, "")
                 m.o = o
                 DistortionClick(m)
 
         elif quarkx.setupsubset(SS_MODEL, "Building").getint("ObjectMode") < 7:
 
-            m = qmenu.item("Dummy", None, "")
+            m = quarkpy.qmenu.item("Dummy", None, "")
             DistortionClick(m)
 
         elif quarkx.setupsubset(SS_MODEL, "Building").getint("ObjectMode") == 7:
 
-            m = qmenu.item("Dummy", None, "")
+            m = quarkpy.qmenu.item("Dummy", None, "")
             TorusDistortionClick(m)
 
         else:
@@ -4373,17 +4374,17 @@ class TorusMakerDragObject(parent):
 
             ###################### Start of torus object creation area #######################
 
-        dtheta = 2*pi/segmentsv
-        dphi = 2*pi/ringsv
+        dtheta = 2*math.pi/segmentsv
+        dphi = 2*math.pi/ringsv
 
         # make verts
         verts = []
         for i in range(0,segmentsv):
             for j in range(0, ringsv):
-                c1 = cos(i*dtheta)
-                s1 = sin(i*dtheta)
-                c2 = cos(j*dphi)
-                s2 = sin(j*dphi)
+                c1 = math.cos(i*dtheta)
+                s1 = math.sin(i*dtheta)
+                c2 = math.cos(j*dphi)
+                s2 = math.sin(j*dphi)
 
                 # make sure to take a fractional power of a negative number
                 if c1 < 0:
@@ -4449,16 +4450,16 @@ class TorusMakerDragObject(parent):
 
          ## This is original code, converted below, left here for future reference
               #A  face.v.append(verts[i*ringsv + j])
-              #C  face.v.append(verts[i*ringsv + int(fmod(j+1, ringsv))])
-              #D  face.v.append(verts[int(fmod((i+1)*ringsv, segmentsv*ringsv)) + int(fmod(j+1, ringsv))])
-              #B  face.v.append(verts[int(fmod((i+1)*ringsv, segmentsv*ringsv)) + j])
+              #C  face.v.append(verts[i*ringsv + int(math.fmod(j+1, ringsv))])
+              #D  face.v.append(verts[int(math.fmod((i+1)*ringsv, segmentsv*ringsv)) + int(math.fmod(j+1, ringsv))])
+              #B  face.v.append(verts[int(math.fmod((i+1)*ringsv, segmentsv*ringsv)) + j])
               #   face.v.reverse()
 
          # This uses verts list crated above to set the face vector points
                 A = (verts[i*ringsv + j])
-                B = (verts[int(fmod((i+1)*ringsv, segmentsv*ringsv)) + j])
-                C = (verts[i*ringsv + int(fmod(j+1, ringsv))])
-                D = (verts[int(fmod((i+1)*ringsv, segmentsv*ringsv)) + int(fmod(j+1, ringsv))])
+                B = (verts[int(math.fmod((i+1)*ringsv, segmentsv*ringsv)) + j])
+                C = (verts[i*ringsv + int(math.fmod(j+1, ringsv))])
+                D = (verts[int(math.fmod((i+1)*ringsv, segmentsv*ringsv)) + int(math.fmod(j+1, ringsv))])
 
          # This actually sets the vector points for a face
                 A = quarkx.vect(A.tuple[0],A.tuple[1],A.tuple[2])
