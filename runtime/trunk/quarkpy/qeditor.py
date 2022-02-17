@@ -11,7 +11,6 @@ Various constants and Screen Controls for editors.
 import quarkx
 import qtoolbar
 import qmacro
-import qmenu
 import qutils
 from qutils import *
 import math
@@ -609,6 +608,7 @@ def CustomZoom(views):
 
 
 def getzoommenu(zoombtn):
+    import qmenu
     def zoomclick(m, views=zoombtn.views):
         editor = mapeditor()
         if editor.MODE == qutils.SS_MODEL:
@@ -1124,6 +1124,7 @@ class UserDataPanelButton(qtoolbar.button):
 
 
 def UDPBMenuO(onclick, parent):
+    import qmenu
     items = []
     for o in parent.subitems:
         s = quarkx.menuname(o.shortname)
@@ -1343,6 +1344,7 @@ def tb1click(mnu):
 
 def tools1click(mnu):
     "Set checks on the menu items that correspond to visible toolbars."
+    import qmenu
     editor = mapeditor()
     if editor is None: return
     for i in mnu.items:
@@ -1355,6 +1357,7 @@ def tools1click(mnu):
 
 def ToolsMenu(editor, toolbars):
     "The Tools menu, with its shortcuts."
+    import qmenu
     items = []
     for cap, cls in toolbars.items():
         i = qmenu.item(cls.Caption, tb1click)
@@ -1479,6 +1482,7 @@ def TexModeMenu(editor, view):
             setprojmode(view)
 
     import qbasemgr
+    import qmenu
     modhint = qbasemgr.ModesHint + "\n\nThe commands in this menu lets you select the mode for the view you right-clicked on. You can set the mode for all views at once in the 'Layouts' menu."
     infobaselink = "intro.mapeditor.menu.html#layoutmenu"
     Mod1 = qmenu.item("&Wireframe", setviewmode, modhint, infobaselink)
