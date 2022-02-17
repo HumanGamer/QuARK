@@ -5575,13 +5575,13 @@ class PaintModesBar(ToolBar):
     def ColorPickerClick(self, btn):
         "Controls the Color Picker button on this toolbar."
         editor = mapeditor()
-        if btn.state == qtoolbar.normal:
-            qtoolbar.toggle(btn)
-            btn.state = qtoolbar.selected
+        if btn.state == quarkpy.qtoolbar.normal:
+            quarkpy.qtoolbar.toggle(btn)
+            btn.state = quarkpy.qtoolbar.selected
             quarkx.update(editor.form)
         else:
-            qtoolbar.toggle(btn)
-            btn.state = qtoolbar.normal
+            quarkpy.qtoolbar.toggle(btn)
+            btn.state = quarkpy.qtoolbar.normal
             quarkx.update(editor.form)
 
     def buildbuttons(self, layout):
@@ -5604,9 +5604,9 @@ class PaintModesBar(ToolBar):
         else:
             select1(btns[i], self, layout.editor)
 
-        BuildDialogbtn = qtoolbar.button(DialogClick, "Special Paint Functions Dialog||Special Paint Functions Dialog:\n\nNot functional at this time. Reserved for future use.", ico_paintmodes, 0, infobaselink="intro.modeleditor.toolpalettes.paintmodes.html#dialog")
-        ColorPicker = qtoolbar.button(self.ColorPickerClick, "Color Picker||Color Picker:\n\nWhen active along with one of the paint tools, such as the 'Solid Color Paint' tool, you can 'pick' a color to set the paint brush to use by clicking the LMB on a pixel in any of the editor's textured views or the Skin-view.\n\nIf the 'Airbrush Paint' tool is active, doing a click on a pixel using your middle mouse button will set the 'second color' of the airbrush as well.", ico_paintmodes, 4, infobaselink="intro.modeleditor.toolpalettes.paintmodes.html#colorpicker")
-        ColorSelector = qtoolbar.button(ColorSelectorClick, "Color Selector\n& Paint Settings||Color Selector & Paint Settings:\n\nThis button opens the dialog to select colors manually from either a palette, if the model uses one, or the RGB color selector.\n\nThere are also various settings for all of the paint tools.", ico_paintmodes, 5, infobaselink="intro.modeleditor.toolpalettes.paintmodes.html#colorselector")
+        BuildDialogbtn = quarkpy.qtoolbar.button(DialogClick, "Special Paint Functions Dialog||Special Paint Functions Dialog:\n\nNot functional at this time. Reserved for future use.", ico_paintmodes, 0, infobaselink="intro.modeleditor.toolpalettes.paintmodes.html#dialog")
+        ColorPicker = quarkpy.qtoolbar.button(self.ColorPickerClick, "Color Picker||Color Picker:\n\nWhen active along with one of the paint tools, such as the 'Solid Color Paint' tool, you can 'pick' a color to set the paint brush to use by clicking the LMB on a pixel in any of the editor's textured views or the Skin-view.\n\nIf the 'Airbrush Paint' tool is active, doing a click on a pixel using your middle mouse button will set the 'second color' of the airbrush as well.", ico_paintmodes, 4, infobaselink="intro.modeleditor.toolpalettes.paintmodes.html#colorpicker")
+        ColorSelector = quarkpy.qtoolbar.button(ColorSelectorClick, "Color Selector\n& Paint Settings||Color Selector & Paint Settings:\n\nThis button opens the dialog to select colors manually from either a palette, if the model uses one, or the RGB color selector.\n\nThere are also various settings for all of the paint tools.", ico_paintmodes, 5, infobaselink="intro.modeleditor.toolpalettes.paintmodes.html#colorselector")
 
         return [BuildDialogbtn] + btns + [ColorPicker, ColorSelector]
 

@@ -4684,13 +4684,13 @@ class ObjectModesBar(ToolBar):
             ico_dict['ico_objectmodes']=LoadIconSet1("mdlobjm", 1.0)
         ico_objectmodes = ico_dict['ico_objectmodes']
 
-        BuildDialogbtn = qtoolbar.button(DialogClick, "Object Dialog Input||Object Dialog Input:\n\nThis will open a dialog input box for the 'Object modes Toolbar' item currently in use. Not all objects will use the same dialog input box. Which ever object button is active at the time this button is clicked, will produce that objects dialog input box.\n\nThese dialogs will remain open until they are closed manually.\n\nIf a particular object has its own dialog then that objects name will appear in the title. Other wise the standard ' Object Distortion Dialog ' will be used for all other objects.\n\nYou can have one or more dialogs open and active at a time. But they will only effect the objects that use them.", ico_objectmodes, 0, infobaselink="intro.modeleditor.toolpalettes.objectmodes.html#dialog")
+        BuildDialogbtn = quarkpy.qtoolbar.button(DialogClick, "Object Dialog Input||Object Dialog Input:\n\nThis will open a dialog input box for the 'Object modes Toolbar' item currently in use. Not all objects will use the same dialog input box. Which ever object button is active at the time this button is clicked, will produce that objects dialog input box.\n\nThese dialogs will remain open until they are closed manually.\n\nIf a particular object has its own dialog then that objects name will appear in the title. Other wise the standard ' Object Distortion Dialog ' will be used for all other objects.\n\nYou can have one or more dialogs open and active at a time. But they will only effect the objects that use them.", ico_objectmodes, 0, infobaselink="intro.modeleditor.toolpalettes.objectmodes.html#dialog")
 
               # to build the Mode buttons
         btns = []
         for i in range(len(ObjectModes)):
             obj, icon = ObjectModes[i]
-            btn = qtoolbar.button(selectmode, obj.Hint, ico_objectmodes, icon)
+            btn = quarkpy.qtoolbar.button(selectmode, obj.Hint, ico_objectmodes, icon)
             btn.i = i
             btns.append(btn)
         i = quarkx.setupsubset(SS_MODEL, "Building").getint("ObjectMode")

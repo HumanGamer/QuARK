@@ -17,6 +17,7 @@ import mdlentities
 import mdlhandles
 import mdltoolbars
 import mdlmgr
+import qtoolbar
 from mdlutils import *
 
 #from qdictionnary import Strings
