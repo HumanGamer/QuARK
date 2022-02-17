@@ -16,6 +16,7 @@
 #
 
 import quarkx
+import quarkpy.qmenu
 from tagging import *
 from faceutils import *
 
@@ -113,8 +114,8 @@ def MergePolyClick(m):
 # makes menu item, put on menu in maptagside
 #
 def mergepoly(editor,o):
-    item = qmenu.item("Merge Polys",MergePolyClick,"|This command can merge two brushes which `kiss' at a face, meaning that the faces have the same location, orientation, size and shape, but are oriented in opposite directions.\n\nTo use it, tag one of the kissing faces, then select the brush that contains the other.  If this menu item becomes enabled, the operation is then supposed to be able to combine the two brushes into one.  The selected brush will be `dominant', in that the resulting brush will be in its position of the group structure, and its textures and higher shared faces will be retained where relevant.\n\nIf the operation will change the overall shape, or create an invalid brush, this menu item is supposed to remain disabled.")
-    item.state=qmenu.disabled
+    item = quarkpy.qmenu.item("Merge Polys",MergePolyClick,"|This command can merge two brushes which `kiss' at a face, meaning that the faces have the same location, orientation, size and shape, but are oriented in opposite directions.\n\nTo use it, tag one of the kissing faces, then select the brush that contains the other.  If this menu item becomes enabled, the operation is then supposed to be able to combine the two brushes into one.  The selected brush will be `dominant', in that the resulting brush will be in its position of the group structure, and its textures and higher shared faces will be retained where relevant.\n\nIf the operation will change the overall shape, or create an invalid brush, this menu item is supposed to remain disabled.")
+    item.state=quarkpy.qmenu.disabled
     tagged=gettagged(editor)
     if tagged is None or len(tagged.faceof)!=1:
         return item
@@ -122,7 +123,7 @@ def mergepoly(editor,o):
     if new is not None:
         item.tagged=tagged
 #            item.face=face
-        item.state=qmenu.normal
+        item.state=quarkpy.qmenu.normal
         item.result=new
         item.o=o
     return item
@@ -169,6 +170,6 @@ def MergePolysClick(m):
 # makes menu item, put on menu in maptagside
 #
 def groupmergepoly(editor,o):
-    item = qmenu.item("Merge Polys",MergePolysClick,"|This command will try to merge all mergeable polys in the group.\n\mIt doesn't necessarily get the best answer, if you think you can do better, you can use Merge Polys on the face menu.")
+    item = quarkpy.qmenu.item("Merge Polys",MergePolysClick,"|This command will try to merge all mergeable polys in the group.\n\mIt doesn't necessarily get the best answer, if you think you can do better, you can use Merge Polys on the face menu.")
     item.o=o
     return item

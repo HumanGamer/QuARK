@@ -26,7 +26,6 @@ Info = {
    "quark":         "Version 6.1" }
 
 import quarkx
-import quarkpy.mapmenus
 import quarkpy.mapentities
 import quarkpy.qmenu
 from quarkpy.maputils import *
@@ -54,9 +53,9 @@ def facemenu(o, editor, oldfacemenu = quarkpy.mapentities.FaceType.menu.im_func)
         quarkx.setupsubset(SS_MAP, "Options")["Texpop"]="0"
 
     if promote=="1":
-        promoteItem = qmenu.item('Demote Texture',demoteClick, "|Texture menu items get demoted to submenu")
+        promoteItem = quarkpy.qmenu.item('Demote Texture',demoteClick, "|Texture menu items get demoted to submenu")
     else:
-        promoteItem = qmenu.item('Promote texture',promoteClick, "|Texture menu subitems get promoted onto main vertex menu")
+        promoteItem = quarkpy.qmenu.item('Promote texture',promoteClick, "|Texture menu subitems get promoted onto main vertex menu")
 
 
     promoteWrap = quarkx.setupsubset(SS_MAP, "Options")["Wrappop"]
@@ -68,9 +67,9 @@ def facemenu(o, editor, oldfacemenu = quarkpy.mapentities.FaceType.menu.im_func)
         quarkx.setupsubset(SS_MAP, "Options")["Wrappop"]="0"
 
     if promoteWrap=="1":
-        promoteWrapItem = qmenu.item('Demote Wrapping',demoteWrapClick, "|Wrapping menu items get demoted to submenu")
+        promoteWrapItem = quarkpy.qmenu.item('Demote Wrapping',demoteWrapClick, "|Wrapping menu items get demoted to submenu")
     else:
-        promoteWrapItem = qmenu.item('Promote Wrapping',promoteWrapClick, "|Wrapping submenu items get promoted onto main vertex menu")
+        promoteWrapItem = quarkpy.qmenu.item('Promote Wrapping',promoteWrapClick, "|Wrapping submenu items get promoted onto main vertex menu")
 
 
     texpop = findlabelled(menu,'texpop')
@@ -87,7 +86,7 @@ def facemenu(o, editor, oldfacemenu = quarkpy.mapentities.FaceType.menu.im_func)
             # The stuff below the separator is options
             #  that don't need a prefix to be intelligible
             #
-            if item == qmenu.sep:
+            if item == quarkpy.qmenu.sep:
                 break
             try:
                 item.text = "Wrap texture "+item.text
@@ -97,7 +96,7 @@ def facemenu(o, editor, oldfacemenu = quarkpy.mapentities.FaceType.menu.im_func)
         # Put wrap items after promote texture
         #
         texpop.items.remove(wrappop)
-        texpop.items=texpop.items+[qmenu.sep]+wrappop.items
+        texpop.items=texpop.items+[quarkpy.qmenu.sep]+wrappop.items
     if promote=="1":
         texind = menu.index(texpop)
         menu[texind:texind+1]=texpop.items

@@ -17,12 +17,11 @@ Info = {
 
 
 import quarkx
+from maptagside import getspecdict
 import quarkpy.mapeditor
 from quarkpy.maputils import *   # may not need
-from quarkpy.qhandles import *   # may not need
-from quarkpy.qutils import *     # may not need
-from quarkpy.mapduplicator import *
-#StandardDuplicator = quarkpy.mapduplicator.StandardDuplicator
+import quarkpy.qmenu
+import quarkpy.mapduplicator
 import quarkpy.mapentities
 from quarkpy.perspective import *
 
@@ -32,7 +31,7 @@ from quarkpy.perspective import *
 
 replygiven = 0   # new Rowdys suggestion stops repeated error msgs of size
 
-class TerrainDuplicator2(StandardDuplicator):
+class TerrainDuplicator2(quarkpy.mapduplicator.StandardDuplicator):
 
   def stretchgrid(editor,undo,movee,tagdict):
       mapdict = getspecdict("_tag",editor.Root)
@@ -201,7 +200,7 @@ class TerrainDuplicator2(StandardDuplicator):
 quarkpy.mapduplicator.DupCodes.update({"dup terrain2":  TerrainDuplicator2,})
 
 
-class TerrainDuplicator2X(StandardDuplicator):
+class TerrainDuplicator2X(quarkpy.mapduplicator.StandardDuplicator):
 
   def stretchgrid2X(editor,undo,movee,tagdict):
       mapdict = getspecdict("_tag",editor.Root)
@@ -579,7 +578,7 @@ class TerrainDuplicator2X(StandardDuplicator):
 quarkpy.mapduplicator.DupCodes.update({"dup terrain2X":  TerrainDuplicator2X,})
 
 
-class TerrainDuplicator4(StandardDuplicator):
+class TerrainDuplicator4(quarkpy.mapduplicator.StandardDuplicator):
 
   def stretchgrid4(editor,undo,movee,tagdict):
       mapdict = getspecdict("_tag",editor.Root)
@@ -853,7 +852,7 @@ def curvemenu4(o, editor, view):
   def finishitem4(item, disable=disable, o=o, view=view, newpoly=newpoly):
       disablehint = "This item is disabled because the brush doesn't have 6 faces."
       if disable:
-          item.state=qmenu.disabled
+          item.state=quarkpy.qmenu.disabled
           try:
               item.hint=item.hint + "\n\n" + disablehint
           except (AttributeError):
@@ -863,7 +862,7 @@ def curvemenu4(o, editor, view):
           item.newpoly = newpoly
           item.view = view
 
-  item = qmenu.item("Make Terrain 4", maketerrain4)
+  item = quarkpy.qmenu.item("Make Terrain 4", maketerrain4)
   finishitem4(item)
   return item
 
@@ -919,7 +918,7 @@ def curvemenu2X(o, editor, view):
   def finishitem2X(item, disable=disable, o=o, view=view, newpoly=newpoly):
       disablehint = "This item is disabled because the brush doesn't have 6 faces."
       if disable:
-          item.state=qmenu.disabled
+          item.state=quarkpy.qmenu.disabled
           try:
               item.hint=item.hint + "\n\n" + disablehint
           except (AttributeError):
@@ -929,7 +928,7 @@ def curvemenu2X(o, editor, view):
           item.newpoly = newpoly
           item.view = view
 
-  item = qmenu.item("Make Terrain 2X", maketerrain2X)
+  item = quarkpy.qmenu.item("Make Terrain 2X", maketerrain2X)
   finishitem2X(item)
   return item
 
@@ -967,7 +966,7 @@ def curvemenu(o, editor, view):
   def finishitem(item, disable=disable, o=o, view=view, newpoly=newpoly):
       disablehint = "This item is disabled because the brush doesn't have 6 faces."
       if disable:
-          item.state=qmenu.disabled
+          item.state=quarkpy.qmenu.disabled
           try:
               item.hint=item.hint + "\n\n" + disablehint
           except (AttributeError):
@@ -977,7 +976,7 @@ def curvemenu(o, editor, view):
           item.newpoly = newpoly
           item.view = view
 
-  item = qmenu.item("Make Terrain 2", maketerrain2)
+  item = quarkpy.qmenu.item("Make Terrain 2", maketerrain2)
   finishitem(item)
   return item
 

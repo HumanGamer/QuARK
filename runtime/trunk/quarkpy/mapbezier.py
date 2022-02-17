@@ -12,6 +12,7 @@ import quarkx
 import drawutils
 from maputils import *
 import qhandles
+import qmenu
 import maphandles
 import mapentities
 import dlgclasses

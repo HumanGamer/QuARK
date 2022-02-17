@@ -30,11 +30,7 @@ Info = {
 
 
 import quarkx
-import quarkpy.mapmenus
-import quarkpy.mapentities
 import quarkpy.qmenu
-import quarkpy.mapeditor
-import quarkpy.mapcommands
 import quarkpy.maphandles
 from quarkpy.maputils import *
 from tagging import *
@@ -42,9 +38,9 @@ from tagging import *
 
 def disttotagged(editor,pos):
   pt = gettaggedpt(editor)
-  item = qmenu.item("Distance to tagged",DistTaggedClick,"|Distance from here to the tagged point")
+  item = quarkpy.qmenu.item("Distance to tagged",DistTaggedClick,"|Distance from here to the tagged point")
   if pt is None:
-    item.state=qmenu.disabled
+    item.state=quarkpy.qmenu.disabled
   else:
     item.dist=abs(pt-pos)
   return item
@@ -64,7 +60,7 @@ def makeedge(o, editor):
   item = quarkpy.qmenu.item("Tag Edge",MakeEdgeClick,"|This command makes a `virtual edge' between the tagged point and this one, which becomes tagged, for glueing Bezier patches to.")
   taggedpt = gettaggedpt(editor)
   if taggedpt is None:
-    item.state = qmenu.disabled
+    item.state = quarkpy.qmenu.disabled
   else:
     item.tagged = taggedpt
     item.o = o
@@ -74,7 +70,7 @@ def makeplane(pos, editor):
     item = quarkpy.qmenu.item("Tag Plane",MakePlaneClick,"|This command makes a tagged plane with the tagged edge and this point")
     edge = gettaggededge(editor)
     if edge is None:
-        item.state=qmenu.disabled
+        item.state=quarkpy.qmenu.disabled
     else:
         item.pos = pos
     return item
@@ -96,9 +92,9 @@ def tagpointitem(editor, origin):
   from maptagside import ClearTagClick
   oldtag = gettaggedpt(editor)
   if oldtag is not None and not (origin-oldtag):
-    tagv = qmenu.item("Clear tag", ClearTagClick)
+    tagv = quarkpy.qmenu.item("Clear tag", ClearTagClick)
   else:
-    tagv = qmenu.item("&Tag point", TagPointClick, "|`Tags' the point below the mouse for reference in later operations of positioning and alignment.\n\nThe tagged point then appears in red.\n\nFor more detail on the use of this function, click on the InfoBase button below.|maped.plugins.tagside.html#basic")
+    tagv = quarkpy.qmenu.item("&Tag point", TagPointClick, "|`Tags' the point below the mouse for reference in later operations of positioning and alignment.\n\nThe tagged point then appears in red.\n\nFor more detail on the use of this function, click on the InfoBase button below.|maped.plugins.tagside.html#basic")
     tagv.pos = origin
     tagv.tagger = 1
   return tagv
@@ -110,8 +106,8 @@ def originmenu(self, editor, view, oldoriginmenu = quarkpy.qhandles.GenericHandl
   if isinstance(self, quarkpy.maphandles.FaceHandle):
     return menu        # nothing to do for faces
 
-  if len(menu)==0 or menu[0] is not qmenu.sep:
-    menu[:0] = [qmenu.sep]  # inserts a separator if necessary
+  if len(menu)==0 or menu[0] is not quarkpy.qmenu.sep:
+    menu[:0] = [quarkpy.qmenu.sep]  # inserts a separator if necessary
 
   if view is not None:   # Point gluing for everything
 
@@ -126,9 +122,9 @@ def originmenu(self, editor, view, oldoriginmenu = quarkpy.qhandles.GenericHandl
           p = p - tagged.normal * (p*tagged.normal-tagged.dist)
           self.Action(editor, self.pos, p, MB_NOGRID, view)
 
-    gluev = qmenu.item("&Glue to tagged", GluePointClick, "|Glue this point to the tagged point, or if a side is tagged, move this point into the plane of this side.")
+    gluev = quarkpy.qmenu.item("&Glue to tagged", GluePointClick, "|Glue this point to the tagged point, or if a side is tagged, move this point into the plane of this side.")
     if not anytag(editor):
-      gluev.state = qmenu.disabled
+      gluev.state = quarkpy.qmenu.disabled
     menu[1:1] = [gluev]
 
   menu[1:1] = [tagpointitem(editor, self.pos),

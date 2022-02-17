@@ -727,7 +727,7 @@ class BotWaypointerPointHandle(CenterHandle):
         myparent["shortestpathdisplay"] = str(shortestpathdisplay)
         menu_shortestpath.state = quarkpy.qmenu.checked and shortestpathdisplay
 
-        return [menu_add_twoway, menu_add_oneway, menu_rem_twoway, menu_rem_oneway, qmenu.sep, menu_shortestpath]
+        return [menu_add_twoway, menu_add_oneway, menu_rem_twoway, menu_rem_oneway, quarkpy.qmenu.sep, menu_shortestpath]
 
 #
 #

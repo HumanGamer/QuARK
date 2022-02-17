@@ -35,7 +35,8 @@ Info = {
 
 
 import quarkx
-import quarkpy.mapmenus
+import quarkpy.mapentities
+import quarkpy.qmenu
 from quarkpy.maputils import *
 
 from quarkpy.b2utils import *
@@ -136,9 +137,9 @@ def tagmenu(o, editor, oldfacemenu = quarkpy.mapentities.FaceType.menu.im_func):
             undo.exchange(poly, new)
             editor.ok(undo, "caulk from tagged")
 
-    nodraw = qmenu.item("Caulk from tagged",nodrawclick)
+    nodraw = quarkpy.qmenu.item("Caulk from tagged",nodrawclick)
     if corners is None:
-        nodraw.state=qmenu.disabled
+        nodraw.state=quarkpy.qmenu.disabled
     tagpop.items.append(nodraw)
     return menu
 

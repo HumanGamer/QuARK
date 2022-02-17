@@ -17,22 +17,18 @@ Info = {
    "quark":         "Version 6.5" }
 
 
+import math
+import quarkx
+import quarkpy.mapeditor
+import quarkpy.mapbtns
+import quarkpy.maphandles
+import quarkpy.qtoolbar
 import quarkpy.qhandles
 from quarkpy.maputils import *
-import mapmovevertex
 import mapterrainpos # this is for the dialog boxes.
 import faceutils     # this is for getting a vertex the cursor is near.
 
 ico_dict['ico_terrmodes'] = LoadIconSet1("maptrm", 1.0)
-
-## below are new, not sure what is needed to keep
-import quarkx
-import quarkpy.mapeditor
-import quarkpy.mapbtns
-import quarkpy.qtoolbar
-import quarkpy.maphandles
-import math
-from quarkpy.qhandles import *
 
 ## think I need these below
 
@@ -85,13 +81,13 @@ def DialogClick(m):
                 return
             else:
                 o = editor.layout.explorer.sellist
-                m = qmenu.item("Dummy", None, "")
+                m = quarkpy.qmenu.item("Dummy", None, "")
                 m.o = o
                 mapterrainpos.Selector1Click(m)
 
         elif quarkx.setupsubset(SS_MAP, "Building").getint("TerrMode") > 0:
 
-            m = qmenu.item("Dummy", None, "")
+            m = quarkpy.qmenu.item("Dummy", None, "")
             mapterrainpos.PaintBrushClick(m)
 
         else:
@@ -106,7 +102,7 @@ def Dialog3DviewsClick(m):
     editor = mapeditor()
     if quarkx.setupsubset(SS_MAP, "Building").getint("TerrMode") < 20 and quarkx.setupsubset(SS_MAP, "Building").getint("DragMode") > 4:
 
-        m = qmenu.item("Dummy", None, "")
+        m = quarkpy.qmenu.item("Dummy", None, "")
         mapterrainpos.Options3DviewsClick(m)
 
     else:
@@ -1746,10 +1742,9 @@ class TerrainVertexHandle(quarkpy.qhandles.GenericHandle):
             undo.put(self.poly, newface)
             editor.ok(undo, Strings[563])
 
-        return [qmenu.item("&Cut out corner", cutcorner1click, "|This command cuts out the corner of the polyhedron. It does so by adding a new face near the vertex you right-clicked on. The new face is always perpendicular to the view."),
-                qmenu.sep,
-                qmenu.item("&Force to grid", forcegrid1click,
-                  "force vertex to grid")] + self.OriginItems(editor, view)
+        return [quarkpy.qmenu.item("&Cut out corner", cutcorner1click, "|This command cuts out the corner of the polyhedron. It does so by adding a new face near the vertex you right-clicked on. The new face is always perpendicular to the view."),
+                quarkpy.qmenu.sep,
+                quarkpy.qmenu.item("&Force to grid", forcegrid1click, "force vertex to grid")] + self.OriginItems(editor, view)
 
 
     def drawred(self, redimages, view, redcolor):

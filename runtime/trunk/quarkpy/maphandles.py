@@ -21,6 +21,7 @@ import quarkx
 import math
 from qdictionnary import Strings
 import qhandles
+import qmenu
 from maputils import *
 import mapentities
 import qmacro

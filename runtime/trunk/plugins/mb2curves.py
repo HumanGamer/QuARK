@@ -34,15 +34,10 @@ Info = {
 
 
 import quarkx
-import quarkpy.mapmenus
 import quarkpy.mapentities
-import quarkpy.mapeditor
-import quarkpy.mapcommands
-import quarkpy.mapoptions
 import quarkpy.maphandles
-import quarkpy.dlgclasses
 import quarkpy.mapduplicator
-StandardDuplicator = quarkpy.mapduplicator.StandardDuplicator
+import quarkpy.qmenu
 from quarkpy.maputils import *
 
 import quarkpy.mapbezier
@@ -584,7 +579,7 @@ def images(buildfn, args):
 #  --- Duplicators ---
 #
 
-class CapDuplicator(StandardDuplicator):
+class CapDuplicator(quarkpy.mapduplicator.StandardDuplicator):
 
   def buildimages(self, singleimage=None):
     if singleimage is not None and singleimage>0:
@@ -605,7 +600,7 @@ class CapDuplicator(StandardDuplicator):
     return []
 
 
-class BevelDuplicator(StandardDuplicator):
+class BevelDuplicator(quarkpy.mapduplicator.StandardDuplicator):
 
   def buildimages(self, singleimage=None):
     if singleimage is not None and singleimage>0:
@@ -625,7 +620,7 @@ class BevelDuplicator(StandardDuplicator):
               faceonly, stretchtex, notop, nobottom, noinner, noouter, subdivide))
     return []
 
-class ColumnDuplicator(StandardDuplicator):
+class ColumnDuplicator(quarkpy.mapduplicator.StandardDuplicator):
 
   def buildimages(self, singleimage=None):
     if singleimage is not None and singleimage>0:
@@ -703,7 +698,7 @@ def curvemenu(o, editor, view):
   def finishitem(item, disable=disable, o=o, view=view, newpoly=newpoly):
       disablehint = "This item is disabled because the brush doesn't have 6 faces."
       if disable:
-          item.state=qmenu.disabled
+          item.state=quarkpy.qmenu.disabled
           try:
               item.hint=item.hint + "\n\n" + disablehint
           except (AttributeError):
@@ -714,7 +709,7 @@ def curvemenu(o, editor, view):
           item.view = view
 
   for (menname, mapname, inv) in (("&Arch", "arch",  1), ("&Cap", "cap", 0)):
-    item = qmenu.item(menname, makecap)
+    item = quarkpy.qmenu.item(menname, makecap)
     item.inverse = inv
     item.mapname = mapname
     finishitem(item)
@@ -732,14 +727,14 @@ If the textures on the two adjoining walls of the room are properly aligned, the
 
   for (name, left, hint) in (("&Left corner", 1, cornerhint%("left","left")),
                        ("&Right corner", 0, cornerhint%("right","right"))):
-    item = qmenu.item(name, makebevel)
+    item = quarkpy.qmenu.item(name, makebevel)
     item.inverse = 1
     item.left = left
     item.hint = hint
     finishitem(item)
     list.append(item)
 
-  colitem = qmenu.item("C&olumn", makecolumn, "Make a column")
+  colitem = quarkpy.qmenu.item("C&olumn", makecolumn, "Make a column")
   finishitem(colitem)
   list.append(colitem)
 
@@ -755,14 +750,14 @@ The curve will be oriented w.r.t. the map view you RMB-clicked on, or, if you're
 
 If the brush vanishes without being replaced by a shape, the brush may have been too screwy a shape, or looked at from a bad angle. (My attempts to detect these conditions in advance are meeting with unexpected resistance. There is also a bug in that if you apply this to a brush after first opening the map editor, without inserting anything first, the orientations are wrong.)
 """
-  curvepop = qmenu.popup("Bezier Curves",list, hint=curvehint)
+  curvepop = quarkpy.qmenu.popup("Bezier Curves",list, hint=curvehint)
   if newpoly is None:
     if len(o.subitems)!=6:
       morehint= "\n\nThis item is disabled because the poly doesn't have exactly 6 faces."
     else:
       morehint="\n\nThis item is disabled because I can't figure out which face is front, back, etc.  Make it more box-like, and look at it more head-on in the view."
     curvepop.hint = curvepop.hint+morehint
-    curvepop.state = qmenu.disabled
+    curvepop.state = quarkpy.qmenu.disabled
   return curvepop
 
 #

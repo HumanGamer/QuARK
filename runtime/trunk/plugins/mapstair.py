@@ -17,15 +17,10 @@ Info = {
 
 
 import quarkx
-import quarkpy.mapmenus
+import quarkpy.qmenu
 import quarkpy.mapentities
-import quarkpy.mapeditor
-import quarkpy.mapcommands
-import quarkpy.mapoptions
 import quarkpy.maphandles
-import quarkpy.dlgclasses
 import quarkpy.mapduplicator
-StandardDuplicator = quarkpy.mapduplicator.StandardDuplicator
 from quarkpy.maputils import *
 
 import quarkpy.mapbezier
@@ -36,7 +31,7 @@ from quarkpy.perspective import *
 #  --- Duplicators ---
 #
 
-class StairDuplicator(StandardDuplicator):
+class StairDuplicator(quarkpy.mapduplicator.StandardDuplicator):
 
   def makeStairs(self, o, steps=8, sameheight="", oldstyle=""):
       result = []
@@ -152,7 +147,7 @@ def curvemenu(o, editor, view):
   def finishitem(item, disable=disable, o=o, view=view, newpoly=newpoly):
       disablehint = "This item is disabled because the brush doesn't have 6 faces."
       if disable:
-          item.state=qmenu.disabled
+          item.state=quarkpy.qmenu.disabled
           try:
               item.hint=item.hint + "\n\n" + disablehint
           except (AttributeError):
@@ -162,7 +157,7 @@ def curvemenu(o, editor, view):
           item.newpoly = newpoly
           item.view = view
 
-  item = qmenu.item("Stair", makestair)
+  item = quarkpy.qmenu.item("Stair", makestair)
   finishitem(item)
 
   return item

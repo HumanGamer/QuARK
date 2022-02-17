@@ -25,6 +25,9 @@ Info = {
 
 import quarkx
 import quarkpy.dlgclasses
+import quarkpy.mapeditor
+import quarkpy.maphandles
+import quarkpy.qmenu
 import quarkpy.qtoolbar
 import tagging
 from quarkpy.maputils import *
@@ -229,20 +232,20 @@ def vertexmenu(self, editor, view, oldmenu=quarkpy.maphandles.VertexHandle.menu.
         stString = " (%.1f, %.1f)"%texCoords(self.pos, face.threepoints(2), 128)
     else:
         stString = ""
-    pinItem = qmenu.item('&Pin Vertex '+stString,pinClick,"|`pin' the texture on the face at the vertex. A face must be selected.\n\nAfter three pins have been set, the texture is repositioned so that the texture coordinates for the pinned points are as specified.")
-    stItem = qmenu.item(stString, None,"No action")
-    clearPin = qmenu.item('Clear Pin', clearPinClick)
-    clearPins = qmenu.item('Clear All Pins', clearAllClick)
+    pinItem = quarkpy.qmenu.item('&Pin Vertex '+stString,pinClick,"|`pin' the texture on the face at the vertex. A face must be selected.\n\nAfter three pins have been set, the texture is repositioned so that the texture coordinates for the pinned points are as specified.")
+    stItem = quarkpy.qmenu.item(stString, None,"No action")
+    clearPin = quarkpy.qmenu.item('Clear Pin', clearPinClick)
+    clearPins = quarkpy.qmenu.item('Clear All Pins', clearAllClick)
 
-    clearPin.state= qmenu.disabled
+    clearPin.state= quarkpy.qmenu.disabled
     if pinned is None:
-        clearPins.state = qmenu.disabled
+        clearPins.state = quarkpy.qmenu.disabled
     if (face is None) or (face.type != ':f'):
-        pinItem.state = qmenu.disabled
+        pinItem.state = quarkpy.qmenu.disabled
         pinItem.hint = "|"+pinItem.hint + "\n\nThis menu item is disabled because it requires a face be selected"
     if repin:
         pinItem.text = 'Re&pin Vertex'
-        clearPin.state = qmenu.normal
+        clearPin.state = quarkpy.qmenu.normal
 
     #
     #  Promote/Demote of submenu seems like a good idea to
@@ -257,16 +260,16 @@ def vertexmenu(self, editor, view, oldmenu=quarkpy.maphandles.VertexHandle.menu.
         quarkx.setupsubset(SS_MAP, "Options")["Pinners"]="0"
 
     if promote=="1":
-        promoteItem = qmenu.item('Demote Pinning',demoteClick, "|Pinning menu items get demoted to submenu")
+        promoteItem = quarkpy.qmenu.item('Demote Pinning',demoteClick, "|Pinning menu items get demoted to submenu")
     else:
-        promoteItem = qmenu.item('Promote Pinning',promoteClick, "|Pinning menu items get promoted onto main vertex menu")
+        promoteItem = quarkpy.qmenu.item('Promote Pinning',promoteClick, "|Pinning menu items get promoted onto main vertex menu")
 
     pinList = [pinItem, clearPin, clearPins, promoteItem]
 
     if promote=="1":
         pinners = pinList
     else:
-        pinners = [qmenu.popup('Texture Pinning', pinList)]
+        pinners = [quarkpy.qmenu.popup('Texture Pinning', pinList)]
 
 
     return  pinners+oldmenu(self,editor,view)
@@ -277,8 +280,6 @@ quarkpy.maphandles.VertexHandle.menu = vertexmenu
 #
 # Now for drawing little boxes around pinned vertices
 #
-from tagging import drawredface # misnamed, oh well
-
 def pinfinishdrawing(editor, view, oldmore=quarkpy.mapeditor.MapEditor.finishdrawing):
       cv = view.canvas()
       try:
@@ -314,7 +315,7 @@ def pinfinishdrawing(editor, view, oldmore=quarkpy.mapeditor.MapEditor.finishdra
       cv.pencolor=MapColor("Duplicator")
       try:
           for face in editor.frozenFaces:
-              drawredface(view,cv,face)
+              tagging.drawredface(view,cv,face)
       except (AttributeError):
           pass
 

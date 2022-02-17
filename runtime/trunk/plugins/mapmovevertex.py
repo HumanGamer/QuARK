@@ -22,10 +22,10 @@ Info = {
 #  to the statements in this file
 #
 
-#
-# Quarkx is the delphi-defined API
-#
 import quarkx
+import quarkpy.qhandles
+import quarkpy.qmenu
+import tagging
 
 #
 # This imports the maphandles.py file in the quarkpy folder
@@ -33,16 +33,6 @@ import quarkx
 #  name with quarkpy.maphandles, e.g. `quarkpy.maphandles.VertexHandle`
 # 
 import quarkpy.maphandles
-
-#
-# for face menu options
-#
-import quarkpy.mapoptions
-
-#
-# This imports the tagging.py plugin in this folder
-#
-import tagging
 
 #
 # This imports every function in quarkpy\maputils
@@ -613,7 +603,7 @@ def vertexmenu(self, editor, view, oldmenu=quarkpy.maphandles.VertexHandle.menu.
                 editor.ok(undo, "Move object")
                 editor.invalidateviews()
 
-            item = qmenu.item(object.name,Shifter, "Move me")
+            item = quarkpy.qmenu.item(object.name,Shifter, "Move me")
             item.menuicon = object.geticon(1)
             return item
 
@@ -624,12 +614,12 @@ def vertexmenu(self, editor, view, oldmenu=quarkpy.maphandles.VertexHandle.menu.
     #
     # And their menu items
     #
-    moveparentitem = qmenu.popup("&Move Containing", moveparentpopup(),
+    moveparentitem = quarkpy.qmenu.popup("&Move Containing", moveparentpopup(),
       hint="|The clicked-on containing object of this vertex will be moved so as to force the vertex onto the grid.")
-    moveitem = qmenu.item("&Move Vertex", moveclick)
-    lockitem = qmenu.item("&Lock Vertex", lockclick)
-    unlockitem = qmenu.item("&Unlock Vertex", unlockclick)
-    clearitem = qmenu.item("&Clear Locks", clearclick)
+    moveitem = quarkpy.qmenu.item("&Move Vertex", moveclick)
+    lockitem = quarkpy.qmenu.item("&Lock Vertex", lockclick)
+    unlockitem = quarkpy.qmenu.item("&Unlock Vertex", unlockclick)
+    clearitem = quarkpy.qmenu.item("&Clear Locks", clearclick)
     #
     # And a bit of convoluted logic for enable/disable
     #
@@ -643,7 +633,7 @@ def vertexmenu(self, editor, view, oldmenu=quarkpy.maphandles.VertexHandle.menu.
             if not(vtxh.pos-self.pos):
                 unlockitem.unlockMe = vtxh
                 locker = unlockitem
-                moveitem.state = qmenu.disabled
+                moveitem.state = quarkpy.qmenu.disabled
                 break
     #
     # And we return the menu, the new items stuck onto the
@@ -801,10 +791,10 @@ def lockfacemenu(o, editor, oldfacemenu = quarkpy.mapentities.FaceType.menu.im_f
         removeFromAttr(editor, 'frozenFaces', face)
         editor.invalidateviews()
 
-    lockitem = qmenu.item("Lock Vertices",lockclick,"Locks all vertices on this face")
-    unlockitem = qmenu.item("Unlock Vertices", unlockclick,"Unlocks vertices on this face")
-    freezeitem = qmenu.item("Freeze Face", freezeclick,"|Plane of face doesn't move, so vertices are confined to move within it. (So they don't go exactly where they're told to).")
-    unfreezeitem = qmenu.item("Unfreeze Face", unfreezeclick, "|To unfreeze all frozen faces, clear locks on vertex menu.")
+    lockitem = quarkpy.qmenu.item("Lock Vertices",lockclick,"Locks all vertices on this face")
+    unlockitem = quarkpy.qmenu.item("Unlock Vertices", unlockclick,"Unlocks vertices on this face")
+    freezeitem = quarkpy.qmenu.item("Freeze Face", freezeclick,"|Plane of face doesn't move, so vertices are confined to move within it. (So they don't go exactly where they're told to).")
+    unfreezeitem = quarkpy.qmenu.item("Unfreeze Face", unfreezeclick, "|To unfreeze all frozen faces, clear locks on vertex menu.")
     freezer = freezeitem
     try:
         freezelist = editor.frozenFaces
@@ -816,9 +806,9 @@ def lockfacemenu(o, editor, oldfacemenu = quarkpy.mapentities.FaceType.menu.im_f
                 freezer = unfreezeitem
                 break
 
-    viewitem = qmenu.item("Look At", viewclick, "|An open 3D view shifts to look at this face head on.\n (SHIFT to look at the face from the back)")
+    viewitem = quarkpy.qmenu.item("Look At", viewclick, "|An open 3D view shifts to look at this face head on.\n (SHIFT to look at the face from the back)")
 
-    locking = qmenu.popup("Lock/Freeze",[lockitem,unlockitem, freezer],
+    locking = quarkpy.qmenu.popup("Lock/Freeze",[lockitem,unlockitem, freezer],
         hint = "|Submenu for items that are supposed to help in placing vertices by controlling which faces & vertices can move and which can't.")
 
     return [locking, viewitem]+oldfacemenu(o, editor)
@@ -843,7 +833,7 @@ def originmenu(self, editor, view, oldoriginmenu = quarkpy.qhandles.GenericHandl
         view.cameraposition = pos, yaw, pitch
         editor.invalidateviews()
 
-      seeitem = qmenu.item("Look To",seePointClick,"|Aims an open 3d view at object")
+      seeitem = quarkpy.qmenu.item("Look To",seePointClick,"|Aims an open 3d view at object")
 
       menu[1:1] = [seeitem]
 

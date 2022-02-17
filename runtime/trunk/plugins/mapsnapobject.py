@@ -27,13 +27,12 @@ Info = {
 
 
 import quarkx
-
 import mapmadsel
 import quarkpy.mapentities
+import quarkpy.qmenu
 import quarkpy.dlgclasses
 from tagging import *
 from quarkpy.maputils import *
-
 
 
 #
@@ -285,20 +284,20 @@ def snapItems(current, editor, restricted):
     def snapClick(m, current=current, editor=editor):
         snapFunc(editor.layout.explorer.sellist[0], current, editor)
 
-    snapItem=qmenu.item("Snap to tagged",snapClick)
-    snapItem.state=qmenu.default
+    snapItem=quarkpy.qmenu.item("Snap to tagged",snapClick)
+    snapItem.state=quarkpy.qmenu.default
 
-    item = qmenu.popup(name,[snapItem],None,"|This is the name of some group or brush entity that contains what you have selected.\n\nLook at its submenu for stuff you can do!\n\nIf there's a bar in the menu, then the `Restrict Selections' menu item is checked, and you can only select stuff above the bar.")
+    item = quarkpy.qmenu.popup(name,[snapItem],None,"|This is the name of some group or brush entity that contains what you have selected.\n\nLook at its submenu for stuff you can do!\n\nIf there's a bar in the menu, then the `Restrict Selections' menu item is checked, and you can only select stuff above the bar.")
     item.menuicon = current.geticon(1)
     item.object = current
     return item
 
 def parentSnapPopup(o, editor):
-    parentSnap = qmenu.popup("&Snap Parent", hint = "|The submenu that appears comprises the currently selected object at the top, and below it, the map objects (polys, groups & brush entities) that are above it in the group tree-structure.\n\nIf you put the cursor over one of these, you will get the snap-to-selected face command.")
+    parentSnap = quarkpy.qmenu.popup("&Snap Parent", hint = "|The submenu that appears comprises the currently selected object at the top, and below it, the map objects (polys, groups & brush entities) that are above it in the group tree-structure.\n\nIf you put the cursor over one of these, you will get the snap-to-selected face command.")
     item = mapmadsel.buildParentPopup(o, parentSnap, snapItems, editor)
     tagged=gettaggedplane(editor)
     if tagged is None:
-         item.state=qmenu.disabled
+         item.state=quarkpy.qmenu.disabled
     return item
 
 

@@ -18,7 +18,9 @@ Info = {
 
 
 import quarkx
+import quarkpy.qmenu
 import quarkpy.qtoolbar
+import quarkpy.maptools
 from tagging import *
 import maptagside
 import maptexpos
@@ -107,7 +109,7 @@ def linkFaceClick(m):
 def glueLinkedClick(m):
   editor = mapeditor()
   o = editor.layout.explorer.uniquesel
-  m = qmenu.item("Dummy", None, "")
+  m = quarkpy.qmenu.item("Dummy", None, "")
   m.object = o
   side = o
   tagged = gettagged(editor)
@@ -128,7 +130,7 @@ def glueLinkedClick(m):
 def unlinkFaceClick(m):
   editor = mapeditor()
   o = editor.layout.explorer.uniquesel
-  m = qmenu.item("Dummy", None, "")
+  m = quarkpy.qmenu.item("Dummy", None, "")
   m.object = o
   tagged = gettagged(editor)
   if m.object is None:
@@ -198,8 +200,8 @@ def unlinkAllClick(m):
 def taggedWrapClick(m):
   editor = mapeditor()
   o = editor.layout.explorer.uniquesel
-  m = qmenu.item("Dummy", None, "")
-  m.side = o 
+  m = quarkpy.qmenu.item("Dummy", None, "")
+  m.side = o
   if gettaggedlist(editor) is None:
     quarkx.msgbox("Nothing done\n\nEither you have not selected anything,\nmade multiple selections,\nor not tagged your sides and\nselected the tagged face\nyou want to (copy) wrap from.", MT_ERROR, MB_OK)
     return
@@ -214,7 +216,7 @@ def taggedWrapClick(m):
 def pillarWrapClick(m):
   editor = mapeditor()
   o = editor.layout.explorer.uniquesel
-  m = qmenu.item("Dummy", None, "")
+  m = quarkpy.qmenu.item("Dummy", None, "")
   tagged = gettagged(editor)
   side = o
   if gettagged(editor) is None:
@@ -243,7 +245,7 @@ def projTexClick(m):
   if o == tagged:
     quarkx.msgbox("Nothing done\n\nYou have selected the tagged face.\n\nSelect another face or a brush\nto project the tagged texture to.", MT_ERROR, MB_OK)
     return
-  m = qmenu.item("Dummy", None, "")
+  m = quarkpy.qmenu.item("Dummy", None, "")
   m.olist = [o]
   m.tagged = gettagged(editor)
   maptagside.ProjTexClick(m)
@@ -268,7 +270,7 @@ def posTexClick(m):
             quarkx.msgbox("You have selected a brush or multiple brushes\n\nYou need to select a single face of a\nsingle brush to be able to activate\nthis tool and position its texture", MT_ERROR, MB_OK)
             return
     o = editor.layout.explorer.uniquesel
-    m = qmenu.item("Dummy", None, "")
+    m = quarkpy.qmenu.item("Dummy", None, "")
     m.o = o
     maptexpos.PosTexClick(m)
 

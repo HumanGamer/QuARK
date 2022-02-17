@@ -27,13 +27,8 @@ Info = {
 
 
 import quarkx
-import quarkpy.mapmenus
 import quarkpy.mapentities
 import quarkpy.qmenu
-import quarkpy.mapeditor
-import quarkpy.mapcommands
-import quarkpy.mapoptions
-import quarkpy.maphandles
 import quarkpy.dlgclasses
 from tagging import *
 import mapmadsel   # to make mad selector load first
@@ -354,7 +349,7 @@ types = {
 def slidePopup(o, editor):
     label = types[o.type]
     list = [makeEdgeSlide(o,editor),makePlaneSlide(o,editor)]
-    popup=qmenu.popup('Slide %s'%label,list,hint="|Slide %s along tagged edge or above tagged plane"%label)
+    popup=quarkpy.qmenu.popup('Slide %s'%label,list,hint="|Slide %s along tagged edge or above tagged plane"%label)
     return popup
 
 #
@@ -362,11 +357,11 @@ def slidePopup(o, editor):
 #
 def makeEdgeSlide(o, editor):
     label = types[o.type]
-    item = qmenu.item("along/around tagged edge",
+    item = quarkpy.qmenu.item("along/around tagged edge",
         EdgeSlideClick, "|Slides %s along or around tagged axis."%label.lower())
     tagged = gettaggededge(editor)
     if tagged is None:
-        item.state = qmenu.disabled
+        item.state = quarkpy.qmenu.disabled
         #
         # Add some stuff to the disabler to explain why the item
         #   is enabled.
@@ -381,11 +376,11 @@ def makeEdgeSlide(o, editor):
 
 def makePlaneSlide(o, editor):
     label = types[o.type]
-    item = qmenu.item("above tagged plane",
+    item = quarkpy.qmenu.item("above tagged plane",
         PlaneSlideClick, "|Slides %s above tagged plane."%label.lower())
     tagged = gettaggedplane(editor)
     if tagged is None:
-        item.state = qmenu.disabled
+        item.state = quarkpy.qmenu.disabled
         #
         # Add some stuff to the disabler to explain why the item
         #   is enabled.
