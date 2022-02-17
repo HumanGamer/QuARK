@@ -19,8 +19,8 @@ from quarkpy.maputils import *
 import plugins.deckerutils
 import quarkpy.mapduplicator
 import quarkpy.maphandles
-import quarkpy.mapentities
 import quarkpy.qhandles
+import quarkpy.qmenu
 import quarkpy.dlgclasses
 import math
 StandardDuplicator = quarkpy.mapduplicator.StandardDuplicator
@@ -420,19 +420,19 @@ class PathDuplicatorPointHandle(quarkpy.qhandles.IconHandle):
 
 
 
-        menulist = [qmenu.item("Insert after",  after1click)]
+        menulist = [quarkpy.qmenu.item("Insert after",  after1click)]
         if (self.pathdupmaster == 0):
 
             # if it is not the PathDup, then it must be a PathDupCorner, and several more menuitems are available
-            menulist.append(qmenu.item("Insert before", before1click))
-            menulist.append(qmenu.item("Remove",        remove1click))
-            menulist.append(qmenu.item("Select main dup",   selectdup1click, "|Select main duplicator (making all path points visible)"))
-            menulist.append(qmenu.item("Select tail", selecttail1click, "Multi-select this & the following path points"))
-            menulist.append(qmenu.item("Position following", positionfollowing1click, "|Position following path points relative to this one, making new ones if necessary"))
+            menulist.append(quarkpy.qmenu.item("Insert before", before1click))
+            menulist.append(quarkpy.qmenu.item("Remove",        remove1click))
+            menulist.append(quarkpy.qmenu.item("Select main dup",   selectdup1click, "|Select main duplicator (making all path points visible)"))
+            menulist.append(quarkpy.qmenu.item("Select tail", selecttail1click, "Multi-select this & the following path points"))
+            menulist.append(quarkpy.qmenu.item("Position following", positionfollowing1click, "|Position following path points relative to this one, making new ones if necessary"))
 
         else:
-            menulist.append(qmenu.item("Retarget Path", retarget1click, "Set target/targetname specifics, following subitem order"))
-        menulist.append(qmenu.item("Toggle speeddraw",  speeddraw1click))
+            menulist.append(quarkpy.qmenu.item("Retarget Path", retarget1click, "Set target/targetname specifics, following subitem order"))
+        menulist.append(quarkpy.qmenu.item("Toggle speeddraw",  speeddraw1click))
 
         return menulist
 
@@ -457,7 +457,7 @@ class PathPointHandle(PathDuplicatorPointHandle):
         def seldup1click(m,self=self,editor=editor):
             editor.layout.explorer.uniqusel=self.mainpathdup
 
-        seldup = qmenu.item("Select duplicator",seldup1click,"select main duplicator (so that all path handles become visible)")
+        seldup = quarkpy.qmenu.item("Select duplicator",seldup1click,"select main duplicator (so that all path handles become visible)")
         pointhandles = pointhandles = [seldup]
         return pointhandles
 

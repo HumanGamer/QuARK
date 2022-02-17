@@ -17,16 +17,15 @@ Info = {
    "quark":         "Version 6.3" }
 
 
+import quarkx
 from quarkpy.maputils import *
 import quarkpy.mapmenus
-import quarkpy.mapcommands
 import quarkpy.mapentities
 import quarkpy.dlgclasses
-from quarkpy import guiutils
-import quarkpy.mapsearch
+import quarkpy.qmacro
+import quarkpy.qmenu
 
 import mapmadsel
-import quarkx
 
 #
 # A `Live Edit' dialog.  Note the action buttons, which
@@ -104,14 +103,14 @@ class FindTargetDlg (quarkpy.dlgclasses.LiveEditDlg):
         #
         # FIXME: dumb hack, revise mapmadsel
         #
-        m = qmenu.item("",None)
+        m = quarkpy.qmenu.item("",None)
         m.object=self.pack.found[index]
         mapmadsel.ZoomToMe(m)
         mapmadsel.SelectMe(m)
         #
         # Some grotty crap to set the mpp to the face page
         #
-        Spec1 = qmenu.item("", quarkpy.mapmenus.set_mpp_page, "")
+        Spec1 = quarkpy.qmenu.item("", quarkpy.mapmenus.set_mpp_page, "")
         Spec1.page = 1 # specifics page
         quarkpy.mapmenus.set_mpp_page(Spec1)
 
@@ -223,19 +222,19 @@ def targetpopup(o):
     def targettedClick(m, o=o):
         findClick(m, 'targetname', o[m.spec])
 
-    targettingItem = qmenu.item('entities targetting this one', targettingClick, "|Find entities targetting this entity")
+    targettingItem = quarkpy.qmenu.item('entities targetting this one', targettingClick, "|Find entities targetting this entity")
     if o['targetname'] is None:
-        targettingItem.state=qmenu.disabled
+        targettingItem.state=quarkpy.qmenu.disabled
 
     list = [targettingItem]
 
     for specific in o.dictspec.keys():
         if specific[-6:] == 'target':
-            item = qmenu.item('entities targetted by '+specific, targettedClick, "|Find entities targetted by the specific %s"%specific)
+            item = quarkpy.qmenu.item('entities targetted by '+specific, targettedClick, "|Find entities targetted by the specific %s"%specific)
             item.spec = specific
             list.append(item)
 
-    return qmenu.popup("Find targetted/ing", list, None,
+    return quarkpy.qmenu.popup("Find targetted/ing", list, None,
        "|commands for finding entities targetting and targetted by this one")
 
 
@@ -244,7 +243,7 @@ def entmenu(o, editor, oldmenu=quarkpy.mapentities.EntityType.menu.im_func):
     menu = oldmenu(o, editor)
 
     menu[:0] = [targetpopup(o),
-                qmenu.sep]
+                quarkpy.qmenu.sep]
     return menu
 
 quarkpy.mapentities.EntityType.menu = entmenu
@@ -254,7 +253,7 @@ def brushmenu(o, editor, oldmenu=quarkpy.mapentities.BrushEntityType.menu.im_fun
     menu = oldmenu(o, editor)
 
     menu[:0] = [targetpopup(o),
-                qmenu.sep]
+                quarkpy.qmenu.sep]
     return menu
 
 quarkpy.mapentities.BrushEntityType.menu = brushmenu

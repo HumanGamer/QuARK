@@ -20,6 +20,7 @@ Info = {
 
 import quarkx
 import quarkpy.qhandles
+import quarkpy.qmenu
 import quarkpy.qtoolbar
 import quarkpy.mapduplicator
 import quarkpy.mapentities
@@ -32,10 +33,10 @@ from quarkpy.qeditor import deg2rad
 from quarkpy.maputils import *
 from tagging import *
 #from faceutils import *
-from quarkpy.dlgclasses import placepersistent_dialogbox
+import quarkpy.dlgclasses
 from quarkpy.qeditor import matrix_rot_z
 from quarkpy.qeditor import matrix_rot_y
-from quarkpy import b2utils
+import quarkpy.b2utils
 
 #
 # --- wtf
@@ -127,7 +128,7 @@ def write3tup(vec):
 #
 #  -- Duplicator texturing stuff, currently not used
 #
-class TextureDlg (placepersistent_dialogbox):
+class TextureDlg (quarkpy.dlgclasses.placepersistent_dialogbox):
     #
     # dialog layout
     #
@@ -152,7 +153,7 @@ class TextureDlg (placepersistent_dialogbox):
         self.editor = editor
         self.src = quarkx.newobj(":")
 
-        placepersistent_dialogbox.__init__(self, form, self.src, label,
+        quarkpy.dlgclasses.placepersistent_dialogbox.__init__(self, form, self.src, label,
            exit = quarkpy.qtoolbar.button(
             self.commit,
             "Commit your texture changes and return to regular editing\n (you can't just bail; instead, Undo your changes then commit)\n (if, in spite of my efforts, you find some way to close this box without hitting `commit', you will have made a mess.",
@@ -227,7 +228,7 @@ def tex_pos(self):
   else:
       undo.exchange(oldtex, texobj)
   editor.ok(undo,"texture setup")
-  m = qmenu.item("",None)
+  m = quarkpy.qmenu.item("",None)
   m.object=texobj
   from plugins.mapmadsel import RestrictByMe
   RestrictByMe(m)
@@ -897,22 +898,22 @@ class ExtruderPathHandle(quarkpy.maphandles.CenterHandle):
 
 
 
-    ang1 = qmenu.item("A&ngle to next", ang1click, "angle to next")
-    kink1 = qmenu.item("&Path point properties", kink1click, "scale, etc. of kink")
-    ins1 = qmenu.item("&Add a point", ins1click, "add a new control point")
-    del1 = qmenu.item("&Delete point", del1click, "remove this control point")
-    ext1 = qmenu.item("&Extend to tagged face", ext1click)
+    ang1 = quarkpy.qmenu.item("A&ngle to next", ang1click, "angle to next")
+    kink1 = quarkpy.qmenu.item("&Path point properties", kink1click, "scale, etc. of kink")
+    ins1 = quarkpy.qmenu.item("&Add a point", ins1click, "add a new control point")
+    del1 = quarkpy.qmenu.item("&Delete point", del1click, "remove this control point")
+    ext1 = quarkpy.qmenu.item("&Extend to tagged face", ext1click)
     data = ExtruderDupData(self.centerof)
     length = data.PathLen()
     if length<=2:
-      del1.state = qmenu.disabled
+      del1.state = quarkpy.qmenu.disabled
     if self.k == length-1:
-      ang1.state=qmenu.disabled
+      ang1.state=quarkpy.qmenu.disabled
     if self.k < 1:
-      kink1.state = qmenu.disabled
+      kink1.state = quarkpy.qmenu.disabled
     tagface = gettaggedface(editor)
     if self.k < length-1 or tagface is None:
-      ext1.state=qmenu.disabled
+      ext1.state=quarkpy.qmenu.disabled
     else:
       ext1.tagged = tagface
     return [ins1, del1, ang1, kink1, ext1] + self.OriginItems(editor, view)
@@ -1395,7 +1396,7 @@ def make_patches(dup, points, limit=0, editor=None):
         pos1 = prev_pos[k+1]
         pos0e, pos1e = curr_pos[k], curr_pos[k+1]
         b2 = quarkx.newobj("side %d:b2"%k)
-        b2.cp = b2utils.interpolateGrid(pos0, pos1, pos0e, pos1e)
+        b2.cp = quarkpy.b2utils.interpolateGrid(pos0, pos1, pos0e, pos1e)
         if texpos is not None:
 #          squawk(`k`)
 #          side = texpos.subitem[k]
@@ -1585,7 +1586,7 @@ class ExtruderCircHandle(quarkpy.maphandles.CenterHandle):
             import quarkpy.qbackbmp
             quarkpy.qbackbmp.BackBmpDlg(form, view)
 
-        backbmp1 = qmenu.item("Background image...", backbmp1click, "choose background image")
+        backbmp1 = quarkpy.qmenu.item("Background image...", backbmp1click, "choose background image")
 
         def ins1click(m, dup=self.centerof, k=self.k, editor=editor):
             insert_point(dup, k, editor)
@@ -1836,9 +1837,9 @@ class TweenHandle(quarkpy.maphandles.EdgeHandle):
 #            editor.ok(undo, "setup for texture")
 #          quarkpy.mapbtns.texturebrowser()
 
-        add1 = qmenu.item("&Add point", add1click, "Add a Point here")
-        tex1 = qmenu.item("&Texture", tex1click, "Choose texture for this panel")
-        length1 = qmenu.item(length(), None, "Length of this side")
+        add1 = quarkpy.qmenu.item("&Add point", add1click, "Add a Point here")
+        tex1 = quarkpy.qmenu.item("&Texture", tex1click, "Choose texture for this panel")
+        length1 = quarkpy.qmenu.item(length(), None, "Length of this side")
 
         return [length1, add1] + self.OriginItems(editor, view)
 
@@ -1907,22 +1908,22 @@ def extrudermenu(o, editor, oldmenu=quarkpy.mapentities.DuplicatorType.menu.im_f
   def PunchOuterClick(m,o=o,editor=editor,info=info,data=data,punch=PunchInnerClick):
     punch(m,o,editor,info,data,1)
 
-  punch_inner = qmenu.item("Punch &Inner",PunchInnerClick,"|Subtract the interior of the tunnel from the marked group")
-  punch_outer = qmenu.item("Punch &Outer",PunchOuterClick,"|Subtract the interior and the walls of the corridor from the marked group.\n  Only work works for `pipe'-type.")
+  punch_inner = quarkpy.qmenu.item("Punch &Inner",PunchInnerClick,"|Subtract the interior of the tunnel from the marked group")
+  punch_outer = quarkpy.qmenu.item("Punch &Outer",PunchOuterClick,"|Subtract the interior and the walls of the corridor from the marked group.\n  Only work works for `pipe'-type.")
   marked = getstashed(editor)
   if marked is None:
-    punch_inner.state=punch_outer.state=qmenu.disabled
+    punch_inner.state=punch_outer.state=quarkpy.qmenu.disabled
     punch_inner.hint=punch_inner.hint+"\n\nTo get the item enabled, mark something with RMB|Navigate Tree|<map object>|Mark."
   if o["type"]!="t":
-    punch_outer_state=qmenu.disabled
+    punch_outer_state=qquarkpy.menu.disabled
 
-  testconc1 = qmenu.item("test brushes",testbrushes)
-  testpatch1 = qmenu.item("test patches",testpatches)
-  testpipe1 = qmenu.item("test pipe", testpipe)
+  testconc1 = quarkpy.qmenu.item("test brushes",testbrushes)
+  testpatch1 = quarkpy.qmenu.item("test patches",testpatches)
+  testpipe1 = quarkpy.qmenu.item("test pipe", testpipe)
   testconc1.o = testpatch1.o = testpipe1.o = o
 
-  pathextrude = qmenu.item("Path Extrusion", PathExtrudeClick)
-  radextrude = qmenu.item("Radial Extrusion", RadialExtrudeClick)
+  pathextrude = quarkpy.qmenu.item("Path Extrusion", PathExtrudeClick)
+  radextrude = quarkpy.qmenu.item("Radial Extrusion", RadialExtrudeClick)
 
   for item in (pathextrude, radextrude):
     item.data = ExtruderDupData(o)
@@ -1947,20 +1948,20 @@ def extrudermenu(o, editor, oldmenu=quarkpy.mapentities.DuplicatorType.menu.im_f
     editor.ok(undo,"clone path")
 
 
-  n2d = qmenu.item("&2d view", editor.layout.new2dclick)
-  tag = qmenu.item("&Tag", tagclick1, "|Tag duplicator for `clone path' operation")
-  tex = qmenu.item("T&exturing", tex_pos)
-  clone = qmenu.item("&Clone path", cloneclick1, "|Copy path information from tagged.")
+  n2d = quarkpy.qmenu.item("&2d view", editor.layout.new2dclick)
+  tag = quarkpy.qmenu.item("&Tag", tagclick1, "|Tag duplicator for `clone path' operation")
+  tex = quarkpy.qmenu.item("T&exturing", tex_pos)
+  clone = quarkpy.qmenu.item("&Clone path", cloneclick1, "|Copy path information from tagged.")
 
   if gettaggedcordup(editor) is None:
-    clone.state = qmenu.disabled
+    clone.state = quarkpy.qmenu.disabled
 
   n2d.o = o
 #  numen = [n2d, tex, tag, clone]
   numen = [punch_inner, punch_outer, n2d, tag, clone, pathextrude, radextrude]
   if MapOption("Developer"):
     numen = numen + [testconc1, testpatch1, testpipe1]
-  menu[:0] = numen + [qmenu.sep]
+  menu[:0] = numen + [quarkpy.qmenu.sep]
   return menu
 
 quarkpy.mapentities.DuplicatorType.menu = extrudermenu
@@ -2240,19 +2241,19 @@ def corgroupmenu(o, editor, oldmenu=quarkpy.mapentities.GroupType.menu.im_func):
     def TexOptClick(m):
       settexoption(m.opt)
 
-    punch_inner = qmenu.item("Punch &Inner",PunchInnerClick,"|Subtract the interior of the tunnel from the marked group")
-    punch_outer = qmenu.item("Punch &Outer",PunchOuterClick,"|Subtract the interior and the walls of the corridor from the marked group.\n  Only work works for `pipe'-type.")
+    punch_inner = quarkpy.qmenu.item("Punch &Inner",PunchInnerClick,"|Subtract the interior of the tunnel from the marked group")
+    punch_outer = quarkpy.qmenu.item("Punch &Outer",PunchOuterClick,"|Subtract the interior and the walls of the corridor from the marked group.\n  Only work works for `pipe'-type.")
     marked = getstashed(editor)
     if marked is None:
-      punch_inner.state=punch_outer.state=qmenu.disabled
+      punch_inner.state=punch_outer.state=quarkpy.qmenu.disabled
       punch_inner.hint=punch_inner.hint+"\n\nTo get the item enabled, mark something with RMB|Navigate Tree|<map object>|Mark."
     if info["type"]!="t":
-      punch_outer_state=qmenu.disabled
+      punch_outer_state=quarkpy.qmenu.disabled
     #
     # Wrapping textures from tagged faces.
     #
     seg1 = find_path(o,["content:g", "cor_seg_1:g"])
-    fromtagged = qmenu.item("From &tagged",WrapClick,"|Wrap texture from first segment to others")
+    fromtagged = quarkpy.qmenu.item("From &tagged",WrapClick,"|Wrap texture from first segment to others")
     type = data.dup["type"]
     if type == "p":
   #    import maptagzbezier
@@ -2268,11 +2269,11 @@ def corgroupmenu(o, editor, oldmenu=quarkpy.mapentities.GroupType.menu.im_func):
       if tagged == []:
         tagged = None
     if tagged is None:
-        fromtagged.state = qmenu.disabled
+        fromtagged.state = quarkpy.qmenu.disabled
         fromtagged.hint = fromtagged.hint+"\n\nFor this menu item to be enabled, you must tag some faces in the first segment of the extruder."
     else:
       fromtagged.sources = tagged
-    fromfirst = qmenu.item("From &first",WrapClick,"|Wraps texture from each face of first segment.")
+    fromfirst = quarkpy.qmenu.item("From &first",WrapClick,"|Wraps texture from each face of first segment.")
     if  type == "p":
       fromfirst.sources = seg1.findallsubitems("",":b")
     else:
@@ -2282,21 +2283,21 @@ def corgroupmenu(o, editor, oldmenu=quarkpy.mapentities.GroupType.menu.im_func):
     for (label, opt, hint) in (("track", "track", "|Texture scale is shifted as is to the other segments, tracking direction changes"),
 #                               ("Lapped", "lapped","|Texture is wrapped around corners to other segments"),
                                ("project", "project","|Texture is projected onto other segments.\n\n (good for some floors.)")):
-      item = qmenu.item(label, TexOptClick, hint)
+      item = quarkpy.qmenu.item(label, TexOptClick, hint)
       item.opt = opt
       if opt == curr_opt:
-        item.state = qmenu.checked
+        item.state = quarkpy.qmenu.checked
       list.append(item)
 
-    wrap_texture = qmenu.popup("&Wrap Texture",list)
+    wrap_texture = quarkpy.qmenu.popup("&Wrap Texture",list)
 
 
-    revert = qmenu.item("Revert to dup",RevertClick,"|Convert extruder group back to duplicator.\n\nThe effects of holes made etc will all be lost.")
+    revert = quarkpy.qmenu.item("Revert to dup",RevertClick,"|Convert extruder group back to duplicator.\n\nThe effects of holes made etc will all be lost.")
 
     itemlist = [punch_inner,punch_outer,wrap_texture,revert]
-    item = qmenu.popup("Extruder Stuff",itemlist)
+    item = quarkpy.qmenu.popup("Extruder Stuff",itemlist)
     menu[:0] = [item,
-                qmenu.sep]
+                quarkpy.qmenu.sep]
   return menu
 
 quarkpy.mapentities.GroupType.menu = corgroupmenu
@@ -2395,19 +2396,19 @@ def cordupmenu(o, editor, oldmenu=quarkpy.mapentities.DuplicatorType.menu.im_fun
     def TexOptClick(m):
       settexoption(m.opt)
 
-    punch_inner = qmenu.item("Punch &Inner",PunchInnerClick,"|Subtract the interior of the tunnel from the marked group")
-    punch_outer = qmenu.item("Punch &Outer",PunchOuterClick,"|Subtract the interior and the walls of the corridor from the marked group.\n  Only work works for `pipe'-type.")
+    punch_inner = quarkpy.qmenu.item("Punch &Inner",PunchInnerClick,"|Subtract the interior of the tunnel from the marked group")
+    punch_outer = quarkpy.qmenu.item("Punch &Outer",PunchOuterClick,"|Subtract the interior and the walls of the corridor from the marked group.\n  Only work works for `pipe'-type.")
     marked = getstashed(editor)
     if marked is None:
-      punch_inner.state=punch_outer.state=qmenu.disabled
+      punch_inner.state=punch_outer.state=quarkpy.qmenu.disabled
       punch_inner.hint=punch_inner.hint+"\n\nTo get the item enabled, mark something with RMB|Navigate Tree|<map object>|Mark."
     if info["type"]!="t":
-      punch_outer_state=qmenu.disabled
+      punch_outer_state=quarkpy.qmenu.disabled
     #
     # Wrapping textures from tagged faces.
     #
     seg1 = find_path(o,["content:g", "cor_seg_1:g"])
-    fromtagged = qmenu.item("From &tagged",WrapClick,"|Wrap texture from first segment to others")
+    fromtagged = quarkpy.qmenu.item("From &tagged",WrapClick,"|Wrap texture from first segment to others")
     type = data.dup["type"]
     if type == "p":
   #    import maptagzbezier
@@ -2423,11 +2424,11 @@ def cordupmenu(o, editor, oldmenu=quarkpy.mapentities.DuplicatorType.menu.im_fun
       if tagged == []:
         tagged = None
     if tagged is None:
-        fromtagged.state = qmenu.disabled
+        fromtagged.state = quarkpy.qmenu.disabled
         fromtagged.hint = fromtagged.hint+"\n\nFor this menu item to be enabled, you must tag some faces in the first segment of the extruder."
     else:
       fromtagged.sources = tagged
-    fromfirst = qmenu.item("From &first",WrapClick,"|Wraps texture from each face of first segment.")
+    fromfirst = quarkpy.qmenu.item("From &first",WrapClick,"|Wraps texture from each face of first segment.")
     if type == "p":
       fromfirst.sources = seg1.findallsubitems("",":b")
     else:
@@ -2437,21 +2438,21 @@ def cordupmenu(o, editor, oldmenu=quarkpy.mapentities.DuplicatorType.menu.im_fun
     for (label, opt, hint) in (("track", "track", "|Texture scale is shifted as is to the other segments, tracking direction changes"),
 #                               ("Lapped", "lapped","|Texture is wrapped around corners to other segments"),
                                ("project", "project","|Texture is projected onto other segments.\n\n (good for some floors.)")):
-      item = qmenu.item(label, TexOptClick, hint)
+      item = quarkpy.qmenu.item(label, TexOptClick, hint)
       item.opt = opt
       if opt == curr_opt:
         item.state = qmenu.checked
       list.append(item)
 
-    wrap_texture = qmenu.popup("&Wrap Texture",list)
+    wrap_texture = quarkpy.qmenu.popup("&Wrap Texture",list)
 
 
-    revert = qmenu.item("Revert",RevertClick,"|Convert extruder group back to duplicator.\n\nThe effects of retexturing, holes made etc will all be lost.")
+    revert = quarkpy.qmenu.item("Revert",RevertClick,"|Convert extruder group back to duplicator.\n\nThe effects of retexturing, holes made etc will all be lost.")
 
     itemlist = [punch_inner,punch_outer, wrap_texture]
-    item = qmenu.popup("Extruder Stuff",itemlist)
+    item = quarkpy.qmenu.popup("Extruder Stuff",itemlist)
     menu[:0] = [item,
-                qmenu.sep]
+                quarkpy.qmenu.sep]
   return menu
 
 quarkpy.mapentities.DuplicatorType.menu = cordupmenu
@@ -2510,7 +2511,7 @@ def view2ddup(editor, view, dup):
     editor.layout.new2dview = view  # for later removal in mapmgr
 #    editor.layout.new2dobj = dup
     dup["_n2d"] = "1"
-    m = qmenu.item("",None)
+    m = quarkpy.qmenu.item("",None)
     m.object=dup
     from plugins.mapmadsel import RestrictByMe
     RestrictByMe(m)

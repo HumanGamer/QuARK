@@ -21,6 +21,7 @@ Info = {
 import quarkx
 from quarkpy.maputils import *
 import quarkpy.mapentities
+import quarkpy.qmenu
 import quarkpy.qmovepal
 #import quarkpy.mapduplicator
 import mapdups
@@ -308,10 +309,10 @@ def miterfacemenu(o, editor, oldmenu=quarkpy.mapentities.FaceType.menu.im_func):
     def miterEdgeClick(m, o=o, editor=editor, tagged=tagged, edgepoints=edgepoints):
         miterEdge(o, tagged, edgepoints, editor)
 
-    miteritem = qmenu.item("Miter Edge", miterEdgeClick, "|Miter Edge:\n\nMiter edge takes two adjoining faces of two different poly's, and closes the gap 'behind' the corner these faces make.|maped.plugins.miteredge.html")
+    miteritem = quarkpy.qmenu.item("Miter Edge", miterEdgeClick, "|Miter Edge:\n\nMiter edge takes two adjoining faces of two different poly's, and closes the gap 'behind' the corner these faces make.|maped.plugins.miteredge.html")
 
     if edgepoints is None:
-        miteritem.state=qmenu.disabled
+        miteritem.state=quarkpy.qmenu.disabled
     menu[:0] = [miteritem]
 
     return menu
@@ -761,7 +762,7 @@ def groupmenu(o, editor, oldmenu=quarkpy.mapentities.GroupType.menu.im_func):
             undo.exchange(o, newdup)
             editor.ok(undo,'revert to wall maker')
 
-        revertitem = qmenu.item('Revert Walls to Duplicator',revertClick,"|This group was created from a wall maker duplicator.\nThis menu item will restore the original ducplicator and its data,\nfor convenient editing")
+        revertitem = quarkpy.qmenu.item('Revert Walls to Duplicator',revertClick,"|This group was created from a wall maker duplicator.\nThis menu item will restore the original ducplicator and its data,\nfor convenient editing")
         menu = [revertitem]+menu
 
     return menu
