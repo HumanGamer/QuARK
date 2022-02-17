@@ -18,26 +18,22 @@ Info = {
 #
 
 import quarkx
-#
-# The style of import statement here makes it unnecessary to
-#  put 'quarkpy' into references to things in these modules.
-#  This would make it easier to shift this material directly
-#  into say the 'maphandles' module
-#
-from quarkpy import mapentities
-from quarkpy import mapduplicator
-from quarkpy import qhandles
+import quarkpy.mapeditor
+import quarkpy.mapentities
+import quarkpy.mapduplicator
+import quarkpy.qhandles
 from quarkpy import qutils
-from quarkpy import mapsearch
+import quarkpy.mapsearch
 from quarkpy import dlgclasses
-from quarkpy import qmacro
-from quarkpy import mapselection
-from quarkpy import mapmenus
+import quarkpy.qmacro
+import quarkpy.mapselection
+import quarkpy.mapmenus
+import quarkpy.qmenu
 
 import mapmadsel
 
 #
-# and because of this, things from maphandles can be used
+# because of this, things from maphandles can be used
 #  w/o qualification
 #
 from quarkpy.maphandles import *
@@ -106,10 +102,20 @@ def storeView(o,editor):
     editor.currentcampos=o
 
 #
+# We have to clear our editor.currentcampos to prevent it from leaking
+#
+
+def newcloseroot(self, oldcloseroot = quarkpy.mapeditor.MapEditor.CloseRoot.im_func):
+  oldcloseroot(self)
+  self.currentcampos = None
+
+quarkpy.mapeditor.MapEditor.CloseRoot = newcloseroot
+
+#
 # The menu redefinition trick, as discussed in the plugin tutorial
 #  in the infobase.  'o' is the duplicator object
 #
-def camposmenu(o, editor, oldmenu=mapentities.DuplicatorType.menu.im_func):
+def camposmenu(o, editor, oldmenu=quarkpy.mapentities.DuplicatorType.menu.im_func):
     "camera position entity menu"
 
     menu = oldmenu(o, editor)
@@ -122,21 +128,21 @@ def camposmenu(o, editor, oldmenu=mapentities.DuplicatorType.menu.im_func):
     def storeViewClick(m,o=o,editor=editor):
         storeView(o,editor)
 
-    storeitem=qmenu.item("Store View",storeViewClick,"|Store 3D view position in this position item.")
-    getitem=qmenu.item("Set View", setViewClick,"|Set 3D view position from this position item.\n\nThen use PgUp/Down with 'C' depressed to cycle prev/next camera positions in the same group as this one.\n\nThis won't work until a view has been set or stored in the group with the menu item")
+    storeitem=quarkpy.qmenu.item("Store View",storeViewClick,"|Store 3D view position in this position item.")
+    getitem=quarkpy.qmenu.item("Set View", setViewClick,"|Set 3D view position from this position item.\n\nThen use PgUp/Down with 'C' depressed to cycle prev/next camera positions in the same group as this one.\n\nThis won't work until a view has been set or stored in the group with the menu item")
     return [getitem, storeitem]
 
-mapentities.DuplicatorType.menu = camposmenu
+quarkpy.mapentities.DuplicatorType.menu = camposmenu
 
 #
 # Icons in the treeview represent map objects directly,
 #   while icons in the map views represent their handles.
 #   the code here uses the object's menu as the handle's.
 #
-class CamPosHandle(qhandles.IconHandle):
+class CamPosHandle(quarkpy.qhandles.IconHandle):
 
     def __init__(self, origin, centerof):
-        qhandles.IconHandle.__init__(self, origin, centerof)
+        quarkpy.qhandles.IconHandle.__init__(self, origin, centerof)
 
     def menu(self, editor, view):
         return camposmenu(self.centerof, editor)
@@ -145,7 +151,7 @@ class CamPosHandle(qhandles.IconHandle):
 # The creation of an extremely simple duplicator ...
 # Define a class and register it by updating the DupCodes.
 #
-class CamPosDuplicator(mapduplicator.StandardDuplicator):
+class CamPosDuplicator(quarkpy.mapduplicator.StandardDuplicator):
 
     def handles(self, editor, view):
         org = self.dup.origin
@@ -154,7 +160,7 @@ class CamPosDuplicator(mapduplicator.StandardDuplicator):
         hndl = CamPosHandle(org, self.dup)
         return [hndl]
 
-mapduplicator.DupCodes.update({
+quarkpy.mapduplicator.DupCodes.update({
   "cameraposition":  CamPosDuplicator,
 })
 
@@ -275,22 +281,22 @@ def newEyePosMenu(self, editor, view):
     def addClick(m,self=self,editor=editor):
         addPosition(self.view3D,editor)
 
-    item = qmenu.item('Add position',addClick)
+    item = quarkpy.qmenu.item('Add position',addClick)
     return [item]
 
 EyePositionMap.menu = newEyePosMenu
 
-def backmenu(editor, view=None, origin=None, oldbackmenu = mapmenus.BackgroundMenu):
+def backmenu(editor, view=None, origin=None, oldbackmenu = quarkpy.mapmenus.BackgroundMenu):
   menu = oldbackmenu(editor, view, origin)
 
   def addClick(m,view=view,editor=editor):
       addPosition(view,editor)
 
   if view is not None and view.info["type"]=="3D":
-      menu.append(qmenu.item("Add Camera Position",addClick, "|Add Camera Position:\n\nWhen selected, this function is used to set and store 3D camera views. This feature will only work for the Editor's 3D view and not the 3D view window.\n\nPress F1 again or click the 'InfoBase' for more detailed information on its use.|intro.mapeditor.floating3dview.html#camera"))
+      menu.append(quarkpy.qmenu.item("Add Camera Position",addClick, "|Add Camera Position:\n\nWhen selected, this function is used to set and store 3D camera views. This feature will only work for the Editor's 3D view and not the 3D view window.\n\nPress F1 again or click the 'InfoBase' for more detailed information on its use.|intro.mapeditor.floating3dview.html#camera"))
   return menu
 
-mapmenus.BackgroundMenu = backmenu
+quarkpy.mapmenus.BackgroundMenu = backmenu
 
 
 
@@ -350,7 +356,7 @@ class FindCameraPosDlg(dlgclasses.LiveEditDlg):
         #
         # FIXME: dumb hack, revise mapmadsel
         #
-        m = qmenu.item("",None)
+        m = quarkpy.qmenu.item("",None)
         m.object=self.pack.cameras[index]
         mapmadsel.SelectMe(m)
 
@@ -384,7 +390,7 @@ def macro_camerapos(self, index=0):
     elif index==3:
         editor.cameraposdlg.storeview()
 
-qmacro.MACRO_camerapos = macro_camerapos
+quarkpy.qmacro.MACRO_camerapos = macro_camerapos
 
 def findClick(m):
     editor=mapeditor()
@@ -416,13 +422,13 @@ def findClick(m):
 
     FindCameraPosDlg(quarkx.clickform, 'findcamerapos', editor, setup, action)
 
-mapsearch.items.append(qmenu.item('Find Camera Positions', findClick, "|Find Camera Positions:\n\nThis finds all the camera positions.|intro.mapeditor.menu.html#searchmenu"))
+quarkpy.mapsearch.items.append(quarkpy.qmenu.item('Find Camera Positions', findClick, "|Find Camera Positions:\n\nThis finds all the camera positions.|intro.mapeditor.menu.html#searchmenu"))
 
 
 #
 # Prev/Next hotkey subversion
 #
-def camnextClick(m, editor=None, oldnext=mapselection.nextClick):
+def camnextClick(m, editor=None, oldnext=quarkpy.mapselection.nextClick):
     if quarkx.keydown('C')==1:
         editor=mapeditor()
         if editor is None:
@@ -442,5 +448,5 @@ def camnextClick(m, editor=None, oldnext=mapselection.nextClick):
     else:
         oldnext(m,editor)
 
-mapselection.nextItem.onclick=camnextClick
-mapselection.prevItem.onclick=camnextClick
+quarkpy.mapselection.nextItem.onclick=camnextClick
+quarkpy.mapselection.prevItem.onclick=camnextClick

@@ -18,18 +18,14 @@ Info = {
 #
 
 import quarkx
-#
-# The style of import statement here makes it unnecessary to
-#  put 'quarkpy' into references to things in these modules.
-#  This would make it easier to shift this material directly
-#  into say the 'mdlhandles' module
-#
-from quarkpy import mdlentities
-from quarkpy import mdlduplicator
-from quarkpy import qhandles
+import quarkpy.mdleditor
+import quarkpy.mdlentities
+import quarkpy.mdlduplicator
 from quarkpy import qutils
-from quarkpy import dlgclasses
+import quarkpy.dlgclasses
+import quarkpy.qhandles
 import quarkpy.qmacro
+import quarkpy.qmenu
 from quarkpy.mdlhandles import *
 
 
@@ -142,10 +138,20 @@ def storeView(o, editor):
     editor.currentcampos = o
 
 #
+# We have to clear our editor.currentcampos to prevent it from leaking
+#
+
+def newcloseroot(self, oldcloseroot = quarkpy.mdleditor.ModelEditor.CloseRoot.im_func):
+  oldcloseroot(self)
+  self.currentcampos = None
+
+quarkpy.mdleditor.ModelEditor.CloseRoot = newcloseroot
+
+#
 # The menu redefinition trick, as discussed in the plugin tutorial
 #  in the infobase.  'o' is the duplicator object
 #
-def camposmenu(o, editor, oldmenu=mdlentities.DuplicatorType.menu.im_func):
+def camposmenu(o, editor, oldmenu=quarkpy.mdlentities.DuplicatorType.menu.im_func):
     "camera position entity menu"
 
     menu = oldmenu(o, editor)
@@ -158,21 +164,21 @@ def camposmenu(o, editor, oldmenu=mdlentities.DuplicatorType.menu.im_func):
     def storeViewClick(m,o=o,editor=editor):
         storeView(o,editor)
 
-    getitem=qmenu.item("Set View", setViewClick,"|Set 3D view position from this position item.")
-    storeitem=qmenu.item("Store View",storeViewClick,"|Store 3D view position in this position item.")
+    getitem=quarkpy.qmenu.item("Set View", setViewClick,"|Set 3D view position from this position item.")
+    storeitem=quarkpy.qmenu.item("Store View",storeViewClick,"|Store 3D view position in this position item.")
     return [getitem, storeitem]
 
-mdlentities.DuplicatorType.menu = camposmenu
+quarkpy.mdlentities.DuplicatorType.menu = camposmenu
 
 #
 # Icons in the treeview represent map objects directly,
 #   while icons in the map views represent their handles.
 #   the code here uses the object's menu as the handle's.
 #
-class CamPosHandle(qhandles.IconHandle):
+class CamPosHandle(quarkpy.qhandles.IconHandle):
 
     def __init__(self, origin, centerof):
-        qhandles.IconHandle.__init__(self, origin, centerof)
+        quarkpy.qhandles.IconHandle.__init__(self, origin, centerof)
 
     def menu(self, editor, view):
         return camposmenu(self.centerof, editor)
@@ -181,7 +187,7 @@ class CamPosHandle(qhandles.IconHandle):
 # The creation of an extremely simple duplicator ...
 # Define a class and register it by updating the DupCodes.
 #
-class CamPosDuplicator(mdlduplicator.StandardDuplicator):
+class CamPosDuplicator(quarkpy.mdlduplicator.StandardDuplicator):
 
     def handles(self, editor, view):
         org = self.dup.origin
@@ -198,7 +204,7 @@ class CamPosDuplicator(mdlduplicator.StandardDuplicator):
         hndl = CamPosHandle(org, self.dup)
         return [hndl]
 
-mdlduplicator.DupCodes.update({
+quarkpy.mdlduplicator.DupCodes.update({
   "cameraposition":  CamPosDuplicator,
 })
 
@@ -314,15 +320,15 @@ def newEyePosMenu(self, editor, view):
     def addClick(m, self=self, editor=editor):
         addPosition(self.view3D, editor, self)
 
-    item = qmenu.item('Add position', addClick)
+    item = quarkpy.qmenu.item('Add position', addClick)
     return [item]
 
-qhandles.EyePosition.menu = newEyePosMenu
+quarkpy.qhandles.EyePosition.menu = newEyePosMenu
 
 
 # A Live Edit dialog.  Closely modelled on the Microbrush
 #  H/K dialog, so look at that for enlightenment.
-class FindCameraPosDlg(dlgclasses.LiveEditDlg):
+class FindCameraPosDlg(quarkpy.dlgclasses.LiveEditDlg):
     editor = mapeditor()
     endcolor = AQUA
     size = (330,160)
@@ -369,7 +375,7 @@ class FindCameraPosDlg(dlgclasses.LiveEditDlg):
     def select(self):
         try:
             index = eval(self.chosen)
-            m = qmenu.item("",None)
+            m = quarkpy.qmenu.item("",None)
             m.object = self.pack.cameras[index]
         except:
             quarkx.msgbox("You need to set or store a view first for this to work", qutils.MT_INFORMATION, qutils.MB_OK)
