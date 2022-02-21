@@ -14,13 +14,12 @@ Info = {
    "quark":         "QuArK 6.2" }
 
 
+import quarkx
 from quarkpy.maputils import *
 import quarkpy.qhandles
 import quarkpy.qmacro
 import quarkpy.mapduplicator
 import quarkpy.maphandles
-StandardDuplicator = quarkpy.mapduplicator.StandardDuplicator
-DuplicatorManager = quarkpy.mapduplicator.DuplicatorManager
 
 
 class AxisHandle(quarkpy.maphandles.MapRotateHandle):
@@ -58,7 +57,7 @@ def macro_dup_radial_align(self, index=0):
 
 quarkpy.qmacro.MACRO_dup_radial_align = macro_dup_radial_align
 
-class RadialDuplicator(StandardDuplicator):
+class RadialDuplicator(quarkpy.mapduplicator.StandardDuplicator):
     "Radial Duplicator."
 
     def handles(self, editor, view):
@@ -66,7 +65,7 @@ class RadialDuplicator(StandardDuplicator):
         dup = self.dup
         org = dup.origin
         h = [AxisHandle(org, dup, "axis", scale)]
-        return h + DuplicatorManager.handles(self, editor, view)
+        return h + quarkpy.mapduplicator.DuplicatorManager.handles(self, editor, view)
 
 
     def buildimages(self, singleimage=None):

@@ -17,6 +17,7 @@ Info = {
    "quark":         "Version 5.3" }
 
 
+import quarkx
 import quarkpy.qhandles
 from quarkpy.mdlmgr import *
 

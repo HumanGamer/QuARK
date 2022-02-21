@@ -17,6 +17,7 @@ Info = {
    "quark":         "Version 6.4" }
 
 
+import quarkx
 from quarkpy.maputils import *
 import quarkpy.qmacro
 import quarkpy.qmenu

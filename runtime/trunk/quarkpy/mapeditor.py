@@ -23,6 +23,7 @@ Core of the Map editor.
 #
 
 
+import quarkx
 import maphandles
 import qhandles
 import mapmgr

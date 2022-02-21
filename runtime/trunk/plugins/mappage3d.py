@@ -17,6 +17,7 @@ Info = {
    "quark":         "Version 5.1" }
 
 
+import quarkx
 import quarkpy.qhandles
 import quarkpy.qtoolbar
 from quarkpy.mapmgr import *

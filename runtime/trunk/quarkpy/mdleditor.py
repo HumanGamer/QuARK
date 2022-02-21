@@ -8,6 +8,7 @@ Core of the Model editor.
 # FOUND IN FILE "COPYING.TXT"
 #
 
+import quarkx
 from qbaseeditor import BaseEditor
 import qmenu
 import qhandles

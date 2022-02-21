@@ -8,8 +8,8 @@ The Animation Toolbar.
 # FOUND IN FILE "COPYING.TXT"
 #
 
+import quarkx
 from mdlutils import *
-import qbaseeditor
 import mdlhandles
 import qtoolbar
 from qeditor import *
