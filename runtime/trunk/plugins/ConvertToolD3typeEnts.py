@@ -490,7 +490,7 @@ def D3typeEntList(root, QuArKpath, gamename, gamefileslocation,
     ### Closes the temp output files for the entities and forms sections and makes the final .qrk file.
     eo.close()
     fo.close()
-    o = open(os.path.join(QuArKpath, gamename, gamename + 'Entities.qrk', 'w')
+    o = open(os.path.join(QuArKpath, gamename, gamename + 'Entities.qrk'), 'w')
 
     ### Writes start of Entities.qrk file here
     o.write('QQRKSRC1\n')
