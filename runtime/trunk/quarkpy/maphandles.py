@@ -1501,6 +1501,7 @@ def BuildHandles(editor, ex, view):
                 tb2 = editor.layout.toolbars["tb_terrmodes"]
                 for b in tb2.tb.buttons:
                     if b.state == 2:
+                        import plugins.mapterrainmodes
                         manager = plugins.mapterrainmodes.TerrainLinHandlesManager(MapColor("Duplicator"), box, list, view)
 ## End of above section for Terrain handels
 
@@ -1620,6 +1621,7 @@ def MouseClicked(self, view, x, y, s, handle):
     try:
         editor = mapeditor()
         if editor is not None:
+            import plugins.maptexpos
             if isinstance(handle, PFaceHandle) and isinstance(editor.texposdlg, plugins.maptexpos.TexPosDlg):
                 o = editor.layout.explorer.uniquesel
                 m = qmenu.item("Dummy", None, "")

@@ -20,12 +20,13 @@ import plugins.deckerutils
 import quarkpy.mapduplicator
 import quarkpy.maphandles
 import quarkpy.qhandles
+import quarkpy.qmacro
 import quarkpy.qmenu
 import quarkpy.dlgclasses
 import math
 StandardDuplicator = quarkpy.mapduplicator.StandardDuplicator
 DuplicatorManager = quarkpy.mapduplicator.DuplicatorManager
-DupOffsetHandle = quarkpy.mapduplicator.DupOffsetHandle
+#DupOffsetHandle = quarkpy.mapduplicator.DupOffsetHandle
 
 from quarkpy.mapentities import ObjectOrigin
 from quarkpy.maphandles import GetUserCenter

@@ -19,6 +19,7 @@ Info = {
 
 import quarkx
 from quarkpy.maputils import *
+import quarkpy.mapbtns
 import quarkpy.qmacro
 import quarkpy.qmenu
 import quarkpy.qtoolbar

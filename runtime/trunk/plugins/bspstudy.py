@@ -13,7 +13,9 @@ import quarkpy.bspcommands
 import quarkpy.mapentities
 import quarkpy.dlgclasses
 import mapmadsel
+import quarkpy.qmacro
 import quarkpy.qmenu
+import quarkpy.qutils
 from quarkpy.maputils import *
 
 #

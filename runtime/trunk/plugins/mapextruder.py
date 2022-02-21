@@ -20,11 +20,14 @@ Info = {
 
 import quarkx
 import quarkpy.qhandles
+import quarkpy.qmacro
 import quarkpy.qmenu
 import quarkpy.qtoolbar
 import quarkpy.mapduplicator
+import quarkpy.mapeditor
 import quarkpy.mapentities
 import quarkpy.maphandles
+import quarkpy.mapmgr
 StandardDuplicator = quarkpy.mapduplicator.StandardDuplicator
 DuplicatorManager = quarkpy.mapduplicator.DuplicatorManager
 RotMat = quarkpy.maputils.ArbRotationMatrix
@@ -205,7 +208,7 @@ class TextureDlg (quarkpy.dlgclasses.placepersistent_dialogbox):
           dup, editor = info
           editor.layout.explorer.sellist = [dup]
         quarkx.settimer(restore,(dup, editor), 20)
-        qmacro.dialogbox.close(self, dlg)
+        quarkpy.qmacro.dialogbox.close(self, dlg)
 
 def tex_pos(self):
   editor = mapeditor()
