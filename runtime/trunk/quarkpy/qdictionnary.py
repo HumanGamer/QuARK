@@ -284,6 +284,8 @@ Strings = {
     828: "Call of Duty 2 Bsp Files (*.d3dbsp)|*.d3dbsp",
     829: "Call of Duty 2 Material Files (*.)|*.",
     830: "KEX Pak Files (*.kpf)|*.kpf",
+    831: "JSON file (*.json)|*.json",
+    832: "XML file (*.xml)|*.xml",
 
     2368: "Skins",
     2369: "Frames",
@@ -560,7 +562,7 @@ Strings = {
     5121: "Imported File",
     5122: "(clipboard)",
     5123: "QuArK %s editor",
-    5124: "QuakeC Code",
+    5124: "QuakeC code",
     5125: "file",
     5126: "Map",
     5127: "ToolBox",
@@ -1117,6 +1119,8 @@ Strings = {
     5851: "Unable to find Root-object '%s'",
     5852: "SiN Pak file with wrong extension",
     5853: "Pak file with bad SiN extension",
+    5854: "JSON file",
+    5855: "XML file",
 
     # DanielPharos would like to reserve 6000 .. 6099 for all renderers
     6000: "Unable to create SceneObject//%s",
