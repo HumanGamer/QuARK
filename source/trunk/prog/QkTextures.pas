@@ -554,7 +554,7 @@ var
     end;
   end;
 
-  procedure WriteColormapFile();
+  procedure WriteColormapFile(); //FIXME: Move to QkQ1?
   const
     cDummySize : array[1..2] of Single = (1,1);
     Spec1 = 'Image1';
@@ -1724,12 +1724,17 @@ var
 begin
   Acces;
   Result:=DuplicateGameBuffer(GameBuffer(BaseGame));
-  Pal:=GetSpecArg(Spec2);
-  if (Length(Pal) >= SizeOf(TPaletteLmp) + LenSpec2) then
-  begin
-    P:=Pointer(Pal);
-    Move(P[LenSpec2], Result^.PaletteLmp, SizeOf(TPaletteLmp));
-    PaletteFromLmp(Result^.PaletteLmp, Result^.BitmapInfo, @Result^.Palette, @Result^.PaletteReelle);
+  try
+    Pal:=GetSpecArg(Spec2);
+    if (Length(Pal) >= SizeOf(TPaletteLmp) + LenSpec2) then
+    begin
+      P:=Pointer(Pal);
+      Move(P[LenSpec2], Result^.PaletteLmp, SizeOf(TPaletteLmp));
+      PaletteFromLmp(Result^.PaletteLmp, Result^.BitmapInfo, @Result^.Palette, @Result^.PaletteReelle);
+    end;
+  except
+    DeleteGameBuffer(Result);
+    raise;
   end;
 end;
 
