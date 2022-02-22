@@ -20,6 +20,7 @@ Info = {
 import os
 import quarkx
 import quarkpy.mapcommands
+import quarkpy.mapentities
 import quarkpy.qmenu
 from quarkpy.qutils import *
 

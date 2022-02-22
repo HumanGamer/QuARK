@@ -20,7 +20,7 @@ import quarkx
 import quarkpy.mapcommands
 import quarkpy.maphandles
 import quarkpy.mapduplicator
-StandardDuplicator = quarkpy.mapduplicator.StandardDuplicator
+import quarkpy.qhandles
 import quarkpy.qmenu
 from quarkpy.maputils import *
 from tagging import *
@@ -136,7 +136,7 @@ class PlanePointHandle(PlaneHandle):
       return [self.centerof], new
 
 
-class PlaneDuplicator(StandardDuplicator):
+class PlaneDuplicator(quarkpy.mapduplicator.StandardDuplicator):
 
     def buildimages(self):
         return []

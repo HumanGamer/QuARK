@@ -20,6 +20,7 @@ Info = {
 from quarkpy.maputils import *
 import quarkpy.dlgclasses
 import quarkpy.mapsearch
+import quarkpy.qmacro
 import quarkpy.qmenu
 import mapmadsel
 import quarkx

@@ -30,6 +30,7 @@ Info = {
 
 
 import quarkx
+import quarkpy.qhandles
 import quarkpy.qmenu
 import quarkpy.maphandles
 from quarkpy.maputils import *

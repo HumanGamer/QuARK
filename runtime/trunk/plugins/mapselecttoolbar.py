@@ -19,9 +19,10 @@ Info = {
 
 import quarkx
 import quarkpy.qtoolbar
+import quarkpy.maptools
 from quarkpy.maputils import *
-import quarkpy.mapselection    # need
-import mapmadsel               # need
+import quarkpy.mapselection
+import mapmadsel
 
 
 def parentclick(m):

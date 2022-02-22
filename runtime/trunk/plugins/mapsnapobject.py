@@ -29,6 +29,7 @@ Info = {
 import quarkx
 import mapmadsel
 import quarkpy.mapentities
+import quarkpy.qmacro
 import quarkpy.qmenu
 import quarkpy.dlgclasses
 from tagging import *

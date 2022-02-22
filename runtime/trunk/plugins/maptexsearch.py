@@ -14,9 +14,10 @@ Info = {
    "quark":         "Version 6.3"
 }
 
-import quarkpy.mapsearch
-import tex_search
 import quarkx
+import quarkpy.mapsearch
+import quarkpy.qmenu
+import tex_search
 
 def TextureSearchClick(m):
     # Function to start the dialog
