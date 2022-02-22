@@ -184,7 +184,7 @@ function CreateCopyTexture(Tex: QPixelSet) : QTextureFile;
 
 implementation
 
-uses QkWad, QkBsp, ToolBox1, QkImages, Setup, Travail, qmath, QkPcx,
+uses QkWad, QkBsp, ToolBox1, QkImages, Setup, Travail, qmath,{ QkPcx,}
   TbPalette, TbTexture, Undo, QkExplorer, QkPak, QkQuakeCtx, Quarkx, QkExceptions,
   CCode, PyObjects, QkHr2, QkHL, QkSin, QkFormCfg, Logging,
   QkQ1, QkQ2, QkQ3, QkCoD2, QkObjectClassList, QkD3, QkApplPaths, Platform{, ExtraFunctionality};
@@ -548,35 +548,6 @@ var
           Q.SubElements.Add(TexList[I]);
 
         Q.SaveInFile(rf_Default, WriteTo);
-      finally
-        Q.AddRef(-1);
-      end;
-    end;
-  end;
-
-  procedure WriteColormapFile(); //FIXME: Move to QkQ1?
-  const
-    cDummySize : array[1..2] of Single = (1,1);
-    Spec1 = 'Image1';
-    Spec2 = 'Pal';
-  var
-    S: String;
-    WriteTo: String;
-    Q: QFileObject;
-  begin
-    WriteTo:=SetupGameSet.Specifics.Values['Palette'];
-    if (Length(WriteTo)>1) and (WriteTo[1]=':') then
-    begin
-      Q:=QPcx.Create('', Nil);
-      Q.AddRef(+1);
-      try
-        S:=Spec2+'=';
-        SetLength(S, Length(Spec2)+1+SizeOf(TPaletteLmp));
-        Move(GameBuffer(mjAny)^.PaletteLmp, PChar(S)[Length(Spec2)+1], SizeOf(TPaletteLmp));
-        Q.Specifics.Add(S);
-        Q.SetFloatsSpec('Size', cDummySize);
-        Q.Specifics.Values[Spec1]:=#0#0#0#0;
-        Q.SaveInFile(rf_Default, OutputFile(Copy(WriteTo, 2, MaxInt)));
       finally
         Q.AddRef(-1);
       end;
