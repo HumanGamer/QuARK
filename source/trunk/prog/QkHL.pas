@@ -29,7 +29,7 @@ type
  QTextureHL = class(QTexture1)
         protected
           procedure SaveFile(Info: TInfoEnreg1); override;
-          procedure ChargerFin(F: TStream; TailleRestante: Integer); override;
+          procedure ChargerFin(F: TStream; TailleRestante: TStreamPos); override;
         public
           class function CustomParams : Integer; override;
           class function TypeInfo: String; override;
@@ -78,7 +78,7 @@ begin
  Result:=mjHalfLife;
 end;
 
-procedure QTextureHL.ChargerFin(F: TStream; TailleRestante: Integer);
+procedure QTextureHL.ChargerFin(F: TStream; TailleRestante: TStreamPos);
 const
  Spec2 = 'Pal=';
  MAXPAL = SizeOf(TPaletteLmp) div SizeOf(TPaletteLmp1);
