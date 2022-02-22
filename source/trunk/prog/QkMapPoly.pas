@@ -2770,7 +2770,6 @@ procedure TTexturedTreeMap.UserTexScale(AltTexSrc: QObject; var CorrW, CorrH: TD
 const
  DefTexSize = 64;
 var
-{Header: TQ1Miptex;}
  Q: QPixelSet;
  Size: TPoint;
 begin

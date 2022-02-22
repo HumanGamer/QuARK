@@ -201,7 +201,6 @@ type
 var
  {Texture,} ColorMapData: String;
  IgnoreData: Integer;
- {Header: TQ1Miptex;}
  X,Y,W,H, TotalW: Integer;
  ColorMap: QObject;
  Base, Echelle, ColorT, ColorT1, PX, PY: Integer;
