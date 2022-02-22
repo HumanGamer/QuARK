@@ -21,6 +21,7 @@ from quarkpy.qutils import *
 import quarkx
 import quarkpy.qutils
 import quarkpy.qtoolbar
+import quarkpy.mdlbtns
 import quarkpy.mdlutils
 import ie_utils
 from ie_utils import tobj

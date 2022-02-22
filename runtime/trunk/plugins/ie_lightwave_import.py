@@ -24,11 +24,12 @@ Info = {
 #    import mod_meshtools as my_meshtools
 
 #python specific modules import
-import struct, chunk, os, cStringIO, time, math
+import struct, chunk, os, cStringIO, math
 from quarkpy.qutils import *
 import quarkx
 import quarkpy.qtoolbar
 import ie_utils
+import quarkpy.mdlbtns
 import quarkpy.mdlutils
 from ie_utils import tobj
 from quarkpy.qdictionnary import Strings

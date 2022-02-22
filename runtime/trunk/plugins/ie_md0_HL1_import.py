@@ -18,6 +18,7 @@ Info = {
 import struct, os, math
 import quarkx
 from types import *
+import quarkpy.mdlbtns
 import quarkpy.mdlutils
 import ie_utils
 from ie_utils import tobj

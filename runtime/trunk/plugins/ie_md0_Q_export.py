@@ -21,6 +21,7 @@ from types import *
 import ie_utils
 from ie_utils import tobj
 from quarkpy.qdictionnary import Strings
+import quarkpy.qutils
 
 # Globals
 editor = None

@@ -17,6 +17,7 @@ Info = {
 
 import time, math, os, os.path, struct, sys
 import quarkx
+import quarkpy.qeditor
 import quarkpy.qmacro
 import quarkpy.qtoolbar
 from quarkpy.qutils import *

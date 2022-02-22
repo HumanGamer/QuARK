@@ -18,12 +18,15 @@ Info = {
 import struct, os, math
 import quarkx
 import quarkpy.dlgclasses
+import quarkpy.qmacro
 import quarkpy.qtoolbar
 from quarkpy.qutils import *
 import ie_utils
 from ie_utils import tobj
 from quarkpy.qdictionnary import Strings
 from quarkpy.qeditor import MapColor # Strictly needed for QuArK bones MapColor call.
+import quarkpy.mdlbtns
+import quarkpy.mdlutils
 import quarkpy.qutils
 
 # Globals

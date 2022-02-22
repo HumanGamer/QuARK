@@ -19,6 +19,7 @@ import struct, os, math
 import quarkx
 from types import *
 import ie_utils
+import quarkpy.qutils
 from ie_utils import tobj
 from quarkpy.qdictionnary import Strings
 

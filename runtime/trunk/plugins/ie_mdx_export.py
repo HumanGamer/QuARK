@@ -15,9 +15,10 @@ Info = {
    "author e-mail": "cdunde@sbcglobal.net",
    "quark":         "Version 6.6.0 Beta 5" }
 
-import struct, chunk, os, time
+import struct, os
 import quarkx
 from types import *
+import quarkpy.qutils
 import ie_utils
 from ie_utils import tobj
 from quarkpy.qdictionnary import Strings

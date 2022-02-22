@@ -88,6 +88,7 @@ Info = {
 import struct, os, math
 import quarkx
 import quarkpy.dlgclasses
+import quarkpy.qmacro
 import quarkpy.qtoolbar
 from quarkpy.qutils import *
 from types import *
@@ -2920,6 +2921,7 @@ def save_mdl(dlg):
 # gamename is None.
 def savemodel(root, filename, gamename, nomessage=0):
     global editor
+    import quarkpy.mdleditor
     editor = quarkpy.mdleditor.mdleditor
     if editor is None:
         return

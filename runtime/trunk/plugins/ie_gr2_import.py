@@ -18,13 +18,14 @@ Info = {
 
 # Python specific modules import.
 import quarkx
+import math
 import struct, os, Lib, Lib.base64
 from quarkpy.qutils import *
 from quarkpy.qeditor import MapColor # Strictly needed for QuArK bones MapColor call.from types import *
+import quarkpy.mdlbtns
 import quarkpy.mdlutils
 import ie_utils
 from ie_utils import tobj
-import math
 from quarkpy.qdictionnary import Strings
 
 # Globals

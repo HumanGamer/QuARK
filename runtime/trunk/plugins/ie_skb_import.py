@@ -20,6 +20,7 @@ from quarkpy.qutils import *
 import quarkx
 import quarkpy.qutils
 from types import *
+import quarkpy.mdlbtns
 import quarkpy.mdlutils
 import ie_utils
 from ie_utils import tobj

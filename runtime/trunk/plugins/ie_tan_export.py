@@ -202,7 +202,6 @@ class TAN_XyzNormal:
         self.position = [pos[0], pos[1], pos[2]]
 
         # We don't need this but it's here as a ref for writing the exporter, may not need anyway.
-       # import math
        # unpackAngle = 360.0 / 255.0
        # longitude = float(normal / 256 ) * unpackAngle
        # latitude = (normal & 255) * unpackAngle

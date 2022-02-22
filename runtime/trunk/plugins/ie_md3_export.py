@@ -15,8 +15,9 @@ Info = {
    "author e-mail": "cdunde@sbcglobal.net",
    "quark":         "Version 6.6.0 Beta 4" }
 
-import time, os, struct, math
+import os, struct, math
 import quarkx
+import quarkpy.qmacro
 import quarkpy.qtoolbar
 from quarkpy.qutils import *
 import ie_utils
