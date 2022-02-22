@@ -109,8 +109,9 @@ type
               end;
  PWadFileRec = ^TWadFileRec;
  TWadFileRec = record //For WAD2
-               Position, Taille, Idem: LongInt;
-               InfoType, Compression: Char;
+               Position, Taille, UncompressedSize: LongInt;
+               InfoType: Char;
+               Compression: Byte;
                Dummy: Word;
                Nom: array[0..15] of Byte;
               end;
@@ -269,6 +270,8 @@ begin
                (P^.Position<SizeOf(Header)) or
                (P^.Taille<0) then
               Raise EErrorFmt(5509, [72]);
+            if P^.Compression<>0 then
+              Raise EErrorFmt(5509, [73]);
             F.Position:=P^.Position;
             Q:=MakeFileQObject(F, CharToPas(P^.Nom)+Prefix+P^.InfoType, Self); //FIXME: Used P^.Taille as third argument to OpenFileObjectData.
             SubElements.Add(Q);
@@ -359,7 +362,7 @@ begin
           Entree.Taille:=F.Position-Entree.Position;
           if HalfLifeWad3 then
             Entree.Taille:=Entree.Taille+((-Entree.Taille) and 3); {Some weird fix to get the HalfLife colors right in Wally}
-          Entree.Idem:=Entree.Taille;
+          Entree.UncompressedSize:=Entree.Taille;
           Dec(Entree.Position, Origine);
           Zero:=0;
           F.WriteBuffer(Zero, (-Entree.Taille) and 3);  { align to 4 bytes }
