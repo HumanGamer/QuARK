@@ -854,14 +854,14 @@ begin
       SelectNow:=False;
       for J:=0 to TexLoop.Count-1 do
       begin
+         { build the Width x Height image }
+        if Tex=Nil then
+        begin
+          Tex:=TBitmap.Create;
+          Tex.Width:=ImageList1.Width;   {DECKER - try to figure out how to make these modifyable, so QuArK won't crash!}
+          Tex.Height:=ImageList1.Height; {       - and actually display the images in 32x32, 128x128, 256x256 or ...}
+        end;
         try
-           { build the Width x Height image }
-          if Tex=Nil then
-          begin
-            Tex:=TBitmap.Create;
-            Tex.Width:=ImageList1.Width;   {DECKER - try to figure out how to make these modifyable, so QuArK won't crash!}
-            Tex.Height:=ImageList1.Height; {       - and actually display the images in 32x32, 128x128, 256x256 or ...}
-          end;
           Q:=QPixelSet(TexLoop[J]).LoadPixelSet;
           PSD.Size:=QPixelSet(Q).GetSize;
           Reduction:=0;
