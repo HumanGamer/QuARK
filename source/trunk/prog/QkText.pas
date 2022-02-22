@@ -44,6 +44,16 @@ type
               procedure ObjectState(var E: TEtatObjet); override;
               class procedure FileObjectClassInfo(var Info: TFileObjectClassInfo); override;
             end;
+ QJsonFile = class(QText)
+            public
+              class function TypeInfo: String; override;
+              class procedure FileObjectClassInfo(var Info: TFileObjectClassInfo); override;
+            end;
+ QXmlFile = class(QText)
+            public
+              class function TypeInfo: String; override;
+              class procedure FileObjectClassInfo(var Info: TFileObjectClassInfo); override;
+            end;
  QZText   = class(QText)
             protected
               procedure SaveFile(Info: TInfoEnreg1); override;
@@ -81,9 +91,11 @@ begin
  case I of
   1: Result:=QText;
   2: Result:=QCfgFile;
+  3: Result:=QJsonFile;
+  4: Result:=QXmlFile;
  else
    begin
-    Dec(I,2);
+    Dec(I,4);
     Result:=Nil;
    end;
  end;
@@ -215,6 +227,36 @@ end;
 
  {------------------------}
 
+class function QJsonFile.TypeInfo;
+begin
+ Result:='.json';
+end;
+
+class procedure QJsonFile.FileObjectClassInfo(var Info: TFileObjectClassInfo);
+begin
+ inherited;
+ Info.FileObjectDescriptionText:=LoadStr1(5854);
+ Info.FileExt:=831;
+ Info.WndInfo:=[wiWindow];
+end;
+
+ {------------------------}
+
+class function QXmlFile.TypeInfo;
+begin
+ Result:='.xml';
+end;
+
+class procedure QXmlFile.FileObjectClassInfo(var Info: TFileObjectClassInfo);
+begin
+ inherited;
+ Info.FileObjectDescriptionText:=LoadStr1(5855);
+ Info.FileExt:=832;
+ Info.WndInfo:=[wiWindow];
+end;
+
+ {------------------------}
+
 procedure TFQText.wmInternalMessage(var Msg: TMessage);
 begin
  case Msg.wParam of
@@ -265,4 +307,6 @@ end;}
 initialization
   RegisterQObject(QText, 'd');
   RegisterQObject(QCfgFile, 'c');
+  RegisterQObject(QJsonFile, 'b');
+  RegisterQObject(QXmlFile, 'b');
 end.

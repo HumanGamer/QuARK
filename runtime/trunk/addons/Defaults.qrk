@@ -262,6 +262,8 @@ QQRKSRC1
         .cin = "1"     icin = '6'
         .cfg = ""      icfg = '11'
         .qme = ""
+        .json = ""
+        .xml = ""
         .txt = ""
         .zip = ""      izip = '5'
         Form = "GeneralAssociations"
@@ -321,6 +323,8 @@ QQRKSRC1
         .cin = "<open>"
         .cfg = ""
         .qme = ""
+        .json = "Notepad.exe"
+        .xml = "Notepad.exe"
         .txt = "Notepad.exe"
         .zip = ""
       }
@@ -8669,6 +8673,8 @@ QQRKSRC1
       .cin: = { Txt="CIN videos" externaledit = ! }
       //.cfg: = { Txt="CFG files" externaledit = ! }
       //.qme: = { Txt="QME files" externaledit = ! }
+      .json: = { Txt="JSON files" externaledit = ! }
+      .xml: = { Txt="XML files" externaledit = ! }
       .txt: = { Txt="TXT text files" externaledit = ! }
       .zip: = { Txt="ZIP archives" externaledit = ! }
     }
@@ -8752,6 +8758,8 @@ QQRKSRC1
       .cin: = {Typ="X" Cap=".cin" Txt="CIN Videos (Quake 2)"}
       //.cfg: = {Typ="X" Cap=".cfg" Txt="CFG files"}
       .qme: = {Typ="X" Cap=".qme" Txt="Files from QuArK version 4"}
+      .json: = {Typ="X" Cap=".json" Txt="JSON files"}
+      .xml: = {Typ="X" Cap=".xml" Txt="XML files"}
       .txt: = {Typ="X" Cap=".txt" Txt="TXT text files"}
       .zip: = {Typ="X" Cap=".zip" Txt="ZIP archives"}
       btn:tbbtn = {
