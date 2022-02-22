@@ -2838,6 +2838,11 @@ QQRKSRC1
         SaveFormatADevIL = "1"
         Form = "FilesVTF"
       }
+      WAD:config =
+      {
+        WorkaroundGFX = "1"
+        Form = "FilesWAD"
+      }
       ZIP:config =
       {
         CompressionBufferSize = '16' // KBytes
@@ -7806,6 +7811,12 @@ QQRKSRC1
               $0D"No DXT Compression"
         Hint = "The format the VTF texture with alpha will be saved in"
       }
+    }
+    FilesWAD:form =
+    {
+      Style = "7"
+      sep: = {Typ="S" Txt="---- Advanced WAD Settings ----"}
+      WorkaroundGFX: = {Typ="X" Txt="Workaround GFX" Cap="Enabled" Hint="Workaround broken lump types in gfx.wad"}
     }
     FilesZIP:form =
     {

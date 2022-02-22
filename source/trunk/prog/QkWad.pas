@@ -87,8 +87,8 @@ type
 
 implementation
 
-uses QkUnknown, Travail, Qk1, Setup, Quarkx, QkExceptions, QkHL,
-     QkQ1, QkObjectClassList, Logging;
+uses Travail, Qk1, Setup, Quarkx, QkExceptions, QkHL,
+     QkQ1, QkObjectClassList, Logging, QkUnknown; //FIXME: QkUnknown TMP!
 
 {$R *.DFM}
 
@@ -196,6 +196,7 @@ var
  Origine: TStreamPos;
  Q: QObject;
  Prefix: String;
+ WorkaroundGFX: Boolean;
 begin
   case ReadFormat of
   rf_Default: { as stand-alone file }
@@ -259,6 +260,8 @@ begin
         if Header.PosRep + I > FSize then
           Raise EErrorFmt(5186, [LoadName]);
 
+        WorkaroundGFX := SetupSubSet(ssFiles, 'WAD').Specifics.Values['WorkaroundGFX']<>'';
+
         GetMem(Entrees, I);
         try
           F.Position:=Origine + Header.PosRep;
@@ -272,6 +275,30 @@ begin
               Raise EErrorFmt(5509, [72]);
             if P^.Compression<>0 then
               Raise EErrorFmt(5509, [73]);
+
+            if WorkaroundGFX and (Self.GetFullName() = 'gfx.wad') then
+             if CharToPas(P^.Nom) = 'COLORMAP' then
+              begin
+               Q:=QUnknown.Create(CharToPas(P^.Nom), Self);
+               SubElements.Add(Q);
+               Inc(P);
+               continue;
+              end
+             else if CharToPas(P^.Nom) = 'CONCHARS' then
+              begin
+               Q:=QUnknown.Create(CharToPas(P^.Nom), Self);
+               SubElements.Add(Q);
+               Inc(P);
+               continue;
+              end
+             else if CharToPas(P^.Nom) = 'PALETTE' then
+              begin
+               Q:=QUnknown.Create(CharToPas(P^.Nom), Self);
+               SubElements.Add(Q);
+               Inc(P);
+               continue;
+              end;
+
             F.Position:=P^.Position;
             Q:=MakeFileQObject(F, CharToPas(P^.Nom)+Prefix+P^.InfoType, Self); //FIXME: Used P^.Taille as third argument to OpenFileObjectData.
             SubElements.Add(Q);

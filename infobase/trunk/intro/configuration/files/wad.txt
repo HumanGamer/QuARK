@@ -1,0 +1,6 @@
+title: WAD
+author: DanielPharos
+
+<img align=right>wad.png</img>
+
+<i>Workaround GFX</i>. Quake 1's gfx.wad has broken lump types for "COLORMAP", "CONCHARS", and "PALETTE". This options enables a workaround to correct for this.

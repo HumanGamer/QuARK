@@ -11,6 +11,7 @@ desc: png
 desc: tga
 desc: vmt
 desc: vtf
+desc: wad
 desc: zip
 
 In QuArK, many different types of files can be loaded and saved. The most
