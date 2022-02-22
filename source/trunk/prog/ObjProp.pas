@@ -115,7 +115,8 @@ begin
    Total:=0;
    for I:=0 to QL.Count-1 do
     Inc(Total, QL[I].GetObjectSize(Nil, False));
-   Label5.Caption:=FmtLoadStr1(5392, [(Total+512) div 1024]);
+   //Label5.Caption:=FmtLoadStr1(5392, [(Total+512) div 1024]);
+   Label5.Caption:=FmtLoadStr1(5392, [Total]);
    SaveBtn.Enabled:=nQ is QFileObject;
 
    CommonType:=QObjectClass(QL[0].ClassType);
