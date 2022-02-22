@@ -19,11 +19,14 @@ Info = {
 
 
 import quarkx
+import quarkpy.dlgclasses
 import quarkpy.qhandles
 import quarkpy.qmenu
 import quarkpy.qtoolbar
 from quarkpy.mdlmgr import *
+import quarkpy.mdlcommands
 import quarkpy.mdleditor
+import quarkpy.mdltoolbars
 
 
 def lockxclick(m):

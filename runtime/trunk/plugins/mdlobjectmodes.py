@@ -26,6 +26,7 @@ from quarkpy.maputils import *
 import quarkpy.mdltoolbars
 import mapdragmodes
 import quarkpy.dlgclasses
+import quarkpy.mdleditor
 import quarkpy.mdlutils
 import mdlgridscale
 # For hollowing Torus

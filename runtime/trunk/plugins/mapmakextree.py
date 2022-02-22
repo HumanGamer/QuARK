@@ -16,14 +16,15 @@ Info = {
   "quark":         "Version 6.x"
 }
 
-from math import sin
-from math import cos
-from math import pi
+import math
 import quarkx
 import maptagside
 import quarkpy.qmacro
+import quarkpy.qmenu
 import quarkpy.qtoolbar
 from quarkpy.maputils import *
+import quarkpy.mapbtns
+import quarkpy.mapcommands
 
 #base class for all games
 class MakeXTreeDlg(quarkpy.qmacro.dialogbox):
@@ -145,9 +146,9 @@ class MakeHLXTreeDlg(MakeXTreeDlg):
     aface["tex"] = nulltex
     g.appenditem(aface)
 
-    ang=pi*2/self.planes
-    addang=pi/self.planes/2
-    addlen=sin(addang)/cos(addang)*self.twidth/2
+    ang=math.pi*2/self.planes
+    addang=math.pi/self.planes/2
+    addlen=math.sin(addang)/math.cos(addang)*self.twidth/2
     for j in range(2):
       e = quarkx.newobj("func_illusionary:b")
       e["rendermode"] = "4"
@@ -156,8 +157,8 @@ class MakeHLXTreeDlg(MakeXTreeDlg):
       for i in range(self.planes):
         p = quarkx.newobj("tree-side:p")
         aface = quarkx.newobj("tree:f")
-        sx1=cos(ang*i)*self.twidth/2
-        sy1=sin(ang*i)*self.twidth/2
+        sx1=math.cos(ang*i)*self.twidth/2
+        sy1=math.sin(ang*i)*self.twidth/2
         if j==0:
           aface["v"] = (0,0,0, sx1,sy1,0, 0,0,self.theight)
         else:
@@ -173,12 +174,12 @@ class MakeHLXTreeDlg(MakeXTreeDlg):
         p.appenditem(aface)
         aface = quarkx.newobj("null:f")
         if j==0:
-          sx2=sx1-sin(ang*i)*addlen
-          sy2=sy1+cos(ang*i)*addlen
+          sx2=sx1-math.sin(ang*i)*addlen
+          sy2=sy1+math.cos(ang*i)*addlen
           aface["v"] = (0,0,0, 0,0,self.theight, sx2,sy2,0)
         else:
-          sx2=sx1+sin(ang*i)*addlen
-          sy2=sy1-cos(ang*i)*addlen
+          sx2=sx1+math.sin(ang*i)*addlen
+          sy2=sy1-math.cos(ang*i)*addlen
           aface["v"] = (0,0,0, sx2,sy2,0, 0,0,self.theight)
         aface["tex"] = nulltex
         p.appenditem(aface)
@@ -230,17 +231,17 @@ class MakeSinXTreeDlg(MakeXTreeDlg):
     aface["v"] = (-self.twidth/2,-self.twidth/2,0, -self.twidth/2,self.twidth/2,0, self.twidth/2,-self.twidth/2,0)
     g.appenditem(aface)
 
-    ang=pi*2/self.planes
-    addang=pi/self.planes/2
-    addlen=sin(addang)/cos(addang)*self.twidth/2
+    ang=math.pi*2/self.planes
+    addang=math.pi/self.planes/2
+    addlen=math.sin(addang)/math.cos(addang)*self.twidth/2
     for j in range(2):
       e = quarkx.newobj("func_illusionary:b")
       g.appenditem(e)
       for i in range(self.planes):
         p = quarkx.newobj("tree-side:p")
         aface = self.MakeFace(1)
-        sx1=cos(ang*i)*self.twidth/2
-        sy1=sin(ang*i)*self.twidth/2
+        sx1=math.cos(ang*i)*self.twidth/2
+        sy1=math.sin(ang*i)*self.twidth/2
         if j==0:
           aface["v"] = (0,0,0, sx1,sy1,0, 0,0,self.theight)
         else:
@@ -255,12 +256,12 @@ class MakeSinXTreeDlg(MakeXTreeDlg):
         p.appenditem(aface)
         aface = self.MakeFace(0)
         if j==0:
-          sx2=sx1-sin(ang*i)*addlen
-          sy2=sy1+cos(ang*i)*addlen
+          sx2=sx1-math.sin(ang*i)*addlen
+          sy2=sy1+math.cos(ang*i)*addlen
           aface["v"] = (0,0,0, 0,0,self.theight, sx2,sy2,0)
         else:
-          sx2=sx1+sin(ang*i)*addlen
-          sy2=sy1-cos(ang*i)*addlen
+          sx2=sx1+math.sin(ang*i)*addlen
+          sy2=sy1-math.cos(ang*i)*addlen
           aface["v"] = (0,0,0, sx2,sy2,0, 0,0,self.theight)
         p.appenditem(aface)
         aface = self.MakeFace(0)
@@ -296,7 +297,7 @@ class MakeQ2XTreeDlg(MakeXTreeDlg):
       return
     # Create the tree
     g = quarkx.newobj(self.treename+":g")
-    ang=pi*2/self.planes
+    ang=math.pi*2/self.planes
     n=1
     aface = self.MakeFace()
     aface["v"] = (-self.twidth/2,-self.twidth/2,0,
@@ -305,10 +306,10 @@ class MakeQ2XTreeDlg(MakeXTreeDlg):
     g.appenditem(aface)
     for k in range(self.planes / 2):
       p = quarkx.newobj("poly:p")
-      x1 = self.twidth/2 * cos(k*ang)
-      y1 = self.twidth/2 * sin(k*ang)
-      x2 = n * sin(k*ang)
-      y2 = n * cos(k*ang)
+      x1 = self.twidth/2 * math.cos(k*ang)
+      y1 = self.twidth/2 * math.sin(k*ang)
+      x2 = n * math.sin(k*ang)
+      y2 = n * matn.cos(k*ang)
       for i in [-1,1]:
         #Create a help plane for texture mapping
         proj = self.MakeFace()

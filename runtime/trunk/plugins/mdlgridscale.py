@@ -19,6 +19,7 @@ Info = {
 
 import quarkx
 import quarkpy.mdleditor
+import quarkpy.mdlhandles
 import quarkpy.mdlutils
 import quarkpy.qhandles
 import quarkpy.qmenu

@@ -26,24 +26,11 @@ import quarkx
 import quarkpy.qhandles
 import quarkpy.qmenu
 import tagging
-
-#
-# This imports the maphandles.py file in the quarkpy folder
-#  To use something from this file you need to `quality' its
-#  name with quarkpy.maphandles, e.g. `quarkpy.maphandles.VertexHandle`
-# 
+import quarkpy.dlgclasses
+import quarkpy.mapeditor
+import quarkpy.mapentities
 import quarkpy.maphandles
-
-#
-# This imports every function in quarkpy\maputils
-#  things imported in this way don't need to be (& in fact
-#  can't be) qualified
-#
 from quarkpy.maputils import *
-
-#
-# For the stuff below about moving some object containing a vertex
-#
 from quarkpy import guiutils
 
 #
