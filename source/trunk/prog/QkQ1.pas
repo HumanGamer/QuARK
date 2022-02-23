@@ -24,7 +24,7 @@ interface
 
 uses
   Classes, QkObjects, QkFileObjects, QkTextures, QkBsp, Sysutils,
-  Dialogs, QkImages;
+  Dialogs, QkImages, QkText;
 
 type
  TQ1Miptex = packed record
@@ -47,6 +47,12 @@ type
                function BaseGame : Char; override;
                class function CustomParams : Integer; override;
              end;
+
+ QRCFile = class(QText)
+            public
+              class function TypeInfo: String; override;
+              class procedure FileObjectClassInfo(var Info: TFileObjectClassInfo); override;
+            end;
 
  QBsp1FileHandler = class(QBspFileHandler)
   public
@@ -73,7 +79,7 @@ procedure WriteColormapFile();
 implementation
 
 uses
-  Travail, Quarkx, QkExceptions, Game, Setup, QkText, QkWad, QkPcx, QkObjectClassList;
+  Travail, Quarkx, QkExceptions, Game, Setup, QkWad, QkPcx, QkObjectClassList;
 
 const
  LUMP_ENTITIES = 0;
@@ -333,6 +339,21 @@ begin
   Result:=mjNotQuake2;
 end;
 
+ {------------------------}
+
+class function QRCFile.TypeInfo;
+begin
+ Result:='.rc';
+end;
+
+class procedure QRCFile.FileObjectClassInfo(var Info: TFileObjectClassInfo);
+begin
+ inherited;
+ Info.FileObjectDescriptionText:=LoadStr1(5856);
+ Info.FileExt:=833;
+ Info.WndInfo:=[wiWindow];
+end;
+
  { --------------- }
 
 function MakeFileQObject(F: TStream; const FullName: String; nParent: QObject) : QFileObject;
@@ -487,6 +508,8 @@ end;
 
 initialization
   RegisterQObject(QTexture1, 'a');
+
+  RegisterQObject(QRCFile, 'c');
 
   RegisterQObject(QBsp1,  '!');
   RegisterQObject(QBsp1a, 'a');

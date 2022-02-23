@@ -261,6 +261,7 @@ QQRKSRC1
         .wav = ""
         .cin = "1"     icin = '6'
         .cfg = ""      icfg = '11'
+        .rc = ""
         .qme = ""
         .json = ""
         .xml = ""
@@ -322,6 +323,7 @@ QQRKSRC1
         .wav = "<edit>"
         .cin = "<open>"
         .cfg = ""
+        .rc = ""
         .qme = ""
         .json = "Notepad.exe"
         .xml = "Notepad.exe"
@@ -8672,6 +8674,7 @@ QQRKSRC1
       .wav: = { Txt="WAV sounds" externaledit = ! }
       .cin: = { Txt="CIN videos" externaledit = ! }
       //.cfg: = { Txt="CFG files" externaledit = ! }
+      //.rc: = { Txt="RC files" externaledit = ! }
       //.qme: = { Txt="QME files" externaledit = ! }
       .json: = { Txt="JSON files" externaledit = ! }
       .xml: = { Txt="XML files" externaledit = ! }
@@ -8757,6 +8760,7 @@ QQRKSRC1
       .wav: = {Typ="X" Cap=".wav" Txt="WAV Sounds"}
       .cin: = {Typ="X" Cap=".cin" Txt="CIN Videos (Quake 2)"}
       //.cfg: = {Typ="X" Cap=".cfg" Txt="CFG files"}
+      //.rc: = {Typ="X" Cap=".rc" Txt="RC files"}
       .qme: = {Typ="X" Cap=".qme" Txt="Files from QuArK version 4"}
       .json: = {Typ="X" Cap=".json" Txt="JSON files"}
       .xml: = {Typ="X" Cap=".xml" Txt="XML files"}
@@ -9983,7 +9987,6 @@ QQRKSRC1
         IWI Image.iwi = { ;incl = "EmptyImage" }
       }
       Text.txt = { }
-      Configuration file.cfg = { }
       Sound.wav = { }
       Files for the game.import = { }
 //      Quake Context.qctx = { }

@@ -57,6 +57,8 @@ QQRKSRC1
     Quake 1 file types.qtxfolder =
     {
       Texture Wad.wad = { }
+      Configuration file.cfg = { }
+      Run Commands file.rc = { }
       QuakeC.qc = { }
     }
   }

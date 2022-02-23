@@ -286,6 +286,7 @@ Strings = {
     830: "KEX Pak Files (*.kpf)|*.kpf",
     831: "JSON file (*.json)|*.json",
     832: "XML file (*.xml)|*.xml",
+    833: "Run Commands file (*.rc)|*.rc",
 
     2368: "Skins",
     2369: "Frames",
@@ -1121,6 +1122,7 @@ Strings = {
     5853: "Pak file with bad SiN extension",
     5854: "JSON file",
     5855: "XML file",
+    5856: "Run Commands file",
 
     # DanielPharos would like to reserve 6000 .. 6099 for all renderers
     6000: "Unable to create SceneObject//%s",

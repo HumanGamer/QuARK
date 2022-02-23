@@ -82,7 +82,7 @@ function TestConversionText(var I: Integer) : QFileObjectClass;
 
 implementation
 
-uses QkQuakeC, Undo, Quarkx, QkObjectClassList;
+uses QkQuakeC, QkQ1, Undo, Quarkx, QkObjectClassList;
 
 {$R *.DFM}
 
@@ -93,9 +93,10 @@ begin
   2: Result:=QCfgFile;
   3: Result:=QJsonFile;
   4: Result:=QXmlFile;
+  5: Result:=QRCFile;
  else
    begin
-    Dec(I,4);
+    Dec(I,5);
     Result:=Nil;
    end;
  end;
