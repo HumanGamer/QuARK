@@ -8673,8 +8673,8 @@ QQRKSRC1
       .sp2: = { Txt="SP2 sprites" externaledit = ! }
       .wav: = { Txt="WAV sounds" externaledit = ! }
       .cin: = { Txt="CIN videos" externaledit = ! }
-      //.cfg: = { Txt="CFG files" externaledit = ! }
-      //.rc: = { Txt="RC files" externaledit = ! }
+      .cfg: = { Txt="CFG files" externaledit = ! }
+      .rc: = { Txt="RC files" externaledit = ! }
       //.qme: = { Txt="QME files" externaledit = ! }
       .json: = { Txt="JSON files" externaledit = ! }
       .xml: = { Txt="XML files" externaledit = ! }
@@ -8759,13 +8759,13 @@ QQRKSRC1
       .sp2: = {Typ="X" Cap=".sp2" Txt="SP2 Sprites"}
       .wav: = {Typ="X" Cap=".wav" Txt="WAV Sounds"}
       .cin: = {Typ="X" Cap=".cin" Txt="CIN Videos (Quake 2)"}
-      //.cfg: = {Typ="X" Cap=".cfg" Txt="CFG files"}
-      //.rc: = {Typ="X" Cap=".rc" Txt="RC files"}
+      .cfg: = {Typ="X" Cap=".cfg" Txt="CFG files"}
+      .rc: = {Typ="X" Cap=".rc" Txt="RC files"}
       .qme: = {Typ="X" Cap=".qme" Txt="Files from QuArK version 4"}
-      .json: = {Typ="X" Cap=".json" Txt="JSON files"}
-      .xml: = {Typ="X" Cap=".xml" Txt="XML files"}
-      .txt: = {Typ="X" Cap=".txt" Txt="TXT text files"}
-      .zip: = {Typ="X" Cap=".zip" Txt="ZIP archives"}
+      //.json: = {Typ="X" Cap=".json" Txt="JSON files"}
+      //.xml: = {Typ="X" Cap=".xml" Txt="XML files"}
+      //.txt: = {Typ="X" Cap=".txt" Txt="TXT text files"}
+      //.zip: = {Typ="X" Cap=".zip" Txt="ZIP archives"}
       btn:tbbtn = {
         Typ="M"
         Msg="ASSK"
