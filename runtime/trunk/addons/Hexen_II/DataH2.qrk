@@ -61,6 +61,8 @@ QQRKSRC1
     Hexen II file types.qtxfolder =
     {
       Texture Wad.wad = { }
+      Configuration file.cfg = { }
+      Run Commands file.rc = { }
       HexenC.hc = { }
     }
   }

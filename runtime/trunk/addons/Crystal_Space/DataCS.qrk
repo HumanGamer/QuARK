@@ -665,6 +665,7 @@ QQRKSRC1
     Crystal Space file types.qtxfolder =
     {
       Texture Wad.wad = { }
+      Configuration file.cfg = { }
     }
   }
   walltex:incl =
