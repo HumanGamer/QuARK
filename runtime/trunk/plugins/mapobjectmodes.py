@@ -23,6 +23,7 @@ import quarkpy.qtoolbar
 import quarkpy.qhandles
 import quarkpy.qmenu
 from quarkpy.maputils import *
+import quarkpy.mapeditor
 import quarkpy.maptools
 import quarkpy.mapbtns
 import mapdragmodes

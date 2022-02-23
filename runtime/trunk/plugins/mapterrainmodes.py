@@ -22,19 +22,21 @@ import quarkx
 import quarkpy.mapeditor
 import quarkpy.mapbtns
 import quarkpy.maphandles
+import quarkpy.maptools
+import quarkpy.qmenu
 import quarkpy.qtoolbar
 import quarkpy.qhandles
+import quarkpy.perspective
 from quarkpy.maputils import *
 import mapterrainpos # this is for the dialog boxes.
 import faceutils     # this is for getting a vertex the cursor is near.
+from quarkpy.qdictionnary import Strings
 
 ico_dict['ico_terrmodes'] = LoadIconSet1("maptrm", 1.0)
 
 ## think I need these below
 
 from quarkpy.qeditor import *
-from quarkpy.qdictionnary import Strings
-import quarkpy.qmenu
 from tagging import *
 from faceutils import *
 from maptagside import *

@@ -40,11 +40,14 @@ Info = {
 import quarkx
 import quarkpy.mapmenus
 import quarkpy.mapentities
+import quarkpy.qbaseeditor
+import quarkpy.qhandles
+import quarkpy.qmacro
 import quarkpy.qmenu
 import quarkpy.mapeditor
-import quarkpy.mapcommands
 import quarkpy.mapoptions
 import quarkpy.maphandles
+import quarkpy.mapselection
 import quarkpy.dlgclasses
 import faceutils
 from quarkpy.maputils import *

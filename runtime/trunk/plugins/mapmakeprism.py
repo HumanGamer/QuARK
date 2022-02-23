@@ -23,13 +23,14 @@ Info = {
 }
 
 
-import quarkpy.qmenu
 import math
 import quarkx
 import quarkpy.qmacro
+import quarkpy.qmenu
 import quarkpy.qtoolbar
-import quarkpy.mapsearch
+import quarkpy.qutils
 import quarkpy.mapbtns
+import quarkpy.mapcommands
 from quarkpy.maputils import *
 import mapsearch1
 

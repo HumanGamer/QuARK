@@ -38,10 +38,13 @@ import math
 import quarkx
 import quarkpy.mapmenus
 import quarkpy.mapentities
+import quarkpy.qmacro
 import quarkpy.qmenu
 import quarkpy.mapeditor
 import quarkpy.mapcommands
+import quarkpy.maphandles
 import quarkpy.mapoptions
+import quarkpy.mapselection
 import quarkpy.qhandles
 import quarkpy.mapbtns
 import quarkpy.qtoolbar
