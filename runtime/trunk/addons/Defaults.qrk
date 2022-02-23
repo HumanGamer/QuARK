@@ -262,6 +262,7 @@ QQRKSRC1
         .cin = "1"     icin = '6'
         .cfg = ""      icfg = '11'
         .rc = ""
+        .src = ""
         .qme = ""
         .json = ""
         .xml = ""
@@ -322,8 +323,9 @@ QQRKSRC1
         .sp2 = ""
         .wav = "<edit>"
         .cin = ""
-        .cfg = ""
-        .rc = ""
+        .cfg = "Notepad.exe"
+        .rc = "Notepad.exe"
+        .src = "Notepad.exe"
         .qme = ""
         .json = "Notepad.exe"
         .xml = "Notepad.exe"
@@ -8675,6 +8677,7 @@ QQRKSRC1
       .cin: = { Txt="CIN videos" externaledit = ! }
       .cfg: = { Txt="CFG files" externaledit = ! }
       .rc: = { Txt="RC files" externaledit = ! }
+      .src: = { Txt="SRC files" externaledit = ! }
       //.qme: = { Txt="QME files" externaledit = ! }
       .json: = { Txt="JSON files" externaledit = ! }
       .xml: = { Txt="XML files" externaledit = ! }
@@ -8761,6 +8764,7 @@ QQRKSRC1
       .cin: = {Typ="X" Cap=".cin" Txt="CIN Videos (Quake 2)"}
       .cfg: = {Typ="X" Cap=".cfg" Txt="CFG files"}
       .rc: = {Typ="X" Cap=".rc" Txt="RC files"}
+      .src: = {Typ="X" Cap=".src" Txt="SRC files"}
       .qme: = {Typ="X" Cap=".qme" Txt="Files from QuArK version 4"}
       //.json: = {Typ="X" Cap=".json" Txt="JSON files"}
       //.xml: = {Typ="X" Cap=".xml" Txt="XML files"}

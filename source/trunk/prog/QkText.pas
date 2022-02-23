@@ -94,9 +94,10 @@ begin
   3: Result:=QJsonFile;
   4: Result:=QXmlFile;
   5: Result:=QRCFile;
+  6: Result:=QSRCFile;
  else
    begin
-    Dec(I,5);
+    Dec(I,6);
     Result:=Nil;
    end;
  end;

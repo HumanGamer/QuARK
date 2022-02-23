@@ -53,6 +53,11 @@ type
               class function TypeInfo: String; override;
               class procedure FileObjectClassInfo(var Info: TFileObjectClassInfo); override;
             end;
+ QSRCFile = class(QText)
+            public
+              class function TypeInfo: String; override;
+              class procedure FileObjectClassInfo(var Info: TFileObjectClassInfo); override;
+            end;
 
  QBsp1FileHandler = class(QBspFileHandler)
   public
@@ -354,6 +359,21 @@ begin
  Info.WndInfo:=[wiWindow];
 end;
 
+ {------------------------}
+
+class function QSRCFile.TypeInfo;
+begin
+ Result:='.src';
+end;
+
+class procedure QSRCFile.FileObjectClassInfo(var Info: TFileObjectClassInfo);
+begin
+ inherited;
+ Info.FileObjectDescriptionText:=LoadStr1(5857);
+ Info.FileExt:=834;
+ Info.WndInfo:=[wiWindow];
+end;
+
  { --------------- }
 
 function MakeFileQObject(F: TStream; const FullName: String; nParent: QObject) : QFileObject;
@@ -510,6 +530,7 @@ initialization
   RegisterQObject(QTexture1, 'a');
 
   RegisterQObject(QRCFile, 'c');
+  RegisterQObject(QSRCFile, 'c');
 
   RegisterQObject(QBsp1,  '!');
   RegisterQObject(QBsp1a, 'a');

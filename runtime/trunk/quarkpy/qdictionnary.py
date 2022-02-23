@@ -287,6 +287,7 @@ Strings = {
     831: "JSON file (*.json)|*.json",
     832: "XML file (*.xml)|*.xml",
     833: "Run Commands file (*.rc)|*.rc",
+    834: "Source file (*.src)|*.src",
 
     2368: "Skins",
     2369: "Frames",
@@ -1123,6 +1124,7 @@ Strings = {
     5854: "JSON file",
     5855: "XML file",
     5856: "Run Commands file",
+    5857: "Source file",
 
     # DanielPharos would like to reserve 6000 .. 6099 for all renderers
     6000: "Unable to create SceneObject//%s",
