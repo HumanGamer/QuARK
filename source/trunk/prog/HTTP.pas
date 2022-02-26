@@ -22,7 +22,13 @@ unit HTTP;
 
 interface
 
-uses Windows, WinInet, Classes;
+uses Windows, Classes;
+
+//We can't use WinInet here, because that creates a load-time dependency on wininet.dll,
+//which might not exist on Windows 95 RTM. So we're copy-pasting part from it,
+//and dynamically loading wininet.dll instead.
+type
+  HINTERNET = Pointer;
 
 type
   THTTPConnection = class
@@ -30,7 +36,7 @@ type
     Online, Connected, Requesting: Boolean;
     InetHandle, InetConnection, InetResource: HINTERNET;
   public
-    procedure GoOnline;
+    function GoOnline: Boolean;
     procedure GoOffline;
     procedure ConnectTo(const HostName: string);
     procedure CloseConnect;
@@ -55,6 +61,128 @@ const
 
  {------------------------}
 
+//Everything in this section is based on WinInet
+
+const
+  winetdll = 'wininet.dll';
+
+  INTERNET_OPEN_TYPE_PRECONFIG = 0;
+  {$EXTERNALSYM INTERNET_OPEN_TYPE_PRECONFIG}
+  INTERNET_DEFAULT_HTTP_PORT = 80;
+  {$EXTERNALSYM INTERNET_DEFAULT_HTTP_PORT}
+  INTERNET_DEFAULT_HTTPS_PORT = 443;
+  {$EXTERNALSYM INTERNET_DEFAULT_HTTPS_PORT}
+  INTERNET_SERVICE_HTTP = 3;
+  {$EXTERNALSYM INTERNET_SERVICE_HTTP}
+  INTERNET_FLAG_RELOAD = $80000000;
+  {$EXTERNALSYM INTERNET_FLAG_RELOAD}
+  INTERNET_FLAG_NO_CACHE_WRITE = $04000000;
+  {$EXTERNALSYM INTERNET_FLAG_NO_CACHE_WRITE}
+  HTTP_QUERY_CONTENT_LENGTH = 5;
+  {$EXTERNALSYM HTTP_QUERY_CONTENT_LENGTH}
+  HTTP_QUERY_STATUS_CODE = 19;
+  {$EXTERNALSYM HTTP_QUERY_STATUS_CODE}
+
+type
+  INTERNET_PORT = Word; 
+  {$EXTERNALSYM INTERNET_PORT}
+
+var
+  HWinInet: HMODULE;
+
+  InternetOpen: function (lpszAgent: PChar; dwAccessType: DWORD; lpszProxy, lpszProxyBypass: PChar; dwFlags: DWORD): HINTERNET; stdcall;
+  {$EXTERNALSYM InternetOpen}
+  InternetCloseHandle: function (hInet: HINTERNET): BOOL; stdcall;
+  {$EXTERNALSYM InternetCloseHandle}
+  InternetConnect: function (hInet: HINTERNET; lpszServerName: PChar; nServerPort: INTERNET_PORT; lpszUsername: PChar; lpszPassword: PChar; dwService: DWORD; dwFlags: DWORD; dwContext: DWORD): HINTERNET; stdcall;
+  {$EXTERNALSYM InternetConnect}
+  HttpOpenRequest: function(hConnect: HINTERNET; lpszVerb: PChar; lpszObjectName: PChar; lpszVersion: PChar; lpszReferrer: PChar; lplpszAcceptTypes: PLPSTR; dwFlags: DWORD; dwContext: DWORD): HINTERNET; stdcall;
+  {$EXTERNALSYM HttpOpenRequest}
+  HttpSendRequest: function(hRequest: HINTERNET; lpszHeaders: PChar; dwHeadersLength: DWORD; lpOptional: Pointer;  dwOptionalLength: DWORD): BOOL; stdcall;
+  {$EXTERNALSYM HttpSendRequest}
+  HttpQueryInfo: function(hRequest: HINTERNET; dwInfoLevel: DWORD; lpvBuffer: Pointer; var lpdwBufferLength: DWORD; var lpdwReserved: DWORD): BOOL; stdcall;
+  {$EXTERNALSYM HttpQueryInfo}
+  InternetSetFilePointer: function(hFile: HINTERNET; lDistanceToMove: Longint; pReserved: Pointer; dwMoveMethod, dwContext: DWORD): DWORD; stdcall;
+  {$EXTERNALSYM InternetSetFilePointer}
+  InternetReadFile: function(hFile: HINTERNET; lpBuffer: Pointer; dwNumberOfBytesToRead: DWORD; var lpdwNumberOfBytesRead: DWORD): BOOL; stdcall;
+  {$EXTERNALSYM InternetReadFile}
+
+function LoadWinInet: Boolean;
+begin
+  //Note: Delphi7 always calls the ANSI version
+  HWinInet := LoadLibrary(winetdll);
+  If HWinInet = 0 Then
+  begin
+    Result := False;
+    Exit;
+  end;
+  @InternetOpen := GetProcAddress(HWinInet, 'InternetOpenA');
+  If @InternetOpen = nil Then
+  begin
+    Result := False;
+    Exit;
+  end;
+  @InternetCloseHandle := GetProcAddress(HWinInet, 'InternetCloseHandle');
+  If @InternetCloseHandle = nil Then
+  begin
+    Result := False;
+    Exit;
+  end;
+  @InternetConnect := GetProcAddress(HWinInet, 'InternetConnectA');
+  If @InternetConnect = nil Then
+  begin
+    Result := False;
+    Exit;
+  end;
+  @HttpOpenRequest := GetProcAddress(HWinInet, 'HttpOpenRequestA');
+  If @HttpOpenRequest = nil Then
+  begin
+    Result := False;
+    Exit;
+  end;
+  @HttpSendRequest := GetProcAddress(HWinInet, 'HttpSendRequestA');
+  If @HttpSendRequest = nil Then
+  begin
+    Result := False;
+    Exit;
+  end;
+  @HttpQueryInfo := GetProcAddress(HWinInet, 'HttpQueryInfoA');
+  If @HttpQueryInfo = nil Then
+  begin
+    Result := False;
+    Exit;
+  end;
+  @InternetSetFilePointer := GetProcAddress(HWinInet, 'InternetSetFilePointer');
+  If @InternetSetFilePointer = nil Then
+  begin
+    Result := False;
+    Exit;
+  end;
+  @InternetReadFile := GetProcAddress(HWinInet, 'InternetReadFile');
+  If @InternetReadFile = nil Then
+  begin
+    Result := False;
+    Exit;
+  end;
+  Result:=True;
+end;
+
+procedure UnloadWinInet;
+begin
+  @InternetReadFile := nil;
+  @InternetSetFilePointer := nil;
+  @HttpQueryInfo := nil;
+  @HttpSendRequest := nil;
+  @HttpOpenRequest := nil;
+  @InternetConnect := nil;
+  @InternetOpen := nil;
+  @InternetCloseHandle := nil;
+  FreeLibrary(HWinInet);
+  HWinInet:=0;
+end;
+
+ {------------------------}
+
 destructor THTTPConnection.Destroy;
 begin
   if Online then
@@ -63,10 +191,17 @@ begin
   inherited;
 end;
 
-procedure THTTPConnection.GoOnline;
+function THTTPConnection.GoOnline: Boolean;
 begin
   if Online then
     GoOffline;
+
+  if HWinInet=0 then
+    if not LoadWinInet then
+    begin
+      Result:=False;
+      Exit;
+    end;
 
   InetHandle:=InternetOpen(PChar('QuArK'), INTERNET_OPEN_TYPE_PRECONFIG, nil, nil, 0);
   if InetHandle=nil then
@@ -75,6 +210,7 @@ begin
     raise exception.create('Unable to open internet connection.');
   end;
   Online:=True;
+  Result:=True;
 end;
 
 procedure THTTPConnection.GoOffline;
@@ -95,6 +231,8 @@ end;
 
 procedure THTTPConnection.ConnectTo(const HostName: string);
 begin
+  if not Online then
+    raise exception.create('Not online.');
   if Connected then
     CloseConnect;
 
@@ -123,6 +261,8 @@ end;
 
 procedure THTTPConnection.FileRequest(const FileName: string);
 begin
+  if not Connected then
+    raise exception.create('Not connected.');
   if Requesting then
     CloseRequest;
 
@@ -161,6 +301,9 @@ var
   BufferLength: DWORD;
   HeaderIndex: DWORD;
 begin
+  if not Requesting then
+    raise exception.create('Not requesting.');
+
   GetMem(StatusBuffer, StatusBufferLength);
   try
     HeaderIndex:=0;
@@ -184,6 +327,9 @@ var
   Buffer: PChar;
   BufferLength: DWORD;
 begin
+  if not Requesting then
+    raise exception.create('Not requesting.');
+
   if DataStart<>0 then
   begin
     if (InternetSetFilePointer(InetResource, DataStart, nil, FILE_BEGIN, 0) = INVALID_SET_FILE_POINTER) and (GetLastError() <> NO_ERROR) then
@@ -255,4 +401,7 @@ begin
   end;
 end;
 
+initialization
+finalization
+  UnloadWinInet();
 end.

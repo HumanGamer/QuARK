@@ -342,7 +342,8 @@ begin
         ProgressIndicatorMax:=4;
         ProgressIndicatorStart(5462, ProgressIndicatorMax);
         try
-          UpdateConnection.GoOnline;
+          if not UpdateConnection.GoOnline then
+            Exit;
           ProgressIndicatorIncrement;
 
           UpdateConnection.ConnectTo(QuArKUpdateSite);

@@ -99,7 +99,8 @@ begin
 
         UpdateConnection:=THTTPConnection.Create;
         try
-          UpdateConnection.GoOnline;
+          if not UpdateConnection.GoOnline then
+            raise Exception.Create('Unable to go online. Cannot install updates!');
           UpdateConnection.ConnectTo(QuArKUpdateSite);
 
           //Download new files
