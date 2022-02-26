@@ -245,7 +245,7 @@ def OptionsMenu():
 
     PlugIns = qmenu.item("List of Plug-ins...", Plugins1Click, "lists loaded plug-ins")
     Config1 = qmenu.item("Confi&guration...", Config1Click, hint = "|Configuration...:\n\nThis leads to the Configuration-Window where all elements of QuArK are setup. From the way the Editor looks and operates to Specific Game Configuration and Mapping or Modeling variables.\n\nBy pressing the F1 key one more time, or clicking the 'InfoBase' button below, you will be taken directly to the Infobase section that covers all of these areas, which can greatly assist you in setting up QuArK for a particular game you wish to map or model for.|intro.configuration.html")
-    Options1 = qmenu.popup("&Options", items+[qmenu.sep, PlugIns, Config1, qmenu.sep, consolelog, clearconsolelog], Options1Click)
+    Options1 = qmenu.popup("&Options", items+[qmenu.sep, PlugIns, Config1, qmenu.sep, consolelog, clearconsolelog], Options1Click) #FIXME: Move consolelog and clearconsolelog elsewhere... They make little sense here. They are more debugging options! In fact, they are more general. Move to MAIN window...?
 
     import plugins.mapgridscale #FIXME: Remove dependency!
     import plugins.mappolyrulers #FIXME: Remove dependency!
