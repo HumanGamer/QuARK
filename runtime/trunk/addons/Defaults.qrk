@@ -784,6 +784,66 @@ QQRKSRC1
         DecimalPlaces = '5'
       }
 
+      Daikatana:config =
+      {
+        CheckAddonInstalled = "1"
+        Game = "Daikatana"
+        Code = "F" // Hardcoded value in Setup.PAS
+
+        Program = "daikatana.exe"
+        Directory = "\Eidos Interactive\Daikatana"
+        CheckDirectory = "DAIKATANA.EXE"
+
+        CD = ""
+        CDDir = "Install\Data"
+
+        MapCommentsPrefix = ";"
+        OutputMapFormat = "Quark etp"
+        ForceFaceFlags = ""
+
+        BuildPgm1  = "TXQBSP3.EXE"
+        BuildArgs1 = ""
+        BuildCheck1= "+BSP,-LIN{LoadLinFile}"
+        BuildPgm2  = "TIMVIS3.EXE"
+        BuildArgs2 = ""
+        BuildPgm3  = "ARGHRAD.EXE"
+        BuildArgs3 = "-gamedir .. -moddir ."
+
+        TexturesPath = "textures"
+        Q2TexFlags = "1"
+
+        DefaultTexture = "e1u1/damage1_1"
+        DefaultTextureTrigger = "e1u1/trigger"
+        DefaultTextureOrigin = "e1u1/origin"
+        DefaultTextureClip = "e1u1/clip"
+        LightingInnerConeKeyword = "_cone"    // <-- ex: "" if game does not use or ex: "_cone" is the specifics name that gives the spotlight inter size.
+        LightingOuterConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone2" is the specifics name that gives the spotlight outer size.
+
+    //    TextureFormat = ".wal"
+        TextureFormat = ".pcx"                  // primary texture fileextension, to save model textures properly.
+        TextureFileExtensions = ".pcx,.wal"     // possible texture fileextensions
+        TextureWriteFormat = ".wal"
+
+        BaseDir = "data"
+        tmpQuArK = "tmpQuArK"
+
+        Palette = "pics/colormap.pcx"
+        Gradient = "pics/colormap.pcx"
+        UnifiedPalette = "1"
+        ExtractFiles = "pics/colormap.pcx"
+        ExtraCmdLine = "+set game %gamedir%"
+        RunMapCmdLine = "+map %filename%"
+        AddOns = "DataDK.qrk"$0D"DKEntities.qrk"$0D"DKTextures.qrk"
+        AlwaysPak = ""
+        PakExt = ".pak"
+        Console = "1"
+        LightFactor = '0.9'
+        3DLight = '512'
+        DecimalPlaces = '5'
+
+        Form = "GameDaikatana"
+      }
+
       Doom 3:config =
       {
         CheckAddonInstalled = "1"
@@ -4150,6 +4210,105 @@ QQRKSRC1
    //         $0D"be very slow to update itself, when changing"
    //         $0D"the scenery."
    //   }
+      sep:        = {Typ="S" Txt = ""}
+      sep:        = {Typ="S" Txt="---- Build Programs Execution Sequence ----"}
+      t_GameBuildPgms=!
+    }
+
+    GameDaikatana:form =
+    {
+      Style = "3"
+      sep: = {Typ="S" Txt="---- Game Settings ----"}
+      Program: = {
+        Typ = "C"     // combo box
+        Txt = "Daikatana command-line"
+        Items = "daikatana.EXE"
+        t_ProgramHint=!
+      }
+      Directory: =
+      {
+        Txt = "Directory of Daikatana"
+        Typ = "ED"      // Edit Directory
+        Hint = "Path to the game executable"
+        CheckFile = "DAIKATANA.EXE"
+      }
+      Templates: =
+      {
+        Txt = "Directory of Templates"
+        Typ = "ED"
+        Hint = "Path to the templates folder. A folder must be chosen"$0D"before any template functions can be used."
+      }
+      CD: =
+      {
+        Txt = "Daikatana CD-ROM drive"
+        Typ = "ED"      // Edit Directory
+        Hint = "If you installed Daikatana minimally, this is the drive of the CD-ROM."
+        CheckFile = "INSTALL\DATA\PAK0.PAK"
+      }
+      AddOns:tbbtn =       // button (don't forget :tbbtn for all the action buttons !)
+      {
+        Typ = "+"
+        Txt = "Installed Add-ons"
+        Cap = "Add-ons..."
+        Icon = $666008881111111866604441999799916660CCC1101111116660244404555548
+               $66602C2AA478887866602C4A24787F78666022AC48778878666022CC47888878
+               $666000407787877866608777777777784448444844487F785C77CF77CC487778
+               $5CC7C777CC488880055555555548870666608888888800666666666666666666
+        cmd:macro = {Typ="M" Msg="GAMF"}    // switches to Daikatana
+        cmd:macro = {Typ="M" Msg="ADDO"}    // opens Add-ons configuration dialog box
+      }
+      Outp:tbbtn =
+      {
+        Typ = "+"
+        Txt = "Paths and files to create"
+        Cap = "Output directories..."
+        Icon = $666660000066666666660232AA20666660003332ABA0206602303332ABB0
+               $FA0603303332ABB0FBA003303332AAB0FBB0033033222AA0FBB0033022AA
+               $A220FBB00322022AA2022AA002AA2022002AA2A00AAAA20022AAAA20602A
+               $0022002A200666002AAAA20006666666002A200666666666660006666666
+        cmd:macro = {Typ="M" Msg="GAMF"}    // switches to Daikatana
+        cmd:macro = {Typ="M" Msg="OUTP"}    // opens "Output directories" dialog box
+      }
+      sep: = {Typ="S" Txt = ""}
+      sep: = {Typ="S" Txt="---- Map-editor Settings ----"}
+      DefaultTexture: =
+      {
+        t_DefaultTexture = !
+        GameCfg = "Daikatana"
+      }
+      DefaultTextureTerrain: =
+      {
+        t_DefaultTextureTerrain = !
+        GameCfg = "Daikatana"
+      }
+      DefaultTextureTrigger: =
+      {
+        t_DefaultTextureTrigger = !
+        GameCfg = "Daikatana"
+      }
+      DefaultTextureClip: =
+      {
+        t_DefaultTextureClip = !
+        GameCfg = "Daikatana"
+      }
+      DefaultTextureOrigin: =
+      {
+        t_DefaultTextureOrigin = !
+        GameCfg = "Daikatana"
+      }
+      3DLight: =
+      {
+        Txt = "Game Light saturation"
+        Typ = "EF1"
+        Hint = "Larger values make darker scenes. Only works if lighting has been enabled."
+      }
+      DecimalPlaces: = {
+        Txt = "No. of decimal places for brushes and beziers."
+        Typ = "EF1"
+        Hint="Set for the number of decimals to write to the map file."$0D"The default for this game is 5 places."
+        Min = '1'
+        Max = '40'
+      }
       sep:        = {Typ="S" Txt = ""}
       sep:        = {Typ="S" Txt="---- Build Programs Execution Sequence ----"}
       t_GameBuildPgms=!

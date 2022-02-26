@@ -1,0 +1,21 @@
+QQRKSRC1
+// Daikatana textures file for QuArK
+
+{
+  QuArKProtected = "1"
+  Description = "Daikatana Textures"
+
+  Textures.qtx =
+  {
+    Toolbox = "Texture Browser..."
+    Root = "Daikatana Textures.qtxfolder"
+    HTML = "intro.texturebrowser.html"
+    Daikatana Textures.qtxfolder =
+    {
+      Dynamically Found.osfolder =
+      {
+        path = "data"
+      }
+    }
+  }
+}
