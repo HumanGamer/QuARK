@@ -407,9 +407,9 @@ SectionEnd
 !include "VisualCRuntimeGUIDs.nsh"
 
 Section "$(TEXT_SecVC2005Redist_TITLE)" SecVC2005Redist
-  Call _isInstalledVC2005
+  Call _isInstalledVC2005 ; FIXME: Check if dependency needs to be installed, and only check-by-default then! But ALLOW "reinstall"!
   Pop $0
-  ${If} $0 != 0
+  ${If} $0 == 0
     SetOutPath $TEMP
     File "${DEPENDENCYDIR}\VC2005SP1MFC\vcredist_x86.EXE"
     ExecWait "$TEMP\vcredist_x86.EXE /q:a /c:$\"msiexec /i vcredist.msi /qn REBOOT=ReallySuppress$\""
@@ -418,9 +418,9 @@ Section "$(TEXT_SecVC2005Redist_TITLE)" SecVC2005Redist
 SectionEnd
 
 ;Section "$(TEXT_SecVC2008Redist_TITLE)" SecVC2008Redist
-;  Call _isInstalledVC2008
+;  Call _isInstalledVC2008 ; FIXME: Check if dependency needs to be installed, and only check-by-default then! But ALLOW "reinstall"!
 ;  Pop $0
-;  ${If} $0 != 0
+;  ${If} $0 == 0
 ;    SetOutPath $TEMP
 ;    File "${DEPENDENCYDIR}\VC2008SP1MFC\vcredist_x86.exe"
 ;    ExecWait "$TEMP\vcredist_x86.exe /q"
@@ -429,9 +429,9 @@ SectionEnd
 ;SectionEnd
 
 Section "$(TEXT_SecVC2010Redist_TITLE)" SecVC2010Redist
-  Call _isInstalledVC2010
+  Call _isInstalledVC2010 ; FIXME: Check if dependency needs to be installed, and only check-by-default then! But ALLOW "reinstall"!
   Pop $0
-  ${If} $0 != 0
+  ${If} $0 == 0
     SetOutPath $TEMP
     File "${DEPENDENCYDIR}\VC2010SP1MFC\vcredist_x86.exe"
     ExecWait "$TEMP\vcredist_x86.exe /q /norestart"
@@ -440,9 +440,9 @@ Section "$(TEXT_SecVC2010Redist_TITLE)" SecVC2010Redist
 SectionEnd
 
 ;Section "$(TEXT_SecVC2013Redist_TITLE)" SecVC2013Redist
-;  Call _isInstalledVC2013
+;  Call _isInstalledVC2013 ; FIXME: Check if dependency needs to be installed, and only check-by-default then! But ALLOW "reinstall"!
 ;  Pop $0
-;  ${If} $0 != 0
+;  ${If} $0 == 0
 ;    SetOutPath $TEMP
 ;    File "${DEPENDENCYDIR}\VC2013_12.0.40664.0\vcredist_x86.exe"
 ;    ExecWait "$TEMP\vcredist_x86.exe /install /quiet /norestart"
