@@ -49,6 +49,7 @@ class MapEditor(BaseEditor):
 
     def __init__(self, form):
         self.pending = None
+        self.last3Dcameraposition = None
         BaseEditor.__init__(self, form)
 
 
@@ -74,6 +75,7 @@ class MapEditor(BaseEditor):
 
 
     def CloseRoot(self):
+        self.last3Dcameraposition = None
         if not (self.Root is None) and (IsBsp(self)):
             mod = self.Root.flags & OF_MODIFIED
             self.Root = None
@@ -196,6 +198,12 @@ class MapEditor(BaseEditor):
         if v.info["type"] == "3D":
             if self.last3Dcameraposition is not None:
                 v.cameraposition = self.last3Dcameraposition
+
+
+    def cameramoved(self, view):
+        BaseEditor.cameramoved(self, view)
+        if view.info["type"] == "3D":
+            self.last3Dcameraposition = view.cameraposition
 
 
     #

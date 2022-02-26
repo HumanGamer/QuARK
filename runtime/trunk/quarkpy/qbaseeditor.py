@@ -48,7 +48,6 @@ class BaseEditor:
         self.dragobject = None
         self.Root = None
         self.TexSource = None
-        self.last3Dcameraposition = None
         #self.drawmode = <from setupchanged()>
         #self.grid = <from setupchanged()>
         #self.gridstep = <from setupchanged()>
@@ -66,7 +65,6 @@ class BaseEditor:
         self.fileobject = form.fileobject
         self.Root = None
         self.TexSource = None
-        self.last3Dcameraposition = None
         self.OpenRoot()
         if self.layout is None:
             nlayoutname = quarkx.setupsubset(self.MODE, "Layouts")["_layout"]
@@ -781,8 +779,7 @@ class BaseEditor:
 
 
     def cameramoved(self, view):
-        if view.info["type"] == "3D":
-            self.last3Dcameraposition = view.cameraposition
+        pass
 
 
     def explorerselchange(self, ex=None):

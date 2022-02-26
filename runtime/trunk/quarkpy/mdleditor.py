@@ -45,6 +45,7 @@ class ModelEditor(BaseEditor):
     def __init__(self, form, file=None, filename=None):
         self.file = file
         self.filename = filename
+        self.last3Dcameraposition = None
         if form is not None:
             BaseEditor.__init__(self, form)
 
@@ -280,6 +281,7 @@ class ModelEditor(BaseEditor):
     def CloseRoot(self):
         import mdlanimation
         quarkx.settimer(mdlanimation.drawanimation, self, 0)
+        self.last3Dcameraposition = None
         global NewSellist, BonesSellist, mdleditor
         NewSellist = []
         BonesSellist = []
@@ -399,6 +401,12 @@ class ModelEditor(BaseEditor):
             for obj in self.Root.subitems:
                 if obj.type == ':mc':      # Expand the Component objects
                      nlayout.explorer.expand(obj)
+
+
+    def cameramoved(self, view):
+        BaseEditor.cameramoved(self, view)
+        if view.info["type"] == "3D":
+            self.last3Dcameraposition = view.cameraposition
 
 
     def ok(self, undo, msg, autoremove=[]):
