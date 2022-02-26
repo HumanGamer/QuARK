@@ -46,6 +46,12 @@ class MapEditor(BaseEditor):
     MouseDragMode = maphandles.RectSelDragObject
     Portals = []
 
+
+    def __init__(self, form):
+        self.pending = None
+        BaseEditor.__init__(self, form)
+
+
     def OpenRoot(self):
         self.tmpsaved = None
         if IsBsp(self):
@@ -65,6 +71,24 @@ class MapEditor(BaseEditor):
                 debug(' '+error)
             quarkx.msgbox(Strings[5770], MT_WARNING, MB_OK)
         self.AutoSave(0)
+
+
+    def CloseRoot(self):
+        if not (self.Root is None) and (IsBsp(self)):
+            mod = self.Root.flags & OF_MODIFIED
+            self.Root = None
+            if mod:
+                self.fileobject.reloadstructure()
+            self.fileobject.closestructure()
+        if self.pending is not None:
+            quarkx.settimer(autosave, self, 0)
+            del self.pending
+        if self.tmpsaved:
+            try:
+                quarkx.setfileattr(self.tmpsaved, -1)
+            except:
+                pass
+        quarkx.setupsubset(SS_MAP, "Options")['ConsoleLog'] = None
 
 
     def FrozenDragObject(self, view, x, y, s, redcolor):
@@ -116,35 +140,12 @@ class MapEditor(BaseEditor):
                 return qhandles.HandleDragObject(view, x, y, handle, redcolor)
 
 
-    def CloseRoot(self):
-        if not (self.Root is None) and (IsBsp(self)):
-            mod = self.Root.flags & OF_MODIFIED
-            self.Root = None
-            if mod:
-                self.fileobject.reloadstructure()
-            self.fileobject.closestructure()
-        try:
-            pending = self.pending
-        except:
-            pending = None
-        if pending:
-            quarkx.settimer(autosave, self, 0)
-            del self.pending
-        if self.tmpsaved:
-            try:
-                quarkx.setfileattr(self.tmpsaved, -1)
-            except:
-                pass
-        quarkx.setupsubset(SS_MAP, "Options")['ConsoleLog'] = None
-
-
     def initmenu(self, form):
         "Builds the menu bar."
         import mapmenus
         form.menubar, form.shortcuts = mapmenus.BuildMenuBar(self)
         quarkx.update(form)
         self.initquickkeys(mapmenus.QuickKeys)
-
 
 
     def setupchanged(self, level):
@@ -168,9 +169,9 @@ class MapEditor(BaseEditor):
                 time1 = 0.0
         else:
             time1 = autosavetime()
-        try:
+        if self.pending is not None:
             pending = self.pending
-        except:
+        else:
             pending = 0.0
         if (now is not None) or (time1 != pending):
             quarkx.settimer(autosave, self, int(time1))
