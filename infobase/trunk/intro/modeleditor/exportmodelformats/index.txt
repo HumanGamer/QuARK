@@ -1,14 +1,18 @@
 title: Exporting Model Formats
 author: cdunde
 desc: ase
+#desc: fm
+#desc: gr2
 desc: lwo
 desc: mdl
 desc: md2
 desc: md3
 desc: md5mesh
 desc: md5anim
+#desc: mdx
 desc: ska
 desc: skb
+#desc: stl
 desc: tan
 
 This is a special section that covers the Model Editor's model formats
