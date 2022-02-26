@@ -5,6 +5,7 @@
 ; Modern UI 2 ------
 !include MUI2.nsh
 !include LogicLib.nsh
+!include Sections.nsh
 !include WinVer.nsh
 SetCompress off ;To massively speed up starting the installer on older systems
 CRCCheck off ;To massively speed up starting the installer on older systems
@@ -363,17 +364,20 @@ VIAddVersionKey /LANG=${LANG_ARABIC} "ProductVersion" "${PRODUCT_VERSION_STRING}
 
 ; Windows NT SP3 installer ------
 
-Section "$(TEXT_SecWinNT4SP3_TITLE)" SecWinNT4SP3
+Function _isInstalledWinNT4SP3
   ${IfNot} ${IsWinNT4}
   ${OrIf} ${AtLeastServicePack} 3
-    Goto AlreadyInstalled
+    Push 1
+    Return
   ${EndIf}
+  Push 0
+FunctionEnd
 
+Section /o "$(TEXT_SecWinNT4SP3_TITLE)" SecWinNT4SP3
   SetOutPath $TEMP
   File "${DEPENDENCYDIR}\WinNT4\winnt40sp3.exe"
   ExecWait "$TEMP\winnt40sp3.exe"
   Delete "$TEMP\winnt40sp3.exe"
-AlreadyInstalled:
 SectionEnd
 
 
@@ -383,7 +387,7 @@ SectionEnd
 ; The VC++ Runtime SP1 2005 installer lowered the requirements to Windows Installer 2.0.
 ; https://docs.microsoft.com/en-us/windows/win32/msi/released-versions-of-windows-installer
 
-Section "$(TEXT_SecWinInstaller2_TITLE)" SecWinInstaller2
+Section /o "$(TEXT_SecWinInstaller2_TITLE)" SecWinInstaller2
   ${If} ${IsWin95}
   ${OrIf} ${IsWin98}
   ${OrIf} ${IsWinME}
@@ -406,77 +410,64 @@ SectionEnd
 
 !include "VisualCRuntimeGUIDs.nsh"
 
-Section "$(TEXT_SecVC2005Redist_TITLE)" SecVC2005Redist
-  Call _isInstalledVC2005 ; FIXME: Check if dependency needs to be installed, and only check-by-default then! But ALLOW "reinstall"!
-  Pop $0
-  ${If} $0 == 0
-    SetOutPath $TEMP
-    File "${DEPENDENCYDIR}\VC2005SP1MFC\vcredist_x86.EXE"
-    ExecWait "$TEMP\vcredist_x86.EXE /q:a /c:$\"msiexec /i vcredist.msi /qn REBOOT=ReallySuppress$\""
-    Delete "$TEMP\vcredist_x86.EXE"
-  ${EndIf}
+Section /o "$(TEXT_SecVC2005Redist_TITLE)" SecVC2005Redist
+  SetOutPath $TEMP
+  File "${DEPENDENCYDIR}\VC2005SP1MFC\vcredist_x86.EXE"
+  ExecWait "$TEMP\vcredist_x86.EXE /q:a /c:$\"msiexec /i vcredist.msi /qn REBOOT=ReallySuppress$\""
+  Delete "$TEMP\vcredist_x86.EXE"
 SectionEnd
 
-;Section "$(TEXT_SecVC2008Redist_TITLE)" SecVC2008Redist
-;  Call _isInstalledVC2008 ; FIXME: Check if dependency needs to be installed, and only check-by-default then! But ALLOW "reinstall"!
-;  Pop $0
-;  ${If} $0 == 0
-;    SetOutPath $TEMP
-;    File "${DEPENDENCYDIR}\VC2008SP1MFC\vcredist_x86.exe"
-;    ExecWait "$TEMP\vcredist_x86.exe /q"
-;    Delete "$TEMP\vcredist_x86.exe"
-;  {$EndIf}
+;Section /o "$(TEXT_SecVC2008Redist_TITLE)" SecVC2008Redist
+;  SetOutPath $TEMP
+;  File "${DEPENDENCYDIR}\VC2008SP1MFC\vcredist_x86.exe"
+;  ExecWait "$TEMP\vcredist_x86.exe /q"
+;  Delete "$TEMP\vcredist_x86.exe"
 ;SectionEnd
 
-Section "$(TEXT_SecVC2010Redist_TITLE)" SecVC2010Redist
-  Call _isInstalledVC2010 ; FIXME: Check if dependency needs to be installed, and only check-by-default then! But ALLOW "reinstall"!
-  Pop $0
-  ${If} $0 == 0
-    SetOutPath $TEMP
-    File "${DEPENDENCYDIR}\VC2010SP1MFC\vcredist_x86.exe"
-    ExecWait "$TEMP\vcredist_x86.exe /q /norestart"
-    Delete "$TEMP\vcredist_x86.exe"
-  ${EndIf}
+Section /o "$(TEXT_SecVC2010Redist_TITLE)" SecVC2010Redist
+  SetOutPath $TEMP
+  File "${DEPENDENCYDIR}\VC2010SP1MFC\vcredist_x86.exe"
+  ExecWait "$TEMP\vcredist_x86.exe /q /norestart"
+  Delete "$TEMP\vcredist_x86.exe"
 SectionEnd
 
-;Section "$(TEXT_SecVC2013Redist_TITLE)" SecVC2013Redist
-;  Call _isInstalledVC2013 ; FIXME: Check if dependency needs to be installed, and only check-by-default then! But ALLOW "reinstall"!
-;  Pop $0
-;  ${If} $0 == 0
-;    SetOutPath $TEMP
-;    File "${DEPENDENCYDIR}\VC2013_12.0.40664.0\vcredist_x86.exe"
-;    ExecWait "$TEMP\vcredist_x86.exe /install /quiet /norestart"
-;    Delete "$TEMP\vcredist_x86.exe"
-;  {$EndIf}
+;Section /o "$(TEXT_SecVC2013Redist_TITLE)" SecVC2013Redist
+;  SetOutPath $TEMP
+;  File "${DEPENDENCYDIR}\VC2013_12.0.40664.0\vcredist_x86.exe"
+;  ExecWait "$TEMP\vcredist_x86.exe /install /quiet /norestart"
+;  Delete "$TEMP\vcredist_x86.exe"
 ;SectionEnd
 
 
 
 ; Internet Explorer 4 installer ------
 
-Section "$(TEXT_SecIE4SP2_TITLE)" SecIE4SP2
+;Official documentation says:
+;- For Microsoft Windows NT:
+;  You must be running Service Pack 3 (or higher)
+
+Function _isInstalledIE4SP2
   ${IfNot} ${IsWin95}
   ${AndIfNot} ${IsWinNT4}
-    Goto AlreadyInstalled
+    Push 1
+    Return
   ${EndIf}
 
   ;Windows 95C and higher already include IE4
   ${If} ${IsWin95}
   ${AndIf} ${AtMostServicePack} 2
-    Goto AlreadyInstalled
+    Push 1
+    Return
   ${EndIf}
+  Push 0
+FunctionEnd
 
-  ;Official documentation says:
-  ;- For Microsoft Windows NT:
-  ;  You must be running Service Pack 3 (or higher)
-  ;Call SecWinNT4SP3
-
+Section /o "$(TEXT_SecIE4SP2_TITLE)" SecIE4SP2
   SetOutPath $TEMP
   File "${DEPENDENCYDIR}\Microsoft Internet Explorer 4.01 SP2\*.*"
   ExecWait "$TEMP\IE4SETUP.EXE /Q /T:$\"$TEMP\IE4Setup$\"" ;FIXME: Untested if this actually installs too, or only extracts!
   Delete "$TEMP\*.*"
   RMDir /r $TEMP\IE4Setup
-AlreadyInstalled:
 SectionEnd
 
 
@@ -485,7 +476,7 @@ SectionEnd
 
 ; https://aka.ms/dxsetup
 
-Section "$(TEXT_SecDirectX9_TITLE)" SecDirectX9
+Section /o "$(TEXT_SecDirectX9_TITLE)" SecDirectX9
   ;Note: Not supported on Windows 95 or NT 4.
   ${If} ${IsWin98}
   ${OrIf} ${IsWinME}
@@ -537,4 +528,70 @@ SectionEnd
 
 Function .onInit
   !insertmacro MUI_LANGDLL_DISPLAY
+
+  Call _isInstalledIE4SP2
+  Pop $0
+  ${If} $0 == 0
+    SectionGetFlags ${SecIE4SP2} $0
+    IntOp $0 $0 | ${SF_SELECTED}
+    SectionSetFlags ${SecIE4SP2} $0
+
+    Call _isInstalledWinNT4SP3
+    Pop $0
+    ${If} $0 == 0
+      SectionGetFlags ${SecWinNT4SP3} $0
+      IntOp $0 $0 | ${SF_SELECTED}
+      SectionSetFlags ${SecWinNT4SP3} $0
+    ${EndIf}
+  ${EndIf}
+
+  Call _isInstalledVC2005
+  Pop $0
+  ${If} $0 == 0
+    SectionGetFlags ${SecVC2005Redist} $0
+    IntOp $0 $0 | ${SF_SELECTED}
+    SectionSetFlags ${SecVC2005Redist} $0
+
+    SectionGetFlags ${SecWinInstaller2} $0
+    IntOp $0 $0 | ${SF_SELECTED}
+    SectionSetFlags ${SecWinInstaller2} $0
+  ${EndIf}
+
+;  Call _isInstalledVC2008
+;  Pop $0
+;  ${If} $0 == 0
+;    SectionGetFlags ${SecVC2008Redist} $0
+;    IntOp $0 $0 | ${SF_SELECTED}
+;    SectionSetFlags ${SecVC2008Redist} $0
+;
+;    SectionGetFlags ${SecWinInstaller2} $0
+;    IntOp $0 $0 | ${SF_SELECTED}
+;    SectionSetFlags ${SecWinInstaller2} $0
+;  {$EndIf}
+
+  Call _isInstalledVC2010
+  Pop $0
+  ${If} $0 == 0
+    SectionGetFlags ${SecVC2010Redist} $0
+    IntOp $0 $0 | ${SF_SELECTED}
+    SectionSetFlags ${SecVC2010Redist} $0
+
+    SectionGetFlags ${SecWinInstaller2} $0
+    IntOp $0 $0 | ${SF_SELECTED}
+    SectionSetFlags ${SecWinInstaller2} $0
+  ${EndIf}
+
+;  Call _isInstalledVC2013
+;  Pop $0
+;  ${If} $0 == 0
+;    SectionGetFlags ${SecVC2013Redist} $0
+;    IntOp $0 $0 | ${SF_SELECTED}
+;    SectionSetFlags ${SecVC2013Redist} $0
+;
+;    SectionGetFlags ${SecWinInstaller2} $0
+;    IntOp $0 $0 | ${SF_SELECTED}
+;    SectionSetFlags ${SecWinInstaller2} $0
+;  ${EndIf}
+
+  ;FIXME: Do for DirectX 9 as well!
 FunctionEnd
