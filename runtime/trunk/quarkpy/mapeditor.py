@@ -44,7 +44,6 @@ class MapEditor(BaseEditor):
     ObjectMgr = mapentities.CallManager
     HandlesModule = maphandles
     MouseDragMode = maphandles.RectSelDragObject
-    Portals = []
 
 
     def __init__(self, form):

@@ -134,5 +134,18 @@ def DrawLines(editor, view, oldFinishDrawing = mapeditor.MapEditor.finishdrawing
         pass
     oldFinishDrawing(editor, view)
 
-
 mapeditor.MapEditor.finishdrawing = DrawLines
+
+
+def newopenroot(self, oldopenroot = quarkpy.mapeditor.MapEditor.OpenRoot.im_func):
+  oldopenroot(self)
+  self.Portals = []
+
+quarkpy.mapeditor.MapEditor.OpenRoot = newopenroot
+
+
+def newcloseroot(self, oldcloseroot = quarkpy.mapeditor.MapEditor.CloseRoot.im_func):
+  oldcloseroot(self)
+  self.Portals = []
+
+quarkpy.mapeditor.MapEditor.CloseRoot = newcloseroot
