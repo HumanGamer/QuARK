@@ -333,6 +333,8 @@ class ModelEditor(BaseEditor):
 
     def setupchanged(self, level):
         BaseEditor.setupchanged(self, level)
+        if self.layout is not None:
+            self.initmenu(self.form)
         mdlhandles.vertexdotcolor = MapColor("Vertices", SS_MODEL)
         mdlhandles.drag3Dlines = MapColor("Drag3DLines", SS_MODEL)
         mdlhandles.vertexsellistcolor = MapColor("VertexSelListColor", SS_MODEL)

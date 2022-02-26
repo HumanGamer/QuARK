@@ -152,13 +152,8 @@ class MapEditor(BaseEditor):
         "Update the setup-dependent parameters."
         quarkx.setpoolobj("BoundingBoxes", None)
         BaseEditor.setupchanged(self, level)
-        try:
+        if self.layout is not None:
             self.initmenu(self.form)
-            quarkx.update(self.form)
-        except:
-            pass
-        import mapmenus
-        self.initquickkeys(mapmenus.QuickKeys)
         self.AutoSave(None)
 
 
