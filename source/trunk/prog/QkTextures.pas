@@ -929,6 +929,8 @@ begin
           if Link=Nil then
             Raise EErrorFmt(5755, [TexName, Arg]);
         end
+        else if CharModeJeu=mjDK then
+          Link:=NeedGameFileBase(S, ConcatPaths([GameTexturesPath, TexName+GameBuffer(mjDK)^.TextureExt]), '') as QPixelSet
         else
           Link:=NeedGameFileBase(S, ConcatPaths([GameTexturesPath, TexName+GameBuffer(StdGameTextureLinks[I].GameMode)^.TextureExt]), '') as QPixelSet;
 
