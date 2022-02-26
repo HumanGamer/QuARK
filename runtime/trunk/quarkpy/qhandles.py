@@ -855,6 +855,7 @@ class DragObject:
     redimages = None
     handle = None
     hint = None
+    InfiniteMouse = 0
 
     def __init__(self, view, x, y):
         self.view = view
@@ -1386,7 +1387,7 @@ class FreeZoomDragObject(DragObject):
     AbsoluteMinimum = 0.001
     AbsoluteMaximum = 100.0
     InfiniteMouse   = 1
-    # MODE required !
+    #Note: MODE required!
 
     def __init__(self, viewlist, view, x, y):
         DragObject.__init__(self, view, x, y)
@@ -1527,7 +1528,7 @@ class WalkDragObject(AnimatedDragObject):
         # Read sensitivity (neg. numbers invert movements).
         #
         setup = quarkx.setupsubset(SS_GENERAL, "3D view")
-        self.f0 = setup["MouseHLook"][0] * 0.0006, setup["MouseWalk"][0] * 0.32
+        self.f0 = setup["MouseHLook"][0] * 0.0006, setup["MouseWalk"][0] * 0.32 #FIXME: Hardcoded values...?
 
     def dragto(self, x, y, flags):
         x = self.x0-x

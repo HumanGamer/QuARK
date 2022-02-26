@@ -35,8 +35,8 @@ def drawview(view,mapobj,mode=0):
 
 class BaseEditor:
 
-    MouseDragMode = None
-    # MODE required !
+    MouseDragMode = None #FIXME: Shouldn't this be inside __init__?
+    #Note: MODE required!
 
     def __init__(self, form):
         "Called when there is a map/model to display."
@@ -1348,11 +1348,8 @@ class BaseEditor:
                     self.dragobject.lastdrag=time.clock(),x,y
                     if self.dragobject.hint is not None:
                         self.showhint(self.dragobject.hint)
-                    try:
-                        if self.dragobject.InfiniteMouse:
-                            return 2 - (not MapOption("HideMouseDrag", self.MODE))
-                    except:
-                        pass
+                    if self.dragobject.InfiniteMouse:
+                        return 2 - (not MapOption("HideMouseDrag", self.MODE))
                 except:
                     pass
 
