@@ -82,7 +82,7 @@ class MapEditor(BaseEditor):
             self.fileobject.closestructure()
         if self.pending is not None:
             quarkx.settimer(autosave, self, 0)
-            del self.pending
+            self.pending = None
         if self.tmpsaved:
             try:
                 quarkx.setfileattr(self.tmpsaved, -1)
