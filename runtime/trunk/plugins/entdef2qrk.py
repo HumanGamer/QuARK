@@ -155,7 +155,7 @@ class Entity:
         self.m_keys = []
         self.m_inherit = []
         self.m_size = None
-        self.m_color = None
+        self.m_color = None #FIXME: Not used?
         self.m_help = None
 
     def Type(self):

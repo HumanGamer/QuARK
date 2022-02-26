@@ -199,7 +199,7 @@ class KeyChoices(Key):
         it = ""
         vl = ""
         c = 0
-        for value, desc, hint in self.m_choices:
+        for value, desc, hint in self.m_choices: #FIXME: Use hint?
           it = it + desc
           vl = vl + value
           c = c + 1
@@ -221,7 +221,9 @@ class Entity:
         self.m_keys = []
         self.m_inherit = []
         self.m_size = None
-        self.m_color = None
+        self.m_color = None #FIXME: Not used?
+        #self.m_offset = None #FIXME: Need to use?
+        #bbox( min,max ) #FIXME: Sets the size of the entity's bounding box.
         self.m_help = None #JackHammer dialect
 
     def Type(self):
@@ -237,7 +239,7 @@ class Entity:
         self.m_desc += desc
 
     def SetHelp(self, helpstring):
-        self.m_help = helpstring
+        self.m_help = helpstring #FIXME: Use somewhere?
 
     def SetSize(self, sizeargs):
         if (len(sizeargs) == 6):
@@ -407,6 +409,7 @@ def EndInherit(token):
             theEntity.InheritsFrom(arg)
     elif (currentinherit == "size"):
         theEntity.SetSize(currentinheritargs)
+        #FIXME: inherit color? offset?
     else:
         pass
     currentinherit = None
