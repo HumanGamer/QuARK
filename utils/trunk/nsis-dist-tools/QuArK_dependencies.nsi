@@ -404,42 +404,6 @@ SectionEnd
 
 
 
-; Visual C++ redistributable installers ------
-
-; See: https://docs.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist
-
-!include "VisualCRuntimeGUIDs.nsh"
-
-Section /o "$(TEXT_SecVC2005Redist_TITLE)" SecVC2005Redist
-  SetOutPath $TEMP
-  File "${DEPENDENCYDIR}\VC2005SP1MFC\vcredist_x86.EXE"
-  ExecWait "$TEMP\vcredist_x86.EXE /q:a /c:$\"msiexec /i vcredist.msi /qn REBOOT=ReallySuppress$\""
-  Delete "$TEMP\vcredist_x86.EXE"
-SectionEnd
-
-;Section /o "$(TEXT_SecVC2008Redist_TITLE)" SecVC2008Redist
-;  SetOutPath $TEMP
-;  File "${DEPENDENCYDIR}\VC2008SP1MFC\vcredist_x86.exe"
-;  ExecWait "$TEMP\vcredist_x86.exe /q"
-;  Delete "$TEMP\vcredist_x86.exe"
-;SectionEnd
-
-Section /o "$(TEXT_SecVC2010Redist_TITLE)" SecVC2010Redist
-  SetOutPath $TEMP
-  File "${DEPENDENCYDIR}\VC2010SP1MFC\vcredist_x86.exe"
-  ExecWait "$TEMP\vcredist_x86.exe /q /norestart"
-  Delete "$TEMP\vcredist_x86.exe"
-SectionEnd
-
-;Section /o "$(TEXT_SecVC2013Redist_TITLE)" SecVC2013Redist
-;  SetOutPath $TEMP
-;  File "${DEPENDENCYDIR}\VC2013_12.0.40664.0\vcredist_x86.exe"
-;  ExecWait "$TEMP\vcredist_x86.exe /install /quiet /norestart"
-;  Delete "$TEMP\vcredist_x86.exe"
-;SectionEnd
-
-
-
 ; Internet Explorer 4 installer ------
 
 ;Official documentation says:
@@ -453,9 +417,11 @@ Function _isInstalledIE4SP2
     Return
   ${EndIf}
 
-  ;Windows 95C and higher already include IE4
+  ;Windows 95C (version 4.03.1216) and higher already include IE4
+  ;Note: WinVer.nsh's service pack code doesn't work for Windows 95 OSR's
+  ${WinVerGetMinor} $0
   ${If} ${IsWin95}
-  ${AndIf} ${AtMostServicePack} 2
+  ${AndIf} $0 > 2
     Push 1
     Return
   ${EndIf}
@@ -469,6 +435,59 @@ Section /o "$(TEXT_SecIE4SP2_TITLE)" SecIE4SP2
   Delete "$TEMP\*.*"
   RMDir /r $TEMP\IE4Setup
 SectionEnd
+
+
+
+; Visual C++ redistributable installers ------
+
+; See: https://docs.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist
+
+; Note that (at least) the VC2010 installer needs Internet Explorer 3.02 to be installed.
+
+!include "VisualCRuntimeGUIDs.nsh"
+
+Section /o "$(TEXT_SecVC2005Redist_TITLE)" SecVC2005Redist
+  SetOutPath $TEMP
+  File "${DEPENDENCYDIR}\VC2005SP1MFC\vcredist_x86.EXE"
+  ExecWait "$TEMP\vcredist_x86.EXE /q:a /c:$\"msiexec /i vcredist.msi /qn REBOOT=ReallySuppress$\""
+  Delete "$TEMP\vcredist_x86.EXE"
+SectionEnd
+
+;Section /o "$(TEXT_SecVC2008Redist_TITLE)" SecVC2008Redist
+;  SetOutPath $TEMP
+;  File "${DEPENDENCYDIR}\VC2008SP1MFC\vcredist_x86.exe"
+;  StrCpy $0 0
+;  IfFileExists $SYSDIR\msvcrt.dll +2 0
+;  File "${DEPENDENCYDIR}\MSVCRT\6.0.8797.0\msvcrt.dll"
+;  StrCpy $0 1
+;  ExecWait "$TEMP\vcredist_x86.exe /q"
+;  Delete "$TEMP\vcredist_x86.exe"
+;  ${If} $0 != 0
+;    Delete "$TEMP\msvcrt.dll"
+;  ${EndIf}
+;SectionEnd
+
+Section /o "$(TEXT_SecVC2010Redist_TITLE)" SecVC2010Redist
+  SetOutPath $TEMP
+  File "${DEPENDENCYDIR}\VC2010SP1MFC\vcredist_x86.exe"
+  StrCpy $0 0
+  IfFileExists $SYSDIR\msvcrt.dll +2 0
+  File "${DEPENDENCYDIR}\MSVCRT\6.0.8797.0\msvcrt.dll"
+  StrCpy $0 1
+  MessageBox MB_ICONEXCLAMATION|MB_OK "!!!"
+  ExecWait "$TEMP\vcredist_x86.exe /q /norestart"
+  Delete "$TEMP\vcredist_x86.exe"
+  ${If} $0 != 0
+    Delete "$TEMP\msvcrt.dll"
+  ${EndIf}
+SectionEnd
+
+;Section /o "$(TEXT_SecVC2013Redist_TITLE)" SecVC2013Redist
+;  SetOutPath $TEMP
+;  File "${DEPENDENCYDIR}\VC2013_12.0.40664.0\vcredist_x86.exe"
+;  ExecWait "$TEMP\vcredist_x86.exe /install /quiet /norestart"
+;  Delete "$TEMP\vcredist_x86.exe"
+;SectionEnd
 
 
 
@@ -548,11 +567,11 @@ SectionEnd
 !insertmacro MUI_FUNCTION_DESCRIPTION_BEGIN
   !insertmacro MUI_DESCRIPTION_TEXT ${SecWinNT4SP3} "$(TEXT_SecWinNT4SP3_DESC)"
   !insertmacro MUI_DESCRIPTION_TEXT ${SecWinInstaller2} "$(TEXT_SecWinInstaller2_DESC)"
+  !insertmacro MUI_DESCRIPTION_TEXT ${SecIE4SP2} "$(TEXT_SecIE4SP2_DESC)"
   !insertmacro MUI_DESCRIPTION_TEXT ${SecVC2005Redist} "$(TEXT_SecVC2005Redist_DESC)"
   ;!insertmacro MUI_DESCRIPTION_TEXT ${SecVC2008Redist} "$(TEXT_SecVC2008Redist_DESC)"
   !insertmacro MUI_DESCRIPTION_TEXT ${SecVC2010Redist} "$(TEXT_SecVC2010Redist_DESC)"
   ;!insertmacro MUI_DESCRIPTION_TEXT ${SecVC2013Redist} "$(TEXT_SecVC2013Redist_DESC)"
-  !insertmacro MUI_DESCRIPTION_TEXT ${SecIE4SP2} "$(TEXT_SecIE4SP2_DESC)"
   !insertmacro MUI_DESCRIPTION_TEXT ${SecDirectX9} "$(TEXT_SecDirectX9_DESC)"
 !insertmacro MUI_FUNCTION_DESCRIPTION_END
 
