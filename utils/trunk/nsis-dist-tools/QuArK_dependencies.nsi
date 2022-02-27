@@ -476,6 +476,36 @@ SectionEnd
 
 ; https://aka.ms/dxsetup
 
+; Based on: https://nsis.sourceforge.io/Detect_DirectX_Version
+; Registry key only works for DirectX <= 9
+
+Function _isInstalledDirectX9
+  ;Pretend Windows 95 and NT 4 already have DirectX 9, so we don't try to install it.
+  ${If} ${IsWin95}
+  ${OrIf} ${IsWinNT4}
+    Push 1
+    Return
+  ${EndIf}
+
+  ;Windows 8 was released after DirectX 9's latest version.
+  ${If} ${AtLeastWin8}
+    Push 1
+    Return
+  ${EndIf}
+
+  ClearErrors
+  ReadRegStr $0 HKLM "Software\Microsoft\DirectX" "Version"
+  IfErrors 0 AlreadyInstalled
+  Push 0
+  Return
+AlreadyInstalled:
+  StrCmp $0 "4.09.00.0904" RightVersion
+  Push 0
+  Return
+RightVersion:
+  Push 1
+FunctionEnd
+
 Section /o "$(TEXT_SecDirectX9_TITLE)" SecDirectX9
   ;Note: Not supported on Windows 95 or NT 4.
   ${If} ${IsWin98}
@@ -593,5 +623,11 @@ Function .onInit
 ;    SectionSetFlags ${SecWinInstaller2} $0
 ;  ${EndIf}
 
-  ;FIXME: Do for DirectX 9 as well!
+  Call _isInstalledDirectX9
+  Pop $0
+  ${If} $0 == 0
+    SectionGetFlags ${SecDirectX9} $0
+    IntOp $0 $0 | ${SF_SELECTED}
+    SectionSetFlags ${SecDirectX9} $0
+  ${EndIf}
 FunctionEnd
