@@ -474,7 +474,6 @@ Section /o "$(TEXT_SecVC2010Redist_TITLE)" SecVC2010Redist
   IfFileExists $SYSDIR\msvcrt.dll +2 0
   File "${DEPENDENCYDIR}\MSVCRT\6.0.8797.0\msvcrt.dll"
   StrCpy $0 1
-  MessageBox MB_ICONEXCLAMATION|MB_OK "!!!"
   ExecWait "$TEMP\vcredist_x86.exe /q /norestart"
   Delete "$TEMP\vcredist_x86.exe"
   ${If} $0 != 0
