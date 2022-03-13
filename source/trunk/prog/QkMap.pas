@@ -124,7 +124,7 @@ uses
   Setup, Undo, Quarkx, qmatrices, Qk3D, PyMath, QkQuakeMap, QkApplPaths,
   Graphics, StrUtils, Game, QkExceptions, Travail, QkConsts, Logging, PyControls,
   PyForms, Bezier, QkMesh, Duplicator, QkPixelSet, Qk6DX, QkVMF, QkSylphis, QkQ2,
-  { tiglari } QkSin, { /tiglari } MapError, PixelSetSizeCache, QkObjectClassList;
+  QkSin, MapError, PixelSetSizeCache, QkObjectClassList;
 
 const
   MAX_PRECISION = 18; //Delphi 7 caps the precision at 18
@@ -3394,7 +3394,7 @@ var
 {   for I:=1 to 3 do
    begin
      R:=P[I]/EchelleTexture;
-     S:=S+FloatToStrF(R, ffFixed, MAX_PRECISION, DecimalPlaces)+' ';
+     S:=S+FloatToStrF(R, ffFixed, MAX_PRECISION, MapSaveSettings.DecimalPlaces)+' ';
    end;
 }   S:=S+') ';
   end;
@@ -3408,31 +3408,28 @@ var
     Dot22, Dot23, Dot33, Mdet,aa, bb, dd : Double; // from zoner's
     QV0, QV1, UAxis, VAxis : TVect; // from Zoners
     Size: TPoint;
-    DecimalPlaces : Integer;
 
     procedure write4vect(const V: TVect; D : Double; var S: String);
     begin
       S:=S+' [ ';
-      S:=S+FloatToStrF(V.X, ffFixed, MAX_PRECISION, DecimalPlaces)+' ';
-      S:=S+FloatToStrF(V.Y, ffFixed, MAX_PRECISION, DecimalPlaces)+' ';
-      S:=S+FloatToStrF(V.Z, ffFixed, MAX_PRECISION, DecimalPlaces)+' ';
-      S:=S+FloatToStrF(D, ffFixed, MAX_PRECISION, DecimalPlaces)+' ';
+      S:=S+FloatToStrF(V.X, ffFixed, MAX_PRECISION, MapSaveSettings.DecimalPlaces)+' ';
+      S:=S+FloatToStrF(V.Y, ffFixed, MAX_PRECISION, MapSaveSettings.DecimalPlaces)+' ';
+      S:=S+FloatToStrF(V.Z, ffFixed, MAX_PRECISION, MapSaveSettings.DecimalPlaces)+' ';
+      S:=S+FloatToStrF(D, ffFixed, MAX_PRECISION, MapSaveSettings.DecimalPlaces)+' ';
       S:=S+'] ';
     end;
 
     procedure write4vectHL2(const V: TVect; D : Double; var S: String);
     begin
       S:=S+'[';
-      S:=S+FloatToStrF(V.X, ffFixed, MAX_PRECISION, DecimalPlaces)+' ';
-      S:=S+FloatToStrF(V.Y, ffFixed, MAX_PRECISION, DecimalPlaces)+' ';
-      S:=S+FloatToStrF(V.Z, ffFixed, MAX_PRECISION, DecimalPlaces)+' ';
-      S:=S+FloatToStrF(D, ffFixed, MAX_PRECISION, DecimalPlaces);
+      S:=S+FloatToStrF(V.X, ffFixed, MAX_PRECISION, MapSaveSettings.DecimalPlaces)+' ';
+      S:=S+FloatToStrF(V.Y, ffFixed, MAX_PRECISION, MapSaveSettings.DecimalPlaces)+' ';
+      S:=S+FloatToStrF(V.Z, ffFixed, MAX_PRECISION, MapSaveSettings.DecimalPlaces)+' ';
+      S:=S+FloatToStrF(D, ffFixed, MAX_PRECISION, MapSaveSettings.DecimalPlaces);
       S:=S+']';
     end;
 
   begin
-    DecimalPlaces := MapSaveSettings.DecimalPlaces;
-
     Plan:=PointsToPlane(Normale);
     case Plan of
      'X' : Axis := MakeVect(1, 0, 0);
@@ -3557,10 +3554,10 @@ var
 
       S:=S+#13#10'    "uaxis" "';
       write4vectHL2(QV0, UOff, S);
-      S:=S+' '+FloatToStrF(S1, ffFixed, MAX_PRECISION, DecimalPlaces)+'"';
+      S:=S+' '+FloatToStrF(S1, ffFixed, MAX_PRECISION, MapSaveSettings.DecimalPlaces)+'"';
       S:=S+#13#10'    "vaxis" "';
       write4vectHL2(QV1, VOff, S);
-      S:=S+' '+FloatToStrF(S2, ffFixed, MAX_PRECISION, DecimalPlaces)+'"';
+      S:=S+' '+FloatToStrF(S2, ffFixed, MAX_PRECISION, MapSaveSettings.DecimalPlaces)+'"';
     end
     else
     begin
@@ -3578,9 +3575,9 @@ var
       S2:=1.0/S2;
 
       S:=S+' 0 ';
-      S:=S+' '+FloatToStrF(S1, ffFixed, MAX_PRECISION, DecimalPlaces);
+      S:=S+' '+FloatToStrF(S1, ffFixed, MAX_PRECISION, MapSaveSettings.DecimalPlaces);
       { sign flip engineered into Scale }
-      S:=S+' '+FloatToStrF(S2, ffFixed, MAX_PRECISION, DecimalPlaces);
+      S:=S+' '+FloatToStrF(S2, ffFixed, MAX_PRECISION, MapSaveSettings.DecimalPlaces);
     end;
 
   end;
@@ -4000,13 +3997,13 @@ begin
    Q.AddRef(+1);
    try
     { these function below updates S }
-    StashFloatFlag('friction',2);     //for flags stored as floats
-    StashFloatFlag('restitution',2);
+    StashFloatFlag('friction', 2);     //for flags stored as floats
+    StashFloatFlag('restitution', 2);
     StashIntFlag('direct');        //stash string as float
     StashIntFlag('directangle');
     StashStrFlag('directstyle');   //stash string as string
-    StashFloatFlag('translucence',2);
-    StashFloatFlag('trans_mag',2);
+    StashFloatFlag('translucence', 2);
+    StashFloatFlag('trans_mag', 2);
     StashFloatFlag('animtime', 2);
     StashIntFlag('trans_angle');
     StashStrFlag('color');
@@ -4137,11 +4134,8 @@ var
  TextureName: String;
  SubDivisions: array[0..1] of Single;
  HorzSubDiv, VertSubDiv: Integer;
- DecimalPlaces: Integer;
 begin
  ResolveMapSaveSettings(MapSaveSettings);
-
- DecimalPlaces := MapSaveSettings.DecimalPlaces;
 
  with TBezier(ObjectToSave) do
  begin
@@ -4225,7 +4219,7 @@ begin
          {if WriteIntegers then
           S:=S+IntToStr(Round(Value^))+' '
          else}
-          S:=S+ftosp(Value^, DecimalPlaces)+' ';
+          S:=S+ftosp(Value^, MapSaveSettings.DecimalPlaces)+' ';
          Inc(Value);
         end;
        if MapSaveSettings.PatchDefVersion>= 5 then
