@@ -1778,7 +1778,8 @@ end;
 
 procedure QObject.SaveFile(Info: TInfoEnreg1);
 var
-  Origin, I, J, FileItemCount, Size, Size2: Integer;
+  I, J, FileItemCount, Size, Size2: Integer;
+  Origin: TStreamPos;
   FileItemInfo, ItemInfo: PFileItemInfo;
   S, S1, Names, ExtraSizes: String;
   Q: QObject;
