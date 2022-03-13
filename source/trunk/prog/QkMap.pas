@@ -126,6 +126,9 @@ uses
   PyForms, Bezier, QkMesh, Duplicator, QkPixelSet, Qk6DX, QkVMF, QkSylphis, QkQ2,
   { tiglari } QkSin, { /tiglari } MapError, PixelSetSizeCache, QkObjectClassList;
 
+const
+  MAX_PRECISION = 18; //Delphi 7 caps the precision at 18
+
 {$R *.DFM}
 
  {------------------------}
@@ -2821,9 +2824,9 @@ begin
     S:=S+' surfaceLight '+S1;
   if F.GetFloatsSpec('surfaceColor',Single3) then
   begin
-    S:=S+' surfaceColor '+FloatToStrF(Single3[1], ffFixed, 20, 6);
-    S:=S+' '+FloatToStrF(Single3[2], ffFixed, 20, 6);
-    S:=S+' '+FloatToStrF(Single3[3], ffFixed, 20, 6);
+    S:=S+' surfaceColor '+FloatToStrF(Single3[1], ffFixed, MAX_PRECISION, 6);
+    S:=S+' '+FloatToStrF(Single3[2], ffFixed, MAX_PRECISION, 6);
+    S:=S+' '+FloatToStrF(Single3[3], ffFixed, MAX_PRECISION, 6);
   end;
   S1:=F.Specifics.Values['surfaceAngle'];
   if (S1<>'') then
@@ -2833,10 +2836,10 @@ begin
     S:=S+' surfaceDensity '+S1;
   rval:=F.GetFloatSpec('subdivisions',0);
   if (rval<>0) then
-    S:=S+' subdivisions '+FloatToStrF(rval, ffFixed, 20, 6);
+    S:=S+' subdivisions '+FloatToStrF(rval, ffFixed, MAX_PRECISION, 6);
   rval:=F.GetFloatSpec('tesselation',0);
   if (rval<>0) then
-    S:=S+' tesselation '+FloatToStrF(rval, ffFixed, 20, 6);
+    S:=S+' tesselation '+FloatToStrF(rval, ffFixed, MAX_PRECISION, 6);
 end;
 
  {------------------------}
@@ -3384,14 +3387,14 @@ var
 }
   begin
    S:=S+'( ';
-   S:=S+FloatToStrF(P[1], ffFixed, 20, MapSaveSettings.DecimalPlaces)+' ';
-   S:=S+FloatToStrF(P[2], ffFixed, 20, MapSaveSettings.DecimalPlaces)+' ';
-   S:=S+FloatToStrF(P[3], ffFixed, 20, MapSaveSettings.DecimalPlaces)+' ';
+   S:=S+FloatToStrF(P[1], ffFixed, MAX_PRECISION, MapSaveSettings.DecimalPlaces)+' ';
+   S:=S+FloatToStrF(P[2], ffFixed, MAX_PRECISION, MapSaveSettings.DecimalPlaces)+' ';
+   S:=S+FloatToStrF(P[3], ffFixed, MAX_PRECISION, MapSaveSettings.DecimalPlaces)+' ';
 
 {   for I:=1 to 3 do
    begin
      R:=P[I]/EchelleTexture;
-     S:=S+FloatToStrF(R, ffFixed, 20, DecimalPlaces)+' ';
+     S:=S+FloatToStrF(R, ffFixed, MAX_PRECISION, DecimalPlaces)+' ';
    end;
 }   S:=S+') ';
   end;
@@ -3410,20 +3413,20 @@ var
     procedure write4vect(const V: TVect; D : Double; var S: String);
     begin
       S:=S+' [ ';
-      S:=S+FloatToStrF(V.X, ffFixed, 20, DecimalPlaces)+' ';
-      S:=S+FloatToStrF(V.Y, ffFixed, 20, DecimalPlaces)+' ';
-      S:=S+FloatToStrF(V.Z, ffFixed, 20, DecimalPlaces)+' ';
-      S:=S+FloatToStrF(D, ffFixed, 20, DecimalPlaces)+' ';
+      S:=S+FloatToStrF(V.X, ffFixed, MAX_PRECISION, DecimalPlaces)+' ';
+      S:=S+FloatToStrF(V.Y, ffFixed, MAX_PRECISION, DecimalPlaces)+' ';
+      S:=S+FloatToStrF(V.Z, ffFixed, MAX_PRECISION, DecimalPlaces)+' ';
+      S:=S+FloatToStrF(D, ffFixed, MAX_PRECISION, DecimalPlaces)+' ';
       S:=S+'] ';
     end;
 
     procedure write4vectHL2(const V: TVect; D : Double; var S: String);
     begin
       S:=S+'[';
-      S:=S+FloatToStrF(V.X, ffFixed, 20, DecimalPlaces)+' ';
-      S:=S+FloatToStrF(V.Y, ffFixed, 20, DecimalPlaces)+' ';
-      S:=S+FloatToStrF(V.Z, ffFixed, 20, DecimalPlaces)+' ';
-      S:=S+FloatToStrF(D, ffFixed, 20, DecimalPlaces);
+      S:=S+FloatToStrF(V.X, ffFixed, MAX_PRECISION, DecimalPlaces)+' ';
+      S:=S+FloatToStrF(V.Y, ffFixed, MAX_PRECISION, DecimalPlaces)+' ';
+      S:=S+FloatToStrF(V.Z, ffFixed, MAX_PRECISION, DecimalPlaces)+' ';
+      S:=S+FloatToStrF(D, ffFixed, MAX_PRECISION, DecimalPlaces);
       S:=S+']';
     end;
 
@@ -3554,10 +3557,10 @@ var
 
       S:=S+#13#10'    "uaxis" "';
       write4vectHL2(QV0, UOff, S);
-      S:=S+' '+FloatToStrF(S1, ffFixed, 20, DecimalPlaces)+'"';
+      S:=S+' '+FloatToStrF(S1, ffFixed, MAX_PRECISION, DecimalPlaces)+'"';
       S:=S+#13#10'    "vaxis" "';
       write4vectHL2(QV1, VOff, S);
-      S:=S+' '+FloatToStrF(S2, ffFixed, 20, DecimalPlaces)+'"';
+      S:=S+' '+FloatToStrF(S2, ffFixed, MAX_PRECISION, DecimalPlaces)+'"';
     end
     else
     begin
@@ -3575,9 +3578,9 @@ var
       S2:=1.0/S2;
 
       S:=S+' 0 ';
-      S:=S+' '+FloatToStrF(S1, ffFixed, 20, DecimalPlaces);
+      S:=S+' '+FloatToStrF(S1, ffFixed, MAX_PRECISION, DecimalPlaces);
       { sign flip engineered into Scale }
-      S:=S+' '+FloatToStrF(S2, ffFixed, 20, DecimalPlaces);
+      S:=S+' '+FloatToStrF(S2, ffFixed, MAX_PRECISION, DecimalPlaces);
     end;
 
   end;
@@ -3857,10 +3860,10 @@ begin
   begin
    //FIXME: Add support for WriteIntegers?
    S:=S+'( ';
-   S:=S+FloatToStrF(F.Normale.X, ffFixed, 20, MapSaveSettings.DecimalPlaces)+' ';
-   S:=S+FloatToStrF(F.Normale.Y, ffFixed, 20, MapSaveSettings.DecimalPlaces)+' ';
-   S:=S+FloatToStrF(F.Normale.Z, ffFixed, 20, MapSaveSettings.DecimalPlaces)+' ';
-   S:=S+FloatToStrF(-F.Dist, ffFixed, 20, MapSaveSettings.DecimalPlaces);
+   S:=S+FloatToStrF(F.Normale.X, ffFixed, MAX_PRECISION, MapSaveSettings.DecimalPlaces)+' ';
+   S:=S+FloatToStrF(F.Normale.Y, ffFixed, MAX_PRECISION, MapSaveSettings.DecimalPlaces)+' ';
+   S:=S+FloatToStrF(F.Normale.Z, ffFixed, MAX_PRECISION, MapSaveSettings.DecimalPlaces)+' ';
+   S:=S+FloatToStrF(-F.Dist, ffFixed, MAX_PRECISION, MapSaveSettings.DecimalPlaces);
    S:=S+' ) ';
   end;
 
