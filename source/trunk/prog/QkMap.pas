@@ -3244,13 +3244,11 @@ var
  Facteur: TDouble;
  FS: PSurface;
  PX, PY: array[1..3] of Double;
- { tiglari }
  rval : Single; { for Value/lightvalue }
  Q: QPixelSet;
  Size: TPoint;
  TextureName: String;
  Mirror, EtpMirror: Boolean;
- DecimalPlaces: Integer;
  tmpReorder: TDouble;
 
  type
@@ -3260,6 +3258,7 @@ var
    end;
 
  const
+   //FIXME: Not all values are supported by all games, plus some games use flags for different purposes!
    FlagsTable : array[0..30] of FlagDef =
     ((name: 'light'; pos: 0),
      (name: 'masked'; pos: 1),
@@ -3316,10 +3315,8 @@ var
      (name: 'translucent'; pos: 28),
      (name: 'ladder'; pos: 29));
 
-  {tiglari}
   function CheckFieldDefault(const spec, linkspec:String; const Q:QPixelSet) : String;
   begin
-    { fixed? by Armin }
    Result:=F.Specifics.Values[spec];
    if Result<>'' then   { if spec was found in the face, we are done }
     Exit;
@@ -3328,9 +3325,8 @@ var
    if Result='' then
     Result:='0';      { if not found at all, supply a numeric default }
   end;
-  {/tiglari}
 
-  procedure StashFloatFlag(const spec : String; const places : integer);
+  procedure StashFloatFlag(const spec : String; const places : integer); //FIXME: places is always 2???
   var val : Single;
   begin
     val:=F.GetFloatSpec(spec, -1);
@@ -3372,14 +3368,13 @@ var
       neggos:=(not specif) and defaults;
       for i:=0 to len do
       begin
-        if (pozzies shr table[i].pos) and 1=1 then
-           S:=S+' +'+table[i].name
-        else if (neggos shr table[i].pos) and 1=1 then
-           S:=S+' -'+table[i].name
-      end
-    end
+        if ((pozzies shr table[i].pos) and 1) = 1 then
+          S:=S+' +'+table[i].name
+        else if ((neggos shr table[i].pos) and 1) = 1 then
+          S:=S+' -'+table[i].name;
+      end;
+    end;
   end;
-  { /tiglari }
 
   procedure write3vect(const P: array of Double; var S: String);
 {
@@ -3389,9 +3384,9 @@ var
 }
   begin
    S:=S+'( ';
-   S:=S+FloatToStrF(P[1], ffFixed, 20, DecimalPlaces)+' ';
-   S:=S+FloatToStrF(P[2], ffFixed, 20, DecimalPlaces)+' ';
-   S:=S+FloatToStrF(P[3], ffFixed, 20, DecimalPlaces)+' ';
+   S:=S+FloatToStrF(P[1], ffFixed, 20, MapSaveSettings.DecimalPlaces)+' ';
+   S:=S+FloatToStrF(P[2], ffFixed, 20, MapSaveSettings.DecimalPlaces)+' ';
+   S:=S+FloatToStrF(P[3], ffFixed, 20, MapSaveSettings.DecimalPlaces)+' ';
 
 {   for I:=1 to 3 do
    begin
@@ -3658,8 +3653,6 @@ var
 begin
  ResolveMapSaveSettings(MapSaveSettings);
 
- DecimalPlaces := MapSaveSettings.DecimalPlaces;
-
  { these means brutally round off the threepoints, whatever they are }
  WriteIntegers:=Flags2 and soDisableFPCoord <> 0;
 
@@ -3838,17 +3831,17 @@ begin
       if WriteIntegers then
        S:=S+IntToStr(Round(X))+' '
       else
-       S:=S+dtosp(X, DecimalPlaces)+' ';
+       S:=S+dtosp(X, MapSaveSettings.DecimalPlaces)+' ';
 
       if WriteIntegers then
        S:=S+IntToStr(Round(Y))+' '
       else
-       S:=S+dtosp(Y, DecimalPlaces)+' ';
+       S:=S+dtosp(Y, MapSaveSettings.DecimalPlaces)+' ';
 
       if WriteIntegers then
        S:=S+IntToStr(Round(Z))
       else
-       S:=S+dtosp(Z, DecimalPlaces);
+       S:=S+dtosp(Z, MapSaveSettings.DecimalPlaces);
 
       if MapSaveSettings.MapFormat=HL2Type then
         S:=S+') '
@@ -3864,10 +3857,10 @@ begin
   begin
    //FIXME: Add support for WriteIntegers?
    S:=S+'( ';
-   S:=S+FloatToStrF(F.Normale.X, ffFixed, 20, DecimalPlaces)+' ';
-   S:=S+FloatToStrF(F.Normale.Y, ffFixed, 20, DecimalPlaces)+' ';
-   S:=S+FloatToStrF(F.Normale.Z, ffFixed, 20, DecimalPlaces)+' ';
-   S:=S+FloatToStrF(-F.Dist, ffFixed, 20, DecimalPlaces);
+   S:=S+FloatToStrF(F.Normale.X, ffFixed, 20, MapSaveSettings.DecimalPlaces)+' ';
+   S:=S+FloatToStrF(F.Normale.Y, ffFixed, 20, MapSaveSettings.DecimalPlaces)+' ';
+   S:=S+FloatToStrF(F.Normale.Z, ffFixed, 20, MapSaveSettings.DecimalPlaces)+' ';
+   S:=S+FloatToStrF(-F.Dist, ffFixed, 20, MapSaveSettings.DecimalPlaces);
    S:=S+' ) ';
   end;
 
@@ -3966,7 +3959,7 @@ begin
         for I:=1 to 2 do
           S:=S+' '+IntToStr(Round(Params[I]));
         for I:=3 to 5 do
-          S:=S+' '+dtosp(Params[I], DecimalPlaces);
+          S:=S+' '+dtosp(Params[I], MapSaveSettings.DecimalPlaces);
 
         if MapSaveSettings.GameCode=mjCoD2 then
         begin
@@ -4004,11 +3997,11 @@ begin
    Q.AddRef(+1);
    try
     { these function below updates S }
-    StashFloatFlag('friction',2);     { for flags stored as floats }
+    StashFloatFlag('friction',2);     //for flags stored as floats
     StashFloatFlag('restitution',2);
-    StashIntFlag('direct');        { stash string as float }
+    StashIntFlag('direct');        //stash string as float
     StashIntFlag('directangle');
-    StashStrFlag('directstyle');   { stash string as string }
+    StashStrFlag('directstyle');   //stash string as string
     StashFloatFlag('translucence',2);
     StashFloatFlag('trans_mag',2);
     StashFloatFlag('animtime', 2);
