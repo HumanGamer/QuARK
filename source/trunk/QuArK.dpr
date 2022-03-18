@@ -115,6 +115,7 @@ uses
   QkCoD2 in 'prog\QkCoD2.pas',
   QkConsts in 'prog\QkConsts.pas',
   QkD3 in 'prog\QkD3.pas',
+  QkDaikatana in 'prog\QkDaikatana.pas',
   QkDevIL in 'prog\QkDevIL.pas',
   QkDDS in 'prog\QkDDS.pas',
   QkExceptions in 'prog\QkExceptions.pas',

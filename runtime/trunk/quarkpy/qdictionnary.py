@@ -1125,6 +1125,7 @@ Strings = {
     5855: "XML file",
     5856: "Run Commands file",
     5857: "Source file",
+    5858: "Unsupported Daikatana .wal format (version: %d)",
 
     # DanielPharos would like to reserve 6000 .. 6099 for all renderers
     6000: "Unable to create SceneObject//%s",

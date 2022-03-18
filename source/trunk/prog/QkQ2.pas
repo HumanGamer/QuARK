@@ -78,7 +78,7 @@ function CheckQ2MiptexEx(const Header: TQ2Miptex; HSize, FileSize: Integer; Offs
 implementation
 
 uses
-  SysUtils, Travail, Quarkx, QkExceptions, QkQuakeCtx, QkText, Setup, QkObjectClassList;
+  SysUtils, Travail, Quarkx, QkDaikatana, QkExceptions, QkQuakeCtx, QkText, Setup, QkObjectClassList;
 
 const
  LUMP_ENTITIES = 0;
@@ -321,8 +321,13 @@ begin
       if FSize<SizeOf(Header) then
         Raise EError(5519);
       Base:=F.Position;
-      F.ReadBuffer(Header, SizeOf(Header));
-      LoadTextureData(F, Base, FSize, Header, @Header.Indexes, Nil, Nil);
+      if CharModeJeu = mjDK then
+       LoadTextureDataDK(F, Base, FSize, Self)
+      else
+      begin
+       F.ReadBuffer(Header, SizeOf(Header));
+       LoadTextureData(F, Base, FSize, Header, @Header.Indexes, Nil, Nil);
+      end;
     end;
   else
     inherited;
