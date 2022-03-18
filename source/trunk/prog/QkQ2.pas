@@ -39,7 +39,7 @@ type
 
  QTexture2 = class(QTextureFile)
              protected
-               procedure LoadTextureData(F: TStream; Base, Taille: Integer; const Header: TQ2Miptex; Offsets: PLongInt; NomTex, AnimTex: PChar);
+               procedure LoadTextureData(F: TStream; Base, Taille: TStreamPos; const Header: TQ2Miptex; Offsets: PLongInt; NomTex, AnimTex: PChar);
               {procedure LireEnteteFichier(Source: TStream; const Nom: String; var SourceTaille: TStreamPos); override;}
                procedure SaveFile(Info: TInfoEnreg1); override;
                procedure LoadFile(F: TStream; FSize: TStreamPos); override;
@@ -247,13 +247,14 @@ begin
   Result.Value   :=StrToIntDef(Specifics.Values['Value'], 0);
 end;
 
-procedure QTexture2.LoadTextureData(F: TStream; Base, Taille: Integer; const Header: TQ2Miptex; Offsets: PLongInt; NomTex, AnimTex: PChar);
+procedure QTexture2.LoadTextureData(F: TStream; Base, Taille: TStreamPos; const Header: TQ2Miptex; Offsets: PLongInt; NomTex, AnimTex: PChar);
 const
   Spec1 = 'Image#=';
   PosNb = 6;
 var
   S: String;
-  I, Taille1, Flags: Integer;
+  I, Flags: Integer;
+  Taille1: TStreamPos;
   V: array[1..2] of Single;
   W, H: Integer;
 begin
