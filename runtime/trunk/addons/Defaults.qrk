@@ -470,19 +470,25 @@ QQRKSRC1
         ForceFaceFlags = "1"
         AlwaysWriteThreeFields = "1"
         BuildPgm1  = "q3map.exe"
-        BuildArgs1 = "-gamedir "$22"%basepath%\%gamedir%"$22" "$22"%mapfile%"$22
+        BuildArgs1 = "-gamedir "$22"%basepath%\%gamedir%"$22
+        BuildQuote1= "1"
         BuildCheck1 = "+BSP,-LIN{LoadLinFile}"
         BuildPgm2  = "q3map.exe"
-        BuildArgs2 = "-vis -gamedir "$22"%basepath%\%gamedir%"$22" "$22"%mapfile%"$22
+        BuildArgs2 = "-vis -gamedir "$22"%basepath%\%gamedir%"$22
+        BuildQuote2= "1"
         BuildPgm3  = "q3map.exe"
-        BuildArgs3 = "-light -gamedir "$22"%basepath%\%gamedir%"$22" "$22"%mapfile%"$22
+        BuildArgs3 = "-light -gamedir "$22"%basepath%\%gamedir%"$22
+        BuildQuote3= "1"
         BuildPgm4  = "q3map.exe"
-        BuildArgs4 = "-gamedir "$22"%basepath%\%gamedir%"$22" "$22"%mapfile%"$22
+        BuildArgs4 = "-gamedir "$22"%basepath%\%gamedir%"$22
+        BuildQuote4= "1"
         BuildCheck4 = "+BSP,-LIN{LoadLinFile}"
         BuildPgm5  = "q3map.exe"
-        BuildArgs5 = "-vis -gamedir "$22"%basepath%\%gamedir%"$22" "$22"%mapfile%"$22
+        BuildArgs5 = "-vis -gamedir "$22"%basepath%\%gamedir%"$22
+        BuildQuote5= "1"
         BuildPgm6  = "q3map.exe"
-        BuildArgs6 = "-light -gamedir "$22"%basepath%\%gamedir%"$22" "$22"%mapfile%"$22
+        BuildArgs6 = "-light -gamedir "$22"%basepath%\%gamedir%"$22
+        BuildQuote6= "1"
         BuildPgm9 = "C:\Program Files\EA GAMES\American McGee's Alice\Base\maps\ChangeBSPSignature.bat"
         BuildArgs9 = "%filename%"
 
@@ -610,7 +616,7 @@ QQRKSRC1
         CDDir = "Setup\Main"   // hidden setting
 
         MapLimit = '65536 65536 65536'
-        
+
         Console = "1"                  // "Run these build-programs..." setting
         BuildPgmsDir = "C:\Program Files\Activision\Call of Duty 2\bin"
         MapCommentsPrefix = "//"
@@ -806,8 +812,10 @@ QQRKSRC1
         BuildCheck1= "+BSP,-LIN{LoadLinFile}"
         BuildPgm2  = "qvis3.exe"
         BuildArgs2 = ""
+        BuildBSP2 = "1"
         BuildPgm3  = "qrad3.exe"
-        BuildArgs3 = "-gamedir .. -moddir ."
+        BuildArgs3 = "-gamedir .."
+        BuildBSP3 = "1"
 
         TexturesPath = "textures"
         Q2TexFlags = "1"
@@ -820,8 +828,8 @@ QQRKSRC1
         LightingOuterConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone2" is the specifics name that gives the spotlight outer size.
 
     //    TextureFormat = ".wal"
-        TextureFormat = ".pcx"                  // primary texture fileextension, to save model textures properly.
-        TextureFileExtensions = ".pcx,.wal"     // possible texture fileextensions
+        TextureFormat = ".tga"                  // primary texture fileextension, to save model textures properly.
+        TextureFileExtensions = ".tga,.bmp,.wal"     // possible texture fileextensions
         TextureWriteFormat = ".wal"
 
         BaseDir = "data"
@@ -941,12 +949,15 @@ QQRKSRC1
         ForceFaceFlags = "1"
         AlwaysWriteThreeFields = "1"
         BuildPgm1  = "UBERMAP.EXE"
-        BuildArgs1 = "-gamedir "$22"%basepath%\%gamedir%"$22" "$22"%mapfile%"$22
+        BuildArgs1 = "-gamedir "$22"%basepath%\%gamedir%"$22
+        BuildQuote1= "1"
         BuildCheck1= "+BSP,-LIN{LoadLinFile}"
         BuildPgm2  = "UBERMAP.EXE"
-        BuildArgs2 = "-vis -gamedir "$22"%basepath%\%gamedir%"$22" "$22"%mapfile%"$22
+        BuildArgs2 = "-vis -gamedir "$22"%basepath%\%gamedir%"$22
+        BuildQuote2= "1"
         BuildPgm3  = "UBERMAP.EXE"
-        BuildArgs3 = "-light -gamedir "$22"%basepath%\%gamedir%"$22" "$22"%mapfile%"$22
+        BuildArgs3 = "-light -gamedir "$22"%basepath%\%gamedir%"$22
+        BuildQuote3= "1"
         BuildPgm4  = "BSPC.EXE"
         BuildArgs4 = "-bsp2aas"
         BuildCheck4= "+AAS"
@@ -1012,19 +1023,25 @@ QQRKSRC1
         ForceFaceFlags = "1"
         AlwaysWriteThreeFields = "1"
         BuildPgm1  = "q3map.exe"
-        BuildArgs1 = "-gamedir "$22"%basepath%\%gamedir%"$22" "$22"%mapfile%"$22
+        BuildArgs1 = "-gamedir "$22"%basepath%\%gamedir%"$22
+        BuildQuote1= "1"
         BuildCheck1 = "+BSP,-LIN{LoadLinFile}"
         BuildPgm2  = "q3map.exe"
-        BuildArgs2 = "-vis -gamedir "$22"%basepath%\%gamedir%"$22" "$22"%mapfile%"$22
+        BuildArgs2 = "-vis -gamedir "$22"%basepath%\%gamedir%"$22
+        BuildQuote2= "1"
         BuildPgm3  = "q3map.exe"
-        BuildArgs3 = "-light -gamedir "$22"%basepath%\%gamedir%"$22" "$22"%mapfile%"$22
+        BuildArgs3 = "-light -gamedir "$22"%basepath%\%gamedir%"$22
+        BuildQuote3= "1"
         BuildPgm4  = "newq3map.exe"
-        BuildArgs4 = "-gamedir "$22"%basepath%\%gamedir%"$22" "$22"%mapfile%"$22
+        BuildArgs4 = "-gamedir "$22"%basepath%\%gamedir%"$22
+        BuildQuote4= "1"
         BuildCheck4 = "+BSP,-LIN{LoadLinFile}"
         BuildPgm5  = "newq3map.exe"
-        BuildArgs5 = "-vis -gamedir "$22"%basepath%\%gamedir%"$22" "$22"%mapfile%"$22
+        BuildArgs5 = "-vis -gamedir "$22"%basepath%\%gamedir%"$22
+        BuildQuote5= "1"
         BuildPgm6  = "newq3map.exe"
-        BuildArgs6 = "-light -gamedir "$22"%basepath%\%gamedir%"$22" "$22"%mapfile%"$22
+        BuildArgs6 = "-light -gamedir "$22"%basepath%\%gamedir%"$22
+        BuildQuote6= "1"
 
         MapCommentsPrefix = "//"
 
@@ -1200,13 +1217,16 @@ QQRKSRC1
 
         BuildPgmsDir="%sourcesdkdir%"
         BuildPgm1  = "vbsp.exe"
-        BuildArgs1 = "-game "$22"%basepath%\%gamedir%"$22" "$22"%mapfile%"$22
+        BuildArgs1 = "-game "$22"%basepath%\%gamedir%"$22
+        BuildQuote1= "1"
         BuildCheck1= "+BSP"
         BuildPgm2  = "vvis.exe"
-        BuildArgs2 = "-game "$22"%basepath%\%gamedir%"$22" "$22"%mapfile%"$22
+        BuildArgs2 = "-game "$22"%basepath%\%gamedir%"$22
+        BuildQuote2= "1"
         BuildCheck2= ""
         BuildPgm3  = "vrad.exe"
-        BuildArgs3 = "-game "$22"%basepath%\%gamedir%"$22" "$22"%mapfile%"$22
+        BuildArgs3 = "-game "$22"%basepath%\%gamedir%"$22
+        BuildQuote3= "1"
         BuildCheck3= ""
         BuildPgm4  = "glview.exe"
         BuildArgs4 = ""
@@ -2612,31 +2632,31 @@ QQRKSRC1
         // 220 MAPVERSION
         // -v verbose -h Process for final build (exhaustive BSP search)(220 mapversion)
         BuildPgm1 = "C:\Torque\QuArK files\map2dif_DEBUG.exe"
-        BuildArgs1 = "-v -h -o "$22"./maps/%grouppath%"$22" -t ./textures %mapfile%"
+        BuildArgs1 = "-v -h -o "$22"./maps/%grouppath%"$22" -t ./textures"
         //
         // -l Process as low detail shape
         BuildPgm2 = "C:\Torque\QuArK files\map2dif_DEBUG.exe"
-        BuildArgs2 = "-v -l -o ./maps -t ./textures %mapfile%"
+        BuildArgs2 = "-v -l -o ./maps -t ./textures"
         //
         // -g Generate navigation graph info
         BuildPgm3 = "C:\Torque\QuArK files\map2dif_DEBUG.exe"
-        BuildArgs3 = "-v -g -o ./maps -t ./textures %mapfile%"
+        BuildArgs3 = "-v -g -o ./maps -t ./textures"
         //
         // -e Do extrusion test
         BuildPgm4 = "C:\Torque\QuArK files\map2dif_DEBUG.exe"
-        BuildArgs4 = "-v -e -o ./maps -t ./textures %mapfile%"
+        BuildArgs4 = "-v -e -o ./maps -t ./textures"
         //
         // -n Noisy error/statistic reporting
         BuildPgm5 = "C:\Torque\QuArK files\map2dif_DEBUG.exe"
-        BuildArgs5 = "-v -n -o ./maps -t ./textures %mapfile%"
+        BuildArgs5 = "-v -n -o ./maps -t ./textures"
         //
         // -p Include a preview bitmap in the interior file
         BuildPgm6 = "C:\Torque\QuArK files\map2dif_DEBUG.exe"
-        BuildArgs6 = "-v -p -o ./maps -t ./textures %mapfile%"
+        BuildArgs6 = "-v -p -o ./maps -t ./textures"
         // USING LEWIS BRUCK'S -q 3 VERSION
         // -v verbose -h Process for final build (exhaustive BSP search)(q3 mapversion)
         BuildPgm9 = "C:\Torque\QuArK files\map2dif_DEBUG.exe"
-        BuildArgs9 = "-v -h -q 3 -o ./maps -t ./textures %mapfile%"
+        BuildArgs9 = "-v -h -q 3 -o ./maps -t ./textures"
         MapCommentsPrefix = "//"
 
    // Other hidden settings
@@ -2754,17 +2774,22 @@ QQRKSRC1
         StupidBuildToolKludge = "" // GTKRadiant's Q3MAP.EXE seems to work, when '-game wolf' and -fs_basepath <gamepath>' are applied.
         BuildPgmsDir = "C:\Program Files\Return to Castle Wolfenstein\Radiant"
         BuildPgm1  = "Q3MAP2.EXE"
-        BuildArgs1 = "-game wolf -fs_basepath "$22"%basepath%."$22" -fs_game %gamedir% -bsp -meta "$22"%mapfile%"$22
+        BuildArgs1 = "-game wolf -fs_basepath "$22"%basepath%."$22" -fs_game %gamedir% -bsp -meta"
+        BuildQuote1= "1"
         BuildCheck1= "+BSP,-LIN{LoadLinFile}"
         BuildPgm2  = "Q3MAP2.EXE"
-        BuildArgs2 = "-game wolf -fs_basepath "$22"%basepath%."$22" -fs_game %gamedir% -vis -saveprt "$22"%mapfile%"$22
+        BuildArgs2 = "-game wolf -fs_basepath "$22"%basepath%."$22" -fs_game %gamedir% -vis -saveprt"
+        BuildQuote2= "1"
         BuildPgm3  = "Q3MAP2.EXE"
-        BuildArgs3 = "-game wolf -fs_basepath "$22"%basepath%."$22" -fs_game %gamedir% -light -bounce 10 -fast -samples 3 -thresh 0.3 "$22"%mapfile%"$22
+        BuildArgs3 = "-game wolf -fs_basepath "$22"%basepath%."$22" -fs_game %gamedir% -light -bounce 10 -fast -samples 3 -thresh 0.3"
+        BuildQuote3= "1"
         BuildPgm4  = "Q3MAP2.EXE"
-        BuildArgs4 = "-game wolf -fs_basepath "$22"%basepath%."$22" -fs_game %gamedir% "$22"%mapfile%"$22
+        BuildArgs4 = "-game wolf -fs_basepath "$22"%basepath%."$22" -fs_game %gamedir%"
+        BuildQuote4= "1"
         BuildCheck4= "+BSP,-LIN{LoadLinFile}"
         BuildPgm5  = "Q3MAP2.EXE"
-        BuildArgs5 = "-game wolf -fs_basepath "$22"%basepath%."$22" -fs_game %gamedir% -vlight "$22"%mapfile%"$22
+        BuildArgs5 = "-game wolf -fs_basepath "$22"%basepath%."$22" -fs_game %gamedir% -vlight"
+        BuildQuote5= "1"
 
         TexturesPath = "textures"
         ShadersPath = "scripts"

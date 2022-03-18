@@ -442,7 +442,17 @@ def RebuildAndRun(maplist, editor, runquake, text, forcepak, extracted, cfgfile,
 
                     # Add %mapfile% if there is no filename-string present
                     if (cmdline.find("%mapfile%") == -1) and (cmdline.find("%file%") == -1) and (cmdline.find("%filename%") == -1) and (cmdline.find("%mapfile_wrongslash%") == -1):
-                      cmdline = cmdline + " %mapfile%"
+                      pgrmbsp = setup["BuildBSP%d" % pgrmnbr]
+                      if (pgrmbsp is not None) and (pgrmbsp != ""):
+                        filename = "%file%.bsp"
+                      else:
+                        filename = "%mapfile%"
+                      #FIXME: Also, extensionless!
+                      pgrmquoted = setup["BuildQuote%d" % pgrmnbr]
+                      if (pgrmquoted is not None) and (pgrmquoted != ""):
+                        cmdline = cmdline + " \"" + filename + "\""
+                      else:
+                        cmdline = cmdline + " " + filename
 
                     # Search and replace any user-variable
                     cmdline, toolworkdir = quarkx.resolvefilename(cmdline, FT_TOOL, map, mapfileobject)
