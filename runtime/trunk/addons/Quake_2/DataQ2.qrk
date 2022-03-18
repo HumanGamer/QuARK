@@ -78,6 +78,7 @@ QQRKSRC1
     Quake 2 file types.qtxfolder =
     {
       Texture.wal = { ;incl="EmptyTexture" }
+      Configuration file.cfg = { }
       CIN Video.cin = { }
     }
   }

@@ -104,6 +104,7 @@ QQRKSRC1
     EF2 file types.qtxfolder =
     {
       Pk3.pk3 = { }
+      Configuration file.cfg = { }
     }
   }
   walltex:incl =
