@@ -844,8 +844,9 @@ QQRKSRC1
         AddOns = "DataDK.qrk"$0D"DKEntities.qrk"$0D"DKTextures.qrk"
         AlwaysPak = ""
         PakExt = ".pak"
+        PakFormat = "PAK#.PAK"
         Console = "1"
-        LightFactor = '0.9'
+        LightEntityScale = '0.9'
         3DLight = '512'
         DecimalPlaces = '5'
 
