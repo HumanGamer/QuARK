@@ -47,7 +47,6 @@ QQRKSRC1
       light:e =
       {
         light = "300"
-        _color = "1 1 1"
         origin = "0 0 0"
       }
     }
