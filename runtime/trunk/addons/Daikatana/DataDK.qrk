@@ -83,15 +83,15 @@ QQRKSRC1
   }
   walltex:incl =
   {
-    tex = "e1u1/damage1_1"
+    tex = "e1m1/wall06"
   }
   floortex:incl =
   {
-    tex = "e1u1/c_met51a"
+    tex = "e1m1/secement3"
   }
   ceiltex:incl =
   {
-    tex = "e1u1/sky1"
+    tex = "e1m1/sky2a"
   }
   NewMap:incl =
   {
@@ -164,7 +164,6 @@ QQRKSRC1
       light:e =
       {
         light = "300"
-        _color = "1 1 1"
         origin = "0 0 0"
       }
     }
