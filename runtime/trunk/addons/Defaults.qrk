@@ -820,10 +820,10 @@ QQRKSRC1
         TexturesPath = "textures"
         Q2TexFlags = "1"
 
-        DefaultTexture = "e1u1/damage1_1"
-        DefaultTextureTrigger = "e1u1/trigger"
-        DefaultTextureOrigin = "e1u1/origin"
-        DefaultTextureClip = "e1u1/clip"
+        DefaultTexture = "e1m1/wall06"
+        DefaultTextureTrigger = "e1m1/trigger"
+        DefaultTextureOrigin = "e1m1/origin"
+        DefaultTextureClip = "e1m1/clip"
         LightingInnerConeKeyword = "_cone"    // <-- ex: "" if game does not use or ex: "_cone" is the specifics name that gives the spotlight inter size.
         LightingOuterConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone2" is the specifics name that gives the spotlight outer size.
 
