@@ -97,7 +97,6 @@ end;
 
 Function VPKAddRef(Ref: PQStreamRef; var S: TStream) : TStreamPos;
 var
-  mem: TMemoryStream;
   filesize: hlUInt;
   read: hlUInt;
   name: string;
@@ -105,32 +104,36 @@ var
   VPKStream: PHLStream;
 begin
   Ref^.Self.Position:=Ref^.Position;
-  mem := TMemoryStream.Create;
-  vpkelement := PHLDirectoryItem(Ref^.PUserdata);
-  filesize := hlFileGetSize(vpkelement);
-  name := PChar(hlItemGetName(vpkelement));
-  mem.SetSize(filesize);
-  if filesize<> 0 then
-  begin
-    if hlFileCreateStream(vpkelement, @VPKStream) = hlFalse then
-      LogAndRaiseError(FmtLoadStr1(5707, ['VPK', 'hlPackageGetRoot', PChar(hlGetString(HL_ERROR))]));
-    try
-      if hlStreamOpen(VPKStream, HL_MODE_READ) = hlFalse then
-        LogAndRaiseError(FmtLoadStr1(5707, ['VPK', 'hlStreamOpen', PChar(hlGetString(HL_ERROR))]));
+  S := TMemoryStream.Create;
+  try
+    vpkelement := PHLDirectoryItem(Ref^.PUserdata);
+    filesize := hlFileGetSize(vpkelement);
+    name := PChar(hlItemGetName(vpkelement));
+    TMemoryStream(S).SetSize(filesize);
+    if filesize<> 0 then
+    begin
+      if hlFileCreateStream(vpkelement, @VPKStream) = hlFalse then
+        LogAndRaiseError(FmtLoadStr1(5707, ['VPK', 'hlPackageGetRoot', PChar(hlGetString(HL_ERROR))]));
       try
-        read := hlStreamRead(VPKStream, mem.Memory, filesize);
-        if read<>filesize then
-          LogAndRaiseError(FmtLoadStr1(5707, ['VPK', 'hlStreamRead', LoadStr1(5724)]));
+        if hlStreamOpen(VPKStream, HL_MODE_READ) = hlFalse then
+          LogAndRaiseError(FmtLoadStr1(5707, ['VPK', 'hlStreamOpen', PChar(hlGetString(HL_ERROR))]));
+        try
+          read := hlStreamRead(VPKStream, TMemoryStream(S).Memory, filesize);
+          if read<>filesize then
+            LogAndRaiseError(FmtLoadStr1(5707, ['VPK', 'hlStreamRead', LoadStr1(5724)]));
+        finally
+          hlStreamClose(VPKStream);
+        end;
       finally
-        hlStreamClose(VPKStream);
+        hlFileReleaseStream(vpkelement, VPKStream);
       end;
-    finally
-      hlFileReleaseStream(vpkelement, VPKStream);
     end;
+    Result:=S.Size;
+    S.Position:=0;
+  except
+    S.Free;
+    raise;
   end;
-  Result:=mem.Size;
-  mem.Position:=0;
-  S:=mem;
 end;
 
 Procedure AddTree(ParentFolder: QObject; VPKDirectoryFile : PHLDirectoryItem; root: Bool; F: TStream);

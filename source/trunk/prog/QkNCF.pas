@@ -97,7 +97,6 @@ end;
 
 Function NCFAddRef(Ref: PQStreamRef; var S: TStream) : TStreamPos;
 var
-  mem: TMemoryStream;
   filesize: hlUInt;
   read: hlUInt;
   name: string;
@@ -105,32 +104,36 @@ var
   NCFStream: PHLStream;
 begin
   Ref^.Self.Position:=Ref^.Position;
-  mem := TMemoryStream.Create;
-  ncfelement := PHLDirectoryItem(Ref^.PUserdata);
-  filesize := hlFileGetSize(ncfelement);
-  name := PChar(hlItemGetName(ncfelement));
-  mem.SetSize(filesize);
-  if filesize<> 0 then
-  begin
-    if hlFileCreateStream(ncfelement, @NCFStream) = hlFalse then
-      LogAndRaiseError(FmtLoadStr1(5707, ['NCF', 'hlPackageGetRoot', PChar(hlGetString(HL_ERROR))]));
-    try
-      if hlStreamOpen(NCFStream, HL_MODE_READ) = hlFalse then
-        LogAndRaiseError(FmtLoadStr1(5707, ['NCF', 'hlStreamOpen', PChar(hlGetString(HL_ERROR))]));
+  S := TMemoryStream.Create;
+  try
+    ncfelement := PHLDirectoryItem(Ref^.PUserdata);
+    filesize := hlFileGetSize(ncfelement);
+    name := PChar(hlItemGetName(ncfelement));
+    TMemoryStream(S).SetSize(filesize);
+    if filesize<> 0 then
+    begin
+      if hlFileCreateStream(ncfelement, @NCFStream) = hlFalse then
+        LogAndRaiseError(FmtLoadStr1(5707, ['NCF', 'hlPackageGetRoot', PChar(hlGetString(HL_ERROR))]));
       try
-        read := hlStreamRead(NCFStream, mem.Memory, filesize);
-        if read<>filesize then
-          LogAndRaiseError(FmtLoadStr1(5707, ['NCF', 'hlStreamRead', LoadStr1(5724)]));
+        if hlStreamOpen(NCFStream, HL_MODE_READ) = hlFalse then
+          LogAndRaiseError(FmtLoadStr1(5707, ['NCF', 'hlStreamOpen', PChar(hlGetString(HL_ERROR))]));
+        try
+          read := hlStreamRead(NCFStream, TMemoryStream(S).Memory, filesize);
+          if read<>filesize then
+            LogAndRaiseError(FmtLoadStr1(5707, ['NCF', 'hlStreamRead', LoadStr1(5724)]));
+        finally
+          hlStreamClose(NCFStream);
+        end;
       finally
-        hlStreamClose(NCFStream);
+        hlFileReleaseStream(ncfelement, NCFStream);
       end;
-    finally
-      hlFileReleaseStream(ncfelement, NCFStream);
     end;
+    Result:=S.Size;
+    S.Position:=0;
+  except
+    S.Free;
+    raise;
   end;
-  Result:=mem.Size;
-  mem.Position:=0;
-  S:=mem;
 end;
 
 Procedure AddTree(ParentFolder: QObject; NCFDirectoryFile : PHLDirectoryItem; root: Bool; F: TStream);

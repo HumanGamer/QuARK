@@ -97,7 +97,6 @@ end;
 
 Function GCFAddRef(Ref: PQStreamRef; var S: TStream) : TStreamPos;
 var
-  mem: TMemoryStream;
   filesize: hlUInt;
   read: hlUInt;
   name: string;
@@ -105,32 +104,36 @@ var
   GCFStream: PHLStream;
 begin
   Ref^.Self.Position:=Ref^.Position;
-  mem := TMemoryStream.Create;
-  gcfelement := PHLDirectoryItem(Ref^.PUserdata);
-  filesize := hlFileGetSize(gcfelement);
-  name := PChar(hlItemGetName(gcfelement));
-  mem.SetSize(filesize);
-  if filesize<> 0 then
-  begin
-    if hlFileCreateStream(gcfelement, @GCFStream) = hlFalse then
-      LogAndRaiseError(FmtLoadStr1(5707, ['GCF', 'hlPackageGetRoot', PChar(hlGetString(HL_ERROR))]));
-    try
-      if hlStreamOpen(GCFStream, HL_MODE_READ) = hlFalse then
-        LogAndRaiseError(FmtLoadStr1(5707, ['GCF', 'hlStreamOpen', PChar(hlGetString(HL_ERROR))]));
+  S := TMemoryStream.Create;
+  try
+    gcfelement := PHLDirectoryItem(Ref^.PUserdata);
+    filesize := hlFileGetSize(gcfelement);
+    name := PChar(hlItemGetName(gcfelement));
+    TMemoryStream(S).SetSize(filesize);
+    if filesize<> 0 then
+    begin
+      if hlFileCreateStream(gcfelement, @GCFStream) = hlFalse then
+        LogAndRaiseError(FmtLoadStr1(5707, ['GCF', 'hlPackageGetRoot', PChar(hlGetString(HL_ERROR))]));
       try
-        read := hlStreamRead(GCFStream, mem.Memory, filesize);
-        if read<>filesize then
-          LogAndRaiseError(FmtLoadStr1(5707, ['GCF', 'hlStreamRead', LoadStr1(5724)]));
+        if hlStreamOpen(GCFStream, HL_MODE_READ) = hlFalse then
+          LogAndRaiseError(FmtLoadStr1(5707, ['GCF', 'hlStreamOpen', PChar(hlGetString(HL_ERROR))]));
+        try
+          read := hlStreamRead(GCFStream, TMemoryStream(S).Memory, filesize);
+          if read<>filesize then
+            LogAndRaiseError(FmtLoadStr1(5707, ['GCF', 'hlStreamRead', LoadStr1(5724)]));
+        finally
+          hlStreamClose(GCFStream);
+        end;
       finally
-        hlStreamClose(GCFStream);
+        hlFileReleaseStream(gcfelement, GCFStream);
       end;
-    finally
-      hlFileReleaseStream(gcfelement, GCFStream);
     end;
+    Result:=S.Size;
+    S.Position:=0;
+  except
+    S.Free;
+    raise;
   end;
-  Result:=mem.Size;
-  mem.Position:=0;
-  S:=mem;
 end;
 
 Procedure AddTree(ParentFolder: QObject; GCFDirectoryFile : PHLDirectoryItem; root: Bool; F: TStream);

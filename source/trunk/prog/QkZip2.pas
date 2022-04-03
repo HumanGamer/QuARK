@@ -364,22 +364,20 @@ begin
   end;
 end;
 
-Function ZipAddRef(Ref: PQStreamRef; var S: TStream) : TStreamPos;
+function ZipAddRef(Ref: PQStreamRef; var S: TStream) : TStreamPos;
 var
-  mem: TMemoryStream;
   err: integer;
 begin
   Ref^.Self.Position:=Ref^.Position;
-  mem:=TMemoryStream.Create;
+  S:=TMemoryStream.Create;
   try
-    err:=UnZipFile(Ref^.Self, mem, Ref^.Position);
+    err:=UnZipFile(Ref^.Self, S, Ref^.Position);
     if err<>0 then
       raise EErrorFmt(5815, [err]);
-    Result:=mem.Size;
-    mem.Position:=0;
-    S:=mem;
+    Result:=S.Size;
+    S.Position:=0;
   except
-    mem.Free;
+    S.Free;
     raise
   end;
 end;
