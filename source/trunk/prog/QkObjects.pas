@@ -192,9 +192,9 @@ type
                   StreamSize: TStreamPos;
  {AiV}            OnAccess: Function (Ref: PQStreamRef; var S: TStream) : TStreamPos;
                   PUserData: Pointer; //Used for GCF's, NCF's, VPK's
-                  DKTaille: Integer; //Used for Daikatana PAK's
-                  DKCompressLen: Integer; //Used for Daikatana PAK's
-                  DKCompressType: Integer; //Used for Daikatana PAK's
+                  DKTaille: LongInt; //Used for Daikatana PAK's
+                  DKCompressLen: LongInt; //Used for Daikatana PAK's
+                  DKCompressType: LongInt; //Used for Daikatana PAK's
                 end;
 
   TInfoEnreg1 = class

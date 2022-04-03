@@ -140,76 +140,79 @@ const
 
 function DaikatanaPakAddRef(Ref: PQStreamRef; var S: TStream) : TStreamPos;
 var
-  mem: TMemoryStream;
-  Pos, I: Integer;
+  mem: TMemoryStreamWithCapacity;
+  Base: TStreamPos;
+  I: Integer;
   B: Byte;
   C: Char;
   offset: Integer;
   buffer: PChar;
 begin
   Ref^.Self.Position:=Ref^.Position;
-  mem:=TMemoryStream.Create;
-  Pos:=0;
-  while Pos < Ref^.DKCompressLen do
-  begin
-    Ref^.Self.Read(B, 1);
-    Pos:=Pos+1;
-    if B = 255 then
+  Base:=Ref^.Self.Position;
+  mem:=TMemoryStreamWithCapacity.Create;
+  try
+    mem.Capacity:=Ref^.DKTaille;
+    while Ref^.Self.Position-Base < Ref^.DKCompressLen do
     begin
-      // terminator
-      break
-    end
-    else if B < 64 then
-    begin
-      // uncompressed block
-      for i := -1 to B-1 do
+      Ref^.Self.Read(B, 1);
+      if B = 255 then
       begin
+        // terminator
+        break;
+      end
+      else if B < 64 then
+      begin
+        // uncompressed block
+        for i := -1 to B-1 do
+        begin
+          Ref^.Self.Read(C, 1);
+          mem.Write(C, 1);
+        end;
+      end
+      else if B < 128 then
+      begin
+        // rlz
+        C:=#0;
+        for i := 62 to B-1 do
+        begin
+          mem.Write(C, 1);
+        end;
+      end
+      else if B < 192 then
+      begin
+        // run length encode
         Ref^.Self.Read(C, 1);
-        Pos:=Pos+1;
-        mem.Write(C, 1);
-      end;
-    end
-    else if B < 128 then
-    begin
-      // rlz
-      C:=#0;
-      for i := 62 to B-1 do
+        for i := 126 to B-1 do
+        begin
+          mem.Write(C, 1);
+        end;
+      end
+      else if B < 254 then
       begin
-        mem.Write(C, 1);
-      end;
-    end
-    else if B < 192 then
-    begin
-      // run length encode
-      Ref^.Self.Read(C, 1);
-      Pos:=Pos+1;
-      for i := 126 to B-1 do
-      begin
-        mem.Write(C, 1);
-      end;
-    end
-    else if B < 254 then
-    begin
-      // reference previous data
-      Ref^.Self.Read(C, 1);
-      Pos:=Pos+1;
-      offset:=Integer(C)+2;
-      GetMem(buffer, B - 190);
-      try
-        mem.seek(-offset, soFromCurrent);
-        mem.Read(buffer^, B - 190);
-        mem.seek(0, soFromEnd);
-        mem.Write(buffer^, B - 190);
-      finally
-        FreeMem(buffer);
+        // reference previous data
+        Ref^.Self.Read(C, 1);
+        offset:=Integer(C)+2;
+        GetMem(buffer, B - 190);
+        try
+          mem.seek(-offset, soFromCurrent);
+          mem.Read(buffer^, B - 190);
+          mem.seek(0, soFromEnd);
+          mem.Write(buffer^, B - 190);
+        finally
+          FreeMem(buffer);
+        end;
       end;
     end;
+    if mem.size <> Ref^.DKTaille then
+      raise EErrorFmt(5815, [0]);
+    Result:=mem.Size;
+    mem.Position:=0;
+    S:=mem;
+  except
+    S.Free;
+    raise;
   end;
-  if mem.size <> Ref^.DKTaille then
-    raise EErrorFmt(5815, [0]);
-  Result:=mem.Size;
-  mem.Position:=0;
-  S:=mem;
 end;
 
  {------------------------}

@@ -24,7 +24,7 @@ interface
 
 {$I DelphiVer.inc}
 
-uses Windows, SysUtils{$IFDEF Delphi6orNewerCompiler}, StrUtils{$ENDIF};
+uses Classes, Windows, SysUtils{$IFDEF Delphi6orNewerCompiler}, StrUtils{$ENDIF};
 
 {$IFDEF CompiledWithDelphi2}
 type
@@ -33,6 +33,11 @@ type
 
 // These seem to be missing alltogether!
 type
+  TMemoryStreamWithCapacity = class(TMemoryStream)
+  public
+    property Capacity;
+  end;
+
   TOSVersionInfoEx = record
     dwOSVersionInfoSize: DWORD;
     dwMajorVersion: DWORD;
