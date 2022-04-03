@@ -30,7 +30,10 @@ procedure LoadTextureDataDK(F: TStream; Base, Taille: TStreamPos; var Texture: Q
 
 implementation
 
-uses SysUtils, Quarkx, Setup, QkExceptions;
+uses SysUtils, Quarkx, Setup, QkTextures, QkExceptions;
+
+const
+ DKMaxMipmaps = 9;
 
 type
  TDKMiptex = packed record
@@ -38,7 +41,7 @@ type
               Nom: TCompactTexName;
               padding1, padding2, padding3: Byte;
               W,H: LongInt;
-              Indexes: array[0..8] of LongInt;
+              Indexes: array[0..DKMaxMipmaps-1] of LongInt;
               Animation: TCompactTexName;
               Flags: LongInt;
               Contents: LongInt;
@@ -65,10 +68,15 @@ end;
 
 //Based on QkQ2's LoadTextureData
 procedure LoadTextureDataDK(F: TStream; Base, Taille: TStreamPos; var Texture: QTexture2);
+const
+  Spec1 = 'Image#=';
+  PosNb = 6;
+  Spec2 = 'Pal=';
 var
   Header: TDKMiptex;
   S: String;
   I: Integer;
+  Taille1: TStreamPos;
   V: array[1..2] of Single;
   W, H: Integer;
 begin
@@ -92,8 +100,37 @@ begin
   V[1]:=W;
   V[2]:=H;
   Texture.SetFloatsSpec('Size', V);
-  //FIXME: Load the actual image data
+  for I:=0 to DKMaxMipmaps-1 do
+  begin
+    if Header.Indexes[I]=0 then
+      Break;
+    S:=Spec1;
+    S[PosNb]:=ImgCodes[I];
+    Taille1:=W*H;
+    SetLength(S, Length(Spec1)+Taille1);
+    F.Position:=Base+Header.Indexes[I];
+    F.ReadBuffer(S[Length(Spec1)+1], Taille1);
+    Texture.Specifics.Add(S);
+    if not ScaleDown(W,H) then
+      Break;
+  end;
+
+  //Read palette
+  S:=Spec2;
+  SetLength(S, Length(Spec2)+768);
+  Move(Header.Palette, S[Length(Spec2)+1], 768);
+  Texture.Specifics.Add(S);
+
+  if Header.Animation[0]<>0 then
+    Texture.Specifics.Add('Anim='+CharToPas(Header.Animation));
+
+  Texture.Specifics.Add('Contents='+IntToStr(Header.Contents));
+  Texture.Specifics.Add('Flags='+IntToStr(Header.Flags));
+  Texture.Specifics.Add('Value='+IntToStr(Header.Value));
+  F.Position:=Base+Taille;
 end;
+
+//FIXME: Add save support!
 
  {------------------------}
 
