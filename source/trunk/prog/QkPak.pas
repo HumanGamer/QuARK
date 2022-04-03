@@ -143,7 +143,6 @@ var
   Base: TStreamPos;
   I: Integer;
   B, C: Byte;
-  offset: Integer;
   buffer: PChar;
 begin
   Ref^.Self.Position:=Ref^.Position;
@@ -153,7 +152,7 @@ begin
     TMemoryStreamWithCapacity(S).Capacity:=Ref^.DKTaille;
     while Ref^.Self.Position-Base < Ref^.DKCompressLen do
     begin
-      Ref^.Self.Read(B, 1);
+      Ref^.Self.ReadBuffer(B, SizeOf(B));
       if B = 255 then
       begin
         // terminator
@@ -162,9 +161,9 @@ begin
       else if B < 64 then
       begin
         // uncompressed block
-        for i := -1 to B-1 do
+        for I := -1 to B-1 do
         begin
-          Ref^.Self.Read(C, 1);
+          Ref^.Self.ReadBuffer(C, SizeOf(C));
           S.Write(C, 1);
         end;
       end
@@ -172,7 +171,7 @@ begin
       begin
         // rlz
         C:=0;
-        for i := 62 to B-1 do
+        for I := 62 to B-1 do
         begin
           S.Write(C, 1);
         end;
@@ -180,8 +179,8 @@ begin
       else if B < 192 then
       begin
         // run length encode
-        Ref^.Self.Read(C, 1);
-        for i := 126 to B-1 do
+        Ref^.Self.ReadBuffer(C, SizeOf(C));
+        for I := 126 to B-1 do
         begin
           S.Write(C, 1);
         end;
@@ -189,20 +188,19 @@ begin
       else if B < 254 then
       begin
         // reference previous data
-        Ref^.Self.Read(C, 1);
-        offset:=Integer(C)+2;
+        Ref^.Self.ReadBuffer(C, SizeOf(C));
         GetMem(buffer, B - 190);
         try
-          S.Seek(-offset, soCurrent);
-          S.Read(buffer^, B - 190);
+          S.Seek(-(Integer(C) + 2), soCurrent);
+          S.ReadBuffer(buffer^, B - 190);
           S.Seek(0, soEnd);
-          S.Write(buffer^, B - 190);
+          S.WriteBuffer(buffer^, B - 190);
         finally
           FreeMem(buffer);
         end;
       end;
     end;
-    if S.size <> Ref^.DKTaille then
+    if S.Size <> Ref^.DKTaille then
       raise EErrorFmt(5815, [0]);
     Result:=S.Size;
     S.Position:=0;
