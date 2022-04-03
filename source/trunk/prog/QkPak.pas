@@ -140,19 +140,17 @@ const
 
 function DaikatanaPakAddRef(Ref: PQStreamRef; var S: TStream) : TStreamPos;
 var
-  mem: TMemoryStreamWithCapacity;
   Base: TStreamPos;
   I: Integer;
-  B: Byte;
-  C: Char;
+  B, C: Byte;
   offset: Integer;
   buffer: PChar;
 begin
   Ref^.Self.Position:=Ref^.Position;
   Base:=Ref^.Self.Position;
-  mem:=TMemoryStreamWithCapacity.Create;
+  S:=TMemoryStreamWithCapacity.Create;
   try
-    mem.Capacity:=Ref^.DKTaille;
+    TMemoryStreamWithCapacity(S).Capacity:=Ref^.DKTaille;
     while Ref^.Self.Position-Base < Ref^.DKCompressLen do
     begin
       Ref^.Self.Read(B, 1);
@@ -167,16 +165,16 @@ begin
         for i := -1 to B-1 do
         begin
           Ref^.Self.Read(C, 1);
-          mem.Write(C, 1);
+          S.Write(C, 1);
         end;
       end
       else if B < 128 then
       begin
         // rlz
-        C:=#0;
+        C:=0;
         for i := 62 to B-1 do
         begin
-          mem.Write(C, 1);
+          S.Write(C, 1);
         end;
       end
       else if B < 192 then
@@ -185,7 +183,7 @@ begin
         Ref^.Self.Read(C, 1);
         for i := 126 to B-1 do
         begin
-          mem.Write(C, 1);
+          S.Write(C, 1);
         end;
       end
       else if B < 254 then
@@ -195,20 +193,19 @@ begin
         offset:=Integer(C)+2;
         GetMem(buffer, B - 190);
         try
-          mem.seek(-offset, soFromCurrent);
-          mem.Read(buffer^, B - 190);
-          mem.seek(0, soFromEnd);
-          mem.Write(buffer^, B - 190);
+          S.Seek(-offset, soCurrent);
+          S.Read(buffer^, B - 190);
+          S.Seek(0, soEnd);
+          S.Write(buffer^, B - 190);
         finally
           FreeMem(buffer);
         end;
       end;
     end;
-    if mem.size <> Ref^.DKTaille then
+    if S.size <> Ref^.DKTaille then
       raise EErrorFmt(5815, [0]);
-    Result:=mem.Size;
-    mem.Position:=0;
-    S:=mem;
+    Result:=S.Size;
+    S.Position:=0;
   except
     S.Free;
     raise;
