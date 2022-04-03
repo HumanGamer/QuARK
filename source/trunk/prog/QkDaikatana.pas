@@ -80,7 +80,7 @@ var
   V: array[1..2] of Single;
   W, H: Integer;
 begin
-  if Taille<SizeOf(Header) then
+  if Taille-Base<SizeOf(Header) then
     Raise EError(5519);
   F.ReadBuffer(Header, SizeOf(Header));
   if Header.Version <> 3 then
