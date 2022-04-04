@@ -30,7 +30,7 @@ procedure LoadTextureDataDK(F: TStream; Base, Taille: TStreamPos; var Texture: Q
 
 implementation
 
-uses SysUtils, Quarkx, Setup, QkTextures, QkExceptions;
+uses SysUtils, Quarkx, Setup, QkTextures, QkExceptions, Logging;
 
 const
  DKMaxMipmaps = 9;
@@ -107,6 +107,22 @@ begin
     S:=Spec1;
     S[PosNb]:=ImgCodes[I];
     Taille1:=W*H;
+    if I=DKMaxMipmaps-1 then
+    begin
+      if Base+Header.Indexes[I]+Taille1 > Taille then
+      begin
+        Log(LOG_WARNING, LoadStr1(5859), [Texture.GetFullName()]);
+        Break;
+      end;
+    end
+    else
+    begin
+      if Base+Header.Indexes[I]+Taille1 > Base+Header.Indexes[I+1] then
+      begin
+        Log(LOG_WARNING, LoadStr1(5859), [Texture.GetFullName()]);
+        Break;
+      end;
+    end;
     SetLength(S, Length(Spec1)+Taille1);
     F.Position:=Base+Header.Indexes[I];
     F.ReadBuffer(S[Length(Spec1)+1], Taille1);
