@@ -21,22 +21,21 @@ struct cGame
 	char* ID;
 	char* Name;
 	byte* Signature;
-	bool HasVersion;
 	byte* Version;
 };
 
 const int GameNR = 10;
 const cGame GameList [GameNR] = {
-	{ "Alice", "American McGee's Alice", "FAKK", true, "\x2A\x00\x00\x00" },
-	{ "DK", "Daikatana", "\x49\x42\x53\x50", true, "\x29\x00\x00\x00" },
-	{ "HL", "Half-Life", "\x1E\x00\x00\x00", false, "\x00\x00\x00\x00" },
-	{ "FAKK2", "Heavy Metal: FAKK2", "FAKK", true, "\x0C\x00\x00\x00" },
-	{ "Q1", "Quake 1 or Hexen II", "\x1D\x00\x00\x00", false, "\x00\x00\x00\x00" },
-	{ "Q2", "Quake 2", "\x49\x42\x53\x50", true, "\x26\x00\x00\x00" },
-	{ "Q3", "Quake 3 or Nexuiz", "\x49\x42\x53\x50", true, "\x2E\x00\x00\x00" },
-	{ "RTCW", "Return to Castle Wolfenstein", "\x49\x42\x53\x50", true, "\x2F\x00\x00\x00" },
-	{ "SiN", "SiN or Star Wars: Jedi Knight 2 or Star Wars: Jedi Academy", "\x52\x42\x53\x50", true, "\x01\x00\x00\x00" },
-	{ "W", "Warsow", "\x46\x42\x53\x50", true, "\x01\x00\x00\x00" }
+	{ "Alice", "American McGee's Alice", "FAKK", "\x2A\x00\x00\x00" },
+	{ "DK", "Daikatana", "\x49\x42\x53\x50", "\x29\x00\x00\x00" },
+	{ "HL", "Half-Life", "\x1E\x00\x00\x00", nullptr },
+	{ "FAKK2", "Heavy Metal: FAKK2", "FAKK", "\x0C\x00\x00\x00" },
+	{ "Q1", "Quake 1 or Hexen II", "\x1D\x00\x00\x00", nullptr },
+	{ "Q2", "Quake 2", "\x49\x42\x53\x50", "\x26\x00\x00\x00" },
+	{ "Q3", "Quake 3 or Nexuiz", "\x49\x42\x53\x50", "\x2E\x00\x00\x00" },
+	{ "RTCW", "Return to Castle Wolfenstein", "\x49\x42\x53\x50", "\x2F\x00\x00\x00" },
+	{ "SiN", "SiN or Star Wars: Jedi Knight 2 or Star Wars: Jedi Academy", "\x52\x42\x53\x50", "\x01\x00\x00\x00" },
+	{ "W", "Warsow", "\x46\x42\x53\x50", "\x01\x00\x00\x00" }
 };
 
 /* // Note: Quake-3 and STVEF .BSPs, uses the same signature as Quake-2 .BSPs!
@@ -137,7 +136,7 @@ int main(int argc, char* argv[])
 	BSPFile.seekg(0, ios::beg);
 	BSPFile.read(BufferSignature, 4);
 	byte* BufferVersion = NULL;
-	if (GameList[FileGameMode].HasVersion)
+	if (GameList[FileGameMode].Version)
 	{
 		BufferVersion = new byte [4];
 		BSPFile.read(BufferVersion, 4);
@@ -146,17 +145,9 @@ int main(int argc, char* argv[])
 	{
 		for (i = 0; i < GameNR; i++)
 		{
-			/*cout << int(BufferSignature[0]) << " : " << int(GameList[i].Signature[0]) << endl;
-			cout << int(BufferSignature[1]) << " : " << int(GameList[i].Signature[1]) << endl;
-			cout << int(BufferSignature[2]) << " : " << int(GameList[i].Signature[2]) << endl;
-			cout << int(BufferSignature[3]) << " : " << int(GameList[i].Signature[3]) << endl;
-			cout << int(BufferVersion[0]) << " : " << int(GameList[i].Version[0]) << endl;
-			cout << int(BufferVersion[1]) << " : " << int(GameList[i].Version[1]) << endl;
-			cout << int(BufferVersion[2]) << " : " << int(GameList[i].Version[2]) << endl;
-			cout << int(BufferVersion[3]) << " : " << int(GameList[i].Version[3]) << endl;*/
 			if (!memcmp(BufferSignature, GameList[i].Signature, 4))
 			{
-				if (GameList[i].HasVersion)
+				if (GameList[i].Version)
 				{
 					if (!memcmp(BufferVersion, GameList[i].Version, 4))
 					{
@@ -204,7 +195,7 @@ int main(int argc, char* argv[])
 		cout << "Changing BSP file game...";
 		BSPFile.seekp(0, ios::beg);
 		BSPFile.write(GameList[WantGameMode].Signature, 4);
-		if (GameList[WantGameMode].HasVersion)
+		if (GameList[WantGameMode].Version)
 		{
 			BSPFile.write(GameList[WantGameMode].Version, 4);
 		}
