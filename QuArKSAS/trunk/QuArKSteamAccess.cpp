@@ -126,7 +126,7 @@ int main(int argc, const char* argv[])
 	}
 	Log(0, "QuArK SAS (Steam Access System)");
 	Log(0, "-------------------------------");
-	Log(0, "Version 1.04");
+	Log(0, "Version " VersionString);
 	Log(0, "");
 	
 	stringstream tmp;
