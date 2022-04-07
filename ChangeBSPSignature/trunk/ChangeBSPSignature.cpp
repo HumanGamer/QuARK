@@ -14,7 +14,7 @@
 using namespace std;
 
 // This is supposed to be a single byte datatype:
-#define byte char
+#define byte unsigned char
 
 struct cGame
 {
@@ -25,17 +25,17 @@ struct cGame
 };
 
 const int GameNR = 10;
-const cGame GameList [GameNR] = {
-	{ "Alice", "American McGee's Alice", "FAKK", "\x2A\x00\x00\x00" },
-	{ "DK", "Daikatana", "\x49\x42\x53\x50", "\x29\x00\x00\x00" },
-	{ "HL", "Half-Life", "\x1E\x00\x00\x00", nullptr },
-	{ "FAKK2", "Heavy Metal: FAKK2", "FAKK", "\x0C\x00\x00\x00" },
-	{ "Q1", "Quake 1 or Hexen II", "\x1D\x00\x00\x00", nullptr },
-	{ "Q2", "Quake 2", "\x49\x42\x53\x50", "\x26\x00\x00\x00" },
-	{ "Q3", "Quake 3 or Nexuiz", "\x49\x42\x53\x50", "\x2E\x00\x00\x00" },
-	{ "RTCW", "Return to Castle Wolfenstein", "\x49\x42\x53\x50", "\x2F\x00\x00\x00" },
-	{ "SiN", "SiN or Star Wars: Jedi Knight 2 or Star Wars: Jedi Academy", "\x52\x42\x53\x50", "\x01\x00\x00\x00" },
-	{ "W", "Warsow", "\x46\x42\x53\x50", "\x01\x00\x00\x00" }
+const cGame GameList[GameNR] = {
+	{ "Alice", "American McGee's Alice", reinterpret_cast<byte*>("FAKK"), reinterpret_cast<byte*>("\x2A\x00\x00\x00") },
+	{ "DK", "Daikatana", reinterpret_cast<byte*>("\x49\x42\x53\x50"), reinterpret_cast<byte*>("\x29\x00\x00\x00") },
+	{ "HL", "Half-Life", reinterpret_cast<byte*>("\x1E\x00\x00\x00"), nullptr },
+	{ "FAKK2", "Heavy Metal: FAKK2", reinterpret_cast<byte*>("FAKK"), reinterpret_cast<byte*>("\x0C\x00\x00\x00") },
+	{ "Q1", "Quake 1 or Hexen II", reinterpret_cast<byte*>("\x1D\x00\x00\x00"), nullptr },
+	{ "Q2", "Quake 2", reinterpret_cast<byte*>("\x49\x42\x53\x50"), reinterpret_cast<byte*>("\x26\x00\x00\x00") },
+	{ "Q3", "Quake 3 or Nexuiz", reinterpret_cast<byte*>("\x49\x42\x53\x50"), reinterpret_cast<byte*>("\x2E\x00\x00\x00") },
+	{ "RTCW", "Return to Castle Wolfenstein", reinterpret_cast<byte*>("\x49\x42\x53\x50"), reinterpret_cast<byte*>("\x2F\x00\x00\x00") },
+	{ "SiN", "SiN or Star Wars: Jedi Knight 2 or Star Wars: Jedi Academy", reinterpret_cast<byte*>("\x52\x42\x53\x50"), reinterpret_cast<byte*>("\x01\x00\x00\x00") },
+	{ "W", "Warsow", reinterpret_cast<byte*>("\x46\x42\x53\x50"), reinterpret_cast<byte*>("\x01\x00\x00\x00") }
 };
 
 /* // Note: Quake-3 and STVEF .BSPs, uses the same signature as Quake-2 .BSPs!
@@ -60,8 +60,7 @@ int main(int argc, char* argv[])
 		if (!strcmp(argv[1], "-games"))
 		{
 			cout << "Supported games:" << endl;
-			int i;
-			for (i = 0; i < GameNR; i++)
+			for (size_t i = 0; i < GameNR; ++i)
 			{
 				cout << "\"" << GameList[i].ID << "\" = " << GameList[i].Name << endl;
 			}
@@ -82,11 +81,10 @@ int main(int argc, char* argv[])
 		cout << endl;
 		return 1;
 	}
-	int i;
-	int WantGameMode = -1;
+	size_t WantGameMode = GameNR;
 	if (argc > 2)
 	{
-		for (i = 0; i < GameNR; i++)
+		for (size_t i = 0; i < GameNR; ++i)
 		{
 			if (!strcmp(argv[2], GameList[i].ID))
 			{
@@ -94,7 +92,7 @@ int main(int argc, char* argv[])
 				break;
 			}
 		}
-		if (WantGameMode == -1)
+		if (WantGameMode == GameNR)
 		{
 			cout << "Invalid second parameter. Game not recognized." << endl;
 			cout << "Type 'ChangeBSPSignature -games' (without quotes) for a list of all supported games." << endl;
@@ -102,10 +100,10 @@ int main(int argc, char* argv[])
 			return 1;
 		}
 	}
-	int FileGameMode = -1;
+	size_t FileGameMode = GameNR;
 	if (argc > 3)
 	{
-		for (i = 0; i < GameNR; i++)
+		for (size_t i = 0; i < GameNR; ++i)
 		{
 			if (!strcmp(argv[3], GameList[i].ID))
 			{
@@ -114,9 +112,16 @@ int main(int argc, char* argv[])
 			}
 		}
 	}
+	if (FileGameMode == GameNR)
+	{
+		cout << "Invalid third parameter. Game not recognized." << endl;
+		cout << "Type 'ChangeBSPSignature -games' (without quotes) for a list of all supported games." << endl;
+		cout << endl;
+		return 1;
+	}
 	fstream BSPFile;
 	ios_base::openmode FileMode;
-	if (WantGameMode == -1)
+	if (WantGameMode == GameNR)
 	{
 		FileMode = ios::in | ios::binary;
 	}
@@ -134,16 +139,33 @@ int main(int argc, char* argv[])
 	byte* BufferSignature;
 	BufferSignature = new byte [4];
 	BSPFile.seekg(0, ios::beg);
-	BSPFile.read(BufferSignature, 4);
+	BSPFile.read(reinterpret_cast<char*>(BufferSignature), 4);
+	if (BSPFile.fail())
+	{
+		cout << "Corrupt BSP file." << endl;
+		cout << endl;
+		delete[] BufferSignature;
+		BSPFile.close();
+		return 1;
+	}
 	byte* BufferVersion = NULL;
 	if (GameList[FileGameMode].Version)
 	{
 		BufferVersion = new byte [4];
-		BSPFile.read(BufferVersion, 4);
+		BSPFile.read(reinterpret_cast<char*>(BufferVersion), 4);
+		if (BSPFile.fail())
+		{
+			cout << "Corrupt BSP file." << endl;
+			cout << endl;
+			delete[] BufferSignature;
+			delete[] BufferVersion;
+			BSPFile.close();
+			return 1;
+		}
 	}
-	if (FileGameMode == -1)
+	if (FileGameMode == GameNR)
 	{
-		for (i = 0; i < GameNR; i++)
+		for (size_t i = 0; i < GameNR; ++i)
 		{
 			if (!memcmp(BufferSignature, GameList[i].Signature, 4))
 			{
@@ -163,7 +185,7 @@ int main(int argc, char* argv[])
 			}
 		}
 	}
-	if (FileGameMode == -1)
+	if (FileGameMode == GameNR)
 	{
 		cout << "Couldn't recognize BSP file game. This might not be a valid BSP file, or the game for which it is written is not supported by ChangeBSPSignature. Program terminated." << endl;
 		delete [] BufferSignature;
@@ -175,7 +197,7 @@ int main(int argc, char* argv[])
 		return 1;
 	}
 	cout << "BSP file game: " << GameList[FileGameMode].Name << endl;
-	if (WantGameMode == -1)
+	if (WantGameMode == GameNR)
 	{
 		cout << "No changes made." << endl;
 		delete [] BufferSignature;
@@ -194,10 +216,10 @@ int main(int argc, char* argv[])
 	{
 		cout << "Changing BSP file game...";
 		BSPFile.seekp(0, ios::beg);
-		BSPFile.write(GameList[WantGameMode].Signature, 4);
+		BSPFile.write(reinterpret_cast<char*>(GameList[WantGameMode].Signature), 4);
 		if (GameList[WantGameMode].Version)
 		{
-			BSPFile.write(GameList[WantGameMode].Version, 4);
+			BSPFile.write(reinterpret_cast<char*>(GameList[WantGameMode].Version), 4);
 		}
 		cout << " done!" << endl;
 	}
