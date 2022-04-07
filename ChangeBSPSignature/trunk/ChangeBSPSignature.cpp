@@ -1,7 +1,7 @@
 // ChangeBSPSignature
-// Version 1.1
-// 28 April 2009
-// (c) Copyright 2009, DanielPharos
+// Version 1.2
+// 7 April 2022
+// (c) Copyright 2022, DanielPharos
 
 // This program changes the signature on BSP files.
 // It cannot CONVERT different BSP file types.
@@ -9,9 +9,9 @@
 
 #include <iostream>
 #include <fstream>
-#include <string.h>
-#include <conio.h>
 using namespace std;
+
+#define VersionString "1.2"
 
 // This is supposed to be a single byte datatype:
 #define byte unsigned char
@@ -53,7 +53,7 @@ const
 int main(int argc, char* argv[])
 {
 	bool DisplayUsage = false;
-	cout << "ChangeBSPSignature - version 1.1" << endl;
+	cout << "ChangeBSPSignature - version " VersionString << endl;
 	cout << endl;
 	if (argc == 2)
 	{
@@ -148,7 +148,7 @@ int main(int argc, char* argv[])
 		BSPFile.close();
 		return 1;
 	}
-	byte* BufferVersion = NULL;
+	byte* BufferVersion = nullptr;
 	if (GameList[FileGameMode].Version)
 	{
 		BufferVersion = new byte [4];
@@ -189,7 +189,7 @@ int main(int argc, char* argv[])
 	{
 		cout << "Couldn't recognize BSP file game. This might not be a valid BSP file, or the game for which it is written is not supported by ChangeBSPSignature. Program terminated." << endl;
 		delete [] BufferSignature;
-		if (BufferVersion != NULL)
+		if (!BufferVersion)
 		{
 			delete [] BufferVersion;
 		}
@@ -201,7 +201,7 @@ int main(int argc, char* argv[])
 	{
 		cout << "No changes made." << endl;
 		delete [] BufferSignature;
-		if (BufferVersion != NULL)
+		if (!BufferVersion)
 		{
 			delete [] BufferVersion;
 		}
@@ -224,7 +224,7 @@ int main(int argc, char* argv[])
 		cout << " done!" << endl;
 	}
 	delete [] BufferSignature;
-	if (BufferVersion != NULL)
+	if (!BufferVersion)
 	{
 		delete [] BufferVersion;
 	}
