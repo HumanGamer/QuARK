@@ -153,10 +153,11 @@ end;
 function MakeEditorFileName(Q: QObject; var TempPath: String) : String;
 var
  Z: array[0..MAX_PATH] of Char;
+ S: String;
  I, J: Integer;
  P: PChar;
 begin
- GetTempPath(MAX_PATH-12, Z);
+ GetTempPath(SizeOf(Z), Z);
  P:=StrEnd(Z);
  if (P<>Z) and (P[-1]=PathDelim) then
   begin
@@ -164,21 +165,18 @@ begin
    P^:=#0;
   end;
  TempPath:=StrPas(Z);
- P^:=PathDelim;
- Inc(P);
+ S:=IncludeTrailingPathDelimiter(StrPas(Z));
  J:=5;
  for I:=1 to Length(Q.Name) do
   if Q.Name[I] in ['a'..'z', 'A'..'Z', '0'..'9', '_'] then
    begin
-    P^:=Q.Name[I];
-    Inc(P);
+    S:=S+Q.Name[I];
     Dec(J);
     if J=0 then Break;
    end;
- P^:=#0;
  J:=1;
  repeat
-  Result:=StrPas(Z)+IntToStr(J)+Q.TypeInfo;
+  Result:=S+IntToStr(J)+Q.TypeInfo;
   Inc(J);
  until not FileExists(Result);
 end;
