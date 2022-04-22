@@ -278,7 +278,7 @@ type
           Function GetTextureFolder: QObject;
           (*Function CreateStringListFromEntities(ExistingAddons: QFileObject; var Found: TStringList): Integer;*)
           function GetEntityLump : String;
-          function CreateHull(Index: Integer; nParent: QObject): QObject; //A TBSPHull, but that would create a circular include
+          function CreateHull(Index: Integer; nParent: QObject; const Origin: TVect): QObject; //A TBSPHull, but that would create a circular include
         end;
 
 type
@@ -1060,10 +1060,10 @@ begin
   end;
 end;
 
-function QBsp.CreateHull(Index: Integer; nParent: QObject): QObject;
+function QBsp.CreateHull(Index: Integer; nParent: QObject; const Origin: TVect): QObject;
 begin
   try
-    Result:=TBSPHull.Create(Self, Index, nParent);
+    Result:=TBSPHull.Create(Self, Index, nParent, Origin);
   except
     on E: Exception do
     begin

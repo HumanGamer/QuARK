@@ -149,7 +149,7 @@ type
               NbFaces, FirstFace: Integer;
               SurfaceList: PChar;
             public
-              constructor Create(nBsp: QBSP; Index: Integer; nParent: QObject);
+              constructor Create(nBsp: QBSP; Index: Integer; nParent: QObject; const Origin: TVect);
               destructor Destroy; override;
               class function TypeInfo: String; override;
               procedure ObjectState(var E: TEtatObjet); override;
@@ -231,7 +231,7 @@ end;
 
  {------------------------}
 
-constructor TBSPHull.Create(nBsp: QBSP; Index: Integer; nParent: QObject);
+constructor TBSPHull.Create(nBsp: QBSP; Index: Integer; nParent: QObject; const Origin: TVect);
 var
  HullType: Char;
  Delta, Size1: Integer;
@@ -246,6 +246,8 @@ var
  Face: TFace;
  Surface1: PSurface;
  Dest: ^PVertex;
+ Dest2: PVertex;
+ OriginCorrection: TList;
  BspVecs: PTexInfoVecs;
  InvFaces: Integer;
  LastError: String;
@@ -257,7 +259,8 @@ var
  Q3VertexP: PQ3Vertex;
  TextureList: QTextureList;
  miptex, q12surf: boolean;
- Norm2 : TVect;
+ Norm2: TVect;
+ Facteur: TDouble;
 
  function AdjustTexScale(const V: TVect5) : TVect5;
  begin
@@ -399,6 +402,7 @@ begin
 
   SubElements.Capacity:=NbFaces;
 
+  OriginCorrection:=TList.Create;
   ProgressIndicatorStart(5463, NbFaces); try
   for I:=1 to NbFaces do
    begin
@@ -581,7 +585,7 @@ begin
     end
     else
     begin {Q3 texture info}
-      if Q3Faces^.Vertex_num< 3 then
+      if Q3Faces^.Vertex_num<3 then
         Raise EErrorFmt(5635, [7]);
       J:=1;
       while true do
@@ -625,27 +629,48 @@ begin
     if q12surf then
     begin
       if Faces^.side<>0 then
-         with Face do
-         begin
-           Normale.X:=-NN.X;
-           Normale.Y:=-NN.Y;
-           Normale.Z:=-NN.Z;
-           Dist:=-PlaneDist;
-         end
+        with Face do
+        begin
+          Normale.X:=-NN.X;
+          Normale.Y:=-NN.Y;
+          Normale.Z:=-NN.Z;
+          Dist:=-PlaneDist;
+        end
       else
         with Face do
         begin
           Normale:=NN;
           Dist:=PlaneDist;
         end;
-    end else
+    end
+    else
     begin
         with Face do
         begin
           Normale:=NN;
-        {  Dist:=PlaneDist;  }
+          //Dist:=PlaneDist;
         end;
     end;
+
+    { BSP files use an 'origin' specific to offset BSPHulls }
+    if (Origin.X<>OriginVectorZero.X) or (Origin.Y<>OriginVectorZero.Y) or (Origin.Z<>OriginVectorZero.Z) then
+    begin
+      Facteur:=Dot(Face.Normale, Origin);
+      Norm2.X:=Origin.X - Face.Normale.X*Facteur;
+      Norm2.Y:=Origin.Y - Face.Normale.Y*Facteur;    { Norm2 is Origin forced in the plane of the face }
+      Norm2.Z:=Origin.Z - Face.Normale.Z*Facteur;
+      P1:=VecSum(P1, Norm2);
+      P2:=VecSum(P2, Norm2);
+      P3:=VecSum(P3, Norm2);
+
+      for J:=0 to Surface1^.prvVertexCount-1 do
+      begin
+        Dest2:=Surface1^.prvVertexTable[J];
+        if OriginCorrection.IndexOf(Dest2)=-1 then
+          OriginCorrection.Add(Dest2);
+      end;
+    end;
+
     { Some changes needed here if NuTex2 branch stuff used  }
     Norm2:=Cross(VecDiff(P2,P1), VecDiff(P3,P1));
     if VecLength(Norm2)> rien then
@@ -671,8 +696,15 @@ begin
     Face.LinkSurface(Surface1);
     PChar(Surface1):=PChar(Dest);
    end;
+
+   for I:=0 to OriginCorrection.Count-1 do
+    begin
+     Dest2:=OriginCorrection[I];
+     Dest2^.P:=VecSum(Dest2^.P, Origin);
+    end;
   finally
    ProgressIndicatorStop;
+   OriginCorrection.Free;
   end;
 
   if InvFaces>0 then

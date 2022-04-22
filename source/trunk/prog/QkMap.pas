@@ -2469,11 +2469,7 @@ begin
                  Delta1.Y:=Delta.Y - Normale.Y*Facteur;    { Delta1 is Delta forced in the plane of the face }
                  Delta1.Z:=Delta.Z - Normale.Z*Facteur;
                  for K:=1 to 3 do
-                  begin
-                   V[K].X:=V[K].X + Delta1.X;
-                   V[K].Y:=V[K].Y + Delta1.Y;
-                   V[K].Z:=V[K].Z + Delta1.Z;
-                  end;
+                  V[K]:=VecSum(V[K], Delta1);
                  SetThreePoints(V[1], V[2], V[3]);
                 end;
           end;
@@ -2501,7 +2497,11 @@ begin
         EntitePoly:=TTreeMapSpec(HullList[I]);
         if EntitePoly<>Nil then
          begin
-          BspHull:=BSP.CreateHull(I, EntitePoly as TTreeMapGroup);
+          if EntitePoly.Specifics.Values['origin']<>'' then
+           Delta:=ReadVector(EntitePoly.Specifics.Values['origin'])
+          else
+           Delta:=OriginVectorZero;
+          BspHull:=BSP.CreateHull(I, EntitePoly as TTreeMapGroup, Delta);
           if BspHull<>nil then
            EntitePoly.SubElements.Add(BspHull);
          end;

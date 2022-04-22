@@ -14,6 +14,8 @@
 
 6.6.0 Beta 8
 ============
+* [DanielPharos]: Fixed origin-specific from .bsp files not being processed.
+
 * [DanielPharos]: Added Daikatana support (experimental).
 
 * [DanielPharos]: Added Quake 1 .rc and .src file handling.
