@@ -896,6 +896,8 @@ begin
 end;
 
 function QTextureLnk.LoadPixelSet;
+const
+  Spec2 = 'Pal';
 var
   S, Arg, TexName, Ext, DefaultImageName, ShaderType: String;
   Bsp: QBsp;
@@ -952,8 +954,16 @@ begin
           Link.Specifics.Add('Contents='+Specifics.Values['c']);
           Link.Specifics.Add('Flags='+Specifics.Values['f']);
           Link.Specifics.Add('Value='+Specifics.Values['v']);
-        end;
+        end
 {end  --- kingpin texture flag hack}
+        else if CharModeJeu=mjDK then
+        begin
+          //FIXME: Doesn't work?
+          S:=Spec2;
+          SetLength(S, Length(Spec2) + SizeOf(TPaletteLmp));
+          Move(GameBuffer(ObjectGameCode)^.PaletteLmp, S[Length(Spec2)+1], SizeOf(TPaletteLmp));
+          Link.Specifics.Add(S);
+        end;
         Break;
       end;
     end;

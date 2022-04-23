@@ -1126,6 +1126,7 @@ Strings = {
     5856: "Run Commands file",
     5857: "Source file",
     5858: "Unsupported Daikatana .wal format (version: %d)",
+    5859: "Invalid mipmap data in texture '%s'; skipping broken mipmaps",
 
     # DanielPharos would like to reserve 6000 .. 6099 for all renderers
     6000: "Unable to create SceneObject//%s",
