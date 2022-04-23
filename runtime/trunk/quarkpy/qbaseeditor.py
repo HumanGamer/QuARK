@@ -812,9 +812,7 @@ class BaseEditor:
                         if flagsmouse == 16384:
                             for v in self.layout.views:
                                 if v.viewmode != "wire":
-                                    v.invalidate(1)
-                                    mdleditor.setsingleframefillcolor(self, v)
-                                    v.repaint()
+                                    v.invalidate(rebuild)
                         return
                     elif self.layout.selchange:
                         for v in self.layout.views:
@@ -843,16 +841,12 @@ class BaseEditor:
                                         if self.ModelFaceSelList != []:
                                             import mdlhandles
                                             v.handles = mdlhandles.BuildHandles(self, self.layout.explorer, v)
-                                        v.invalidate(1)
-                                        mdleditor.setsingleframefillcolor(self, v)
-                                        v.repaint()
+                                        v.invalidate(rebuild)
                                 else:
                                     if self.ModelFaceSelList != []:
                                         import mdlhandles
                                         v.handles = mdlhandles.BuildHandles(self, self.layout.explorer, v)
-                                    v.invalidate(1)
-                                    mdleditor.setsingleframefillcolor(self, v)
-                                    v.repaint()
+                                    v.invalidate(rebuild)
                         return
                     else:
                         return
