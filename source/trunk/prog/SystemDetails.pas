@@ -1214,15 +1214,17 @@ begin
     Free;
   end;
 
-  n:=MAX_PATH;
-  p:=StrAlloc(n);
+  p:=StrAlloc(MAX_PATH+2); //Largest size of the calls below
   try
+    n:=MAX_PATH; //Documented to prefer MAX_PATH.
     GetWindowsDirectory(p,n);
     FDirs.Add('Windows='+StrPas(p));
 
+    n:=MAX_PATH+2;
     GetSystemDirectory(p,n);
     FDirs.Add('System='+StrPas(p));
 
+    n:=MAX_PATH+2; //GetTempPath can return MAX_PATH+1, and that's not including the null-terminator.
     GetTempPath(n,p);
     FDirs.Add('Temp='+StrPas(p));
   finally
