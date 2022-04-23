@@ -1936,7 +1936,24 @@ begin
 
                 if ValueExists(rvHardware+'.'+rvHWMemQW) then
                 begin
-                  qdata:=ReadQWORD(rvHardware+'.'+rvHWMemQW);
+                  idata:=GetRawDataType(rvHardware+'.'+rvHWMemQW);
+                  case idata of
+                    REG_QWORD:
+                    begin
+                      qdata:=ReadQWORD(rvHardware+'.'+rvHWMemQW);
+                    end;
+                    REG_BINARY:
+                    begin
+                      //Some broken NVidia drivers use BINARY
+                      readbinarydata(rvHardware+'.'+rvHWMemQW,idata,8);
+                      qdata:=idata;
+                    end;
+                    else
+                    begin
+                      Log(LOG_WARNING, 'Could not retrieve Video Hardware Memory size!');
+                      qdata:=0;
+                    end;
+                  end;
                   FMemory.Add(FormatBytes(qdata));
                 end
                 else if ValueExists(rvHardware+'.'+rvHWMem) then
