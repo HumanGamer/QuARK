@@ -365,7 +365,7 @@ end;
 
 function TMyTreeView.GetFontHandle(BoldFace: Integer) : HFont;
 begin
- Result:=CreateFont(8, 0, 0, 0, BoldFace, 0, 0, 0, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH or FF_DONTCARE, 'MS Sans Serif');
+ Result:=CreateFont(Font.Height, 0, 0, 0, BoldFace, 0, 0, 0, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH or FF_DONTCARE, 'MS Sans Serif');
 end;
 
 //Pretty much a copy of TWinControl.WMPaint:
