@@ -263,6 +263,7 @@ class MapEditor(BaseEditor):
         "The pop-up menu for the Explorer."
 
         import mapmenus
+        import qmenu
         sellist = self.layout.explorer.sellist
         if len(sellist)==0:
             return mapmenus.BackgroundMenu(self, view, origin)
