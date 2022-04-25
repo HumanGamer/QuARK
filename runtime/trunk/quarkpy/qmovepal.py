@@ -26,7 +26,7 @@ def readmpvalues(spec, mode):
 
 
 def btnclick(btn, mode=SS_MAP):
-    editor = mapeditor(mode)
+    editor = qeditor.mapeditor(mode)
     if editor is None: return
     offset = matrix = inflate = val = None
     try:
