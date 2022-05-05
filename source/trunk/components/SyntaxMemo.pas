@@ -171,7 +171,6 @@ end;*)
 
 procedure TSyntaxMemo.PaintWindow1;
 var
- Taille: TSize;
  I, J, DispPos, DispRectLeft: Integer;
  FormatRect, DisplayRect: TRect;
  S: String;
@@ -204,7 +203,7 @@ var
        Inc(I);
       end;
      Inc(DispPos, Length(Tabs));
-     FormatRect.Right:=FormatRect.Left + Length(Tabs)*Taille.cx;
+     FormatRect.Right:=FormatRect.Left + Length(Tabs)*Metrics.tmMaxCharWidth;
      ExtTextOut(DC, FormatRect.Left, FormatRect.Top+Metrics.tmAscent,
       eto_Opaque, @FormatRect, PChar(Tabs), Length(Tabs), Nil);
      FormatRect.Left:=FormatRect.Right;
@@ -223,7 +222,6 @@ begin
  Font1:=Font.Handle;
  Color1:=ColorToRGB(Font.Color);
  Font0:=SelectObject(DC, Font1); try
- GetTextExtentPoint32(DC, 'X',1, Taille);
  SetTextAlign(DC, ta_Left or ta_BaseLine);
  GetTextMetrics(DC, Metrics);
  FormatRect:=DisplayRect;
@@ -238,7 +236,7 @@ begin
     end
    else
     S:='';
-   FormatRect.Bottom:=FormatRect.Top+Taille.cy;
+   FormatRect.Bottom:=FormatRect.Top+Metrics.tmHeight;
    FormatRect.Left:=DisplayRect.Left;
    J:=0;
    DispPos:=-1;
@@ -253,7 +251,7 @@ begin
       Inc(FormatInfo);
      end;
    PatBlt(DC, FormatRect.Left, FormatRect.Top,
-    DisplayRect.Right-FormatRect.Left, Taille.cy, Whiteness);
+    DisplayRect.Right-FormatRect.Left, Metrics.tmHeight, Whiteness);
    Inc(I);
    FormatRect.Top:=FormatRect.Bottom;
   end;

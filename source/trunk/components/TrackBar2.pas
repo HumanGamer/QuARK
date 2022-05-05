@@ -10,8 +10,7 @@ unit TrackBar2;
 interface
 
 uses
-  Windows, Messages, ComCtrls, CommCtrl, Graphics, Classes,
-  Controls, SysUtils;
+  Windows, Messages, ComCtrls, CommCtrl, Graphics, Classes, Controls, SysUtils;
 
 type
   TTBEndTrack = packed record //FIXME: Untested!
@@ -94,6 +93,7 @@ procedure TTrackBar2.WMPaint(var Message: TWMPaint);
 var
   S: String;
   TextRect: TRect;
+  Metrics: TTextMetric;
 begin
   inherited;
 
@@ -108,7 +108,8 @@ begin
     try
       TextRect.Left := 0;
       TextRect.Right := Width;
-      TextRect.Top := Height - 16; //FIXME: Assuming 16 as font-height...!
+      GetTextMetrics(FCanvas.Handle, Metrics);
+      TextRect.Top := Height - Metrics.tmHeight;
       TextRect.Bottom := Height;
       FillRect(FCanvas.Handle, TextRect, HBrush(COLOR_WINDOW+1));
       DrawText(FCanvas.Handle, PChar(S), -1, TextRect, DT_CENTER or DT_SINGLELINE);
