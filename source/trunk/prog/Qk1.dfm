@@ -5,12 +5,9 @@ object Form1: TForm1
   Height = 350
   Caption = 'QuArK Explorer'
   Color = clBtnFace
-  Font.Charset = DEFAULT_CHARSET
-  Font.Color = clWindowText
-  Font.Height = -11
-  Font.Name = 'MS Sans Serif'
-  Font.Style = []
+  ParentFont = True
   OldCreateOrder = True
+  Position = poDefaultPosOnly
   OnActivate = FormActivate
   OnCreate = FormCreate
   OnDestroy = FormDestroy
