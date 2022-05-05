@@ -24,7 +24,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
-  Buttons, ExtCtrls;
+  Buttons;
 
 type
   TSetCursorEvent = procedure(Sender: TObject; var nCursor: TCursor) of object;

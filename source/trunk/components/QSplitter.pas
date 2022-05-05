@@ -23,7 +23,7 @@ unit QSplitter;
 interface
 
 uses
-  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs;
+  Windows, Messages, SysUtils, Classes, Graphics, Controls;
 
 {$DEFINE WinControl}
 

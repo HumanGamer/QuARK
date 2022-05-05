@@ -23,8 +23,8 @@ unit PaintPanel;
 interface
 
 uses
-  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
-  ExtCtrls, Menus, CursorScrollBox;
+  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms,
+  ExtCtrls, CursorScrollBox;
 
 const
  wm_InternalPaint = wm_User + $72;

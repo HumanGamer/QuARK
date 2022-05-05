@@ -23,7 +23,7 @@ unit SmArrowBtn;
 interface
 
 uses
-  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs, ExtCtrls;
+  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, ExtCtrls;
 
 const
  sabNoDirection     = 0;
