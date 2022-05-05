@@ -43,10 +43,10 @@ type
                end;
   TMyTreeView = class(TScrollingWinControl)
   private
-    FParentDoubleBuffered: Boolean;//DBhack
+    FParentDoubleBuffered: Boolean; //DBhack
     FRoots: TQList;   { top-items (roots) displayed in the tree view }
     FFocusList: TList;  { pairs of position/item, from top-level down to focused item }
-    Inv1, HasFocus, SelChanged, SelChangedMsg: Boolean;
+    HasFocus, SelChanged, SelChangedMsg: Boolean;
     Extending: ShortInt;
     MouseClicking: TMouseClicking;
     FTimer: TTimer;
@@ -68,14 +68,14 @@ type
     procedure WMGetDlgCode(var Message: TMessage); message WM_GETDLGCODE;
   (*procedure CMCtl3DChanged(var Message: TMessage); message CM_CTL3DCHANGED;*)
     procedure wmInternalMessage(var Msg: TMessage); message wm_InternalMessage;
-    procedure SetParentDoubleBuffered(nParentDoubleBuffered: Boolean);//DBhack
+    procedure SetParentDoubleBuffered(nParentDoubleBuffered: Boolean); //DBhack
   protected
     EditInfo: PTVEditing;
     DropTarget: QObject;
     RightButtonDrag: Boolean;
     procedure WMPaint(var Message: TWMPaint); message WM_PAINT;
     procedure DoPaint(DC: HDC; const PaintInfo: TPaintStruct); virtual;
-    procedure SetParent(AParent: TWinControl); override;//DBhack
+    procedure SetParent(AParent: TWinControl); override; //DBhack
     procedure Expanding(Q: QObject); dynamic;
     procedure Accessing(Q: QObject); dynamic;
     procedure CreateParams(var Params: TCreateParams); override;
@@ -802,11 +802,8 @@ end;
 procedure TMyTreeView.ContentsChanged(Full: Boolean);
 begin
  SelChanged:=SelChanged or Full;
- if not Inv1 and (Parent<>Nil) then
-  begin
-   PostMessage(Handle, wm_InternalMessage, wp_ContentsChanged, 0);
-   Inv1:=True;
-  end;
+ if HandleAllocated then
+  PostMessage(Handle, wm_InternalMessage, wp_ContentsChanged, 0);
 end;
 
 function TMyTreeView.GetFocused1(NoExpand: Boolean) : QObject;
@@ -1251,14 +1248,6 @@ var
  S: String;
  F: TCustomForm;
 begin
-{Decker 2002-04-24}
-  if inv1=True then
-  begin
-    inv1:=False;
-    VertScrollBar.Range:=CountVisibleItems(Roots, ofTreeViewSubElement)*MyTVLineStep;
-    Repaint;
-  end;
-{/Decker 2002-04-24}
  case Msg.wParam of
   wp_ContentsChanged:
     begin
