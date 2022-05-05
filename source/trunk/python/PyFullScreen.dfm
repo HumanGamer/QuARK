@@ -7,11 +7,7 @@ object PyFullscreenWnd: TPyFullscreenWnd
   ClientHeight = 266
   ClientWidth = 115
   Color = clBtnFace
-  Font.Charset = DEFAULT_CHARSET
-  Font.Color = clWindowText
-  Font.Height = -11
-  Font.Name = 'MS Sans Serif'
-  Font.Style = []
+  ParentFont = True
   OldCreateOrder = True
   Position = poDefaultPosOnly
   OnMouseMove = FormMouseMove
