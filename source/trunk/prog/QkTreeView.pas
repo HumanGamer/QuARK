@@ -92,6 +92,8 @@ type
     procedure DragOver(Source: TObject; X,Y: Integer; State: TDragState; var Accept: Boolean); override;
     procedure Edited(Item: QObject; const Text: String); dynamic;
     function GetExplorerMenu : TPopupMenu; dynamic;
+    function GetNodeAt(X,Y: Integer) : QObject;
+    function GetNodeDisplayRect(Item: QObject) : TRect;
     procedure DisplayDetails(ParentSel: Boolean; Item: QObject; var Etat: TDisplayDetails); virtual;
     {procedure ClearSelection;}
   public
@@ -106,8 +108,6 @@ type
     procedure ExpandAll(Q: QObject);
     function GetNextVisibleNode(Source: QObject) : QObject;
     function GetPrevVisibleNode(Source: QObject) : QObject;
-    function GetNodeAt(X,Y: Integer) : QObject;
-    function GetNodeDisplayRect(Item: QObject) : TRect;
     procedure MakeVisible(Item1, Item2: QObject);
     function EffacerSelection: Boolean;
     property TMFocus : QObject read GetFocused write SetFocused;
@@ -185,6 +185,7 @@ begin
   FFocusList:=TList.Create;
   ControlStyle := [csAcceptsControls, csCaptureMouse, csClickEvents, csSetCaption, csDoubleClicks];
   ParentColor := False;
+  ParentFont := True;
   Color := clWindow;
   TabStop := True;
   HorzScrollBar.Tracking:=True;
