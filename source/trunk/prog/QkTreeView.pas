@@ -51,6 +51,7 @@ type
     MouseClicking: TMouseClicking;
     FTimer: TTimer;
     DragInfo: PDragInfo;
+    LineStep: Integer;
     function GetFocused1(NoExpand: Boolean) : QObject;
     function GetFocused : QObject;
     procedure SetFocused1(nFocused: QObject);
@@ -64,6 +65,7 @@ type
     procedure WMEraseBkgnd(var Message: TMessage); message WM_ERASEBKGND;
     procedure WMSysColorChange(var Message: TMessage); message WM_SYSCOLORCHANGE;
     procedure WMSetFocus(var Message: TMessage); message WM_SETFOCUS;
+    procedure WMSetFont(var Message: TMessage); message WM_SETFONT;
     procedure WMKillFocus(var Message: TMessage); message WM_KILLFOCUS;
     procedure WMGetDlgCode(var Message: TMessage); message WM_GETDLGCODE;
   (*procedure CMCtl3DChanged(var Message: TMessage); message CM_CTL3DCHANGED;*)
@@ -166,8 +168,7 @@ uses QkFileObjects, Python, PyImages, qmath, QkMapObjects,
  {------------------------}
 
 const
- MyTVLineStep = 16;
- MyTVIndent   = 19;
+ MyTVIndent = 19;
 
 var
  MyTVPlusSign: HBitmap = 0;
@@ -189,9 +190,8 @@ begin
   Color := clWindow;
   TabStop := True;
   HorzScrollBar.Tracking:=True;
-  HorzScrollBar.Increment:=MyTVLineStep;
   VertScrollBar.Tracking:=True;
-  VertScrollBar.Increment:=MyTVLineStep;
+  //Note: LineStep will be set in WM_SETFONT handler.
 end;
 
 destructor TMyTreeView.Destroy;
@@ -231,6 +231,28 @@ begin
       ExStyle := ExStyle or WS_EX_CLIENTEDGE;
     end;
   end;
+end;
+
+procedure TMyTreeView.WMSetFont(var Message: TMessage);
+var
+  DC: HDC;
+  SaveFont: HFont;
+  Metrics: TTextMetric;
+begin
+  inherited;
+  DC := GetDC(0);
+  try
+    SaveFont := SelectObject(DC, Font.Handle);
+    try
+      GetTextMetrics(DC, Metrics);
+    finally;
+      SelectObject(DC, SaveFont);
+    end;
+  finally
+    ReleaseDC(0, DC);
+  end;
+  LineStep:=Metrics.tmHeight;
+  if LineStep<16 then LineStep:=16;
 end;
 
 procedure TMyTreeView.WMNCHitTest(var Message: TMessage);
@@ -353,7 +375,7 @@ var
  I: Integer;
 begin
  Result:=Nil;
- for I:=0 to Y div MyTVLineStep do
+ for I:=0 to Y div LineStep do
   begin
    Result:=GetNextVisibleNode(Result);
    if Result=Nil then
@@ -438,7 +460,8 @@ var
    Item: QObject;
    Etat: TDisplayDetails;
    J, K, M: Integer;
-   R, LRect: TRect;
+   R, LRect, TMPRect: TRect;
+   YOffset: Integer;
    Sign: HDC;
    TextSize: TSize;
    Pen1: HPen;
@@ -464,7 +487,7 @@ var
       begin
        Result:=True;
        R.Top:=Y;
-       R.Bottom:=Y+MyTVLineStep;
+       R.Bottom:=Y+LineStep;
        R.Right:=0;
        if I >= IMin then
         begin
@@ -473,7 +496,7 @@ var
            SetFocused1(Item);
            FocusItem:=Item;
           end;
-         LRect.Bottom:=Y + MyTVLineStep div 2 + 2;
+         LRect.Bottom:=Y + LineStep div 2 + 2;
          LRect.Left:=X - MyTVIndent;
          LRect.Right:=X - (Succ(MyTVIndent) div 2);
          FillRect(DC, LRect, Brush);
@@ -530,6 +553,27 @@ var
             FillRect(DC, R, Brush);
            end;
 
+         //If the line has more vertical space than the icon
+         if R.Bottom-Y > 16 then
+          begin
+           YOffset:=(R.Bottom-Y-16) div 2;
+           TMPRect.Left:=X;
+           TMPRect.Right:=X+16;
+
+           //Space above the icon
+           TMPRect.Top:=R.Top;
+           TMPRect.Bottom:=Y+YOffset;
+           FillRect(DC, TMPRect, Brush);
+
+           //Space below the icon
+           TMPRect.Top:=Y+YOffset+16;
+           TMPRect.Bottom:=R.Bottom;
+           FillRect(DC, TMPRect, Brush);
+          end
+         else
+          YOffset:=0;
+
+         //Draw the icon, and its overlay (if any)
          DisplayDetails(Flags and eoParentSel<>0, Item, Etat);
          if Etat.Icon=Nil then
           begin
@@ -540,11 +584,11 @@ var
           Image1:=PyImage1(Etat.Icon);
           if (Image1=Nil)
           or not ImageList_DrawEx(Image1^.ImageList^.Handle, Image1^.Index,
-           DC, X,Y, 16,16, BkColor, BkColor, Mode[Item.Flags and ofNotLoadedToMemory <> 0]) then
+           DC, X,Y+YOffset, 16,16, BkColor, BkColor, Mode[Item.Flags and ofNotLoadedToMemory <> 0]) then
             begin
              R.Left:=X;
              R.Right:=X+16;
-             FillRect(DC, R, Brush);
+             FillRect(DC, R, Brush); //Note: draws the vertical space around the icon twice!
             end;
          finally
           Py_XDECREF(Etat.Icon);
@@ -552,7 +596,8 @@ var
          if (Item.Flags and (ofFileLink or ofTreeViewSubElement) = ofFileLink or ofTreeViewSubElement)
          and (InternalImages[iiLinkOverlay,0]<>Nil) and (InternalImages[iiLinkOverlay,0]^.ob_type = @TyImage1_Type) then
           with PyImage1(InternalImages[iiLinkOverlay,0])^ do
-           ImageList_DrawEx(ImageList^.Handle, Index, DC, X,Y, 16,16, CLR_NONE, CLR_DEFAULT, ILD_TRANSPARENT);
+           ImageList_DrawEx(ImageList^.Handle, Index, DC, X,Y+YOffset, 16,16, CLR_NONE, CLR_DEFAULT, ILD_TRANSPARENT);
+
          R.Left:=X+16;
 //         FoundAColor:=False;
          L:=Item.TreeViewColorBoxes;
@@ -623,7 +668,7 @@ var
            UpdateMaxPixelWidth(R.Right);
            DrawFocusRect(DC, R);
           end;
-          Pen1:=SelectObject(DC, CreatePen(ps_Solid, 1, TextColor)); // Pen1 is the OLD object, while CreatePen() makes a NEW object
+          Pen1:=SelectObject(DC, CreatePen(ps_Solid, 1, TextColor));
           try
            NumberOfColorsDrawn:=0;
            for M:=0 to Length(C)-1 do
@@ -631,16 +676,16 @@ var
              begin
               NumberOfColorsDrawn:=NumberOfColorsDrawn+1;
               R.Left:=X+6+TextSize.cx+(16*NumberOfColorsDrawn);
-              Brush1:=SelectObject(DC, CreateSolidBrush(C[M])); // Brush1 is the OLD object, while CreateSolidBrush() makes a NEW object
+              Brush1:=SelectObject(DC, CreateSolidBrush(C[M]));
               try
                 UpdateMaxPixelWidth(R.Left+16);
                 Rectangle(DC, R.Left+4, R.Top+3, R.Left+16, R.Bottom-3);
               finally
-                DeleteObject(SelectObject(DC, Brush1)); //Decker 2002-06-05, select the OLD object, returning the NEW object to the DeleteObject() function.
+                DeleteObject(SelectObject(DC, Brush1));
               end;
             end;
           finally
-           DeleteObject(SelectObject(DC, Pen1)); //Decker 2002-06-05, select the OLD object, returning the NEW object to the DeleteObject() function.
+           DeleteObject(SelectObject(DC, Pen1));
           end;
         end
        else
@@ -649,7 +694,7 @@ var
          Py_XDECREF(Etat.Icon);
         end;
        Inc(I);
-       LRect.Top:=Y + (MyTVLineStep div 2 + 2);
+       LRect.Top:=Y + (LineStep div 2 + 2);
        Y:=R.Bottom;
        if I>IMax then
         Break;
@@ -748,10 +793,10 @@ begin
 
     //FillRect(DC, VisibleRect, GetStockObject(Black_Brush));  { for debug }
 
-  IMin:=VisibleRect.Top div MyTVLineStep;
-  IMax:=(VisibleRect.Bottom+Pred(MyTVLineStep)) div MyTVLineStep;
+  IMin:=VisibleRect.Top div LineStep;
+  IMax:=(VisibleRect.Bottom+Pred(LineStep)) div LineStep;
   if HasFocus and (FocusItem=Nil) then
-   IFocus:=IMin + Ord(IMin*MyTVLineStep < VisibleRect.Top)
+   IFocus:=IMin + Ord(IMin*LineStep < VisibleRect.Top)
   else
    IFocus:=-1;
   I:=0;
@@ -1253,8 +1298,7 @@ begin
   wp_ContentsChanged:
     begin
      CancelMouseClicking(True);
-     Inv1:=False;
-     VertScrollBar.Range:=CountVisibleItems(Roots, ofTreeViewSubElement)*MyTVLineStep;
+     VertScrollBar.Range:=CountVisibleItems(Roots, ofTreeViewSubElement)*LineStep;
      Invalidate;
     end;
   wp_InPlaceEditClose:
@@ -1625,7 +1669,7 @@ begin
     ScrollLines := 3;
   end;
 
-  VertScrollBar.Position := VertScrollBar.Position + MyTVLineStep * Integer(ScrollLines);
+  VertScrollBar.Position := VertScrollBar.Position + LineStep * Integer(ScrollLines);
   Handled := true;
 end;
 
@@ -1639,7 +1683,7 @@ begin
     ScrollLines := 3;
   end;
 
-  VertScrollBar.Position := VertScrollBar.Position - MyTVLineStep * Integer(ScrollLines);
+  VertScrollBar.Position := VertScrollBar.Position - LineStep * Integer(ScrollLines);
   Handled := true;
 end;
 
@@ -1769,8 +1813,7 @@ begin
     finally
       ReleaseDC(Handle, DC);
     end;
-    Result:=Bounds(1+Level*MyTVIndent, Index*MyTVLineStep,
-     TextSize.cx+(18+4), MyTVLineStep);
+    Result:=Bounds(1+Level*MyTVIndent, Index*LineStep, TextSize.cx+(18+4), LineStep);
     Exit;
    end;
  Result:=Rect(0,0,0,0);
@@ -1982,27 +2025,27 @@ begin
      end;
   vk_Up:
     if (GetKeyState(VK_SCROLL) and $1)=1 then
-     VertScrollBar.Position := VertScrollBar.Position - MyTVLineStep
+     VertScrollBar.Position := VertScrollBar.Position - LineStep
     else
      Step(-1);
   vk_Down:
     if (GetKeyState(VK_SCROLL) and $1)=1 then
-     VertScrollBar.Position := VertScrollBar.Position + MyTVLineStep
+     VertScrollBar.Position := VertScrollBar.Position + LineStep
     else
      Step(+1);
-  vk_Prior: Step(-(ClientHeight div MyTVLineStep - 1));
-  vk_Next: Step(+(ClientHeight div MyTVLineStep - 1));
+  vk_Prior: Step(-(ClientHeight div LineStep - 1));
+  vk_Next: Step(+(ClientHeight div LineStep - 1));
   vk_Home: Step(-MaxInt);
   vk_End: Step(+MaxInt);
   vk_Left:
     if (GetKeyState(VK_SCROLL) and $1)=1 then
-     HorzScrollBar.Position := HorzScrollBar.Position - MyTVLineStep
+     HorzScrollBar.Position := HorzScrollBar.Position - LineStep
     else
      Left(True);
   vk_Subtract: Left(False);
   vk_Right:
     if (GetKeyState(VK_SCROLL) and $1)=1 then
-     HorzScrollBar.Position := HorzScrollBar.Position + MyTVLineStep
+     HorzScrollBar.Position := HorzScrollBar.Position + LineStep
     else
      Right(True);
   vk_Add: Right(False);
