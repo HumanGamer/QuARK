@@ -3,10 +3,10 @@ object ToolBoxForm: TToolBoxForm
   Top = 117
   Width = 473
   Height = 312
-  Font.Color = clWindowText
-  Font.Height = -11
-  Font.Name = 'MS Sans Serif'
-  Font.Style = []
+  Color = clBtnFace
+  ParentFont = True
+  OldCreateOrder = True
+  Position = poDefaultPosOnly
   OnActivate = FormActivate
   OnClose = FormClose
   OnCreate = FormCreate

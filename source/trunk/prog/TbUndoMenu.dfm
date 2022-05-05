@@ -8,10 +8,10 @@ object UndoDlg: TUndoDlg
   VertScrollBar.Visible = False
   BorderStyle = bsSizeToolWin
   Caption = 'Undo / Redo'
-  Font.Color = clWindowText
-  Font.Height = -11
-  Font.Name = 'MS Sans Serif'
-  Font.Style = []
+  Color = clBtnFace
+  ParentFont = True
+  OldCreateOrder = True
+  Position = poDefaultPosOnly
   OnDestroy = FormDestroy
   OnDeactivate = FormDeactivate
   OnResize = FormResize
@@ -50,6 +50,7 @@ object UndoDlg: TUndoDlg
       Alignment = taCenter
       AutoSize = False
       Caption = 'Redo from :'
+      Font.Charset = DEFAULT_CHARSET
       Font.Color = clLime
       Font.Height = -11
       Font.Name = 'MS Sans Serif'
@@ -91,6 +92,7 @@ object UndoDlg: TUndoDlg
       Alignment = taCenter
       AutoSize = False
       Caption = 'Undo up to :'
+      Font.Charset = DEFAULT_CHARSET
       Font.Color = clYellow
       Font.Height = -11
       Font.Name = 'MS Sans Serif'

@@ -6,11 +6,9 @@ object FormTravail: TFormTravail
   ClientHeight = 129
   ClientWidth = 297
   Color = clActiveCaption
-  Font.Color = clWindowText
-  Font.Height = -11
-  Font.Name = 'MS Sans Serif'
-  Font.Style = []
-  Position = poScreenCenter
+  ParentFont = True
+  OldCreateOrder = True
+  Position = poOwnerFormCenter
   PixelsPerInch = 96
   TextHeight = 13
   object Panel1: TPanel

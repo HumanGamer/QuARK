@@ -5,10 +5,10 @@ object RunForm: TRunForm
   Caption = 'Running...'
   ClientHeight = 112
   ClientWidth = 393
-  Font.Color = clWindowText
-  Font.Height = -11
-  Font.Name = 'MS Sans Serif'
-  Font.Style = []
+  Color = clBtnFace
+  ParentFont = True
+  OldCreateOrder = True
+  Position = poOwnerFormCenter
   OnActivate = FormActivate
   OnCreate = FormCreate
   OnDestroy = FormDestroy

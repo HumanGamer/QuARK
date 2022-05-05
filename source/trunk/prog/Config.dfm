@@ -4,11 +4,11 @@ object ConfigDlg: TConfigDlg
   AutoScroll = False
   ClientHeight = 337
   ClientWidth = 492
-  Font.Color = clWindowText
-  Font.Height = -11
-  Font.Name = 'MS Sans Serif'
-  Font.Style = []
+  Color = clBtnFace
+  ParentFont = True
   KeyPreview = True
+  OldCreateOrder = True
+  Position = poDefault
   OnClose = FormClose
   OnCreate = FormCreate
   OnDestroy = FormDestroy

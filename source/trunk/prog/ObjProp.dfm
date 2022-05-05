@@ -6,10 +6,9 @@ object FormObjProp: TFormObjProp
   Caption = 'Object properties'
   ClientHeight = 273
   ClientWidth = 344
-  Font.Color = clWindowText
-  Font.Height = -11
-  Font.Name = 'MS Sans Serif'
-  Font.Style = []
+  Color = clBtnFace
+  ParentFont = True
+  OldCreateOrder = True
   Position = poDefaultPosOnly
   OnCreate = FormCreate
   OnDestroy = FormDestroy
