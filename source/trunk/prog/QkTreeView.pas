@@ -183,10 +183,7 @@ begin
   OnMouseWheelUp:=MouseWheelUp;
   FRoots:=TQList.Create;
   FFocusList:=TList.Create;
-  ControlStyle := [csAcceptsControls, csCaptureMouse, csClickEvents,
-    csSetCaption, csDoubleClicks];
-  Width := 150;
-  Height := 148;
+  ControlStyle := [csAcceptsControls, csCaptureMouse, csClickEvents, csSetCaption, csDoubleClicks];
   ParentColor := False;
   Color := clWindow;
   TabStop := True;
