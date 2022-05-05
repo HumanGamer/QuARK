@@ -365,10 +365,10 @@ end;
 
 function TMyTreeView.GetFontHandle(BoldFace: Integer) : HFont;
 var
- lfFaceName: array[0..LF_FACESIZE - 1] of Char;
+ fontName: array[0..LF_FACESIZE - 1] of Char;
 begin
- StrPCopy(lfFaceName, DefFontData.Name);
- Result:=CreateFont(Font.Height, 0, 0, 0, BoldFace, 0, 0, 0, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH or FF_DONTCARE, lfFaceName);
+ StrPCopy(fontName, Font.Name);
+ Result:=CreateFont(Font.Height, 0, 0, 0, BoldFace, 0, 0, 0, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH or FF_DONTCARE, fontName);
 end;
 
 //Pretty much a copy of TWinControl.WMPaint:
