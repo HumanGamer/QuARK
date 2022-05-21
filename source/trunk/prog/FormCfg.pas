@@ -1490,6 +1490,7 @@ end;
 procedure TFormCfg.SetupProperties;
 var
  I: Integer;
+ Metrics: TTextMetric;
 begin
  if SB=Nil then
   begin
@@ -1514,6 +1515,10 @@ begin
       Text:=LoadStr1(TxtArg);
      HC.OnSectionResize:=SectionResize;
      HC.OnSectionClick:=SectionClick;
+
+     //Delphi has hardcoded the height to 17, so we need to set it ourselves
+     GetTextMetrics(Canvas.Handle, Metrics);
+     HC.Height:=Metrics.tmHeight + 4;
     end;
 
    PopupMenu:=TPopupMenu.Create(Self);
