@@ -1218,10 +1218,12 @@ begin
          end;
         if Reg.OpenKey('\'+S1, True) then
          begin
-          Reg.WriteString('AlwaysShowExt', ''); //FIXME: Add an option for this!
+          if not Reg.TryWriteString('AlwaysShowExt', '') then //FIXME: Add an option for this!
+           Log(LOG_WARNING, LoadStr1(5861), ['AlwaysShowExt', Ext, S1]);
           P:=Round(GetFloatSpec('i'+Ext, -1));
           if (P>=0) and Reg.OpenKey('\'+S1+'\DefaultIcon', True) then
-           Reg.WriteString('', Format('%s,%d', [Application.ExeName, P]));
+           if not Reg.TryWriteString('', Format('%s,%d', [Application.ExeName, P])) then
+            Log(LOG_WARNING, LoadStr1(5861), ['DefaultIcon', Ext, S1]);
           Reg.CloseKey;
          end;
        end;
