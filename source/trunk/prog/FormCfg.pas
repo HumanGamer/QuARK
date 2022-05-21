@@ -162,7 +162,7 @@ implementation
 uses qdraw, qmath, QkUnknown, Undo, TbPalette, QkFileObjects, Toolbar1, ToolBox1,
      Setup, QuarkX, QkExceptions, QkInclude, QkMacro, QkImages, QkTextures,
      Python, PyMacros, PyToolbars, PyForms, QkPixelSet, QkObjectClassList,
-     SystemDetails, Platform, ExtraFunctionality;
+     SystemDetails, Platform, Logging, ExtraFunctionality;
 
 const
  Differs = 5391;
@@ -343,8 +343,9 @@ begin
    end
   else
    begin
-    Name:='Courier New';
-    Size:=10;
+    Log(LOG_WARNING, LoadStr1(5860), [S]);
+    Name:=DefFontData.Name;
+    Size:=DefFontData.Height;
     Style:=[];
     Color:=clWindowText;
    end;
