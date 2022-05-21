@@ -177,8 +177,10 @@ const
  cmd_CopySpec   = 2;
  cmd_PasteSpec  = 3;
  cmd_CutSpec    = 4;
-{ cmd_etc         = 3; }
+{ cmd_etc        = 3; }
  MenuCmdCount = 5;
+
+ MemoMaxRows = 35; //Just some arbitrary max...
 
 function GetVKeyName(VkCode: Integer) : String;
 var
@@ -1613,17 +1615,16 @@ end;
 
 procedure TFormCfg.wmInternalMessage(var Msg: TMessage);
 const
- TopMargin    = 1;
- BottomMargin = 4;
- MiddleMargin = 3;
- LeftMarginG  = 7;
- LeftMarginW  = 18;
- LineHeightG  = 18;
- LineHeightW  = 16;
- LabelMargin  = 16;
- BevelStep    = 12;
+ TopMargin      = 1;
+ BottomMargin   = 4;
+ MiddleMargin   = 3;
+ LeftMarginG    = 7;
+ LeftMarginW    = 18;
+ LineSpacing    = 3;
+ LineExtraSpace = 2;
+ BevelStep      = 12;
 var
- N, BI, I, J, K, BitValue, X, Y, W, LeftMargin, Icone, ExtraVertSpace, MiddleX, NormalW: Integer;
+ N, BI, I, J, K, BitValue, X, Y, W, FontHeight, LeftMargin, Icone, ExtraVertSpace, MiddleX, NormalW: Integer;
  S, Captions, Spec, TextValues, HintMsg: String;
  ArgValue: String; { The value from the argument of the specific. }
  Value: Single;
@@ -1661,6 +1662,7 @@ var
  iSteps, iTickFreq: Integer;
  sDropDownCount: String;
  DropDownCount: Integer;
+ Metrics: TTextMetric;
 begin
  if Form=Nil then Exit;
  case Msg.wParam of
@@ -1720,10 +1722,12 @@ begin
      Color:=clWindow
     else
      Color:=clBtnFace;
+    GetTextMetrics(Canvas.Handle, Metrics);
+    FontHeight:=Metrics.tmHeight + LineSpacing;
     if GrayForm and gfExtraSpace <> 0 then
-     LineHeight:=LineHeightG
+     LineHeight:=FontHeight + LineExtraSpace
     else
-     LineHeight:=LineHeightW;
+     LineHeight:=FontHeight;
     if GrayForm and gfNoIcons <> 0 then
      LeftMargin:=LeftMarginG
     else
@@ -1805,7 +1809,7 @@ begin
             TLabel(Txt).WordWrap:=False;
             TLabel(Txt).OnClick:=PaintBoxClick;
           end;
-          Txt.SetBounds(LeftMargin, Y+LineHeight-LabelMargin, MiddleX-LeftMargin-MiddleMargin, LabelMargin);
+          Txt.SetBounds(LeftMargin, Y+LineHeight-FontHeight, MiddleX-LeftMargin-MiddleMargin, FontHeight);
           Txt.Tag:=I+1;
           Txt.Parent:=SB;
           Txt.Hint:=HintMsg;
@@ -1919,9 +1923,8 @@ begin
                  ComboBox.Hint:=HintMsg;
                  ComboBox.OnAccept:=AcceptComboBox;
                  ComboBox.OnEnter:=AnyControlEnter;
-                 J:=ComboBox.Height-LineHeightW;
-                 if J>0 then
-                  ExtraVertSpace:=J;
+                 if ComboBox.Height>LineHeight then
+                  ExtraVertSpace:=ComboBox.Height-LineHeight;
                  ResultCtrl:=ComboBox;
                 {Inc(X, W+MiddleMargin);}
                 end;
@@ -1997,7 +2000,7 @@ begin
                 {Lbl:=TLabel.Create(Self);
                  Lbl.Caption:=Values['Cap'];
                  Lbl.Left:=X+LineHeight+5;
-                 Lbl.Top:=Y + LabelMargin;
+                 Lbl.Top:=Y + FontHeight;
                  Lbl.Parent:=SB;}
                 {Inc(X, W+MiddleMargin);}
                 end;
@@ -2244,13 +2247,13 @@ begin
                  Icone := 0;
                  sTextRows := Values['Rows'];
                  if sTextRows<>'' then
-                   TextRows := StrToIntDef(sTextRows, 0)
+                   TextRows := StrToIntDef(sTextRows, 3)
                  else
                    TextRows := 3;
                  if TextRows < 1 then
                    TextRows := 1
-                 else if TextRows > 35 then  //Just some arbitrary max...
-                   TextRows := 35;
+                 else if TextRows > MemoMaxRows then
+                   TextRows := MemoMaxRows;
                  Memo := TMemo.Create(Self);
                  Memo.SetBounds(X, Y, W, TextRows * LineHeight); { TODO: Maybe calculate the most optimal height, considering WordWrap and the amount of text in ArgValue. }
                  ExtraVertSpace := (TextRows - 1) * LineHeight; { to adjust height for Y below. }
