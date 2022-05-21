@@ -233,6 +233,26 @@ begin
   end;
 end;
 
+function CountVisibleItems(const L: TQList; Ignore: Integer) : Integer;
+var
+ I: Integer;
+ Q: QObject;
+begin
+ Result:=0;
+ for I:=0 to L.Count-1 do
+  begin
+   Q:=L[I];
+   case (Q.Flags and (ofTreeViewExpanded or ofTreeViewSubElement or ofTreeViewInvisible)) or Ignore of
+    ofTreeViewSubElement: Inc(Result);
+    ofTreeViewSubElement or ofTreeViewExpanded:
+      begin
+       Q.Acces;
+       Inc(Result, 1+CountVisibleItems(Q.SubElements, 0));
+      end;
+   end;
+  end;
+end;
+
 procedure TMyTreeView.WMSetFont(var Message: TMessage);
 var
   DC: HDC;
@@ -253,6 +273,8 @@ begin
   end;
   LineStep:=Metrics.tmHeight;
   if LineStep<16 then LineStep:=16;
+
+  VertScrollBar.Range:=CountVisibleItems(Roots, ofTreeViewSubElement)*LineStep;
 end;
 
 procedure TMyTreeView.WMNCHitTest(var Message: TMessage);
@@ -848,6 +870,7 @@ end;
 procedure TMyTreeView.ContentsChanged(Full: Boolean);
 begin
  SelChanged:=SelChanged or Full;
+ VertScrollBar.Range:=CountVisibleItems(Roots, ofTreeViewSubElement)*LineStep;
  if HandleAllocated then
   PostMessage(Handle, wm_InternalMessage, wp_ContentsChanged, 0);
 end;
@@ -1268,26 +1291,6 @@ begin
  Result:=Roots.IndexOf(Q)>=0;
 end;
 
-function CountVisibleItems(const L: TQList; Ignore: Integer) : Integer;
-var
- I: Integer;
- Q: QObject;
-begin
- Result:=0;
- for I:=0 to L.Count-1 do
-  begin
-   Q:=L[I];
-   case (Q.Flags and (ofTreeViewExpanded or ofTreeViewSubElement or ofTreeViewInvisible)) or Ignore of
-    ofTreeViewSubElement: Inc(Result);
-    ofTreeViewSubElement or ofTreeViewExpanded:
-      begin
-       Q.Acces;
-       Inc(Result, 1+CountVisibleItems(Q.SubElements, 0));
-      end;
-   end;
-  end;
-end;
-
 procedure TMyTreeView.wmInternalMessage(var Msg: TMessage);
 var
  Item: QObject;
@@ -1298,7 +1301,6 @@ begin
   wp_ContentsChanged:
     begin
      CancelMouseClicking(True);
-     VertScrollBar.Range:=CountVisibleItems(Roots, ofTreeViewSubElement)*LineStep;
      Invalidate;
     end;
   wp_InPlaceEditClose:
