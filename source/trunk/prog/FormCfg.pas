@@ -34,13 +34,6 @@ const
  wp_LineStep     = 97;
  wp_LineStepSpec = wp_LineStep+1;
  wp_InitControls = 99;
- cmd_AddSpec     = 0;
- cmd_DeleteSpec  = 1;
- cmd_CopySpec    = 2;
- cmd_PasteSpec   = 3;
- cmd_CutSpec     = 4;
-{ cmd_etc         = 3; }
- MenuCmdCount    = 5{2};
 
 type
  TFormCfg = class;
@@ -178,6 +171,14 @@ const
  gfExtraSpace = 2;
  gfNoIcons    = 4;
  gfNoBorder   = 8;
+
+ cmd_AddSpec    = 0;
+ cmd_DeleteSpec = 1;
+ cmd_CopySpec   = 2;
+ cmd_PasteSpec  = 3;
+ cmd_CutSpec    = 4;
+{ cmd_etc         = 3; }
+ MenuCmdCount = 5;
 
 function GetVKeyName(VkCode: Integer) : String;
 var
@@ -1488,7 +1489,6 @@ end;
 procedure TFormCfg.SetupProperties;
 var
  I: Integer;
- nPopupMenu: TPopupMenu;
 begin
  if SB=Nil then
   begin
@@ -1515,11 +1515,10 @@ begin
      HC.OnSectionClick:=SectionClick;
     end;
 
-   nPopupMenu:=TPopupMenu.Create(Self);
+   PopupMenu:=TPopupMenu.Create(Self);
    for I:=0 to MenuCmdCount-1 do
-    nPopupMenu.Items.Add(TMenuItem.Create(Self));
-   nPopupMenu.OnPopup:=PopupMenuPopupFirst;
-   PopupMenu:=nPopupMenu;
+    PopupMenu.Items.Add(TMenuItem.Create(Self));
+   PopupMenu.OnPopup:=PopupMenuPopupFirst;
 
    SB:=TScrollBox.Create(Self);
    SB.Visible:=False;
@@ -2854,7 +2853,7 @@ begin
    OnPopup:=PopupMenuPopup;
    L:=TStringList.Create; try
    L.Text:=LoadStr1(5383);
-   for I:=0 to MenuCmdCount-1 do
+   for I:=0 to Items.Count-1 do
     with Items[I] do
      begin
       if I<L.Count then
