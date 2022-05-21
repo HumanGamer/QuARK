@@ -22,8 +22,6 @@ unit FormCfg;
 
 interface
 
-{$I DelphiVer.inc}
-
 uses SysUtils, Classes, Controls, Graphics, Forms, StdCtrls, ExtCtrls,
      QkObjects, Windows, ComCtrls, Messages, TB97, Dialogs,
      Menus, CommCtrl, EnterEditCtrl, TrackBar2, QkForm, Game, BrowseForFolder,
