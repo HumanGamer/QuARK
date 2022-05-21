@@ -58,9 +58,14 @@ sys.stdout = console()
 sys.stderr = console(RED)
 
 def shutdown():
+    global oldstdout, oldstderr
     # Restore the old stdout and stderr
-    sys.stdout = oldstdout
-    sys.stderr = oldstderr
+    if oldstdout is not None:
+        sys.stdout = oldstdout
+        oldstdout = None
+    if oldstderr is not None:
+        sys.stderr = oldstderr
+        oldstderr = None
 
 
 firstwarning = 7
