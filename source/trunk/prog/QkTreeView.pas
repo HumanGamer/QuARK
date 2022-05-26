@@ -169,7 +169,8 @@ uses QkFileObjects, Python, PyImages, qmath, QkMapObjects,
 
 const
  MyTVIndent = 19;
- TextMargin = 2;
+ TextMarginH = 2;
+ TextMarginV = 1;
  IconToTextMargin = 2;
 
 var
@@ -273,7 +274,7 @@ begin
   finally
     ReleaseDC(0, DC);
   end;
-  LineStep:=Metrics.tmHeight;
+  LineStep:=Metrics.tmHeight+(2*TextMarginV);
   if LineStep<16 then LineStep:=16;
 
   VertScrollBar.Range:=CountVisibleItems(Roots, ofTreeViewSubElement)*LineStep;
@@ -560,13 +561,13 @@ var
                if TextSize.cx > FDescriptionLeft then
                 FDescriptionLeft:=TextSize.cx;
               end;
-             Inc(FDescriptionLeft, X+(16+IconToTextMargin+(2*TextMargin)+DescMargin));
+             Inc(FDescriptionLeft, X+(16+IconToTextMargin+(2*TextMarginH)+DescMargin));
              FDescLeftOk:=True;
             end;
            R.Left:=FDescriptionLeft;
            R.Right:=VisibleRect.Right;
            SetTextColor(DC, GrayColor);
-           ExtTextOut(DC, FDescriptionLeft+TextMargin, Y+1, ETO_OPAQUE, @R, PChar(Description), Length(Description), Nil);
+           ExtTextOut(DC, FDescriptionLeft+TextMarginH, Y+TextMarginV, ETO_OPAQUE, @R, PChar(Description), Length(Description), Nil);
            SetTextColor(DC, TextColor);
           end
          else
@@ -657,9 +658,9 @@ var
            R.Right:=X+16+IconToTextMargin;
            FillRect(DC, R, Brush);
            R.Left:=R.Right;
-           Inc(R.Right, TextSize.cx+(2*TextMargin));
+           Inc(R.Right, TextSize.cx+(2*TextMarginH));
            UpdateMaxPixelWidth(R.Right);
-           ExtTextOut(DC, X+16+IconToTextMargin+TextMargin, Y+1, ETO_OPAQUE, @R, PChar(Item.Name), Length(Item.Name), Nil);
+           ExtTextOut(DC, X+16+IconToTextMargin+TextMarginH, Y+TextMarginV, ETO_OPAQUE, @R, PChar(Item.Name), Length(Item.Name), Nil);
            R.Left:=R.Right;
            R.Right:=FDescriptionLeft;
            FillRect(DC, R, Brush);
@@ -669,15 +670,15 @@ var
          else
           begin
            R.Right:=FDescriptionLeft;
-           UpdateMaxPixelWidth(X+16+IconToTextMargin+(2*TextMargin)+TextSize.cx);
-           ExtTextOut(DC, X+16+IconToTextMargin+TextMargin, Y+1, ETO_OPAQUE, @R, PChar(Item.Name), Length(Item.Name), Nil);
+           UpdateMaxPixelWidth(X+16+IconToTextMargin+(2*TextMarginH)+TextSize.cx);
+           ExtTextOut(DC, X+16+IconToTextMargin+TextMarginH, Y+TextMarginV, ETO_OPAQUE, @R, PChar(Item.Name), Length(Item.Name), Nil);
            if Odd(Item.SelMult) then
             begin
              Pen1:=SelectObject(DC, CreatePen(ps_Solid, 1, SelBkColor));
              try
                Brush1:=SelectObject(DC, GetStockObject(Null_brush));
-               Rectangle(DC, X+16+IconToTextMargin, R.Top, X+TextSize.cx+16+IconToTextMargin+(2*TextMargin), R.Bottom);
-               UpdateMaxPixelWidth(X+TextSize.cx+16+IconToTextMargin+(2*TextMargin));
+               Rectangle(DC, X+16+IconToTextMargin, R.Top, X+TextSize.cx+16+IconToTextMargin+(2*TextMarginH), R.Bottom);
+               UpdateMaxPixelWidth(X+TextSize.cx+16+IconToTextMargin+(2*TextMarginH));
                SelectObject(DC, Brush1);
              finally
                DeleteObject(SelectObject(DC, Pen1));
@@ -687,7 +688,7 @@ var
          if FocusItem=Item then
           begin
            R.Left:=X+16+IconToTextMargin;
-           R.Right:=R.Left+TextSize.cx+(2*TextMargin);
+           R.Right:=R.Left+TextSize.cx+(2*TextMarginH);
            UpdateMaxPixelWidth(R.Right);
            DrawFocusRect(DC, R);
           end;
@@ -1640,7 +1641,7 @@ begin
      begin
       R:=GetNodeDisplayRect(Item);
       if IsRectEmpty(R) then Exit;
-      Inc(R.Left, 16+IconToTextMargin+TextMargin);
+      Inc(R.Left, 16+IconToTextMargin+TextMarginH);
       R.Right:=ClientWidth;
       Inc(R.Top);
       Dec(R.Bottom);
@@ -1816,7 +1817,7 @@ begin
     finally
       ReleaseDC(Handle, DC);
     end;
-    Result:=Bounds(1+Level*MyTVIndent, Index*LineStep, TextSize.cx+16+IconToTextMargin+(2*TextMargin), LineStep);
+    Result:=Bounds(1+Level*MyTVIndent, Index*LineStep, TextSize.cx+16+IconToTextMargin+(2*TextMarginH), LineStep);
     Exit;
    end;
  Result:=Rect(0,0,0,0);
