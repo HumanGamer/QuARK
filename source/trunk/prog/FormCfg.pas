@@ -1614,6 +1614,7 @@ begin
   inherited;
   OnMouseWheelDown:=MouseWheelDown;
   OnMouseWheelUp:=MouseWheelUp;
+  Constraints.MinWidth:=16+24; //FIXME: Calculate properly
 end;
 
 procedure TFormCfg.wmInternalMessage(var Msg: TMessage);
