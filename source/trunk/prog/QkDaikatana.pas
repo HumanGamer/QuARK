@@ -30,7 +30,7 @@ procedure LoadTextureDataDK(F: TStream; Base, Taille: TStreamPos; var Texture: Q
 
 implementation
 
-uses SysUtils, Quarkx, Setup, QkTextures, QkExceptions, Logging;
+uses SysUtils, qhelper, Quarkx, Setup, QkTextures, QkExceptions, Logging;
 
 const
  DKMaxMipmaps = 9;

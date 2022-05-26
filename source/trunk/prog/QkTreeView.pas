@@ -162,7 +162,7 @@ type
 
 implementation
 
-uses QkFileObjects, Python, PyImages, qmath, QkMapObjects,
+uses qhelper, QkFileObjects, Python, PyImages, qmath, QkMapObjects,
      Quarkx, Logging {$IFDEF Debug}, QkExceptions{$ENDIF};
 
  {------------------------}

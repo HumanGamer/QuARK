@@ -206,7 +206,7 @@ function MakeTempFileName(const Tag: String) : String;
 
 implementation
 
-uses Qk1, Undo, QkExplorer, Setup, qmath, QkGroup, Travail, QkOwnExplorer,
+uses qhelper, Qk1, Undo, QkExplorer, Setup, qmath, QkGroup, Travail, QkOwnExplorer,
   QkFileExplorer, QkUnknown, Toolbar1, Quarkx, QkExceptions, QkInclude,
   PyObjects, QkConsts, Logging, SystemDetails,
   PyForms, QkTreeView, Game, QkObjectClassList, QkApplPaths, ExtraFunctionality;

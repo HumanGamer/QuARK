@@ -416,11 +416,6 @@ function StringListConcatWithSeparator(const theStringList: TStrings; theStringS
 {AiV}function QStreamAddRef(Ref: PQStreamRef; var S: TStream) : TStreamPos;
 {procedure QStreamRelease(Ref: TTreeNode);}
 
-function CharToPas(const C: array of Byte) : String;
-procedure PasToChar(var C: array of Byte; const S: String);
-function IntToPackedStr(Value: Integer) : String;
-function PackedStrToInt(const S: String) : Integer;
-
 procedure ReleaseStream(S: TStream);
 
 {$IFDEF Debug}
@@ -435,7 +430,7 @@ implementation
 
 uses
   {$IFDEF Debug} MemTester, QkConsts, {$ENDIF}
-  QkObjectClassList, QkFileObjects, QkExplorer, Travail, Game,
+  QkObjectClassList, QkFileObjects, QkExplorer, Travail, Game, qhelper,
   PyObjects, PyImages, Quarkx, QkExceptions, Qk1, Logging{, ExtraFunctionality};
 
 var
@@ -520,30 +515,6 @@ begin
     QFileList.AddObject(FullName, Result);
   end;
  {Result.AddRef;}
-end;
-
- {------------------------}
-
-function CharToPas(const C: array of Byte) : String;
-var
-  I: Integer;
-begin
-  I:=0;
-  while (I<=High(C)) and (C[I]<>0) do
-    Inc(I);
-  SetLength(Result, I);
-  Move(C, PChar(Result)^, I);
-end;
-
-procedure PasToChar(var C: array of Byte; const S: String);
-begin
-  if Length(S) <= High(C) then
-  begin
-    Move(PChar(S)^, C, Length(S));
-    FillChar(C[Length(S)], High(C)+1-Length(S), 0);
-  end
-  else
-    Move(PChar(S)^, C, High(C)+1);
 end;
 
  {------------------------}
@@ -1697,45 +1668,6 @@ begin
   FNode:=F.AddRefNode(Taille);
   FFlags:=FFlags or ofNotLoadedToMemory;
 end;
-
-function RequiredBytesToContainValue(T: Integer) : Integer;
-begin
-  if T<0 then
-    Result:=SizeOf(T) { $FFFFFFFF - $80000000 }
-  else
-  if T<$100 then
-    Result:=1  { $00 - $FF }
-  else
-  if T<$10000 then
-    Result:=2  { $0000 - $FFFF }
-  else
-  if T<$1000000 then
-    Result:=3  { $000000 - $FFFFFF }
-  else
-    Result:=4; { $00000000 - $7FFFFFFF }
-end;
-
-function PackedStrToInt(const S: String) : Integer;
-var
-  ByteSize: Integer;
-begin
-  ByteSize:=Length(S);
-  if ByteSize>SizeOf(Result) then
-    ByteSize:=SizeOf(Result);
-  Result:=0;
-  if Length(S)>0 then
-    Move(S[1], Result, ByteSize);
-end;
-
-function IntToPackedStr(Value: Integer) : String;
-var
-  ByteSize: Integer;
-begin
-  ByteSize:=RequiredBytesToContainValue(Value);
-  SetLength(Result, ByteSize);
-  Move(Value, Result[1], ByteSize);
-end;
-
 
 procedure QObject.SaveFile1(Info: TInfoEnreg1);
 var

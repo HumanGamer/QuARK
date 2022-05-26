@@ -33,7 +33,6 @@ uses
 {$IFDEF MemCheck}
   MemCheck in 'prog\MemCheck.pas',
 {$ENDIF}
-
   FastMove in 'prog\FastMove.pas',
   FastCode in 'prog\FastCode\FastCode.pas',
   Forms,
@@ -104,6 +103,7 @@ uses
   PixelSetSizeCache in 'prog\PixelSetSizeCache.pas',
   Platform in 'prog\Platform.pas',
   qdraw in 'prog\qdraw.pas',
+  qhelper in 'prog\qhelper.pas',
   Qk1 in 'prog\Qk1.pas' {Form1},
   Qk3D in 'prog\Qk3D.pas',
   Qk6DX in 'prog\Qk6DX.pas',
@@ -229,8 +229,8 @@ uses
   Quarkx in 'Python\Quarkx.pas';
 
 
-(*DanielPharos: Set the support-for-larger-than-2GB-flag, so we can use up to 4 GB!*)
-(*NOT SUPPORTED THOUGH*)
+//Set the support-for-larger-than-2GB-flag, so we can use up to 4 GB!*)
+//FIXME: NOT SUPPORTED THOUGH
 {.$IFDEF Delphi7orNewerCompiler}
   {.$SetPEFlags $20}
 {.$ENDIF}

@@ -37,7 +37,7 @@ type
 
 implementation
 
-uses QuarkX, QkObjectClassList, QkExceptions, Logging, Setup,
+uses qhelper, QuarkX, QkObjectClassList, QkExceptions, Logging, Setup,
   QkMapObjects, QkMapPoly, MapError, qmath {//FIXME};
 
 type

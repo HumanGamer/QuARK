@@ -86,7 +86,7 @@ const
 
 implementation
 
-uses QuarkX, QkExceptions, Setup, Travail, Logging, QkObjectClassList;
+uses qhelper, QuarkX, QkExceptions, Setup, Travail, Logging, QkObjectClassList;
 
 class function QMd2File.TypeInfo;
 begin

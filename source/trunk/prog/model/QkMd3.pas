@@ -46,7 +46,7 @@ type
 
 implementation
 
-uses StrUtils, QuarkX, QkExceptions, Setup, QkObjectClassList, Game, QkQ3,
+uses StrUtils, qhelper, QuarkX, QkExceptions, Setup, QkObjectClassList, Game, QkQ3,
      QkPixelset, QkPcx, QkApplPaths, qmath, qmatrices, Logging, Travail;
 
 const

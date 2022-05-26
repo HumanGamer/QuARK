@@ -49,7 +49,7 @@ type
 
 implementation
 
-uses Game, Setup, Quarkx, QkExceptions, QkMdlObject, QkObjectClassList;
+uses qhelper, Game, Setup, Quarkx, QkExceptions, QkMdlObject, QkObjectClassList;
 
 const
  MIP_VERSION = 2;

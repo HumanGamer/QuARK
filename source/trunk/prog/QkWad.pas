@@ -87,7 +87,7 @@ type
 
 implementation
 
-uses Travail, Qk1, Setup, Quarkx, QkExceptions, QkHL,
+uses qhelper, Travail, Qk1, Setup, Quarkx, QkExceptions, QkHL,
      QkQ1, QkObjectClassList, Logging, QkUnknown; //FIXME: QkUnknown TMP!
 
 {$R *.DFM}

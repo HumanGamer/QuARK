@@ -37,6 +37,7 @@ function WindowExists(const WindowName: String): Boolean;
 function RetrieveModuleFilename(ModuleHandle: HMODULE): String;
 procedure WarnDriverBugs;
 procedure SetDllSearchPath;
+procedure InitDefaultFonts;
 
 type
   TCPUID = packed record
@@ -303,7 +304,7 @@ type
 
 implementation
 
-uses {$IFDEF CompiledWithDelphi2}ShellObj, OLE2, {$ELSE}ShlObj, ActiveX, {$ENDIF}TlHelp32, Psapi, Registry, Registry2, Logging, QkExceptions;
+uses Graphics, {$IFDEF CompiledWithDelphi2}ShellObj, OLE2, {$ELSE}ShlObj, ActiveX, {$ENDIF}TlHelp32, Psapi, Registry, Registry2, Logging, QkExceptions;
 
 type
   {$IFDEF Delphi4orNewerCompiler}
@@ -325,6 +326,22 @@ var
   WindowsPlatform: TPlatform;
   DriverBugs: TStringList;
   SetDllDirectoryAvailable: Boolean;
+
+procedure InitDefaultFonts;
+var
+  Metrics: TNonClientMetrics;
+begin
+  FillChar(Metrics, SizeOf(Metrics), 0);
+  Metrics.cbSize:=SizeOf(Metrics);
+  if SystemParametersInfo(SPI_GETNONCLIENTMETRICS, 0, @Metrics, 0) then
+  begin
+    //DefFontData.Name:='Comic Sans MS';
+    //DefFontData.Height:=-20;
+
+    DefFontData.Name:=PChar(@Metrics.lfMessageFont.lfFaceName);
+    DefFontData.Height:=Metrics.lfMessageFont.lfHeight;
+  end;
+end;
 
 function FormatBytes(const Number: Cardinal) : String; overload;
 begin

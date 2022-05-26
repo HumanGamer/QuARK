@@ -24,7 +24,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs, Menus,
-  StdCtrls, TB97, Python, ExtCtrls, QkObjects, QkFileObjects, PyPanels, QkForm, Game,
+  StdCtrls, TB97, Python, ExtCtrls, QkFileObjects, PyPanels, QkForm, Game,
   Quarkx;
 
 const
@@ -105,7 +105,7 @@ procedure PyFormsClickItem(Options: Integer; nForm: TPyForm);
 
 implementation
 
-uses PyMenus, PyToolbars, PyObjects, Setup, Qk1, QkConsts,
+uses qhelper, PyMenus, PyToolbars, PyObjects, Setup, Qk1, QkConsts,
      PyFloating, PyFullscreen, PyExplorer, ComCtrls, QkTreeView,
      EnterEditCtrl, TbPalette, HelpPopup1, Travail, Platform;
 

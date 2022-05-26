@@ -84,7 +84,7 @@ procedure WriteColormapFile();
 implementation
 
 uses
-  Travail, Quarkx, QkExceptions, Game, Setup, QkWad, QkPcx, QkObjectClassList;
+  qhelper, Travail, Quarkx, QkExceptions, Game, Setup, QkWad, QkPcx, QkObjectClassList;
 
 const
  LUMP_ENTITIES = 0;

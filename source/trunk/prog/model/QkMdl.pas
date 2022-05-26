@@ -99,7 +99,7 @@ type
 
 implementation
 
-uses QuarkX, QkExceptions, QkModelRoot, Setup, Travail, QkObjectClassList, QkPcx;
+uses qhelper, QuarkX, QkExceptions, QkModelRoot, Setup, Travail, QkObjectClassList, QkPcx;
 
 class function QMdlFile.TypeInfo;
 begin

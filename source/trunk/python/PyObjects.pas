@@ -109,7 +109,7 @@ const
 
 implementation
 
-uses Quarkx, QkExceptions, QkFileObjects, QkObjectClassList, QkExplorer, WorkaroundStringCompare;
+uses Quarkx, QkExceptions, QkFileObjects, QkObjectClassList, QkExplorer, qhelper, WorkaroundStringCompare;
 
  {-------------------}
 

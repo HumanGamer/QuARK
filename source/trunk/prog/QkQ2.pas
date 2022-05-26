@@ -78,7 +78,7 @@ function CheckQ2MiptexEx(const Header: TQ2Miptex; HSize, FileSize: Integer; Offs
 implementation
 
 uses
-  SysUtils, Travail, Quarkx, QkDaikatana, QkExceptions, QkQuakeCtx, QkText, Setup, QkObjectClassList;
+  SysUtils, qhelper, Travail, Quarkx, QkDaikatana, QkExceptions, QkQuakeCtx, QkText, Setup, QkObjectClassList;
 
 const
  LUMP_ENTITIES = 0;

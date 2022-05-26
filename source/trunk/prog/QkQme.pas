@@ -67,7 +67,7 @@ type
 
 implementation
 
-uses QkMapObjects, QkMapPoly, qmath, Setup, Duplicator, Quarkx, QkExceptions,
+uses qhelper, QkMapObjects, QkMapPoly, qmath, Setup, Duplicator, Quarkx, QkExceptions,
      Travail, QkObjectClassList;
 
 {$R *.DFM}

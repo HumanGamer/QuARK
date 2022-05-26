@@ -184,7 +184,7 @@ function CreateCopyTexture(Tex: QPixelSet) : QTextureFile;
 
 implementation
 
-uses QkWad, QkBsp, ToolBox1, QkImages, Setup, Travail, qmath,{ QkPcx,}
+uses qhelper, QkWad, QkBsp, ToolBox1, QkImages, Setup, Travail, qmath,{ QkPcx,}
   TbPalette, TbTexture, Undo, QkExplorer, QkPak, QkQuakeCtx, Quarkx, QkExceptions,
   CCode, PyObjects, QkHr2, QkHL, QkSin, QkFormCfg, Logging,
   QkQ1, QkQ2, QkQ3, QkCoD2, QkObjectClassList, QkD3, QkApplPaths, Platform{, ExtraFunctionality};
