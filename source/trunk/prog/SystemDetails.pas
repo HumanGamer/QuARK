@@ -335,9 +335,6 @@ begin
   Metrics.cbSize:=SizeOf(Metrics);
   if SystemParametersInfo(SPI_GETNONCLIENTMETRICS, 0, @Metrics, 0) then
   begin
-    //DefFontData.Name:='Comic Sans MS';
-    //DefFontData.Height:=-20;
-
     DefFontData.Name:=PChar(@Metrics.lfMessageFont.lfFaceName);
     DefFontData.Height:=Metrics.lfMessageFont.lfHeight;
   end;

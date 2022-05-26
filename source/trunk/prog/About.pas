@@ -23,11 +23,16 @@ unit About;
 interface
 
 uses Windows, SysUtils, Classes, Graphics, Forms, Controls, StdCtrls,
-  ExtCtrls, Registry, Dialogs, QkForm, QkObjects;
+  ExtCtrls, Dialogs, QkForm, QkObjects, ComCtrls, Grids;
 
 type
   TAboutBox = class(TQkForm)
-    Panel1: TPanel;
+    OKButton: TButton;
+    Edit1: TEdit;
+    Logo: TImage;
+    Registration: TLabel;
+    LabelLogo: TLabel;
+    Bevel1: TBevel;
     ProgramIcon: TImage;
     ProductName1: TLabel;
     ProductName2: TLabel;
@@ -36,22 +41,16 @@ type
     ProductName5: TLabel;
     ProductName6: TLabel;
     Version: TLabel;
-    OKButton: TButton;
-    Edit1: TEdit;
-    Image1: TImage;
-    Bevel1: TBevel;
-    Label1: TLabel;
-    WebsiteAddress: TLabel;
     Copyright: TLabel;
-    Memo1: TMemo;
-    UsedCompilerLabel: TLabel;
+    License: TMemo;
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    WebsiteAddress: TLabel;
     RepositoryAddress: TLabel;
     ForumAddress: TLabel;
-    Label3: TLabel;
-    Label2: TLabel;
-    Label4: TLabel;
-    Label5: TLabel;
-    Registration: TLabel;
+    UsedCompilerLabel: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure OKButtonClick(Sender: TObject);
   protected
@@ -69,6 +68,8 @@ uses Messages, Registry2, Qk1, Quarkx, QkConsts;
 const
   RegistrationKey = '\Software\Armin Rigo\QuakeMap';
   RegistrationValueName = 'Registered';
+
+  LabelSpacing = 2;
 
 var
   RegisteredTo: String;
@@ -150,30 +151,26 @@ begin
   OnMouseWheelDown:=MouseWheelDown;
   OnMouseWheelUp:=MouseWheelUp;
 
-  Version.Caption := QuarkVersion + ' ' + QuArKMinorVersion;
-  {*GetLocaleFormatSettings(LOCALE_SYSTEM_DEFAULT, DateFormat);}
-  UsedCompilerLabel.Caption := FmtLoadStr1(5823, [QuArKUsedCompiler, DateToStr(QuArKCompileDate{*, DateFormat})]);
-  Copyright.Caption := QuArKCopyright;
-  {$IFDEF Debug}
-  Version.Caption := Version.Caption + '  DEBUG VERSION';
-  {$ENDIF}
-  WebsiteAddress.Caption := QuArKWebsite;
-  RepositoryAddress.caption := QuArKRepository;
-  ForumAddress.caption := QuArKForum;
-  ProgramIcon.Picture.Icon.Handle := LoadImage(HInstance, 'MAINICON', image_Icon, 0, 0, 0);
-  Image1.Picture.Bitmap.LoadFromResourceName(HInstance, 'QUARKLOGO');
-
   Caption := LoadStr1(5612);
   MarsCap.ActiveBeginColor := $A08000;
   MarsCap.ActiveEndColor := clYellow;
   SetFormIcon(iiQuArK);
 
+  Logo.Picture.Bitmap.LoadFromResourceName(HInstance, 'QUARKLOGO');
   if RegisteredTo<>'' then
   begin
     Registration.Caption:=FmtLoadStr1(5822, [RegisteredTo]);
-    Registration.Visible:=true;
+    Registration.Visible:=True;
   end;
-  Memo1.Text :=
+
+  ProgramIcon.Picture.Icon.Handle := LoadImage(HInstance, 'MAINICON', image_Icon, 0, 0, 0);
+  Version.Caption := QuarkVersion + ' ' + QuArKMinorVersion;
+  {$IFDEF Debug}
+  Version.Caption := Version.Caption + '  DEBUG VERSION';
+  {$ENDIF}
+  Copyright.Caption := QuArKCopyright;
+
+  License.Text :=
       'QuArK comes with ABSOLUTELY NO WARRANTY; for details, see below. '
     + 'This is free software, and you are welcome to redistribute it under certain conditions; '
     + 'for details, see below.'
@@ -209,17 +206,28 @@ begin
     + #13#10#13#10
     + 'You may charge a fee for the physical act of transferring a copy, and '
     + 'you may at your option offer warranty protection in exchange for a fee.';
+
+  WebsiteAddress.Caption := QuArKWebsite;
+  RepositoryAddress.Caption := QuArKRepository;
+  ForumAddress.Caption := QuArKForum;
+  {*GetLocaleFormatSettings(LOCALE_SYSTEM_DEFAULT, DateFormat);}
+  UsedCompilerLabel.Caption := FmtLoadStr1(5823, [QuArKUsedCompiler, DateToStr(QuArKCompileDate{*, DateFormat})]);
+
+  WebsiteAddress.Left := Label1.BoundsRect.Right + LabelSpacing;
+  RepositoryAddress.Left := Label2.BoundsRect.Right + LabelSpacing;
+  ForumAddress.Left := Label3.BoundsRect.Right + LabelSpacing;
+  UsedCompilerLabel.Left := Label4.BoundsRect.Right + LabelSpacing;
 end;
 
 procedure TAboutBox.MouseWheelDown(Sender: TObject; Shift: TShiftState; MousePos: TPoint; var Handled: Boolean);
 begin
-  Memo1.Perform(WM_VSCROLL, SB_LINEDOWN, 0);
+  License.Perform(WM_VSCROLL, SB_LINEDOWN, 0);
   Handled := true;
 end;
 
 procedure TAboutBox.MouseWheelUp(Sender: TObject; Shift: TShiftState; MousePos: TPoint; var Handled: Boolean);
 begin
-  Memo1.Perform(WM_VSCROLL, SB_LINEUP, 0);
+  License.Perform(WM_VSCROLL, SB_LINEUP, 0);
   Handled := true;
 end;
 
