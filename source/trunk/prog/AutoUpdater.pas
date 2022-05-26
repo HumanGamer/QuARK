@@ -23,7 +23,7 @@ unit AutoUpdater;
 interface
 
 uses Windows, ShellApi, Classes, Forms, StdCtrls, Controls, Graphics, CheckLst,
-  HTTP;
+  HTTP, TB97;
 
 type
   TUpdateFileType = (uptIndex, uptPackage, uptNotification);
@@ -105,8 +105,8 @@ type
   TAutoUpdater = class(TForm)
     GroupBox1: TGroupBox;
     Label1: TLabel;
-    OKBtn: TButton;
-    CancelBtn: TButton;
+    OKBtn: TToolbarButton97;
+    CancelBtn: TToolbarButton97;
     CheckListBox1: TCheckListBox;
     Label2: TLabel;
     procedure CancelBtnClick(Sender: TObject);
