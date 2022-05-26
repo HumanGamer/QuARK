@@ -169,6 +169,7 @@ uses QkFileObjects, Python, PyImages, qmath, QkMapObjects,
 
 const
  MyTVIndent = 19;
+ TextMargin = 2;
 
 var
  MyTVPlusSign: HBitmap = 0;
@@ -558,13 +559,13 @@ var
                if TextSize.cx > FDescriptionLeft then
                 FDescriptionLeft:=TextSize.cx;
               end;
-             Inc(FDescriptionLeft, X+(18+4+DescMargin));
+             Inc(FDescriptionLeft, X+(18+(2*TextMargin)+DescMargin));
              FDescLeftOk:=True;
             end;
            R.Left:=FDescriptionLeft;
            R.Right:=VisibleRect.Right;
            SetTextColor(DC, GrayColor);
-           ExtTextOut(DC, FDescriptionLeft+2, Y+1, eto_Opaque, @R, PChar(Description), Length(Description), Nil);
+           ExtTextOut(DC, FDescriptionLeft+TextMargin, Y+1, ETO_OPAQUE, @R, PChar(Description), Length(Description), Nil);
            SetTextColor(DC, TextColor);
           end
          else
@@ -653,12 +654,11 @@ var
            SetBkColor(DC, SelBkColor);
            SetTextColor(DC, SelTextColor);
            R.Right:=X+18;
-           UpdateMaxPixelWidth(R.Right);
            FillRect(DC, R, Brush);
            R.Left:=R.Right;
-           Inc(R.Right, TextSize.cx+4);
-           ExtTextOut(DC, X+20, Y+1, eto_Opaque, @R, PChar(Item.Name), Length(Item.Name), Nil);
-           UpdateMaxPixelWidth(X+20+TextSize.cx);
+           Inc(R.Right, TextSize.cx+(2*TextMargin));
+           UpdateMaxPixelWidth(R.Right);
+           ExtTextOut(DC, X+18+TextMargin, Y+1, ETO_OPAQUE, @R, PChar(Item.Name), Length(Item.Name), Nil);
            R.Left:=R.Right;
            R.Right:=FDescriptionLeft;
            FillRect(DC, R, Brush);
@@ -668,15 +668,15 @@ var
          else
           begin
            R.Right:=FDescriptionLeft;
-           ExtTextOut(DC, X+20, Y+1, eto_Opaque, @R, PChar(Item.Name), Length(Item.Name), Nil);
-           UpdateMaxPixelWidth(X+20+TextSize.cx);
+           UpdateMaxPixelWidth(X+18+(2*TextMargin)+TextSize.cx);
+           ExtTextOut(DC, X+18+TextMargin, Y+1, ETO_OPAQUE, @R, PChar(Item.Name), Length(Item.Name), Nil);
            if Odd(Item.SelMult) then
             begin
              Pen1:=SelectObject(DC, CreatePen(ps_Solid, 1, SelBkColor));
              try
                Brush1:=SelectObject(DC, GetStockObject(Null_brush));
-               Rectangle(DC, X+18, R.Top, X+TextSize.cx+(18+4), R.Bottom);
-               UpdateMaxPixelWidth(X+TextSize.cx+18+4);
+               Rectangle(DC, X+18, R.Top, X+TextSize.cx+(18+(2*TextMargin)), R.Bottom);
+               UpdateMaxPixelWidth(X+TextSize.cx+18+(2*TextMargin));
                SelectObject(DC, Brush1);
              finally
                DeleteObject(SelectObject(DC, Pen1));
@@ -686,7 +686,7 @@ var
          if FocusItem=Item then
           begin
            R.Left:=X+18;
-           R.Right:=R.Left+TextSize.cx+4;
+           R.Right:=R.Left+TextSize.cx+(2*TextMargin);
            UpdateMaxPixelWidth(R.Right);
            DrawFocusRect(DC, R);
           end;
@@ -1639,7 +1639,7 @@ begin
      begin
       R:=GetNodeDisplayRect(Item);
       if IsRectEmpty(R) then Exit;
-      Inc(R.Left, 20);
+      Inc(R.Left, 18+TextMargin);
       R.Right:=ClientWidth;
       Inc(R.Top);
       Dec(R.Bottom);
@@ -1815,7 +1815,7 @@ begin
     finally
       ReleaseDC(Handle, DC);
     end;
-    Result:=Bounds(1+Level*MyTVIndent, Index*LineStep, TextSize.cx+(18+4), LineStep);
+    Result:=Bounds(1+Level*MyTVIndent, Index*LineStep, TextSize.cx+(18+(2*TextMargin)), LineStep);
     Exit;
    end;
  Result:=Rect(0,0,0,0);
