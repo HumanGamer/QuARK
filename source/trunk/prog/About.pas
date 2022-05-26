@@ -148,13 +148,22 @@ procedure TAboutBox.FormCreate(Sender: TObject);
 var
   DateFormat: TFormatSettings;}
 begin
-  OnMouseWheelDown:=MouseWheelDown;
-  OnMouseWheelUp:=MouseWheelUp;
-
   Caption := LoadStr1(5612);
   MarsCap.ActiveBeginColor := $A08000;
   MarsCap.ActiveEndColor := clYellow;
   SetFormIcon(iiQuArK);
+  inherited;
+  OnMouseWheelDown:=MouseWheelDown;
+  OnMouseWheelUp:=MouseWheelUp;
+
+  //Delphi 7 doesn't support setting only some font properties, so we have to override them.
+  Registration.Font.Name:=Font.Name;
+  ProductName1.Font.Name:=Font.Name;
+  ProductName2.Font.Name:=Font.Name;
+  ProductName3.Font.Name:=Font.Name;
+  ProductName4.Font.Name:=Font.Name;
+  ProductName5.Font.Name:=Font.Name;
+  ProductName6.Font.Name:=Font.Name;
 
   Logo.Picture.Bitmap.LoadFromResourceName(HInstance, 'QUARKLOGO');
   if RegisteredTo<>'' then
@@ -213,10 +222,17 @@ begin
   {*GetLocaleFormatSettings(LOCALE_SYSTEM_DEFAULT, DateFormat);}
   UsedCompilerLabel.Caption := FmtLoadStr1(5823, [QuArKUsedCompiler, DateToStr(QuArKCompileDate{*, DateFormat})]);
 
+  //Reposition the labels
   WebsiteAddress.Left := Label1.BoundsRect.Right + LabelSpacing;
   RepositoryAddress.Left := Label2.BoundsRect.Right + LabelSpacing;
   ForumAddress.Left := Label3.BoundsRect.Right + LabelSpacing;
   UsedCompilerLabel.Left := Label4.BoundsRect.Right + LabelSpacing;
+
+  ProductName2.Left:=ProductName1.BoundsRect.Right;
+  ProductName3.Left:=ProductName2.BoundsRect.Right + 6;
+  ProductName4.Left:=ProductName3.BoundsRect.Right;
+  ProductName5.Left:=ProductName4.BoundsRect.Right + 6;
+  ProductName6.Left:=ProductName5.BoundsRect.Right;
 end;
 
 procedure TAboutBox.MouseWheelDown(Sender: TObject; Shift: TShiftState; MousePos: TPoint; var Handled: Boolean);
