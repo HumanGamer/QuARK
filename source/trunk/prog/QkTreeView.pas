@@ -476,7 +476,7 @@ var
 
   function DisplayItems(X: Integer; const List: TQList; Expected: Integer; Flags: Integer) : Boolean;
   const
-   Mode: array[Boolean] of Integer = (0, ILD_BLEND50);
+   Mode: array[Boolean] of UINT = (0, ILD_BLEND50);
    DescMargin = 19;
   var
    Item: QObject;
