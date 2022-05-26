@@ -2487,7 +2487,7 @@ begin
                   'T', {Browse for texture}
                   'P': {Browse for file}
                   begin
-                   Dec(J, 12);
+                   Dec(J, 14);
                    Btn:=TToolbarButton97.Create(Self);
                    Btn.SetBounds(X+J+1,Y+1,13,LineHeight+ExtraVertSpace-1);
                    Btn.Caption:='...';
@@ -2498,10 +2498,10 @@ begin
                   end;
                   'U': {spin button}
                    begin
-                    Dec(J, 12);
+                    Dec(J, 16);
                     UpDown := TSpinButton.Create(Self);
                     UpDown.Parent := SB;
-                    UpDown.SetBounds(X+J+1,Y+1,13,LineHeight+ExtraVertSpace-1);
+                    UpDown.SetBounds(X+J+1,Y+1,15,LineHeight+ExtraVertSpace-1);
                     TEnterEdit(Edit).Text:=Spec;
                     UpDown.OnUpClick := SpinUpClick;
                     UpDown.OnDownClick := SpinDownClick;
@@ -2510,7 +2510,7 @@ begin
                    end;
                   'Q': {four-way button}
                    begin
-                    Dec(J, 20);
+                    Dec(J, 24);
                     Quad := TSmallArrowButtons.Create(Self);
                     ExtraVertSpace:=8;
                     Quad.Parent := SB;
