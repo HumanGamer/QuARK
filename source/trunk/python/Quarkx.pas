@@ -92,7 +92,7 @@ uses Classes, Dialogs, Graphics, CommCtrl, ExtCtrls, Controls,
      Undo, QkGroup, Qk3D, PyTravail, ToolBox1, Config, PyProcess,
      Console, Game, {$IFDEF CompiledWithDelphi2} ShellObj, {$ELSE} ShlObj, {$ENDIF}
      PakFiles, Registry2, SearchHoles, QkMapPoly, HelpPopup1, QkFullScreenWindow,
-     PyForms, QkPixelSet, Bezier, Logging, QkObjectClassList, QkTextBoxForm,
+     PyForms, QkPixelSet, Bezier, Logging, QkObjectClassList, TextBoxForm,
      QkApplPaths, MapError, StrUtils, QkImages, QkExceptions,
      SystemDetails, ExtraFunctionality, Platform;
 

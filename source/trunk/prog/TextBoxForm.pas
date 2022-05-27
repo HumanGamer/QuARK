@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 http://quark.sourceforge.net/ - Contact information in AUTHORS.TXT
 **************************************************************************)
-unit QkTextBoxForm;
+unit TextBoxForm;
 
 interface
 
@@ -26,7 +26,7 @@ uses Windows, SysUtils, Classes, Forms, Controls, StdCtrls, ExtCtrls, Dialogs,
   TB97;
 
 type
-  TFQTextBoxForm = class(TForm)
+  TTextBoxForm = class(TForm)
     Memo1: TMemo;
     Label1: TLabel;
     Image1: TImage;
@@ -59,9 +59,9 @@ end;
 
 procedure ShowTextBox(const nCaption, nLabel, nText: String; DlgType: TMsgDlgType);
 var
-  TextBoxForm: TFQTextBoxForm;
+  TextBoxForm: TTextBoxForm;
 begin
-  TextBoxForm:=TFQTextBoxForm.Create(Application, nCaption, nLabel, nText, DlgType);
+  TextBoxForm:=TTextBoxForm.Create(Application, nCaption, nLabel, nText, DlgType);
   try
     TextBoxForm.ShowModal;
   finally
@@ -76,9 +76,9 @@ end;
 
 procedure ShowTextBox(const nCaption, nLabel: String; const nText: TStringList; DlgType: TMsgDlgType);
 var
-  TextBoxForm: TFQTextBoxForm;
+  TextBoxForm: TTextBoxForm;
 begin
-  TextBoxForm:=TFQTextBoxForm.Create(Application, nCaption, nLabel, nText.Text, DlgType);
+  TextBoxForm:=TTextBoxForm.Create(Application, nCaption, nLabel, nText.Text, DlgType);
   try
     TextBoxForm.ShowModal;
   finally
@@ -91,7 +91,7 @@ var
   IconIDs: array[TMsgDlgType] of PChar = (IDI_EXCLAMATION, IDI_HAND,
     IDI_ASTERISK, IDI_QUESTION, nil);
 
-constructor TFQTextBoxForm.Create(AOwner: TComponent; const nCaption, nLabel, nText: String; DlgType: TMsgDlgType);
+constructor TTextBoxForm.Create(AOwner: TComponent; const nCaption, nLabel, nText: String; DlgType: TMsgDlgType);
 var
   IconID: PChar;
   ShowLabel, ShowIcon: Boolean;
@@ -144,12 +144,12 @@ begin
     Constraints.MinWidth := TMP;
 end;
 
-procedure TFQTextBoxForm.OKBtnClick(Sender: TObject);
+procedure TTextBoxForm.OKBtnClick(Sender: TObject);
 begin
   Close;
 end;
 
-procedure TFQTextBoxForm.FormResize(Sender: TObject);
+procedure TTextBoxForm.FormResize(Sender: TObject);
 begin
   Label1.Width := ClientWidth - WidthReserved;
   Memo1.Width := ClientWidth - WidthReserved;

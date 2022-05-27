@@ -1,4 +1,4 @@
-object FQTextBoxForm: TFQTextBoxForm
+object TextBoxForm: TTextBoxForm
   Left = 310
   Top = 309
   AutoScroll = False
@@ -6,6 +6,7 @@ object FQTextBoxForm: TFQTextBoxForm
   ClientWidth = 472
   Color = clBtnFace
   ParentFont = True
+  OldCreateOrder = True
   Position = poOwnerFormCenter
   OnResize = FormResize
   PixelsPerInch = 96

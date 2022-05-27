@@ -41,7 +41,7 @@ procedure LogWindowsError(ErrNr: DWORD; const Call: String);
 
 implementation
 
-uses Forms, QkTextBoxForm, Quarkx, Logging;
+uses Forms, TextBoxForm, Quarkx, Logging;
 
  {-------------------}
 

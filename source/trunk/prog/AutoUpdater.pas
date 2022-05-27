@@ -125,7 +125,7 @@ procedure DoUpdate(AllowOnline: Boolean; AutomaticCheck: Boolean);
 implementation
 
 uses StrUtils, SysUtils, DateUtils, QkObjects, QkConsts, Setup, Logging, Travail,
-  QkExceptions, AutoUpdateInstaller, QkTextBoxForm;
+  QkExceptions, AutoUpdateInstaller, TextBoxForm;
 
 var
   UpdateIndexFile: TUpdateIndexFile;
