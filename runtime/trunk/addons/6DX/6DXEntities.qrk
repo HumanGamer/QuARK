@@ -1190,7 +1190,7 @@ QQRKSRC1
     }
     worldspawn:form =
     {
-      Help = "Global properties of the level. Every level must have one and only one of these. Quark puts it in automatically."
+      Help = "Global properties of the level. Every level must have one and only one of these. QuArK puts it in automatically."
       spawnflags: =
       {
         Txt = "&"

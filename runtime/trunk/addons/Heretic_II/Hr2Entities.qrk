@@ -3821,7 +3821,7 @@ QQRKSRC1
       func_group:form =
       {
         Help = "Used to group brushes together just for editor convenience"$0D
-         "  Maybe not so useful in Quark?"
+         "  Maybe not so useful in QuArK?"
         //HTML = "hr2/g_misc.htm#func_group"
       }
       func_monsterspawner:form =
@@ -17762,7 +17762,7 @@ QQRKSRC1
       worldspawn:form =
       {
         Help = "Global properties of the level"$0D"  Every level must have one"
-         " and only one of these"$0D"  Quark puts it in automatically, edit it"
+         " and only one of these"$0D"  QuArK puts it in automatically, edit it"
          "s specific"$0D"  to get various effects."
         //HTML = "hr2/g_spawnf.htm#worldspawn"
         light: =

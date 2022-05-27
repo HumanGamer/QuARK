@@ -1,5 +1,5 @@
 QQRKSRC1
-// This file has been written by QuArK QuArK 6.6 Beta
+// This file has been written by QuArK 6.6 Beta
 // It's the text version of file: Q3_SG.qrk
 // Updated by cdunde, April 20, 2012.
 
@@ -21,7 +21,7 @@ QQRKSRC1
 //       To put it bacck to just Quake 3 just remove the "Q3_SG.qrk" and "Q3_SG_textures.qrk" files
 //          from your Add-ons and reverse steps 7 through 9.
 
-// Quake 3 SmokinGuns Entities and Default setup file for Quark.
+// Quake 3 SmokinGuns Entities and Default setup file for QuArK.
 
 {
   QuArKProtected = "1"

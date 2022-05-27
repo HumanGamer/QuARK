@@ -1,5 +1,5 @@
 QQRKSRC1
-// Sin entities file for Quark
+// Sin entities file for QuArK
 
 {
   QuArKProtected = "1"
@@ -11100,7 +11100,7 @@ QQRKSRC1
     }
     worldspawn:form =
     {
-     Help = "Only used for the world: all the world brushes ar" $0D "  automatically part of this entity. This is automaticall" $0D "  created in a new map and Quark does not let you inser" $0D "  it since only one worldspawn entity per level is allowed. Select any world brush before setting the keys for this."
+     Help = "Only used for the world: all the world brushes ar" $0D "  automatically part of this entity. This is automaticall" $0D "  created in a new map and QuArK does not let you inser" $0D "  it since only one worldspawn entity per level is allowed. Select any world brush before setting the keys for this."
      surfacefile: =
         {Txt = "&" Hint = "no hint yet1"
        }

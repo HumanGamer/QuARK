@@ -1,5 +1,5 @@
 QQRKSRC1
-// Quake 3 Entities file for Quark
+// Quake 3 Entities file for QuArK
 
 {
   QuArKProtected = "1"
@@ -593,7 +593,7 @@ QQRKSRC1
         hint ="Available .MD3 files"
       }
     }
-// Maleficus: Maybe I am just a lame newbie, but I don't know of a way to have quark use
+// Maleficus: Maybe I am just a lame newbie, but I don't know of a way to have QuArK use
 // "model2" for func_* brushes, so I created t_model2. If there is a better way to do this,
 // please let me know.
     t_model2:incl = {

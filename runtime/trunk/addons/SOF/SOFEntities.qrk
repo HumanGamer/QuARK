@@ -1,5 +1,5 @@
 QQRKSRC1
-// SOF entities file for Quark
+// SOF entities file for QuArK
 
 {
   QuArKProtected = "1"
@@ -309,7 +309,7 @@ QQRKSRC1
         }
         func_group:b =
         {
-          ;desc = "Used to group brushes together just for editor convenience. (And not needed for Quark;-)"
+          ;desc = "Used to group brushes together just for editor convenience. (And not needed for QuArK;-)"
           t_triggerpoly=!
         }
         func_hide_the_players_gun:e =
@@ -3714,7 +3714,7 @@ QQRKSRC1
     }
     func_group:form =
     {
-      help ="Used to group brushes together just for editor convenience. (And not needed for Quark;-)"
+      help ="Used to group brushes together just for editor convenience. (And not needed for QuArK;-)"
     }
     func_hide_the_players_gun:form =
     {

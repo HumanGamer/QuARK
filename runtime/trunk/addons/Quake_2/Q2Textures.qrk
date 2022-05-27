@@ -1,13 +1,10 @@
 QQRKSRC1
-// Quake2 textures file for Quark
+// Quake2 textures file for QuArK
+// Thanks Akuma !
 
 {
   QuArKProtected = "1"
   Description = "Quake2 Textures"
-
-    //
-    //   ***   TEXTURES   ***   Thanks Akuma !
-    //
 
   Textures.qtx =        // the textures !
   {
