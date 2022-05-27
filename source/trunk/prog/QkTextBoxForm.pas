@@ -22,18 +22,19 @@ unit QkTextBoxForm;
 
 interface
 
-uses Windows, SysUtils, Classes, Forms, Controls, StdCtrls, ExtCtrls, Dialogs;
+uses Windows, SysUtils, Classes, Forms, Controls, StdCtrls, ExtCtrls, Dialogs,
+  TB97;
 
 type
   TFQTextBoxForm = class(TForm)
     Memo1: TMemo;
-    Button1: TButton;
     Label1: TLabel;
     Image1: TImage;
-    procedure Button1Click(Sender: TObject);
+    OKBtn: TToolbarButton97;
+    procedure OKBtnClick(Sender: TObject);
     procedure FormResize(Sender: TObject);
   private
-    WidthMargin, HeightMargin: Integer;
+    WidthReserved, HeightReserved: Integer;
   public
     constructor Create(AOwner: TComponent; const nCaption, nLabel, nText: String; DlgType: TMsgDlgType); reintroduce; overload; virtual;
   end;
@@ -93,54 +94,69 @@ var
 constructor TFQTextBoxForm.Create(AOwner: TComponent; const nCaption, nLabel, nText: String; DlgType: TMsgDlgType);
 var
   IconID: PChar;
+  ShowLabel, ShowIcon: Boolean;
+  TMP: Integer;
 begin
   inherited Create(AOwner);
+
+  //Memo1 is the resizable component
+  WidthReserved := ClientWidth - Memo1.Width;
+  HeightReserved := ClientHeight - Memo1.Height;
+  Constraints.MinWidth := Width - Memo1.Width - 8; //Set some minimum for the Memo1 width
+  Constraints.MinHeight := Height - Memo1.Height - 19; //MinHeight of Memo1 is actually font-dependent
+
   Caption := nCaption;
   IconID := IconIDs[DlgType];
-  if IconID <> nil then
+  ShowIcon := (IconID <> nil);
+  if ShowIcon then
   begin
     Image1.Picture.Icon.Handle := LoadIcon(0, IconID);
-    WidthMargin := Image1.Width + 8 + 32;
+    Memo1.Left := Memo1.Left + Image1.Width + 8;
+    Memo1.Width := Memo1.Width - (Image1.Width + 8);
+    WidthReserved := WidthReserved + (Image1.Width + 8);
+    Constraints.MinWidth := Constraints.MinWidth + Image1.Width + 8;
+    TMP := Height - (Memo1.Height - Image1.Height);
+    if TMP > Constraints.MinHeight then
+      Constraints.MinHeight := TMP;
   end
   else
-  begin
     Image1.Visible := False;
-    WidthMargin := 0;
-  end;
-  if Length(nLabel) <> 0 then
+
+  ShowLabel := (Length(nLabel) <> 0);
+  if ShowLabel then
   begin
     Label1.Caption := nLabel;
-    Label1.Left := Label1.Left + WidthMargin;
-    HeightMargin := Label1.Height + 8;
+    Memo1.Top := Memo1.Top + Label1.Height + 4;
+    Memo1.Height := Memo1.Height - (Label1.Height + 4);
+    HeightReserved := HeightReserved + Label1.Height + 4;
+    Constraints.MinHeight := Constraints.MinHeight + Label1.Height + 4;
+    if ShowIcon then
+      Label1.Left := Label1.Left + Image1.Width + 8;
   end
   else
-  begin
     Label1.Visible := False;
-    HeightMargin := 0;
-  end;
+
   Memo1.Text := nText;
-  Memo1.Width := Memo1.Width - WidthMargin;
-  Memo1.Left := Memo1.Left + WidthMargin;
-  Memo1.Height := Memo1.Height - HeightMargin;
-  Memo1.Top := Memo1.Top + HeightMargin;
-  Constraints.MinHeight := 59 + HeightMargin + (Height - ClientHeight) + 19; //19 = MinHeight of Memo1
-  Constraints.MinWidth := 19 + WidthMargin + (Width - ClientWidth) + Button1.Width;
+
+  //Never cut into the OK-button
+  TMP := OKBtn.Width + 8;
+  if TMP > Constraints.MinWidth then
+    Constraints.MinWidth := TMP;
 end;
 
-procedure TFQTextBoxForm.Button1Click(Sender: TObject);
+procedure TFQTextBoxForm.OKBtnClick(Sender: TObject);
 begin
   Close;
 end;
 
 procedure TFQTextBoxForm.FormResize(Sender: TObject);
 begin
-  //Hardcoded stuff... Don't forget to change if you change the form!
-  Label1.Width := ClientWidth - 19 - WidthMargin;
-  Memo1.Height := ClientHeight - 59 - HeightMargin;
-  Memo1.Width := ClientWidth - 19 - WidthMargin;
-  Button1.Left := Memo1.Left + ((Memo1.Width - Button1.Width) div 2);
-  Button1.Top := ClientHeight - 45;
-  Image1.Top := (ClientHeight - Image1.Width) div 2;
+  Label1.Width := ClientWidth - WidthReserved;
+  Memo1.Width := ClientWidth - WidthReserved;
+  Memo1.Height := ClientHeight - HeightReserved;
+  Image1.Top := Memo1.Top + ((Memo1.Height - Image1.Height) div 2);
+  OKBtn.Left := (ClientWidth - OKBtn.Width) div 2;
+  OKBtn.Top := ClientHeight - 37;
 end;
 
 end.
