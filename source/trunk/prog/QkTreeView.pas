@@ -872,7 +872,6 @@ end;
 procedure TMyTreeView.ContentsChanged(Full: Boolean);
 begin
  SelChanged:=SelChanged or Full;
- VertScrollBar.Range:=CountVisibleItems(Roots, ofTreeViewSubElement)*LineStep;
  if HandleAllocated then
   PostMessage(Handle, wm_InternalMessage, wp_ContentsChanged, 0);
 end;
@@ -1303,6 +1302,7 @@ begin
   wp_ContentsChanged:
     begin
      CancelMouseClicking(True);
+     VertScrollBar.Range:=CountVisibleItems(Roots, ofTreeViewSubElement)*LineStep;
      Invalidate;
     end;
   wp_InPlaceEditClose:
