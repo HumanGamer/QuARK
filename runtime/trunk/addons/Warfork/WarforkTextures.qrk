@@ -1,0 +1,22 @@
+QQRKSRC1
+// Warfork textures file for Quark
+
+{
+  QuArKProtected = "1"
+  Description = "Warfork Textures"
+
+  Textures.qtx =
+  {
+    Toolbox = "Texture Browser..."
+    Root = "Warfork Textures.qtxfolder"
+    HTML = "intro.texturebrowser.html"
+
+    Warfork Textures.qtxfolder =
+    {
+      Dynamically Found.osfolder =
+      {
+        path = "basewf"
+      }
+    }
+  }
+}

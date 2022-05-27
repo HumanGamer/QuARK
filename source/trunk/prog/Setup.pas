@@ -71,6 +71,7 @@ between gamemodes.}
  mjAlice        = 't';  { American McGee's Alice }
  mjWarsow       = 'v';  { Warsow }
  mjWildWest     = 'w';  { WildWest }
+ mjWarfork      = 'x';  { Warfork }
  mjNEXUIZ       = 'z';  { NEXUIZ }
 
  mjAny          = #1;

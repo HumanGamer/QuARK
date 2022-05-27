@@ -664,6 +664,8 @@ begin
         ObjectGameCode := mjNEXUIZ;
       if (head.id='IDP3') and (CharModeJeu=mjWarsow) then
         ObjectGameCode := mjWarsow;
+      if (head.id='IDP3') and (CharModeJeu=mjWarfork) then
+        ObjectGameCode := mjWarfork;
       if (head.id='IDP3') and (head.version=15) then
       begin
         if (CharModeJeu<mjQ3A) then

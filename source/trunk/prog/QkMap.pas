@@ -2560,6 +2560,8 @@ begin
      else if CharModeJeu=mjNEXUIZ then
        Result:=CharModeJeu
      else if CharModeJeu=mjWarsow then
+       Result:=CharModeJeu
+     else if CharModeJeu=mjWarfork then
        Result:=CharModeJeu;
     end;
   end;

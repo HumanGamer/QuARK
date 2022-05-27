@@ -14,6 +14,8 @@
 
 6.6.0 Beta 8
 ============
+* [DanielPharos]: Added Warfork support.
+
 * [DanielPharos]: Set the font to the user-configured font.
 
 * [DanielPharos]: Fixed origin-specific from .bsp files not being processed.
