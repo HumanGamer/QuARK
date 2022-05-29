@@ -60,7 +60,7 @@ type
     procedure FillMenu(Mnu: HMenu; List: PyObject; Recursive: Boolean);
   protected
     MainPanelC: PyComponent;
-    function AssignObject(Q: QFileObject; State: TFileObjectWndState) : Boolean; override;
+    function AssignObject(const Q: QFileObject; State: TFileObjectWndState) : Boolean; override;
     function ProcessMenuShortcut(var Msg: TWMKeyDown; ShortCut: TShortCut) : Boolean; override;
   public
     Info, MenuBar, ShortCuts, NumShortCuts: PyObject;
@@ -1294,7 +1294,7 @@ begin
  FFileObject.AddRef(+1);
 end;
 
-function TPyForm.AssignObject(Q: QFileObject; State: TFileObjectWndState) : Boolean;
+function TPyForm.AssignObject(const Q: QFileObject; State: TFileObjectWndState) : Boolean;
 var
  Info: TFileObjectClassInfo;
 begin
