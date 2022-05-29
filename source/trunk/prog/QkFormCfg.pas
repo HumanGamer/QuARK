@@ -23,8 +23,7 @@ unit QkFormCfg;
 interface
 
 uses
-  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
-  QkForm, QkObjects, QkFileObjects, TB97, QkFormVw, QkQuakeCtx;
+  QkObjects, QkFileObjects, QkFormVw, QkQuakeCtx;
 
 type
  QInternal = class(QFormObject)
@@ -52,10 +51,7 @@ type
 
 implementation
 
-uses QkUnknown, Undo, TbPalette, Toolbar1, ToolBox1,
-     Setup, QkInclude, QkImages, QkTextures,
-     Python, Quarkx, PyMacros, PyToolbars, PyForms,
-     QkPixelSet, QkObjectClassList;
+uses Quarkx, QkObjectClassList;
 
 class function QFormCfg.TypeInfo: String;
 begin
