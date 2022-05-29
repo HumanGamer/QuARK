@@ -24,7 +24,7 @@ Delphi is trying to be smart, and we've made a terrible design choice. Storing t
 float-ness of a Specific in the high-bit of the first character of its name is
 just silly. Delphi now supports multi-byte characters and such, and in certain cases
 it ignores the weird high-bit of our first character, causing the code to think that
-the Specific in question isn't a float. Hilarity ensures.
+the Specific in question isn't a float. Hilarity ensues.
 
 The function here is an almost drop-in replacement for Delphi's TString.IndexOfName().
 It does an extra check to make sure the name of the Specific found is binary identical
