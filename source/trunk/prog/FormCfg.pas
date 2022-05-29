@@ -24,8 +24,8 @@ interface
 
 uses SysUtils, Classes, Controls, Graphics, Forms, StdCtrls, ExtCtrls,
      QkObjects, Windows, ComCtrls, Messages, TB97, Dialogs,
-     Menus, CommCtrl, EnterEditCtrl, TrackBar2, QkForm, Game, BrowseForFolder,
-     CursorScrollBox, Spin, SmArrowBtn, QkFormCfg, QkApplPaths;
+     Menus, CommCtrl, EnterEditCtrl, TrackBar2, QkForm, Game,
+     CursorScrollBox, Spin, SmArrowBtn, QkFormCfg;
 
 const
  wp_InternalEdit = 96;
@@ -154,9 +154,10 @@ function FontToString(Font: TFont) : String;
 
 implementation
 
-uses qdraw, qhelper, qmath, QkUnknown, Undo, TbPalette, QkFileObjects, Toolbar1, ToolBox1,
-     Setup, QuarkX, QkExceptions, QkInclude, QkMacro, QkImages, QkTextures,
+uses qdraw, qhelper, qmath, QkUnknown, Undo, TbPalette, Toolbar1, ToolBox1,
+     Setup, QuarkX, QkExceptions, QkFileObjects, QkInclude, QkMacro, QkImages,
      Python, PyMacros, PyToolbars, PyForms, QkPixelSet, QkObjectClassList,
+     QkApplPaths, BrowseForFolder,
      SystemDetails, Platform, Logging, ExtraFunctionality;
 
 const
