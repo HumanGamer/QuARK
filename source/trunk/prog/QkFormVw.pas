@@ -23,8 +23,8 @@ unit QkFormVw;
 interface
 
 uses
-  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
-  QkForm, QkObjects, QkFileObjects, TB97, extctrls;
+  Windows, Messages, SysUtils, Classes, Controls, Forms,
+  QkForm, QkFileObjects, ExtCtrls, TB97;
 
 type
   QFormObject = class(QFileObject)
@@ -50,7 +50,7 @@ type
 
 implementation
 
-uses QkQuakeCtx, FormCfg, QkFormCfg;
+uses QkObjects, QkQuakeCtx, FormCfg, QkFormCfg;
 
 {$R *.DFM}
 
@@ -91,15 +91,15 @@ begin
        begin
         Editor:=TFormCfg.Create(Self);
         with Editor as TFormCfg do
-        begin
-        {Editor.}Left:=Width;
-        {Editor.}Parent:=Self;
-        {Editor.}AllowEdit:=True;
-        {Editor.}AddRemaining:=True;
-        {Editor.}ActionChanging:=609;
-        {Editor.}ActionDeleting:=610;
-        {Editor.}Align:=alClient;
-        end;
+         begin
+          Left:=Width;
+          Parent:=Self;
+          AllowEdit:=True;
+          AddRemaining:=True;
+          ActionChanging:=609;
+          ActionDeleting:=610;
+          Align:=alClient;
+         end;
        end;
       L:=BuildQuakeCtxObjects(QFormCfg, (FileObject as QFormObject).GetConfigStr1); try
       if L.Count=0 then
