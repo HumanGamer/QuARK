@@ -1145,7 +1145,7 @@ begin
   LookFor:='';
  for I:=0 to Total-1 do
   with WindowMenu.Items[I] do
-   Checked:=CompareText(Caption, LookFor) = 0;
+   Checked:=SameText(Caption, LookFor);
  MainWindow1.Checked:=Active=Self;
  for I:=0 to Application.ComponentCount-1 do
   begin
@@ -1449,7 +1449,7 @@ var
  FileObject: QFileObject;
  S: String;
 begin
- if CompareText(ExtractFileExt(FileName), '.py') = 0 then
+ if SameText(ExtractFileExt(FileName), '.py') then
   begin
    L:=TStringList.Create;
    try

@@ -2204,9 +2204,9 @@ begin
 
        // ... except for Doom 3, where we might have a "version 1" or "version 2" line BEFORE
        // the first "}" ...
-       if (SymbolType=sStringToken) then
+       if SymbolType=sStringToken then
        begin
-        if (CompareText(S,'Version')=0) then
+        if SameText(S, 'Version') then
         begin
          ReadSymbol(sStringToken); // get the map version number // NumValueToken);
          if SymbolType<>sNumValueToken then
@@ -2222,7 +2222,7 @@ begin
          end;
          ReadSymbol(sNumValueToken);
         end
-        else if (CompareText(S,'iwmap')=0) then
+        else if SameText(S, 'iwmap') then
         begin
          //FIXME:
          LogAndWarn('Warning: Call of Duty 2 maps are only partially supported. Brushes will load, but curves and meshes will not!');
@@ -2252,7 +2252,7 @@ begin
         {EndOfLine:=False;}
          if SymbolType=sStringQuotedToken then
           { SpecClassname is `classname', defined in QKMapObjects }
-          if CompareText(S1, SpecClassname)=0 then
+          if SameText(S1, SpecClassname) then
            {$IFDEF ClassnameLowerCase}
            Classname:=LowerCase(S)
            {$ELSE}
@@ -2261,7 +2261,7 @@ begin
           else
            begin
             { this looks like adding an attribute-value pair to L }
-            if ((Result=mjQuake) or (Result=mjMohaa)) and (CompareText(S1, 'origin')=0) then
+            if ((Result=mjQuake) or (Result=mjMohaa)) and SameText(S1, 'origin') then
              begin
               //Mohaa maps can have a double space in the "origin" specifics
               //if the number only has a single digit before the decimal point.
@@ -2274,7 +2274,7 @@ begin
             end;
             L.Add(S1+'='+S);
             { stuff for dealing with model attributes in BSP entity lists }
-            if (BSP<>Nil) and (CompareText(S1, 'model')=0) and (S<>'') and (S[1]='*') then
+            if (BSP<>Nil) and SameText(S1, 'model') and (S<>'') and (S[1]='*') then
              begin
               Val(Copy(S,2,MaxInt), HullNum, I);
               if I<>0 then

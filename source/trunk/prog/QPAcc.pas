@@ -396,12 +396,12 @@ var
                           INC(PL);
                          UNTIL NOT (PL^ IN ['a'..'z','A'..'Z','0'..'9','_']);
                          SymbolType:=Low(MotsClefs);
-                         while (SymbolType<=High(MotsClefs)) and (CompareText(SymboleMot, MotsClefs[SymbolType])<>0) do
+                         while (SymbolType<=High(MotsClefs)) and (not SameText(SymboleMot, MotsClefs[SymbolType])) do
                           Inc(SymbolType);
                          if SymbolType>High(MotsClefs) then
                           begin
                            SymboleType:=Low(NomsTypes);
-                           while (SymboleType<=High(NomsTypes)) and (CompareText(SymboleMot, NomsTypes[SymboleType])<>0) do
+                           while (SymboleType<=High(NomsTypes)) and (not SameText(SymboleMot, NomsTypes[SymboleType])) do
                             Inc(SymboleType);
                            if SymboleType<=High(NomsTypes) then
                             SymbolType:=symType
@@ -1683,7 +1683,7 @@ VAR
    S:=PL;
    PL:=StrEnd(PL);
    if (SymbolType in [symIdent, symVariable, symObjVar])
-   and (CompareText(SymboleMot, 'frame')=0) then
+   and SameText(SymboleMot, 'frame') then
     repeat
      S:=Trim(S);
      if S='' then Break;
@@ -1794,7 +1794,7 @@ VAR
 
 begin
  FillChar(Zero, SizeOf(Zero), 0);
-(*if CompareText(sTypeCode, 'HexenC')=0 then
+(*if SameText(sTypeCode, 'HexenC') then
   TypeCode:=tcHexenC
  else
   TypeCode:=tcQuakeC;*)

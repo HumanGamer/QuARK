@@ -166,7 +166,7 @@ begin
     TexName := Name;
     if ((nName = '') or (TexName = '')) and (SetupSubSet(ssFiles, 'Textures').Specifics.Values['TextureEmptyNameValid']<>'') then
       Exit;
-    if CompareText(nName, TexName)<>0 then
+    if not SameText(nName, TexName) then
       GlobalWarning(FmtLoadStr1(5569, [nName, TexName]));
   end;
 end;

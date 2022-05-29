@@ -313,7 +313,7 @@ begin
   for I:=0 to nOwner.ComponentCount-1 do
    begin
     C:=nOwner.Components[I];
-    if (C is TToolbar97) and (CompareText(TToolbar97(C).Caption, Caption) = 0) then
+    if (C is TToolbar97) and SameText(TToolbar97(C).Caption, Caption) then
      begin
       Tb:=TToolbar97(C);
       Break;

@@ -299,7 +299,7 @@ end;
   function CompareFront(var Text: string; const Front: string): Boolean;
   begin
     Result := False;
-    if CompareText(Copy(Text, 1, Length(Front)), Front) = 0 then
+    if SameText(Copy(Text, 1, Length(Front)), Front) then
     begin
       Result := True;
       Delete(Text, 1, Length(Front));

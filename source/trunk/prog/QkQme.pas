@@ -441,7 +441,7 @@ begin
    Specifics.Values['Map']:='';
    S:=Specifics.Values['GameCfg'];
    Specifics.Values['GameCfg']:='';
-   if (S='') or (CompareText(S, 'Quake')=0) then
+   if (S='') or SameText(S, 'Quake') then
     Specifics.Values['Game']:=GetGameName(mjQuake)
    else
     Specifics.Values['Game']:=S;
@@ -633,7 +633,7 @@ begin
  S:=Q.Name+Q.TypeInfo;
  Result:=ieResult[
   { any ".qme0" to ".qme8" }
-    (CompareText(Copy(S, Length(S)-4, 4), '.qme') = 0) and (S[Length(S)] in ['0'..'8'])];
+    SameText(Copy(S, Length(S)-4, 4), '.qme') and (S[Length(S)] in ['0'..'8'])];
 end;
 
 function MakeFileQObject(F: TStream; const FullName: String; nParent: QObject) : QFileObject;

@@ -225,7 +225,7 @@ begin
      begin
       Q1:=Q.SubElements[J];
       if (Q1 is nClass)
-      and ((nName='') or (CompareText(Q1.Name, nName) = 0)) then
+      and ((nName='') or SameText(Q1.Name, nName)) then
        begin
         {Q1.Acces;}
         Result.Add(Q1);

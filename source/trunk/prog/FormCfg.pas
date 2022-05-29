@@ -1355,7 +1355,7 @@ begin
            if (Title<>'') and (Path<>'') then
             begin
              I:=LastPos(PathDelim, Path);
-             if (I=0) or (CompareText(Copy(Path, I+1, Length(Title)), Title)<>0) then
+             if (I=0) or (not SameText(Copy(Path, I+1, Length(Title)), Title)) then
               begin
                Path:=IncludeTrailingPathDelimiter(Path);
                Path:=Path+Title;
@@ -2785,7 +2785,7 @@ begin
            NeedEdit:=True;
            for J:=0 to Form.SubElements.Count-1 do
             with Form.SubElements[J] do
-             if CompareText(Name, MyName) = 0 then
+             if SameText(Name, MyName) then
               if Copy(Specifics.Values['Typ'],1,1)<>'X' then
                begin
                 NeedEdit:=False;
@@ -2804,7 +2804,7 @@ begin
              DuplicateValue:=False;
              for J:=0 to I-1 do
               with Form.SubElements[J] do
-               if CompareText(Name, MyName) = 0 then
+               if SameText(Name, MyName) then
                 if Specifics.Values['Typ'] = S then
                  begin
                   DuplicateValue:=True;

@@ -373,7 +373,7 @@ var
 begin
  Result:=inherited ReplaceTexture(Source, Dest, U);
  S:=Specifics.Values['tex'];
- if (S<>'') and ({(Flags and rtAll<>0) or }(CompareText(Source, S) = 0)) and (S<>Dest) then
+ if (S<>'') and ({(Flags and rtAll<>0) or }SameText(Source, S)) and (S<>Dest) then
   begin
    if U <> false then
     begin

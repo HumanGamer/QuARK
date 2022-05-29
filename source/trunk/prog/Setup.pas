@@ -304,7 +304,7 @@ begin
  else
   begin
    for S:=Low(S) to High(S) do
-    if CompareText(SetupSetName[S], Copy(Path,1,P-1)) = 0 then
+    if SameText(SetupSetName[S], Copy(Path,1,P-1)) then
      begin
       Q:=g_SetupSet[S];
       Break;
@@ -376,7 +376,7 @@ begin
  else
   if Q is QConfig then
    for T:=Low(T) to High(T) do
-    if CompareText(Q.Name, SetupSetName[T]) = 0 then
+    if SameText(Q.Name, SetupSetName[T]) then
      begin
       if g_SetupSet[T]=Nil then
        begin
@@ -704,7 +704,7 @@ begin
   raise InternalE('ParentNameChain is empty!');
  Q:=nil;
  for T:=Low(T) to High(T) do
-  if CompareText(ParentNameChain[ParentNameChain.Count-1], SetupSetName[T]) = 0 then
+  if SameText(ParentNameChain[ParentNameChain.Count-1], SetupSetName[T]) then
    begin
     Q:=g_SetupSet[T];
     break;
@@ -954,7 +954,7 @@ end;
 
 procedure ChangeGameModeStr(const nMode: String; Confirm: Boolean);
 begin
- if CompareText(nMode, SetupGameSet.Name) <> 0 then
+ if not SameText(nMode, SetupGameSet.Name) then
   if nMode='' then
    begin
     if Confirm then
@@ -1201,7 +1201,7 @@ begin
         and Reg.TryReadString('', S1) and (S1<>'')
         and Reg.OpenKey('\'+S1+'\shell\open\command', False)
         and Reg.TryReadString('', S)
-        and (CompareText(S, Command) = 0);
+        and SameText(S, Command);
       Reg.CloseKey;
 
       if not Active and Activate then   { auto-associate }
@@ -1265,7 +1265,7 @@ begin
         and Reg.TryReadString('', S1)
         and (S1<>'') and Reg.OpenKey('\'+S1+'\shell\open\command', False)
         and Reg.TryReadString('', S)
-        and (CompareText(S, Command) = 0);
+        and SameText(S, Command);
 
        if Active then   { must un-associate }
         if not Reg.OpenKey('\', False)

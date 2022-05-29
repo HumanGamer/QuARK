@@ -59,8 +59,8 @@ function FindIncludeData1(LookFrom: QObject; const InclName: String; FullMatch: 
    for I:=Parent.SubElements.Count-1 downto 0 do
     begin
      Q:=Parent.SubElements[I];
-     if ((FullMatch and (CompareText(Q.Name+Q.TypeInfo, InclName) = 0))
-     or (not FullMatch and (Q is QIncluded) and (CompareText(Q.Name, InclName) = 0)))
+     if ((FullMatch and SameText(Q.Name+Q.TypeInfo, InclName))
+     or (not FullMatch and (Q is QIncluded) and SameText(Q.Name, InclName)))
      and (Q<>Original) then
       begin
        Q.Acces;   { found it }

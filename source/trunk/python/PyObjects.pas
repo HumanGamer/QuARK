@@ -514,7 +514,7 @@ begin
    Browse:=NeedClassOfType(bc);
   L:=TQList.Create; try
   Q:=QkObjFromPyObj(self);
-  if (Q is WantClass) and ((nName='') or (CompareText(Q.Name, nName) = 0)) then
+  if (Q is WantClass) and ((nName='') or SameText(Q.Name, nName)) then
    L.Add(Q);
   Q.FindAllSubObjects(nName, WantClass, Browse, L);
   Result:=QListToPyList(L);

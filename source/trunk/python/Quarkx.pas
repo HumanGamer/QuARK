@@ -2717,7 +2717,7 @@ begin
      for J:=0 to Screen.FormCount-1 do
       begin
        ToolBox1:=Screen.Forms[J];
-       if (ToolBox1 is TToolBoxForm) and (CompareText(TToolBoxForm(ToolBox1).GetToolBoxSingleName, S)=0) then
+       if (ToolBox1 is TToolBoxForm) and SameText(TToolBoxForm(ToolBox1).GetToolBoxSingleName, S) then
        begin
          if (ToolBox1.Visible) then
            AlreadyOpen:=ToolBoxOpen
@@ -3901,7 +3901,7 @@ begin
    LookFor:='';
   for I:=0 to Total-1 do
    with WindowMenu.Items[I] do
-    Checked:=CompareText(Caption, LookFor) = 0;
+    Checked:=SameText(Caption, LookFor);
   MainWindow1.Checked:=Active=Self;
   for I:=0 to Application.ComponentCount-1 do
    begin

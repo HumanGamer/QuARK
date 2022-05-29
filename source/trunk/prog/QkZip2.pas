@@ -206,7 +206,7 @@ var
 begin
   if Obj is QFileObject then
   begin
-    if CompareText(BaseFolder, Copy(Path, 1, Length(BaseFolder))) = 0 then
+    if SameText(BaseFolder, Copy(Path, 1, Length(BaseFolder))) then
       I:=Length(BaseFolder)+1
     else
     begin

@@ -75,7 +75,7 @@ begin
       SpecArg:=Q.Specifics[K];
       P2:=Pos('=', SpecArg);
       if (P2>0) and (P2=Length(SpecArg)-Length(nArg))
-      and (CompareText(Copy(SpecArg, P2+1, MaxInt), nArg) = 0) then
+      and SameText(Copy(SpecArg, P2+1, MaxInt), nArg) then
        begin
         Used:=True;
         Break;
@@ -283,13 +283,13 @@ procedure DrawMapMacros(Entity: QObject; Macros, Entities: TQList);
   begin
    try
     Q.Acces;
-    if CompareText(Q.Name, 'DrawMap')=0 then
+    if SameText(Q.Name, 'DrawMap') then
      begin
       S:=Q.Specifics.Values['Spec'];
       if S='' then Exit;
       Arg:=Q.Specifics.Values['Arg'];
       if ((Arg='') and (Entity.Specifics.IndexOfName(S)>=0))
-      or ((Arg<>'') and (CompareText(Entity.Specifics.Values[S],Arg)=0)) then
+      or ((Arg<>'') and SameText(Entity.Specifics.Values[S],Arg)) then
        begin  { "Entity" has the matching Specific }
         for J:=0 to Q.SubElements.Count-1 do
          begin
@@ -300,8 +300,8 @@ procedure DrawMapMacros(Entity: QObject; Macros, Entities: TQList);
          end;
        end;
       Exit;
-     end;
-    if CompareText(Q.Name, 'find')=0 then
+     end
+    else if SameText(Q.Name, 'find') then
      begin
       S:=Q.Specifics.Values['Spec'];
       if S='' then Exit;
@@ -322,8 +322,8 @@ procedure DrawMapMacros(Entity: QObject; Macros, Entities: TQList);
          end;
        end;
       Exit;
-     end;
-    if CompareText(Q.Name, 'Circle')=0 then
+     end
+    else if SameText(Q.Name, 'Circle') then
      begin
       V1:=ReadVector(Q.Specifics.Values['center']);
       Pt1:=Proj(V1);
@@ -333,8 +333,8 @@ procedure DrawMapMacros(Entity: QObject; Macros, Entities: TQList);
       Ellipse(g_DrawInfo.DC, Pt1.X-J, Pt1.Y-J, Pt1.X+J, Pt1.Y+J);
       DeleteObject(SelectObject(g_DrawInfo.DC, Pen));
       Exit;
-     end;
-    if CompareText(Q.Name, 'Arrow')=0 then
+     end
+    else if SameText(Q.Name, 'Arrow') then
      begin
       V1:=ReadVector(Q.Specifics.Values['from']);
       Pt1:=Proj(V1);

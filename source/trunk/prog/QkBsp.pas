@@ -479,11 +479,11 @@ begin
   S:=Q.Name+Q.TypeInfo;
   Result:=ieResult[
     { any ".bsp1" to ".bsp9" }
-       ((CompareText(Copy(S, Length(S)-4, 4), '.bsp' ) = 0) and (S[Length(S)] in ['1'..'9']))
+       (SameText(Copy(S, Length(S)-4, 4), '.bsp' ) and (S[Length(S)] in ['1'..'9']))
     { or any ".bsp10" to ".bsp15" }
-    or ((CompareText(Copy(S, Length(S)-5, 5), '.bsp1') = 0) and (S[Length(S)] in ['0'..'5']))
+    or (SameText(Copy(S, Length(S)-5, 5), '.bsp1') and (S[Length(S)] in ['0'..'5']))
     { or ".bspg3d" }
-    or (CompareText(Copy(S, Length(S)-6, 7), '.bspg3d') = 0)
+    or SameText(Copy(S, Length(S)-6, 7), '.bspg3d')
   ];
 end;
 

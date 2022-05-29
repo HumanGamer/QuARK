@@ -710,7 +710,7 @@ begin
   Result := False;
   for I := 0 to g_TexExtensions.Count-1 do
   begin
-    if (CompareText(ExtractFileExt(FileName), g_TexExtensions.Strings[i])=0) then
+    if SameText(ExtractFileExt(FileName), g_TexExtensions.Strings[i]) then
     begin { file is a texture if its extension is listed in GameBuffer }
       Result := True;
       Exit;
@@ -725,7 +725,7 @@ begin
   Result := False;
   for I := 0 to g_PakExtensions.Count-1 do
   begin
-    if (CompareText(ExtractFileExt(FileName), g_PakExtensions[i])=0) then
+    if SameText(ExtractFileExt(FileName), g_PakExtensions[i]) then
     begin { file is a pak if its extension is listed in GameBuffer }
       Result := True;
       Exit;
@@ -841,7 +841,7 @@ begin
     finally
       ChDir(CurDir);
     end;
-  if CompareText(NewPath, Path) <> 0 then
+  if not SameText(NewPath, Path) then
     Result:=NewPath;
 end;
 

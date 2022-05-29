@@ -601,7 +601,7 @@ begin
     // access violations.
     if not(Assigned(Result)) then
       Break; // Quit the loop go on to Result := Nil;
-    if CompareText(Result.GetFullName, nName) = 0 then
+    if SameText(Result.GetFullName, nName) then
       Exit; // Exit out at current selection, it is the one we want.
   end;
   Result:=Nil;
@@ -614,7 +614,7 @@ begin
   for I:=0 to Count-1 do
   begin
     Result:=QObject(List^[I]);
-    if CompareText(Result.Name, nName) = 0 then
+    if SameText(Result.Name, nName) then
       Exit;
   end;
   Result:=Nil;
@@ -627,7 +627,7 @@ begin
   for I:=Count-1 downto 0 do
   begin
     Result:=QObject(List^[I]);
-    if CompareText(Result.Name, nName) = 0 then
+    if SameText(Result.Name, nName) then
       Exit;
   end;
   Result:=Nil;
@@ -2458,7 +2458,7 @@ begin
   begin
     Result:=QObject(SubElements[I]);
 
-    if (Result is WantClass) and (CompareText(Result.Name, nName) = 0) then
+    if (Result is WantClass) and SameText(Result.Name, nName) then
       Exit;  { found it }
 
     if BrowseClass=Nil then
@@ -2528,7 +2528,7 @@ begin
   begin
     Result:=QObject(SubElements[I]);
 
-    if (Result is WantClass) and ((nName='') or (CompareText(Result.Name, nName) = 0)) then
+    if (Result is WantClass) and ((nName='') or SameText(Result.Name, nName)) then
       L.Add(Result);  { found it }
 
     if BrowseClass=Nil then

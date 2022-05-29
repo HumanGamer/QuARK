@@ -804,7 +804,7 @@ begin
    Q1:=Q.SubElements[I];
    if Q1 is TFace then
     begin
-     if CompareText(TFace(Q1).NomTex, Tex) = 0 then
+     if SameText(TFace(Q1).NomTex, Tex) then
       TFace(Q1).NomTex:=Dest;
     end
    else
@@ -3594,7 +3594,7 @@ function TTexturedTreeMap.ReplaceTexture(const Source, Dest: String; U: Boolean)
 var
  Dup: TTexturedTreeMap;
 begin
- if ((Source='') or (CompareText(Source, NomTex) = 0)) and (NomTex<>Dest) then
+ if ((Source='') or SameText(Source, NomTex)) and (NomTex<>Dest) then
   begin
    if U then
     begin

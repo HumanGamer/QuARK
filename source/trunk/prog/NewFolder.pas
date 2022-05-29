@@ -116,7 +116,7 @@ begin
    else
      SaveDialog1.Options:=[ofHideReadOnly, ofOverwritePrompt, ofPathMustExist];
    if not SaveDialog1.Execute then Exit;
-   if CompareText(ExtractFilePath(SaveDialog1.FileName), GetQPath(pQuArK)) <> 0 then
+   if not SameText(ExtractFilePath(SaveDialog1.FileName), GetQPath(pQuArK)) then
     Raise EError(5596);
    Target:=BuildFileRoot(SaveDialog1.FileName, Nil);
    Target.AddRef(+1);

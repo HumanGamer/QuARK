@@ -158,10 +158,10 @@ begin
   begin
    S:=Q.Name+Q.TypeInfo;
    { allow any ".wad" sub-file }
-   Result:=ieResult[(CompareText(Copy(S, Length(S)-4, 5), '.wadI') = 0)
-                 or (CompareText(Copy(S, Length(S)-4, 5), '.wadP') = 0)
-                 or (CompareText(Copy(S, Length(S)-5, 5), '.wad_') = 0)
-                 or (CompareText(Copy(S, Length(S)-6, 6), '.wad3_') = 0)];
+   Result:=ieResult[SameText(Copy(S, Length(S)-4, 5), '.wadI')
+                 or SameText(Copy(S, Length(S)-4, 5), '.wadP')
+                 or SameText(Copy(S, Length(S)-5, 5), '.wad_')
+                 or SameText(Copy(S, Length(S)-6, 6), '.wad3_')];
   end;
 end;
 
@@ -1078,7 +1078,7 @@ begin
         begin
          S2:=L[J];
          if (Length(S2)>=2) and (S2[1]='+')
-         and (CompareText(Copy(S2, 3,MaxInt), S)=0) then
+         and SameText(Copy(S2, 3,MaxInt), S) then
           PositionTexture^[J].ListIndex:=Courant;
         end;
       end;

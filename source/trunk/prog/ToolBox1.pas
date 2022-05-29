@@ -157,7 +157,7 @@ begin
   for I:=0 to Screen.FormCount-1 do
   begin
     ToolBox1:=Screen.Forms[I];
-    if (ToolBox1 is TToolBoxForm) and (CompareText(TToolBoxForm(ToolBox1).GetToolBoxSingleName, FilteredToolBoxName)=0) then
+    if (ToolBox1 is TToolBoxForm) and SameText(TToolBoxForm(ToolBox1).GetToolBoxSingleName, FilteredToolBoxName) then
     begin
       Result:=TToolBoxForm(ToolBox1);  { was already opened }
       Exit;
@@ -355,7 +355,7 @@ begin
    Q1:=Q.SubElements[I];
    if Q1 is TFace then
     begin
-     if CompareText(TFace(Q1).NomTex, Tex) = 0 then
+     if SameText(TFace(Q1).NomTex, Tex) then
       TFace(Q1).NomTex:=Dest;
     end
    else
@@ -450,7 +450,7 @@ begin
   begin
    Source.Acces;
    if (SingleName='')
-   or (CompareText(Source.Specifics.Values['ToolBox'], SingleName)=0) then
+   or SameText(Source.Specifics.Values['ToolBox'], SingleName) then
     Roots.Add(Source);  { found a ToolBox ! }
   end
  else
@@ -616,7 +616,7 @@ begin
      begin
       DefaultTarget:=TQkExplorer(L);
       DefaultTarget.GetExplorerInfo(Info);
-      if CompareText(Info.TargetTag, S) = 0 then
+      if SameText(Info.TargetTag, S) then
        Exit;  { found it }
      end;
    end;

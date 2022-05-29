@@ -904,7 +904,7 @@ var
      T1:=TTreeMap(T.SubElements[I]);
      if T1 is TTreeMapSpec then
       begin
-       if (CompareText(TTreeMapSpec(T1).Specifics.Values[Spec], Arg) = 0)
+       if SameText(TTreeMapSpec(T1).Specifics.Values[Spec], Arg)
        and (T1.DernierOrigineSel(O2)<>Nil) and ProjEx(O2, O2Pt) then
         begin
          if Pen[False]=0 then
@@ -1898,7 +1898,7 @@ begin
      {FIXME: bounding boxes in 3D view}
     end;
 
-    if CompareText(Copy(Name,1,5), SpecLight)=0 then
+    if SameText(Copy(Name,1,5), SpecLight) then
     begin
       Light:=StrToIntDef(Specifics.Values[SpecLight], 0);
       if Light<=0 then

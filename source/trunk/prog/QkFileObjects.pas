@@ -563,7 +563,7 @@ begin
                     if Header.TotalFileLength > SourceTaille then
                      FileCrashRecoverHack;
                     S:=CharToPas(Header.InfoType);
-                    if CompareText(S, TypeInfo) <> 0 then
+                    if not SameText(S, TypeInfo) then
                      Raise EErrorFmt(5187, [LoadName, S]);
                     SourceTaille:=Header.TotalFileLength - SizeOf(Header);
                     ReadFormat:=rf_Private;
@@ -1905,7 +1905,7 @@ begin
      FFileObject.Filename:=FileName;
      FileName:=ExtractFileName(FileName);
      S:=FFileObject.TypeInfo;
-     if CompareText(Copy(FileName, Length(FileName)-Length(S)+1, MaxInt), S)=0 then
+     if SameText(Copy(FileName, Length(FileName)-Length(S)+1, MaxInt), S) then
       begin
        SetLength(FileName, Length(FileName)-Length(S));
        FFileObject.TryRenamingNow(FileName);

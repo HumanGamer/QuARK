@@ -202,17 +202,17 @@ var
  Folder, Q, Tex: QObject;
 begin
  Result:=False;
- if CompareText(ExtractFileExt(Name), '.wal') = 0 then
+ if SameText(ExtractFileExt(Name), '.wal') then
   Link1(ResultFolder, FolderName, Copy(Name, 1, Length(Name)-4), 'w', Base)
- else if CompareText(ExtractFileExt(Name), '.m8') = 0 then
+ else if SameText(ExtractFileExt(Name), '.m8') then
   Link1(ResultFolder, FolderName, Copy(Name, 1, Length(Name)-3), 'm', Base)
- else if CompareText(ExtractFileExt(Name), '.m32') = 0 then
+ else if SameText(ExtractFileExt(Name), '.m32') then
   Link1(ResultFolder, FolderName, Copy(Name, 1, Length(Name)-4), 'l', Base)
- else if CompareText(ExtractFileExt(Name), '.swl') = 0 then
+ else if SameText(ExtractFileExt(Name), '.swl') then
   Link1(ResultFolder, FolderName, Copy(Name, 1, Length(Name)-4), 'i', Base)
- else if CompareText(ExtractFileExt(Name), '.vtf') = 0 then
+ else if SameText(ExtractFileExt(Name), '.vtf') then
   Link1(ResultFolder, FolderName, Copy(Name, 1, Length(Name)-4), 'v', Base)
- else if CompareText(ExtractFileExt(Name), '.wad') = 0 then
+ else if SameText(ExtractFileExt(Name), '.wad') then
   begin
    if Loaded=Nil then
     begin
@@ -236,28 +236,28 @@ begin
    LinkFolder(Folder, ResultFolder, FolderName);
   end
  else
- if CompareText(ExtractFileExt(Name), '.tga') = 0 then
+ if SameText(ExtractFileExt(Name), '.tga') then
   Link1(ResultFolder, FolderName, Copy(Name, 1, Length(Name)-4), 'a', Base)
  else
- if CompareText(ExtractFileExt(Name), '.jpg') = 0 then
+ if SameText(ExtractFileExt(Name), '.jpg') then
   Link1(ResultFolder, FolderName, Copy(Name, 1, Length(Name)-4), 'a', Base)
  else
- if CompareText(ExtractFileExt(Name), '.png') = 0 then
+ if SameText(ExtractFileExt(Name), '.png') then
   Link1(ResultFolder, FolderName, Copy(Name, 1, Length(Name)-4), 'a', Base)
  else
- if CompareText(ExtractFileExt(Name), '.ftx') = 0 then
+ if SameText(ExtractFileExt(Name), '.ftx') then
   Link1(ResultFolder, FolderName, Copy(Name, 1, Length(Name)-4), 'a', Base)
  else
- if CompareText(ExtractFileExt(Name), '.bmp') = 0 then
+ if SameText(ExtractFileExt(Name), '.bmp') then
   Link1(ResultFolder, FolderName, Copy(Name, 1, Length(Name)-4), 'a', Base)
  else
- if CompareText(ExtractFileExt(Name), '.dds') = 0 then
+ if SameText(ExtractFileExt(Name), '.dds') then
   Link1(ResultFolder, FolderName, Copy(Name, 1, Length(Name)-4), 'a', Base)
  else
- if CompareText(ExtractFileExt(Name), '.iwi') = 0 then
+ if SameText(ExtractFileExt(Name), '.iwi') then
   Link1(ResultFolder, FolderName, Copy(Name, 1, Length(Name)-4), 'a', Base)
  else
- if CompareText(ExtractFileExt(Name), '.shader') = 0 then
+ if SameText(ExtractFileExt(Name), '.shader') then
   begin
    if Loaded=Nil then
     begin
@@ -279,7 +279,7 @@ begin
    LinkFolder(Folder, ResultFolder, FolderName);
   end
  else
- if CompareText(ExtractFileExt(Name), '.mtr') = 0 then
+ if SameText(ExtractFileExt(Name), '.mtr') then
   begin
    if Loaded=Nil then
     begin
@@ -308,17 +308,17 @@ var
  Folder, Q, Tex: QObject;
 begin
  Result:=False;
- if CompareText(ExtractFileExt(Name), '.wal') = 0 then
+ if SameText(ExtractFileExt(Name), '.wal') then
   Link1(ResultFolder, FolderName, Copy(Name, 1, Length(Name)-4), 'w', Base, Index)
- else if CompareText(ExtractFileExt(Name), '.m8') = 0 then
+ else if SameText(ExtractFileExt(Name), '.m8') then
   Link1(ResultFolder, FolderName, Copy(Name, 1, Length(Name)-3), 'm', Base, Index)
- else if CompareText(ExtractFileExt(Name), '.m32') = 0 then
+ else if SameText(ExtractFileExt(Name), '.m32') then
   Link1(ResultFolder, FolderName, Copy(Name, 1, Length(Name)-4), 'l', Base, Index)
- else if CompareText(ExtractFileExt(Name), '.swl') = 0 then
+ else if SameText(ExtractFileExt(Name), '.swl') then
   Link1(ResultFolder, FolderName, Copy(Name, 1, Length(Name)-4), 'i', Base, Index)
- else if CompareText(ExtractFileExt(Name), '.vtf') = 0 then
+ else if SameText(ExtractFileExt(Name), '.vtf') then
   Link1(ResultFolder, FolderName, Copy(Name, 1, Length(Name)-4), 'v', Base, Index)
- else if CompareText(ExtractFileExt(Name), '.wad') = 0 then
+ else if SameText(ExtractFileExt(Name), '.wad') then
   begin
    if Loaded=Nil then
     begin
@@ -342,28 +342,28 @@ begin
    LinkFolder(Folder, ResultFolder, FolderName, Index);
   end
  else
- if CompareText(ExtractFileExt(Name), '.tga') = 0 then
+ if SameText(ExtractFileExt(Name), '.tga') then
   Link1(ResultFolder, FolderName, Copy(Name, 1, Length(Name)-4), 'a', Base, Index)
  else
- if CompareText(ExtractFileExt(Name), '.jpg') = 0 then
+ if SameText(ExtractFileExt(Name), '.jpg') then
   Link1(ResultFolder, FolderName, Copy(Name, 1, Length(Name)-4), 'a', Base, Index)
  else
- if CompareText(ExtractFileExt(Name), '.png') = 0 then
+ if SameText(ExtractFileExt(Name), '.png') then
   Link1(ResultFolder, FolderName, Copy(Name, 1, Length(Name)-4), 'a', Base, Index)
  else
- if CompareText(ExtractFileExt(Name), '.ftx') = 0 then
+ if SameText(ExtractFileExt(Name), '.ftx') then
   Link1(ResultFolder, FolderName, Copy(Name, 1, Length(Name)-4), 'a', Base, Index)
  else
- if CompareText(ExtractFileExt(Name), '.bmp') = 0 then
+ if SameText(ExtractFileExt(Name), '.bmp') then
   Link1(ResultFolder, FolderName, Copy(Name, 1, Length(Name)-4), 'a', Base, Index)
  else
- if CompareText(ExtractFileExt(Name), '.dds') = 0 then
+ if SameText(ExtractFileExt(Name), '.dds') then
   Link1(ResultFolder, FolderName, Copy(Name, 1, Length(Name)-4), 'a', Base, Index)
  else
- if CompareText(ExtractFileExt(Name), '.iwi') = 0 then
+ if SameText(ExtractFileExt(Name), '.iwi') then
   Link1(ResultFolder, FolderName, Copy(Name, 1, Length(Name)-4), 'a', Base, Index)
  else
- if CompareText(ExtractFileExt(Name), '.shader') = 0 then
+ if SameText(ExtractFileExt(Name), '.shader') then
   begin
    if Loaded=Nil then
     begin
@@ -385,7 +385,7 @@ begin
    LinkFolder(Folder, ResultFolder, FolderName, Index);
   end
  else
- if CompareText(ExtractFileExt(Name), '.mtr') = 0 then
+ if SameText(ExtractFileExt(Name), '.mtr') then
   begin
    if Loaded=Nil then
     begin
@@ -459,7 +459,7 @@ var
   Path: TStringList;
 begin
   Result:=False;
-  if CompareText(ExtractFileExt(Name), '.shader') = 0 then
+  if SameText(ExtractFileExt(Name), '.shader') then
   begin
     if Loaded=Nil then
     begin
@@ -693,7 +693,7 @@ begin
       begin
         Loaded:=Nil;
         try
-          if CompareText(ExtractFileExt(F.Name), '.shader') = 0 then
+          if SameText(ExtractFileExt(F.Name), '.shader') then
             FoundShaders.Add(ShortName);
           while LinkShaderFolder(DestFolder, F.Name, FolderName, Base, Loaded) do
           begin

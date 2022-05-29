@@ -592,7 +592,7 @@ var
             begin
               S:=Copy(Tex.Name,2,MaxInt);  { direct from disk }
               { change the file extension if necessary, to match the actual file format }
-              if CompareText(Copy(S, Length(S)-Length(Tex.TypeInfo)+1, MaxInt), Tex.TypeInfo)<>0 then
+              if not SameText(Copy(S, Length(S)-Length(Tex.TypeInfo)+1, MaxInt), Tex.TypeInfo) then
                 S:=ChangeFileExt(S, Tex.TypeInfo);
             end
             else
@@ -1750,7 +1750,7 @@ begin
     TexName := GetTexName;
     if ((nName = '') or (TexName = '')) and (SetupSubSet(ssFiles, 'Textures').Specifics.Values['TextureEmptyNameValid']<>'') then
       Exit;
-    if CompareText(nName, TexName)<>0 then
+    if not SameText(nName, TexName) then
       GlobalWarning(FmtLoadStr1(5569, [nName, TexName]));
   end;
 end;

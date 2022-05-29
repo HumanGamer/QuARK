@@ -363,7 +363,7 @@ expected one.
 //}
 
   // read the side
-  while (SymbolType=sStringToken) and (CompareText(S,'side')=0) do
+  while (SymbolType=sStringToken) and SameText(S,'side') do
   begin
     Inc(FaceNum);
     side_id:='';
@@ -428,7 +428,7 @@ expected one.
     if side_id<>'' then
       Surface.Specifics.Values['id']:=side_id;
 
-    if (SymbolType=sStringToken) and (CompareText(S,'dispinfo')=0) then
+    if (SymbolType=sStringToken) and SameText(S,'dispinfo') then
     begin
       ReadSymbol(sStringToken); // dispinfo
       ReadSymbol(sCurlyBracketLeft);
@@ -488,7 +488,7 @@ expected one.
     ReadSymbol(sCurlyBracketRight);
   end; // side loop
 
-  if (SymbolType=sStringToken) and (CompareText(S,'editor')=0) then
+  if (SymbolType=sStringToken) and SameText(S,'editor') then
   begin
     ReadSymbol(sStringToken); // editor
     ReadSymbol(sCurlyBracketLeft);
@@ -780,37 +780,37 @@ begin
 
        //found string versionsinfo
        while SymbolType=sStringToken do
-       if CompareText(S,'versioninfo')=0 then
+       if SameText(S,'versioninfo') then
          ReadVersionInfo
        else
          //found string visgroups
-         if CompareText(S,'visgroups')=0 then
+         if SameText(S,'visgroups') then
            ReadHL2GenericHierarchy
          else
            //found string viewsettings
-           if CompareText(S,'viewsettings')=0 then
+           if SameText(S,'viewsettings') then
                ReadHL2GenericHierarchy
            else
              //found string world
-             if CompareText(S,'world')=0 then
+             if SameText(S,'world') then
              begin
                ReadWorld;
              end
              else
                //found string cameras
-               if CompareText(S,'cameras')=0 then
+               if SameText(S,'cameras') then
                  ReadHL2GenericHierarchy
                else
                  //found string cordon
-                 if CompareText(S,'cordon')=0 then
+                 if SameText(S,'cordon') then
                    ReadHL2GenericHierarchy
                  else
                    //found string entity
-                   if CompareText(S,'entity')=0 then
+                   if SameText(S,'entity') then
                      ReadHL2Entity(Entities)
                    else
                      //found string hidden
-                     if CompareText(S,'hidden')=0 then
+                     if SameText(S,'hidden') then
 //                       ReadHL2GenericHierarchy
                        ReadHL2Group(root)
                      else
