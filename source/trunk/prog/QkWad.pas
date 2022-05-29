@@ -77,7 +77,7 @@ type
     function AnimationNextStep(Q: QPixelSet; Seq: Integer) : QPixelSet;
   protected
     function PopulateListView(Counter: Integer) : Integer; override;
-    function AssignObject(Q: QFileObject; State: TFileObjectWndState) : Boolean; override;
+    function AssignObject(const Q: QFileObject; State: TFileObjectWndState) : Boolean; override;
     function GetConfigStr : String; override;
     function EnumObjs(Item: TListItem; var Q: QObject) : Boolean; override;
   public
@@ -741,7 +741,7 @@ begin
  inherited;
 end;*)
 
-function TFQWad.AssignObject(Q: QFileObject; State: TFileObjectWndState) : Boolean;
+function TFQWad.AssignObject(const Q: QFileObject; State: TFileObjectWndState) : Boolean;
 begin
  Result:=(Q is QWad) and inherited AssignObject(Q, State);
 end;

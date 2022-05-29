@@ -45,7 +45,7 @@ type
     ScrollBox1: TPyMapView;
     procedure ScrollBox1Paint(Sender: TObject; DC: HDC; const rcPaint: TRect);
   protected
-    function AssignObject(Q: QFileObject; State: TFileObjectWndState) : Boolean; override;
+    function AssignObject(const Q: QFileObject; State: TFileObjectWndState) : Boolean; override;
     procedure ReadSetupInformation(Level: Integer); override;
   public
     procedure wmInternalMessage(var Msg: TMessage); message wm_InternalMessage;
@@ -58,7 +58,7 @@ uses QuarkX, Setup, PyForms, Undo, QkModel, QkMapObjects, Qk3D, qmath, PyMath,
 
 {$R *.dfm}
 
-function TFQMdl.AssignObject(Q: QFileObject; State: TFileObjectWndState) : Boolean;
+function TFQMdl.AssignObject(const Q: QFileObject; State: TFileObjectWndState) : Boolean;
 begin
   Result:=(Q is QModel) and (State<>cmWindow) and inherited AssignObject(Q, State);
 end;

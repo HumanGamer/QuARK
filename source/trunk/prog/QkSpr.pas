@@ -113,7 +113,7 @@ type
     { Private declarations }
   public
     ImageDisplayer: TImageDisplayer;
-    function AssignObject(Q: QFileObject; State: TFileObjectWndState) : Boolean; override;
+    function AssignObject(const Q: QFileObject; State: TFileObjectWndState) : Boolean; override;
     procedure wmInternalMessage(var Msg: TMessage); override;
     { Public declarations }
   end;
@@ -629,7 +629,7 @@ begin
   Info.WndInfo:=[wiWindow,wiSameExplorer];
 end;
 
-function TQSprForm.AssignObject(Q: QFileObject; State: TFileObjectWndState) : Boolean;
+function TQSprForm.AssignObject(const Q: QFileObject; State: TFileObjectWndState) : Boolean;
 begin
   Result:=((Q is QSprFile) or (Q is QSp2File))and inherited AssignObject(Q, State);
 end;

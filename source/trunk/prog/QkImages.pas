@@ -104,7 +104,7 @@ type
     ImageDisplayer: TImageDisplayer;
     procedure wmInternalMessage(var Msg: TMessage); message wm_InternalMessage;
   protected
-    function AssignObject(Q: QFileObject; State: TFileObjectWndState) : Boolean; override;
+    function AssignObject(const Q: QFileObject; State: TFileObjectWndState) : Boolean; override;
     function GetConfigStr: String; override;
   public
     function MacroCommand(Cmd: Integer) : Boolean; override;
@@ -1747,7 +1747,7 @@ begin
  inherited;
 end;
 
-function TFQImages.AssignObject(Q: QFileObject; State: TFileObjectWndState) : Boolean;
+function TFQImages.AssignObject(const Q: QFileObject; State: TFileObjectWndState) : Boolean;
 begin
  Result:=(Q is QImage) and inherited AssignObject(Q, State);
 end;

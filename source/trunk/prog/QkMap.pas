@@ -91,7 +91,7 @@ type
     ScrollBox1: TPyMapView;
     procedure ScrollBox1Paint(Sender: TObject; DC: HDC; const rcPaint: TRect);
   protected
-    function AssignObject(Q: QFileObject; State: TFileObjectWndState) : Boolean; override;
+    function AssignObject(const Q: QFileObject; State: TFileObjectWndState) : Boolean; override;
     procedure ReadSetupInformation(Level: Integer); override;
   public
     procedure wmInternalMessage(var Msg: TMessage); message wm_InternalMessage;
@@ -4257,7 +4257,7 @@ end;
 
  {------------------------}
 
-function TFQMap.AssignObject(Q: QFileObject; State: TFileObjectWndState) : Boolean;
+function TFQMap.AssignObject(const Q: QFileObject; State: TFileObjectWndState) : Boolean;
 begin
  Result:=(Q is QMap) and (State<>cmWindow) and inherited AssignObject(Q, State);
 end;

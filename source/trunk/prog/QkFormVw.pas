@@ -40,7 +40,7 @@ type
    {ObjectChanged: Boolean;}
     procedure wmInternalMessage(var Msg: TMessage); message wm_InternalMessage;
   protected
-    function AssignObject(Q: QFileObject; State: TFileObjectWndState) : Boolean; override;
+    function AssignObject(const Q: QFileObject; State: TFileObjectWndState) : Boolean; override;
     function GetConfigStr : String; override;
   public
     Editor: TCustomPanel;
@@ -63,7 +63,7 @@ end;
 
  {------------------------}
 
-function TFQFormVw.AssignObject(Q: QFileObject; State: TFileObjectWndState) : Boolean;
+function TFQFormVw.AssignObject(const Q: QFileObject; State: TFileObjectWndState) : Boolean;
 begin
  Result:=(Q is QFormObject) and inherited AssignObject(Q, State);
 {if Result then

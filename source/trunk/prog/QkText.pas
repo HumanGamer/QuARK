@@ -67,7 +67,7 @@ type
     MAJ: Boolean;
     procedure wmInternalMessage(var Msg: TMessage); message wm_InternalMessage;
   protected
-    function AssignObject(Q: QFileObject; State: TFileObjectWndState) : Boolean; override;
+    function AssignObject(const Q: QFileObject; State: TFileObjectWndState) : Boolean; override;
     function GetConfigStr : String; override;
   public
    {function MacroCommand(Cmd: Integer) : Boolean; override;}
@@ -284,7 +284,7 @@ begin
  inherited;
 end;
 
-function TFQText.AssignObject(Q: QFileObject; State: TFileObjectWndState) : Boolean;
+function TFQText.AssignObject(const Q: QFileObject; State: TFileObjectWndState) : Boolean;
 begin
  Result:=(Q is QText) and inherited AssignObject(Q, State);
 end;

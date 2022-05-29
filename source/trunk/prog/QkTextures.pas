@@ -151,7 +151,7 @@ type
     procedure DynamicTextureTb(Tex: TWinControl);
     procedure wmInternalMessage(var Msg: TMessage); message wm_InternalMessage;
   protected
-    function AssignObject(Q: QFileObject; State: TFileObjectWndState) : Boolean; override;
+    function AssignObject(const Q: QFileObject; State: TFileObjectWndState) : Boolean; override;
     function GetConfigStr: String; override;
   public
     function MacroCommand(Cmd: Integer) : Boolean; override;
@@ -1920,7 +1920,7 @@ begin
   inherited;
 end;
 
-function TFQTexture.AssignObject(Q: QFileObject; State: TFileObjectWndState) : Boolean;
+function TFQTexture.AssignObject(const Q: QFileObject; State: TFileObjectWndState) : Boolean;
 begin
   Result:=(Q is QTexture) and inherited AssignObject(Q, State);
 end;

@@ -288,7 +288,7 @@ type
   private
     procedure wmInternalMessage(var Msg: TMessage); message wm_InternalMessage;
   protected
-    function AssignObject(Q: QFileObject; State: TFileObjectWndState) : Boolean; override;
+    function AssignObject(const Q: QFileObject; State: TFileObjectWndState) : Boolean; override;
     function GetConfigStr: String; override;
   public
   end;
@@ -1202,7 +1202,7 @@ begin
  inherited;
 end;
 
-function TFQBsp.AssignObject(Q: QFileObject; State: TFileObjectWndState) : Boolean;
+function TFQBsp.AssignObject(const Q: QFileObject; State: TFileObjectWndState) : Boolean;
 begin
  Result:=(Q is QBsp) and inherited AssignObject(Q, State);
 end;

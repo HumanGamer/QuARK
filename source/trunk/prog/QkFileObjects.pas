@@ -82,12 +82,12 @@ type
     FFileObject: QFileObject;
     function GetSmallPosition: TRect;
     function GetViewForm: TCustomForm;
-    function AssignObject(Q: QFileObject; State: TFileObjectWndState) : Boolean; virtual;
+    function AssignObject(const Q: QFileObject; State: TFileObjectWndState) : Boolean; virtual;
     function GetConfigStr: String; dynamic;
     procedure ReadSetupInformation(Level: Integer); dynamic;
     procedure SaveToolbars(Remove: Boolean);
     procedure LoadToolbars;
-    procedure ForcedAssignObject(Q: QFileObject; State: TFileObjectWndState);
+    procedure ForcedAssignObject(const Q: QFileObject; State: TFileObjectWndState);
     function EditMenuCommand(Cmd: Integer) : Integer;
   public
     property FileObject: QFileObject read FFileObject;
@@ -2321,7 +2321,7 @@ end;
 
  {------------------------}
 
-function TQForm1.AssignObject;
+function TQForm1.AssignObject(const Q: QFileObject; State: TFileObjectWndState) : Boolean;
 begin
  Result:=(FileObject=Nil) and (State<>cmOwnExplorer);
  if Result then
@@ -2364,7 +2364,7 @@ begin
    UpdateToolbarSetup;
 end;
 
-procedure TQForm1.ForcedAssignObject(Q: QFileObject; State: TFileObjectWndState);
+procedure TQForm1.ForcedAssignObject(const Q: QFileObject; State: TFileObjectWndState);
 var
  E: TEtatObjet;
 begin

@@ -49,7 +49,7 @@ type
   private
     procedure wmInternalMessage(var Msg: TMessage); message wm_InternalMessage;
   protected
-    function AssignObject(Q: QFileObject; State: TFileObjectWndState) : Boolean; override;
+    function AssignObject(const Q: QFileObject; State: TFileObjectWndState) : Boolean; override;
     function GetConfigStr: String; override;
   public
   end;
@@ -134,7 +134,7 @@ end;*)
 
  {------------------------}
 
-function TFQToolBoxGroup.AssignObject(Q: QFileObject; State: TFileObjectWndState) : Boolean;
+function TFQToolBoxGroup.AssignObject(const Q: QFileObject; State: TFileObjectWndState) : Boolean;
 begin
  Result:=(Q is QToolBoxGroup) and inherited AssignObject(Q, State);
 end;

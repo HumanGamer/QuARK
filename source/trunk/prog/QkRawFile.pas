@@ -99,7 +99,7 @@ type
     procedure WaitForThreads;
     procedure TerminateThread(Sender: TObject);
   protected
-    function AssignObject(Q: QFileObject; State: TFileObjectWndState) : Boolean; override;
+    function AssignObject(const Q: QFileObject; State: TFileObjectWndState) : Boolean; override;
     function GetConfigStr : String; override;
   public
     property PlayPosition: Integer read GetPlayPosition write SetPlayPosition;
@@ -285,7 +285,7 @@ begin
  inherited;
 end;
 
-function TFQRawFile.AssignObject(Q: QFileObject; State: TFileObjectWndState) : Boolean;
+function TFQRawFile.AssignObject(const Q: QFileObject; State: TFileObjectWndState) : Boolean;
 begin
  Result:=(Q is QRawFileObject) and inherited AssignObject(Q, State);
 end;

@@ -65,7 +65,7 @@ type
     LastCompileCfgFile: String;
     procedure wmInternalMessage(var Msg: TMessage); message wm_InternalMessage;
   protected
-    function AssignObject(Q: QFileObject; State: TFileObjectWndState) : Boolean; override;
+    function AssignObject(const Q: QFileObject; State: TFileObjectWndState) : Boolean; override;
     function GetConfigStr : String; override;
     procedure ReadSetupInformation(Level: Integer); override;
   public
@@ -378,7 +378,7 @@ begin
   end;
 end;
 
-function TFQQuakeC.AssignObject(Q: QFileObject; State: TFileObjectWndState) : Boolean;
+function TFQQuakeC.AssignObject(const Q: QFileObject; State: TFileObjectWndState) : Boolean;
 begin
  Result:=(Q is QQuakeC) and inherited AssignObject(Q, State);
 end;

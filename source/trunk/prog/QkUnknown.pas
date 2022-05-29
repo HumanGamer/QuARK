@@ -54,7 +54,7 @@ type
   private
     procedure wmInternalMessage(var Msg: TMessage); message wm_InternalMessage;
   protected
-    function AssignObject(Q: QFileObject; State: TFileObjectWndState) : Boolean; override;
+    function AssignObject(const Q: QFileObject; State: TFileObjectWndState) : Boolean; override;
   public
   end;
 
@@ -141,7 +141,7 @@ begin
   inherited;
 end;
 
-function TFQUnknown.AssignObject(Q: QFileObject; State: TFileObjectWndState) : Boolean;
+function TFQUnknown.AssignObject(const Q: QFileObject; State: TFileObjectWndState) : Boolean;
 begin
   Result:=(Q is QUnknown) and inherited AssignObject(Q, State);
 end;

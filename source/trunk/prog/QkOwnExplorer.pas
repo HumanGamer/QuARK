@@ -34,7 +34,7 @@ type
   private
     procedure wmInternalMessage(var Msg: TMessage); message wm_InternalMessage;
   protected
-    function AssignObject(Q: QFileObject; State: TFileObjectWndState) : Boolean; override;
+    function AssignObject(const Q: QFileObject; State: TFileObjectWndState) : Boolean; override;
   public
     Explorer: TQkExplorer2;
   end;
@@ -49,7 +49,7 @@ uses QkTreeView;
 
  {------------------------}
 
-function TQFormExplorer.AssignObject(Q: QFileObject; State: TFileObjectWndState) : Boolean;
+function TQFormExplorer.AssignObject(const Q: QFileObject; State: TFileObjectWndState) : Boolean;
 begin
  Result:=(FileObject=Nil) and (State=cmOwnExplorer);
  if Result then
