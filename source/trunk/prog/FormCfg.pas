@@ -34,8 +34,6 @@ const
  wp_InitControls = 99;
 
 type
- TFormCfg = class;
-
  TCommonSpec = (csNowhere, csEverywhere, csSomewhere, csDiffers);
 
  TNeedGameInfoEvent = function(Sender: TObject): PGameBuffer of object;
