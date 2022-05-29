@@ -23,11 +23,9 @@ unit QkMap;
 interface
 
 uses
-  Windows, Messages, Classes, SysUtils, Forms, Dialogs, Controls,
+  Windows, Messages, Classes, SysUtils, Forms, Controls,
   StdCtrls, EnterEditCtrl, ExtCtrls, TB97,
-  QkMapObjects, QkMapPoly,
-  QkBsp, qmath, Python,
-  { tiglari } QkTextures, { /tiglari}
+  QkMapObjects, QkMapPoly, QkBsp, qmath, Python, Setup,
   QkForm, QkObjects, QkFileObjects, PyMapView;
 
 { $DEFINE ClassnameLowerCase}
@@ -121,7 +119,7 @@ procedure FreeTextureSizes;
 implementation
 
 uses
-  Setup, Undo, Quarkx, qmatrices, Qk3D, PyMath, QkQuakeMap, QkApplPaths,
+  Undo, Quarkx, qmatrices, Qk3D, PyMath, QkQuakeMap, QkApplPaths, QkTextures,
   Graphics, StrUtils, Game, QkExceptions, Travail, QkConsts, Logging, PyControls,
   PyForms, Bezier, QkMesh, Duplicator, QkPixelSet, Qk6DX, QkVMF, QkSylphis, QkQ2,
   QkSin, MapError, PixelSetSizeCache, QkObjectClassList;
