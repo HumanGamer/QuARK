@@ -180,7 +180,7 @@ begin
   end;
 end;
 
-function GetDecimalPlaces(GameCode: Char): Integer;
+function GetDecimalPlaces(const nMode: Char): Integer;
 begin
  // Rowdy: 17-Feb-2005 it seems that Torque wants more decimal places in .map files,
  //        something to do with an idiosyncracy in Torque's map2dif utility that
@@ -197,18 +197,18 @@ begin
  //        more than 40 decimal places is ludicrously insanely stupendously
  //        silly :-P  So there.  Does this make the longest single comment in the
  //        QuArK source???
- Result := Round(SetupSubSet(ssGames, GetGameName(GameCode)).GetFloatSpec('DecimalPlaces', 5));
+ Result := Round(SetupSubSet(ssGames, GetGameName(nMode)).GetFloatSpec('DecimalPlaces', 5));
  if Result <= 0 then
   Result := 0
  else if Result > 40 then
   Result := 40;
 end;
 
-function GetMapFormat(GameCode : Char) : TMapFormatTypes;
+function GetMapFormat(const nMode: Char) : TMapFormatTypes;
 var
   S : PChar;
 begin
-  S:=PChar(SetupSubSet(ssGames, GetGameName(GameCode)).Specifics.Values['OutputMapFormat']);
+  S:=PChar(SetupSubSet(ssGames, GetGameName(nMode)).Specifics.Values['OutputMapFormat']);
   if      StrComp(S, 'Classic Quake')    = 0 then Result := CQType
   else if StrComp(S, 'Quark etp')        = 0 then Result := QetpType
   else if StrComp(S, 'Valve 220')        = 0 then Result := V220Type

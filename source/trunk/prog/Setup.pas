@@ -113,15 +113,15 @@ var
  g_PakExtensions : TStringList = NIL;
 
 const  { for SetupChanged }
- scInit      = 0;
- scMinimal   = 1;
- scNormal    = 2;
- scToolbars  = 3;
- scGame      = 4;
- scConfigDlg = 5;
- scAddOns    = 6;
- scMaximal   = 7;
- scNoToolbars= 8;
+ scInit       = 0;
+ scMinimal    = 1;
+ scNormal     = 2;
+ scToolbars   = 3;
+ scGame       = 4;
+ scConfigDlg  = 5;
+ scAddOns     = 6;
+ scMaximal    = 7;
+ scNoToolbars = 8;
 
  {------------------------}
 
@@ -153,11 +153,11 @@ function CharModeJeu: Char;
 function ModeJeuQuake2: Boolean;
 function CurrentQuake1Mode: Char;
 function CurrentQuake2Mode: Char;
-function GetGameName(nMode: Char) : String;
+function GetGameName(const nMode: Char) : String;
 procedure ChangeGameMode(nMode: Char; Confirm: Boolean);
 procedure ChangeGameModeStr(const nMode: String; Confirm: Boolean);
 function GetGameCode(const nMode: String) : Char;
-function GameModeOk(nMode: Char) : Boolean;
+function GameModeOk(const nMode: Char) : Boolean;
 
 function MapColors(L: TListeCouleurs) : TColor;
 function ModelColors(L: TModelColors) : TColor;
@@ -1027,7 +1027,7 @@ begin
  ChangeGameModeStr(S, Confirm);
 end;
 
-function GameModeOk(nMode: Char) : Boolean;
+function GameModeOk(const nMode: Char) : Boolean;
 begin
  case nMode of
   mjAny:       Result:=True;
@@ -1038,7 +1038,7 @@ begin
  end;
 end;
 
-function GetGameName(nMode: Char) : String;
+function GetGameName(const nMode: Char) : String;
 var
  I: Integer;
  S: String;
