@@ -50,7 +50,6 @@ type
               PopupFormEdit: TCustomEdit;
               EditTogether: TStringList;
               LastRowTag: Integer;
-              procedure SetupProperties;
              {procedure UpdateLabelHighlight;}
               function GetMouseRow(var I: Integer) : Boolean;
               procedure SelectRow(Row: Integer; Spec: Boolean);
@@ -1467,37 +1466,15 @@ begin
  SetArg(Sender, Arg);
 end;
 
- {------------------------}
-
 procedure TFormCfg.InitControls;
-begin
- SetupProperties;
- if Form<>Nil then
-  begin
-   NeedInitControls:=True;
-   PostMessage(Handle, wm_InternalMessage, wp_InitControls, 0);
-  end
- else
-  begin
-   SB.VertScrollBar.Range:=0;
-   Color:=clBtnFace;
-   SB.Visible:=True;
-  end;
-end;
-
-procedure TFormCfg.SetupProperties;
 var
  I: Integer;
  Metrics: TTextMetric;
 begin
  if SB=Nil then
   begin
-   BevelOuter:=bvNone;
-   BorderStyle:=bsSingle;
-   Caption:='';
    if not NoClientAlign then
     Align:=alClient;
-   ShowHint:=True;
    if Delta=0 then
     Delta:=0.5;
 
@@ -1541,6 +1518,18 @@ begin
    SB.Visible:=False;
    for I:=SB.ControlCount-1 downto 0 do
     SB.Controls[I].Free;
+  end;
+
+ if Form<>Nil then
+  begin
+   NeedInitControls:=True;
+   PostMessage(Handle, wm_InternalMessage, wp_InitControls, 0);
+  end
+ else
+  begin
+   SB.VertScrollBar.Range:=0;
+   Color:=clBtnFace;
+   SB.Visible:=True;
   end;
 end;
 
@@ -1610,6 +1599,10 @@ constructor TFormCfg.Create(AOwner: TComponent);
 begin
   ClosePopupForm;
   inherited;
+  BevelOuter:=bvNone;
+  BorderStyle:=bsSingle;
+  Caption:='';
+  ShowHint:=True;
   OnMouseWheelDown:=MouseWheelDown;
   OnMouseWheelUp:=MouseWheelUp;
   Constraints.MinWidth:=16+24; //FIXME: Calculate properly
