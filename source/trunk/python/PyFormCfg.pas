@@ -22,7 +22,7 @@ unit PyFormCfg;
 
 interface
 
-uses Windows, Messages, SysUtils, Classes, Controls, Quarkx, FormCfg, Python,
+uses Windows, Messages, SysUtils, Classes, Controls, FormCfg, Python,
      StdCtrls, PyObjects, PyControls, QkForm;
 
 const
@@ -37,10 +37,10 @@ type
                  procedure Change(Sender: TObject);
                  procedure CMMouseEnter(var Msg: TMessage); message CM_MOUSEENTER;
                protected
+                 Flags: Integer;
                  procedure DragOver(Source: TObject; X,Y: Integer; State: TDragState; var Accept: Boolean); override;
                public
                  FormCfgObject: PyControlF;
-                 Flags: Integer;
                  constructor Create(AOwner: TComponent); override;
                  destructor Destroy; override;
                  procedure DragDrop(Source: TObject; X, Y: Integer); override;
@@ -65,7 +65,7 @@ var
 
 implementation
 
-uses Qk1, QkObjects, PyForms, Undo, QkFormCfg;
+uses Qk1, Quarkx, QkObjects, PyForms, Undo, QkFormCfg;
 
  {------------------------}
 
