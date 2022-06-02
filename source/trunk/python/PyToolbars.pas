@@ -676,7 +676,7 @@ begin
          ListItem:=PySequence_GetItem(TbObject^.Buttons, I);
          if ListItem=Nil then Exit;
          try
-          if ListItem = PyNone then
+          if ListItem = Py_None then
            begin
             while I<CtrlCount do
              begin
