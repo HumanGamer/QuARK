@@ -132,9 +132,10 @@ begin
    Caption:=Titre;
    FillExplorer(False);
    Explorer.AddRoot(Racine);
-   ApplyBtn.Hide;
    BorderIcons:=BorderIcons-[biMinimize];
+   ApplyBtn.Hide;
    CancelBtn.Left:=ApplyBtn.Left;
+   ResetBtn.Hide;
    if NewObjList<>Nil then
     begin
      Explorer.AllowEditing:=aeFree;
