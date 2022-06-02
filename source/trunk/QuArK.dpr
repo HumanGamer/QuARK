@@ -40,6 +40,10 @@ uses
   //Init the logging module FIRST, otherwise we'll miss log-calls from other init's!
   Logging in 'prog\Logging.pas',
 
+  //VCLFixPack in 'prog\VCLFixPack.pas',
+  //VistaAltFixUnit in 'prog\VistaAltFixUnit.pas',
+  //VistaAltFixUnit2 in 'prog\VistaAltFixUnit2.pas',
+
   DWM in '3dfx\DWM.pas',
   DX9 in '3dfx\DX9.pas',
   EdDirect3D in '3dfx\EdDirect3D.pas',
