@@ -19,6 +19,7 @@ inherited FQMdl: TFQMdl
     Height = 38
     Align = alTop
     BevelOuter = bvNone
+    ParentBackground = False
     Color = clInactiveCaption
     TabOrder = 4
     object Label1: TLabel
@@ -71,6 +72,7 @@ inherited FQMdl: TFQMdl
     Height = 208
     Align = alClient
     BevelOuter = bvNone
+    ParentBackground = False
     BorderWidth = 1
     TabOrder = 5
   end

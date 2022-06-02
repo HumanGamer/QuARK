@@ -12,6 +12,7 @@ inherited FQImages: TFQImages
     BevelOuter = bvNone
     BorderStyle = bsSingle
     Color = clBlack
+    ParentBackground = False
     TabOrder = 4
     object Panel2: TPanel
       Left = 0
@@ -20,6 +21,7 @@ inherited FQImages: TFQImages
       Height = 41
       Align = alBottom
       BevelInner = bvLowered
+      ParentBackground = False
       TabOrder = 0
       object Label1: TLabel
         Left = 8

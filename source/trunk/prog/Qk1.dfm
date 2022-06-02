@@ -47,6 +47,7 @@ object Form1: TForm1
     Height = 289
     Align = alClient
     BevelOuter = bvNone
+    ParentBackground = False
     TabOrder = 3
     object Panel2: TPanel
       Left = 0
@@ -55,6 +56,7 @@ object Form1: TForm1
       Height = 289
       Align = alClient
       BevelOuter = bvNone
+      ParentBackground = False
       TabOrder = 0
     end
   end

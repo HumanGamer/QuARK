@@ -11,7 +11,7 @@ inherited FQQuakeC: TFQQuakeC
     Align = alClient
     BevelOuter = bvNone
     BorderWidth = 2
-    Caption = 'Panel8'
+    ParentBackground = False
     TabOrder = 0
     object LabelErreur: TLabel
       Left = 2

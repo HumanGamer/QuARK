@@ -20,6 +20,7 @@ inherited FQMap: TFQMap
     Align = alClient
     BevelOuter = bvNone
     BorderWidth = 1
+    ParentBackground = False
     TabOrder = 4
   end
   object Panel1: TPanel
@@ -30,6 +31,7 @@ inherited FQMap: TFQMap
     Align = alTop
     BevelOuter = bvNone
     Color = clInactiveCaption
+    ParentBackground = False
     TabOrder = 5
     object Label1: TLabel
       Left = 10

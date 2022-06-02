@@ -30,6 +30,7 @@ object ToolBoxForm: TToolBoxForm
     Height = 251
     Align = alClient
     BevelOuter = bvNone
+    ParentBackground = False
     TabOrder = 1
     object Panel2: TPanel
       Left = 0
@@ -38,6 +39,7 @@ object ToolBoxForm: TToolBoxForm
       Height = 251
       Align = alClient
       BevelOuter = bvNone
+      ParentBackground = False
       ParentColor = True
       TabOrder = 0
     end

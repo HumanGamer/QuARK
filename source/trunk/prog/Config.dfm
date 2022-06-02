@@ -22,6 +22,7 @@ object ConfigDlg: TConfigDlg
     Height = 33
     Align = alBottom
     BevelOuter = bvLowered
+    ParentBackground = False
     TabOrder = 0
     object CancelBtn: TToolbarButton97
       Left = 179

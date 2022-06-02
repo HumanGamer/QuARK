@@ -40,6 +40,7 @@ object UndoDlg: TUndoDlg
     Align = alTop
     BorderWidth = 1
     Color = clGreen
+    ParentBackground = False
     TabOrder = 0
     object Label1: TLabel
       Left = 2
@@ -82,6 +83,7 @@ object UndoDlg: TUndoDlg
     BorderWidth = 1
     Caption = 'Panel2'
     Color = clMaroon
+    ParentBackground = False
     TabOrder = 1
     object Label2: TLabel
       Left = 2

@@ -11,6 +11,7 @@ inherited FQUnknown: TFQUnknown
     BevelOuter = bvNone
     BorderWidth = 14
     BorderStyle = bsSingle
+    ParentBackground = False
     TabOrder = 4
     object Label1: TLabel
       Left = 32

@@ -27,6 +27,7 @@ inherited QSprForm: TQSprForm
     Height = 359
     Align = alClient
     BevelOuter = bvNone
+    ParentBackground = False
     TabOrder = 4
     object ListView1: TListView
       Left = 0
@@ -84,6 +85,7 @@ inherited QSprForm: TQSprForm
       Height = 98
       Align = alTop
       BevelOuter = bvLowered
+      ParentBackground = False
       TabOrder = 2
       object Label1: TLabel
         Left = 59
@@ -137,6 +139,7 @@ inherited QSprForm: TQSprForm
         Height = 32
         Align = alBottom
         BevelOuter = bvNone
+        ParentBackground = False
         TabOrder = 2
         object ffw: TToolbarButton97
           Tag = 100

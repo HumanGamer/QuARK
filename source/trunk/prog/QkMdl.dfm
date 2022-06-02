@@ -17,6 +17,7 @@ inherited FQMdl: TFQMdl
     Align = alTop
     BevelOuter = bvNone
     Color = clInactiveCaption
+    ParentBackground = False
     TabOrder = 4
     object Label1: TLabel
       Left = 10

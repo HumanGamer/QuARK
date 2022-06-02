@@ -86,6 +86,7 @@ inherited FQRawFile: TFQRawFile
       OnPaint = Box1Paint
       Align = alClient
       Color = clInactiveCaption
+      ParentBackground = False
       TabOrder = 1
     end
   end

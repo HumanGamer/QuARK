@@ -16,6 +16,7 @@ object FormTravail: TFormTravail
     Top = 8
     Width = 281
     Height = 113
+    ParentBackground = False
     TabOrder = 0
     object LabelProgress: TLabel
       Left = 8
@@ -50,6 +51,7 @@ object FormTravail: TFormTravail
       Width = 73
       Height = 23
       Caption = 'Interrupt'
+      ParentBackground = False
       ParentColor = True
       TabOrder = 1
     end

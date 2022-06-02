@@ -21,6 +21,7 @@ inherited FQTexture: TFQTexture
     Height = 246
     Align = alClient
     BevelOuter = bvNone
+    ParentBackground = False
     ParentColor = True
     TabOrder = 0
     object PaintPanel1: TPaintPanel
@@ -30,6 +31,7 @@ inherited FQTexture: TFQTexture
       Height = 183
       OnPaint = PaintPanel1Paint
       Align = alClient
+      ParentBackground = False
       ParentColor = True
       TabOrder = 0
     end
@@ -40,6 +42,7 @@ inherited FQTexture: TFQTexture
       Height = 42
       Align = alBottom
       BevelOuter = bvLowered
+      ParentBackground = False
       TabOrder = 1
       Visible = False
       object Label1: TLabel
@@ -142,6 +145,7 @@ inherited FQTexture: TFQTexture
       Height = 21
       Align = alBottom
       BevelOuter = bvLowered
+      ParentBackground = False
       TabOrder = 2
       Visible = False
       object Label6: TLabel

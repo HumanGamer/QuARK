@@ -10,6 +10,7 @@ inherited FQGroup: TFQGroup
     Align = alClient
     BevelOuter = bvNone
     BorderStyle = bsSingle
+    ParentBackground = False
     ParentColor = True
     TabOrder = 0
     object Label1: TLabel
@@ -28,6 +29,7 @@ inherited FQGroup: TFQGroup
       Height = 188
       BevelOuter = bvNone
       BorderStyle = bsSingle
+      ParentBackground = False
       TabOrder = 0
       object GoBtn: TBitBtn
         Left = 54
@@ -237,6 +239,7 @@ inherited FQGroup: TFQGroup
       Font.Height = -11
       Font.Name = 'MS Sans Serif'
       Font.Style = [fsBold]
+      ParentBackground = False
       ParentFont = False
       TabOrder = 1
     end
