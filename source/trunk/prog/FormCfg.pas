@@ -2266,7 +2266,14 @@ begin
                  Memo.Parent := SB;
                  Memo.Hint := HintMsg;
                  Memo.Tag := I+1;
-                 Memo.ReadOnly := true; {Currently only ReadOnly is supported.   := (Length(S)>=3) and (S[3]='R');}
+                 ReadOnly:=(Length(S)>=3) and (S[3]='R');
+                 if ReadOnly then
+                  with Memo do
+                   begin
+                    ParentColor:=True;
+                    ReadOnly:=True;
+                   end;
+                 Memo.ReadOnly := true; {FIXME: Currently only ReadOnly is supported.}
                  Memo.WordWrap := true;
                  { Set the text }
                  Found:=GetSingleSpec(Spec, ArgValue);
