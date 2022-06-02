@@ -107,23 +107,25 @@ def WateryChecker(editor):
                     return int(s) & 16777336     # some flags that define non-blocking polyhedrons
                 except:
                     return 0
+            tex = p.texturename
             try:
-                return cachetex[p.texturename]
-            except:
-                tex = p.texturename
+                return cachetex[tex]
+            except KeyError:
                 texobj = quarkx.loadtexture(tex, texsrc)
                 if texobj is not None:
                     try:
                         texobj = texobj.disktexture
                     except quarkx.error:
                         texobj = None
-                result = 1
-                if texobj is not None:
-                    s = texobj["Contents"]
-                    try:
-                        result = int(s) & 16777336     # some flags that define non-blocking polyhedrons
-                    except:
-                        result = 0
+                if texobj is None:
+                    print "Cannot find texture %s; assuming non-watery" % (tex, )
+                    cachetex[tex] = 0
+                    return 0
+                s = texobj["Contents"]
+                try:
+                    result = int(s) & 16777336     # some flags that define non-blocking polyhedrons
+                except:
+                    result = 0
                 cachetex[tex] = result
                 return result
 
