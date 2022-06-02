@@ -208,12 +208,10 @@ const
   // http://www.delphigroups.info/2/2e/413840.html
   //However, with the VCLFixPack, we can actually fix this!
   //Note that since we're trying to do something similar to ContextMenuFix, we're going to add this INTO its code!
-  //@HOPEFULLY
   {$IF CompilerVersion < 18.0} // Delphi ?-2006 //FIXME:Not sure about these
     {$DEFINE UpdateUIStateFix}
   {$IFEND}
-//En dan "sip - May 27, 2009" fix toevoegen? En dus ZELF die TWinControl!!!
-//+ Eventueel "Mike - March 27, 2009" ... zelf doorvoeren DoubleBuffered fixes?
+  //TODO: "sip - May 27, 2009" + "Mike - March 27, 2009" fixes from the website?
 {$IFEND}
 
 {$IF (CompilerVersion >= 18.0) and (CompilerVersion < 20.0)} // Delphi 2006-2007
