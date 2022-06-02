@@ -8636,7 +8636,7 @@ QQRKSRC1
       sep: = {Typ="S" Txt="Button and object icon colors"}
       Unsel: = {Typ="X" Txt="If not selected" Cap="display blue icons" Hint="Check this to display blue icons instead of brown ones for 'unselected' icons"}
       Sel: =   {Typ="X" Txt="If selected"     Cap="display blue icons" Hint="Uncheck this to display brown icons instead of blue ones for 'selected' icons"}
-      IconPath: = {Typ="CL" Txt="Icon size"   Values="images\\"$0D"lgicons\\"  Items="Normal"$0D"Large (LGIcons needed !)" Hint="Large icons require you to first download the 'LGIcons' pack from the website."}
+      IconPath: = {Typ="CL" Txt="Icon size"   Values="images\"$0D"lgicons\"  Items="Normal"$0D"Large (LGIcons needed !)" Hint="Large icons require you to first download the 'LGIcons' pack from the website."}
       sep: = {Typ="S" Bold="0" Txt="(restart QuArK to reload icons with the new colors"}
       sep: = {Typ="S" Bold="0" Txt="  and size after you made changes here)"}
       sep: = {Typ="S" Txt = ""}
