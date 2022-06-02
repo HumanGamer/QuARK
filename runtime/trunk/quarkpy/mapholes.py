@@ -151,8 +151,8 @@ def DrawLines(editor, view, oldFinishDrawing = mapeditor.MapEditor.finishdrawing
         if len(points)==1:
             pt0 = view.proj(points[0])
             if pt0.visible:
-                cv.line(pt0.x-5, pt0.y-5, pt0.x+6, pt0.y+6)
-                cv.line(pt0.x-5, pt0.y+5, pt0.x+6, pt0.y-6)
+                cv.line(int(pt0.x)-5, int(pt0.y)-5, int(pt0.x)+6, int(pt0.y)+6)
+                cv.line(int(pt0.x)-5, int(pt0.y)+5, int(pt0.x)+6, int(pt0.y)-6)
         else:
             Arrow(cv, view, points[1], points[0])
             pt0 = view.proj(points[1])
