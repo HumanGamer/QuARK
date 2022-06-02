@@ -14,6 +14,8 @@
 
 6.6.0 Beta 8
 ============
+* [DanielPharos]: Enable double buffered GUI drawing everywhere.
+
 * [DanielPharos]: Added Warfork support.
 
 * [DanielPharos]: Set the font to the user-configured font.

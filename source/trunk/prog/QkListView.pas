@@ -86,7 +86,7 @@ const
 procedure TQForm2.FormCreate(Sender: TObject);
 begin
  inherited;
- ListView1.DoubleBuffered:=True; //Delphi 7 and lower (at least) don't allow this in the .dfm file.
+ ListView1.DoubleBuffered:=DoubleBuffered; //DBhack
 end;
 
 procedure TQForm2.wmInternalMessage(var Msg: TMessage);

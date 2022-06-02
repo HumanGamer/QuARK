@@ -474,7 +474,7 @@ end;
 constructor TToolBoxForm.Create(AOwner: TComponent);
 begin
  inherited;
- PanelBig.DoubleBuffered:=True; //Delphi 7 and lower (at least) don't allow this in the .dfm file.
+ PanelBig.DoubleBuffered:=DoubleBuffered;
 end;
 
 function TToolBoxForm.GetToolBoxSingleName;

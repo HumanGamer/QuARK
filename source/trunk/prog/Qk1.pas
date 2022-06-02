@@ -511,6 +511,9 @@ begin
 
  ProcessRegistration;
 
+ Panel2.DoubleBuffered:=FDoubleBuffered; //DBhack
+ Panel2.ControlStyle := Panel2.ControlStyle - [csParentBackground] + [csOpaque]; //TCustomPanel.Create mangles this up!
+
  Explorer:=TQrkExplorer.Create(Self);
 {Explorer.Visible:=False;}
  Explorer.Parent:=Panel3;

@@ -364,6 +364,7 @@ end;
 
 constructor TQkForm.Create(AOwner: TComponent);
 begin
+ FDoubleBuffered:=True; //DBhack
  inherited;
  Log(LOG_VERBOSE, 'Now creating form... ('+Self.Caption+')');
  ShowHint:=True;
