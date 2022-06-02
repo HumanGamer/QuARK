@@ -29,6 +29,7 @@ inherited FQRawFile: TFQRawFile
       Height = 59
       Align = alBottom
       Caption = 'Play'
+      ParentBackground = False
       TabOrder = 0
       object BackBtn: TToolbarButton97
         Left = 74

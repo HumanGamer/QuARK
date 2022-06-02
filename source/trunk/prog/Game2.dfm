@@ -171,6 +171,7 @@ object AddOnsAddDlg: TAddOnsAddDlg
     Width = 321
     Height = 275
     Caption = 'Select the Add-on to register'
+    ParentBackground = False
     TabOrder = 0
     object Label2: TLabel
       Left = 24

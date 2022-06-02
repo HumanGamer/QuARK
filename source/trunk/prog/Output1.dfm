@@ -167,6 +167,7 @@ object OutputDirDlg: TOutputDirDlg
     Width = 393
     Height = 73
     Caption = 'Temporary directory'
+    ParentBackground = False
     TabOrder = 1
     object Label2: TLabel
       Left = 16
@@ -206,6 +207,7 @@ object OutputDirDlg: TOutputDirDlg
     Width = 393
     Height = 137
     Caption = 'QuArK-created PAK files'
+    ParentBackground = False
     TabOrder = 2
     object Label3: TLabel
       Left = 16
@@ -263,6 +265,7 @@ object OutputDirDlg: TOutputDirDlg
     Width = 393
     Height = 73
     Caption = 'Current output configuration'
+    ParentBackground = False
     TabOrder = 0
     object Label4: TLabel
       Left = 8

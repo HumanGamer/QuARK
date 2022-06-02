@@ -169,6 +169,7 @@ object GameCfgDlg: TGameCfgDlg
     Width = 321
     Height = 265
     Caption = 'Registered Add-ons'
+    ParentBackground = False
     TabOrder = 0
     object Label1: TLabel
       Left = 8

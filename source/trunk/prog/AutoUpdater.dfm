@@ -175,6 +175,7 @@ object AutoUpdater: TAutoUpdater
     Width = 217
     Height = 201
     Caption = 'Package Information'
+    ParentBackground = False
     TabOrder = 0
     object Label1: TLabel
       Left = 8
