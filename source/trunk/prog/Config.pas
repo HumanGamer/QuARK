@@ -79,7 +79,7 @@ type
 
 procedure ShowConfigDlg(const Source: String);
 function LatestConfigInfo(T: TSetupSet): QObject;
-function ShowAltConfigDlg(Racine: QObject; const Titre: String; NewObjList: TQList) : Boolean;
+function ShowAltConfigDlg(Racine: QObject; const Titre: String; const NewObjList: TQList) : Boolean;
 
  {------------------------}
 
@@ -119,7 +119,7 @@ begin
   Result:=g_ConfigDlg.Explorer.Roots[Ord(T)];
 end;
 
-function ShowAltConfigDlg(Racine: QObject; const Titre: String; NewObjList: TQList) : Boolean;
+function ShowAltConfigDlg(Racine: QObject; const Titre: String; const NewObjList: TQList) : Boolean;
 var
  CfgDlg: TConfigDlg;
  X, I: Integer;
