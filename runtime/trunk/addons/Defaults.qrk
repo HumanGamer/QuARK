@@ -10233,7 +10233,7 @@ QQRKSRC1
     }
     PluginInfo:form =
     {
-      Style = "2"
+      Style = "3"
       file: = {
         Typ = "E R"
         Txt = "File"
