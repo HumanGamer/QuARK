@@ -130,15 +130,15 @@ type
   TOperatingSystem = class(TPersistent)
   private
     FExtended: Boolean;
-    FBuildNumber: DWORD;
-    FMajorVersion: DWORD;
-    FMinorVersion: DWORD;
-    FPlatform: string;
-    FCSD: string;
-    FServicePackMajor: integer;
-    FServicePackMinor: integer;
-    FSuiteMask: integer;
-    FProductType: integer;
+    FBuildNumber: DWORD; //SysUtils.Win32BuildNumber has the wrong datatype!
+    FMajorVersion: DWORD; //SysUtils.Win32MajorVersion has the wrong datatype!
+    FMinorVersion: DWORD; //SysUtils.Win32MinorVersion has the wrong datatype!
+    FPlatform: string; //SysUtils.Win32Platform
+    FCSD: string; //SysUtils.Win32CSDVersion
+    FServicePackMajor: WORD;
+    FServicePackMinor: WORD;
+    FSuiteMask: WORD;
+    FProductType: Byte;
     FWow64: Boolean;
     FVersion: string;
     FRegUser: string;
@@ -161,10 +161,10 @@ type
     property Platform :string read FPlatform write FPlatform stored false;
     property Version :string read FVersion write FVersion stored false;
     property CSD :string read FCSD write FCSD stored false;
-    property ServicePackMajor :integer read FServicePackMajor write FServicePackMajor stored false;
-    property ServicePackMinor :integer read FServicePackMinor write FServicePackMinor stored false;
-    property SuiteMask :integer read FSuiteMask write FSuiteMask stored false;
-    property ProductType :integer read FProductType write FProductType stored false;
+    property ServicePackMajor :WORD read FServicePackMajor write FServicePackMajor stored false;
+    property ServicePackMinor :WORD read FServicePackMinor write FServicePackMinor stored false;
+    property SuiteMask :WORD read FSuiteMask write FSuiteMask stored false;
+    property ProductType :Byte read FProductType write FProductType stored false;
     property Wow64 :Boolean read FWow64 write FWow64 stored false;
     property SerialNumber :string read FSerialNumber write FSerialNumber stored false;
     property RegisteredUser :string read FRegUser write FRegUser stored false;
