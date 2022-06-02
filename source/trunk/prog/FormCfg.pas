@@ -1504,6 +1504,7 @@ begin
 
    SB:=TScrollBox.Create(Self);
    SB.Visible:=False;
+   SB.DoubleBuffered:=DoubleBuffered; //DBhack
    SB.Parent:=Self;
    SB.Align:=alClient;
   {SB.Color:=clWindow;}
