@@ -2624,6 +2624,12 @@ begin
     finally if PythonCode then PythonCodeEnd; end;
     if (ReclickPopupForm<>Nil) and (PopupForm=Nil) and (PopupFormSpec<>'') then
      ReclickPopupForm.Click;
+
+    //For some reason, TScrollBox has problems with controls not drawing properly
+    //when using Common Controls v6. It seems similar to the WM_UPDATEUISTATE problem,
+    //but fixing the WM_UPDATEUISTATE problem,  doesn't fix this.
+    //We have to tell SB to draw its children ourselves.
+    SB.Invalidate;
    end;
  end;
 end;
