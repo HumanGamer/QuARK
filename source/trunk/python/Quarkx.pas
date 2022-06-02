@@ -482,7 +482,10 @@ begin
    Exit;
   Py_INCREF(obj);       { never delete this }
   if Py_None=Nil then
-   Py_None:=obj
+   begin
+    Py_None:=obj;
+    ClickForm(nil); //Now that Py_None is set, we can set quarkx.clickform
+   end
   else
    if Py_xStrings=Nil then
     Py_xStrings:=obj
@@ -3694,6 +3697,8 @@ begin
     Py_DECREF(obj);
   end;
   CloseSetupSet;
+
+  ClickForm(nil);
 
   FinalizeInternalImages;
 
