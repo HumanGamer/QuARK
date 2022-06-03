@@ -17,6 +17,7 @@ Info = {
    "quark":         "Version 6.4" }
 
 
+import os, os.path
 import quarkx
 from quarkpy.maputils import *
 import quarkpy.mapbtns
@@ -26,6 +27,11 @@ import quarkpy.qtoolbar
 
 # ****************** Add Menu Items Dialog ******************
 
+
+CategoryMapping = {"1": "ShapesMenu",
+                   "2": "TerrainMenu",
+                   "3": "OtherMenu",
+}
 
 class AddonsDlg (quarkpy.qmacro.dialogbox):
     #
@@ -42,9 +48,9 @@ class AddonsDlg (quarkpy.qmacro.dialogbox):
         Style = "9"
         Caption = "Add Item Dialog"
 
-        catagory: =
+        category: =
         {
-        Typ = "C" Txt = "select catagory:"
+        Typ = "C" Txt = "select category:"
             items =
                 "Shape programs" $0D
                 "Terrain programs" $0D
@@ -53,7 +59,7 @@ class AddonsDlg (quarkpy.qmacro.dialogbox):
                 "1" $0D
                 "2" $0D
                 "3" $0D
-        Hint = "Select a catagory of the Addons menu"$0D
+        Hint = "Select a category of the Addons menu"$0D
                "to place the program menu item in."
         }
 
@@ -102,8 +108,9 @@ class AddonsDlg (quarkpy.qmacro.dialogbox):
         self.src = src
         self.action = action
         self.form = form
+        self.src["category"] = None
         self.src["program"] = None
-        self.src["mapfile"] = quarkx.outputfile(quarkx.getmapdir()+"\\1SaveImport.map")
+        self.src["mapfile"] = quarkx.outputfile(os.path.join(quarkx.getmapdir(), "1SaveImport.map"))
 
     #
     # Create the dialog form and the buttons
@@ -138,75 +145,62 @@ class AddonsDlg (quarkpy.qmacro.dialogbox):
 
 
 def CreateMenuItems(self):
-
-    catagory = self.src["catagory"]
-    if catagory == "1":
-        catagory = "ShapesMenu"
-    if catagory == "2":
-        catagory = "TerrainMenu"
-    if catagory == "3":
-        catagory = "OtherMenu"
+    global CategoryMapping
+    category = CategoryMapping[self.src["category"]]
     program = self.src["program"]
     words = program.split("\\")
-    cmdline = words [-1]
-    path_to_program = words [ 0 : -1 ]
+    cmdline = words[-1]
+    path_to_program = words[0:-1]
     currentdir = "\\".join(path_to_program)
     words = cmdline.split(".")
-    name =  words[0]
+    name = words[0]
     name = name.replace(" ", "")
     mapfile = self.src["mapfile"]
     objfile = mapfile.replace("\\", "/")
     proglocate = program.replace("\\", "/")
 
 
-    outfile = open(quarkx.exepath + "plugins\map1AddonsMenuEdit.py", "w")
+    outfile = open(os.path.join(quarkx.exepath, "plugins", "map1AddonsMenuEdit.py"), "w")
 
     outfile.write("Info = {\n\n   'plug-in':       'Addons Menu Edit',")
-
     outfile.write("\n\n   'desc':          'This file stores the Addons Main menu, Category sub-menu items. It is created by the plugins map1addonsamendmenu.py file.',")
-
     outfile.write("\n\n   'date':          'June 7 2003',")
-
     outfile.write("\n\n   'author':        'cdunde, Decker and others',")
-
     outfile.write("\n\n   'author e-mail': 'cdunde1@attbi.com',")
-
     outfile.write("\n\n   'quark':         'Version 6.4' }\n\n")
 
     outfile.write("# Deleting this file well remove all items\n# added to the Addons Menu Categories.\n\n")
 
-    outfile.write("from quarkpy.maputils import *\nimport quarkpy.mapeditor\nimport quarkpy.qmenu\nimport map1addonsmenu\n\n")
+    outfile.write("from quarkpy.maputils import *\nimport quarkpy.mapbtns\nimport quarkpy.mapeditor\nimport quarkpy.qmenu\nimport map1addonsmenu\n\n")
 
     outfile.write("# ================DO NOT DELETE ABOVE THIS LINE =================\n\n")
 
 # New test line
     outfile.write("#===========================================\n\n")
 
-    outfile.write("plugins.map1addonsmenu."+catagory+".items.append(qmenu.sep)\n\n")
+    outfile.write("plugins.map1addonsmenu."+category+".items.append(qmenu.sep)\n\n")
 
     outfile.write("# ------------ Delete This Item ------------\n\n")
 
-    outfile.write("# Menu Catagory: "+catagory+"\n")
+    outfile.write("# Menu Category: "+category+"\n")
 
     outfile.write("# Menu Title: Run "+name+"\n\n")
 
     outfile.write("def Run_"+name+"(self):\n    pass\n    cmdline = '"+cmdline+"'\n    currentdir = '"+currentdir+"'\n    quarkx.runprogram(cmdline, currentdir)\n\n")
-
-    outfile.write("plugins.map1addonsmenu."+catagory+".items.append(quarkpy.qmenu.item('Run "+name+"', Run_"+name+",'|This programs location is:\\n\\n"+proglocate+"'))\n\n")
+    outfile.write("plugins.map1addonsmenu."+category+".items.append(quarkpy.qmenu.item('Run "+name+"', Run_"+name+",'|This programs location is:\\n\\n"+proglocate+"'))\n\n")
 
     outfile.write("# ------------ End Item Cutting ------------\n\n")
 
     outfile.write("# ------------ Delete This Item ------------\n\n")
 
-    outfile.write("# Menu Catagory: "+catagory+"\n")
+    outfile.write("# Menu Category: "+category+"\n")
 
     outfile.write("# Menu Title: Import "+name+" map\n\n")
 
     outfile.write("def Load_"+name+"_Map(editor):\n    pass\n    editor = mapeditor()\n    info = quarkx.openfileobj('"+objfile+"')\n    mygroup = quarkx.newobj('group:g')\n")
-
     outfile.write("    mygroup.copyalldata(info.subitem(0))\n    quarkpy.mapbtns.dropitemsnow(editor, [mygroup], 'draw map')\n\n")
 
-    outfile.write("plugins.map1addonsmenu."+catagory+".items.append(quarkpy.qmenu.item('Import "+name+" map', Load_"+name+"_Map,'|This maps location is:\\n\\n"+objfile+"'))\n\n")
+    outfile.write("plugins.map1addonsmenu."+category+".items.append(quarkpy.qmenu.item('Import "+name+" map', Load_"+name+"_Map,'|This maps location is:\\n\\n"+objfile+"'))\n\n")
 
     outfile.write("# ------------ End Item Cutting ------------\n\n")
 
@@ -220,9 +214,9 @@ def CreateMenuItems(self):
 
 def AddItemClick(m):
     def action(self):
-
-        if self.src["catagory"] is None:
-            quarkx.msgbox("You have not selected a catagory, nothing done", MT_ERROR, MB_OK)
+        global CategoryMapping
+        if self.src["category"] is None:
+            quarkx.msgbox("You have not selected a category, nothing done", MT_ERROR, MB_OK)
             return
         if self.src["program"] is None:
             quarkx.msgbox("You have not entered a program, nothing done", MT_ERROR, MB_OK)
@@ -230,25 +224,24 @@ def AddItemClick(m):
         if self.src["mapfile"] is None:
             quarkx.msgbox("You have not entered a mapfile, nothing done", MT_ERROR, MB_OK)
             return
-        pass
-        catagory = self.src["catagory"]
+        category = self.src["category"]
         program = self.src["program"]
         words = program.split("\\")
-        cmdline = words [-1]
-        path_to_program = words [ 0 : -1 ]
+        cmdline = words[-1]
+        path_to_program = words[0:-1]
         currentdir = "\\".join(path_to_program)
         words = cmdline.split(".")
-        name =  words [0]
+        name = words[0]
         name = name.replace(" ", "")
         proglocate = program.replace("\\", "/")
 
-        files = (quarkx.exepath + "plugins\map1AddonsMenuEdit.py")
+        files = (os.path.join(quarkx.exepath, "plugins", "map1AddonsMenuEdit.py"))
 
         if len(files) != 0:
             text = ""
 
             try:
-                f = open(quarkx.exepath + "plugins\map1AddonsMenuEdit.py", "r")
+                f = open(os.path.join(quarkx.exepath, "plugins", "map1AddonsMenuEdit.py"), "r")
             except (IOError):
 
 
@@ -256,7 +249,7 @@ def AddItemClick(m):
 
                 CreateMenuItems(self)
 
-                quarkx.msgbox("The menu item has been added and stored\nin the newly created Addons Menu Edit file:\n"+("\r\n" + quarkx.exepath + "plugins\map1AddonsMenuEdit.py")+"\n\nYou need to restart QuArK to undate the menu", MT_INFORMATION, MB_OK)
+                quarkx.msgbox("The menu item has been added and stored\nin the newly created Addons Menu Edit file:\n"+"\r\n" + os.path.join(quarkx.exepath, "plugins", "map1AddonsMenuEdit.py")+"\n\nYou need to restart QuArK to update the menu", MT_INFORMATION, MB_OK)
 
                 return None
 
@@ -279,7 +272,7 @@ def AddItemClick(m):
                 f.close()
                 CreateMenuItems(self)
 
-                quarkx.msgbox("The item has been added to the Addons Menu Edit file: "+("\r\n" + quarkx.exepath + "plugins\map1AddonsMenuEdit.py")+"\n\nYou need to restart QuArK to undate the menu", MT_INFORMATION, MB_OK)
+                quarkx.msgbox("The item has been added to the Addons Menu Edit file: "+"\r\n" + os.path.join(quarkx.exepath, "plugins", "map1AddonsMenuEdit.py")+"\n\nYou need to restart QuArK to update the menu", MT_INFORMATION, MB_OK)
 
                 return
 
@@ -290,16 +283,11 @@ def AddItemClick(m):
             NewItem = ""
             itemadded = 0
             flag = 0
-            if catagory == "1":
-                catagory = "ShapesMenu"
-            if catagory == "2":
-                catagory = "TerrainMenu"
-            if catagory == "3":
-                catagory = "OtherMenu"
+            category = CategoryMapping[category]
             mapfile = self.src["mapfile"]
             objfile = mapfile.replace("\\", "/")
 
-            f = open(quarkx.exepath + "plugins\map1AddonsMenuEdit.py", "r")
+            f = open(os.path.join(quarkx.exepath, "plugins", "map1AddonsMenuEdit.py"), "r")
 
             while 1:
                 line = f.readline()
@@ -309,14 +297,14 @@ def AddItemClick(m):
                 words = line.split('\r\n')
                 for word in words:
 
-                    if word == "plugins.map1addonsmenu." + catagory + ".items.append(qmenu.sep)\n":
+                    if word == "plugins.map1addonsmenu." + category + ".items.append(qmenu.sep)\n":
                         itemadded = 1
                         flag = 1
 
                     if itemadded == 1:
                         me = 1
                     else:
-                        if catagory == "ShapesMenu":
+                        if category == "ShapesMenu":
                             if word == "plugins.map1addonsmenu.TerrainMenu.items.append(qmenu.sep)\n":
                                 holdword = word
                                 NewItem = "ItemAdded"
@@ -333,7 +321,7 @@ def AddItemClick(m):
                     if itemadded == 1:
                         me = 1
                     else:
-                        if catagory == "TerrainMenu":
+                        if category == "TerrainMenu":
                             if word == "plugins.map1addonsmenu.OtherMenu.items.append(qmenu.sep)\n":
                                 holdword = word
                                 NewItem = "ItemAdded"
@@ -341,7 +329,7 @@ def AddItemClick(m):
                                 flag = 1
                                 word = "#===========================================\n"
                         else:
-                            if catagory == "OtherMenu":
+                            if category == "OtherMenu":
                                 if word == "# End Of File\n":
                                     holdword = word
                                     NewItem = "ItemAdded"
@@ -355,23 +343,23 @@ def AddItemClick(m):
 
 # ********* This part adds the new data then finishes copying the old file data *******
 
-                            text = text + ("plugins.map1addonsmenu."+catagory+".items.append(qmenu.sep)\n\n")
+                            text = text + ("plugins.map1addonsmenu."+category+".items.append(qmenu.sep)\n\n")
 
                             text = text + ("# ------------ Delete This Item ------------\n\n")
 
-                            text = text + ("# Menu Catagory: "+catagory+"\n")
+                            text = text + ("# Menu Category: "+category+"\n")
 
                             text = text + ("# Menu Title: Run "+name+"\n\n")
 
                             text = text + ("def Run_"+name+"(self):\n    pass\n    cmdline = '"+cmdline+"'\n    currentdir = '"+currentdir+"'\n    quarkx.runprogram(cmdline, currentdir)\n\n")
 
-                            text = text + ("plugins.map1addonsmenu."+catagory+".items.append(quarkpy.qmenu.item('Run "+name+"', Run_"+name+",'|This programs location is:\\n\\n"+proglocate+"'))\n\n")
+                            text = text + ("plugins.map1addonsmenu."+category+".items.append(quarkpy.qmenu.item('Run "+name+"', Run_"+name+",'|This programs location is:\\n\\n"+proglocate+"'))\n\n")
 
                             text = text + ("# ------------ End Item Cutting ------------\n\n")
 
                             text = text + ("# ------------ Delete This Item ------------\n\n")
 
-                            text = text + ("# Menu Catagory: "+catagory+"\n")
+                            text = text + ("# Menu Category: "+category+"\n")
 
                             text = text + ("# Menu Title: Import "+name+" map\n\n")
 
@@ -379,7 +367,7 @@ def AddItemClick(m):
 
                             text = text + ("    mygroup.copyalldata(info.subitem(0))\n    quarkpy.mapbtns.dropitemsnow(editor, [mygroup], 'draw map')\n\n")
 
-                            text = text + ("plugins.map1addonsmenu."+catagory+".items.append(quarkpy.qmenu.item('Import "+name+" map', Load_"+name+"_Map,'|This maps location is:\\n\\n"+objfile+"'))\n\n")
+                            text = text + ("plugins.map1addonsmenu."+category+".items.append(quarkpy.qmenu.item('Import "+name+" map', Load_"+name+"_Map,'|This maps location is:\\n\\n"+objfile+"'))\n\n")
 
                             text = text + ("# ------------ End Item Cutting ------------\n\n")
 
@@ -394,9 +382,9 @@ def AddItemClick(m):
             f.close()
             file = quarkx.newfileobj(files[0])
             file["Data"] = text
-            file.savefile(quarkx.exepath + "plugins\map1AddonsMenuEdit.py")
+            file.savefile(os.path.join(quarkx.exepath, "plugins", "map1AddonsMenuEdit.py"))
             del file
-            quarkx.msgbox("The item has been added to the Addons Menu Edit file: "+("\r\n" + quarkx.exepath + "plugins\map1AddonsMenuEdit.py")+"\n\nYou need to restart QuArK to undate the menu", MT_INFORMATION, MB_OK)
+            quarkx.msgbox("The item has been added to the Addons Menu Edit file: "+"\r\n" + os.path.join(quarkx.exepath, "plugins", "map1AddonsMenuEdit.py")+"\n\nYou need to restart QuArK to update the menu", MT_INFORMATION, MB_OK)
 
 
     editor=mapeditor()
@@ -429,7 +417,7 @@ class DeleteDlg(quarkpy.qmacro.dialogbox):
         othertext = ''
 
         try:
-            f = open(quarkx.exepath + "plugins\map1AddonsMenuEdit.py", "r")
+            f = open(os.path.join(quarkx.exepath, "plugins", "map1AddonsMenuEdit.py"), "r")
 
         except (IOError):
             quarkx.msgbox("No custom items have been\nadded to the Category menus\n\n    Nothing To Do", MT_INFORMATION, MB_OK)
@@ -442,8 +430,8 @@ class DeleteDlg(quarkpy.qmacro.dialogbox):
             words = line.split('\n')
             words = line.split(' ')
             for word in words:
-                if word == 'Catagory:':
-                    catagory = (line[2:+16])
+                if word == 'Category:':
+                    category = (line[2:+16])
                     if cat == '0':
                         cat = '1'
                         menuname = (line[17:+62])
@@ -583,7 +571,7 @@ class DeleteDlg(quarkpy.qmacro.dialogbox):
         quarkpy.qmacro.dialogbox.__init__(self, form, src,
         close = quarkpy.qtoolbar.button(
             self.close,
-            "Remove the selected items\nfrom their Menu Catagories",
+            "Remove the selected items\nfrom their Menu Categories",
             ico_editor, 3,
             "Reload"),
         cancel = quarkpy.qtoolbar.button(
@@ -615,7 +603,7 @@ def RemoveItemClick(m):
 # ******** If map1AddonsMenuEdit.py file exists but no items ********
 
     try:
-        f = open(quarkx.exepath + "plugins\map1AddonsMenuEdit.py", "r")
+        f = open(os.path.join(quarkx.exepath, "plugins", "map1AddonsMenuEdit.py"), "r")
 
         NbrOfBoxes = 0
 
@@ -645,7 +633,7 @@ def RemoveItemClick(m):
 
 # files is the Data output file
 
-        files = (quarkx.exepath + "plugins\map1AddonsMenuEdit.py")
+        files = (os.path.join(quarkx.exepath, "plugins", "map1AddonsMenuEdit.py"))
 
 #used just to get the looping to work
 # Checkbox layout text
@@ -678,7 +666,7 @@ def RemoveItemClick(m):
 # Opens the data file and starts rewrite function
 # Data input file
 
-        f = open(quarkx.exepath + "plugins\map1AddonsMenuEdit.py", "r")
+        f = open(os.path.join(quarkx.exepath, "plugins", "map1AddonsMenuEdit.py"), "r")
         while 1:
             file = f.readline()
             if file == '': # completely empty line means end-of-file
@@ -713,7 +701,7 @@ def RemoveItemClick(m):
 
         file = quarkx.newfileobj(files[0])
         file["Data"] = text
-        file.savefile(quarkx.exepath + "plugins\map1AddonsMenuEdit.py")
+        file.savefile(os.path.join(quarkx.exepath, "plugins", "map1AddonsMenuEdit.py"))
         del file
 
 
@@ -724,7 +712,7 @@ def RemoveItemClick(m):
         DulLines = ""
         holdLFs = ""
         SpacerWord = ""
-        f = open(quarkx.exepath + "plugins\map1AddonsMenuEdit.py", "r")
+        f = open(os.path.join(quarkx.exepath, "plugins", "map1AddonsMenuEdit.py"), "r")
         while 1:
             file = f.readline()
             if file == '': # completely empty line means end-of-file
@@ -798,17 +786,17 @@ def RemoveItemClick(m):
 
         file = quarkx.newfileobj(files[0])
         file["Data"] = text
-        file.savefile(quarkx.exepath + "plugins\map1AddonsMenuEdit.py")
+        file.savefile(os.path.join(quarkx.exepath, "plugins", "map1AddonsMenuEdit.py"))
         del file
 
 
 # Reopens file 2nd time to test and remove unwanted double lines
 
-        files = (quarkx.exepath + "plugins\map1AddonsMenuEdit.py")
+        files = (os.path.join(quarkx.exepath, "plugins", "map1AddonsMenuEdit.py"))
         text = ""
         flag = 0
         DulLines = "#===========================================\n"
-        f = open(quarkx.exepath + "plugins\map1AddonsMenuEdit.py", "r")
+        f = open(os.path.join(quarkx.exepath, "plugins", "map1AddonsMenuEdit.py"), "r")
         while 1:
             file = f.readline()
             if file == '': # completely empty line means end-of-file
@@ -846,13 +834,13 @@ def RemoveItemClick(m):
 
         file = quarkx.newfileobj(files[0])
         file["Data"] = text
-        file.savefile(quarkx.exepath + "plugins\map1AddonsMenuEdit.py")
+        file.savefile(os.path.join(quarkx.exepath, "plugins", "map1AddonsMenuEdit.py"))
         del file
 
 # ********* End of Remove Double Lines function *********
 
 
-        quarkx.msgbox("The checked menu items have been removed\nfrom the recreated Addons Menu Edit file:\n"+("\r\n" + quarkx.exepath + "plugins\map1AddonsMenuEdit.py")+"\n\nYou need to restart QuArK to undate the menu", MT_INFORMATION, MB_OK)
+        quarkx.msgbox("The checked menu items have been removed\nfrom the recreated Addons Menu Edit file:\n"+"\r\n" + os.path.join(quarkx.exepath, "plugins", "map1AddonsMenuEdit.py")+"\n\nYou need to restart QuArK to update the menu", MT_INFORMATION, MB_OK)
 
     editor=mapeditor()
     if editor is None: return
