@@ -224,23 +224,28 @@ class dialogbox:
             f.loadtext(self.dlgdef)
             for pybtn in f.findallsubitems("", ':py'):
                 pybtn["sendto"] = name
-            dlg = form.newfloating(self.dlgflags, f["Caption"])
-            dialogboxes[name] = dlg
-            dlg.windowrect = self.windowrect()
-            if self.begincolor is not None: dlg.begincolor = self.begincolor
-            if self.endcolor is not None: dlg.endcolor = self.endcolor
-            dlg.onclose = self.onclose
-            dlg.info = self
-            self.dlg = dlg
-            df = dlg.mainpanel.newdataform()
-            self.df = df
-            df.header = 0
-            df.sep = self.dfsep
-            df.setdata(src, f)
-            df.onchange = self.datachange
-            import qeditor
-            df.flags = qeditor.DF_AUTOFOCUS
-            dlg.show()
+            if form is not None:
+                dlg = form.newfloating(self.dlgflags, f["Caption"])
+                dlg.windowrect = self.windowrect()
+                if self.begincolor is not None: dlg.begincolor = self.begincolor
+                if self.endcolor is not None: dlg.endcolor = self.endcolor
+                dlg.onclose = self.onclose
+                dlg.info = self
+                self.dlg = dlg
+                dialogboxes[name] = dlg
+                df = dlg.mainpanel.newdataform()
+                self.df = df
+                df.header = 0
+                df.sep = self.dfsep
+                df.setdata(src, f)
+                df.onchange = self.datachange
+                import qeditor
+                df.flags = qeditor.DF_AUTOFOCUS
+                dlg.show()
+            else:
+                self.dlg = None
+                self.df = None
+                quarkx.beep()
         else:
             self.df = None
 
