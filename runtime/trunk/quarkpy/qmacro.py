@@ -205,7 +205,7 @@ def closedialogbox(name):
 
 class dialogbox:
 
-    dlgdef = ""
+    dlgdef = None # abstract
     size = (300,170)
     begincolor = None
     endcolor = None
@@ -217,12 +217,13 @@ class dialogbox:
         name = self.name or self.__class__.__name__
         closedialogbox(name)
         f = quarkx.newobj("Dlg:form")
+        self.f = f
+        self.src = src
+        self.buttons = buttons
         if self.dlgdef is not None:
             f.loadtext(self.dlgdef)
-            self.f = f
             for pybtn in f.findallsubitems("", ':py'):
                 pybtn["sendto"] = name
-            self.buttons = buttons
             dlg = form.newfloating(self.dlgflags, f["Caption"])
             dialogboxes[name] = dlg
             dlg.windowrect = self.windowrect()
@@ -231,7 +232,6 @@ class dialogbox:
             dlg.onclose = self.onclose
             dlg.info = self
             self.dlg = dlg
-            self.src = src
             df = dlg.mainpanel.newdataform()
             self.df = df
             df.header = 0
@@ -241,6 +241,8 @@ class dialogbox:
             import qeditor
             df.flags = qeditor.DF_AUTOFOCUS
             dlg.show()
+        else:
+            self.df = None
 
     def windowrect(self):
         x1,y1,x2,y2 = quarkx.screenrect()
@@ -253,15 +255,14 @@ class dialogbox:
         pass   # abstract
 
     def onclose(self, dlg):
+        self.src = None
         dlg.info = None
-        dlg.onclose = None   # clear refs
+        dlg.onclose = None
         if self.df is not None:
             self.df.onchange = None
             self.df = None
         self.dlg = None
         self.f = None
-        self.df = None
-        self.src = None
         del self.buttons
 
     def close(self, reserved=None):
