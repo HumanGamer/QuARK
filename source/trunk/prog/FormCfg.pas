@@ -1524,8 +1524,11 @@ begin
 
  if Form<>Nil then
   begin
-   NeedInitControls:=True;
-   PostMessage(Handle, wm_InternalMessage, wp_InitControls, 0);
+   if not NeedInitControls then
+    begin
+     NeedInitControls:=True;
+     PostMessage(Handle, wm_InternalMessage, wp_InitControls, 0);
+    end;
   end
  else
   begin
