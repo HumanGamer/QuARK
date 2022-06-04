@@ -39,6 +39,7 @@ type
  TNeedGameInfoEvent = function(Sender: TObject): PGameBuffer of object;
  TFormCfg = class(TCustomPanel)
             private
+              FParentDoubleBuffered: Boolean; //DBhack
               HC: THeaderControl;
               SB: TScrollBox;
               NeedInitControls: Boolean;
@@ -57,6 +58,7 @@ type
               function GetQPaletteIdx(I: Integer) : TColorRef;
               procedure ClosePopupWindows;
               procedure ClosePopupForm;
+              procedure SetParentDoubleBuffered(nParentDoubleBuffered: Boolean); //DBhack
             protected
               Links: TQList;
               Form, FOriginalForm: QFormCfg;
@@ -101,6 +103,7 @@ type
               procedure Resize; override;
               procedure SectionResize(Sender: THeaderControl; Section: THeaderSection);
               procedure SectionClick(Sender: THeaderControl; Section: THeaderSection);
+              procedure SetParent(AParent: TWinControl); override; //DBhack
               procedure PopupMenuPopupFirst(Sender: TObject);
               procedure PopupMenuPopup(Sender: TObject);
               procedure PopupMenuClick(Sender: TObject);
@@ -136,6 +139,8 @@ type
               function GetSingleName(var nName: String) : TCommonSpec;
               procedure InternalMenuCommand(Cmd: Integer);  { cmd_xxx }
               property OriginalForm: QFormCfg read FOriginalForm;
+            published
+              property ParentDoubleBuffered : Boolean read FParentDoubleBuffered write SetParentDoubleBuffered default True; //DBhack
             end;
 
  {------------------------}
@@ -1501,6 +1506,7 @@ begin
    SB:=TScrollBox.Create(Self);
    SB.Visible:=False;
    SB.DoubleBuffered:=DoubleBuffered; //DBhack
+   SB.ParentBackground:=False;
    SB.Parent:=Self;
    SB.Align:=alClient;
   {SB.Color:=clWindow;}
@@ -1578,6 +1584,18 @@ procedure TFormCfg.SectionClick;
 begin
 end;
 
+procedure TFormCfg.SetParent(AParent: TWinControl); //DBhack
+begin
+  inherited;
+  if ParentDoubleBuffered and (Parent<>nil) then DoubleBuffered:=Parent.DoubleBuffered;
+end;
+
+procedure TFormCfg.SetParentDoubleBuffered(nParentDoubleBuffered: Boolean); //DBhack
+begin
+  FParentDoubleBuffered:=nParentDoubleBuffered;
+  if FParentDoubleBuffered and (Parent<>nil) then DoubleBuffered:=Parent.DoubleBuffered;
+end;
+
 function TFormCfg.Format1str(const Text, SourceSpec: String) : String;
 var
  J: Integer;
@@ -1604,6 +1622,8 @@ begin
   BevelOuter:=bvNone;
   BorderStyle:=bsSingle;
   Caption:='';
+  ParentBackground:=False;
+  ParentDoubleBuffered:=True; //DBhack
   ShowHint:=True;
   OnMouseWheelDown:=MouseWheelDown;
   OnMouseWheelUp:=MouseWheelUp;
@@ -2636,7 +2656,7 @@ begin
     //when using Common Controls v6. It seems similar to the WM_UPDATEUISTATE problem,
     //but fixing the WM_UPDATEUISTATE problem,  doesn't fix this.
     //We have to tell SB to draw its children ourselves.
-    SB.Invalidate;
+    SB.Repaint;
    end;
  end;
 end;
