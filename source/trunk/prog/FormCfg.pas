@@ -122,7 +122,7 @@ type
               ActionChanging, ActionDeleting, ActionRenaming, ActionNiveau: Integer;
               OnChange: TNotifyEvent;
               Modified, AllowEdit, AllowEditName, InternalEditing, NoSpecifics,
-              NoHeader, AddRemaining, NoClientAlign: Boolean;
+              NoHeader, AddRemaining: Boolean;
               Delta: Double;
               TxtSpec, TxtArg: Integer;
               EditNames, HintPrefix: String;
@@ -1474,8 +1474,6 @@ var
 begin
  if SB=Nil then
   begin
-   if not NoClientAlign then
-    Align:=alClient;
    if Delta=0 then
     Delta:=0.5;
 
@@ -1604,6 +1602,7 @@ constructor TFormCfg.Create(AOwner: TComponent);
 begin
   ClosePopupForm;
   inherited;
+  Align:=alClient;
   BevelOuter:=bvNone;
   BorderStyle:=bsSingle;
   Caption:='';

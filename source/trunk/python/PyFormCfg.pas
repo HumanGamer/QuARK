@@ -72,6 +72,7 @@ uses Qk1, Quarkx, QkObjects, PyForms, Undo, QkFormCfg;
 constructor TPyFormCfg.Create(AOwner: TComponent);
 begin
  inherited;
+ Align:=alNone;
  FormCfgObject:=NewControl(TyFormCfg_Type, Self);
  FOnChange:=PyNoResult;
  OnChange:=Change;

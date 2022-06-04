@@ -1304,7 +1304,6 @@ begin
   with TPyFormCfg.Create(Mgr.GetOwner.Owner) do
    begin
     Left:=-2048;
-    NoClientAlign:=True;
     Parent:=Mgr.Owner;
     Result:=FormCfgObject;
     F:=GetParentPyForm(Mgr.Owner);
