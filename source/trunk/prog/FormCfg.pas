@@ -121,8 +121,7 @@ type
             public
               ActionChanging, ActionDeleting, ActionRenaming, ActionNiveau: Integer;
               OnChange: TNotifyEvent;
-              Modified, AllowEdit, AllowEditName, InternalEditing, NoSpecifics,
-              NoHeader, AddRemaining: Boolean;
+              Modified, AllowEdit, AllowEditName, InternalEditing, NoSpecifics, NoHeader, AddRemaining: Boolean;
               Delta: Double;
               TxtSpec, TxtArg: Integer;
               EditNames, HintPrefix: String;
@@ -285,7 +284,6 @@ begin
    BorderIcons:=BorderIcons-[biMinimize];
    FormCfg:=TFormCfg.Create(Self);
    FormCfg.Parent:=Self;
-   FormCfg.Align:=alClient;
   end;
  FSrcObj.AddRef(-1);
  FSrcObj:=Q;

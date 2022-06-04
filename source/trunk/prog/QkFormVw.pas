@@ -98,7 +98,6 @@ begin
           AddRemaining:=True;
           ActionChanging:=609;
           ActionDeleting:=610;
-          Align:=alClient;
          end;
        end;
       L:=BuildQuakeCtxObjects(QFormCfg, (FileObject as QFormObject).GetConfigStr1); try
