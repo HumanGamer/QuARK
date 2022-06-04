@@ -127,7 +127,7 @@ type
               TxtSpec, TxtArg: Integer;
               EditNames, HintPrefix: String;
               OnNeedGameInfo: TNeedGameInfoEvent;
-              procedure SetFormCfg(nLinks: TQList; nForm: QFormCfg);
+              procedure SetFormCfg(const nLinks: TQList; const nForm: QFormCfg);
               destructor Destroy; override;
               constructor Create(AOwner: TComponent); override;
               property LinkedObjects: TQList read Links;
@@ -2672,7 +2672,7 @@ begin
    TCheckBox(Btn).State:=nState;
 end;
 
-procedure TFormCfg.SetFormCfg(nLinks: TQList; nForm: QFormCfg);
+procedure TFormCfg.SetFormCfg(const nLinks: TQList; const nForm: QFormCfg);
 var
  I, J: Integer;
  S, MyName: String;
