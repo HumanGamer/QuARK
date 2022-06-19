@@ -33,7 +33,7 @@ function GetSteamCacheDir : String;
 implementation
 
 uses ShellAPI, SysUtils, StrUtils, Quarkx, Game, Setup, Logging, SystemDetails,
-     QkObjects, Md5Hash, ExtraFunctionality, QkApplPaths, QkExceptions, QkFileObjects;
+     QkObjects, ExtraFunctionality, QkApplPaths, QkExceptions, QkFileObjects;
 
 const
   QSASDelay: DWORD = 30000; //How long (in ms) to wait for QSAS to run
@@ -152,7 +152,6 @@ var
   FullFilename: String;
   TmpDirectory: String;
   QuArKSASEXE: String;
-  QSASMd5Hash, CurQSASMd5Hash: String;
   QSASFile, QSASPath, QSASParameters: String;
   QSASAdditionalParameters: String;
   QSASStartupInfo: StartUpInfo;
@@ -230,21 +229,17 @@ begin
     begin
       if CopyFile(PChar(ConcatPaths([GetQPath(pQuArKDll), QuArKSASEXE])), PChar(QSASFile), true) = false then
         LogAndRaiseError('Unable to extract file from Steam. Call to CopyFile failed.');
-    end
-    else
-    begin
-      //Check version!
-      //FIXME: Actually, it's silly to use MD5 for this: we have to read in both files either way!
-      QSASMd5Hash:=Md5GetFileHash(ConcatPaths([GetQPath(pQuArKDll), QuArKSASEXE]));
-      CurQSASMd5Hash:=Md5GetFileHash(QSASFile);
-      if QSASMd5Hash<>CurQSASMd5Hash then
-      begin
-        //Files do not match. The one in dlls is probably the most current one,
-        //so let's update the Steam one.
-        if CopyFile(PChar(ConcatPaths([GetQPath(pQuArKDll), QuArKSASEXE])), PChar(QSASFile), false) = false then
-          LogAndRaiseError('Unable to extract file from Steam. Call to CopyFile failed.');
-      end;
     end;
+
+    //Make sure its the same version
+    if CompareFiles(ConcatPaths([GetQPath(pQuArKDll), QuArKSASEXE]), QSASFile) then
+    begin
+      //Files do not match. The one in dlls is probably the most current one,
+      //so let's update the Steam one.
+      if CopyFile(PChar(ConcatPaths([GetQPath(pQuArKDll), QuArKSASEXE])), PChar(QSASFile), false) = false then
+        LogAndRaiseError('Unable to extract file from Steam. Call to CopyFile failed.');
+    end;
+
     CheckQuArKSAS:=false;
   end;
 

@@ -201,6 +201,7 @@ procedure ConstructObjsFromText(Self: QObject; P: PChar; PSize: Integer);
 procedure ConvertObjsToText(Self: QObject; L: TStringList; Comment: Boolean);
 function CheckFileSignature(var P: PChar) : Boolean;
 function MakeTempFileName(const Tag: String) : String;
+function CompareFiles(const Filename1, Filename2: String) : Boolean;
 
  {------------------------}
 
@@ -1004,6 +1005,50 @@ begin
    end;
  finally
   List.Free;
+ end;
+end;
+
+function CompareFiles(const Filename1, Filename2: String) : Boolean;
+const
+ BufferSize = 16384;
+var
+ Buffer1, Buffer2: packed array [1..BufferSize] of Byte;
+ File1, File2: TFileStream;
+ NumberOfLoops: TStreamPos;
+ ReadBytes1, ReadBytes2: LongInt;
+begin
+ //Shortcut: If the filenames are identical, the file content is obviously too.
+ if Filename1 = Filename2 then
+  begin
+   Result:=True;
+   Exit;
+  end;
+
+ Result:=False;
+ File1:=TFileStream.Create(Filename1, fmOpenRead or fmShareDenyWrite);
+ try
+  File2:=TFileStream.Create(Filename2, fmOpenRead or fmShareDenyWrite);
+  try
+   if File1.Size<>File2.Size then Exit; //Shortcut: different filesizes means these files cannot match; no need to compare their contents.
+
+   NumberOfLoops:=(File1.Size + BufferSize - 1) div BufferSize;
+   while NumberOfLoops<>0 do
+    begin
+     ReadBytes1:=File1.Read(Buffer1, SizeOf(Buffer1));
+     ReadBytes2:=File2.Read(Buffer2, SizeOf(Buffer2));
+     if ReadBytes1 <> ReadBytes2 then
+      raise InternalE('File data unexpectedly changed!');
+     if not CompareMem(@Buffer1, @Buffer2, BufferSize) then Exit; //They are different!
+     Dec(NumberOfLoops);
+    end;
+
+   //They are the same!
+   Result:=True;
+  finally
+   File2.Free;
+  end;
+ finally
+  File1.Free;
  end;
 end;
 
