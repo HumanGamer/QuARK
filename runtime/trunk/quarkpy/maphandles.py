@@ -1978,8 +1978,7 @@ def SetUserCenter(obj, v):
     obj["usercenter"] = v.tuple
 
 def macro_usercenter(self):
-    from qeditor import mapeditor
-    editor=mapeditor()
+    editor = mapeditor()
     if editor is None: return
     dup = editor.layout.explorer.uniquesel
     if dup is None: return
@@ -1988,9 +1987,9 @@ def macro_usercenter(self):
         tup = mapentities.ObjectOrigin(dup).tuple
         undo.setspec(dup,'usercenter',tup)
         editor.ok(undo,'add usercenter')
-        editor.invalidateviews()
     except:
         return
+    editor.invalidateviews()
 
 qmacro.MACRO_usercenter = macro_usercenter
 
