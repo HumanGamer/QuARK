@@ -1618,19 +1618,23 @@ def MouseClicked(self, view, x, y, s, handle):
 
     flags = qhandles.MouseClicked(self, view, x, y, s, handle)
 #    debug('flagz: '+s)
-    try:
-        editor = mapeditor()
-        if editor is not None:
+
+    editor = mapeditor()
+    if editor is not None:
+        try:
             import plugins.maptexpos
             if isinstance(handle, PFaceHandle) and isinstance(editor.texposdlg, plugins.maptexpos.TexPosDlg):
                 o = editor.layout.explorer.uniquesel
                 m = qmenu.item("Dummy", None, "")
                 m.o = o
                 plugins.maptexpos.PosTexClick(m)
-    except:
-        pass
+        except:
+            pass
+
+    # Used in plugins.mapcamerapos
     if view.info["type"]=="3D":
         self.last3DView = view
+
     if "1" in flags:
         #
         # This mouse click must select something.
