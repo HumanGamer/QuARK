@@ -56,7 +56,7 @@ type
   TPackageItem = record
     FileName: String;
     FileSize: Cardinal;
-    MD5: String;
+    Reserved: String;
   end;
 
   // This class contains the common update file stuff
@@ -314,7 +314,7 @@ begin
     begin
       ParseString(FileData, CurrentFile.Files[I].FileName);
       ParseCardinal(FileData, CurrentFile.Files[I].FileSize);
-      ParseString(FileData, CurrentFile.Files[I].MD5);
+      ParseString(FileData, CurrentFile.Files[I].Reserved);
     end;
   end;
 end;
