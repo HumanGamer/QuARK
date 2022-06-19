@@ -98,7 +98,6 @@ uses
   Keys in 'prog\Keys.pas' {KeyDlg},
   KeySel in 'prog\KeySel.pas' {KeySelDlg},
   MapError in 'prog\MapError.pas',
-  MD5Hash in 'prog\MD5Hash.pas',
   NewFolder in 'prog\NewFolder.pas' {NewFolderDlg},
   ObjProp in 'prog\ObjProp.pas' {FormObjProp},
   OsFolder in 'prog\OsFolder.pas',
