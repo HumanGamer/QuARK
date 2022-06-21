@@ -180,26 +180,26 @@ items = [removeItem, makedetail, parentItem, childItem, nextItem, prevItem, free
 shortcuts = {}
 
 def onclick(menu):
-    editor=mapeditor()
     removeItem.state=makedetail.state=parentItem.state=childItem.state=qmenu.disabled
     nextItem.state=prevItem.state=freezeItem.state=unfreezeItem.state=qmenu.disabled
-    if editor is not None:
-        uniquesel = editor.layout.explorer.uniquesel
-        if uniquesel is not None:
-            removeItem.state=makedetail.state=nextItem.state=prevItem.state=qmenu.normal
-            if len(uniquesel.subitems)>0:
-                childItem.state = qmenu.normal
-            if uniquesel.treeparent is not None:
-                parentItem.state=qmenu.normal
-            if getAttr(editor,'frozenselection') is None:
-                freezeItem.state=qmenu.normal
-            else:
-                unfreezeItem.state=qmenu.normal
-#        sellist = editor.layout.explorer.sellist
-#        if sellist is not None:
-#            makedetail.state=qmenu.normal
-#        else:
-#            makedetail.state=qmenu.disabled
+    editor=mapeditor()
+    if editor is None: return
+    uniquesel = editor.layout.explorer.uniquesel
+    if uniquesel is not None:
+        removeItem.state=makedetail.state=nextItem.state=prevItem.state=qmenu.normal
+        if len(uniquesel.subitems)>0:
+            childItem.state = qmenu.normal
+        if uniquesel.treeparent is not None:
+            parentItem.state=qmenu.normal
+        if getAttr(editor,'frozenselection') is None:
+            freezeItem.state=qmenu.normal
+        else:
+            unfreezeItem.state=qmenu.normal
+#    sellist = editor.layout.explorer.sellist
+#    if sellist is not None:
+#        makedetail.state=qmenu.normal
+#    else:
+#        makedetail.state=qmenu.disabled
 
 def SelectionMenu():
     "The Selection menu, with its shortcuts."
