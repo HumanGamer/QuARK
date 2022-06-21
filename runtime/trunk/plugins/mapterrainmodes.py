@@ -928,11 +928,6 @@ class TerrainRectSelDragObject(quarkpy.qhandles.RectangleDragObject):
 
         quarkpy.qhandles.RectangleDragObject.__init__(self, view, x, y, redcolor, todo)
 
-        z = 0
-        quarkx.clickform = view.owner  # Rowdys -important, gets the
-                                       # mapeditor and view clicked in
-        editor = mapeditor()
-
     def rectanglesel(self, editor, x,y, rectangle):
 
         global set_error_reset
@@ -1032,7 +1027,7 @@ class TerrainLinearHandle(quarkpy.qhandles.GenericHandle):
             g1 = 0
         if delta or (flags&MB_REDIMAGE):
             new = map(lambda obj: obj.copy(), self.mgr.list)
-            if not self.linoperation(new, delta, g1, view):          
+            if not self.linoperation(new, delta, g1, view):
                 if not flags&MB_REDIMAGE:
                     new = None
         else:
@@ -1069,9 +1064,8 @@ class TerrainLinHandlesManager:
 
 # Sometimes we don't can't get the mapeditor(), so this test for it and gets it.
 
-        if mapeditor() is not None:
-            editor = mapeditor()
-        else:
+        editor = mapeditor()
+        if editor is None:
             quarkx.clickform = view.owner  # Rowdys -important, gets the
             editor = mapeditor()
         self.editor = editor # so we can pass it along to other def's
@@ -1084,7 +1078,7 @@ class TerrainLinHandlesManager:
         "That is done in the 'def draw' function further down."
 
         editor = self.editor
-            
+
         list = editor.layout.explorer.sellist
         view = self.view
 
@@ -1168,9 +1162,8 @@ class TerrainLinCenterHandle(TerrainLinearHandle):
     def __init__(self, pos, mgr):
         TerrainLinearHandle.__init__(self, pos, mgr)
         self.cursor = CR_MULTIDRAG
-        if mapeditor() is not None:
-            editor = mapeditor()
-        else:
+        editor = mapeditor()
+        if editor is None:
             quarkx.clickform = view.owner  # Rowdys -important, gets the
             editor = mapeditor()
         self.editor = editor
@@ -1179,8 +1172,6 @@ class TerrainLinCenterHandle(TerrainLinearHandle):
     def draw(self, view, cv, draghandle=None): # Just draws the handle and circle
                                                # but does not actualy drag anything
                                                # that is done in "def BuildHandles" above
-        quarkx.clickform = view.owner  # Rowdys -important, gets the
-                                       # mapeditor and view clicked in
         editor = self.editor
         selectlist = editor.layout.explorer.sellist
 
@@ -1610,8 +1601,6 @@ class TerrainTouchupClick(TerrainRectSelDragObject):
 
         plugins.mapterrainmodes.TerrainRectSelDragObject.__init__(self, view, x, y, redcolor, todo)
 
-        z = 0
-
         quarkx.clickform = view.owner  # Rowdys -important, gets the
                                        # mapeditor and view clicked in
         self.editor = mapeditor()
@@ -1663,9 +1652,8 @@ class TerrainVertexHandle(quarkpy.qhandles.GenericHandle):
         # This makes sure we have the editor if we are in the 3D window view or FullScreen 3D view
         editor = mapeditor()
         if editor is None:
-            self.editor = saveeditor
-        else:
-            self.editor = mapeditor()
+            editor = saveeditor
+        self.editor = editor
 
         self.pos = pos
         self.poly = poly
@@ -2049,10 +2037,12 @@ class TerrainPaintClick(TerrainRectSelDragObject):
 
         plugins.mapterrainmodes.TerrainRectSelDragObject.__init__(self, view, x, y, redcolor, todo)
 
-        z = 0
-        quarkx.clickform = view.owner  # Rowdys -important, gets the
-                                       # mapeditor and view clicked in
-        self.editor = mapeditor()
+        editor = mapeditor()
+        if editor is None:
+            quarkx.clickform = view.owner  # Rowdys -important, gets the
+                                           # mapeditor and view clicked in
+            editor = mapeditor()
+        self.editor = editor
 
     def dragto(self, x, y, flags):
         editor = self.editor
