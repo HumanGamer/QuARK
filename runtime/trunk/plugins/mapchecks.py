@@ -24,7 +24,7 @@ import quarkpy.mapsearch
 
 
 
-def BasicCheck(menu=None):
+def BasicCheck(menu):
     editor = mapeditor(SS_MAP)
     if editor is None: return
     err = {}
@@ -48,7 +48,7 @@ def BasicCheck(menu=None):
         errobj = errobj + test
 
     MapLimits = quarkx.setupsubset(editor.MODE, "Display")["MapLimit"]
-    if (quarkx.setupsubset()["MapLimit"]<>None):    # games can overide default setting
+    if (quarkx.setupsubset()["MapLimit"]<>None):    # games can override default setting
         MapLimits = quarkx.setupsubset()["MapLimit"]
 
     beziersupport = quarkx.setupsubset()["BezierPatchSupport"]
