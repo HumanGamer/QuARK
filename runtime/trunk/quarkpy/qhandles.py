@@ -1397,12 +1397,6 @@ class FreeZoomDragObject(DragObject):
         else:
             self.viewlist = viewlist
 
-    def dragto(self, x, y, flags):
-        # moving the mouse RIGHT means zoom IN
-        # moving the mouse DOWN also means zoom IN
-        # if you are unhappy with this, change it here...
-        # or set a negative value in the Configuration dialog for this
-
         # For Model Editor needs.
         if self.MODE == SS_MODEL:
             # To increase zoom in ability for detailed painting selection of pixels.
@@ -1410,6 +1404,14 @@ class FreeZoomDragObject(DragObject):
                 self.AbsoluteMaximum = 30.0
             else:
                 self.AbsoluteMaximum = 500.0
+
+    def dragto(self, x, y, flags):
+        # moving the mouse RIGHT means zoom IN
+        # moving the mouse DOWN also means zoom IN
+        # if you are unhappy with this, change it here...
+        # or set a negative value in the Configuration dialog for this
+
+        if self.MODE == SS_MODEL:
             # To free up the L & CMB for other function use in the Model Editor.
             from qbaseeditor import flagsmouse
             if flagsmouse == 288 or flagsmouse == 296 or flagsmouse == 552 or flagsmouse == 800 or flagsmouse == 1064 or flagsmouse == 2088:
