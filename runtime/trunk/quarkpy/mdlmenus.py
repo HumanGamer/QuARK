@@ -38,7 +38,6 @@ def runimporter(m):
         mdlf = mdlimport[m.text]
     except:
         return
-    editor = mapeditor()
     files = quarkx.filedialogbox("Select File", m.text, mdlf[0], 0)
     if len(files) != 0:
         mdlf[1](None, files[0], None)
@@ -49,7 +48,6 @@ def runexporter(m):
         mdlf = mdlexport[m.text]
     except:
         return
-    editor = mapeditor()
     files = quarkx.filedialogbox("Save file as...", m.text, mdlf[0], 1)
     if len(files) != 0:
         mdlf[1](None, files[0], None)
