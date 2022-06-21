@@ -419,13 +419,12 @@ begin
              F:=C.Owner;
              if F is TPyForm then
               Result:=TPyForm(F).WindowObject
+             else if F is TPyFloatingWnd then
+              Result:=TPyFloatingWnd(F).WindowObject
+             else if F is TPyFullscreenWnd then
+              Result:=TPyFullscreenWnd(F).WindowObject
              else
-              if F is TPyFloatingWnd then
-               Result:=TPyFloatingWnd(F).WindowObject
-              else if F is TPyFullscreenWnd then
-               Result:=TPyFullscreenWnd(F).WindowObject
-              else
-               Result:=Py_None;
+              Result:=Py_None;
             end;
            Py_INCREF(Result);
            Exit;
