@@ -860,54 +860,54 @@ def ConvBothmoveClick(m):
 
 
 
-# 8th button - Rowdys new code to test to get adjasent unselected vertexes 4-20-05
+# 8th button - Rowdys new code to test to get adjacent unselected vertexes 4-20-05
 
 def GetAdjFacesClick(m):
-     editor = mapeditor()
-     if editor is None:
-         return
-     if editor.layout.explorer.sellist != []:
-         selected = editor.layout.explorer.sellist
-     else:
-         selected = editor.layout.explorer.uniquesel
-     ok = 1
-     if selected is None:
-         quarkx.msgbox("Select 1 movable face only", MT_ERROR, MB_OK)
-         ok = 0
-     elif (len(selected) > 1):
-         quarkx.msgbox("Select 1 movable face only", MT_ERROR, MB_OK)
-         ok = 0
+    editor = mapeditor()
+    if editor is None:
+        return
+    if editor.layout.explorer.sellist != []:
+        selected = editor.layout.explorer.sellist
+    else:
+        selected = editor.layout.explorer.uniquesel
+    ok = 1
+    if selected is None:
+        quarkx.msgbox("Select 1 movable face only", MT_ERROR, MB_OK)
+        ok = 0
+    elif (len(selected) > 1):
+        quarkx.msgbox("Select 1 movable face only", MT_ERROR, MB_OK)
+        ok = 0
 
-     if ok:
-         # ensure everything selected is a proper movable face
-         for select1 in selected:
-             if select1.shortname == "up" or select1.shortname == "downmoves":
-                 ok = 1
-                 continue
-             if select1.shortname == "upstop" or select1.shortname == "down":
-                 quarkx.msgbox("This face has not\nbeen set as movable.\nSelect the proper button\nabove to set it then the\n'Adjacent Faces' again.", MT_ERROR, MB_OK)
-                 return
-             else:
-                 quarkx.msgbox("Improper Selection\n\nYou must select a\nsingle movable face", MT_ERROR, MB_OK)
-                 selected = []
-                 return
-     if ok:
-         selectedFaces = selected
-         # find all 'up' or 'downmoves' faces
-         allFaces = editor.Root.findallsubitems("", ':f')
-         upFaces = []
-         for face in allFaces:
-             if face.shortname == "up" or face.shortname == "downmoves":
-                 upFaces.append(face)
+    if ok:
+        # ensure everything selected is a proper movable face
+        for select1 in selected:
+            if select1.shortname == "up" or select1.shortname == "downmoves":
+                ok = 1
+                continue
+            if select1.shortname == "upstop" or select1.shortname == "down":
+                quarkx.msgbox("This face has not\nbeen set as movable.\nSelect the proper button\nabove to set it then the\n'Adjacent Faces' again.", MT_ERROR, MB_OK)
+                return
+            else:
+                quarkx.msgbox("Improper Selection\n\nYou must select a\nsingle movable face", MT_ERROR, MB_OK)
+                selected = []
+                return
+    if ok:
+        selectedFaces = selected
+        # find all 'up' or 'downmoves' faces
+        allFaces = editor.Root.findallsubitems("", ':f')
+        upFaces = []
+        for face in allFaces:
+            if face.shortname == "up" or face.shortname == "downmoves":
+                upFaces.append(face)
 
-         # select all adjacent 'up' or 'downmoves' faces (hopefully)
-         adjacentFaces = shared_vertices(selectedFaces, upFaces)
-         if (len(adjacentFaces) <= 1):
-             quarkx.msgbox("There are no movable\nadjacent faces to this one", MT_INFORMATION, MB_OK)
-             return
+        # select all adjacent 'up' or 'downmoves' faces (hopefully)
+        adjacentFaces = shared_vertices(selectedFaces, upFaces)
+        if (len(adjacentFaces) <= 1):
+            quarkx.msgbox("There are no movable\nadjacent faces to this one", MT_INFORMATION, MB_OK)
+            return
 
-         editor.layout.explorer.sellist = adjacentFaces
-         editor.invalidateviews()
+        editor.layout.explorer.sellist = adjacentFaces
+        editor.invalidateviews()
 
 
 ### 9th button -- or 1st selector -- selects Terrain Mesh area ###
