@@ -85,7 +85,7 @@ def removeFromAttr(object, attr, thing):
 #  `EU` is the form with a field that you can enter a numerical
 #   value, and up-down buttons for increment/decrement
 #
-#  Somebody has really gotta gettaroundto documenting all the
+#  Somebody has really gotta get around to documenting all the
 #   different Typ's...
 #
 
@@ -248,7 +248,7 @@ def moveFaces(faces, mvtx, delta, poly, locklist, freezelist, sloppy=None):
         if len(facelocked) == 1:
             #
             # this autolock stuff isn't working right so its
-            #  dialog checkbox is commented out to disableit
+            #  dialog checkbox is commented out to disable it
             #
             if 0:
 #            if autolock:
@@ -513,7 +513,7 @@ def vertexmenu(self, editor, view, oldmenu=quarkpy.maphandles.VertexHandle.menu.
              pack.moving = newfaces
              pack.pos = newpos
              #
-             # For some unkoown reason, the exchange operation
+             # For some unknown reason, the exchange operation
              #  above causes the new stuff to become the selection;
              #  so we set things back the way they were
              #
@@ -743,7 +743,7 @@ def lockfacemenu(o, editor, oldfacemenu = quarkpy.mapentities.FaceType.menu.im_f
             reverse = 1
         else:
             reverse = 0
-        clickview = quarkx.clickform.focus 
+        clickview = quarkx.clickform.focus
         #
         # clickform doesn't seem to work for floating 3d windows
         #  so we just take the first.
