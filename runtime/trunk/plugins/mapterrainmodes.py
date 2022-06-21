@@ -52,7 +52,6 @@ from maptagside import *
 #
 
 grid = (0,0)
-saveeditor = None
 newpoly = newface = newpoint = None
 selectlist = []
 allupFaces = []
@@ -375,7 +374,7 @@ def drawredfaces(view, selectlist):
 def paintcursor(view, x, y, flags):
     "Changes cursor in views based on view type"
 
-    editor = saveeditor
+    editor = mapeditor()
     tb2 = editor.layout.toolbars["tb_terrmodes"]
     type = view.info["type"]
     if type == "3D" and flags & MB_CLICKED is not None or view.viewmode == "tex":
@@ -1067,6 +1066,7 @@ class TerrainLinHandlesManager:
         editor = mapeditor()
         if editor is None:
             quarkx.clickform = view.owner  # Rowdys -important, gets the
+                                           # mapeditor and view clicked in
             editor = mapeditor()
         self.editor = editor # so we can pass it along to other def's
 
@@ -1162,17 +1162,12 @@ class TerrainLinCenterHandle(TerrainLinearHandle):
     def __init__(self, pos, mgr):
         TerrainLinearHandle.__init__(self, pos, mgr)
         self.cursor = CR_MULTIDRAG
-        editor = mapeditor()
-        if editor is None:
-            quarkx.clickform = view.owner  # Rowdys -important, gets the
-            editor = mapeditor()
-        self.editor = editor
 
 
     def draw(self, view, cv, draghandle=None): # Just draws the handle and circle
                                                # but does not actualy drag anything
                                                # that is done in "def BuildHandles" above
-        editor = self.editor
+        editor = self.mgr.editor
         selectlist = editor.layout.explorer.sellist
 
 # Regulates which 3D view selected faces redlines are to be drawn
@@ -1385,8 +1380,7 @@ class TerrainLinCenterHandle(TerrainLinearHandle):
 # Below deals with the TerrainManager to pass mouse actions to specific buttons
 
 def TerrainManager(editor, view, x, y, flags, handle):
-    global saveeditor, commonfaces, commonitems
-    saveeditor = editor
+    global commonfaces, commonitems
     facelist = None
     tb2 = editor.layout.toolbars["tb_terrmodes"]
     color = quarkx.setupsubset(SS_MAP, "Options")["PaintBrush_color"]  # Get Dialog box setting if to draw the color guides is on or off.
@@ -1601,11 +1595,12 @@ class TerrainTouchupClick(TerrainRectSelDragObject):
 
         plugins.mapterrainmodes.TerrainRectSelDragObject.__init__(self, view, x, y, redcolor, todo)
 
-        quarkx.clickform = view.owner  # Rowdys -important, gets the
-                                       # mapeditor and view clicked in
-        self.editor = mapeditor()
-        if self.editor is None:
-            self.editor = saveeditor
+        editor = mapeditor()
+        if editor is None:
+            quarkx.clickform = view.owner  # Rowdys -important, gets the
+                                           # mapeditor and view clicked in
+            editor = mapeditor()
+        self.editor = editor
 
     def dragto(self, x, y, flags):
 
@@ -1619,16 +1614,9 @@ class TerrainTouchupClick(TerrainRectSelDragObject):
         view = self.view
         type = view.info["type"]
         if type == "3D" and view.viewmode == "tex":
-
-### This section just keeps the rectangle from working in the 3D views
-
-            if editor is None:
-                editor = saveeditor
-                editor.layout.setupdepth(view)
-
-### below to get the "red rectangle" to work in 2D views only
-
+            pass
         else:
+### to get the "red rectangle" to work in 2D views only
             if flags&MB_DRAGGING:
                 self.autoscroll(x,y)
             old, ri = self.buildredimages(x, y, flags)
@@ -1649,13 +1637,6 @@ class TerrainVertexHandle(quarkpy.qhandles.GenericHandle):
     def __init__(self, pos, poly):
         quarkpy.qhandles.GenericHandle.__init__(self, pos)
 
-        # This makes sure we have the editor if we are in the 3D window view or FullScreen 3D view
-        editor = mapeditor()
-        if editor is None:
-            editor = saveeditor
-        self.editor = editor
-
-        self.pos = pos
         self.poly = poly
         self.cursor = CR_CROSSH
         global selectlist
@@ -2051,10 +2032,6 @@ class TerrainPaintClick(TerrainRectSelDragObject):
         if type == "3D" and view.viewmode == "tex":
 
 ### Start of new section to get face and apply texture in 3D view only
-
-            if editor is None:
-                editor = saveeditor
-            editor.layout.setupdepth(view)
 
             tb2 = editor.layout.toolbars["tb_terrmodes"]
             if tb2.tb.buttons[11].state == 2:
