@@ -32,40 +32,6 @@ import quarkpy.qtoolbar
 import tagging
 from quarkpy.maputils import *
 
-#
-#  - These utilities should go to qutils or some such place,
-#    when this is prepared for stable release
-#
-
-#
-# A utility for accessing attributes of objects
-#  (class instances) that might not be defined
-#
-def getAttr(object, attr, default=None):
-    if hasattr(object, attr):
-        return getattr(object,attr)
-    else:
-        return default
-#
-# ditto for deleting attributes
-#
-def delAttr(object, attr):
-    if hasattr(object, attr):
-         delattr(object, attr)
-
-def appendToAttr(object, attr, thing):
-    if hasattr(object, attr):
-        getattr(object,attr).append(thing)
-    else:
-        setattr(object,attr,[thing])
-
-def removeFromAttr(object, attr, thing):
-    getattr(object,attr).remove(thing)
-    if getattr(object,attr)==[]:
-        delattr(object,attr)
-
-
-
 
 #
 # Pinning dialog

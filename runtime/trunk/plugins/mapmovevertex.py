@@ -34,45 +34,6 @@ from quarkpy.maputils import *
 from quarkpy import guiutils
 
 #
-# repeated from maputils to make it work with older quark versions.
-#
-
-def projectpointtoplane(p,n1,o2,n2):
-  "project point to plane at o2 with normal n2 along normal n1"
-  v1 = o2-p
-  v2 = v1*n2
-  v3 = n1*n2
-  v4 = v2/v3
-  v5 = v4*n1
-  return p + v5
-
-#
-# A utility for accessing attributes of objects
-#  (class instances) that might not be defined
-#
-def getAttr(object, attr, default=None):
-    if hasattr(object, attr):
-        return getattr(object,attr)
-    else:
-        return default
-#
-# ditto for deleting attributes
-#
-def delAttr(object, attr):
-    if hasattr(object, attr):
-         delattr(object, attr)
-
-def appendToAttr(object, attr, thing):
-    if hasattr(object, attr):
-        getattr(object,attr).append(thing)
-    else:
-        setattr(object,attr,[thing])
-
-def removeFromAttr(object, attr, thing):
-    getattr(object,attr).remove(thing)
-    if getattr(object,attr)==[]:
-        delattr(object,attr)
-#
 # This is a definition of the vertex-movement dialog
 # The `live edit dialog' is a rather fancy critter defined
 #  in quarkpy/dlgclasses.  Don't worry about its innards,
