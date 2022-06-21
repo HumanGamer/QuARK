@@ -268,7 +268,7 @@ class ModelFaceHandle(qhandles.GenericHandle):
             addvertex(editor, editor.Root.currentcomponent, self.pos)
 
         def removevertex1click(m, self=self, editor=editor, view=view):
-            removevertex(editor.Root.currentcomponent, self.index)
+            removevertex(editor, editor.Root.currentcomponent, self.index)
             editor.ModelVertexSelList = []
 
         def pick_vertex(m, self=self, editor=editor, view=view):
@@ -1797,7 +1797,7 @@ class VertexHandle(qhandles.GenericHandle):
             addvertex(editor, editor.Root.currentcomponent, self.pos)
 
         def remove_vertex_click(m, self=self, editor=editor, view=view):
-            removevertex(editor.Root.currentcomponent, self.index)
+            removevertex(editor, editor.Root.currentcomponent, self.index)
             editor.ModelVertexSelList = []
 
         def pick_base_vertex(m, self=self, editor=editor, view=view):

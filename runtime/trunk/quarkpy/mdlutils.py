@@ -1170,11 +1170,7 @@ def replacevertexes(editor, comp, vertexlist, flags, view, undomsg, option=1, me
 #
 # remove a vertex from a component
 #
-def removevertex(comp, index, all3=0):
-    editor = mapeditor()
-    if editor is None:
-        return
-
+def removevertex(editor, comp, index, all3=0):
     new_comp = comp.copy() # create a copy to edit (we store the old one in the undo list)
     tris = new_comp.triangles
     #### 1) find all triangles that use vertex 'index' and delete them.
@@ -1406,7 +1402,7 @@ def removeTriangle(editor, comp, index):
         if len(vertexestoremove) == 0:
             pass
         else:
-            removevertex(comp, index, 1)
+            removevertex(editor, comp, index, 1)
             return
     new_comp = comp.copy()
     old_tris = new_comp.triangles
