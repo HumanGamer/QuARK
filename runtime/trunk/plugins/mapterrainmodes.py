@@ -122,10 +122,10 @@ def terrainWedgeFaceDict(o, view):
     axes = quarkpy.perspective.perspectiveAxes(view)
     pool = faces[:]
     faceDict = {}
-## This determins if the imported terrain is from GenSurf or Nems Terrain Generator
+## This determines if the imported terrain is from GenSurf or Nems Terrain Generator
     if o.subitem(0).normal.tuple[2] > 0:
 
-## Start ----This is the Nems Terrain Generator Seciton
+## Start ----This is the Nems Terrain Generator Section
 
         for face in o.subitems:
             polyofface = face.parent # get the ploy of the UP face
@@ -195,11 +195,11 @@ def terrainWedgeFaceDict(o, view):
                         faceDict[label]=chosenface
                         pool.remove(chosenface)
 
-## End ----This is the Nems Terrain Generator Seciton
+## End ----This is the Nems Terrain Generator Section
 
     else:
 
-## Start ----This is the GenSurf Terrain Seciton
+## Start ----This is the GenSurf Terrain Section
         for face in o.subitems:
             polyofface = face.parent # get the ploy of the UP face
             facevertexes = face.verticesof(polyofface)
@@ -268,7 +268,7 @@ def terrainWedgeFaceDict(o, view):
                         faceDict[label]=chosenface
                         pool.remove(chosenface)
 
-## End ----This is the GenSurf Terrain Seciton
+## End ----This is the GenSurf Terrain Section
 
     return faceDict
 

@@ -196,7 +196,7 @@ def moveTriangleFaces(oldface, oldverpos, facemoved, polyofface, TGlockvertex, p
                 basevertex1 = hold
 
 #
-## This seciton starts applying the movefactor formula
+## This section starts applying the movefactor formula
 #
             ovposX = abs(pos.tuple[0]-oldverpos.tuple[0])
             ovposY = abs(pos.tuple[1]-oldverpos.tuple[1])

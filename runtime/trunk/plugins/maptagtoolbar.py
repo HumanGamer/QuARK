@@ -340,7 +340,7 @@ class TagModesBar(ToolBar):
         btn4 = quarkpy.qtoolbar.button(removefromTaggedClick, "Remove from tagged||Remove from tagged:\n\nThis will remove just the selected face, from the tagged group.", icons, 4, infobaselink="maped.plugins.tagside.html#basic")
 
 
-        btn5 = quarkpy.qtoolbar.button(selectTaggedClick, "Select Tagged Face(s)||Select Tagged Face(s):\n\nThis will select all of the curently tagged faces.", icons, 5, infobaselink="intro.mapeditor.menu.html#selectionmenu")
+        btn5 = quarkpy.qtoolbar.button(selectTaggedClick, "Select Tagged Face(s)||Select Tagged Face(s):\n\nThis will select all of the currently tagged faces.", icons, 5, infobaselink="intro.mapeditor.menu.html#selectionmenu")
 
 
         btn6 = quarkpy.qtoolbar.button(linkFaceClick, "Link face(s) to tagged||Link face(s) to tagged:\n\nIt's purpose to make 'permanent glue', so that faces that are meant to stay stuck together are more likely to do so.", icons, 6, infobaselink="maped.plugins.tagside.html#linking")
@@ -376,7 +376,7 @@ class TagModesBar(ToolBar):
         btn16 = quarkpy.qtoolbar.button(projTexClick, "Project from tagged||Project from tagged:\n\nThis will project the texture of the tagged face onto the selected one, or those in the selected item, so that a texture can be wrapped without seams over an irregular assortment of faces.\n\nTextures aren't projected onto faces that are too close to perpendicular to the projecting face.", icons, 16)
 
 
-        btn17 = quarkpy.qtoolbar.button(chooseTexture, "Choose Texture||Choose Texture:\n\nThis will open the 'Texture Browser' window (toolbox). If a brush or face is curently sellected, it will find its texture unless the item has more than one texture.", ico_dict['ico_maped'], 0, infobaselink="intro.texturebrowser.overview.html")
+        btn17 = quarkpy.qtoolbar.button(chooseTexture, "Choose Texture||Choose Texture:\n\nThis will open the 'Texture Browser' window (toolbox). If a brush or face is currently sellected, it will find its texture unless the item has more than one texture.", ico_dict['ico_maped'], 0, infobaselink="intro.texturebrowser.overview.html")
 
 
         btn18 = quarkpy.qtoolbar.button(posTexClick, "Position Texture tool||Position Texture tool:\n\nThis tool will allow you to adjust the position of the texture on a single selected face.\n\nBy clicking on the keypad arrows, you can manipulate the texture in various ways by 1 unit or 1 degree at a time. Or you can enter amounts in the input boxes for finer adjustments to the texture.\n\nThe changes can be viewed in the Face-view and editor 3D view (if the textured view option is on) as they are made.", icons, 17, infobaselink="maped.plugins.tagside.html#texture")

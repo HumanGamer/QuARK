@@ -835,7 +835,7 @@ class SphereMakerDragObject(parent):
 
         self.facecount = facecount # To pass value to def rectanglesel below for error message testing
 
-  #### This section sets up the curent view to draw the BLUE circle, lines, GREEN crosshairs and face lable
+  #### This section sets up the current view to draw the BLUE circle, lines, GREEN crosshairs and face label
         cv = self.view.canvas()
         cv.pencolor = BLUE
         cv.brushstyle = BS_CLEAR
@@ -845,7 +845,7 @@ class SphereMakerDragObject(parent):
     ## The next line draws the BLUE circle only
         cv.ellipse(centerX-radius, centerY-radius, centerX+radius+1, centerY+radius+1)
 
-    ## This seciton draws all the BLUE grid lines, including the center ones
+    ## This section draws all the BLUE grid lines, including the center ones
         if screengridstep != 0:
             segments = abs(radius/screengridstep)
         else:
@@ -876,7 +876,7 @@ class SphereMakerDragObject(parent):
         cv.line(cx, mY, cx, cy-radius) # draws top screen Y axis line
         cv.line(cx, cy+radius, cx, Y)  # draws bottom screen Y axis line
 
-    ## This section draws the face lable and gives the color warning scale
+    ## This section draws the face label and gives the color warning scale
         cv.fontsize = 10
         cv.fontname = "MS Serif"
         cv.fontbold = 1
@@ -1448,7 +1448,7 @@ class PyramidMakerDragObject(parent):
         self.facecount = facecount # To pass value to def rectanglesel below for error message testing
 
 
-  #### This section sets up the curent view to draw the BLUE circle, lines, GREEN crosshairs and face lable
+  #### This section sets up the current view to draw the BLUE circle, lines, GREEN crosshairs and face label
         cv = self.view.canvas()
         cv.pencolor = BLUE
         cv.brushstyle = BS_CLEAR
@@ -1458,7 +1458,7 @@ class PyramidMakerDragObject(parent):
     ## The next line draws the BLUE circle only
         cv.ellipse(centerX-radius, centerY-radius, centerX+radius+1, centerY+radius+1)
 
-    ## This seciton draws all the BLUE grid lines, including the center ones
+    ## This section draws all the BLUE grid lines, including the center ones
         if screengridstep != 0:
             segments = abs(radius/screengridstep)
         else:
@@ -1487,7 +1487,7 @@ class PyramidMakerDragObject(parent):
         cv.line(cx, mY, cx, cy-radius) # draws top screen Y axis line
         cv.line(cx, cy+radius, cx, Y)  # draws bottom screen Y axis line
 
-    ## This section draws the face lable and gives the color warning scale
+    ## This section draws the face label and gives the color warning scale
         cv.fontsize = 10
         cv.fontname = "MS Serif"
         cv.fontbold = 1
@@ -1942,7 +1942,7 @@ class DoubleConeMakerDragObject(parent):
 
         self.facecount = facecount # To pass value to def rectanglesel below for error message testing
 
-  #### This section sets up the curent view to draw the BLUE circle, lines, GREEN crosshairs and face lable
+  #### This section sets up the current view to draw the BLUE circle, lines, GREEN crosshairs and face label
         cv = self.view.canvas()
         cv.pencolor = BLUE
         cv.brushstyle = BS_CLEAR
@@ -1952,7 +1952,7 @@ class DoubleConeMakerDragObject(parent):
     ## The next line draws the BLUE circle only
         cv.ellipse(centerX-radius, centerY-radius, centerX+radius+1, centerY+radius+1)
 
-    ## This seciton draws all the BLUE grid lines, including the center ones
+    ## This section draws all the BLUE grid lines, including the center ones
         if screengridstep != 0:
             segments = abs(radius/screengridstep)
         else:
@@ -1981,7 +1981,7 @@ class DoubleConeMakerDragObject(parent):
         cv.line(cx, mY, cx, cy-radius) # draws top screen Y axis line
         cv.line(cx, cy+radius, cx, Y)  # draws bottom screen Y axis line
 
-    ## This section draws the face lable and gives the color warning scale
+    ## This section draws the face label and gives the color warning scale
         cv.fontsize = 10
         cv.fontname = "MS Serif"
         cv.fontbold = 1
@@ -2498,7 +2498,7 @@ class CylinderMakerDragObject(parent):
         self.facecount = facecount # To pass value to def rectanglesel below for error message testing
 
 
-  #### This section sets up the curent view to draw the BLUE circle, lines, GREEN crosshairs and face lable
+  #### This section sets up the current view to draw the BLUE circle, lines, GREEN crosshairs and face label
         cv = self.view.canvas()
         cv.pencolor = BLUE
         cv.brushstyle = BS_CLEAR
@@ -2508,7 +2508,7 @@ class CylinderMakerDragObject(parent):
     ## The next line draws the BLUE circle only
         cv.ellipse(centerX-radius, centerY-radius, centerX+radius+1, centerY+radius+1)
 
-    ## This seciton draws all the BLUE grid lines, including the center ones
+    ## This section draws all the BLUE grid lines, including the center ones
         if screengridstep != 0:
             segments = abs(radius/screengridstep)
         else:
@@ -2537,7 +2537,7 @@ class CylinderMakerDragObject(parent):
         cv.line(cx, mY, cx, cy-radius) # draws top screen Y axis line
         cv.line(cx, cy+radius, cx, Y)  # draws bottom screen Y axis line
 
-    ## This section draws the face lable and gives the color warning scale
+    ## This section draws the face label and gives the color warning scale
         cv.fontsize = 10
         cv.fontname = "MS Serif"
         cv.fontbold = 1
@@ -3008,7 +3008,7 @@ class DomeMakerDragObject(parent):
 
         self.facecount = facecount # To pass value to def rectanglesel below for error message testing
 
-  #### This section sets up the curent view to draw the BLUE circle, lines, GREEN crosshairs and face lable
+  #### This section sets up the current view to draw the BLUE circle, lines, GREEN crosshairs and face label
         cv = self.view.canvas()
         cv.pencolor = BLUE
         cv.brushstyle = BS_CLEAR
@@ -3018,7 +3018,7 @@ class DomeMakerDragObject(parent):
     ## The next line draws the BLUE circle only
         cv.ellipse(centerX-radius, centerY-radius, centerX+radius+1, centerY+radius+1)
 
-    ## This seciton draws all the BLUE grid lines, including the center ones
+    ## This section draws all the BLUE grid lines, including the center ones
         if screengridstep != 0:
             segments = abs(radius/screengridstep)
         else:
@@ -3047,7 +3047,7 @@ class DomeMakerDragObject(parent):
         cv.line(cx, mY, cx, cy-radius) # draws top screen Y axis line
         cv.line(cx, cy+radius, cx, Y)  # draws bottom screen Y axis line
 
-    ## This section draws the face lable and gives the color warning scale
+    ## This section draws the face label and gives the color warning scale
         cv.fontsize = 10
         cv.fontname = "MS Serif"
         cv.fontbold = 1
@@ -3623,7 +3623,7 @@ class FanMakerDragObject(parent):
 
         self.facecount = facecount # To pass value to def rectanglesel below for error message testing
 
-  #### This section sets up the curent view to draw the BLUE circle, lines, GREEN crosshairs and face lable
+  #### This section sets up the current view to draw the BLUE circle, lines, GREEN crosshairs and face label
         cv = self.view.canvas()
         cv.pencolor = BLUE
         cv.brushstyle = BS_CLEAR
@@ -3633,7 +3633,7 @@ class FanMakerDragObject(parent):
     ## The next line draws the BLUE circle only
         cv.ellipse(centerX-radius, centerY-radius, centerX+radius+1, centerY+radius+1)
 
-    ## This seciton draws all the BLUE grid lines, including the center ones
+    ## This section draws all the BLUE grid lines, including the center ones
         if screengridstep != 0:
             segments = abs(radius/screengridstep)
         else:
@@ -3662,7 +3662,7 @@ class FanMakerDragObject(parent):
         cv.line(cx, mY, cx, cy-radius) # draws top screen Y axis line
         cv.line(cx, cy+radius, cx, Y)  # draws bottom screen Y axis line
 
-    ## This section draws the face lable and gives the color warning scale
+    ## This section draws the face label and gives the color warning scale
         cv.fontsize = 10
         cv.fontname = "MS Serif"
         cv.fontbold = 1
@@ -4256,7 +4256,7 @@ class TorusMakerDragObject(parent):
             else:
                 self.trigger = 1
 
-  #### This section sets up the curent view to draw the BLUE circle, lines, GREEN crosshairs and face lable
+  #### This section sets up the current view to draw the BLUE circle, lines, GREEN crosshairs and face label
         cv = self.view.canvas()
         cv.pencolor = BLUE
         cv.brushstyle = BS_CLEAR
@@ -4266,7 +4266,7 @@ class TorusMakerDragObject(parent):
     ## The next line draws the BLUE circle only
         cv.ellipse(centerX-radius, centerY-radius, centerX+radius+1, centerY+radius+1)
 
-    ## This seciton draws all the BLUE grid lines, including the center ones
+    ## This section draws all the BLUE grid lines, including the center ones
         if screengridstep != 0:
             segments = abs(radius/screengridstep)
         else:
@@ -4295,7 +4295,7 @@ class TorusMakerDragObject(parent):
         cv.line(cx, mY, cx, cy-radius) # draws top screen Y axis line
         cv.line(cx, cy+radius, cx, Y)  # draws bottom screen Y axis line
 
-    ## This section draws the face lable and gives the color warning scale
+    ## This section draws the face label and gives the color warning scale
         cv.fontsize = 10
         cv.fontname = "MS Serif"
         cv.fontbold = 1
