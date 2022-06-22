@@ -9,11 +9,7 @@
 #
 #   You may freely distribute modified & extended versions of
 #   this plugin as long as you give due credit to tiglari &
-#   Armin Rigo. (It's free software, just like Quark itself.)
-#
-#   Please notify bugs & possible improvements to
-#   tiglari@planetquake.com
-#
+#   Armin Rigo. (It's free software, just like QuArK itself.)
 #
 ##########################################################
 
