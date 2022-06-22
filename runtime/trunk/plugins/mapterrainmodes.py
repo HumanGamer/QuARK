@@ -289,9 +289,6 @@ def terrainWedgeRename(oldpoly, view):
 
     return newpoly
 
-def newfinishdrawing(editor, view, oldfinish=quarkpy.mapeditor.MapEditor.finishdrawing):
-    oldfinish(editor, view)
-
 
 def aligntogrid(v, mode):
     #
@@ -476,8 +473,6 @@ def terrainpaint(editor, view, x, y, flags, facelist):
                             sum = sum + p2
                             cv.line(p1,p2)
 
-                        quarkpy.mapeditor.MapEditor.finishdrawing = newfinishdrawing
-
                 if poly.findname("downmoves:f") is not None:
                     face = poly.findname("downmoves:f")
                     cv.pencolor = MapColor("Duplicator")   # Dk. blue
@@ -490,7 +485,6 @@ def terrainpaint(editor, view, x, y, flags, facelist):
                             p2 = view.proj(v)
                             sum = sum + p2
                             cv.line(p1,p2)
-                    quarkpy.mapeditor.MapEditor.finishdrawing = newfinishdrawing
 
 
     type = view.info["type"]
@@ -2111,13 +2105,10 @@ class TerrainPaintClick(TerrainRectSelDragObject):
           ### Gets the stored dialog box values to be used below.
 
                             texname = quarkx.setupsubset(SS_MAP, "Options")["PaintBrush_tex"]
-                     #       originX, originY, originZ = quarkx.setupsubset(SS_MAP, "Options")["PaintBrush_origin"]
-                            originX, originY, originZ = plugins.mapterrainpos.read3values(quarkx.setupsubset(SS_MAP, "Options")["PaintBrush_origin"]) # fix for linux
+                            originX, originY, originZ = quarkx.setupsubset(SS_MAP, "Options")["PaintBrush_origin"]
                             retain = quarkx.setupsubset(SS_MAP, "Options")["PaintBrush_retain"]
-                     #       scaleX, scaleY = quarkx.setupsubset(SS_MAP, "Options")["PaintBrush_scale"]
-                            scaleX, scaleY = plugins.mapterrainpos.read2values(quarkx.setupsubset(SS_MAP, "Options")["PaintBrush_scale"]) # fix for linux
-                     #       angleX, angleY = (quarkx.setupsubset(SS_MAP, "Options")["PaintBrush_angles"])
-                            angleX, angleY = plugins.mapterrainpos.read2values(quarkx.setupsubset(SS_MAP, "Options")["PaintBrush_angles"]) # fix for linux
+                            scaleX, scaleY = quarkx.setupsubset(SS_MAP, "Options")["PaintBrush_scale"]
+                            angleX, angleY = (quarkx.setupsubset(SS_MAP, "Options")["PaintBrush_angles"])
 
           ## The texX and texY are the size of the actual texture image
           ## and are used here to be applied to the scale x and y factors.
@@ -2131,7 +2122,7 @@ class TerrainPaintClick(TerrainRectSelDragObject):
                             angleY = angleX - angleY*-1
                             angleY = angleX - angleY
                             angleX, angleY = angleX*deg2rad, angleY*deg2rad
-                            if  quarkx.setupsubset(SS_MAP, "Options")["PaintBrush_retain"] == "1":
+                            if quarkx.setupsubset(SS_MAP, "Options")["PaintBrush_retain"] == "1":
                                 p0 = vc = quarkx.vect(originX, originY, originZ)
                             else:
                                 p0 = vc = face.origin  # center of the face

@@ -45,20 +45,7 @@ def newfinishdrawing(editor, view, oldfinish=quarkpy.mapeditor.MapEditor.finishd
     oldfinish(editor, view)
 
 
-def read2values(vals):
-    try:
-        strings = vals.split()
-        if len(strings) != 2:
-            quarkx.msgbox("Improper Data Entry!\n\nYou must enter 2 values\nseparated by a space.", MT_ERROR, MB_OK)
-            return None, None
-        else:
-            return eval(strings[0]), eval(strings[1])
-    except (AttributeError):
-        quarkx.msgbox("Improper Data Entry!\n\nYou must enter 2 values\nseparated by a space.", MT_ERROR, MB_OK)
-        return None, None
-
-
-########### This section makes the  Basic Distortion Dialog input ###############
+########### This section makes the Basic Distortion Dialog input ###############
 
 class DistortionDlg(quarkpy.dlgclasses.LiveEditDlg):
     "The Quick Object Makers Basic Input dialog box."
@@ -81,7 +68,7 @@ class DistortionDlg(quarkpy.dlgclasses.LiveEditDlg):
             Typ = "EU"
             Hint = "This box allows you to set an 'amount' factor"$0D
                "to elongate (positive amount)"$0D
-               "or shrink (negitive amount)"$0D
+               "or shrink (negative amount)"$0D
                "the height of an object."$0D
                "This 'amount' is set to a 1/8th factor to try and"$0D
                "keep the top and bottom touch points on the grid."$0D
@@ -94,7 +81,7 @@ class DistortionDlg(quarkpy.dlgclasses.LiveEditDlg):
         {
         Txt = "Make hollow"
         Typ = "X1"
-        Cap="on/off" 
+        Cap="on/off"
         Hint = "Checking this box will make the object hollow when the LMB is released."$0D
                "This will take added time to compute and may ' freeze ' the program temporarily."$0D$0D
                "WARNING: when using with the 'Sphere' object,"$0D
@@ -112,47 +99,32 @@ class DistortionDlg(quarkpy.dlgclasses.LiveEditDlg):
 def DistortionClick(m):
     editor = mapeditor()
     if editor is None: return
-  
+
     def setup(self):
         editor.distortiondlg=self
-        src = self.src
+
       ### To populate settings...
-        if (quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_distortion"] is None) and (quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_makehollow"] is None):
-            src["distortion"] = "0"
-            src["makehollow"] = "0"
-            quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_distortion"] = src["distortion"]
-            quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_distortion"] = src["makehollow"]
-        else:
-            src["distortion"] = quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_distortion"]
-            src["makehollow"] = quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_makehollow"]
+        if quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_distortion"] is None:
+            quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_distortion"] = "0"
+        if quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_makehollow"] is None:
+            quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_makehollow"] = "0"
 
-        if src["distortion"]:
-            distort = src["distortion"]
-        else:
-            distort = quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_distortion"]
+        distort = quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_distortion"]
+        hollow = quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_makehollow"]
 
-        if src["makehollow"]:
-            hollow = src["makehollow"]
-        else:
-            hollow = quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_makehollow"]
-
+        self.src["distortion"] = distort
+        self.src["makehollow"] = hollow
 
     def action(self, editor=editor):
-        distort = (self.src["distortion"])
-        if distort is None:
-            distort = quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_distortion"]
-
-        hollow = (self.src["makehollow"])
-        if hollow is None:
-            hollow = quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_makehollow"]
+        distort = self.src["distortion"]
+        hollow = self.src["makehollow"]
 
       ### Save the settings...
         quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_distortion"] = distort
         quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_makehollow"] = hollow
 
         self.src["distortion"] = distort
-        self.src["distortion"] = hollow
-
+        self.src["makehollow"] = hollow
 
     def onclosing(self, editor=editor):
 
@@ -250,7 +222,7 @@ class TorusDistortionDlg(quarkpy.dlgclasses.LiveEditDlg):
         {
         Txt = "Extrude hollow"
         Typ = "X1"
-        Cap="on/off" 
+        Cap="on/off"
         Hint = "Checking this box will make the object hollow when the LMB is released."$0D
                "This will take added time to compute and may ' freeze ' the program temporarily."$0D
                "Un-checking this feature will automatically deactivate the 'No bulkheads' box below."$0D
@@ -260,7 +232,7 @@ class TorusDistortionDlg(quarkpy.dlgclasses.LiveEditDlg):
         {
         Txt = "No bulkheads"
         Typ = "X1"
-        Cap="on/off" 
+        Cap="on/off"
         Hint = "You can not use this feature unless 'Extrude hollow' above is already checked."$0D
                "Checking this box will automatically remove all interior 'bulkhead' walls."$0D
                "This may cause 'leaks' in the map requiring the use of a 'hollow'"$0D
@@ -276,11 +248,11 @@ class TorusDistortionDlg(quarkpy.dlgclasses.LiveEditDlg):
           Hint = "Reset all the default settings"
           Delete: =
           {
-            segs_faces = "0 0"         // the button resets these items to these amounts
-            radiuses = "2 1"
-            xydistort = "2 2"
-            zupdistort = "2 0"
-            ring_seg_edges = "2 2"
+            segs_faces = '0 0'         // the button resets these items to these amounts
+            radiuses = '2 1'
+            xydistort = '2 2'
+            zupdistort = '2 0'
+            ring_seg_edges = '2 2'
             hollowtorus = "0"
             nobulkheads = "0"
           }
@@ -299,152 +271,52 @@ def TorusDistortionClick(m):
   
     def setup(self):
         editor.torusdistortiondlg=self
-        src = self.src
+
       ### To populate settings...
-        if (quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_segs_faces"] is None) and (quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_radiuses"] is None) and (quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_xydistort"] is None) and (quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_zupdistort"] is None) and (quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_ring_seg_edges"] is None) and (quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_hollowtorus"] is None) and (quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_nobulkheads"] is None):
-    #        src["segs_faces"] = 0, 0
-            src["segs_faces"] = "0 0" # fix for linux
-    #        src["radiuses"] = 2, 1
-            src["radiuses"] = "2 1" # fix for linux
-    #        src["xydistort"] = 2, 2
-            src["xydistort"] = "2 2" # fix for linux
-    #        src["zupdistort"] = 2, 0
-            src["zupdistort"] = "2 0" # fix for linux
-    #        src["ring_seg_edges"] = 2, 2
-            src["ring_seg_edges"] = "2 2" # fix for linux
-            src["hollowtorus"] = "0"
-            src["nobulkheads"] = "0"
-            quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_segs_faces"] = src["segs_faces"]
-            quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_radiuses"] = src["radiuses"]
-            quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_xydistort"] = src["xydistort"]
-            quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_xydistort"] = src["zupdistort"]
-            quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_ring_seg_edges"] = src["ring_seg_edges"]
-            quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_hollowtorus"] = src["hollowtorus"]
-            quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_nobulkheads"] = src["nobulkheads"]
-        else:
-            src["segs_faces"] = quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_segs_faces"]
-            src["radiuses"] = quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_radiuses"]
-            src["xydistort"] = quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_xydistort"]
-            src["zupdistort"] = quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_zupdistort"]
-            src["ring_seg_edges"] = quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_ring_seg_edges"]
-            src["hollowtorus"] = quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_hollowtorus"]
-            src["nobulkheads"] = quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_nobulkheads"]
+        if quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_segs_faces"] is None:
+            quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_segs_faces"] = (0, 10)
+        if quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_radiuses"] is None:
+            quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_radiuses"] = (2.0, 1.0)
+        if quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_xydistort"] is None:
+            quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_xydistort"] = (2.0, 2.0)
+        if quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_zupdistort"] is None:
+            quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_xydistort"] = (2.0, 0.0)
+        if quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_ring_seg_edges"] is None:
+            quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_ring_seg_edges"] = (2.0, 2.0)
+        if quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_hollowtorus"] is None:
+            quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_hollowtorus"] = "0"
+        if quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_nobulkheads"] is None:
+            quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_nobulkheads"] = "0"
 
+        segments, rings = quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_segs_faces"]
+        hole, sections = quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_radiuses"]
+        xdistort, ydistort = quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_xydistort"]
+        zdistort, updistort = quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_zupdistort"]
+        ring_edges, seg_edges = quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_ring_seg_edges"]
+        hollow = quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_hollowtorus"]
+        noheads = quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_nobulkheads"]
 
-        if src["segs_faces"]:
-    #        segments, rings = src["segs_faces"]
-            segments, rings = read2values(src["segs_faces"]) # fix for linux
-        else:
-    #        segments, rings = quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_segs_faces"]
-            segments, rings = read2values(quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_segs_faces"]) # fix for linux
-
-        if src["radiuses"]:
-    #        hole, sections = src["radiuses"]
-            hole, sections = read2values(src["radiuses"]) # fix for linux
-        else:
-    #        hole, sections = quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_radiuses"]
-            hole, sections = read2values(quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_radiuses"]) # fix for linux
-
-        if src["xydistort"]:
-    #        xdistort, ydistort = src["xydistort"]
-            xdistort, ydistort = read2values(src["xydistort"]) # fix for linux
-        else:
-    #        xdistort, ydistort = quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_xydistort"]
-            xdistort, ydistort = read2values(quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_xydistort"]) # fix for linux
-
-        if src["zupdistort"]:
-    #        zdistort, updistort = src["zupdistort"]
-            zdistort, updistort = read2values(src["zupdistort"]) # fix for linux
-        else:
-    #        zdistort, updistort = quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_zupdistort"]
-            zdistort, updistort = read2values(quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_zupdistort"]) # fix for linux
-
-        if src["ring_seg_edges"]:
-    #        ring_edges, seg_edges = src["ring_seg_edges"]
-            ring_edges, seg_edges = read2values(src["ring_seg_edges"]) # fix for linux
-        else:
-    #        ring_edges, seg_edges = quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_ring_seg_edges"]
-            ring_edges, seg_edges = read2values(quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_ring_seg_edges"]) # fix for linux
-
-
-        if src["hollowtorus"]:
-            hollow = src["hollowtorus"]
-            plugins.mapterrainmodes.clickedbutton(editor)
-        else:
-            hollow = "0"
-            plugins.mapterrainmodes.clickedbutton(editor)
-
-
-        if src["nobulkheads"]:
-            noheads = src["nobulkheads"]
-            plugins.mapterrainmodes.clickedbutton(editor)
-        else:
-            noheads = "0"
-            plugins.mapterrainmodes.clickedbutton(editor)
-
-
-        self.src["segs_faces"] = "%.0f %.0f"%(segments, rings)
-        self.src["radiuses"] = "%.1f %.1f"%(hole, sections)
-        self.src["xydistort"] = "%.1f %.1f"%(xdistort, ydistort)
-        self.src["zupdistort"] = "%.1f %.1f"%(zdistort, updistort)
-        self.src["ring_seg_edges"] = "%.1f %.1f"%(ring_edges, seg_edges)
-
+        self.src["segs_faces"] = "%.0f %.0f" % (segments, rings)
+        self.src["radiuses"] = "%.1f %.1f" % (hole, sections)
+        self.src["xydistort"] = "%.1f %.1f" % (xdistort, ydistort)
+        self.src["zupdistort"] = "%.1f %.1f" % (zdistort, updistort)
+        self.src["ring_seg_edges"] = "%.1f %.1f" % (ring_edges, seg_edges)
+        self.src["hollowtorus"] = hollow
+        self.src["nobulkheads"] = noheads
 
     def action(self, editor=editor):
-        segments, rings = read2values(self.src["segs_faces"])
-        if segments is None:
-    #        segments, rings = quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_segs_faces"]
-            segments, rings = read2values(quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_segs_faces"]) # fix for linux
+        segments, rings = read2vec(self.src["segs_faces"])
+        hole, sections = read2vec(self.src["radiuses"])
+        xdistort, ydistort = read2vec(self.src["xydistort"])
+        zdistort, updistort = read2vec(self.src["zupdistort"])
+        ring_edges, seg_edges = read2vec(self.src["ring_seg_edges"])
+        hollow = self.src["hollowtorus"]
+        noheads = self.src["nobulkheads"]
 
-        hole, sections = read2values(self.src["radiuses"])
-        if hole is None:
-    #        hole, sections = quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_radiuses"]
-            hole, sections = read2values(quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_radiuses"]) # fix for linux
-
-        xdistort, ydistort = read2values(self.src["xydistort"])
-        if xdistort is None:
-    #        xdistort, ydistort = quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_xydistort"]
-            xdistort, ydistort = read2values(quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_xydistort"]) # fix for linux
-
-        zdistort, updistort = read2values(self.src["zupdistort"])
-        if zdistort is None:
-    #        zdistort, updistort = quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_zupdistort"]
-            zdistort, updistort = read2values(quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_zupdistort"]) # fix for linux
-
-        ring_edges, seg_edges = read2values(self.src["ring_seg_edges"])
-        if ring_edges is None:
-    #        ring_edges, seg_edges = quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_ring_seg_edges"]
-            ring_edges, seg_edges = read2values(quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_ring_seg_edges"]) # fix for linux
-
-        if (self.src["hollowtorus"]) == "0" and quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_nobulkheads"] == "1":
-            hollow = (self.src["hollowtorus"])
-            quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_hollowtorus"] = hollow
-            (self.src["nobulkheads"]) = "0"
-            noheads = (self.src["nobulkheads"])
-            quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_nobulkheads"] = noheads
-        else:
-            hollow = (self.src["hollowtorus"])
-            quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_hollowtorus"] = hollow
-
-
-        if (self.src["nobulkheads"]) == "1" and quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_hollowtorus"] == "0":
-            (self.src["nobulkheads"]) = "0"
-            noheads = (self.src["nobulkheads"])
-            quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_nobulkheads"] = noheads
-
-        else:
-            noheads = (self.src["nobulkheads"])
-            quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_nobulkheads"] = noheads
-
-
-      ### Save the settings...
         if segments < 0:
             segments = 0
         if rings < 0:
             rings = 0
-        else:
-    #        quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_segs_faces"] = segments, rings
-            quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_segs_faces"] = (str(segments) +" "+ str(rings)) # fix for linux
 
         if hole < 1.0:
             hole = 1.0
@@ -452,25 +324,16 @@ def TorusDistortionClick(m):
             sections = hole - 0.5
         if sections < 0.5:
             sections = 0.5
-        else:
-    #        quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_radiuses"] = hole, sections
-            quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_radiuses"] = (str(hole) +" "+ str(sections)) # fix for linux
 
         if xdistort < 1:
             xdistort = 1
         if ydistort < 1:
             ydistort = 1
-        else:
-    #        quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_xydistort"] = xdistort, ydistort
-            quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_xydistort"] = (str(xdistort) +" "+ str(ydistort)) # fix for linux
 
         if zdistort < 1:
             zdistort = 1
         if updistort < 0:
             updistort = 0
-        else:
-    #        quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_zupdistort"] = zdistort, updistort
-            quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_zupdistort"] = (str(zdistort) +" "+ str(updistort)) # fix for linux
 
         if ring_edges < .5:
             ring_edges = .5
@@ -480,9 +343,19 @@ def TorusDistortionClick(m):
             seg_edges = .5
         if seg_edges >= 20:
             seg_edges = 20
-        else:
-    #        quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_ring_seg_edges"] = ring_edges, seg_edges
-            quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_ring_seg_edges"] = (str(ring_edges) +" "+ str(seg_edges)) # fix for linux
+
+        if hollow == "0" and noheads == "1":
+            noheads = "0"
+
+
+      ### Save the settings...
+        quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_segs_faces"] = segments, rings
+        quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_radiuses"] = hole, sections
+        quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_xydistort"] = xdistort, ydistort
+        quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_zupdistort"] = zdistort, updistort
+        quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_ring_seg_edges"] = ring_edges, seg_edges
+        quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_hollowtorus"] = hollow
+        quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_nobulkheads"] = noheads
 
 
         self.src["segs_faces"] = None
@@ -490,6 +363,8 @@ def TorusDistortionClick(m):
         self.src["xydistort"] = None
         self.src["zupdistort"] = None
         self.src["ring_seg_edges"] = None
+        self.src["hollowtorus"] = hollow
+        self.src["nobulkheads"] = noheads
 
 
     def onclosing(self, editor=editor):
@@ -1358,7 +1233,7 @@ class SphereMakerDragObject(parent):
 
       ## This section is for the option to hollow the Sphere, actually Extrude, Make Hollow takes too long
         makehollow = quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_makehollow"]
-        if makehollow == "0":
+        if makehollow == "":
             quarkpy.mapbtns.dropitemsnow(editor, [rectangle], "new sphere object", "0")
         else:
             quarkpy.mapbtns.dropitemsnow(editor, [rectangle], "new sphere group", "0")
@@ -1847,7 +1722,7 @@ class PyramidMakerDragObject(parent):
 
       ## This section is for the option to hollow the object
         makehollow = quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_makehollow"]
-        if makehollow == "0":
+        if makehollow == "":
             quarkpy.mapbtns.dropitemsnow(editor, [rectangle], "new pyramid object", "0")
         else:
             group = quarkx.newobj("Pyramid group:g")
@@ -2404,7 +2279,7 @@ class DoubleConeMakerDragObject(parent):
 
       ## This section is for the option to hollow the object, actually Extrude, Make Hollow not as clean
         makehollow = quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_makehollow"]
-        if makehollow == "0":
+        if makehollow == "":
             quarkpy.mapbtns.dropitemsnow(editor, [rectangle], "double-cone object", "0")
         else:
             quarkpy.mapbtns.dropitemsnow(editor, [rectangle], "double-cone object", "0")
@@ -2916,7 +2791,7 @@ class CylinderMakerDragObject(parent):
 
       ## This section is for the option to hollow the object
         makehollow = quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_makehollow"]
-        if makehollow == "0":
+        if makehollow == "":
             quarkpy.mapbtns.dropitemsnow(editor, [rectangle], "new cylinder object", "0")
         else:
             group = quarkx.newobj("Cylinder group:g")
@@ -3531,7 +3406,7 @@ class DomeMakerDragObject(parent):
 
       ## This section is for the option to hollow the object, actually Extrude, Make Hollow not as clean
         makehollow = quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_makehollow"]
-        if makehollow == "0":
+        if makehollow == "":
             quarkpy.mapbtns.dropitemsnow(editor, [rectangle], "new dome object", "0")
         else:
             quarkpy.mapbtns.dropitemsnow(editor, [rectangle], "new dome group", "0")
@@ -4167,7 +4042,7 @@ class FanMakerDragObject(parent):
 
       ## This section is for the option to hollow the object, actually Extrude, Make Hollow not as clean
         makehollow = quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_makehollow"]
-        if makehollow == "0":
+        if makehollow == "":
             quarkpy.mapbtns.dropitemsnow(editor, [rectangle], "new fan object", "0")
         else:
             quarkpy.mapbtns.dropitemsnow(editor, [rectangle], "new fan object", "0")
@@ -4428,10 +4303,8 @@ class TorusMakerDragObject(parent):
     ## This section adjust the face count for added faces and sections
     ## And provides some testing to avoid broken poly caused by those additions above
 
-    #    ring_edges, seg_edges = quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_ring_seg_edges"]
-        ring_edges, seg_edges = read2values(quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_ring_seg_edges"]) # fix for linux
-    #    segments, rings = quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_segs_faces"]
-        segments, rings = read2values(quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_segs_faces"]) # fix for linux
+        ring_edges, seg_edges = quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_ring_seg_edges"]
+        segments, rings = quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_segs_faces"]
         if facecount == 0:
             sections = 0
             adjfacecount = 0
@@ -4504,8 +4377,7 @@ class TorusMakerDragObject(parent):
 
            # 1 for both gives normal torus shape, 2 gives straight edges, 0 creates doubles-breaks
            # powers of sines and cosines
-    #    ring_edges, seg_edges = quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_ring_seg_edges"]
-        ring_edges, seg_edges =  read2values(quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_ring_seg_edges"]) # fix for linux
+        ring_edges, seg_edges = quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_ring_seg_edges"]
         n1v = float(ring_edges)*.5  # shape of torus ring        # if this up to 10 other set to 1, breaks at 11 faces
         n2v = float(seg_edges)*.5  # shape of cross section of ring  # if this 2 other set to 1, breaks at 8 faces
                                                      # if this 2 other set to 2, breaks at 8 faces
@@ -4522,10 +4394,8 @@ class TorusMakerDragObject(parent):
            # scale factors in x,y and z direction
            # note: these are scale factors wrt to the mathematical function, not
            #       the parameterization
-    #    xdistort, ydistort = quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_xydistort"]
-        xdistort, ydistort = read2values(quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_xydistort"]) # fix for linux
-    #    zdistort, updistort = quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_zupdistort"]
-        zdistort, updistort = read2values(quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_zupdistort"]) # fix for linux
+        xdistort, ydistort = quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_xydistort"]
+        zdistort, updistort = quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_zupdistort"]
         rxv = float(xdistort)*.5 # works, makes oval left to right
         ryv = float(ydistort)*.5 # works, makes oval front to back
         rzv = float(zdistort)*.5 # works, makes oval top to bottom
@@ -4536,8 +4406,7 @@ class TorusMakerDragObject(parent):
 
            # r0: base radius of the torus
            # r1: radius of cross section of ring
-    #    hole, holesections = quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_radiuses"]
-        hole, holesections = read2values(quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_radiuses"]) # fix for linux
+        hole, holesections = quarkx.setupsubset(SS_MAP, "Options")["QuickObjects_torus_radiuses"]
         r0v = float(hole)*.5 # works, makes bigger donut hole
         r1v = float(holesections)*.5 # works, makes fatter sections look, don't allow to pass donut hole - brakes
 
