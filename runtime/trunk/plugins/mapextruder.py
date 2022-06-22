@@ -39,6 +39,7 @@ from tagging import *
 import quarkpy.dlgclasses
 from quarkpy.qeditor import matrix_rot_z
 from quarkpy.qeditor import matrix_rot_y
+from quarkpy.qeditor import MapOption
 import quarkpy.b2utils
 
 #
@@ -964,7 +965,6 @@ def find_cut(input, i, prev, curr):
   return found[0]
 
 
-from quarkpy.qeditor import matrix_rot_z
 twister = matrix_rot_z(90*deg2rad)
 
 #
