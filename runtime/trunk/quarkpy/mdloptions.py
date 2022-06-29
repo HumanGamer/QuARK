@@ -51,7 +51,6 @@ def Rotate(item):
             view.screencenter = quarkx.vect(0,0,0)
             rotationmode = quarkx.setupsubset(SS_MODEL, "Options").getint("3DRotation")
             holdrotationmode = rotationmode
-            rotationmode == 0
             setprojmode(view)
             rotationmode = holdrotationmode
             modelcenter = view.info["center"]
