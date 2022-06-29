@@ -41,7 +41,6 @@ immediatelly_repaint_3d_views_while_dragging = 1
 grid = (0,0)
 lengthnormalvect = 0
 mapicons_c = -1
-modelcenter = None #FIXME: This leaks a quarkx.vect on exit!
 
 def newfinishdrawing(editor, view): #, oldfinish=qbaseeditor.BaseEditor.finishdrawing
     import qbaseeditor
@@ -1800,6 +1799,13 @@ class Rotator2D(DragObject):
         #
         # First part of methods for rotation in the Model Editors 3D views.
         #
+        if self.view.info["viewname"] == "editors3Dview" or self.view.info["viewname"] == "3Dwindow":
+            modelcenter = self.view.info["center"]
+        else:
+            editor = mapeditor()
+            for v in editor.layout.views:
+                if v.info["viewname"] == "editors3Dview":
+                    modelcenter = v.info["center"]
         rotationmode = quarkx.setupsubset(SS_MODEL, "Options").getint("3DRotation")
         if rotationmode == 1:
             center = quarkx.vect(0,0,0) ### Keeps the center of the GRID at the center of the view.
@@ -2105,8 +2111,6 @@ def findlastsel(choice,keep=0):
 #
 
 def z_recenter(view3d, list):
-    global modelcenter
-    modelcenter = view3d.info["center"]
     bbox = quarkx.boundingboxof(list)
     if bbox is None: return
     bmin, bmax = bbox
@@ -2131,7 +2135,6 @@ def z_recenter(view3d, list):
 
 def flat3Dview(view3d, layout, selonly=0):
 
-    modelcenter = quarkx.vect(0,0,0)
     #
     # "localsetprojmode": Set the projection attributes and then automatically Z-recenter.
     #
@@ -2141,10 +2144,8 @@ def flat3Dview(view3d, layout, selonly=0):
             z_recenter(view, layout.explorer.sellist)
     else:
         def localsetprojmode(view, layout=layout):
-            global modelcenter
             defsetprojmode(view)
             z_recenter(view, [layout.editor.Root])
-            modelcenter = view3d.info["center"]
 
     view3d.viewmode = "tex"
     view3d.flags = view3d.flags &~ (MV_HSCROLLBAR | MV_VSCROLLBAR)
@@ -2169,6 +2170,12 @@ def flat3Dview(view3d, layout, selonly=0):
         #
     if layout.editor.MODE == SS_MODEL:
         from mdlhandles import cursorposatstart
+        if view3d.info["viewname"] == "editors3Dview" or view3d.info["viewname"] == "3Dwindow":
+            modelcenter = view3d.info["center"]
+        else:
+            for v in layout.editor.layout.views:
+                if v.info["viewname"] == "editors3Dview":
+                    modelcenter = v.info["center"]
         rotationmode = quarkx.setupsubset(SS_MODEL, "Options").getint("3DRotation")
         if rotationmode == 2:
             center = quarkx.vect(0,0,0) + modelcenter ### Keeps the center of the MODEL at the center of the view.
