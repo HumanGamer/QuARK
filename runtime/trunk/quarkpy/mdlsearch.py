@@ -636,10 +636,9 @@ def EditorNextClick(m, editor=None):
             campos = editor.Root.dictitems["Editor True 3D Camera Positions:g"].findallsubitems("", ':d')
         elif editor.Root.dictitems.has_key("Editor Std 3D Camera Positions:g"):
             campos = editor.Root.dictitems["Editor Std 3D Camera Positions:g"].findallsubitems("", ':d')
-        try:
-            if len(campos) == 0:
-                return
-        except:
+        else:
+            return
+        if len(campos) == 0:
             return
         camsel = campos[0]
     successor = m.succ(camsel)
