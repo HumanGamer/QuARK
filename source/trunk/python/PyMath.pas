@@ -65,7 +65,7 @@ type
   protected
     procedure InitProjVar;
   public
-    pDeltaX, pDeltaY: Integer;
+    pDeltaX, pDeltaY: Integer;   { offset of the origin }
     FastDisplay: Boolean;   { can use the standard drawing routines }
     FlatDisplay: Boolean;   { is a 2D view }
     HiddenRegions: Byte;   { os_xxx }

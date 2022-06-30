@@ -111,7 +111,7 @@ type
                  ViewMode: TMapViewMode;
                  ViewType: TMapViewType;
                  DrawMode: TMapViewDrawMode;
-                 kDelta: TPoint;
+                 kDelta: TPoint; //Offset to the center of the MapView
                  FOnDraw, FBoundingBoxes, FOnMouse, FOnKey, FHandles,
                  FOnCameraMove: PyObject;
                  BackgroundImage: TBackgroundImage;
@@ -136,6 +136,7 @@ type
                  FPainting: Boolean;
                  procedure wmInternalMessage(var Msg: TMessage); message wm_InternalMessage;
                  procedure Paint(Sender: TObject; DC: HDC; const rcPaint: TRect);
+                 procedure Scroll(Sender: TObject);
                  procedure Render;
                  procedure NeedScene(NeedSetup: Boolean);
                  procedure SetCursor(Sender: TObject; var nCursor: TCursor);
@@ -253,6 +254,7 @@ begin
  PressingMouseButton:=mbNotPressing;
  OnPaint:=Paint;
  OnResize:=ResizeViewport;
+ OnScroll:=Scroll;
  OnSetCursor:=SetCursor;
  OnEnter:=FocusChanged;
  OnExit:=FocusChanged;
@@ -697,6 +699,16 @@ begin
  end;
 end;
 
+procedure TPyMapView.Scroll(Sender: TObject);
+begin
+ if MapViewProj<>Nil then
+  begin
+   MapViewProj.pDeltaX:=kDelta.X - DisplayHPos;
+   MapViewProj.pDeltaY:=kDelta.Y - DisplayVPos;
+  end;
+ UpdateCoords(False);
+end;
+
 procedure TPyMapView.NeedScene(NeedSetup: Boolean);
 begin
  if Scene=Nil then
@@ -802,13 +814,6 @@ procedure TPyMapView.Render;
 var
  S: String;
 begin
- if MapViewProj<>Nil then
-  begin
-   MapViewProj.pDeltaX:=kDelta.X - DisplayHPos;
-   MapViewProj.pDeltaY:=kDelta.Y - DisplayVPos;
-  end;
- UpdateCoords(False);
-
  Drawing:=Drawing or dfDrawing;
  ExceptionMethod:=ClearPanel;
  try
@@ -1136,8 +1141,6 @@ begin
   end;
  DisplayHPos:=DisplayHPos + DX;
  DisplayVPos:=DisplayVPos + DY;
- MapViewProj.pDeltaX:=kDelta.X - DisplayHPos;
- MapViewProj.pDeltaY:=kDelta.Y - DisplayVPos;
 end;
 
 function TPyMapView.EntityForms : TQList;

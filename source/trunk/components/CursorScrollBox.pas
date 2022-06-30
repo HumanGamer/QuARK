@@ -239,6 +239,8 @@ begin
   if FDisplayHPos<>nPos then
    ScrollBy(FDisplayHPos-nPos, 0);
  FDisplayHPos:=nPos;
+ if not (csDesigning in ComponentState) and Assigned(FOnScroll) then
+  FOnScroll(Self);
 end;
 
 procedure TCursorScrollBox.SetDisplayVPos(nPos: Integer);
@@ -253,6 +255,8 @@ begin
   if FDisplayVPos<>nPos then
    ScrollBy(0, FDisplayVPos-nPos);
  FDisplayVPos:=nPos;
+ if not (csDesigning in ComponentState) and Assigned(FOnScroll) then
+  FOnScroll(Self);
 end;
 
 {procedure TCursorScrollBox.PreCoord(var X,Y: Integer);
