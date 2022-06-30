@@ -22,7 +22,7 @@ unit PyMath3D;
 
 interface
 
-uses Windows, qmath, PyMath, Setup;
+uses qmath, PyMath;
 
 const
  MinW = 1; //Glide
@@ -71,6 +71,8 @@ procedure CameraVectors(const nHorzAngle, nPitchAngle, nLength: TDouble; var Loo
  {------------------------}
 
 implementation
+
+uses Setup;
 
  {------------------------}
 
