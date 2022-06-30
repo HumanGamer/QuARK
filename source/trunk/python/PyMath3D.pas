@@ -219,7 +219,10 @@ begin
  nRFactor:=RFactorDistance/FarDistance;
  CameraVectors(HorzAngle, PitchAngle, nRFactor, Look, Right, Down);
  ooWFactor:=FarDistance*(1/MaxW);
- SpaceFactor:=1/(Sqr(nRFactor)*ooWFactor);
+ if nRFactor = 0 then
+  SpaceFactor:=0
+ else
+  SpaceFactor:=1/(Sqr(nRFactor)*ooWFactor);
 end;
 
 procedure TCameraCoordinates.Resize(nWidth, nHeight: Integer);
