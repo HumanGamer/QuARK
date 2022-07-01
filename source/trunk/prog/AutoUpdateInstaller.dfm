@@ -1,17 +1,17 @@
 object AutoUpdateInstaller: TAutoUpdateInstaller
   Left = 152
   Top = 123
+  Width = 500
+  Height = 350
   BorderIcons = [biSystemMenu, biMinimize]
-  BorderStyle = bsSingle
   Caption = 'QuArK - Online Update Installer'
-  ClientHeight = 316
-  ClientWidth = 492
   Color = clBtnFace
   ParentFont = True
   OldCreateOrder = True
   Position = poScreenCenter
   OnClose = FormClose
   OnCloseQuery = FormCloseQuery
+  OnResize = FormRezize
   PixelsPerInch = 96
   TextHeight = 13
   object Label1: TLabel
@@ -33,7 +33,7 @@ object AutoUpdateInstaller: TAutoUpdateInstaller
   end
   object pgbInstall: TProgressBar
     Left = 8
-    Top = 160
+    Top = 128
     Width = 473
     Height = 49
     Step = 0
