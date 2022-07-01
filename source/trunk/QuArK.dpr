@@ -86,7 +86,6 @@ uses
   CCode in 'prog\CCode.pas',
   Config in 'prog\Config.pas' {ConfigDlg},
   Console in 'prog\Console.pas' {ConsoleForm},
-  crc32 in 'prog\crc32.pas',
   DispFace in 'prog\DispFace.pas',
   Duplicator in 'prog\Duplicator.pas',
   ExtraFunctionality in 'prog\ExtraFunctionality.pas',

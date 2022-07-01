@@ -40,6 +40,8 @@ uses SysUtils, Classes, QkObjects;
 function UnZipFile(fs: TStream; {<-- INPUT} ms: TStream {<-- OUTPUT}; offset: TStreamPos {Of LocalHeader in Zip File}): integer;
            {Returns Zero if all is well}
 
+function CalcCRC32(p: pByte; len: TStreamPos) : LongWord;
+
 implementation
 
 {$R-}         {No range checking}
@@ -177,7 +179,7 @@ const
 
 {***************** CRC Checking **************************}
 {////// by the African Chief  ////////////////////////////}
-PROCEDURE UpdateCRC32(var CRC:Cardinal; var InBuf; InLen:Longint);
+PROCEDURE UpdateCRC32(var CRC:Cardinal; InBuf : PByte; InLen:Longint);
 CONST
 CRC32Table :
 ARRAY [0..255] OF Cardinal = (
@@ -216,12 +218,12 @@ ARRAY [0..255] OF Cardinal = (
 );
 
 VAR
-BytePtr : ^Byte;
-wcount : Word;
+BytePtr : PByte;
+wcount : Longint;
 aCRC   : Cardinal;
 BEGIN
      aCRC := CRC ;
-     BytePtr := Addr ( InBuf ) ;
+     BytePtr := InBuf ;
      FOR wcount := 1 TO InLen
      DO BEGIN
          aCRC := CRC32Table [Byte ( aCRC XOR Cardinal ( BytePtr^ ) ) ]
@@ -243,6 +245,16 @@ END;
 {/////////////////////////////////////////////////////////}
 {/////////////////////////////////////////////////////////}
 {/////////////////////////////////////////////////////////}
+
+//DanielPharos
+function CalcCRC32(p: pByte; len: TStreamPos) : LongWord;
+var
+  crc: LongWord;
+begin
+  InitCRC32(crc);
+  UpdateCRC32(crc, p, len);
+  Result:=FinalCRC32(crc);
+end;
 
 {Written and NOT copyrighted by Christian Ghisler.
  I have rewritten unshrink because the original
@@ -567,9 +579,9 @@ var header: tlocalfileheader;
   w, k, b, inpos, readpos: Longint;
   inbuf: iobuf; {input buffer}
 
-  PROCEDURE UpdateCRC ( VAR s : iobuf;len : integer );
+  PROCEDURE UpdateCRC ( VAR s : iobuf;len : longint );
   BEGIN
-    UpdateCRC32 ( crc32val, s , len );
+    UpdateCRC32 ( crc32val, Addr(s) , len );
   END;
 
   {************************** fill inbuf from infile *********************}

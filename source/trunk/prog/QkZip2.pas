@@ -128,7 +128,7 @@ type
 
 implementation
 
-uses Travail, QkExplorer, Quarkx, QkExceptions, PyObjects, Game, crc32, UNZIP, ZIP,
+uses Travail, QkExplorer, Quarkx, QkExceptions, PyObjects, Game, UNZIP, ZIP,
      QkUnknown, QkObjectClassList, ExtraFunctionality;
 
 const
@@ -229,7 +229,7 @@ var
   tInfo: TInfoEnreg1;
   LFS: TLocalFileHeader;
   OrgSize,Size,pos: TStreamPos;
-  crc: DWORD;
+  crc: LongWord;
   cdir:TFileHeader;
   sig:Longint;
 begin
@@ -271,9 +271,7 @@ begin
             finally
               tInfo.Free;
             end;
-            crc:=$FFFFFFFF;
-            CalcCRC32(TempStream.Memory, TempStream.Size, crc);
-            crc:=not crc;
+            crc:=CalcCRC32(TempStream.Memory, TempStream.Size);
             TempStream.Seek(0, soBeginning);
             OrgSize:=TempStream.Size;
 
