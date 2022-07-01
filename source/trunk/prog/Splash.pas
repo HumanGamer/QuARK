@@ -101,7 +101,7 @@ procedure TSplashScreen.FormCreate(Sender: TObject);
 var
   TextRect: TRect;
 begin
-  DoubleBuffered:=True;
+  FDoubleBuffered:=True; //DBhack
   Image1.Picture.Bitmap.LoadFromResourceName(HInstance, 'QUARKLOGO');
   ClientWidth:=Image1.Width;
   ClientHeight:=Image1.Height;
