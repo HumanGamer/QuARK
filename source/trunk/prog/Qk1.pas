@@ -2073,14 +2073,6 @@ begin
    end;
  end;
 
-{$IFDEF madExcept}
- //Some parts of QuArK's code (Python exception handling) calls this function directly.
- //So let's force those cases through madExcept too. However, madExcept can't figure out
- //the original exception message, so let's display that first, and then blow up.
- raise E;
- Exit;
-{$ENDIF}
-
  //If loading of Form1 has not been completed, then kill the program
  if not LoadingComplete then
    try

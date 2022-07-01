@@ -4,14 +4,14 @@ ECHO Compiling QuArK.exe without debug information
 ECHO ---------------------------------------------
 ECHO.
 REM Check if compiler is available
-REM DCC32.EXE --version > NUL 2> NUL
+DCC32.EXE --version > NUL 2> NUL
 REM The ERRORLEVEL for 'file not found' is 9009
-REM IF ERRORLEVEL 9009 GOTO NoDCC32
+IF ERRORLEVEL 9009 GOTO NoDCC32
 REM B = recompile ALL units, H = show hints, W = show warnings, Q = don't list all the unit file names
 REM $D- = no debug info, $L- = no local debug symbols, $O+ = optimization
-REM DCC32.EXE QuArK.dpr -B -H -W -Q -$D- -$L- -$O+
+DCC32.EXE QuArK.dpr -B -H -W -Q -$D- -$L- -$O+
 REM If the Delphi compiler didn't exit with an error level of 0, exit the batch file.
-REM IF NOT ERRORLEVEL 0 GOTO CompileFailed
+IF NOT ERRORLEVEL 0 GOTO CompileFailed
 
 ECHO.
 ECHO.
@@ -30,10 +30,10 @@ ECHO Applying UPX compression
 ECHO ------------------------
 ECHO.
 REM Make Windows look for UPX in the PATH system variable, but don't display the output.
-REM UPX.EXE > NUL 2> NUL
+UPX.EXE > NUL 2> NUL
 REM The ERRORLEVEL for 'file not found' is 9009
-REM IF ERRORLEVEL 9009 GOTO NoUPX
-REM UPX.EXE --best --ultra-brute ..\runtime\QuArK.exe
+IF ERRORLEVEL 9009 GOTO NoUPX
+UPX.EXE --best --ultra-brute ..\runtime\QuArK.exe
 GOTO Finished
 
 :NoDCC32

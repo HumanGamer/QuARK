@@ -337,8 +337,6 @@ begin
   begin
     DefFontData.Name:=PChar(@Metrics.lfMessageFont.lfFaceName);
     DefFontData.Height:=Metrics.lfMessageFont.lfHeight;
-    //DefFontData.Name:='Comic Sans MS';
-    //DefFontData.Height:=-20;
   end;
 end;
 
