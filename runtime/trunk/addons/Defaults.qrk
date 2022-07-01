@@ -12133,12 +12133,12 @@ QQRKSRC1
       DockRow = '1'
       Form = "_toolbar_"
       open:tbbtn = {
-        Cap = " &Copy into main file "
+        Cap = "&Copy into main file"
         Typ = "M"
         Msg = "OPEN"
       }
       new:tbbtn = {
-        Cap = " &Open in new window "
+        Cap = "&Open in new window"
         Typ = "M"
         Msg = "OPNW"
       }

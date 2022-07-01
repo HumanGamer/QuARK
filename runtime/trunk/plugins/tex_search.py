@@ -15,7 +15,6 @@ Info = {
 }
 
 import quarkx
-import quarkpy.mapsearch
 import quarkpy.qmacro
 import quarkpy.qtoolbar
 from quarkpy import qutils
@@ -87,9 +86,9 @@ class TextureSearchDlg(quarkpy.qmacro.dialogbox):
     def doSearch(self, btn):
         quarkx.globalaccept()
         tex = self.src["searchfor"]
-        if (tex == "")or(tex == None):
-           quarkx.msgbox("Search text must not be blank!", qutils.MT_ERROR, qutils.MB_OK)
-           return
+        if (tex is None) or (tex == ""):
+            quarkx.msgbox("Search text must not be blank!", qutils.MT_ERROR, qutils.MB_OK)
+            return
         tex_doit(tex)
         self.close(btn)
         return
