@@ -28,8 +28,8 @@ def tex_search(s):
         txlist = tbx[1].findallsubitems("", ".wl")
         for tx in txlist:
             n = tx.name.upper()
-            if (n.find(s) != -1):
-                result = result + [tx]
+            if n.find(s) != -1:
+                result.append(tx)
     return result
 
 def findsearchtoolbox():
@@ -79,7 +79,7 @@ class TextureSearchDlg(quarkpy.qmacro.dialogbox):
 
         # Create the dialog form and the buttons
         quarkpy.qmacro.dialogbox.__init__(self, form, src,
-            close = quarkpy.qtoolbar.button(self.close,"close this box",ico_editor, 0,"Close"),
+            close = quarkpy.qtoolbar.button(self.close,"close this box",ico_editor, 0, "Close"),
             Search = quarkpy.qtoolbar.button(self.doSearch,"Search",ico_editor, 3, "Search")
         )
 

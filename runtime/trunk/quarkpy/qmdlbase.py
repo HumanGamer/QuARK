@@ -25,7 +25,7 @@ def RegisterMdlImporter(Text, Ext, Desc, Proc, ImporterFile=None):
     qmacro.mdlimport.update( { Text: ([Ext, Desc], Proc) } )
     MenuSortName = Proc.__module__
     if qmacro.mdlimportmenuorder.has_key(MenuSortName):
-        qmacro.mdlimportmenuorder[MenuSortName] = qmacro.mdlimportmenuorder[MenuSortName] + [Text]
+        qmacro.mdlimportmenuorder[MenuSortName].append(Text)
     else:
         qmacro.mdlimportmenuorder[MenuSortName] = [Text]
 
@@ -39,6 +39,6 @@ def RegisterMdlExporter(Text, Ext, Desc, Proc, ExporterFile=None):
     qmacro.mdlexport.update( { Text: ([Ext, Desc], Proc) } )
     MenuSortName = Proc.__module__
     if qmacro.mdlexportmenuorder.has_key(MenuSortName):
-        qmacro.mdlexportmenuorder[MenuSortName] = qmacro.mdlexportmenuorder[MenuSortName] + [Text]
+        qmacro.mdlexportmenuorder[MenuSortName].append(Text)
     else:
         qmacro.mdlexportmenuorder[MenuSortName] = [Text]
