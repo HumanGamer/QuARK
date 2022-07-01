@@ -700,6 +700,7 @@ class Compass:
                 result.append(self.ctrl)
         else:
             self.ctrl = None
+            self.Images = None
 
     def CompassClick(self, ctrl, x, y, flags):
 
@@ -762,10 +763,7 @@ class Compass:
         if self.ctrl is None:
             return
         self.angle = angle1
-        try:
-            imgcount = len(self.Images)
-        except:
-            return
+        imgcount = len(self.Images)
         i = quarkx.rnd(angle1*imgcount/pi2) % imgcount
         if i!=self.i:
             self.i = i
@@ -844,6 +842,9 @@ class ZoomBar:
             self.ctrl.hint = qutils.hintPlusInfobaselink("View zoom||View zoom:\n\nThis zooms the map views in and out.", "intro.mapeditor.compass.html#zoom")
             if result is not None:
                 result.append(self.ctrl)
+        else:
+            self.ctrl = None
+            self.Images = None
 
     def i2scale(self, i):
         #
@@ -895,10 +896,8 @@ class ZoomBar:
             # Redraw if visually modified.
             #
             self.i = i
-            try:
+            if self.ctrl is not None:
                 self.ctrl.repaint()
-            except:
-                pass
 
 
     def ZoomDraw(self, ctrl):
@@ -933,6 +932,9 @@ class VBar:
             self.ctrl.hint = qutils.hintPlusInfobaselink("View X-axis rotation||View X-axis rotation:\n\nThis rotates the map views on the X-axis.", "intro.mapeditor.compass.html#xaxis")
             if result is not None:
                 result.append(self.ctrl)
+        else:
+            self.ctrl = None
+            self.Images = None
 
     def i2angle(self, i):
         return i * self.ANGLEMAX / self.middlei
@@ -962,10 +964,8 @@ class VBar:
         i = self.clampi(self.angle2i(angle1))
         if i!=self.i:
             self.i = i
-            try:
+            if self.ctrl is not None:
                 self.ctrl.repaint()
-            except:
-                pass
 
     def VAngleChanged(self, view):
         "Called when the vangle of the map views changed for any reason."
