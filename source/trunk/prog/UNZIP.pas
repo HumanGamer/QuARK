@@ -179,7 +179,7 @@ const
 
 {***************** CRC Checking **************************}
 {////// by the African Chief  ////////////////////////////}
-PROCEDURE UpdateCRC32(var CRC:Cardinal; InBuf : PByte; InLen:Longint);
+PROCEDURE UpdateCRC32(var CRC:Cardinal; BytePtr : PByte; InLen:Longint);
 CONST
 CRC32Table :
 ARRAY [0..255] OF Cardinal = (
@@ -218,12 +218,10 @@ ARRAY [0..255] OF Cardinal = (
 );
 
 VAR
-BytePtr : PByte;
 wcount : Longint;
 aCRC   : Cardinal;
 BEGIN
      aCRC := CRC ;
-     BytePtr := InBuf ;
      FOR wcount := 1 TO InLen
      DO BEGIN
          aCRC := CRC32Table [Byte ( aCRC XOR Cardinal ( BytePtr^ ) ) ]
