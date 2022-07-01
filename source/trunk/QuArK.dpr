@@ -40,7 +40,7 @@ uses
   //Init the logging module FIRST, otherwise we'll miss log-calls from other init's!
   Logging in 'prog\Logging.pas',
 
-  //VCLFixPack in 'prog\VCLFixPack.pas',
+  VCLFixPack in 'prog\VCLFixPack.pas',
   //VistaAltFixUnit in 'prog\VistaAltFixUnit.pas',
   //VistaAltFixUnit2 in 'prog\VistaAltFixUnit2.pas',
 

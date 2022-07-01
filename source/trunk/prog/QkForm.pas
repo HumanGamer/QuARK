@@ -364,7 +364,7 @@ end;
 
 constructor TQkForm.Create(AOwner: TComponent);
 begin
- FDoubleBuffered:=True; //DBhack
+ FDoubleBuffered:=True; //Cannot be set on design-time in Delphi 7
  inherited;
  Log(LOG_VERBOSE, 'Now creating form... ('+Self.Caption+')');
  ShowHint:=True;
