@@ -32,7 +32,6 @@ type
     procedure StopBtnClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
-    procedure FormRezize(Sender: TObject);
   end;
 
 function DoInstall: Boolean;
@@ -196,11 +195,6 @@ end;
 procedure TAutoUpdateInstaller.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
   ExitWindow:=True;
-end;
-
-procedure TAutoUpdateInstaller.FormRezize(Sender: TObject);
-begin
-  //FIXME: Implement
 end;
 
 end.
