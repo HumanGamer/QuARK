@@ -24,7 +24,7 @@ interface
 
 {$I DelphiVer.inc}
 
-uses Sysutils;
+uses SysUtils;
 
 const
   QuArKVersion            = 'QuArK 6.6';
