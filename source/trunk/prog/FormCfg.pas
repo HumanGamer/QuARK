@@ -161,7 +161,7 @@ implementation
 uses qdraw, qhelper, qmath, QkUnknown, Undo, TbPalette, Toolbar1, ToolBox1,
      Setup, QuarkX, QkExceptions, QkFileObjects, QkInclude, QkMacro, QkImages,
      Python, PyMacros, PyToolbars, PyForms, QkPixelSet, QkObjectClassList,
-     QkApplPaths, BrowseForFolder,
+     QkApplPaths, BrowseForFolder, Console,
      SystemDetails, Platform, Logging, ExtraFunctionality;
 
 const
@@ -1173,7 +1173,7 @@ begin
       S:=Specifics.Values['Code'];
       if S<>'' then
       begin
-        PyRun_SimpleString(PChar(S))
+        if PyRun_SimpleString(PChar(S)) <> 0 then ShowConsole(True);
       end
     end;
   end;

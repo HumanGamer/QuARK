@@ -94,7 +94,7 @@ procedure ExecuteObjectMacros(Sender: TComponent; Obj: QObject);
 
 implementation
 
-uses qdraw, Forms, Game, Setup, QkExplorer, ToolBox1, QkMacro, QkInclude, Running,
+uses qdraw, Console, Forms, Game, Setup, QkExplorer, ToolBox1, QkMacro, QkInclude, Running,
      FormCfg, Quarkx, QkExceptions, QkObjectClassList, QkFormCfg, Python, QkPixelSet, Platform;
 
 const
@@ -480,7 +480,7 @@ begin
       Spec:=Specifics.Values['Code'];
       if Spec<>'' then
       begin
-        PyRun_SimpleString(PChar(Spec));
+        if PyRun_SimpleString(PChar(Spec)) <> 0 then ShowConsole(True);
         Exit;
       end
     end;

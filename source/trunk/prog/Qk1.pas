@@ -1460,8 +1460,7 @@ begin
    finally
     L.Free;
    end;
-   PyRun_SimpleString(PChar(S));
-   PythonCodeEnd;
+   if PyRun_SimpleString(PChar(S)) <> 0 then ShowConsole(True);
    Exit;
   end;
 
