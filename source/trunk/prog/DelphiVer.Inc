@@ -19,12 +19,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 http://quark.sourceforge.net/ - Contact information in AUTHORS.TXT
 **************************************************************************)
 
-// Versions of this unit are floating freely in several Delphi User Group
-// forums out there I don't know the origin.
-// It was added because it is a misnomer that a compiler constant is defined for
-// that compiler and all newer versions. - SilverPaladin
-// DanielPharos: Here's the source: http://delphi.about.com/od/objectpascalide/a/compiler_ver.htm
-// or, see: http://delphi.wikia.com/wiki/Borland_Compiler_Conditional_Defines
+// Versions of this unit are floating freely in several Delphi User Group forums out there I don't know the origin.
+// It was added because it is a misnomer that a compiler constant is defined for that compiler and all newer versions. - SilverPaladin
+
+// DanielPharos: For more complete list of defines, see: http://delphi.wikia.com/wiki/Borland_Compiler_Conditional_Defines
 
 {$IFDEF VER80}
   {$DEFINE CompiledWithDelphi1}
