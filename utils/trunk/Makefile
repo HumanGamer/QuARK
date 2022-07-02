@@ -104,7 +104,7 @@ $(SNAPSHOTDIR)/$(EXE): $(RUNTIMEPATH)/$(EXE)
 	echo "                                                              ">> $(SNAPSHOTDIR)/README.txt
 	echo "Contact the author Armin Rigo by e-mail: arigo@planetquake.com">> $(SNAPSHOTDIR)/README.txt
 	echo "or by mail: Armin Rigo, La Cure, 1854 Leysin, Switzerland.    ">> $(SNAPSHOTDIR)/README.txt
-	echo "See also http://quark.sourceforge.net/                        ">> $(SNAPSHOTDIR)/README.txt
+	echo "See also https://quark.sourceforge.io/                        ">> $(SNAPSHOTDIR)/README.txt
 
 ### compress test directory
 $(SNAPSHOTPATH)/$(SNAPSHOTNAME).ace: $(SNAPSHOTDIR)/$(EXE)

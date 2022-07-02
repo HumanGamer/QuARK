@@ -1,5 +1,5 @@
 ; QuArK dependencies installer script for NSIS
-; HomePage: http://quark.sourceforge.net/
+; HomePage: https://quark.sourceforge.io/
 ; Author:  DanielPharos
 
 ; Modern UI 2 ------
@@ -11,15 +11,15 @@ SetCompress off ;To massively speed up starting the installer on older systems
 CRCCheck off ;To massively speed up starting the installer on older systems
 RequestExecutionLevel admin
 
-!define SPLASHDIR "C:\QuArK_installer_splash_image"
-!define DEPENDENCYDIR "C:\QuArK_installer_dependencies"
+!define SPLASHDIR "Z:\workspace\utils\nsis-dist-tools"
+!define DEPENDENCYDIR "Z:\workspace\utils\nsis-dist-tools"
 !define INSTALLER_EXENAME "quark-dependencies.exe"
 !define PRODUCT_NAME "QuArK dependencies"
 !define PRODUCT_NAME_FULL "Quake Army Knife dependencies"
 !define PRODUCT_COPYRIGHT "Copyright (c) 2022"
 !define PRODUCT_VERSION_NUMBER "1.0.0.0"
 !define PRODUCT_VERSION_STRING "1.0.0.0"
-!define PRODUCT_WEB_SITE "http://quark.sourceforge.net/"
+!define PRODUCT_WEB_SITE "https://quark.sourceforge.io/"
 !define PRODUCT_PUBLISHER "QuArK Development Team"
 
 Name "${PRODUCT_NAME}"

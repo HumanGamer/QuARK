@@ -16,7 +16,7 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-http://quark.sourceforge.net/ - Contact information in AUTHORS.TXT
+https://quark.sourceforge.io/ - Contact information in AUTHORS.TXT
 **************************************************************************)
 unit SystemDetails;
 
@@ -2500,7 +2500,7 @@ begin
       S:=S+DriverBugs[i]+#13#10;
     S:=S+#13#10'This may be caused by a known bad AMD Graphics driver, that gives the "DriverDesc" key the wrong data-type (REG_BINARY instead of REG_SZ).'#13#10;
     S:=S+'There are also Intel HD graphics and VMWare drivers that contain the same bug, but with the "HardwareInformation" keys.'#13#10;
-    S:=S+'For more information, see: http://quark.sourceforge.net/forums/index.php?topic=1064'#13#10#13#10;
+    S:=S+'For more information, see: https://quark.sourceforge.io/forums/index.php?topic=1064'#13#10#13#10;
     S:=S+'You can disable this check by unchecking Configuration > Startup > Check for bugs.';
     Windows.MessageBox(0, PChar(S), 'QuArK', MB_ICONWARNING or MB_OK);
   end;

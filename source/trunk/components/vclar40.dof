@@ -120,7 +120,7 @@ DLL=0
 Locale=1033
 CodePage=1252
 [Version Info Keys]
-CompanyName=http://quark.sourceforge.net/
+CompanyName=https://quark.sourceforge.io/
 FileDescription=QuArK 3rd Party Components
 FileVersion=6.6.0.8
 InternalName=VCLAr40

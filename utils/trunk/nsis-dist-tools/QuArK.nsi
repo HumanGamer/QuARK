@@ -1,5 +1,5 @@
 ; QuArK installer script for NSIS
-; HomePage: http://quark.sourceforge.net/
+; HomePage: https://quark.sourceforge.io/
 ; Author:  Fredrick Vamstad, DanielPharos & cdunde
 ; Date:     18 Aug. 2005 & 5 January 2007
 ; nullsoft NSIS installer program available at:
@@ -11,8 +11,8 @@
 SetCompressor /SOLID lzma   ; We will use LZMA for best compression
 ;RequestExecutionLevel admin
 
-!define BUILDDIR "C:\QuArK_installer_files"
-!define SPLASHDIR "C:\QuArK_installer_splash_image"
+!define BUILDDIR "Z:\workspace\Copy of runtime"
+!define SPLASHDIR "Z:\workspace\utils\nsis-dist-tools"
 !define INSTALLER_EXENAME "quark-win32-6.6.0Beta8.exe"
 !define PRODUCT_NAME "QuArK"
 !define PRODUCT_NAME_FULL "Quake Army Knife"
@@ -20,9 +20,9 @@ SetCompressor /SOLID lzma   ; We will use LZMA for best compression
 !define PRODUCT_VERSION "6.6.0 Beta 8"
 !define PRODUCT_VERSION_NUMBER "6.6.8.0"
 !define PRODUCT_VERSION_STRING "6.6 (Beta-Release)"
-!define PRODUCT_WEB_SITE "http://quark.sourceforge.net/"
-!define PRODUCT_WEB_FORUM "http://quark.sourceforge.net/forums/"
-!define PRODUCT_INFOBASE "http://quark.sourceforge.net/infobase/"
+!define PRODUCT_WEB_SITE "https://quark.sourceforge.io/"
+!define PRODUCT_WEB_FORUM "https://quark.sourceforge.io/forums/"
+!define PRODUCT_INFOBASE "https://quark.sourceforge.io/infobase/"
 !define PRODUCT_DIR_REGKEY "Software\Microsoft\Windows\CurrentVersion\App Paths\QuArK.exe"
 !define PRODUCT_UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}"
 !define PRODUCT_UNINST_ROOT_KEY "HKLM"

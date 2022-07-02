@@ -32,7 +32,7 @@ QQRKSRC1
                "// This file has been created by QuArK - Quake Army Knife"
          $0D$0A"//"
          $0D$0A"// For more info about QuArK please see the home page at:"
-         $0D$0A"//             http://quark.sourceforge.net/"
+         $0D$0A"//             https://quark.sourceforge.io/"
          $0D$0A
          $0D$0A"exec default.cfg"
          $0D$0A"exec config.cfg"

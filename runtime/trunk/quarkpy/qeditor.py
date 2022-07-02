@@ -1543,13 +1543,13 @@ def Help3():
     htmldoc("intro.html") # Assumes the infobase have been installed in the ./HELP folder
 
 def Help4():
-    htmldoc("*http://quark.sourceforge.net/") # Takes the user to QuArK's official web page
+    htmldoc("*https://quark.sourceforge.io/") # Takes the user to QuArK's official web page
 
 def Help5():
     htmldoc("intro.mapeditor.overview.html") # Takes the user to the Overview page
 
 def Help6():
-    htmldoc("*http://quark.sourceforge.net/forums/") # Takes the user to QuArK's Forums web page
+    htmldoc("*https://quark.sourceforge.io/forums/") # Takes the user to QuArK's Forums web page
 
 #
 # Retrieves all objects with a given type, excluding VF_CANTSELECT groups.

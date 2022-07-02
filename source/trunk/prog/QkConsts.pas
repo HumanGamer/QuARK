@@ -16,7 +16,7 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-http://quark.sourceforge.net/ - Contact information in AUTHORS.TXT
+https://quark.sourceforge.io/ - Contact information in AUTHORS.TXT
 **************************************************************************)
 unit QkConsts;
 
@@ -65,12 +65,12 @@ const
   QuArKDaysOld            = 270;     //About a 9 month difference...
   { This is the amount of days after which a certain build is considered
     old by the update-check. }
-  QuArKWebsite            = 'http://quark.sourceforge.net/';
-  QuArKRepository         = 'http://sourceforge.net/projects/quark/';
-  QuArKForum              = 'http://quark.sourceforge.net/forums/';
-  QuArKInfobase           = 'http://quark.sourceforge.net/infobase/';
+  QuArKWebsite            = 'https://quark.sourceforge.io/';
+  QuArKRepository         = 'https://sourceforge.net/projects/quark/';
+  QuArKForum              = 'https://quark.sourceforge.io/forums/';
+  QuArKInfobase           = 'https://quark.sourceforge.io/infobase/';
   QuArKDefaultHelpPage    = 'index.html'; 
-  QuArKUpdateSite         = 'quark.sourceforge.net';
+  QuArKUpdateSite         = 'quark.sourceforge.io';
   QuArKUpdateFile         = '/update/index.dat';
 
 implementation

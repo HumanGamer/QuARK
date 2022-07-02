@@ -61,7 +61,7 @@ Important ! Follow the steps below !
 
 Don't forget the link to the InfoBase:
 
-  http://quark.sourceforge.net/infobase/index.html
+  https://quark.sourceforge.io/infobase/index.html
 
 You are welcome to make changes to the cvs-stored InfoBase. After you did so,
 visit this URL (warning, this URL might change later):

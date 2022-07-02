@@ -627,7 +627,7 @@ def QuakeMenu(editor):
             if txt=="-":
                 items.append(qmenu.sep)
             else:
-                m = qmenu.item(txt, qmenuitem1click, "|The commands in this menu lets you run your map with the game. The most common commands are the first few ones, which lets you try your map as a one-step operation.\n\nBefore a map can be played, it must be compiled (translated into a .bsp file). This is done by other programs that QuArK will call for you. See the Configuration dialog box, under the page of the game you wish to map for, where you must tell QuArK where these build programs are installed. The programs themselves are available in Build Packs, one for each game you want to make maps for, and that can be downloaded from http://quark.sourceforge.net/download_tools.php.|intro.mapeditor.menu.html#gamemenu")
+                m = qmenu.item(txt, qmenuitem1click, "|The commands in this menu lets you run your map with the game. The most common commands are the first few ones, which lets you try your map as a one-step operation.\n\nBefore a map can be played, it must be compiled (translated into a .bsp file). This is done by other programs that QuArK will call for you. See the Configuration dialog box, under the page of the game you wish to map for, where you must tell QuArK where these build programs are installed. The programs themselves are available in Build Packs, one for each game you want to make maps for, and that can be downloaded from https://quark.sourceforge.io/download_tools.php.|intro.mapeditor.menu.html#gamemenu")
                 m.info = p
                 #if IsBsp(editor) and p[firstcmd]:
                 #    m.state = qmenu.disabled

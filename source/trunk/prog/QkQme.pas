@@ -16,7 +16,7 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-http://quark.sourceforge.net/ - Contact information in AUTHORS.TXT
+https://quark.sourceforge.io/ - Contact information in AUTHORS.TXT
 **************************************************************************)
 unit QkQme;
 
@@ -722,13 +722,13 @@ end;
 
 initialization
   RegisterQObject(QQme, 'b');
-  RegisterQObject(QQme0,  'a');
-  RegisterQObject(QQme1,  'a');
-  RegisterQObject(QQme2,  'a');
-  RegisterQObject(QQme3,  'a');
-  RegisterQObject(QQme4,  'a');
-  RegisterQObject(QQme5,  'a');
-  RegisterQObject(QQme6,  'a');
-  RegisterQObject(QQme7,  'a');
-  RegisterQObject(QQme8,  'a');
+  RegisterQObject(QQme0, 'a');
+  RegisterQObject(QQme1, 'a');
+  RegisterQObject(QQme2, 'a');
+  RegisterQObject(QQme3, 'a');
+  RegisterQObject(QQme4, 'a');
+  RegisterQObject(QQme5, 'a');
+  RegisterQObject(QQme6, 'a');
+  RegisterQObject(QQme7, 'a');
+  RegisterQObject(QQme8, 'a');
 end.

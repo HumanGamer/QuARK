@@ -41,9 +41,9 @@ QuArK is completely different from and not related to the desktop
 publishing program Quark.
 
 You can find out more about QuArK from the official website at
-http://quark.sourceforge.net/.  See also the QuArK Infobase,
-located at http://quark.sourceforge.net/infobase/, and the
-QuArK Forums at http://quark.sourceforge.net/forums/.
+https://quark.sourceforge.io/.  See also the QuArK Infobase,
+located at https://quark.sourceforge.io/infobase/, and the
+QuArK Forums at https://quark.sourceforge.io/forums/.
 
 
 2. Where can I get QuArK?
@@ -97,7 +97,7 @@ pages for instructions for building QuArK.
 
 For installation instructions for GNU Linux systems, please see:
 
-http://quark.sourceforge.net/infobase/intro.quarkonlinux.installing.html
+https://quark.sourceforge.io/infobase/intro.quarkonlinux.installing.html
 
 If you require further assistance, please see the next section.
 
