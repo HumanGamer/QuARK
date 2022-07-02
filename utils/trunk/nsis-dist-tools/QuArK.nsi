@@ -11,8 +11,8 @@
 SetCompressor /SOLID lzma   ; We will use LZMA for best compression
 ;RequestExecutionLevel admin
 
-!define BUILDDIR "Z:\workspace\Copy of runtime"
-!define SPLASHDIR "Z:\workspace\utils\nsis-dist-tools"
+!define BUILDDIR "C:\QuArK_installer_files"
+!define SPLASHDIR "C:\QuArK_installer_splash_image"
 !define INSTALLER_EXENAME "quark-win32-6.6.0Beta8.exe"
 !define PRODUCT_NAME "QuArK"
 !define PRODUCT_NAME_FULL "Quake Army Knife"

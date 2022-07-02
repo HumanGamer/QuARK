@@ -11,8 +11,8 @@ SetCompress off ;To massively speed up starting the installer on older systems
 CRCCheck off ;To massively speed up starting the installer on older systems
 RequestExecutionLevel admin
 
-!define SPLASHDIR "Z:\workspace\utils\nsis-dist-tools"
-!define DEPENDENCYDIR "Z:\workspace\utils\nsis-dist-tools"
+!define SPLASHDIR "C:\QuArK_installer_splash_image"
+!define DEPENDENCYDIR "C:\QuArK_installer_dependencies"
 !define INSTALLER_EXENAME "quark-dependencies.exe"
 !define PRODUCT_NAME "QuArK dependencies"
 !define PRODUCT_NAME_FULL "Quake Army Knife dependencies"
