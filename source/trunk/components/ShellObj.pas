@@ -1,3 +1,5 @@
+//This is Pat Ritchey's ShellObj, as released to the public domain.
+
 Unit ShellOBJ;
 
 interface
