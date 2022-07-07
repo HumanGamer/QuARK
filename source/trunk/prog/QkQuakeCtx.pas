@@ -594,7 +594,7 @@ var
     end;
   end;
 
-  Function GetObject(nname, ntypeinfo, s: String): QObject;
+  Function GetObject(const nname, ntypeinfo, s: String): QObject;
   var
     i: Integer;
   begin
@@ -618,7 +618,7 @@ var
       FParent.SubElements.Add(Result);
     end;
   end;
-  
+
   function getword(i: Integer): String;
   begin
     if (i=0) or (i>1) then result:='entities' else result:='entity';
