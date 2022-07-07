@@ -212,7 +212,7 @@ type
     property NoTempDelete: Boolean write FNoTempDelete;
     procedure OpenAFile(const FileName: String; ReadOnly: Boolean);
     procedure SavePendingFiles(CanCancel: Boolean);
-    function MessageException(E: Exception; const Info: String; Buttons: TMsgDlgButtons) : TModalResult;
+    function MessageException(const E: Exception; const Info: String; Buttons: TMsgDlgButtons) : TModalResult;
     procedure AppException(Sender: TObject; E: Exception);
     function GetEmptyMenu : TPopupMenu;
     function GetObjMenu(Control: TControl; Extra: Boolean) : TPopupMenu;
@@ -2087,7 +2087,7 @@ begin
    end;
 end;
 
-function TForm1.MessageException(E: Exception; const Info: String; Buttons: TMsgDlgButtons) : TModalResult;
+function TForm1.MessageException(const E: Exception; const Info: String; Buttons: TMsgDlgButtons) : TModalResult;
 var
  B: TButton;
 {P: Integer;}
