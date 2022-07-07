@@ -365,7 +365,7 @@ end;
 
 procedure TForm1.FormCreate(Sender: TObject);
 
- function FindAlphabeticInsert(NewCaption: String; List: TMenuItem; Count: Integer; Start: Integer = 0) : Integer;
+ function FindAlphabeticInsert(const NewCaption: String; List: TMenuItem; Count: Integer; Start: Integer = 0) : Integer;
  var
   I: Integer;
  begin
