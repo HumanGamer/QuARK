@@ -182,6 +182,7 @@ type
     function ExecuteCmdLine(Counter: Integer) : Integer;
     procedure FreeNonVisibleForms(Sender: TObject);
   protected
+    FExplorer: TQrkExplorer;
     procedure AppIdle(Sender: TObject; var Done: Boolean);
    {procedure AppRestore(Sender: TObject);}
     procedure AppActivate(Sender: TObject);
@@ -200,7 +201,7 @@ type
     procedure wmDestroyClipboard(var Msg: TMessage); message wm_DestroyClipboard;
    {procedure wmCommand(var Msg: TMessage); message wm_Command;}
   public
-    Explorer: TQrkExplorer;
+    property Explorer: TQrkExplorer read FExplorer;
     procedure StartIdleJob(nEvent: TIdleJobEvent; nControl: TObject);
     procedure AbortIdleJob(nControl: TObject);
     procedure Save(AskName: Integer);
@@ -513,19 +514,19 @@ begin
 
  Panel2.DoubleBuffered:=FDoubleBuffered; //DBhack
 
- Explorer:=TQrkExplorer.Create(Self);
-{Explorer.Visible:=False;}
- Explorer.Parent:=Panel3;
- Explorer.Width:=160;
- Explorer.Align:=alLeft;
- Explorer.AllowEditing:=aeUndo;
-{Explorer.ObjToolBar:=ToolBarObj1;}
- Explorer.SetMarsCaption(Self);
- Explorer.ViewPanel:=Panel2;
- Explorer.CreateSplitter;
+ FExplorer:=TQrkExplorer.Create(Self);
+{FExplorer.Visible:=False;}
+ FExplorer.Parent:=Panel3;
+ FExplorer.Width:=160;
+ FExplorer.Align:=alLeft;
+ FExplorer.AllowEditing:=aeUndo;
+{FExplorer.ObjToolBar:=ToolBarObj1;}
+ FExplorer.SetMarsCaption(Self);
+ FExplorer.ViewPanel:=Panel2;
+ FExplorer.CreateSplitter;
  {InitSetup;  called by PythonLoadMain}
  ClearExplorer;
- RestorePositionTb('Main', False, Explorer);
+ RestorePositionTb('Main', False, FExplorer);
  OnClose:=FormClose;
  Application.HookMainWindow(WindowHook);
  Application.OnIdle:=AppIdle;
