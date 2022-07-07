@@ -1386,10 +1386,10 @@ class FreeZoomDragObject(DragObject):
     AbsoluteMinimum = 0.001
     AbsoluteMaximum = 100.0
     InfiniteMouse   = 1
-    #Note: MODE required!
 
-    def __init__(self, viewlist, view, x, y):
+    def __init__(self, viewlist, view, x, y, mode):
         DragObject.__init__(self, view, x, y)
+        self.MODE = mode
         self.scale0 = view.info["scale"]
         if view.info.has_key("custom"):
             self.viewlist = [view]
@@ -1867,8 +1867,7 @@ def MouseDragging(editor, view, x, y, s, handle, redcolor):
         elif "Z" in s:   # free zoom
             if view.info["type"]=="3D":    # on 3D views, make the camera move and rotate, like in Quake.
                 return WalkDragObject(editor, view, x, y)
-            dragobj = FreeZoomDragObject(editor.layout.baseviews, view, x, y)
-            dragobj.MODE = editor.MODE
+            dragobj = FreeZoomDragObject(editor.layout.baseviews, view, x, y, editor.MODE)
             return dragobj
         elif "S" in s:   # scroll
             if view.info["type"]=="3D":    # on 3D views, make the camera rotate, like in Quake.
