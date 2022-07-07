@@ -1940,8 +1940,12 @@ procedure TForm1.FormActivate(Sender: TObject);
 begin
  OnActivate:=Nil;
  DragAcceptFiles(Handle, True);
- if PyDict_GetItemString(QuarkxDict, 'setupchanged')<>Py_None then
-  StartIdleJob(ExecuteCmdLine, Self);
+ try
+  if PyDict_GetItemString(QuarkxDict, 'setupchanged')<>Py_None then
+   StartIdleJob(ExecuteCmdLine, Self);
+ finally
+  PythonCodeEnd;
+ end;
 end;
 
 function TForm1.ExecuteCmdLine(Counter: Integer) : Integer;
