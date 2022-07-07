@@ -111,7 +111,7 @@ type
                           FileExt: Integer;
                           DefaultExt: String;
                           QuArKFileObject: Boolean;
-                          LocalPython: Boolean;
+                         {LocalPython: Boolean;}
                           Unformatted: Boolean;
                           PythonMacro: String;
                          {OpenFilter: Integer;

@@ -1299,7 +1299,7 @@ var
  Info: TFileObjectClassInfo;
 begin
  Q.FileObjectClassInfo(Info);
- Result:=((State=cmWindow) or Info.LocalPython)
+ Result:=((State=cmWindow) {or Info.LocalPython})
   and (Info.PythonMacro=PythonMacro) and inherited AssignObject(Q, State);
 end;
 
