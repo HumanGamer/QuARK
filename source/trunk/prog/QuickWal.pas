@@ -837,7 +837,7 @@ begin
  GamePaths:=TStringList.Create;
  try
   GamePaths.Sorted:=True; //Required for Duplicates to work
-  GamePaths.Duplicates:=dupIgnore;	
+  GamePaths.Duplicates:=dupIgnore;
   GamePaths.Add(GameMaterialsPath); //Find Doom 3 .material files in directory
   GamePaths.Add(GameShadersPath); //Find Quake 3: Arena .shader files in directory
   GamePaths.Add(GameTexturesPath); //Find 'game' textures in directory
@@ -857,7 +857,7 @@ begin
 
  if DiskFolder.SubElements.Count>0 then
  begin
-   DiskFolder.Fparent:=Q;
+   DiskFolder.FParent:=Q;
    Q.SubElements.Add(DiskFolder);
  end
  else
