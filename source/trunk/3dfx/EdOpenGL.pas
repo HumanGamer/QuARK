@@ -117,7 +117,7 @@ uses SysUtils, Quarkx, QkExceptions, Setup, Python, Logging, {Math,}
 const
  kScaleCos = 0.5;
  cFaintLightFactor = 0.05;
- Invalid_value = 1E111; //Borrowed from QkMapPoly's RechercheAdjacents
+ Invalid_value : Single = 1E38; //Similar to QkMapPoly's RechercheAdjacents, but then for Single
 
 type
  PVertex3D = ^TVertex3D;
@@ -126,7 +126,6 @@ type
               xyz: vec3_t;
              end;
 
-type
  PP3D = ^TP3D;
  TP3D = record
          v: TVertex3D;
