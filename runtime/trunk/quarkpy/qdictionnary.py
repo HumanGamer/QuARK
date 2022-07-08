@@ -1187,9 +1187,19 @@ Strings = {
     6314: "Out of OpenGL texture numbers. Try updating your video card drivers. If that doesn't work, use another renderer",
     6315: "Failed to swap buffers. Try updating your video card drivers. If that doesn't work, disable the double buffering option in the Configuration dialog box",
     6316: "OpenGL extension found: %s",
+    6317: "Unknown OpenGL error code",
 
     6320: "OpenGL renderer does not support fullscreen views (yet)",
     6321: "An error occurred in the OpenGL routines: CurrentSurf is nil!",
+
+    6330: "OpenGL: Trying to set pixelformat 0. Will probably not work!",
+    6331: "OpenGL: Selected PixelFormat: %d",
+    6332: "OpenGL: Hardware accelerated (ICD)",
+    6333: "OpenGL: Hardware accelerated (MCD)",
+    6334: "OpenGL: Not hardware accelerated (software)",
+    6335: "OpenGL: Unknown acceleration",
+    6336: "OpenGL: PixelFormat: Color Bits: %d",
+    6337: "OpenGL: PixelFormat: Depth Bits: %d",
 
     # DanielPharos would like to reserve 6400 .. 6499 for the DirectX renderer
     6400: "Error in DirectX initialization//'%s'",

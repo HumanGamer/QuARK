@@ -932,26 +932,26 @@ begin
   if CurrentPixelFormat<>NewPixelFormat then
   begin
     if (NewPixelFormat = 0) then
-      Log(LOG_WARNING, 'OpenGL: Trying to set pixelformat 0. Will probably not work!');
+      Log(LOG_WARNING, LoadStr1(6330));
     if not SetPixelFormat(DC, NewPixelFormat, @NewPixelFormatDesc) then
       Raise EErrorFmt(6301, ['SetPixelFormat']);
     if GetLogLevel >= LOG_VERBOSE then
     begin
-      Log(LOG_VERBOSE, 'OpenGL: Selected PixelFormat: ' + IntToStr(NewPixelFormat));
+      Log(LOG_VERBOSE, LoadStr1(6331), [NewPixelFormat]);
       if DescribePixelFormat(DC, NewPixelFormat, SizeOf(NewPixelFormatDesc), NewPixelFormatDesc) = false then
         Raise EErrorFmt(6301, ['DescribePixelFormat']);
       if ((NewPixelFormatDesc.dwFlags and PFD_GENERIC_FORMAT) <> 0) then
         if ((NewPixelFormatDesc.dwFlags and PFD_GENERIC_ACCELERATED) <> 0) then
-          Log(LOG_VERBOSE, 'OpenGL: Hardware accelerated (MCD)')
+          Log(LOG_VERBOSE, LoadStr1(6333))
         else
-          Log(LOG_VERBOSE, 'OpenGL: Not hardware accelerated (software)')
+          Log(LOG_VERBOSE, LoadStr1(6334))
       else
         if ((NewPixelFormatDesc.dwFlags and PFD_GENERIC_ACCELERATED) <> 0) then
-          Log(LOG_VERBOSE, 'OpenGL: Unknown acceleration')
+          Log(LOG_VERBOSE, LoadStr1(6335))
         else
-          Log(LOG_VERBOSE, 'OpenGL: Hardware accelerated (ICD)');
-      Log(LOG_VERBOSE, 'OpenGL: PixelFormat: Color Bits: ' + IntToStr(NewPixelFormatDesc.cColorBits));
-      Log(LOG_VERBOSE, 'OpenGL: PixelFormat: Depth Bits: ' + IntToStr(NewPixelFormatDesc.cDepthBits));
+          Log(LOG_VERBOSE, LoadStr1(6332));
+      Log(LOG_VERBOSE, LoadStr1(6336), [NewPixelFormatDesc.cColorBits]);
+      Log(LOG_VERBOSE, LoadStr1(6337), [NewPixelFormatDesc.cDepthBits]);
     end;
   end;
 end;
@@ -970,18 +970,26 @@ begin
     try
       if OpenGL32Lib = 0 then
       begin
+        Log(LOG_VERBOSE, 'Loading OpenGL library: OPENGL32.DLL');
         OpenGL32Lib := LoadLibrary('OPENGL32.DLL');
         if OpenGL32Lib=0 then
-          Exit;
-        Log(LOG_INFO, 'Loading OpenGL DLL: '+RetrieveModuleFilename(OpenGL32Lib));
+        begin
+          LogWindowsError(GetLastError(), 'LoadLibrary(OPENGL32.DLL)');
+          LogAndRaiseError(FmtLoadStr1(5741, ['OpenGL']));
+        end;
+        Log(LOG_INFO, 'Loaded OpenGL library: '+RetrieveModuleFilename(OpenGL32Lib));
       end;
 
       if Glu32Lib = 0 then
       begin
+        Log(LOG_VERBOSE, 'Loading GLU library: GLU32.DLL');
         Glu32Lib := LoadLibrary('GLU32.DLL');
         if Glu32Lib=0 then
-          Exit;
-        Log(LOG_INFO, 'Loading GLU32 DLL: '+RetrieveModuleFilename(Glu32Lib));
+        begin
+          LogWindowsError(GetLastError(), 'LoadLibrary(GLU32.DLL)');
+          LogAndRaiseError(FmtLoadStr1(5741, ['GLU']));
+        end;
+        Log(LOG_INFO, 'Loaded GLU library: '+RetrieveModuleFilename(Glu32Lib));
       end;
 
       for I:=Low(OpenGL32DLL_FuncList) to High(OpenGL32DLL_FuncList) do
@@ -1058,25 +1066,27 @@ begin
       GlExtensions:=nil;
     end;
 
-    //DanielPharos: This cannot be freed, because the pixel format will then be forgotten,
-    //causing errors when OpenGL is restarted!
-    {if OpenGL32Lib<>0 then
+    if FreeLibrary(Glu32Lib)=false then
     begin
-      FreeLibrary(OpenGL32Lib);
-      OpenGL32Lib := 0;
-    end;}
-
-    for I:=Low(OpenGL32DLL_FuncList) to High(OpenGL32DLL_FuncList) do
-      PPointer(OpenGL32DLL_FuncList[I].FuncPtr)^:=nil;
-
-    if Glu32Lib<>0 then
-    begin
-      FreeLibrary(Glu32Lib);
-      Glu32Lib := 0;
+      LogWindowsError(GetLastError(), 'FreeLibrary(Glu32Lib)');
+      LogAndRaiseError(FmtLoadStr1(5748, ['Glu32Lib']));
     end;
+    Glu32Lib:=0;
 
     for I:=Low(Glu32DLL_FuncList) to High(Glu32DLL_FuncList) do
       PPointer(Glu32DLL_FuncList[I].FuncPtr)^:=nil;
+
+    //DanielPharos: This cannot be freed, because the pixel format will then be forgotten,
+    //causing errors when OpenGL is restarted!
+    {if FreeLibrary(OpenGL32Lib)=false then
+    begin
+      LogWindowsError(GetLastError(), 'FreeLibrary(OpenGL32Lib)');
+      LogAndRaiseError(FmtLoadStr1(5748, ['OpenGL32Lib']));
+    end;
+    OpenGL32Lib:=0;}
+
+    for I:=Low(OpenGL32DLL_FuncList) to High(OpenGL32DLL_FuncList) do
+      PPointer(OpenGL32DLL_FuncList[I].FuncPtr)^:=nil;
 
     TimesLoaded := 0;
   end
@@ -1088,9 +1098,7 @@ end;
 function LoadExtentionList : Boolean;
 var
   P: PGLubyte;
-  S: String;
-  I, OldPos: Integer;
-  Ext: String;
+  I: Integer;
 begin
   if TimesLoaded = 0 then
   begin
@@ -1120,25 +1128,11 @@ begin
   end;
 
   //Process the GL_EXTENSIONS list
-  S:=PChar(P);
   GLExtensions:=TStringList.Create;
-  OldPos:=0;
-  I:=Pos(' ', S);
-  while I>0 do
-  begin
-    Ext:=MidStr(S, OldPos+1, I - OldPos - 1);
-    Log(LOG_VERBOSE, LoadStr1(6316), [Ext]);
-    GLExtensions.Add(Ext);
-    OldPos:=I;
-    I:=PosEx(' ', S, OldPos + 1);
-  end;
-  //Make sure we got the last one as well:
-  if (OldPos<>Length(S)) and (OldPos<>0) then
-  begin
-    Ext := RightStr(S, Length(S) - OldPos);
-    Log(LOG_VERBOSE, LoadStr1(6316), [Ext]);
-    GLExtensions.Add(Ext);
-  end;
+  GLExtensions.Delimiter:=' ';
+  GLExtensions.DelimitedText:=PChar(P);
+  for I:=0 to GLExtensions.Count-1 do
+    Log(LOG_VERBOSE, LoadStr1(6316), [GLExtensions[I]]);
   Result:=True;
 end;
 
@@ -1210,7 +1204,7 @@ var
   GlError: GLenum;
   ErrorMessage: String;
 begin
-  ErrorMessage:='';
+  //ErrorMessage:='';
   GlError:=glGetError;
   while GlError<>GL_NO_ERROR do
   begin
@@ -1222,7 +1216,7 @@ begin
     GL_STACK_UNDERFLOW: ErrorMessage:=FmtLoadStr1(6303, ['GL_STACK_UNDERFLOW', Location]);
     GL_OUT_OF_MEMORY: ErrorMessage:=FmtLoadStr1(6303, ['GL_OUT_OF_MEMORY', Location]);
     else
-      ErrorMessage:=FmtLoadStr1(6303, ['Unknown error code', Location]);
+      ErrorMessage:=FmtLoadStr1(6303, [LoadStr1(6317), Location]);
     end;
     Log(LOG_WARNING, ErrorMessage);
     GlError:=glGetError;
