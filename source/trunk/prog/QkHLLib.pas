@@ -196,7 +196,7 @@ begin
     if HHLLib = 0 then
     begin
       Log(LOG_VERBOSE, 'Loading HLLib...');
-    
+
       HLLibLibraryFilename := ConcatPaths([GetQPath(pQuArKDll), 'HLLib.dll']);
       HHLLib := LoadLibrary(PChar(HLLibLibraryFilename));
       if HHLLib = 0 then
