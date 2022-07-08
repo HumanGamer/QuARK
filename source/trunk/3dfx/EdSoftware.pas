@@ -112,7 +112,6 @@ type
             v: Pointer;
             OffScreen: Byte;
             LowPrecision: Boolean;   { if v points to a vec3_t - otherwise, it points to a TVect }
-            Reserved1, Reserved2: Byte;
            end;
  PVertex3D = ^TVertex3D;
  TVertex3D = record
