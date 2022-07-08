@@ -736,9 +736,8 @@ procedure SetPixelFormatOnDC(DC: HDC; const PixelFormat: TPixelFormatDescriptor)
 
 implementation
 
-uses Classes, StrUtils, Quarkx, QkExceptions, Logging, Setup, QkObjects,
-     EdOpenGL, QkDummyWindow,
-     SystemDetails, ExtraFunctionality;
+uses Classes, Quarkx, QkExceptions, Logging, Setup, QkObjects,
+     EdOpenGL, QkDummyWindow, SystemDetails;
 
 const
   OpenGL32DLL_FuncList : array[0..57] of
