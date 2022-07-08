@@ -118,7 +118,6 @@ type
               v: PVect3D;
               s,t: scalar_t;
              end;
- {TSkinType = (stNone, stTexture, stSkin);}
 
  {------------------------}
 

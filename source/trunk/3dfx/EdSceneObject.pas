@@ -233,6 +233,9 @@ uses SysUtils, Math, DWM, Logging, ExtraFunctionality,
      QkMdlObject, QkTextures, QkImages, QkFileObjects,
      EdSoftware, EdGlide, EdOpenGL, EdDirect3D;
 
+{type
+ TSkinType = (stNone, stTexture, stSkin);}
+
 const
  cDummyTextureWHSize = 16;
 
