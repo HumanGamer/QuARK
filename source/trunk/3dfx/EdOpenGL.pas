@@ -81,7 +81,7 @@ type
    procedure stScaleBezier(Texture: PTexture3; var ScaleS, ScaleT: TDouble); override;
    procedure WriteVertex(PV: PChar; Source: Pointer; const ns,nt: Single; HiRes: Boolean); override;
    procedure ClearSurfaces(Surf: PSurface3D; SurfSize: Integer); override;
-   function StartBuildScene({var PW: TPaletteWarning;} var VertexSize: Integer) : TBuildMode; override;
+   function StartBuildScene({var PW: TPaletteWarning;} var VertexSize, SurfaceSize: Integer) : TBuildMode; override;
    procedure EndBuildScene; override;
    procedure ReleaseResources;
    procedure BuildTexture(Texture: PTexture3); override;
@@ -1114,13 +1114,14 @@ begin
   NumberOfLights:=NumberOfLights+1;
 end;
 
-function TGLSceneObject.StartBuildScene({var PW: TPaletteWarning;} var VertexSize: Integer) : TBuildMode;
+function TGLSceneObject.StartBuildScene({var PW: TPaletteWarning;} var VertexSize, SurfaceSize: Integer) : TBuildMode;
 var
   ViewDCSet, MadeRCCurrent: Boolean;
   I: Integer;
 begin
  {PW:=Nil;}
   VertexSize:=SizeOf(TVertex3D);
+  SurfaceSize:=SizeOf(TSurface3D);
   Result:=bmOpenGL;
   ViewDCSet:=False;
   MadeRCCurrent:=False;

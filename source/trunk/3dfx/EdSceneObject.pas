@@ -126,7 +126,7 @@ type
    ShowProgress: Boolean;
    procedure ClearPList;
    procedure ClearSurfaces(Surf: PSurface3D; SurfSize: Integer); virtual;
-   function StartBuildScene({var PW: TPaletteWarning;} var VertexSize: Integer) : TBuildMode; virtual; abstract;
+   function StartBuildScene({var PW: TPaletteWarning;} var VertexSize, SurfaceSize: Integer) : TBuildMode; virtual; abstract;
    procedure EndBuildScene; virtual;
    procedure stScalePoly(Texture: PTexture3; var ScaleS, ScaleT: TDouble); virtual; abstract;
    procedure stScaleModel(Skin: PTexture3; var ScaleS, ScaleT: TDouble); virtual; abstract;
@@ -436,6 +436,7 @@ var
  Mode: TBuildMode;
  NeedVertexList2: Boolean;
  VertexSize, VertexSize3m: Integer;
+ SurfaceSize: Integer;
  BezierBuf: TMeshBuf3;
  BControlPoints: TMeshBuf5;
  stBuffer, st: vec_st_p;
@@ -489,7 +490,7 @@ var
     v2, v3, DeltaV: TVect;
     dd, Radius2, nRadius2: TDouble;
   begin
-    PV:=PChar(Surf3D)+SizeOf(TSurface3D);
+    PV:=PChar(Surf3D)+SurfaceSize;
 
     vp0:=BezierBuf.CP;
     Inc(vp0, i1);
@@ -558,10 +559,10 @@ var
 
 begin
  ClearPList;
- Mode:=StartBuildScene({PalWarning,} VertexSize);
+ Mode:=StartBuildScene({PalWarning,} VertexSize, SurfaceSize);
  NeedVertexList2:=(Mode=bmSoftware) or (Mode=bmGlide);
  TextureManager:=TTextureManager.GetInstance;
- VertexSize3m:=SizeOf(TSurface3D)+3*VertexSize;
+ VertexSize3m:=SurfaceSize+3*VertexSize;
  TexNames:=TStringList.Create;
  try  {begin outer try block - almost whole method}
    TexNames.Sorted:=True;
@@ -590,7 +591,7 @@ begin
        end
        else
        begin // wtf, we're keeping track of texture name and total size of needed vertexes, but not the vertexes themselves
-         AddSurfaceRef(PolySurface^.F.NomTex, SizeOf(TSurface3D) + PolySurface^.prvVertexCount * VertexSize, Nil);
+         AddSurfaceRef(PolySurface^.F.NomTex, SurfaceSize + PolySurface^.prvVertexCount * VertexSize, Nil);
          if nVertexList<>Nil then    // only in software and Glide mode
            for J:=0 to PolySurface^.prvVertexCount-1 do
              nVertexList.Add(PolySurface^.prvVertexTable[J]);
@@ -682,7 +683,7 @@ begin
            else
            begin
              { bmOpenGL or bmDirect3D }
-             AddSurfaceRef(NomTex, (BezierBuf.H-1) * (SizeOf(TSurface3D) + 2 * BezierBuf.W * (VertexSize + SizeOf(vec3_t))), Nil);
+             AddSurfaceRef(NomTex, (BezierBuf.H-1) * (SurfaceSize + 2 * BezierBuf.W * (VertexSize + SizeOf(vec3_t))), Nil);
            end;
          end;
        end;
@@ -949,7 +950,7 @@ begin
          v3.Z:={cc}bb*TexPt[2].Z + dd*TexPt[3].Z;
 
          Radius2:=0;
-         PV:=PChar(Surf3D) + SizeOf(TSurface3D);
+         PV:=PChar(Surf3D) + SurfaceSize;
          for J:=0 to prvVertexCount-1 do
          begin
            with prvVertexTable[J]^.P do
@@ -1020,7 +1021,7 @@ begin
 
          for J:=1 to Base.Triangles(CTris) do
          begin
-           PV:=PChar(Surf3D)+SizeOf(TSurface3D);
+           PV:=PChar(Surf3D)+SurfaceSize;
            for L:=0 to 2 do
            begin
              with CTris^[L] do
@@ -1138,7 +1139,7 @@ begin
 
          for J:=1 to Base.Triangles(CTris) do
          begin
-           PV:=PChar(Surf3D)+SizeOf(TSurface3D);
+           PV:=PChar(Surf3D)+SurfaceSize;
            for L:=0 to 2 do
            begin
              with CTris^[L] do
@@ -1318,7 +1319,7 @@ begin
                  end;
                end;
 
-               PV:=PChar(Surf3D)+SizeOf(TSurface3D);
+               PV:=PChar(Surf3D)+SurfaceSize;
                bb:=L*(1/BezierMeshDetail);
 
                for K:=0 to BezierBuf.W-1 do

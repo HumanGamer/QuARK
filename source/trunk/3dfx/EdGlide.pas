@@ -47,7 +47,7 @@ type
  protected
    ScreenX, ScreenY: Integer;
    TranspFactor: Single;
-   function StartBuildScene({var PW: TPaletteWarning;} var VertexSize: Integer) : TBuildMode; override;
+   function StartBuildScene({var PW: TPaletteWarning;} var VertexSize, SurfaceSize: Integer) : TBuildMode; override;
    procedure stScalePoly(Texture: PTexture3; var ScaleS, ScaleT: TDouble); override;
    procedure stScaleModel(Skin: PTexture3; var ScaleS, ScaleT: TDouble); override;
    procedure stScaleBezier(Texture: PTexture3; var ScaleS, ScaleT: TDouble); override;
@@ -618,10 +618,11 @@ begin
   end;
 end;*)
 
-function TGlideSceneObject.StartBuildScene({var PW: TPaletteWarning;} var VertexSize: Integer) : TBuildMode;
+function TGlideSceneObject.StartBuildScene({var PW: TPaletteWarning;} var VertexSize, SurfaceSize: Integer) : TBuildMode;
 begin
 {PW:=qrkGlideState.PaletteWarning;}
  VertexSize:=SizeOf(TVertex3D);
+ SurfaceSize:=SizeOf(TSurface3D);
  FBuildNo:=1;
  Result:=bmGlide;
 end;

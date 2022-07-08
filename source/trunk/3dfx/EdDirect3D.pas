@@ -63,7 +63,7 @@ type
     TextureFiltering: TTextureFiltering;
     ScreenX, ScreenY: Integer;
     procedure ClearSurfaces(Surf: PSurface3D; SurfSize: Integer); override;
-    function StartBuildScene(var VertexSize: Integer) : TBuildMode; override;
+    function StartBuildScene(var VertexSize, SurfaceSize: Integer) : TBuildMode; override;
     procedure EndBuildScene; override;
     procedure stScalePoly(Texture: PTexture3; var ScaleS, ScaleT: TDouble); override;
     procedure stScaleModel(Skin: PTexture3; var ScaleS, ScaleT: TDouble); override;
@@ -628,9 +628,10 @@ begin
   inherited;
 end;
 
-function TDirect3DSceneObject.StartBuildScene(var VertexSize: Integer) : TBuildMode;
+function TDirect3DSceneObject.StartBuildScene(var VertexSize, SurfaceSize: Integer) : TBuildMode;
 begin
   VertexSize:=SizeOf(TVertex3D);
+  SurfaceSize:=SizeOf(TSurface3D);
   Result:=bmDirect3D;
 end;
 
