@@ -74,13 +74,14 @@ type
               AlphaBits: TPixelSetAlpha;
               info: GrTexInfo;
               MeanColor: TColorRef;
+              GuPalette: PGuPalette;
+              DefaultAlpha: Byte;
+              {Scaled: Boolean;}
+              Used: Boolean;
+              //FIXME: Move these to renderer-specific places:
               startAddress, endAddress: FxU32;
               OpenGLName: GLuint;
               Direct3DTexture: IDirect3DTexture9;
-              {Scaled: Boolean;}
-              Used: Boolean;
-              DefaultAlpha: Byte;
-              GuPalette: PGuPalette;
              end;
 
  PSurfaces = ^TSurfaces;
