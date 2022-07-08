@@ -420,8 +420,8 @@ var
  CTris: PComponentTris;
  CVertex: vec3_p;
  v3p: array[0..2] of vec3_p;
- CurrentColor, ObjectColor: TColorRef;
- NewRenderMode: TTextureRenderMode;
+ CurrentColor: TColorRef;
+ BezierOpacity: TTexOpacityInfo;
  TextureManager: TTextureManager;
  Mode: TBuildMode;
  NeedVertexList2: Boolean;
@@ -528,7 +528,14 @@ var
         Dist:=vp0^[0]*Normale[0] + vp0^[1]*Normale[1] + vp0^[2]*Normale[2];
 
         VertexCount:=3;
-        AlphaColor:=ObjectColor;
+
+        with BezierOpacity do
+        begin
+          if Mode=trmColor then
+            AlphaColor:=Integer(Color[0]) or Integer(Color[1] shl 8) or Integer(Color[2] shl 16) or (Value shl 24)
+          else
+            AlphaColor:=CurrentColor or (Value shl 24);
+        end;
       end;
 
       WriteSurfaceExtra(PChar(Surf3D)+SizeOf(TSurface3D), Surf3D);
@@ -827,7 +834,6 @@ begin
            Dist:=F.Dist;
            VertexCount:=prvVertexCount;
 
-           AlphaColor:=CurrentColor or ($FF000000);
            TextureMode:=trmNormal;
            // if the texture has alpha channel it's probably transparent
            if Assigned(PList^.Texture^.SourceTexture) then
@@ -841,7 +847,17 @@ begin
              end;
            end;
 
-           AlphaColor:=CurrentColor or (F.GetFaceOpacity(PList^.Texture^.DefaultAlpha).Value shl 24);
+           with F.GetFaceOpacity(PList^.Texture^.DefaultAlpha) do
+           begin
+             if Mode=trmColor then
+               AlphaColor:=Integer(Color[0]) or Integer(Color[1] shl 8) or Integer(Color[2] shl 16) or (Value shl 24)
+             else
+               AlphaColor:=CurrentColor or (Value shl 24);
+           end;
+
+           if TextureMode=trmNormal then
+             if (AlphaColor and $FF000000)<>$FF000000 then
+               TextureMode:=trmColor;
          end;
 
          if not F.GetThreePointsT(TexPt[1], TexPt[2], TexPt[3]) then
@@ -1021,8 +1037,7 @@ begin
                Dist:=v3p[0]^[0]*Normale[0] + v3p[0]^[1]*Normale[1] + v3p[0]^[2]*Normale[2];
 
                VertexCount:=3;
-               Texturemode:= ModelRenderMode;
-               AlphaColor:=CurrentColor or (ModelAlpha shl 24);
+               TextureMode:=ModelRenderMode;
 
                // if the texture has alpha channel it's probably transparent
                if Assigned(PList^.Texture^.SourceTexture) then
@@ -1035,6 +1050,12 @@ begin
                  psa8bpp: PList^.TransparentTexture:=True;
                  end;
                end;
+
+               AlphaColor:=CurrentColor or (ModelAlpha shl 24);
+
+               if TextureMode=trmNormal then
+                 if (AlphaColor and $FF000000)<>$FF000000 then
+                   TextureMode:=trmColor;
              end;
 
              WriteSurfaceExtra(PChar(Surf3D)+SizeOf(TSurface3D), Surf3D);
@@ -1124,7 +1145,6 @@ begin
                Dist:=v3p[0]^[0]*Normale[0] + v3p[0]^[1]*Normale[1] + v3p[0]^[2]*Normale[2];
 
                VertexCount:=3;
-               AlphaColor:=CurrentColor or (Alpha shl 24);
 
                // if the texture has alpha channel it's probably transparent
                if Assigned(PList^.Texture^.SourceTexture) then
@@ -1137,6 +1157,12 @@ begin
                  psa8bpp: PList^.TransparentTexture:=True;
                  end;
                end;
+
+               AlphaColor:=CurrentColor or (Alpha shl 24);
+
+               if TextureMode=trmNormal then
+                 if (AlphaColor and $FF000000)<>$FF000000 then
+                   TextureMode:=trmColor;
              end;
 
              WriteSurfaceExtra(PChar(Surf3D)+SizeOf(TSurface3D), Surf3D);
@@ -1180,11 +1206,7 @@ begin
          else
            Surf3D:=PList^.tmp;
 
-         with GetFaceOpacity(PList^.Texture^.DefaultAlpha) do
-         begin
-           ObjectColor:=CurrentColor or (Value shl 24);
-           NewRenderMode:=Mode;
-         end;
+         BezierOpacity:=GetFaceOpacity(PList^.Texture^.DefaultAlpha);
 
          stScaleBezier(PList^.Texture, CorrW, CorrH);
          BezierBuf:=GetMeshCache;
@@ -1226,8 +1248,12 @@ begin
                with Surf3D^ do
                begin
                  VertexCount:=-(2*BezierBuf.W);
-                 AlphaColor:=ObjectColor;
-                 TextureMode:=NewRenderMode;
+
+                 with BezierOpacity do
+                 begin
+                   AlphaColor:=CurrentColor or (Value shl 24);
+                   TextureMode:=Mode;
+                 end;
 
                  // if the texture has alpha channel it's probably transparent
                  if Assigned(PList^.Texture^.SourceTexture) then
@@ -1240,6 +1266,10 @@ begin
                    psa8bpp: PList^.TransparentTexture:=True;
                    end;
                  end;
+
+               if TextureMode=trmNormal then
+                 if (AlphaColor and $FF000000)<>$FF000000 then
+                   TextureMode:=trmColor;
                end;
 
                WriteSurfaceExtra(PChar(Surf3D)+SizeOf(TSurface3D), Surf3D);

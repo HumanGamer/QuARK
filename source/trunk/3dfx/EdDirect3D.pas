@@ -875,11 +875,12 @@ end;
 
 function SortFaceDistance(Item1, Item2: Pointer): Integer;
 begin
+  //Note: This functions sorted REVERSE
   if PFaceDistance(Item1)^.Distance < PFaceDistance(Item2)^.Distance then
-    Result:=+1
+    Result:=-1
   else
     if PFaceDistance(Item1)^.Distance > PFaceDistance(Item2)^.Distance then
-      Result:=-1
+      Result:=+1
     else
       Result:=0;
 end;
