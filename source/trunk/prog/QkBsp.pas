@@ -1561,7 +1561,7 @@ begin
       if children=empty then
       begin
         Result.Specifics.Values['empty']:='1';
-        Result.Name:=Result.Name+' (empty)';
+        Result.Name:=FmtLoadStr1(5862, [Result.Name]);
       end;
     end;
   end;

@@ -1129,6 +1129,7 @@ Strings = {
     5859: "Invalid mipmap data in texture '%s'; skipping broken mipmaps",
     5860: "Invalid font data: %s",
     5861: "Unable to set '%s' for file extension '%s' ('%s')",
+    5862: "%s (empty)",
 
     # DanielPharos would like to reserve 6000 .. 6099 for all renderers
     6000: "Unable to create SceneObject//%s",
