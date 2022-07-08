@@ -1071,12 +1071,6 @@ begin
         OpenGLLightList:=nil;
         OpenGLLights:=0;
       end;
-      if Direct3DLightList<>nil then
-      begin
-        FreeMem(Direct3DLightList);
-        Direct3DLightList:=nil;
-        OpenGLLights:=0;
-      end;
       if VertexCount>=0 then
         Inc(EdOpenGL.PVertex3D(Surf), VertexCount)
       else

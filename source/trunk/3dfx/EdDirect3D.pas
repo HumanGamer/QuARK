@@ -607,12 +607,6 @@ begin
     with Surf^ do
     begin
       Inc(Surf);
-      if OpenGLLightList<>nil then
-      begin
-        FreeMem(OpenGLLightList);
-        OpenGLLightList:=nil;
-        OpenGLLights:=0;
-      end;
       if Direct3DLightList<>nil then
       begin
         FreeMem(Direct3DLightList);
