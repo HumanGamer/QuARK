@@ -1573,8 +1573,7 @@ begin
           PList^.TransparentDrawn:=false;
           PList^.OpenGLDistance:=Sqr(Plist.OpenGLAveragePosition[0]+TransX)+Sqr(Plist.OpenGLAveragePosition[1]+TransY)+Sqr(Plist.OpenGLAveragePosition[2]+TransZ);
           //Note: Sqr is the square; Sqrt (note the 'T'!) is the square root
-          //Note: Trans(X/Y/Z) is the NEGATIVE coordinate, so we need to ADD instead of SUBSTRACT
-          //      the two values for the distance-calc.
+          //Note: Trans(X/Y/Z) is the NEGATIVE coordinate, so we need to ADD instead of SUBTRACT the two values for the distance-calc.
         end
         else
           PList^.TransparentDrawn:=true;
