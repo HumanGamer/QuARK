@@ -4190,14 +4190,12 @@ begin
  if (CharModeJeu=mjHalfLife) or (CharModeJeu=mjCoF) or (CharModeJeu=mjSC) or (CharModeJeu=mjHL2) then
  begin
     // OMG! This is so slow, but hopefully a little faster than the below
-    // while-loop, if the end-user don't want to see transparency in the OpenGL window.
+    // while-loop, if the end-user don't want to see transparency.
 
     // Decker's original Revision 1.70 2003/03/12 two lines of code
     // Commenting out allows all games to have transparency if the game supports it.
     // Also see source\3dfx\EdOpenGL.pas and runtime\addons\Defaults.qrk for rest of setup changes.
 
-//   if SetupGameSet.GetArg('EnableTransparency') <> '1' then
-//     exit;
 
    // Traverse backwards the tree-view, in search of an Q3DObject that has
    // the 'rendermode' specific. (This is a very very slow method, considering
