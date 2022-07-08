@@ -1417,14 +1417,13 @@ begin
 
       DX:=(ScreenX/2)/(Scaling*Scaling);
       DY:=(ScreenY/2)/(Scaling*Scaling);
-      //Start using: ChercheExtremites
+      //FIXME: Start using: ChercheExtremites
       //or better: do it in the BuildScene when the positions are being processed!
 
-      //DZ:=(GetMapLimit()*2)/(Scaling*Scaling);
-      DZ:=100000;   //DanielPharos: Workaround for the zoom-in-disappear problem
+      DZ:=FarDistance*2;
       TransX:=LocX/(Scaling*Scaling);
       TransY:=LocY/(Scaling*Scaling);
-      TransZ:=-GetMapLimit();
+      TransZ:=-FarDistance;
       MatrixTransform[0,0]:=VX.X;
       MatrixTransform[0,1]:=-VY.X;
       MatrixTransform[0,2]:=-VZ.X;
