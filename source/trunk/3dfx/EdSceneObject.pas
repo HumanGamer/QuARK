@@ -119,8 +119,11 @@ type
    DisplayMode: TDisplayMode;
    DisplayType: TDisplayType;
    RenderMode: TRenderMode;
+   FarDistance: TDouble;
+   FogDensity: Single;
    FInitialized: Boolean;
    DWMLoaded: Boolean;
+   ShowProgress: Boolean;
    procedure ClearPList;
    procedure ClearSurfaces(Surf: PSurface3D; SurfSize: Integer); virtual;
    function StartBuildScene({var PW: TPaletteWarning;} var VertexSize: Integer) : TBuildMode; virtual; abstract;
@@ -138,12 +141,8 @@ type
  public
    BlendColor: TColorRef;
    ViewEntities: TViewEntities;
-   TranspFactor: Single;
    ErrorMsg: String;
    TemporaryStuff: TQList;   { anything that should not be freed while the scene is alive }
-   FarDistance: TDouble;
-   FogDensity: Single;
-   ShowProgress: Boolean;
    constructor Create;
    destructor Destroy; override;
    procedure Init(nCoord: TCoordinates;

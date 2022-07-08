@@ -46,6 +46,7 @@ type
    GlideLoaded: Boolean;
  protected
    ScreenX, ScreenY: Integer;
+   TranspFactor: Single;
    function StartBuildScene({var PW: TPaletteWarning;} var VertexSize: Integer) : TBuildMode; override;
    procedure stScalePoly(Texture: PTexture3; var ScaleS, ScaleT: TDouble); override;
    procedure stScaleModel(Skin: PTexture3; var ScaleS, ScaleT: TDouble); override;
@@ -496,6 +497,8 @@ begin
    guFogGenerateExp2(FogTableCache^, FogDensity/MaxW);
    grFogColorValue(FogColor);
  end;
+
+ TranspFactor:=Setup.GetFloatSpec('TranspFactor', 0.3);
 end;
 
 destructor TGlideSceneObject.Destroy;

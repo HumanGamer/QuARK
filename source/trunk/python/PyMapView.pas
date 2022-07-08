@@ -500,7 +500,6 @@ begin
       Drawing:=Drawing or dfRebuildScene;  { must reload 3D scene with or without entities }
 
      Scene.ViewEntities:=ve1;
-     Scene.TranspFactor:=GetFloatSpec('TranspFactor', 0.3);
 
      DisplayMode:=dmEditor; //Need to initialize to something, in case of errors.
 
@@ -2228,7 +2227,6 @@ begin
                   with TCameraCoordinates(MapViewProj) do
                    begin
                     Camera:=V;
-                    FarDistance:=1500;
                    end;
                  end;
            end;
