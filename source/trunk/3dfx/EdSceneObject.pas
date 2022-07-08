@@ -403,6 +403,8 @@ procedure TSceneObject.BuildScene(ProgressDC: HDC; AltTexSrc: QObject);
 const
  cProgressBarWidth = 256;
  cProgressBarHeight = 20;
+ cProgressBarTextLeftMargin = 38; //FIXME: Calculate on runtime, so the text is always centered!
+ cProgressBarTextTopMargin = 3;
 var
  I, J, K, L: Integer;
  NewTextures, NewTexCount: Integer;
@@ -739,7 +741,7 @@ begin
            SetBkColor(ProgressDC, $FFFFFF);
            SetTextColor(ProgressDC, $000000);
            TextePreparation:=LoadStr1(5454);
-           ExtTextOut(ProgressDC, Gauche+38, R.Top+3, eto_Opaque, @R, PChar(TextePreparation), Length(TextePreparation), Nil);
+           ExtTextOut(ProgressDC, Gauche+cProgressBarTextLeftMargin, R.Top+cProgressBarTextTopMargin, eto_Opaque, @R, PChar(TextePreparation), Length(TextePreparation), Nil);
            InflateRect(R, +1, +1);
            FrameRect(ProgressDC, R, GetStockObject(Black_brush));
            InflateRect(R, -1, -1);
