@@ -71,7 +71,7 @@ type
    OpenGLDisplayLists: array[0..2] of GLuint;
    PixelFormat: TPixelFormatDescriptor;
    Extensions: TGLExtensionList;
-   procedure RenderPList(PList: PSurfaces; TransparentFaces: Boolean; SourceCoord: TCoordinates);
+   procedure RenderSurface3D(Surf: PSurface3D; Texture: PTexture3);
  protected
    TextureFiltering: TTextureFiltering;
    ScreenX, ScreenY: Integer;
@@ -79,9 +79,10 @@ type
    procedure stScaleModel(Skin: PTexture3; var ScaleS, ScaleT: TDouble); override;
    procedure stScaleSprite(Skin: PTexture3; var ScaleS, ScaleT: TDouble); override;
    procedure stScaleBezier(Texture: PTexture3; var ScaleS, ScaleT: TDouble); override;
+   procedure WriteSurfaceExtra(PS: PChar; Surface: PSurface3D); override;
    procedure WriteVertex(PV: PChar; Source: Pointer; const ns,nt: Single; HiRes: Boolean); override;
    procedure ClearSurfaces(Surf: PSurface3D; SurfSize: Integer); override;
-   function StartBuildScene({var PW: TPaletteWarning;} var VertexSize, SurfaceSize: Integer) : TBuildMode; override;
+   function StartBuildScene({var PW: TPaletteWarning;} var SurfaceExtraSize, VertexSize: Integer) : TBuildMode; override;
    procedure EndBuildScene; override;
    procedure ReleaseResources;
    procedure BuildTexture(Texture: PTexture3); override;
@@ -120,6 +121,14 @@ const
  Invalid_value : Single = 1E38; //Similar to QkMapPoly's RechercheAdjacents, but then for Single
 
 type
+ PSurfaceExtra = ^TSurfaceExtra;
+ TSurfaceExtra = record
+               OpenGLLights: Integer;
+               OpenGLLightList: PGLenum; //GLenum = type of GL_LIGHT0. Together with OpenGLLights, this is just an array, but we can't use array here since SizeOf(TSurface3D) needs to be constant and we're GetMem-constructing this record all the time.
+               CenterPosition: vec3_t;
+               OpenGLDistance: Double;
+              end;
+
  PVertex3D = ^TVertex3D;
  TVertex3D = record
               st: GLfloat2;
@@ -131,6 +140,13 @@ type
          v: TVertex3D;
          light_rgb: GLfloat4;
         end;
+
+ PFaceDistance = ^TFaceDistance;
+ TFaceDistance = record
+                  Distance: Double;
+                  Surf: PSurface3D;
+                  Texture: PTexture3;
+                 end;
 
 procedure UnpackColor(Color: TColorRef; var v: GLfloat4);
 begin
@@ -582,6 +598,15 @@ begin
   ScaleT:=1;
 end;
 
+procedure TGLSceneObject.WriteSurfaceExtra(PS: PChar; Surface: PSurface3D);
+begin
+  with PSurfaceExtra(PS)^ do
+  begin
+    OpenGLLights := 0;
+    OpenGLLightList := nil;
+  end;
+end;
+
 procedure TGLSceneObject.WriteVertex(PV: PChar; Source: Pointer; const ns,nt: Single; HiRes: Boolean);
 begin
   with PVertex3D(PV)^ do
@@ -912,9 +937,7 @@ begin
     CheckOpenGLError('Init: GL_LIGHTING');
 
     if Transparency then
-    begin
-      glEnable(GL_BLEND);
-    end
+      glEnable(GL_BLEND)
     else
       glDisable(GL_BLEND);
     CheckOpenGLError('Init: GL_BLEND');
@@ -1064,12 +1087,13 @@ begin
     with Surf^ do
     begin
       Inc(Surf);
-      if OpenGLLightList<>nil then
+      if PSurfaceExtra(Surf)^.OpenGLLightList<>nil then
       begin
-        FreeMem(OpenGLLightList);
-        OpenGLLightList:=nil;
-        OpenGLLights:=0;
+        FreeMem(PSurfaceExtra(Surf)^.OpenGLLightList);
+        PSurfaceExtra(Surf)^.OpenGLLightList:=nil;
+        PSurfaceExtra(Surf)^.OpenGLLights:=0;
       end;
+      Inc(PSurfaceExtra(Surf));
       if VertexCount>=0 then
         Inc(EdOpenGL.PVertex3D(Surf), VertexCount)
       else
@@ -1107,14 +1131,14 @@ begin
   NumberOfLights:=NumberOfLights+1;
 end;
 
-function TGLSceneObject.StartBuildScene({var PW: TPaletteWarning;} var VertexSize, SurfaceSize: Integer) : TBuildMode;
+function TGLSceneObject.StartBuildScene({var PW: TPaletteWarning;} var SurfaceExtraSize, VertexSize: Integer) : TBuildMode;
 var
   ViewDCSet, MadeRCCurrent: Boolean;
   I: Integer;
 begin
  {PW:=Nil;}
+  SurfaceExtraSize:=SizeOf(TSurfaceExtra);
   VertexSize:=SizeOf(TVertex3D);
-  SurfaceSize:=SizeOf(TSurface3D);
   Result:=bmOpenGL;
   ViewDCSet:=False;
   MadeRCCurrent:=False;
@@ -1159,9 +1183,8 @@ var
  PS: PSurfaces;
  TempLightList: array of TLightingList;
  Surf: PSurface3D;
+ SurfExtra: PSurfaceExtra;
  SurfEnd: PChar;
- SurfAveragePosition: vec3_t;
- PAveragePosition: vec3_t;
  VertexNR: Integer;
  PV: PVertex3D;
  Sz: Integer;
@@ -1174,25 +1197,24 @@ var
 begin
   if (Lighting and (LightingQuality=0)) or Transparency then
   begin
-    //Calculate average positions of all the faces  
+    //Calculate average positions of all the faces
     PS:=FListSurfaces;
     while Assigned(PS) do
     begin
-      if (Lighting and (LightingQuality=0)) or (Transparency and ((PS^.Transparent=True) or (PS^.NumberTransparentFaces>0))) then
+      Surf:=PS^.Surf;
+      SurfEnd:=PChar(Surf)+PS^.SurfSize;
+      while (Surf<SurfEnd) do
       begin
-        Surf:=PS^.Surf;
-        SurfEnd:=PChar(Surf)+PS^.SurfSize;
-        PAveragePosition[0]:=0;
-        PAveragePosition[1]:=0;
-        PAveragePosition[2]:=0;
-        while (Surf<SurfEnd) do
+        with Surf^ do
         begin
-          with Surf^ do
+          Inc(Surf);
+          SurfExtra:=PSurfaceExtra(Surf);
+          Inc(PSurfaceExtra(Surf));
+          if (Lighting and (LightingQuality=0)) or (Transparency and PS^.TransparentTexture) or (AlphaColor and $FF000000 <> $FF000000) then
           begin
-            Inc(Surf);
-            SurfAveragePosition[0]:=0;
-            SurfAveragePosition[1]:=0;
-            SurfAveragePosition[2]:=0;
+            SurfExtra^.CenterPosition[0]:=0;
+            SurfExtra^.CenterPosition[1]:=0;
+            SurfExtra^.CenterPosition[2]:=0;
             if not (VertexCount = 0) then
             begin
               PV:=PVertex3D(Surf);
@@ -1202,19 +1224,15 @@ begin
                 Sz:=SizeOf(TVertex3D)+SizeOf(vec3_t);
               for VertexNR:=1 to Abs(VertexCount) do
               begin
-                SurfAveragePosition[0]:=SurfAveragePosition[0]+PV^.xyz[0];
-                SurfAveragePosition[1]:=SurfAveragePosition[1]+PV^.xyz[1];
-                SurfAveragePosition[2]:=SurfAveragePosition[2]+PV^.xyz[2];
+                SurfExtra^.CenterPosition[0]:=SurfExtra^.CenterPosition[0]+PV^.xyz[0];
+                SurfExtra^.CenterPosition[1]:=SurfExtra^.CenterPosition[1]+PV^.xyz[1];
+                SurfExtra^.CenterPosition[2]:=SurfExtra^.CenterPosition[2]+PV^.xyz[2];
                 Inc(PChar(PV), Sz);
               end;
-              SurfAveragePosition[0]:=SurfAveragePosition[0]/Abs(VertexCount);
-              SurfAveragePosition[1]:=SurfAveragePosition[1]/Abs(VertexCount);
-              SurfAveragePosition[2]:=SurfAveragePosition[2]/Abs(VertexCount);
+              SurfExtra^.CenterPosition[0]:=SurfExtra^.CenterPosition[0]/Abs(VertexCount);
+              SurfExtra^.CenterPosition[1]:=SurfExtra^.CenterPosition[1]/Abs(VertexCount);
+              SurfExtra^.CenterPosition[2]:=SurfExtra^.CenterPosition[2]/Abs(VertexCount);
             end;
-            PAveragePosition[0]:=PAveragePosition[0]+SurfAveragePosition[0];
-            PAveragePosition[1]:=PAveragePosition[1]+SurfAveragePosition[1];
-            PAveragePosition[2]:=PAveragePosition[2]+SurfAveragePosition[2];
-            OpenGLAveragePosition:=SurfAveragePosition;
             if VertexCount>=0 then
               Inc(PVertex3D(Surf), VertexCount)
             else
@@ -1222,7 +1240,7 @@ begin
           end;
         end;
       end;
-      PS.OpenGLAveragePosition:=PAveragePosition;
+
       PS:=PS^.Next;
     end;
   end;
@@ -1246,8 +1264,7 @@ begin
           PL:=Lights;
           while Assigned(PL) do
           begin
-            Distance2:=Sqr(OpenGLAveragePosition[0]-PL.Position[0])+Sqr(OpenGLAveragePosition[1]-PL.Position[1])+Sqr(OpenGLAveragePosition[2]-PL.Position[2]);
-            //Distance2 = distance squared.
+            Distance2:=Sqr(PSurfaceExtra(Surf)^.CenterPosition[0]-PL.Position[0])+Sqr(PSurfaceExtra(Surf)^.CenterPosition[1]-PL.Position[1])+Sqr(PSurfaceExtra(Surf)^.CenterPosition[2]-PL.Position[2]); //Distance squared
             if Distance2<rien then
               Distance2:=rien;
             Brightness:=PL.Brightness / Distance2; //FIXME: Not sure if this is right!
@@ -1276,17 +1293,17 @@ begin
             PL:=PL^.Next;
           end;
           NumberOfLightsInList:=0;
-          if OpenGLLightList<>nil then
+          if PSurfaceExtra(Surf)^.OpenGLLightList<>nil then
           begin
-            FreeMem(OpenGLLightList);
-            OpenGLLightList := nil;
-            OpenGLLights := 0;
+            FreeMem(PSurfaceExtra(Surf)^.OpenGLLightList);
+            PSurfaceExtra(Surf)^.OpenGLLightList := nil;
+            PSurfaceExtra(Surf)^.OpenGLLights := 0;
           end;
           // We make the surface's list of lights as large as possible for now...
-          OpenGLLights := MaxLights;
-          GetMem(OpenGLLightList, OpenGLLights * SizeOf(GLenum));
+          PSurfaceExtra(Surf)^.OpenGLLights := MaxLights;
+          GetMem(PSurfaceExtra(Surf)^.OpenGLLightList, PSurfaceExtra(Surf)^.OpenGLLights * SizeOf(GLenum));
           try
-            LightListIndex:=OpenGLLightList;
+            LightListIndex:=PSurfaceExtra(Surf)^.OpenGLLightList;
             for LightNR:=0 to MaxLights-1 do
             begin
               // If this spot in the list is empty: stop
@@ -1304,16 +1321,17 @@ begin
           finally
             if NumberOfLightsInList<>0 then
             begin
-              OpenGLLights:=NumberOfLightsInList;
-              ReAllocMem(OpenGLLightList, OpenGLLights * SizeOf(GLenum));
+              PSurfaceExtra(Surf)^.OpenGLLights:=NumberOfLightsInList;
+              ReAllocMem(PSurfaceExtra(Surf)^.OpenGLLightList, PSurfaceExtra(Surf)^.OpenGLLights * SizeOf(GLenum));
             end
             else
             begin
-              FreeMem(OpenGLLightList);
-              OpenGLLightList := nil;
-              OpenGLLights := 0;
-            end
+              FreeMem(PSurfaceExtra(Surf)^.OpenGLLightList);
+              PSurfaceExtra(Surf)^.OpenGLLightList := nil;
+              PSurfaceExtra(Surf)^.OpenGLLights := 0;
+            end;
           end;
+          Inc(PSurfaceExtra(Surf));
           if VertexCount>=0 then
             Inc(PVertex3D(Surf), VertexCount)
           else
@@ -1325,6 +1343,17 @@ begin
   end;
 end;
 
+function SortFaceDistance(Item1, Item2: Pointer): Integer;
+begin
+  if PFaceDistance(Item1)^.Distance < PFaceDistance(Item2)^.Distance then
+    Result:=+1
+  else
+    if PFaceDistance(Item1)^.Distance > PFaceDistance(Item2)^.Distance then
+      Result:=-1
+    else
+      Result:=0;
+end;
+
 procedure TGLSceneObject.Render3DView;
 var
  DX, DY, DZ: Double;
@@ -1333,12 +1362,13 @@ var
  LocX, LocY: GLdouble;
  TransX, TransY, TransZ: GLdouble;
  MatrixTransform: TMatrix4f;
- FirstItem: Boolean;
  PList: PSurfaces;
- CurrentPList: PSurfaces;
+ Surf: PSurface3D;
+ SurfExtra: PSurfaceExtra;
+ SurfEnd: PChar;
  RebuildDisplayList: Boolean;
- Distance: Double;
- LargestDistance: Double;
+ FacesDistance: TList;
+ FaceDistance: PFaceDistance;
  OldFPControl, FPControl: Word;
 begin
   if not OpenGlLoaded then
@@ -1514,16 +1544,26 @@ begin
           PList:=FListSurfaces;
           while Assigned(PList) do
           begin
-            if Transparency then
+            //Only renders the non-transparent faces; transparent faces will be rendered outside of the displaylist.
+            if (not Transparency) or (not PList^.TransparentTexture) then
             begin
-              if PList^.Transparent=False then
-                RenderPList(PList, False, Coord);
-            end
-            else
-            begin
-              RenderPList(PList, False, Coord);
-              if PList^.NumberTransparentFaces>0 then
-                RenderPList(PList, True, Coord);
+              Surf:=PList^.Surf;
+              SurfEnd:=PChar(Surf)+PList^.SurfSize;
+              while Surf<SurfEnd do
+              begin
+                with Surf^ do
+                begin
+                  if (not Transparency) or ((not PList^.TransparentTexture) and (AlphaColor and $FF000000 = $FF000000)) then
+                    RenderSurface3D(Surf, PList^.Texture);
+
+                  Inc(Surf);
+                  Inc(PSurfaceExtra(Surf));
+                  if VertexCount>=0 then
+                    Inc(PVertex3D(Surf), VertexCount)
+                  else
+                    Inc(PChar(Surf), VertexCount*(-(SizeOf(TVertex3D)+SizeOf(vec3_t))));
+                end;
+              end;
             end;
             PList:=PList^.Next;
           end;
@@ -1559,48 +1599,54 @@ begin
       glDepthMask(GL_FALSE);
       CheckOpenGLError('Render3DView: glDepthMask (false)');
 
-      PList:=FListSurfaces;
-      while Assigned(PList) do
-      begin
-        if (PList^.Transparent=True) or (PList^.NumberTransparentFaces>0) then
-        begin
-          PList^.TransparentDrawn:=false;
-          PList^.OpenGLDistance:=Sqr(Plist.OpenGLAveragePosition[0]+TransX)+Sqr(Plist.OpenGLAveragePosition[1]+TransY)+Sqr(Plist.OpenGLAveragePosition[2]+TransZ);
-          //Note: Sqr is the square; Sqrt (note the 'T'!) is the square root
-          //Note: Trans(X/Y/Z) is the NEGATIVE coordinate, so we need to ADD instead of SUBTRACT the two values for the distance-calc.
-        end
-        else
-          PList^.TransparentDrawn:=true;
-        PList:=PList^.Next;
-      end;
-      repeat
-        FirstItem:=true;
-        LargestDistance:=-1;
-        CurrentPList:=nil;
-        //FIXME: Maybe we can make a list of only the transparent faces? That could be faster!
+      FacesDistance:=TList.Create;
+      try
         PList:=FListSurfaces;
         while Assigned(PList) do
         begin
-          if PList^.TransparentDrawn=false then
+          Surf:=PList^.Surf;
+          SurfEnd:=PChar(Surf)+PList^.SurfSize;
+          while Surf<SurfEnd do
           begin
-            Distance:=PList^.OpenGLDistance;
-            //DanielPharos: Actually, this is distance squared. But we're only comparing, not calculating!
-            if (FirstItem or (Distance>LargestDistance)) then
+            with Surf^ do
             begin
-              FirstItem:=false;
-              LargestDistance:=Distance;
-              CurrentPList:=Plist;
+              if PList^.TransparentTexture or (AlphaColor and $FF000000 <> $FF000000) then
+              begin
+                SurfExtra:=PSurfaceExtra(PChar(Surf) + SizeOf(TSurface3D));
+                New(FaceDistance);
+                FaceDistance^.Distance:=Sqr(SurfExtra^.CenterPosition[0]+TransX)+Sqr(SurfExtra^.CenterPosition[1]+TransY)+Sqr(SurfExtra^.CenterPosition[2]+TransZ);
+                //Note: Trans(X/Y/Z) is the NEGATIVE coordinate, so we need to ADD instead of SUBTRACT the two values for the distance-calc.
+                FaceDistance^.Surf:=Surf;
+                FaceDistance^.Texture:=PList^.Texture;
+                FacesDistance.Add(FaceDistance);
+              end;
+
+              Inc(Surf);
+              Inc(PSurfaceExtra(Surf));
+
+              if VertexCount>=0 then
+                Inc(PVertex3D(Surf), VertexCount)
+              else
+                Inc(PChar(Surf), VertexCount*(-(SizeOf(TVertex3D)+SizeOf(vec3_t))));
             end;
           end;
           PList:=PList^.Next;
         end;
 
-        if not (CurrentPList=nil) then
+        //Sort the transparent faces based on distance, so we can draw them back to front
+        FacesDistance.Sort(SortFaceDistance);
+
+        while (FacesDistance.Count <> 0) do
         begin
-          RenderPList(CurrentPList, True, Coord);
-          CurrentPList^.TransparentDrawn:=true;
+          FaceDistance:=FacesDistance.Last;
+          FacesDistance.Count := FacesDistance.Count - 1;
+          RenderSurface3D(FaceDistance.Surf, FaceDistance.Texture);
+          Dispose(FaceDistance);
         end;
-      until (CurrentPList=nil);
+
+      finally
+        FacesDistance.Free;
+      end;
 
       if Culling then
       begin
@@ -1971,12 +2017,8 @@ begin
   end;
 end;
 
-procedure TGLSceneObject.RenderPList(PList: PSurfaces; TransparentFaces: Boolean; SourceCoord: TCoordinates);
+procedure TGLSceneObject.RenderSurface3D(Surf: PSurface3D; Texture: PTexture3);
 var
- CurrentSurf: PSurface3D;
- Surf: PSurface3D;
- Surf2: PSurface3D;
- SurfEnd: PChar;
  PV, PVBase, PV2, PV3: PVertex3D;
  NeedTex, NeedColor: Boolean;
  I: Integer;
@@ -1987,12 +2029,6 @@ var
  GLColor: GLfloat4;
  PSD: TPixelSetDescription;
  CurrentfTMP: GLfloat4;
- Distance: Double;
- LargestDistance: Double;
- FirstItem: Boolean;
- Scaling: TDouble;
- LocX, LocY: GLdouble;
- TransX, TransY, TransZ: GLdouble;
  Currentf: GLfloat4;
 begin
   case RenderMode of
@@ -2013,285 +2049,165 @@ begin
     end;
   end;
 
-  //FIXME: Maybe we can store these values somewhere,
-  //so we don't need to recalculate them every time?
-  {if Transparency and TransparentFaces then
-  begin}
-    if Coord.FlatDisplay then
-    begin
-      if DisplayType=dtXY then
-      begin
-        with TXYCoordinates(Coord) do
-        begin
-          Scaling:=ScalingFactor(Nil);
-          LocX:=pDeltaX-ScrCenter.X;
-          LocY:=-(pDeltaY-ScrCenter.Y);
-        end;
-      end
-      else if DisplayType=dtXZ then
-      begin
-        with TXZCoordinates(Coord) do
-        begin
-          Scaling:=ScalingFactor(Nil);
-          LocX:=pDeltaX-ScrCenter.X;
-          LocY:=-(pDeltaY-ScrCenter.Y);
-        end;
-      end
-      else {if (DisplayType=dtYZ) or (DisplayType=dt2D) then}
-      begin
-        with T2DCoordinates(Coord) do
-        begin
-          Scaling:=ScalingFactor(Nil);
-          LocX:=pDeltaX-ScrCenter.X;
-          LocY:=-(pDeltaY-ScrCenter.Y);
-        end;
-      end;
-      TransX:=LocX/(Scaling*Scaling);
-      TransY:=LocY/(Scaling*Scaling);
-      TransZ:=-GetMapLimit();
-    end
-    else
-    begin
-      with TCameraCoordinates(Coord) do
-      begin
-        TransX:=-Camera.X;
-        TransY:=-Camera.Y;
-        TransZ:=-Camera.Z;
-      end;
-    end;
-  {end;}
-
-  if Transparency and TransparentFaces then
+  with Surf^ do
   begin
-    Surf:=PList^.Surf;
-    SurfEnd:=PChar(Surf)+PList^.SurfSize;
-    while Surf<SurfEnd do
-    begin
-      with Surf^ do
-      begin
-        Inc(Surf);
-
-        TransparentDrawn:=false;
-
-        if VertexCount>=0 then
-          Inc(PVertex3D(Surf), VertexCount)
-        else
-          Inc(PChar(Surf), VertexCount*(-(SizeOf(TVertex3D)+SizeOf(vec3_t))));
-      end;
-    end;
-  end;
-
-  Surf:=PList^.Surf;
-  SurfEnd:=PChar(Surf)+PList^.SurfSize;
-  while Surf<SurfEnd do
-  begin
-    if Transparency and TransparentFaces then
-    begin
-      FirstItem:=true;
-      LargestDistance:=-1;
-      Surf2:=PList^.Surf;
-      CurrentSurf:=nil;
-      while Surf2<SurfEnd do
-      begin
-        with Surf2^ do
-        begin
-          if TransparentDrawn=false then
-          begin
-            Distance:=Sqr(OpenGLAveragePosition[0]+TransX)+Sqr(OpenGLAveragePosition[1]+TransY)+Sqr(OpenGLAveragePosition[2]+TransZ);
-            //DanielPharos: Actually, this is distance squared. But we're only comparing, not calculating!
-
-            if (FirstItem or (Distance>LargestDistance)) then
-            begin
-              FirstItem:=false;
-              LargestDistance:=Distance;
-              CurrentSurf:=Surf2;
-            end;
-          end;
-
-          Inc(Surf2);
-
-          if VertexCount>=0 then
-            Inc(PVertex3D(Surf2), VertexCount)
-          else
-            Inc(PChar(Surf2), VertexCount*(-(SizeOf(TVertex3D)+SizeOf(vec3_t))));
-        end;
-      end;
-      if CurrentSurf=nil then
-        raise InternalE(LoadStr1(6321));
-      CurrentSurf^.TransparentDrawn:=true;
-    end
-    else
-      CurrentSurf:=Surf;
-
-    with CurrentSurf^ do
-    begin
-      Inc(CurrentSurf);
-
-      if ((PList^.Transparent=TransparentFaces) or (((AlphaColor and $FF000000)=$FF000000) xor TransparentFaces)) then
-      begin
-
-      if Lighting and (LightingQuality=0) then
-      begin
-        LightNR:=0;
-        PO:=OpenGLLightList;
-        while LightNR < Cardinal(OpenGLLights) do
-        begin
-          PL:=Lights;
-          LightNR2:=0;
-          while LightNR2<PO^ do
-          begin
-            PL:=PL^.Next;
-            LightNR2:=LightNR2+1;
-          end;
-          LightParam[0]:=PL.Position[0];
-          LightParam[1]:=PL.Position[1];
-          LightParam[2]:=PL.Position[2];
-          LightParam[3]:=1.0;
-
-          glLightfv(GL_LIGHT0+LightNR, GL_POSITION, @LightParam);
-          CheckOpenGLError('RenderPList: glLightfv: GL_POSITION');
-
-          UnpackColor(PL.Color, GLColor);
-          LightParam[0]:=GLColor[0];
-          LightParam[1]:=GLColor[1];
-          LightParam[2]:=GLColor[2];
-          //LightParam[3]:=GLColor[3];
-          LightParam[3]:=1.0;
-          glLightfv(GL_LIGHT0+LightNR, GL_DIFFUSE, @LightParam);
-          CheckOpenGLError('RenderPList: glLightf: GL_DIFFUSE');
-
-          glLightf(GL_LIGHT0+LightNR, GL_CONSTANT_ATTENUATION, 1.0);
-          CheckOpenGLError('RenderPList: glLightf: GL_CONSTANT_ATTENUATION');
-          glLightf(GL_LIGHT0+LightNR, GL_LINEAR_ATTENUATION, 0.0);
-          CheckOpenGLError('RenderPList: glLightf: GL_LINEAR_ATTENUATION');
-          glLightf(GL_LIGHT0+LightNR, GL_QUADRATIC_ATTENUATION, 1.0 / (LightParams.IntensityScale * PL.Brightness));
-          CheckOpenGLError('RenderPList: glLightf: GL_QUADRATIC_ATTENUATION');
-
-          glEnable(GL_LIGHT0+LightNR);
-          CheckOpenGLError('RenderPList: GL_LIGHT');
-
-          LightNR:=LightNR+1;
-          Inc(PO);
-        end;
-        for LightNR := OpenGLLights to MaxLights-1 do
-        begin
-          glDisable(GL_LIGHT0+LightNR);
-          CheckOpenGLError('RenderPList: GL_LIGHT');
-        end;
-      end;
-
-      UnpackColor(AlphaColor, Currentf);
-
-      if NeedColor then
-      begin
-        with PList^.Texture^ do
-        begin
-          if MeanColor = MeanColorNotComputed then
-          begin
-            PSD:=GetTex3Description(PList^.Texture^);
-            try
-              MeanColor:=ComputeMeanColor(PSD);
-            finally
-              PSD.Done;
-            end;
-          end;
-          UnpackColor(MeanColor, CurrentfTMP);
-          Currentf[0]:=Currentf[0]*CurrentfTMP[0];
-          Currentf[1]:=Currentf[1]*CurrentfTMP[1];
-          Currentf[2]:=Currentf[2]*CurrentfTMP[2];
-          Currentf[3]:=Currentf[3];
-        end;
-      end;
-
-      if NeedTex then
-      begin
-        {$IFDEF Debug}
-        if PList^.Texture^.OpenGLName=0 then
-          Raise InternalE(LoadStr1(6010));
-        {$ENDIF}
-        glBindTexture(GL_TEXTURE_2D, PList^.Texture^.OpenGLName);
-        CheckOpenGLError('RenderPList: glBindTexture');
-      end;
-
-      PV:=PVertex3D(CurrentSurf);
-
-      glColor4fv(@Currentf);
-      CheckOpenGLError('RenderPList: glColor4fv');
-
-      if Transparency and TransparentFaces then
-      begin
-        Case TextureMode of
-        //trmNormal, trmSolid:
-          //glBlendFunc(GL_ONE, GL_ZERO);
-        trmColor,trmTexture{,trmGlow}:
-          glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-        trmAdditive:
-          glBlendFunc(GL_ONE, GL_ONE);
-        else //= trmNormal, trmSolid
-          glBlendFunc(GL_ONE, GL_ZERO);
-        end;
-        CheckOpenGLError('RenderPList: glBlendFunc');
-      end;
-
-      if VertexCount>=0 then
-      begin  { normal polygon }
-        PVBase:=PV;
-        if not Odd(VertexCount) then
-          Inc(PV); //FIXME: Hmm, should we render triangles instead? Because now sometimes PV1==PV1 in RenderQuad!
-        for I:=0 to (VertexCount-3) div 2 do
-        begin
-          PV2:=PV;
-          Inc(PV);
-          PV3:=PV;
-          Inc(PV);
-          If Byte(Ptr(LongWord(@AlphaColor)+3)^)<>0 then
-            Case TextureMode of
-            trmNormal:
-              if Lighting and (LightingQuality=0) then
-                RenderQuad(PVBase, PV2, PV3, PV, Currentf, nil, Normale, Dist, LightParams, GLLightingQuality)
-              else if Lighting and (LightingQuality=1) then
-                RenderQuad(PVBase, PV2, PV3, PV, Currentf, Lights, Normale, Dist, LightParams, GLLightingQuality)
-              else
-                RenderQuad(PVBase, PV2, PV3, PV, Currentf, nil, Normale, Invalid_value, FullBright, 0);
-            trmSolid:
-              if Lighting and (LightingQuality=0) then
-                RenderQuad(PVBase, PV2, PV3, PV, Currentf, nil, Normale, Dist, LightParams, GLLightingQuality)
-              else if Lighting and (LightingQuality=1) then
-                RenderQuad(PVBase, PV2, PV3, PV, Currentf, Lights, Normale, Dist, LightParams, GLLightingQuality)
-              else
-                RenderQuad(PVBase, PV2, PV3, PV, Currentf, nil, Normale, Invalid_value, FullBright, 0);
-            else
-            begin
-              if TextureMode=trmAdditive then
-              begin
-                Currentf[0]:=Byte(Ptr(LongWord(@AlphaColor)+3)^)/255;
-                Currentf[1]:=Currentf[0];
-                Currentf[2]:=Currentf[0];
-              end;
-              if Lighting and (LightingQuality=0) then
-                RenderQuad(PVBase, PV2, PV3, PV, Currentf, nil, Normale, Dist, LightParams, GLLightingQuality)
-              else if Lighting and (LightingQuality=1) then
-                RenderQuad(PVBase, PV2, PV3, PV, Currentf, Lights, Normale, Dist, LightParams, GLLightingQuality)
-              else
-                RenderQuad(PVBase, PV2, PV3, PV, Currentf, nil, Normale, Invalid_value, FullBright, 0);
-            end;
-          end;
-        end;
-      end
-      else
-      begin { strip }
-        if Lighting and (LightingQuality=1) then
-          RenderQuadStrip(PV, -VertexCount, Currentf, Lights, Normale, LightParams)
-        else
-          RenderQuadStrip(PV, -VertexCount, Currentf, nil, Normale, FullBright);
-      end;
-
-      end;
     Inc(Surf);
+
+    if Lighting and (LightingQuality=0) then
+    begin
+      LightNR:=0;
+      PO:=PSurfaceExtra(Surf)^.OpenGLLightList;
+      while LightNR < Cardinal(PSurfaceExtra(Surf)^.OpenGLLights) do
+      begin
+        PL:=Lights;
+        LightNR2:=0;
+        while LightNR2<PO^ do
+        begin
+          PL:=PL^.Next;
+          LightNR2:=LightNR2+1;
+        end;
+        LightParam[0]:=PL.Position[0];
+        LightParam[1]:=PL.Position[1];
+        LightParam[2]:=PL.Position[2];
+        LightParam[3]:=1.0;
+
+        glLightfv(GL_LIGHT0+LightNR, GL_POSITION, @LightParam);
+        CheckOpenGLError('RenderSurface3D: glLightfv: GL_POSITION');
+
+        UnpackColor(PL.Color, GLColor);
+        LightParam[0]:=GLColor[0];
+        LightParam[1]:=GLColor[1];
+        LightParam[2]:=GLColor[2];
+        //LightParam[3]:=GLColor[3];
+        LightParam[3]:=1.0;
+        glLightfv(GL_LIGHT0+LightNR, GL_DIFFUSE, @LightParam);
+        CheckOpenGLError('RenderSurface3D: glLightf: GL_DIFFUSE');
+
+        glLightf(GL_LIGHT0+LightNR, GL_CONSTANT_ATTENUATION, 1.0);
+        CheckOpenGLError('RenderSurface3D: glLightf: GL_CONSTANT_ATTENUATION');
+        glLightf(GL_LIGHT0+LightNR, GL_LINEAR_ATTENUATION, 0.0);
+        CheckOpenGLError('RenderSurface3D: glLightf: GL_LINEAR_ATTENUATION');
+        glLightf(GL_LIGHT0+LightNR, GL_QUADRATIC_ATTENUATION, 1.0 / (LightParams.IntensityScale * PL.Brightness));
+        CheckOpenGLError('RenderSurface3D: glLightf: GL_QUADRATIC_ATTENUATION');
+
+        glEnable(GL_LIGHT0+LightNR);
+        CheckOpenGLError('RenderSurface3D: GL_LIGHT');
+
+        LightNR:=LightNR+1;
+        Inc(PO);
+      end;
+      for LightNR := PSurfaceExtra(Surf)^.OpenGLLights to MaxLights-1 do
+      begin
+        glDisable(GL_LIGHT0+LightNR);
+        CheckOpenGLError('RenderSurface3D: GL_LIGHT');
+      end;
+    end;
+
+    UnpackColor(AlphaColor, Currentf);
+
+    if NeedColor then
+    begin
+      with Texture^ do
+      begin
+        if MeanColor = MeanColorNotComputed then
+        begin
+          PSD:=GetTex3Description(Texture^);
+          try
+            MeanColor:=ComputeMeanColor(PSD);
+          finally
+            PSD.Done;
+          end;
+        end;
+        UnpackColor(MeanColor, CurrentfTMP);
+        Currentf[0]:=Currentf[0]*CurrentfTMP[0];
+        Currentf[1]:=Currentf[1]*CurrentfTMP[1];
+        Currentf[2]:=Currentf[2]*CurrentfTMP[2];
+        Currentf[3]:=Currentf[3];
+      end;
+    end;
+
+    if NeedTex then
+    begin
+      {$IFDEF Debug}
+      if Texture^.OpenGLName=0 then
+        Raise InternalE(LoadStr1(6010));
+      {$ENDIF}
+      glBindTexture(GL_TEXTURE_2D, Texture^.OpenGLName);
+      CheckOpenGLError('RenderSurface3D: glBindTexture');
+    end;
+
+    Inc(PSurfaceExtra(Surf));
+    PV:=PVertex3D(Surf);
+
+    glColor4fv(@Currentf);
+    CheckOpenGLError('RenderSurface3D: glColor4fv');
+
+    if Transparency then
+    begin
+      Case TextureMode of
+      //trmNormal, trmSolid:
+        //glBlendFunc(GL_ONE, GL_ZERO);
+      trmColor,trmTexture{,trmGlow}:
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+      trmAdditive:
+        glBlendFunc(GL_ONE, GL_ONE);
+      else //= trmNormal, trmSolid
+        glBlendFunc(GL_ONE, GL_ZERO);
+      end;
+      CheckOpenGLError('RenderSurface3D: glBlendFunc');
+    end;
+
     if VertexCount>=0 then
-      Inc(PVertex3D(Surf), VertexCount)
+    begin  { normal polygon }
+      PVBase:=PV;
+      if not Odd(VertexCount) then
+        Inc(PV); //FIXME: Hmm, should we render triangles instead? Because now sometimes PV1==PV1 in RenderQuad!
+      for I:=0 to (VertexCount-3) div 2 do
+      begin
+        PV2:=PV;
+        Inc(PV);
+        PV3:=PV;
+        Inc(PV);
+        If Byte(Ptr(LongWord(@AlphaColor)+3)^)<>0 then
+          Case TextureMode of
+          trmNormal:
+            if Lighting and (LightingQuality=0) then
+              RenderQuad(PVBase, PV2, PV3, PV, Currentf, nil, Normale, Dist, LightParams, GLLightingQuality)
+            else if Lighting and (LightingQuality=1) then
+              RenderQuad(PVBase, PV2, PV3, PV, Currentf, Lights, Normale, Dist, LightParams, GLLightingQuality)
+            else
+              RenderQuad(PVBase, PV2, PV3, PV, Currentf, nil, Normale, Invalid_value, FullBright, 0);
+          trmSolid:
+            if Lighting and (LightingQuality=0) then
+              RenderQuad(PVBase, PV2, PV3, PV, Currentf, nil, Normale, Dist, LightParams, GLLightingQuality)
+            else if Lighting and (LightingQuality=1) then
+              RenderQuad(PVBase, PV2, PV3, PV, Currentf, Lights, Normale, Dist, LightParams, GLLightingQuality)
+            else
+              RenderQuad(PVBase, PV2, PV3, PV, Currentf, nil, Normale, Invalid_value, FullBright, 0);
+          else
+          begin
+            if TextureMode=trmAdditive then
+            begin
+              Currentf[0]:=Byte(Ptr(LongWord(@AlphaColor)+3)^)/255;
+              Currentf[1]:=Currentf[0];
+              Currentf[2]:=Currentf[0];
+            end;
+            if Lighting and (LightingQuality=0) then
+              RenderQuad(PVBase, PV2, PV3, PV, Currentf, nil, Normale, Dist, LightParams, GLLightingQuality)
+            else if Lighting and (LightingQuality=1) then
+              RenderQuad(PVBase, PV2, PV3, PV, Currentf, Lights, Normale, Dist, LightParams, GLLightingQuality)
+            else
+              RenderQuad(PVBase, PV2, PV3, PV, Currentf, nil, Normale, Invalid_value, FullBright, 0);
+          end;
+        end;
+      end;
+    end
     else
-      Inc(PChar(Surf), VertexCount*(-(SizeOf(TVertex3D)+SizeOf(vec3_t))));
+    begin { strip }
+      if Lighting and (LightingQuality=1) then
+        RenderQuadStrip(PV, -VertexCount, Currentf, Lights, Normale, LightParams)
+      else
+        RenderQuadStrip(PV, -VertexCount, Currentf, nil, Normale, FullBright);
     end;
   end;
 end;

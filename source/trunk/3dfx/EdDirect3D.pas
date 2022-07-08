@@ -57,18 +57,19 @@ type
     SwapChain: IDirect3DSwapChain9;
     DepthStencilSurface: IDirect3DSurface9;
     NearDistance: Single;
-    procedure RenderPList(PList: PSurfaces; TransparentFaces: Boolean; SourceCoord: TCoordinates);
+    procedure RenderSurface3D(Surf: PSurface3D; Texture: PTexture3);
   protected
     ScreenResized: Boolean;
     TextureFiltering: TTextureFiltering;
     ScreenX, ScreenY: Integer;
     procedure ClearSurfaces(Surf: PSurface3D; SurfSize: Integer); override;
-    function StartBuildScene(var VertexSize, SurfaceSize: Integer) : TBuildMode; override;
+    function StartBuildScene(var SurfaceExtraSize, VertexSize: Integer) : TBuildMode; override;
     procedure EndBuildScene; override;
     procedure stScalePoly(Texture: PTexture3; var ScaleS, ScaleT: TDouble); override;
     procedure stScaleModel(Skin: PTexture3; var ScaleS, ScaleT: TDouble); override;
     procedure stScaleSprite(Skin: PTexture3; var ScaleS, ScaleT: TDouble); override;
     procedure stScaleBezier(Texture: PTexture3; var ScaleS, ScaleT: TDouble); override;
+    procedure WriteSurfaceExtra(PS: PChar; Surface: PSurface3D); override;
     procedure WriteVertex(PV: PChar; Source: Pointer; const ns,nt: Single; HiRes: Boolean); override;
     procedure ReleaseResources;
     procedure BuildTexture(Texture: PTexture3); override;
@@ -106,6 +107,13 @@ const
  cFaintLightFactor = 0.05;
 
 type
+ PSurfaceExtra = ^TSurfaceExtra;
+ TSurfaceExtra = record
+               LightCount: Integer;
+               CenterPosition: vec3_t;
+               Direct3DLightList: PDWORD;
+ end;
+
  PVertex3D = ^TVertex3D;
  TVertex3D = packed record
       x: TD3DValue;
@@ -118,6 +126,13 @@ type
       tu: TD3DValue;
       tv: TD3DValue;
  end;
+
+ PFaceDistance = ^TFaceDistance;
+ TFaceDistance = record
+                  Distance: Double;
+                  Surf: PSurface3D;
+                  Texture: PTexture3;
+                 end;
 
 const FVFType: DWORD = D3DFVF_XYZ or D3DFVF_NORMAL or D3DFVF_DIFFUSE or D3DFVF_TEX1;
 
@@ -196,23 +211,35 @@ begin
   ScaleT:=1;
 end;
 
+procedure TDirect3DSceneObject.WriteSurfaceExtra(PS: PChar; Surface: PSurface3D);
+begin
+  with PSurfaceExtra(PS)^ do
+  begin
+    LightCount := 0;
+    Direct3DLightList := nil;
+  end;
+end;
+
 procedure TDirect3DSceneObject.WriteVertex(PV: PChar; Source: Pointer; const ns,nt: Single; HiRes: Boolean);
 begin
-  if HiRes then
+  with PVertex3D(PV)^ do
   begin
-    PVertex3D(PV)^.x := PVect(Source)^.X;
-    PVertex3D(PV)^.y := PVect(Source)^.Y;
-    PVertex3D(PV)^.z := PVect(Source)^.Z;
-  end
-  else
-  begin
-    PVertex3D(PV)^.x := vec3_p(Source)^[0];
-    PVertex3D(PV)^.y := vec3_p(Source)^[1];
-    PVertex3D(PV)^.z := vec3_p(Source)^[2];
-  end;
+    if HiRes then
+    begin
+      x := PVect(Source)^.X;
+      y := PVect(Source)^.Y;
+      z := PVect(Source)^.Z;
+    end
+    else
+    begin
+      x := vec3_p(Source)^[0];
+      y := vec3_p(Source)^[1];
+      z := vec3_p(Source)^[2];
+    end;
 
-  PVertex3D(PV)^.tu := ns;
-  PVertex3D(PV)^.tv := nt;
+    tu := ns;
+    tv := nt;
+  end;
 end;
 
 constructor TDirect3DSceneObject.Create;
@@ -607,25 +634,28 @@ begin
     with Surf^ do
     begin
       Inc(Surf);
-      if Direct3DLightList<>nil then
+
+      if PSurfaceExtra(Surf)^.Direct3DLightList<>nil then
       begin
-        FreeMem(Direct3DLightList);
-        Direct3DLightList:=nil;
-        OpenGLLights:=0;
+        FreeMem(PSurfaceExtra(Surf)^.Direct3DLightList);
+        PSurfaceExtra(Surf)^.Direct3DLightList:=nil;
+        PSurfaceExtra(Surf)^.LightCount:=0;
       end;
+
+      Inc(PSurfaceExtra(Surf));
       if VertexCount>=0 then
-        Inc(EdDirect3D.PVertex3D(Surf), VertexCount)
+        Inc(PVertex3D(Surf), VertexCount)
       else
-        Inc(PChar(Surf), VertexCount*(-(SizeOf(EdDirect3D.TVertex3D)+SizeOf(vec3_t))));
+        Inc(PChar(Surf), VertexCount*(-(SizeOf(TVertex3D)+SizeOf(vec3_t))));
     end;
   end;
   inherited;
 end;
 
-function TDirect3DSceneObject.StartBuildScene(var VertexSize, SurfaceSize: Integer) : TBuildMode;
+function TDirect3DSceneObject.StartBuildScene(var SurfaceExtraSize, VertexSize: Integer) : TBuildMode;
 begin
+  SurfaceExtraSize:=SizeOf(TSurfaceExtra);
   VertexSize:=SizeOf(TVertex3D);
-  SurfaceSize:=SizeOf(TSurface3D);
   Result:=bmDirect3D;
 end;
 
@@ -640,6 +670,7 @@ var
  PS: PSurfaces;
  TempLightList: array of TLightingList;
  Surf: PSurface3D;
+ SurfExtra: PSurfaceExtra;
  SurfEnd: PChar;
  SurfAveragePosition: vec3_t;
  PAveragePosition: vec3_t;
@@ -664,6 +695,7 @@ begin
       with Surf^ do
       begin
         Inc(Surf);
+        Inc(PSurfaceExtra(Surf));
 
         if not (VertexCount = 0) then
         begin
@@ -696,25 +728,23 @@ begin
   if (Lighting and (LightingQuality=0)) or Transparency then
   begin
     //Calculate average positions of all the faces
-    //Note: Re-using the member variables already present for OpenGL!
     PS:=FListSurfaces;
     while Assigned(PS) do
     begin
-      if (Lighting and (LightingQuality=0)) or (Transparency and ((PS^.Transparent=True) or (PS^.NumberTransparentFaces>0))) then
+      Surf:=PS^.Surf;
+      SurfEnd:=PChar(Surf)+PS^.SurfSize;
+      while (Surf<SurfEnd) do
       begin
-        Surf:=PS^.Surf;
-        SurfEnd:=PChar(Surf)+PS^.SurfSize;
-        PAveragePosition[0]:=0;
-        PAveragePosition[1]:=0;
-        PAveragePosition[2]:=0;
-        while (Surf<SurfEnd) do
+        with Surf^ do
         begin
-          with Surf^ do
+          Inc(Surf);
+          SurfExtra:=PSurfaceExtra(Surf);
+          Inc(PSurfaceExtra(Surf));
+          if (Lighting and (LightingQuality=0)) or (Transparency and PS^.TransparentTexture) or (AlphaColor and $FF000000 <> $FF000000) then
           begin
-            Inc(Surf);
-            SurfAveragePosition[0]:=0;
-            SurfAveragePosition[1]:=0;
-            SurfAveragePosition[2]:=0;
+            SurfExtra^.CenterPosition[0]:=0;
+            SurfExtra^.CenterPosition[1]:=0;
+            SurfExtra^.CenterPosition[2]:=0;
             if not (VertexCount = 0) then
             begin
               PV:=PVertex3D(Surf);
@@ -724,19 +754,15 @@ begin
                 Sz:=SizeOf(TVertex3D)+SizeOf(vec3_t);
               for VertexNR:=1 to Abs(VertexCount) do
               begin
-                SurfAveragePosition[0]:=SurfAveragePosition[0]+PV^.x;
-                SurfAveragePosition[1]:=SurfAveragePosition[1]+PV^.y;
-                SurfAveragePosition[2]:=SurfAveragePosition[2]+PV^.z;
+                SurfExtra^.CenterPosition[0]:=SurfExtra^.CenterPosition[0]+PV^.x;
+                SurfExtra^.CenterPosition[1]:=SurfExtra^.CenterPosition[1]+PV^.y;
+                SurfExtra^.CenterPosition[2]:=SurfExtra^.CenterPosition[2]+PV^.z;
                 Inc(PChar(PV), Sz);
               end;
-              SurfAveragePosition[0]:=SurfAveragePosition[0]/Abs(VertexCount);
-              SurfAveragePosition[1]:=SurfAveragePosition[1]/Abs(VertexCount);
-              SurfAveragePosition[2]:=SurfAveragePosition[2]/Abs(VertexCount);
+              SurfExtra^.CenterPosition[0]:=SurfExtra^.CenterPosition[0]/Abs(VertexCount);
+              SurfExtra^.CenterPosition[1]:=SurfExtra^.CenterPosition[1]/Abs(VertexCount);
+              SurfExtra^.CenterPosition[2]:=SurfExtra^.CenterPosition[2]/Abs(VertexCount);
             end;
-            PAveragePosition[0]:=PAveragePosition[0]+SurfAveragePosition[0];
-            PAveragePosition[1]:=PAveragePosition[1]+SurfAveragePosition[1];
-            PAveragePosition[2]:=PAveragePosition[2]+SurfAveragePosition[2];
-            OpenGLAveragePosition:=SurfAveragePosition;
             if VertexCount>=0 then
               Inc(PVertex3D(Surf), VertexCount)
             else
@@ -744,7 +770,7 @@ begin
           end;
         end;
       end;
-      PS.OpenGLAveragePosition:=PAveragePosition;
+
       PS:=PS^.Next;
     end;
   end;
@@ -768,8 +794,7 @@ begin
           PL:=Lights;
           while Assigned(PL) do
           begin
-            Distance2:=Sqr(OpenGLAveragePosition[0]-PL.Position[0])+Sqr(OpenGLAveragePosition[1]-PL.Position[1])+Sqr(OpenGLAveragePosition[2]-PL.Position[2]);
-            //Distance2 = distance squared.
+            Distance2:=Sqr(PSurfaceExtra(Surf)^.CenterPosition[0]-PL.Position[0])+Sqr(PSurfaceExtra(Surf)^.CenterPosition[1]-PL.Position[1])+Sqr(PSurfaceExtra(Surf)^.CenterPosition[2]-PL.Position[2]); //Distance squared
             if Distance2<rien then
               Distance2:=rien;
             Brightness:=PL.Brightness / Distance2; //FIXME: Not sure if this is right!
@@ -798,17 +823,17 @@ begin
             PL:=PL^.Next;
           end;
           NumberOfLightsInList:=0;
-          if Direct3DLightList<>nil then
+          if PSurfaceExtra(Surf)^.Direct3DLightList<>nil then
           begin
-            FreeMem(Direct3DLightList);
-            Direct3DLightList := nil;
-            OpenGLLights := 0; //@Rename!
+            FreeMem(PSurfaceExtra(Surf)^.Direct3DLightList);
+            PSurfaceExtra(Surf)^.Direct3DLightList := nil;
+            PSurfaceExtra(Surf)^.LightCount := 0;
           end;
           // We make the surface's list of lights as large as possible for now...
-          OpenGLLights := MaxLights;
-          GetMem(Direct3DLightList, OpenGLLights * SizeOf(DWORD));
+          PSurfaceExtra(Surf)^.LightCount := MaxLights;
+          GetMem(PSurfaceExtra(Surf)^.Direct3DLightList, PSurfaceExtra(Surf)^.LightCount * SizeOf(DWORD));
           try
-            LightListIndex:=Direct3DLightList;
+            LightListIndex:=PSurfaceExtra(Surf)^.Direct3DLightList;
             for LightNR:=0 to MaxLights-1 do
             begin
               // If this spot in the list is empty: stop
@@ -826,16 +851,17 @@ begin
           finally
             if NumberOfLightsInList<>0 then
             begin
-              OpenGLLights:=NumberOfLightsInList;
-              ReAllocMem(Direct3DLightList, OpenGLLights * SizeOf(DWORD));
+              PSurfaceExtra(Surf)^.LightCount:=NumberOfLightsInList;
+              ReAllocMem(PSurfaceExtra(Surf)^.Direct3DLightList, PSurfaceExtra(Surf)^.LightCount * SizeOf(DWORD));
             end
             else
             begin
-              FreeMem(Direct3DLightList);
-              Direct3DLightList := nil;
-              OpenGLLights := 0;
-            end
+              FreeMem(PSurfaceExtra(Surf)^.Direct3DLightList);
+              PSurfaceExtra(Surf)^.Direct3DLightList := nil;
+              PSurfaceExtra(Surf)^.LightCount := 0;
+            end;
           end;
+          Inc(PSurfaceExtra(Surf));
           if VertexCount>=0 then
             Inc(PVertex3D(Surf), VertexCount)
           else
@@ -845,6 +871,17 @@ begin
       PS:=PS^.Next;
     end;
   end;
+end;
+
+function SortFaceDistance(Item1, Item2: Pointer): Integer;
+begin
+  if PFaceDistance(Item1)^.Distance < PFaceDistance(Item2)^.Distance then
+    Result:=+1
+  else
+    if PFaceDistance(Item1)^.Distance > PFaceDistance(Item2)^.Distance then
+      Result:=-1
+    else
+      Result:=0;
 end;
 
 procedure TDirect3DSceneObject.Render3DView;
@@ -867,6 +904,11 @@ var
   LightIntensityScale: Single;
   PL: PLightList;
   PList: PSurfaces;
+  Surf: PSurface3D;
+  SurfExtra: PSurfaceExtra;
+  SurfEnd: PChar;
+  FacesDistance: TList;
+  FaceDistance: PFaceDistance;
 begin
   if not Direct3DLoaded then
     raise EError(6007);
@@ -946,8 +988,7 @@ begin
 
     DX:=(ScreenX/2)/(Scaling);
     DY:=(ScreenY/2)/(Scaling);
-    //DZ:=(GetMapLimit()*2)/(Scaling);
-    DZ:=100000;   //DanielPharos: Workaround for the zoom-in-disappear problem
+    DZ:=2*FarDistance;
 
     TransX:=LocX/(Scaling);
     TransY:=LocY/(Scaling);
@@ -1019,6 +1060,10 @@ begin
       l_Up.Z := l_AtTMP.Z;
       D3DXMatrixLookAtRH(m_View, l_Eye, l_At, l_Up);
 
+      TransX:=-l_Eye.X;
+      TransY:=-l_Eye.Y;
+      TransZ:=-l_Eye.Z;
+
       //FIXME: OpenGL needed a VCorrection here; Direct3D too?
       D3DXMatrixPerspectiveFovRH(m_Projection, VCorrection2*D3DXToRadian(VAngleDegrees), ScreenX/ScreenY, NearDistance, FarDistance);
     end;
@@ -1068,21 +1113,85 @@ begin
       PL:=PL^.Next;
     end;
 
-    PList:=ListSurfaces;
+    PList:=FListSurfaces;
     while Assigned(PList) do
     begin
-      if Transparency then
+      //Only renders the non-transparent faces; transparent faces will be rendered outside of the displaylist.
+      if (not Transparency) or (not PList^.TransparentTexture) then
       begin
-        if (PList^.Transparent=False) then
-          RenderPList(PList, False, Coord);
-      end
-      else
-      begin
-        RenderPList(PList, False, Coord);
-        if PList^.NumberTransparentFaces>0 then
-          RenderPList(PList, True, Coord);
+        Surf:=PList^.Surf;
+        SurfEnd:=PChar(Surf)+PList^.SurfSize;
+        while Surf<SurfEnd do
+        begin
+          with Surf^ do
+          begin
+            if (not Transparency) or ((not PList^.TransparentTexture) and (AlphaColor and $FF000000 = $FF000000)) then
+              RenderSurface3D(Surf, PList^.Texture);
+
+            Inc(Surf);
+            Inc(PSurfaceExtra(Surf));
+            if VertexCount>=0 then
+              Inc(PVertex3D(Surf), VertexCount)
+            else
+              Inc(PChar(Surf), VertexCount*(-(SizeOf(TVertex3D)+SizeOf(vec3_t))));
+          end;
+        end;
       end;
       PList:=PList^.Next;
+    end;
+
+    if Transparency then
+    begin
+      //FIXME: Set-up transparent rendering?
+
+      FacesDistance:=TList.Create;
+      try
+        PList:=FListSurfaces;
+        while Assigned(PList) do
+        begin
+          Surf:=PList^.Surf;
+          SurfEnd:=PChar(Surf)+PList^.SurfSize;
+          while Surf<SurfEnd do
+          begin
+            with Surf^ do
+            begin
+              if PList^.TransparentTexture or (AlphaColor and $FF000000 <> $FF000000) then
+              begin
+                SurfExtra:=PSurfaceExtra(PChar(Surf) + SizeOf(TSurface3D));
+                New(FaceDistance);
+                FaceDistance^.Distance:=Sqr(SurfExtra^.CenterPosition[0]+TransX)+Sqr(SurfExtra^.CenterPosition[1]+TransY)+Sqr(SurfExtra^.CenterPosition[2]+TransZ);
+                //Note: Trans(X/Y/Z) is the NEGATIVE coordinate, so we need to ADD instead of SUBTRACT the two values for the distance-calc.
+                FaceDistance^.Surf:=Surf;
+                FaceDistance^.Texture:=PList^.Texture;
+                FacesDistance.Add(FaceDistance);
+              end;
+
+              Inc(Surf);
+              Inc(PSurfaceExtra(Surf));
+
+              if VertexCount>=0 then
+                Inc(PVertex3D(Surf), VertexCount)
+              else
+                Inc(PChar(Surf), VertexCount*(-(SizeOf(TVertex3D)+SizeOf(vec3_t))));
+            end;
+          end;
+          PList:=PList^.Next;
+        end;
+
+        //Sort the transparent faces based on distance, so we can draw them back to front
+        FacesDistance.Sort(SortFaceDistance);
+
+        while (FacesDistance.Count <> 0) do
+        begin
+          FaceDistance:=FacesDistance.Last;
+          FacesDistance.Count := FacesDistance.Count - 1;
+          RenderSurface3D(FaceDistance.Surf, FaceDistance.Texture);
+          Dispose(FaceDistance);
+        end;
+
+      finally
+        FacesDistance.Free;
+      end;
     end;
   finally
     l_Res:=D3DDevice.EndScene();
@@ -1324,10 +1433,8 @@ begin
     raise EErrorFmt(6403, ['Present', DXGetErrorString9(l_Res)]);
 end;
 
-procedure TDirect3DSceneObject.RenderPList(PList: PSurfaces; TransparentFaces: Boolean; SourceCoord: TCoordinates);
+procedure TDirect3DSceneObject.RenderSurface3D(Surf: PSurface3D; Texture: PTexture3);
 var
-  Surf: PSurface3D;
-  SurfEnd: PChar;
   l_Res: HResult;
   PV, PVBase, PV1, PV2, PV3: PVertex3D;
   NeedTex, NeedColor: Boolean;
@@ -1362,81 +1469,74 @@ begin
     end;
   end;
 
-  Surf:=PList^.Surf;
-  SurfEnd:=PChar(Surf)+PList^.SurfSize;
-
-  while Surf<SurfEnd do
+  with Surf^ do
   begin
-    with Surf^ do
+    Inc(Surf);
+
+    if Lighting and (LightingQuality=0) then
     begin
-      Inc(Surf);
-      if ((AlphaColor and $FF000000 = $FF000000) xor TransparentFaces)
-      and (SourceCoord.PositiveHalf(Normale[0], Normale[1], Normale[2], Dist)) then
+      //First, disable all lights
+      //
+      //DanielPharos: This line fixes a subtle bug. LightNR is a cardinal, so if it's
+      //zero, the max bound of the for-loop overflows into max_int. -> The loop isn't
+      //skipped!
+      if NumberOfLights <> 0 then
+      //
+      for LightNR := 0 to NumberOfLights-1 do
       begin
-        if Lighting and (LightingQuality=0) then
+        l_Res:=D3DDevice.LightEnable(LightNR, False);
+        if (l_Res <> D3D_OK) then
+          raise EErrorFmt(6403, ['LightEnable', DXGetErrorString9(l_Res)]);
+      end;
+
+      //Next, enable the lights we want
+      //
+      //DanielPharos: This line fixes a subtle bug. LightNR is a cardinal, so if it's
+      //zero, the max bound of the for-loop overflows into max_int. -> The loop isn't
+      //skipped!
+      if PSurfaceExtra(Surf)^.LightCount <> 0 then
+      //
+      begin
+        PO:=PSurfaceExtra(Surf)^.Direct3DLightList;
+        for LightNR := 0 to PSurfaceExtra(Surf)^.LightCount-1 do
         begin
-          //First, disable all lights
-          //
-          //DanielPharos: This line fixes a subtle bug. LightNR is a cardinal, so if it's
-          //zero, the max bound of the for-loop overflows into max_int. -> The loop isn't
-          //skipped!
-          if NumberOfLights <> 0 then
-          //
-          for LightNR := 0 to NumberOfLights-1 do
-          begin
-            l_Res:=D3DDevice.LightEnable(LightNR, False);
-            if (l_Res <> D3D_OK) then
-              raise EErrorFmt(6403, ['LightEnable', DXGetErrorString9(l_Res)]);
-          end;
+          l_Res:=D3DDevice.LightEnable(PO^, True);
+          if (l_Res <> D3D_OK) then
+            raise EErrorFmt(6403, ['LightEnable', DXGetErrorString9(l_Res)]);
 
-          //Next, enable the lights we want
-          //
-          //DanielPharos: This line fixes a subtle bug. LightNR is a cardinal, so if it's
-          //zero, the max bound of the for-loop overflows into max_int. -> The loop isn't
-          //skipped!
-          if OpenGLLights <> 0 then
-          //
-          begin
-            PO:=Direct3DLightList;
-            for LightNR := 0 to OpenGLLights-1 do
-            begin
-              l_Res:=D3DDevice.LightEnable(PO^, True);
-              if (l_Res <> D3D_OK) then
-                raise EErrorFmt(6403, ['LightEnable', DXGetErrorString9(l_Res)]);
+          Inc(PO, 1);
+        end;
+      end;
+    end;
 
-              Inc(PO, 1);
-            end;
+    UnpackColor(AlphaColor, Currentf);
+
+    ZeroMemory(@material, sizeof(material));
+    if NeedColor then
+    begin
+      with Texture^ do
+      begin
+        if MeanColor = MeanColorNotComputed then
+        begin
+          PSD:=GetTex3Description(Texture^);
+          try
+            MeanColor:=ComputeMeanColor(PSD);
+          finally
+            PSD.Done;
           end;
         end;
+        UnpackColor(MeanColor, CurrentfTMP);
+        Currentf[0]:=Currentf[0]*CurrentfTMP[0];
+        Currentf[1]:=Currentf[1]*CurrentfTMP[1];
+        Currentf[2]:=Currentf[2]*CurrentfTMP[2];
+        Currentf[3]:=Currentf[3];
+      end;
 
-        UnpackColor(AlphaColor, Currentf);
-
-        ZeroMemory(@material, sizeof(material));
-        if NeedColor then
-        begin
-          with PList^.Texture^ do
-          begin
-            if MeanColor = MeanColorNotComputed then
-            begin
-              PSD:=GetTex3Description(PList^.Texture^);
-              try
-                MeanColor:=ComputeMeanColor(PSD);
-              finally
-                PSD.Done;
-              end;
-            end;
-            UnpackColor(MeanColor, CurrentfTMP);
-            Currentf[0]:=Currentf[0]*CurrentfTMP[0];
-            Currentf[1]:=Currentf[1]*CurrentfTMP[1];
-            Currentf[2]:=Currentf[2]*CurrentfTMP[2];
-            Currentf[3]:=Currentf[3];
-          end;
-
-          material.Diffuse := D3DXCOLOR(Currentf[0], Currentf[1], Currentf[2], Currentf[3]);
-        end
-        else
-          material.Diffuse := D3DXCOLOR(1.0, 1.0, 1.0, 1.0);
-        material.Ambient := D3DXCOLOR(1.0, 1.0, 1.0, 1.0);
+      material.Diffuse := D3DXCOLOR(Currentf[0], Currentf[1], Currentf[2], Currentf[3]);
+    end
+    else
+      material.Diffuse := D3DXCOLOR(1.0, 1.0, 1.0, 1.0);
+    material.Ambient := D3DXCOLOR(1.0, 1.0, 1.0, 1.0);
 
 {  // Create material
   FillChar(l_Material, SizeOf(l_Material), 0);
@@ -1446,124 +1546,118 @@ begin
   l_Material.dvPower     := 100.0;
   D3DDevice.SetMaterial(l_Material);   }
 
-        //FIXME: Handle TextureMode!
+    //FIXME: Handle TextureMode!
 
-        l_Res:=D3DDevice.SetMaterial(material);
+    l_Res:=D3DDevice.SetMaterial(material);
+    if (l_Res <> D3D_OK) then
+      raise EErrorFmt(6403, ['SetMaterial', DXGetErrorString9(l_Res)]);
+
+    if NeedTex then
+    begin
+      l_Res:=D3DDevice.SetTexture(0, Texture^.Direct3DTexture);
+      if (l_Res <> D3D_OK) then
+        raise EErrorFmt(6403, ['SetTexture', DXGetErrorString9(l_Res)]);
+    end;
+
+    Inc(PSurfaceExtra(Surf));
+    PV:=PVertex3D(Surf);
+
+    if VertexCount>=0 then
+    begin  { normal polygon }
+      l_Res:=D3DDevice.CreateVertexBuffer(VertexCount*SizeOf(TVertex3D), D3DUSAGE_WRITEONLY, FVFType, D3DPOOL_DEFAULT, VertexBuffer, nil);
+      if (l_Res <> D3D_OK) then
+        raise EErrorFmt(6403, ['RenderSurface3D: CreateVertexBuffer', DXGetErrorString9(l_Res)]);
+      l_Res:=VertexBuffer.Lock(0, 0, Pointer(pBuffer), 0);
+      if (l_Res <> D3D_OK) then
+        raise EErrorFmt(6403, ['RenderSurface3D: Lock', DXGetErrorString9(l_Res)]);
+      try
+        //FIXME: Do this more efficiently; can we pre-generate the VertexBuffer?
+        CopyMemory(pBuffer, PV, VertexCount*SizeOf(TVertex3D));
+      finally
+        l_Res:=VertexBuffer.Unlock();
         if (l_Res <> D3D_OK) then
-          raise EErrorFmt(6403, ['SetMaterial', DXGetErrorString9(l_Res)]);
+          raise EErrorFmt(6403, ['RenderSurface3D: Unlock', DXGetErrorString9(l_Res)]);
+       end;
 
-        if NeedTex then
+      l_Res:=D3DDevice.SetStreamSource(0, VertexBuffer, 0, SizeOf(TVertex3D));
+      if (l_Res <> D3D_OK) then
+        raise EErrorFmt(6403, ['RenderSurface3D: SetStreamSource', DXGetErrorString9(l_Res)]);
+
+      NTriangles:=VertexCount - 2;
+
+      l_Res:=D3DDevice.CreateIndexBuffer(NTriangles*3*SizeOf(Cardinal), D3DUSAGE_WRITEONLY, D3DFMT_INDEX32, D3DPOOL_DEFAULT, IndexBuffer, nil); //FIXME: D3DFMT_INDEX32, so SizeOf(Cardinal) == 4 !
+      if (l_Res <> D3D_OK) then
+        raise EErrorFmt(6403, ['RenderSurface3D: CreateIndexBuffer', DXGetErrorString9(l_Res)]);
+
+      l_Res:=IndexBuffer.Lock(0, 0, Pointer(pBuffer), 0);
+      if (l_Res <> D3D_OK) then
+        raise EErrorFmt(6403, ['RenderSurface3D: Lock', DXGetErrorString9(l_Res)]);
+      try
+        PVBase:=PV;
+        for I:=0 to NTriangles-1 do
         begin
-          l_Res:=D3DDevice.SetTexture(0, PList^.Texture^.Direct3DTexture);
-          if (l_Res <> D3D_OK) then
-            raise EErrorFmt(6403, ['SetTexture', DXGetErrorString9(l_Res)]);
-        end;
+          PV1:=PV;
+          Inc(PV);
+          PV2:=PV;
+          Inc(PV);
+          PV3:=PV;
+          //Inc(PV);
 
-        PV:=PVertex3D(Surf);
-
-        if VertexCount>=0 then
-        begin  { normal polygon }
-          l_Res:=D3DDevice.CreateVertexBuffer(VertexCount*SizeOf(TVertex3D), D3DUSAGE_WRITEONLY, FVFType, D3DPOOL_DEFAULT, VertexBuffer, nil);
-          if (l_Res <> D3D_OK) then
-            raise EErrorFmt(6403, ['RenderPList_CreateVertexBuffer', DXGetErrorString9(l_Res)]);
-          l_Res:=VertexBuffer.Lock(0, 0, Pointer(pBuffer), 0);
-          if (l_Res <> D3D_OK) then
-            raise EErrorFmt(6403, ['RenderPList_Lock', DXGetErrorString9(l_Res)]);
-          try
-            //FIXME: Do this more efficiently; can we pre-generate the VertexBuffer?
-            CopyMemory(pBuffer, PV, VertexCount*SizeOf(TVertex3D));
-          finally
-            l_Res:=VertexBuffer.Unlock();
-            if (l_Res <> D3D_OK) then
-              raise EErrorFmt(6403, ['RenderPList_Unlock', DXGetErrorString9(l_Res)]);
-           end;
-
-          l_Res:=D3DDevice.SetStreamSource(0, VertexBuffer, 0, SizeOf(TVertex3D));
-          if (l_Res <> D3D_OK) then
-            raise EErrorFmt(6403, ['RenderPList_SetStreamSource', DXGetErrorString9(l_Res)]);
-
-          NTriangles:=VertexCount - 2;
-
-          l_Res:=D3DDevice.CreateIndexBuffer(NTriangles*3*SizeOf(Cardinal), D3DUSAGE_WRITEONLY, D3DFMT_INDEX32, D3DPOOL_DEFAULT, IndexBuffer, nil); //FIXME: D3DFMT_INDEX32, so SizeOf(Cardinal) == 4 !
-          if (l_Res <> D3D_OK) then
-            raise EErrorFmt(6403, ['RenderPList_CreateIndexBuffer', DXGetErrorString9(l_Res)]);
-
-          l_Res:=IndexBuffer.Lock(0, 0, Pointer(pBuffer), 0);
-          if (l_Res <> D3D_OK) then
-            raise EErrorFmt(6403, ['RenderPList_Lock', DXGetErrorString9(l_Res)]);
-          try
-            PVBase:=PV;
-            for I:=0 to NTriangles-1 do
-            begin
-              PV1:=PV;
-              Inc(PV);
-              PV2:=PV;
-              Inc(PV);
-              PV3:=PV;
-              //Inc(PV);
-
-              if Odd(I) then
-              begin
-                //Decrease PV1 to fix second triangle
-                Dec(PV1);
-              end;
-
-              PCardinal(pBuffer)^ := (Cardinal(PV1) - Cardinal(PVBase)) div SizeOf(TVertex3D);
-              Inc(PCardinal(pBuffer));
-              PCardinal(pBuffer)^ := (Cardinal(PV2) - Cardinal(PVBase)) div SizeOf(TVertex3D);
-              Inc(PCardinal(pBuffer));
-              PCardinal(pBuffer)^ := (Cardinal(PV3) - Cardinal(PVBase)) div SizeOf(TVertex3D);
-              Inc(PCardinal(pBuffer));
-              //Dec(PV);
-              Dec(PV);
-            end;
-          finally
-            l_Res:=IndexBuffer.Unlock();
-            if (l_Res <> D3D_OK) then
-              raise EErrorFmt(6403, ['RenderPList_Unlock', DXGetErrorString9(l_Res)]);
+          if Odd(I) then
+          begin
+            //Decrease PV1 to fix second triangle
+            Dec(PV1);
           end;
 
-          l_Res:=D3DDevice.SetIndices(IndexBuffer);
-          if (l_Res <> D3D_OK) then
-            raise EErrorFmt(6403, ['RenderPList_SetIndices', DXGetErrorString9(l_Res)]);
-
-          l_Res:=D3DDevice.DrawIndexedPrimitive(Direct3D9.D3DPT_TRIANGLELIST, 0, 0, VertexCount, 0, NTriangles);
-          if (l_Res <> D3D_OK) then
-            raise EErrorFmt(6403, ['RenderPList_DrawIndexedPrimitive', DXGetErrorString9(l_Res)]);
-        end
-        else
-        begin { strip }
-          l_Res:=D3DDevice.CreateVertexBuffer((-VertexCount)*SizeOf(TVertex3D), D3DUSAGE_WRITEONLY, FVFType, D3DPOOL_DEFAULT, VertexBuffer, nil);
-          if (l_Res <> D3D_OK) then
-            raise EErrorFmt(6403, ['RenderPList_CreateVertexBuffer', DXGetErrorString9(l_Res)]);
-          l_Res:=VertexBuffer.Lock(0, 0, Pointer(pBuffer), 0);
-          if (l_Res <> D3D_OK) then
-            raise EErrorFmt(6403, ['RenderPList_Lock', DXGetErrorString9(l_Res)]);
-          try
-            //FIXME: Do this more efficiently; can we pre-generate the VertexBuffer?
-            CopyMemory(pBuffer, PV, (-VertexCount)*SizeOf(TVertex3D));
-          finally
-            l_Res:=VertexBuffer.Unlock();
-            if (l_Res <> D3D_OK) then
-              raise EErrorFmt(6403, ['RenderPList_Unlock', DXGetErrorString9(l_Res)]);
-           end;
-
-          NTriangles:=(-VertexCount) - 2;
-
-          l_Res:=D3DDevice.SetStreamSource(0, VertexBuffer, 0, SizeOf(TVertex3D));
-          if (l_Res <> D3D_OK) then
-            raise EErrorFmt(6403, ['RenderPList_SetStreamSource', DXGetErrorString9(l_Res)]);
-
-          l_Res:=D3DDevice.DrawPrimitive(Direct3D9.D3DPT_TRIANGLESTRIP, 0, NTriangles);
-          if (l_Res <> D3D_OK) then
-            raise EErrorFmt(6403, ['RenderPList_DrawPrimitive', DXGetErrorString9(l_Res)]);
+          PCardinal(pBuffer)^ := (Cardinal(PV1) - Cardinal(PVBase)) div SizeOf(TVertex3D);
+          Inc(PCardinal(pBuffer));
+          PCardinal(pBuffer)^ := (Cardinal(PV2) - Cardinal(PVBase)) div SizeOf(TVertex3D);
+          Inc(PCardinal(pBuffer));
+          PCardinal(pBuffer)^ := (Cardinal(PV3) - Cardinal(PVBase)) div SizeOf(TVertex3D);
+          Inc(PCardinal(pBuffer));
+          //Dec(PV);
+          Dec(PV);
         end;
+      finally
+        l_Res:=IndexBuffer.Unlock();
+        if (l_Res <> D3D_OK) then
+          raise EErrorFmt(6403, ['RenderSurface3D: Unlock', DXGetErrorString9(l_Res)]);
       end;
 
-      if VertexCount>=0 then
-        Inc(PVertex3D(Surf), VertexCount)
-      else
-        Inc(PChar(Surf), VertexCount*(-(SizeOf(TVertex3D)+SizeOf(vec3_t))));
+      l_Res:=D3DDevice.SetIndices(IndexBuffer);
+      if (l_Res <> D3D_OK) then
+        raise EErrorFmt(6403, ['RenderSurface3D: SetIndices', DXGetErrorString9(l_Res)]);
+
+      l_Res:=D3DDevice.DrawIndexedPrimitive(Direct3D9.D3DPT_TRIANGLELIST, 0, 0, VertexCount, 0, NTriangles);
+      if (l_Res <> D3D_OK) then
+        raise EErrorFmt(6403, ['RenderSurface3D: DrawIndexedPrimitive', DXGetErrorString9(l_Res)]);
+    end
+    else
+    begin { strip }
+      l_Res:=D3DDevice.CreateVertexBuffer((-VertexCount)*SizeOf(TVertex3D), D3DUSAGE_WRITEONLY, FVFType, D3DPOOL_DEFAULT, VertexBuffer, nil);
+      if (l_Res <> D3D_OK) then
+        raise EErrorFmt(6403, ['RenderSurface3D: CreateVertexBuffer', DXGetErrorString9(l_Res)]);
+      l_Res:=VertexBuffer.Lock(0, 0, Pointer(pBuffer), 0);
+      if (l_Res <> D3D_OK) then
+        raise EErrorFmt(6403, ['RenderSurface3D: Lock', DXGetErrorString9(l_Res)]);
+      try
+        //FIXME: Do this more efficiently; can we pre-generate the VertexBuffer?
+        CopyMemory(pBuffer, PV, (-VertexCount)*SizeOf(TVertex3D));
+      finally
+        l_Res:=VertexBuffer.Unlock();
+        if (l_Res <> D3D_OK) then
+          raise EErrorFmt(6403, ['RenderSurface3D: Unlock', DXGetErrorString9(l_Res)]);
+       end;
+
+      NTriangles:=(-VertexCount) - 2;
+
+      l_Res:=D3DDevice.SetStreamSource(0, VertexBuffer, 0, SizeOf(TVertex3D));
+      if (l_Res <> D3D_OK) then
+        raise EErrorFmt(6403, ['RenderSurface3D: SetStreamSource', DXGetErrorString9(l_Res)]);
+
+      l_Res:=D3DDevice.DrawPrimitive(Direct3D9.D3DPT_TRIANGLESTRIP, 0, NTriangles);
+      if (l_Res <> D3D_OK) then
+        raise EErrorFmt(6403, ['RenderSurface3D: DrawPrimitive', DXGetErrorString9(l_Res)]);
     end;
   end;
 end;

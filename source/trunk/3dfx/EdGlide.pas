@@ -47,11 +47,12 @@ type
  protected
    ScreenX, ScreenY: Integer;
    TranspFactor: Single;
-   function StartBuildScene({var PW: TPaletteWarning;} var VertexSize, SurfaceSize: Integer) : TBuildMode; override;
+   function StartBuildScene({var PW: TPaletteWarning;} var SurfaceExtraSize, VertexSize: Integer) : TBuildMode; override;
    procedure stScalePoly(Texture: PTexture3; var ScaleS, ScaleT: TDouble); override;
    procedure stScaleModel(Skin: PTexture3; var ScaleS, ScaleT: TDouble); override;
    procedure stScaleBezier(Texture: PTexture3; var ScaleS, ScaleT: TDouble); override;
    procedure stScaleSprite(Skin: PTexture3; var ScaleS, ScaleT: TDouble); override;
+   procedure WriteSurfaceExtra(PS: PChar; Surface: PSurface3D); override;
    procedure WriteVertex(PV: PChar; Source: Pointer; const ns,nt: Single; HiRes: Boolean); override;
    procedure PostBuild(nVertexList, nVertexList2: TList); override;
    procedure RenderPList(PList: PSurfaces; TransparentFaces: Boolean);
@@ -98,6 +99,11 @@ const
  VertexSnapper = 1.0*(3 shl 18);
 
 type
+ PSurfaceExtra = ^TSurfaceExtra;
+ TSurfaceExtra = record
+                  GlideRadius: scalar_t;
+                 end;
+
  PVect3D = ^TVect3D;
  TVect3D = record
             BuildNo: LongWord;
@@ -106,11 +112,13 @@ type
             OffScreen: Byte;
             LowPrecision: Boolean;   { if v points to a vec3_t - otherwise, it points to a TVect }
            end;
+
  PVertex3D = ^TVertex3D;
  TVertex3D = record
               v: PVect3D;
               s,t: scalar_t;
              end;
+
  TGlideTextureFiltering = (tfNone, tfBilinear, tfTrilinear);
 
 var
@@ -534,6 +542,53 @@ begin
  inherited;
 end;
 
+procedure TGlideSceneObject.WriteSurfaceExtra(PS: PChar; Surface: PSurface3D);
+var
+ Source, Delta: vec3_t;
+ PV: PVertex3D;
+ I: Integer;
+ nRadius: FxFloat;
+
+ function ComputeVDelta(const Eye: vec3_t; const Vect: TVect3D) : vec3_t;
+ begin
+  with Vect do
+   begin
+    if LowPrecision then
+     begin
+      Result[0]:=vec3_p(v)^[0] - Eye[0];
+      Result[1]:=vec3_p(v)^[1] - Eye[1];
+      Result[2]:=vec3_p(v)^[2] - Eye[2];
+     end
+    else
+     with PVect(v)^ do
+      begin
+       Result[0]:=X - Eye[0];
+       Result[1]:=Y - Eye[1];
+       Result[2]:=Z - Eye[2];
+      end;
+   end;
+ end;
+
+begin
+ with PSurfaceExtra(PS)^ do
+  begin
+   Source[0]:=0;
+   Source[1]:=0;
+   Source[2]:=0;
+   PV:=PVertex3D(PChar(Surface)+SizeOf(TSurface3D)+SizeOf(TSurfaceExtra));
+   Source:=ComputeVDelta(Source, PV^.v^);
+   GlideRadius:=0;
+   for I:=2 to Surface^.VertexCount do
+    begin
+     Inc(PV);
+     Delta:=ComputeVDelta(Source, PV^.v^);
+     nRadius:=Sqr(Delta[0])+Sqr(Delta[1])+Sqr(Delta[2]);
+     if nRadius>GlideRadius then
+      GlideRadius:=nRadius;
+    end;
+  end;
+end;
+
 procedure TGlideSceneObject.WriteVertex(PV: PChar; Source: Pointer; const ns,nt: Single; HiRes: Boolean);
 var
  L, R, Test: Integer;
@@ -571,58 +626,11 @@ begin
  Raise InternalE('GetVertex');
 end;
 
-(*function ComputeVDelta(const Eye: vec3_t; const Vect: TVect3D) : vec3_t;
-begin
- with Vect do
-  begin
-   if LowPrecision then
-    begin
-     Result[0]:=vec3_p(v)^[0] - Eye[0];
-     Result[1]:=vec3_p(v)^[1] - Eye[1];
-     Result[2]:=vec3_p(v)^[2] - Eye[2];
-    end
-   else
-    with PVect(v)^ do
-     begin
-      Result[0]:=X - Eye[0];
-      Result[1]:=Y - Eye[1];
-      Result[2]:=Z - Eye[2];
-     end;
-  end;
-end;
-
-procedure ComputeRadius(Surf: PSurface3D);
-var
- Source, Delta: vec3_t;
- PV: PVertex3D;
- I: Integer;
- nRadius: FxFloat;
-begin
- with Surf^ do
-  begin
-   Inc(Surf);
-   Source[0]:=0;
-   Source[1]:=0;
-   Source[2]:=0;
-   PV:=PVertex3D(Surf);
-   Source:=ComputeVDelta(Source, PV^.v^);
-   Radius:=0;
-   for I:=2 to VertexCount do
-    begin
-     Inc(PV);
-     Delta:=ComputeVDelta(Source, PV^.v^);
-     nRadius:=Sqr(Delta[0])+Sqr(Delta[1])+Sqr(Delta[2]);
-     if nRadius>Radius then
-      Radius:=nRadius;
-    end;
-  end;
-end;*)
-
-function TGlideSceneObject.StartBuildScene({var PW: TPaletteWarning;} var VertexSize, SurfaceSize: Integer) : TBuildMode;
+function TGlideSceneObject.StartBuildScene({var PW: TPaletteWarning;} var SurfaceExtraSize, VertexSize: Integer) : TBuildMode;
 begin
 {PW:=qrkGlideState.PaletteWarning;}
+ SurfaceExtraSize:=SizeOf(TSurfaceExtra);
  VertexSize:=SizeOf(TVertex3D);
- SurfaceSize:=SizeOf(TSurface3D);
  FBuildNo:=1;
  Result:=bmGlide;
 end;
@@ -892,25 +900,15 @@ procedure TGlideSceneObject.RenderTransparent(Transparent: Boolean);
 var
  PList: PSurfaces;
 begin
-  if Transparent=false then
+  PList:=FListSurfaces;
+  while Assigned(PList) do
   begin
-    PList:=FListSurfaces;
-    while Assigned(PList) do
-    begin
-      if (PList^.Transparent=False) then
-        RenderPList(PList, False);
-      PList:=PList^.Next;
-    end;
-  end
-  else
-  begin
-    PList:=FListSurfaces;
-    while Assigned(PList) do
-    begin
-      if (PList^.Transparent=True) or (PList^.NumberTransparentFaces>0) then
-        RenderPList(PList, True);
-      PList:=PList^.Next;
-    end;
+    if not (Transparent xor PList^.TransparentTexture) then
+      RenderPList(PList, False);
+    if Transparent then
+      RenderPList(PList, True);
+
+    PList:=PList^.Next;
   end;
 end;
 
@@ -1135,6 +1133,7 @@ var
  ScrDiff, ScrTotal: Byte;
  SourceEdge, LastEdge: Byte;
  Surf: PSurface3D;
+ SurfExtra: PSurfaceExtra;
  SurfEnd: PChar;
  VList: array[0..MAX_VERTICES-1] of GrVertex;
  I, J, N, FindVertexState, CopyV1Count: Integer;
@@ -1418,6 +1417,8 @@ begin
    with Surf^ do
    begin
     Inc(Surf);
+    SurfExtra:=PSurfaceExtra(Surf);
+    Inc(PSurfaceExtra(Surf));
 
     if (((AlphaColor and $FF000000)=$FF000000) xor TransparentFaces) and CCoord.PositiveHalf(Normale[0], Normale[1], Normale[2], Dist) then
     begin
@@ -1451,13 +1452,13 @@ begin
 
       if CCoord.FlatDisplay then
       begin
-        MinRadius:=CCoord.MinDistance-GlideRadius;
-        MaxRadius:=CCoord.MaxDistance+GlideRadius;
+        MinRadius:=CCoord.MinDistance-SurfExtra^.GlideRadius;
+        MaxRadius:=CCoord.MaxDistance+SurfExtra^.GlideRadius;
       end
       else
       begin
-        MinRadius:=-GlideRadius;
-        MaxRadius:=GlideRadius+FarDistance;
+        MinRadius:=-SurfExtra^.GlideRadius;
+        MaxRadius:=SurfExtra^.GlideRadius+FarDistance;
       end;
 
       PV:=PVertex3D(Surf);
