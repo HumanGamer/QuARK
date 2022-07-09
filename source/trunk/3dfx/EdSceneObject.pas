@@ -55,6 +55,7 @@ type
                   Width, Height: Integer;
                 end;
 
+ //TSurface3D is a single triangle/quad/face. It's followed in the chain by its vertices: TSurface3D + TSurfaceExtra + N*TVertex3D
  PSurface3D = ^TSurface3D;
  TSurface3D = record
                Normale: vec3_t;          { not defined if GL_TRI_STRIP }
@@ -84,6 +85,7 @@ type
               Direct3DTexture: IDirect3DTexture9;
              end;
 
+ //TSurfaces contains a chain of TSurface3D's, all using a single TTexture3.
  PSurfaces = ^TSurfaces;
  TSurfaces = record
               Next: PSurfaces;
@@ -420,7 +422,7 @@ var
  CTris: PComponentTris;
  CVertex: vec3_p;
  v3p: array[0..2] of vec3_p;
- CurrentColor: TColorRef;
+ CurrentColor: TColorRef; //highlight color, to be mixed/blended with the texture
  BezierOpacity: TTexOpacityInfo;
  TextureManager: TTextureManager;
  Mode: TBuildMode;
@@ -430,11 +432,12 @@ var
  BControlPoints: TMeshBuf5;
  stBuffer, st: vec_st_p;
 {PalWarning: TPaletteWarning;}
-  BezierMeshDetail: Integer;
-  PolySurface: PSurface;
-  Model3DInfo: PModel3DInfo;
-  OneBezier:   TBezier;
-  xSpriteInfo: PSpriteInfo;
+ BezierMeshDetail: Integer;
+ PolySurface: PSurface;
+ Model3DInfo: PModel3DInfo;
+ OneBezier:   TBezier;
+ xSpriteInfo: PSpriteInfo;
+
   { a PSurfaces object is a list wherein each texturename indexes the list
      of surfaces with that texture.  This routine adds a new texturename
      to the list, or increases the SurfSize associated with
@@ -551,9 +554,11 @@ begin
  TextureManager:=TTextureManager.GetInstance;
  VertexSize3m:=SizeOf(TSurface3D)+SurfaceExtraSize+3*VertexSize;
  TexNames:=TStringList.Create;
- try  {begin outer try block - almost whole method}
+ try
    TexNames.Sorted:=True;
 
+   // Build FListSurfaces, also nVertexList(2), used only in software and Glide mode
+   //Note: Vertex data will be processed later; only calculate needed memory size for now.
    if NeedVertexList2 then
    begin
      nVertexList:=TList.Create;
@@ -564,20 +569,20 @@ begin
      nVertexList:=Nil;
      nVertexList2:=Nil;
    end;
-
-   try  {begin build FListSurfaces, also nVertexList(2), used only in software and Glide mode}
-     I:=0;   // process the faces of the polys
+   try
+     // Process the faces of the polys
+     I:=0;
      while I<PolyFaces.Count do
      begin
        PolySurface:=PSurface(PolyFaces[I]);
        if PolySurface=Nil then
        begin
          { If it points to a nil-pointer, then the next element is a color
-           element, which we have to ignore. Thats why we increment with 1 here }
+           element, which we have to ignore. That's why we increment with 1 here }
          Inc(I);
        end
        else
-       begin // wtf, we're keeping track of texture name and total size of needed vertexes, but not the vertexes themselves
+       begin
          AddSurfaceRef(PolySurface^.F.NomTex, SizeOf(TSurface3D) + SurfaceExtraSize + PolySurface^.prvVertexCount * VertexSize, Nil);
          if nVertexList<>Nil then    // only in software and Glide mode
            for J:=0 to PolySurface^.prvVertexCount-1 do
@@ -587,15 +592,15 @@ begin
        Inc(I); { Increment to get the next element }
      end;
 
-     //here the model is drawn
-     I:=0;  // process the models, haven't looked into this one yet
+     // Process the models
+     I:=0;
      while I<ModelInfo.Count do
      begin
        Model3DInfo:=PModel3DInfo(ModelInfo[I]);
        if Model3DInfo=Nil then
        begin
          { If it points to a nil-pointer, then the next element is a color
-           element, which we have to ignore. Thats why we increment with 1 here }
+           element, which we have to ignore. That's why we increment with 1 here }
          Inc(I);
        end
        else
@@ -616,14 +621,15 @@ begin
        Inc(I); { Increment to get the next element }
      end;
 
-     I:=0;  // process the sprites, haven't looked into this one yet/
+     // Process the sprites
+     I:=0;
      while I<SpriteInfo.Count do
      begin
        xSpriteInfo:=PSpriteInfo(SpriteInfo[I]);
        if xSpriteInfo=Nil then
        begin
          { If it points to a nil-pointer, then the next element is a color
-           element, which we have to ignore. Thats why we increment with 1 here }
+           element, which we have to ignore. That's why we increment with 1 here }
          Inc(I);
        end
        else
@@ -643,14 +649,15 @@ begin
        Inc(I); { Increment to get the next element }
      end;
 
-     I:=0; // process the beziers, haven't looked into this one yet
+     // Process the beziers
+     I:=0;
      while I<BezierInfo.Count do
      begin
        OneBezier:=TBezier(BezierInfo[I]);
        if OneBezier=Nil then
        begin
          { If it points to a nil-pointer, then the next element is a color
-           element, which we have to ignore. Thats why we increment with 1 }
+           element, which we have to ignore. That's why we increment with 1 }
          Inc(I);
        end
        else
@@ -675,12 +682,14 @@ begin
          end;
        end;
 
-//       @@@Process Meshes
+       // Process the meshes
+       //FIXME
 
        Inc(I); { Increment to get the next element }
      end;
 
-     PostBuild(nVertexList, nVertexList2);  // only does anything in software and Glide mode
+     // Handle the nVertexList(2), only does anything in software and Glide mode
+     PostBuild(nVertexList, nVertexList2);
    finally
      if (nVertexList <> nil) then
        nVertexList.Free;
@@ -691,7 +700,8 @@ begin
      nVertexList2:=nil;
    end;  {end build FSurfaceList}
 
-   NewTextures:=0; {rebuild old textures}
+   // Rebuild old textures
+   NewTextures:=0;
    PList:=FListSurfaces;
    while Assigned(PList) do
    begin
@@ -706,17 +716,17 @@ begin
      PList:=PList^.Next;
    end;
 
-   TextureManager.FreeTextures(False);   { free unused textures }
+   // Free unused textures
+   TextureManager.FreeTextures(False);
 
-   { build load new textures }
+   // Build/load new textures
    if NewTextures>0 then
    begin
      Gauche:=0;
      Brush:=0;
 
      if ShowProgress then
-     { Setup a progress-bar, depending on what type of device-context
-       thats been rendering to }
+     { Setup a progress-bar, depending on what type of device-context that's been rendering to }
        if ProgressDC=HDC(-1) then
          ProgressIndicatorStart(5454, NewTextures)
        else
@@ -789,8 +799,8 @@ begin
      end;
    end;  {end build and load new textures}
 
-   { do something major with the polys }
-   CurrentColor:=$FFFFFF; // what does the CurrentColor do?
+   // Process vertex information of the polys
+   CurrentColor:=$FFFFFF;
    I:=0;
    while I<PolyFaces.Count do
    begin
@@ -963,7 +973,8 @@ begin
      end;
    end;
 
-   CurrentColor:=$FFFFFF;  {same deal for models}
+   // Process vertex information of the models
+   CurrentColor:=$FFFFFF;
    I:=0;
    while I<ModelInfo.Count do
    begin
@@ -1071,7 +1082,8 @@ begin
      end;
    end;
 
-   CurrentColor:=$FFFFFF;  { and sprites }
+   // Process vertex information of the sprites
+   CurrentColor:=$FFFFFF;
    I:=0;
    while I<SpriteInfo.Count do
    begin
@@ -1178,7 +1190,8 @@ begin
      end;
    end;
 
-   CurrentColor:=$FFFFFF;  { and beziers }
+   // Process vertex information of the beziers
+   CurrentColor:=$FFFFFF;
    BezierMeshDetail:=GetBezierDetail();
    I:=0;
    while I<BezierInfo.Count do
@@ -1310,7 +1323,8 @@ begin
      end;
    end;
 
-//   @@@Process Meshes
+   // Process vertex information of the meshes
+   //FIXME
 
  finally
    TexNames.Free;
