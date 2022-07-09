@@ -180,7 +180,7 @@ procedure QJpeg.LoadFile(F: TStream; FSize: TStreamPos);
 var
   LibraryToUse: string;
 begin
-  Log(LOG_VERBOSE, 'Loading JPG file: %s', [self.name]);;
+  Log(LOG_VERBOSE, 'Loading JPG file: %s', [self.name]);
   case ReadFormat of
   rf_Default: begin  { as stand-alone file }
     LibraryToUse:=SetupSubSet(ssFiles, 'JPG').Specifics.Values['LoadLibrary'];
