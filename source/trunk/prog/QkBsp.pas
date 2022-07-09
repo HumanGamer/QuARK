@@ -175,7 +175,7 @@ type
    end;
 
  TNodeStats = record
-               faces : Integer; { total # faces contaied }
+               faces : Integer; { total # faces contained }
                children : Integer; { total children, inc. empty }
                empty:  Integer; { total empty children }
                leafs : Integer;  { total leafs, inc. empty }
@@ -1150,7 +1150,7 @@ const
  BspMethodTable: array[0..2] of TyMethodDef =
   ((ml_name: 'reloadstructure';  ml_meth: qReloadStructure;  ml_flags: METH_VARARGS),
    (ml_name: 'closestructure';   ml_meth: qCloseStructure;   ml_flags: METH_VARARGS),
-   (ml_name: 'closeplanes';   ml_meth: qGetClosePlanes;   ml_flags: METH_VARARGS));
+   (ml_name: 'closeplanes';      ml_meth: qGetClosePlanes;   ml_flags: METH_VARARGS));
 
 function QBsp.PyGetAttr(attr: PChar) : PyObject;
 var
