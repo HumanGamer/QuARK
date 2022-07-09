@@ -1233,11 +1233,11 @@ begin
               SurfExtra^.CenterPosition[1]:=SurfExtra^.CenterPosition[1]/Abs(VertexCount);
               SurfExtra^.CenterPosition[2]:=SurfExtra^.CenterPosition[2]/Abs(VertexCount);
             end;
-            if VertexCount>=0 then
-              Inc(PVertex3D(Surf), VertexCount)
-            else
-              Inc(PChar(Surf), VertexCount*(-(SizeOf(TVertex3D)+SizeOf(vec3_t))));
           end;
+          if VertexCount>=0 then
+            Inc(PVertex3D(Surf), VertexCount)
+          else
+            Inc(PChar(Surf), VertexCount*(-(SizeOf(TVertex3D)+SizeOf(vec3_t))));
         end;
       end;
 
