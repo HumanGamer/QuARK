@@ -1215,11 +1215,7 @@ end;
 procedure TFQBsp.Button1Click(Sender: TObject);
 begin
  with ValidParentForm(Self) as TQkForm do
-{  if CharModeJeu>=mjQ3a then
-    ShowMessage('Sorry, no bsp viewing for this game yet')
-  else
-}
-    ProcessEditMsg(edOpen);
+  ProcessEditMsg(edOpen);
 end;
 
 (*
