@@ -25,7 +25,7 @@ interface
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls,
   Forms, Dialogs, QkObjects, QkFileObjects, QkForm, QkMapObjects, qmath,
-  StdCtrls, Python, PyObjects, PyMath, Game, QkUnknown, TB97;
+  StdCtrls, Python, TB97;
 
  const
   { these are the game codes for the default games
@@ -55,7 +55,7 @@ type
  PVertexList = ^TVertexList;
  {sleazy trick below, memory will be reserved for pointers to this }
  TVertexList = array[0..0] of TVect;
- 
+
  PQ1Vertex = ^TQ1Vertex;
  TQ1Vertex = vec3_t;
 
@@ -385,9 +385,10 @@ function DetermineIfSiN(F: TStream; FSize: TStreamPos) : Boolean;
 
 implementation
 
-uses Travail, QkWad, Setup, QkMap, QkBspHulls, QkApplPaths,
-     Undo, Quarkx, QkExceptions, PyForms, QkObjectClassList, ToolBox1,
-     ToolBoxGroup, QkQuakeCtx, FormCFG, Logging, QkTextures, QkFormCfg,
+uses Travail, QkWad, Setup, Game, QkMap, QkBspHulls, QkApplPaths,
+     Undo, Quarkx, QkExceptions, PyForms, PyMath, PyObjects,
+     QkObjectClassList, ToolBox1, ToolBoxGroup,
+     QkQuakeCtx, FormCfg, Logging, QkTextures, QkFormCfg,
      QkQ1, QkQ2, QkQ3, QkG3D, ExtraFunctionality;
 
 {$R *.DFM}
