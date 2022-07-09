@@ -147,7 +147,7 @@ begin
   begin
     {handle a folder}
     Folder:= QVPKFolder.Create( PChar(hlItemGetName(VPKDirectoryFile)), ParentFolder);
-    Log(LOG_VERBOSE,'Made vpk folder object :'+Folder.name);
+    Log(LOG_VERBOSE, 'Made vpk folder object: %s', [Folder.name]);
     ParentFolder.SubElements.Add( Folder );
     if root then
       Folder.TvParent:= nil
@@ -168,7 +168,7 @@ begin
 
     ParentFolder.SubElements.Add( Q );
 
-    Log(LOG_VERBOSE,'Made vpk file object :'+Q.name);
+    Log(LOG_VERBOSE, 'Made vpk file object: %s', [Q.name]);
     if Q is QFileObject then
       QFileObject(Q).ReadFormat := rf_default
     else
@@ -186,7 +186,7 @@ var
   VPKDirectoryItem : PHLDirectoryItem;
   Nsubelements, I : hlUInt;
 begin
-  Log(LOG_VERBOSE,'Loading VPK file: %s',[self.name]);
+  Log(LOG_VERBOSE, 'Loading VPK file: %s', [self.name]);
   case ReadFormat of
     rf_Default: begin  { as stand-alone file }
          if not HLLoaded then
@@ -234,7 +234,7 @@ end;
 
 procedure QVPKFolder.SaveFile(Info: TInfoEnreg1);
 begin
- Log(LOG_VERBOSE,'Saving VPK file: %s',[self.name]);
+ Log(LOG_VERBOSE, 'Saving VPK file: %s', [self.name]);
  with Info do case Format of
   rf_Default: begin  { as stand-alone file }
       if not HLLoaded then

@@ -419,7 +419,7 @@ end;
 
 constructor TQkExplorer.Create(AOwner: TComponent);
 begin
- Log(LOG_VERBOSE, 'Creating a new QkExplorer... ('+AOwner.Name+')');
+ Log(LOG_VERBOSE, 'Creating a new QkExplorer... (%s)', [AOwner.Name]);
  inherited;
 {FRoots:=TQList.Create;
  Images:=g_Form1.ImageList1;
@@ -443,7 +443,7 @@ end;
 
 destructor TQkExplorer.Destroy;
 begin
- Log(LOG_VERBOSE, 'Destroying QkExplorer... ('+Self.Owner.Name+')');
+ Log(LOG_VERBOSE, 'Destroying QkExplorer... (%s)', [Self.Owner.Name]);
  ClearView;
 {Roots.Free;}
  FAllExplorers.Remove(Self);

@@ -253,8 +253,7 @@ begin
   if Length(QSASAdditionalParameters)<>0 then
     QSASParameters:=QSASParameters+' '+QSASAdditionalParameters;
 
-  Log(LOG_VERBOSE, 'Now calling: '+QSASFile + ' ' + QSASParameters + ' ' + FullFilename);
-
+  Log(LOG_VERBOSE, 'Now calling: %s %s %s', [QSASFile, QSASParameters, FullFilename]);
   FillChar(QSASStartupInfo, SizeOf(QSASStartupInfo), 0);
   FillChar(QSASProcessInformation, SizeOf(QSASProcessInformation), 0);
   QSASStartupInfo.cb:=SizeOf(QSASStartupInfo);

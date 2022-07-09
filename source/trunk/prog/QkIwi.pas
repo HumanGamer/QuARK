@@ -79,7 +79,7 @@ end;*)
 
 procedure QIwi.LoadFile(F: TStream; FSize: TStreamPos);
 begin
-  Log(LOG_VERBOSE,'Loading IWI file: %s',[self.name]);
+  Log(LOG_VERBOSE, 'Loading IWI file: %s', [self.name]);
   case ReadFormat of
   rf_Default: begin  { as stand-alone file }
     LoadFileDevIL(F, FSize)
@@ -91,7 +91,7 @@ end;
 
 procedure QIwi.SaveFile(Info: TInfoEnreg1);
 begin
- Log(LOG_VERBOSE,'Saving IWI file: %s',[self.name]);
+ Log(LOG_VERBOSE, 'Saving IWI file: %s', [self.name]);
  with Info do
   case Format of
   rf_Default: begin  { as stand-alone file }

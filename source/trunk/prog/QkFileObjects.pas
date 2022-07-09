@@ -1112,9 +1112,9 @@ var
 begin
  Update:=AlternateFile='';
  if Update then
-  Log(LOG_VERBOSE, 'Saving file: ' + Filename)
+  Log(LOG_VERBOSE, 'Saving file: %s',  [Filename])
  else
-  Log(LOG_VERBOSE, 'Saving file: ' + Filename + ' under new name: ' + AlternateFile);
+  Log(LOG_VERBOSE, 'Saving file: %s under new name: %s', [Filename, AlternateFile]);
 
  Filename:=QuickResolveFilename(Filename);
  try

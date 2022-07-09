@@ -151,7 +151,7 @@ var
   HasAlpha: Boolean;
   V: array[1..2] of Single;
 begin
-  Log(LOG_VERBOSE,'Loading VTF file: %s',[self.name]);
+  Log(LOG_VERBOSE, 'Loading VTF file: %s', [self.name]);
   case ReadFormat of
     rf_Default: begin  { as stand-alone file }
       LibraryToUse:=SetupSubSet(ssFiles, 'VTF').Specifics.Values['LoadLibrary'];
@@ -318,7 +318,7 @@ var
   I, J: Integer;
   OutputSize: Cardinal;
 begin
- Log(LOG_VERBOSE,'Saving VTF file: %s',[self.name]);
+ Log(LOG_VERBOSE, 'Saving VTF file: %s', [self.name]);
  with Info do
   case Format of
   rf_Default:

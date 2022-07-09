@@ -58,7 +58,7 @@ begin
  if I>0 then
   begin
    S:=Copy(Result, I+2, MaxInt);
-   Log(LOG_VERBOSE, 'GetExceptionMessage: '+S);
+   Log(LOG_VERBOSE, 'GetExceptionMessage: %s', [S]);
    SetLength(Result, I);
    Result[I]:='.';
   end

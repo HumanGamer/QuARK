@@ -366,7 +366,7 @@ constructor TQkForm.Create(AOwner: TComponent);
 begin
  FDoubleBuffered:=True; //DBhack
  inherited;
- Log(LOG_VERBOSE, 'Now creating form... ('+Self.Caption+')');
+ Log(LOG_VERBOSE, 'Now creating form... (%s)', [Self.Caption]);
  ShowHint:=True;
  OnMouseWheelDown:=MouseWheelDown;
  OnMouseWheelUp:=MouseWheelUp;
@@ -382,7 +382,7 @@ destructor TQkForm.Destroy;
 var
  Dummy: TCloseAction;
 begin
- Log(LOG_VERBOSE, 'Now closing form... ('+Self.Caption+')');
+ Log(LOG_VERBOSE, 'Now closing form... (%s)', [Self.Caption]);
  if Assigned(OnClose) then
   begin
    Dummy:=caFree;

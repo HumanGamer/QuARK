@@ -120,7 +120,7 @@ procedure QDDS.LoadFile(F: TStream; FSize: TStreamPos);
 var
   LibraryToUse: string;
 begin
-  Log(LOG_VERBOSE,'Loading DDS file: %s',[self.name]);
+  Log(LOG_VERBOSE, 'Loading DDS file: %s', [self.name]);
   case ReadFormat of
   rf_Default: begin  { as stand-alone file }
     LibraryToUse:=SetupSubSet(ssFiles, 'DDS').Specifics.Values['LoadLibrary'];
@@ -177,7 +177,7 @@ var
   NVDXTReturnCode: DWORD;
   TMPPath: array[0..MAX_PATH] of Char;
 begin
- Log(LOG_VERBOSE,'Saving DDS file: %s',[self.name]);
+ Log(LOG_VERBOSE, 'Saving DDS file: %s', [self.name]);
  with Info do
   case Format of
   rf_Default:

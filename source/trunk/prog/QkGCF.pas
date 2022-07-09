@@ -147,7 +147,7 @@ begin
   begin
     {handle a folder}
     Folder:= QGCFFolder.Create( PChar(hlItemGetName(GCFDirectoryFile)), ParentFolder);
-    Log(LOG_VERBOSE,'Made gcf folder object :'+Folder.name);
+    Log(LOG_VERBOSE, 'Made gcf folder object: %s', [Folder.name]);
     ParentFolder.SubElements.Add( Folder );
     if root then
       Folder.TvParent:= nil
@@ -168,7 +168,7 @@ begin
 
     ParentFolder.SubElements.Add( Q );
 
-    Log(LOG_VERBOSE,'Made gcf file object :'+Q.name);
+    Log(LOG_VERBOSE,'Made gcf file object: %s', [Q.name]);
     if Q is QFileObject then
       QFileObject(Q).ReadFormat := rf_default
     else
@@ -187,7 +187,7 @@ var
   GCFDirectoryItem : PHLDirectoryItem;
   Nsubelements, I : hlUInt;
 begin
-  Log(LOG_VERBOSE,'Loading GCF file: %s',[self.name]);
+  Log(LOG_VERBOSE, 'Loading GCF file: %s', [self.name]);
   case ReadFormat of
     rf_Default: begin  { as stand-alone file }
          if not HLLoaded then
@@ -235,7 +235,7 @@ end;
 
 procedure QGCFFolder.SaveFile(Info: TInfoEnreg1);
 begin
- Log(LOG_VERBOSE,'Saving GCF file: %s',[self.name]);
+ Log(LOG_VERBOSE, 'Saving GCF file: %s', [self.name]);
  with Info do case Format of
   rf_Default: begin  { as stand-alone file }
       if not HLLoaded then

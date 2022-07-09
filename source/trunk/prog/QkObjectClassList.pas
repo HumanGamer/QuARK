@@ -63,7 +63,7 @@ begin
     QObjectClassList:=TStringList.Create;
     QObjectClassList.Sorted:=True;
   end;
-  Log(LOG_VERBOSE,'RegisterQObject %s',[Q.TypeInfo]);
+  Log(LOG_VERBOSE, 'RegisterQObject %s', [Q.TypeInfo]);
 
   QObjectClassList.AddObject(Prior+Q.TypeInfo, TObject(Q));
 end;

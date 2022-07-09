@@ -112,7 +112,7 @@ procedure QTga.LoadFile(F: TStream; FSize: TStreamPos);
 var
   LibraryToUse: string;
 begin
-  Log(LOG_VERBOSE,'Loading TGA file: %s',[self.name]);;
+  Log(LOG_VERBOSE, 'Loading TGA file: %s', [self.name]);
   case ReadFormat of
   rf_Default: begin  { as stand-alone file }
     LibraryToUse:=SetupSubSet(ssFiles, 'TGA').Specifics.Values['LoadLibrary'];
@@ -132,7 +132,7 @@ procedure QTga.SaveFile(Info: TInfoEnreg1);
 var
   LibraryToUse: string;
 begin
- Log(LOG_VERBOSE,'Saving TGA file: %s',[self.name]);
+ Log(LOG_VERBOSE, 'Saving TGA file: %s', [self.name]);
  with Info do
   case Format of
   rf_Default: begin  { as stand-alone file }

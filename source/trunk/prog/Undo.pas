@@ -265,7 +265,7 @@ begin  { searches the root object over Q }
    Q:=Q.FParent;
    if Q=Nil then
    begin
-     Log(LOG_VERBOSE, 'GetUndoRoot: Unable to find parent of object ' + Q.Name);
+     Log(LOG_VERBOSE, 'GetUndoRoot: Unable to find parent of object %s', [Q.Name]);
      Raise EError(5530);
    end;
   end;

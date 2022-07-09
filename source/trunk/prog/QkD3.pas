@@ -121,7 +121,7 @@ begin
  if DefaultImageName[0]<>'' then
  begin
     ImageFileName:=Specifics.Values[DefaultImageName[0]];
-    Log(LOG_VERBOSE,'attempting to load '+ImageFileName);
+    Log(LOG_VERBOSE, 'attempting to load %s', [ImageFileName]);
     try
       Result:=NeedGameFile(ImageFileName, '') as QPixelSet
     except
@@ -143,7 +143,7 @@ begin
       if (DefaultImageName[DefaultImageIndex]<>'') then
       begin
         ImageFileName:=DefaultImageName[DefaultImageIndex];
-        Log(LOG_VERBOSE,'attempting to load '+ImageFileName);
+        Log(LOG_VERBOSE, 'attempting to load %s', [ImageFileName]);
         try
           if (ExtractFileExt(ImageFileName)='') then
             Result:=NeedGameFile(ImageFileName+TexExt, '') as QPixelSet
@@ -187,7 +187,7 @@ begin
   { If no image could be found yet, try the shader-name itself }
  if Result=Nil then
  begin
-   Log(LOG_VERBOSE,'attempting to load '+Name+TexExt);
+   Log(LOG_VERBOSE, 'attempting to load %s', [Name+TexExt]);
    try
      Result:=NeedGameFile(Name+TexExt, '') as QPixelSet;
    except
@@ -333,7 +333,7 @@ begin
    Result:=Nil   { to do: check for animated stages }
   else
   begin
-   Log(LOG_VERBOSE,'attempting to load '+Name);
+   Log(LOG_VERBOSE, 'attempting to load %s', [Name]);
    Result:=NeedGameFile(Name, '') as QPixelSet;
   end;
  end;

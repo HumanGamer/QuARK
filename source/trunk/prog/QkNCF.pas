@@ -147,7 +147,7 @@ begin
   begin
     {handle a folder}
     Folder:= QNCFFolder.Create( PChar(hlItemGetName(NCFDirectoryFile)), ParentFolder);
-    Log(LOG_VERBOSE,'Made ncf folder object :'+Folder.name);
+    Log(LOG_VERBOSE, 'Made ncf folder object: %s', [Folder.name]);
     ParentFolder.SubElements.Add( Folder );
     if root then
       Folder.TvParent:= nil
@@ -168,7 +168,7 @@ begin
 
     ParentFolder.SubElements.Add( Q );
 
-    Log(LOG_VERBOSE,'Made ncf file object :'+Q.name);
+    Log(LOG_VERBOSE, 'Made ncf file object: %s', [Q.name]);
     if Q is QFileObject then
       QFileObject(Q).ReadFormat := rf_default
     else
@@ -187,7 +187,7 @@ var
   NCFDirectoryItem : PHLDirectoryItem;
   Nsubelements, I : hlUInt;
 begin
-  Log(LOG_VERBOSE,'Loading NCF file: %s',[self.name]);
+  Log(LOG_VERBOSE, 'Loading NCF file: %s', [self.name]);
   case ReadFormat of
     rf_Default: begin  { as stand-alone file }
          if not HLLoaded then
@@ -235,7 +235,7 @@ end;
 
 procedure QNCFFolder.SaveFile(Info: TInfoEnreg1);
 begin
- Log(LOG_VERBOSE,'Saving NCF file: %s',[self.name]);
+ Log(LOG_VERBOSE, 'Saving NCF file: %s', [self.name]);
  with Info do case Format of
   rf_Default: begin  { as stand-alone file }
       if not HLLoaded then

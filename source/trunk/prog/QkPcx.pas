@@ -126,7 +126,7 @@ var
 
   LibraryToUse: string;
 begin
-  Log(LOG_VERBOSE,'Loading PCX file: %s',[self.name]);
+  Log(LOG_VERBOSE, 'Loading PCX file: %s', [self.name]);
   case ReadFormat of
   rf_Default: begin  { as stand-alone file }
     LibraryToUse:=SetupSubSet(ssFiles, 'PCX').Specifics.Values['LoadLibrary'];
@@ -254,6 +254,7 @@ var
  Byte1: Byte;
  OutBuffer: String;
 begin
+ Log(LOG_VERBOSE, 'Saving PCX file: %s', [self.name]);
  with Info do case Format of
   rf_Default: begin  { as stand-alone file }
       NotTrueColor;  { FIXME }

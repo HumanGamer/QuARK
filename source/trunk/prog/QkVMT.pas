@@ -174,8 +174,7 @@ begin
     PakFilename:='';
   end;
 
-  //FIXME: Horribly horriby workaround...! We need to get into the first
-  //element to find an image
+  //FIXME: Horribly horrible workaround...! We need to get into the first element to find an image
   if SubElements.Count>0 then
   begin
 
@@ -186,7 +185,7 @@ begin
   if DefaultImageName[0]<>'' then
   begin
     FullTextureFile:=SubElements[0].Specifics.Values[DefaultImageName[0]];
-    Log(LOG_VERBOSE,'attempting to load '+FullTextureFile);
+    Log(LOG_VERBOSE, 'attempting to load %s', [FullTextureFile]);
     try
       Result:=NeedGameFile(FullTextureFile, PakFilename) as QPixelSet
     except
@@ -212,7 +211,7 @@ begin
       begin
         ImageFileName:=DefaultImageName[DefaultImageIndex]+TexExt;
         FullTextureFile:=ConcatPaths([GameTexturesPath, ImageFileName]);
-        Log(LOG_VERBOSE,'attempting to load '+FullTextureFile);
+        Log(LOG_VERBOSE, 'attempting to load %s', [FullTextureFile]);
         try
           Result:=NeedGameFile(FullTextureFile, PakFilename) as QPixelSet
         except
@@ -233,7 +232,7 @@ begin
     else
       ImageFileName:=self.name + TexExt;
     FullTextureFile:=ConcatPaths([GameTexturesPath, ImageFileName]);
-    Log(LOG_VERBOSE,'attempting to load '+FullTextureFile);
+    Log(LOG_VERBOSE, 'attempting to load %s', [FullTextureFile]);
     try
       Result:=NeedGameFile(FullTextureFile, PakFilename) as QPixelSet;
     except
@@ -307,7 +306,7 @@ var
   NodeValueInteger: vlUInt;
   NodeValueSingle: vlFloat;
 begin
-  Log(LOG_VERBOSE,'load vmt %s',[self.name]);;
+  Log(LOG_VERBOSE, 'Loading VMF file: %s', [self.name]);
   case ReadFormat of
     rf_Default: begin  { as stand-alone file }
       if not VMTLoaded then
@@ -418,7 +417,7 @@ var
   RawBuffer: String;
   VMTMaterial, OutputSize: Cardinal;
 begin
- Log(LOG_VERBOSE,'save vmt %s',[self.name]);
+ Log(LOG_VERBOSE, 'Saving VMT file %s', [self.name]);
  with Info do case Format of
   rf_Default:
   begin  { as stand-alone file }

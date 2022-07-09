@@ -285,7 +285,7 @@ var
   tex: QFileObject;
 begin
   Result:=nil;
-  Log(LOG_VERBOSE,'attempting to load '+tex_name);
+  Log(LOG_VERBOSE, 'attempting to load %s', [tex_name]);
   try
     tex:=NeedGameFile(tex_name, '');
   except

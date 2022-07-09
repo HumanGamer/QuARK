@@ -156,7 +156,7 @@ procedure QBmp.LoadFile(F: TStream; FSize: TStreamPos);
 var
   LibraryToUse: string;
 begin
-  Log(LOG_VERBOSE,'Loading BMP file: %s',[self.name]);;
+  Log(LOG_VERBOSE, 'Loading BMP file: %s', [self.name]);
   case ReadFormat of
   rf_Default: begin  { as stand-alone file }
     LibraryToUse:=SetupSubSet(ssFiles, 'BMP').Specifics.Values['LoadLibrary'];
@@ -176,7 +176,7 @@ procedure QBmp.SaveFile(Info: TInfoEnreg1);
 var
   LibraryToUse: string;
 begin
- Log(LOG_VERBOSE,'Saving BMP file: %s',[self.name]);
+ Log(LOG_VERBOSE, 'Saving BMP file: %s', [self.name]);
  with Info do
   case Format of
   rf_Default: begin  { as stand-alone file }

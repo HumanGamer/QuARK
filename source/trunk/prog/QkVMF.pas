@@ -857,7 +857,7 @@ var
  ModeJeu: Char;
  Source: String;
 begin
- Log(LOG_VERBOSE,'load vmf file %s',[self.name]);
+ Log(LOG_VERBOSE, 'Loading VMF file: %s', [self.name]);
  case ReadFormat of
   rf_Default: begin  { as stand-alone file }
       SetLength(Source, FSize);
@@ -887,6 +887,7 @@ var
  MapOptionSpecs : TSpecificsList;
  MapSaveSettings : TMapSaveSettings;
 begin
+ Log(LOG_VERBOSE, 'Saving VMF file: %s', [self.name]);
  with Info do case Format of
   rf_Default: begin  { as stand-alone file }
       Root:=SubElements.FindName(Specifics.Values['Root']);
