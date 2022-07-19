@@ -81,7 +81,7 @@ begin
      S:=PChar(lpData);
      if S<>'' then
       begin
-       if (S[Length(S)]='\') and (S[Length(S)-1]<>':') then
+       if (S[Length(S)]=PathDelim) and (S[Length(S)-1]<>DriveDelim) then
         SetLength(S, Length(S)-1);
        SendMessage(hwnd, BFFM_SETSELECTION, 1, LongInt(PChar(S)));
       end;
