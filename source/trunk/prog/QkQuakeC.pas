@@ -113,7 +113,7 @@ begin
    while I<Touches.Count do
     begin
      S:=Touches[I];
-     if Copy(S,1,1)=#255 then
+     if S[1]=#255 then
       with KeyDlg.ListView1.Items.Add do
        begin
         Caption:=Copy(S,2,MaxInt);
