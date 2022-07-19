@@ -2820,7 +2820,7 @@ begin
            for J:=0 to Form.SubElements.Count-1 do
             with Form.SubElements[J] do
              if SameText(Name, MyName) then
-              if Copy(Specifics.Values['Typ'],1,1)<>'X' then
+              if Specifics.Values['Typ'][1]<>'X' then
                begin
                 NeedEdit:=False;
                 Break;

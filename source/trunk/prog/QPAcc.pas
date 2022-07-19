@@ -189,11 +189,11 @@ var
    S:='';
    Min:=LigneCourante;
    while (Min>0) and (LigneCourante-Min<10)
-   and (Copy(Patch[Min-1],1,1)<>#255) do
+   and (Patch[Min-1][1]<>#255) do
     Dec(Min);
    Max:=LigneCourante;
    if Max>=Patch.Count then Max:=Patch.Count-1;
-   while (Max>=0) and (Copy(Patch[Max],1,1)=#255) do
+   while (Max>=0) and (Patch[Max][1]=#255) do
     Dec(Max);
    for I:=Min to Max do
     S:=S+#$A+Patch[I];

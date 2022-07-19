@@ -333,7 +333,7 @@ end;
 
 function QTexture1.GetTexOpacity : Integer;
 begin
-  if Copy(Name,1,1)='*' then
+  if Name[1]='*' then
     Result:=144
   else
     Result:=255;

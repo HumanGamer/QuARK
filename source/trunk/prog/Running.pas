@@ -312,7 +312,7 @@ begin
    Log(LOG_INFO, LoadStr1(5836), [S, StartDir]);
 
    I:=Pos('>', S);
-   Verb:=(I>0) and (Copy(S,1,1)='<');
+   Verb:=(I>0) and (S[1]='<');
    if Verb then
     begin
      S[I]:=#0;

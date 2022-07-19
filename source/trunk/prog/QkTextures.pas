@@ -588,7 +588,7 @@ var
           end
           else  { write non-shader textures directly to the disk }
           begin
-            if Copy(Tex.Name,1,1)=#255 then
+            if Tex.Name[1]=#255 then
             begin
               S:=Copy(Tex.Name,2,MaxInt);  { direct from disk }
               { change the file extension if necessary, to match the actual file format }
