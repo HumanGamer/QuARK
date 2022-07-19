@@ -461,7 +461,7 @@ begin
  while (I<>0) do
   begin
    S:=Copy(qFilename, 1, I-1);
-   if (StartIndex>1) or (Length(S)<>2) or (S[2]<>':') then
+   if (StartIndex>1) or (Length(S)<>2) or (S[2]<>DriveDelim) then
     begin
      //This is not a drive letter
      {$I-}
@@ -867,7 +867,7 @@ function GetGameFileBase(const BaseDir, FileName, PakFileName: String; LookInCD:
 
  function IfRelativeThenAbsoluteFileName(const RootPath, FilePath: String): String;
  begin
-   if (Length(FilePath) > 1) and (FilePath[2] = ':') then
+   if (Length(FilePath) > 1) and (FilePath[2] = DriveDelim) then
    begin
      //This is an absolute path!
      Result:=FilePath;
