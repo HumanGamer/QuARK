@@ -120,10 +120,7 @@ begin
  BrowseInfo.hwndOwner:=hwnd;
  BrowseInfo.lpszTitle:=PChar(Title);
  BrowseInfo.lpfn:=BrowseCallback;
- S:=Path;
- if (S<>'') and (S[Length(S)]<>'\') then
-  S:=S+'\';
- S:=S+#0+CheckFile;
+ S:=IncludeTrailingPathDelimiter(Path)+#0+CheckFile;
  BrowseInfo.lParam:=LongInt(PChar(S));
  if CheckWindowsMEAnd2000 then //FIXME: And if Internet Explorer 5 is installed
   BrowseInfo.ulFlags:=BIF_NEWDIALOGSTYLE;
