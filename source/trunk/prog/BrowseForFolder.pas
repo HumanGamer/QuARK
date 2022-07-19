@@ -31,7 +31,7 @@ function CheckFileExists(const Path, CheckFile: String) : Boolean;
 
 implementation
 
-uses SysUtils, SystemDetails, {$IFDEF CompiledWithDelphi2} ShellObj, OLE2; {$ELSE} ShlObj, ActiveX; {$ENDIF}
+uses SysUtils, SystemDetails, {$IFDEF CompiledWithDelphi2}ShellObj, OLE2,{$ELSE}ShlObj, ActiveX,{$ENDIF} ExtraFunctionality;
 
 function CheckFileExists(const Path, CheckFile: String) : Boolean;
 var
@@ -41,9 +41,7 @@ begin
   Result:=True
  else
   begin
-   S:=Path;
-   if S[Length(S)]<>'\' then
-    S:=S+'\';
+   S:=IncludeTrailingPathDelimiter(Path);
 
    if pos(#$D, CheckFile) <> 0 then
    begin
