@@ -1276,7 +1276,7 @@ begin
   FDirs.Add('StartUp='          +GetSpecialFolder(WinH,CSIDL_STARTUP));
   FDirs.Add('Templates='        +GetSpecialFolder(WinH,CSIDL_TEMPLATES));
   s:=ReverseString(FDirs.Values['Desktop']);
-  s:=ReverseString(Copy(s,Pos('\',s)+1,255));
+  s:=ReverseString(Copy(s,Pos(PathDelim,s)+1,MaxInt));
   FDirs.Add('Profile='+s);
   GetEnvironment;
 end;
