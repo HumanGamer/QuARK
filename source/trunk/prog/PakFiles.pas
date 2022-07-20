@@ -46,8 +46,7 @@ function FindNextAvailablePakFilename(Force: Boolean) : String;
 
 implementation
 
-uses StrUtils, SysUtils, Setup, Game, QkPak, Quarkx, Logging,
-  QkExceptions, QkApplPaths;
+uses StrUtils, SysUtils, Setup, Game, QkPak, Quarkx, Logging, QkExceptions, ApplPaths;
 
 function IsPakTemp(const theFilename: String) : Boolean;
 var

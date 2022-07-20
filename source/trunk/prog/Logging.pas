@@ -62,7 +62,7 @@ const
 implementation
 
 //Keep the number of uses to a bare minimal, due to Delphi's init-order!
-uses QkConsts;//, QkApplPaths; //FIXME: QkApplPaths is including TOO MUCH!
+uses QkConsts;//, ApplPaths; //FIXME: ApplPaths is including TOO MUCH!
 
 var
   LogFile: TextFile;

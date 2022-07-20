@@ -385,7 +385,7 @@ function DetermineIfSiN(F: TStream; FSize: TStreamPos) : Boolean;
 
 implementation
 
-uses Travail, QkWad, Setup, Game, QkMap, QkBspHulls, QkApplPaths,
+uses Travail, QkWad, Setup, Game, QkMap, QkBspHulls, ApplPaths,
      Undo, Quarkx, QkExceptions, PyForms, PyMath, PyObjects,
      QkObjectClassList, ToolBox1, ToolBoxGroup,
      QkQuakeCtx, FormCfg, Logging, QkTextures, QkFormCfg,

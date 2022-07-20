@@ -57,7 +57,7 @@ type
 implementation
 
 uses Windows, SysUtils, Quarkx, QkExceptions, QkObjectClassList,
-  Setup, Game, Logging, QkTextures, QkApplPaths, ExtraFunctionality;
+  Setup, Game, Logging, QkTextures, ApplPaths, ExtraFunctionality;
 
 type
   //Based on: https://github.com/CptAsgard/CoD2Unity/blob/master/Assets/cod2materialfiles.txt

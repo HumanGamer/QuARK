@@ -91,7 +91,7 @@ var
 implementation
 
 uses Game, Quarkx, QkExceptions, Travail,
-     PyMath3D, QkPixelSet, QkTextures, QkMapPoly, QkApplPaths;
+     PyMath3D, QkPixelSet, QkTextures, QkMapPoly, ApplPaths;
 
 const
  //See the "Floating Point Vertex Snapping and Area Calculations"-section

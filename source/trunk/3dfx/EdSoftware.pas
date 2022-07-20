@@ -96,7 +96,7 @@ procedure Set3DFXGammaCorrection(Value: TDouble);
 implementation
 
 uses Game, Quarkx, QkExceptions, Travail,
-     PyMath3D, QkPixelSet, QkTextures, QkMapPoly, QkApplPaths;
+     PyMath3D, QkPixelSet, QkTextures, QkMapPoly, ApplPaths;
 
 const
  //Older versions of the software renderer had different bounds

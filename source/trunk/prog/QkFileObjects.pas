@@ -210,7 +210,7 @@ implementation
 uses qhelper, Qk1, Undo, QkExplorer, Setup, qmath, QkGroup, Travail, QkOwnExplorer,
   QkFileExplorer, QkUnknown, Toolbar1, Quarkx, QkExceptions, QkInclude,
   PyObjects, QkConsts, Logging, SystemDetails,
-  PyForms, QkTreeView, Game, QkObjectClassList, QkApplPaths, ExtraFunctionality;
+  PyForms, QkTreeView, Game, QkObjectClassList, ApplPaths, ExtraFunctionality;
 
 {$R *.DFM}
 

@@ -33,7 +33,7 @@ function GetSteamCacheDir : String;
 implementation
 
 uses ShellAPI, SysUtils, StrUtils, Quarkx, Game, Setup, Logging, SystemDetails,
-     QkObjects, ExtraFunctionality, QkApplPaths, QkExceptions, QkFileObjects;
+     QkObjects, ExtraFunctionality, ApplPaths, QkExceptions, QkFileObjects;
 
 const
   QSASDelay: DWORD = 30000; //How long (in ms) to wait for QSAS to run

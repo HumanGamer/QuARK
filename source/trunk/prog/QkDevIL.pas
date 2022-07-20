@@ -327,7 +327,7 @@ procedure CheckDevILError(DevILError: DevILError);
 
 implementation
 
-uses Setup, Quarkx, QkExceptions, Logging, QkApplPaths;
+uses Setup, Quarkx, QkExceptions, Logging, ApplPaths;
 
 var
   TimesLoaded: Cardinal;

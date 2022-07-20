@@ -47,7 +47,7 @@ type
 
 implementation
 
-uses Game, QkFileObjects, Setup, QkObjects, PyImages, Travail, QkApplPaths;
+uses Game, QkFileObjects, Setup, QkObjects, PyImages, Travail, ApplPaths;
 
 {$R *.DFM}
 

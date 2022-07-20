@@ -91,7 +91,7 @@ implementation
 {$R *.DFM}
 
 uses Qk1, QkObjects, QkExceptions, Quarkx, PyProcess, Setup,
-     Logging, QkApplPaths, ExtraFunctionality;
+     Logging, ApplPaths, ExtraFunctionality;
 
 var
   g_ConsoleForm: TConsoleForm;

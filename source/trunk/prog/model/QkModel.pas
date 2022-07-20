@@ -41,7 +41,7 @@ type
 
 implementation
 
-uses QkQkl, QkMdl, QkMd2, QkMd3, form_model, QkHr2, QkApplPaths, Setup;
+uses QkQkl, QkMdl, QkMd2, QkMd3, form_model, QkHr2, ApplPaths, Setup;
 
 function QModel.TestConversionType(I: Integer) : QFileObjectClass;
 begin

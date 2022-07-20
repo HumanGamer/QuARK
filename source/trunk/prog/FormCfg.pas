@@ -161,7 +161,7 @@ implementation
 uses qdraw, qhelper, qmath, QkUnknown, Undo, TbPalette, Toolbar1, ToolBox1,
      Setup, QuarkX, QkExceptions, QkFileObjects, QkInclude, QkMacro, QkImages,
      Python, PyMacros, PyToolbars, PyForms, QkPixelSet, QkObjectClassList,
-     QkApplPaths, BrowseForFolder, Console,
+     ApplPaths, BrowseForFolder, Console,
      SystemDetails, Platform, Logging, ExtraFunctionality;
 
 const

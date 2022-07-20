@@ -169,7 +169,7 @@ var
 
 implementation
 
-uses QkExceptions, Logging, QkApplPaths, Quarkx;
+uses QkExceptions, Logging, ApplPaths, Quarkx;
 
 const RequiredGCFAPI = 3;
 

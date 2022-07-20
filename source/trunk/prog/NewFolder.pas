@@ -54,7 +54,7 @@ type
 implementation
 
 uses Game, Qk1, Setup, QkGroup, QkObjects, QkFileObjects, Undo, Quarkx, QkExceptions,
-  PyImages, ToolBoxGroup, QkApplPaths, SystemDetails, Platform;
+  PyImages, ToolBoxGroup, ApplPaths, SystemDetails, Platform;
 
 {$R *.DFM}
 

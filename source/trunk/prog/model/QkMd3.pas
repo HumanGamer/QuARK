@@ -47,7 +47,7 @@ type
 implementation
 
 uses StrUtils, qhelper, QuarkX, QkExceptions, Setup, QkObjectClassList, Game, QkQ3,
-     QkPixelset, QkPcx, QkApplPaths, qmath, qmatrices, Logging, Travail;
+     QkPixelset, QkPcx, ApplPaths, qmath, qmatrices, Logging, Travail;
 
 const
  MAX_QPATH = 64;

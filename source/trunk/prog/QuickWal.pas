@@ -69,7 +69,7 @@ implementation
 
 uses Platform, QkGroup, Game, QkTextures, QkWad, QkExplorer, QkZip2,
   Quarkx, QkExceptions, Travail, ToolBox1, QkPak, QkFileObjects, QkHL, ToolBoxGroup,
-  Setup, Logging, QkQ3, OsFolder, QkD3, QkApplPaths;
+  Setup, Logging, QkQ3, OsFolder, QkD3, ApplPaths;
 
 {$R *.DFM}
 

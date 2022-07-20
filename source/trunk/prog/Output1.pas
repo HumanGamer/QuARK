@@ -67,7 +67,7 @@ procedure OutputDirDlg;
 
 implementation
 
-uses FormCfg, Game, QkPak, Setup, Travail, Qk1, Quarkx, PakFiles, QkApplPaths;
+uses FormCfg, Game, QkPak, Setup, Travail, Qk1, Quarkx, PakFiles, ApplPaths;
 
 {$R *.DFM}
 

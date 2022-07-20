@@ -52,7 +52,7 @@ type
 implementation
 
 uses SysUtils, Setup, Quarkx, QkExceptions, QkObjectClassList, Game, Logging,
-     QkVTF, StrUtils, ExtraFunctionality, QkApplPaths, QkTextures;
+     QkVTF, StrUtils, ExtraFunctionality, ApplPaths, QkTextures;
 
 var
   VMTLoaded: Boolean;

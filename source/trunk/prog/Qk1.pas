@@ -231,7 +231,7 @@ implementation
 uses {$IFDEF Debug}MemTester, {$ENDIF}ShellApi, Undo, QkQuakeC, Setup, Config,
   ToolBox1, Game, QkOwnExplorer, ObjProp, qdraw, qmath, QkInclude,
   Running, Output1, QkTreeView, PyProcess, Console, Python, Quarkx, About,
-  PyMapView, PyForms, Qk3D, EdSceneObject, QkObjectClassList, QkApplPaths,
+  PyMapView, PyForms, Qk3D, EdSceneObject, QkObjectClassList, ApplPaths,
   QkExceptions, QkQuakeCtx, AutoUpdater, QkConsts, Toolbar1,
   Splash, Logging, SystemDetails, Platform;
 

@@ -55,7 +55,7 @@ function OpacityToFlags(Flags: Integer; Alpha: Integer) : Integer;
 implementation
 
 uses Setup, QkGroup, Quarkx, QkObjectClassList, QuickWal, QkPak, QkBSP, ToolBox1,
-     ToolBoxGroup, Game, QkMapObjects, FormCfg, QkExplorer, QkApplPaths,
+     ToolBoxGroup, Game, QkMapObjects, FormCfg, QkExplorer, ApplPaths,
      QkForm, Travail, QkFormCfg, QkExceptions, Logging, ExtraFunctionality;
 
  {------------------------}

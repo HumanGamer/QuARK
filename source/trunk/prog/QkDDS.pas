@@ -45,8 +45,7 @@ type
 
 implementation
 
-uses SysUtils, Setup, Quarkx, QkExceptions, QkObjectClassList,
-     Game, Logging, QkApplPaths;
+uses SysUtils, Setup, Quarkx, QkExceptions, QkObjectClassList, Game, Logging, ApplPaths;
 
 class function QDDS.FormatName : String;
 begin
