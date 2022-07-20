@@ -398,7 +398,7 @@ begin
    TMSelUnique:=Q.FParent;
    DisplayCurrentObject;
    if (FFiche<>Nil) and (FFiche is TQForm2) then
-    TQForm2(FFiche).SelectObject(Q);
+    TQForm2(FFiche).TMSelUnique:=Q;
   end
  else
   begin

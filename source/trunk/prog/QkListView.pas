@@ -59,10 +59,10 @@ type
     procedure SelectListItem(Item: TListItem);
     function EditMenuCommandLv(Cmd: Integer) : Integer;
     procedure CreateWnd; override;
+    procedure SelectObject(const Q: QObject);
     procedure MouseWheelDown(Sender: TObject; Shift: TShiftState; MousePos: TPoint; var Handled: Boolean); override;
     procedure MouseWheelUp(Sender: TObject; Shift: TShiftState; MousePos: TPoint; var Handled: Boolean); override;
   public
-    procedure SelectObject(const Q: QObject);
     procedure CopyToClipboard;
     procedure PasteFromClipboard;
     procedure DeleteSelection(NoTexte: Integer);
