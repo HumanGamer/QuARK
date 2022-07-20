@@ -255,7 +255,6 @@ end;
 
 procedure TRunForm.FormCreate(Sender: TObject);
 begin
- Left:=(TailleMaximaleEcranX-Width) div 2;
  MarsCap.ActiveBeginColor:=clMaroon;
  MarsCap.ActiveEndColor:=clYellow;
  UpdateMarsCap;
