@@ -46,8 +46,8 @@ type
     FSelTris: PyObject;    { List of integers }
     FInfo: PyObject;
     FSkinCounter: Integer;
-    procedure SetCurrentSkin(nSkin: QImage);
-    procedure SetCurrentFrame(nFrame: QFrame);
+    procedure SetCurrentSkin(const nSkin: QImage);
+    procedure SetCurrentFrame(const nFrame: QFrame);
   protected
     procedure CouleurDessin(var C: TColor);
   public
@@ -335,7 +335,7 @@ begin
     Result:=':'+IntToHex(FSkinCounter, 8);
 end;
 
-procedure QComponent.SetCurrentFrame(nFrame: QFrame);
+procedure QComponent.SetCurrentFrame(const nFrame: QFrame);
 begin
   FCurrentFrameObj.AddRef(-1);
   FCurrentFrameObj:=nFrame;
@@ -350,7 +350,7 @@ begin
   QModelRoot(FindRoot).SetFrames(index);
 end;
 
-procedure QComponent.SetCurrentSkin(nSkin: QImage);
+procedure QComponent.SetCurrentSkin(const nSkin: QImage);
 begin
   FCurrentSkin.AddRef(-1);
   FCurrentSkin:=nSkin;
