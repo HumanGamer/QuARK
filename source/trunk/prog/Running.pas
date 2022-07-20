@@ -59,7 +59,7 @@ procedure ExternalEdit(Q: QObject);
 
 implementation
 
-uses qmath, Config, Undo, Setup, Quarkx, QkExceptions, Logging, ExtraFunctionality;
+uses Config, Undo, Setup, Quarkx, QkExceptions, Logging, ExtraFunctionality;
 
 {$R *.DFM}
 
