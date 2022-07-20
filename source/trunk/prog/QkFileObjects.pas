@@ -1098,7 +1098,7 @@ begin
   inherited;
 end;
 
-procedure QFileObject.SaveInFile;
+procedure QFileObject.SaveInFile(Format: Integer; AlternateFile: String);
 const
  Granularite = 16384;
 var
@@ -1254,7 +1254,7 @@ begin
   end;
 end;
 
-function QFileObject.RecommendFormat;
+function QFileObject.RecommendFormat: Integer;
 begin
  Result:=ReadFormat;
  if (Result=rf_Private) or (Result=rf_NotSaved) then
