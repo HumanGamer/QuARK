@@ -44,9 +44,10 @@ type
     Waiter: TThread;
     Directory, FileCfg: String;
     ClearList: TStringList;
-    procedure wmInternalMessage(var Msg: TMessage); message wm_InternalMessage;
     procedure EndOfJob;
-  public
+  protected
+    procedure wmHelp(var Msg: TMessage); message wm_Help;
+    procedure wmInternalMessage(var Msg: TMessage); message wm_InternalMessage;
   end;
 
  {------------------------}
@@ -265,10 +266,29 @@ begin
  Close;
 end;
 
-procedure TRunForm.ToolbarButton971Click(Sender: TObject);
+procedure TRunForm.wmHelp(var Msg: TMessage);
 begin
+ //HTMLDoc('intro.configuration.html');
  raise exception.Create('no help yet (basically the help text will explain what this window is for)');
  { FIXME }
+end;
+
+procedure TRunForm.ToolbarButton971Click(Sender: TObject);
+var
+ HelpInfo: tagHELPINFO;
+begin
+ FillChar(HelpInfo, SizeOf(HelpInfo), 0);
+ with HelpInfo do
+ begin
+  cbSize := SizeOf(HelpInfo);
+  iContextType := HELPINFO_WINDOW;
+  //iCtrlId := 0;
+  hItemHandle := Handle;
+  //dwContextId := 0;
+  //MousePos.X := 0;
+  //MousePos.Y := 0;
+ end;
+ Perform(wm_Help, 0, LPARAM(PChar(@HelpInfo)));
 end;
 
 procedure TRunForm.FormActivate(Sender: TObject);
