@@ -78,7 +78,7 @@ type
   TImageDisplayer = class(TGraphicControl)
                     private
                       FSource: QImage;
-                      procedure SetSource(nSource: QImage);
+                      procedure SetSource(const nSource: QImage);
                     protected
                       procedure Paint; override;
                     public
@@ -1641,7 +1641,7 @@ end;
 
  {------------------------}
 
-procedure TImageDisplayer.SetSource(nSource: QImage);
+procedure TImageDisplayer.SetSource(const nSource: QImage);
 begin
  FSource.AddRef(-1);
  FSource:=nSource;
