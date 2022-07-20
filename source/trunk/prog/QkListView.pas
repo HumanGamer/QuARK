@@ -62,7 +62,7 @@ type
     procedure MouseWheelDown(Sender: TObject; Shift: TShiftState; MousePos: TPoint; var Handled: Boolean); override;
     procedure MouseWheelUp(Sender: TObject; Shift: TShiftState; MousePos: TPoint; var Handled: Boolean); override;
   public
-    procedure SelectObject(Q: QObject);
+    procedure SelectObject(const Q: QObject);
     procedure CopyToClipboard;
     procedure PasteFromClipboard;
     procedure DeleteSelection(NoTexte: Integer);
@@ -279,7 +279,7 @@ begin
 {ProcessEditMsg(ValidParentForm(Self), edOpen);}
 end;
 
-procedure TQForm2.SelectObject(Q: QObject);
+procedure TQForm2.SelectObject(const Q: QObject);
 var
  I: Integer;
  Item: TListItem;
