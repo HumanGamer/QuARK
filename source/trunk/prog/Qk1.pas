@@ -1386,8 +1386,7 @@ begin
  else
   FileObject:=Nil;
  if FileObject=Nil then
-  FileObject:=BuildFileRoot(
-   FmtLoadStr1(5128, [Info.FileObjectDescriptionText]) + NewClass, Nil);
+  FileObject:=BuildFileRoot(FmtLoadStr1(5128, [Info.FileObjectDescriptionText]) + NewClass, Nil);
  FileObject.Filename:='';
  FileObject.OpenStandAloneWindow(Nil, False);
  finally Gr.Free; end;
@@ -2073,9 +2072,10 @@ begin
    //If anything goes wrong with QuArK's exception handling, use the old one
    try
      Log(LOG_ALWAYS, Format('Error: Exception in exception handler: %s', [GetExceptionMessage(E)]));
-   finally
-     OldException(Sender, E);
+   except
+     //Ignore any errors here
    end;
+   OldException(Sender, E);
  end;
 
  //If loading of Form1 has not been completed, then kill the program
