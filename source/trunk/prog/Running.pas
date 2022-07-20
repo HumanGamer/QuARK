@@ -51,7 +51,7 @@ type
 
  {------------------------}
 
-procedure RunProgram(const CmdLine, nDirectory, nFileCfg: String; CheckList: TStringList; SaveChanges: Boolean);
+procedure RunProgram(const CmdLine, nDirectory, nFileCfg: String; const nCheckList: TStringList; SaveChanges: Boolean);
 function GetExternalEditorClass(Q: QObject) : QFileObjectClass;
 procedure ExternalEdit(Q: QObject);
 
@@ -100,19 +100,19 @@ end;
 
  {------------------------}
 
-procedure RunProgram(const CmdLine, nDirectory, nFileCfg: String; CheckList: TStringList; SaveChanges: Boolean);
+procedure RunProgram(const CmdLine, nDirectory, nFileCfg: String; const nCheckList: TStringList; SaveChanges: Boolean);
 var
  I: Integer;
 begin
- if CheckList<>Nil then
-  for I:=0 to CheckList.Count-1 do
-   SetFileAttributes(PChar(CheckList[I]), FILE_ATTRIBUTE_NORMAL);
+ if nCheckList<>Nil then
+  for I:=0 to nCheckList.Count-1 do
+   SetFileAttributes(PChar(nCheckList[I]), FILE_ATTRIBUTE_NORMAL);
  with TRunForm.Create(Application) do
   try
    Edit1.Text:=CmdLine;
    Directory:=nDirectory;
    FileCfg:=nFileCfg;
-   ClearList:=CheckList;
+   ClearList:=nCheckList;
    ToolbarButton972.Caption:=LoadStr1(5378-Ord(SaveChanges));
    ToolbarButton973.Visible:=SaveChanges;
    if ShowModal<>mrOk then
