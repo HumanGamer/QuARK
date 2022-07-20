@@ -59,13 +59,13 @@ type
     procedure WndCallback(FntName: PChar);
     procedure FillMenu(Mnu: HMenu; List: PyObject; Recursive: Boolean);
   protected
+    Info, MenuBar, ShortCuts, NumShortCuts: PyObject;
+    Callbacks: TList;   { PyObjects }
     MainPanelC: PyComponent;
+    MenuBarHandle, CurrentPopupHandle: HMenu;
     function AssignObject(const Q: QFileObject; State: TFileObjectWndState) : Boolean; override;
     function ProcessMenuShortcut(var Msg: TWMKeyDown; ShortCut: TShortCut) : Boolean; override;
   public
-    Info, MenuBar, ShortCuts, NumShortCuts: PyObject;
-    Callbacks: TList;   { PyObjects }
-    MenuBarHandle, CurrentPopupHandle: HMenu;
     procedure RefreshMenus;
     procedure ChangeFileObject(New: QFileObject);
     procedure DisplayPopupMenu(const P: TPoint; ExcludeRect: PRect; List: PyObject; DoubleClk: Boolean);
