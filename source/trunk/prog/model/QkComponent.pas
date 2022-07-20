@@ -68,9 +68,9 @@ type
     function GetSkinFromName(const nName: String) : QImage;
     function BuildFrameList : TQList;
     function BuildSkinList : TQList;
-    function QuickSetSkin(nSkin: QImage; const StaticBase: String) : QComponent;
+    function QuickSetSkin(const nSkin: QImage; const StaticBase: String) : QComponent;
     procedure ChercheExtremites(var Min, Max: TVect); override;
-    function MergeVertices(Frames: TQList) : Boolean;
+    function MergeVertices(const Frames: TQList) : Boolean;
     procedure Dessiner; override;
     function PyGetAttr(attr: PChar) : PyObject; override;
     function PySetAttr(attr: PChar; value: PyObject) : Boolean; override;
@@ -81,7 +81,7 @@ type
     Function CreateFrameGroup: QFrameGroup;
     Function CreateSDO: QSkinDrawObject;
     Function SDO: QSkinDrawObject;
-    procedure SetParentFrames(nFrame: QFrame);
+    procedure SetParentFrames(const nFrame: QFrame);
     Function FindRoot: QObject;
     function GetOriginOfComponent(mode: Integer): TVect;
     (*function FindRefFrame: QFrame;*)
@@ -342,7 +342,7 @@ begin
   FCurrentFrameObj.AddRef(+1);
 end;
 
-procedure QComponent.SetParentFrames(nFrame: QFrame);
+procedure QComponent.SetParentFrames(const nFrame: QFrame);
 var
   index: Integer;
 begin
@@ -428,7 +428,7 @@ begin
     FCurrentFrameObj.ChercheExtremites(Min, Max);
 end;
 
-function QComponent.QuickSetSkin(nSkin: QImage; const StaticBase: String) : QComponent;
+function QComponent.QuickSetSkin(const nSkin: QImage; const StaticBase: String) : QComponent;
 begin
   if nSkin = FCurrentSkin then
     Result:=Self
@@ -481,12 +481,13 @@ begin
     Result:=Nil;
     Exit;
   end;
-  L:=TQList.Create; try
-  FindAllSubObjects('', QFrame, Nil, L);
-  if N>=L.Count then
-    Result:=Nil
-  else
-    Result:=L[N] as QFrame;
+  L:=TQList.Create;
+  try
+    FindAllSubObjects('', QFrame, Nil, L);
+    if N>=L.Count then
+      Result:=Nil
+    else
+      Result:=L[N] as QFrame;
   finally
     L.Free;
   end;
@@ -518,7 +519,7 @@ begin
   end;
 end;
 
-function QComponent.MergeVertices(Frames: TQList) : Boolean;
+function QComponent.MergeVertices(const Frames: TQList) : Boolean;
 const
   Spec1 = 'Tris';
   Spec2 = 'Vertices';
@@ -663,7 +664,7 @@ type
     OowMin: Single;
   end;
 
-function ByOow(Item1, Item2: Pointer) : Integer;
+(*function ByOow(Item1, Item2: Pointer) : Integer;
 begin
   if PTriangleInfo(Item1)^.OowMin < PTriangleInfo(Item2)^.OowMin then
     Result:=+1
@@ -672,7 +673,7 @@ begin
       Result:=-1
     else
       Result:=0;
-end;
+end;*)
 
 Function QComponent.CreateSkinGroup: QSkinGroup;
 begin
@@ -828,7 +829,7 @@ begin
           L.Add(Tris);
           Inc(Tris);
         end;
-   //     L.Sort(ByOow);   draws all the filltris triangles wrong
+        {L.Sort(ByOow);} //FIXME: draws all the filltris triangles wrong
         NewPen:=0;
         DeletePen:=0;
         if g_DrawInfo.GreyBrush <> 0 then begin    // if color changes must be made now 
