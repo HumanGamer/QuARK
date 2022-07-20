@@ -214,7 +214,7 @@ type
     procedure SavePendingFiles(CanCancel: Boolean);
     function MessageException(const E: Exception; const Info: String; Buttons: TMsgDlgButtons) : TModalResult;
     procedure AppException(Sender: TObject; E: Exception);
-    function GetEmptyMenu : TPopupMenu;
+   {function GetEmptyMenu : TPopupMenu;}
     function GetObjMenu(Control: TControl; Extra: Boolean) : TPopupMenu;
     procedure FreeNonUsedObjects;
     procedure MdlImportFrom1Item1Click(Sender: TObject);
@@ -2295,7 +2295,8 @@ begin
  Result:=True;
 end;
 *)
-function TForm1.GetEmptyMenu : TPopupMenu;
+
+(*function TForm1.GetEmptyMenu : TPopupMenu;
 var
  C: TComponent;
  I: Integer;
@@ -2312,7 +2313,7 @@ begin
    for I:=Result.Items.Count-1 downto 0 do
     Result.Items[I].Free;
   end;
-end;
+end;*)
 
 function TForm1.GetObjMenu(Control: TControl; Extra: Boolean) : TPopupMenu;
 var
