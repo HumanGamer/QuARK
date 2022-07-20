@@ -29,7 +29,7 @@ type
   QModelRoot = class(QMdlObject)
   private
     FCurrentComponentObj: QComponent;
-    procedure SetCurrentComponent(nComponent: QComponent);
+    procedure SetCurrentComponent(const nComponent: QComponent);
   public
     class function TypeInfo: String; override;
     function Triangles(var P: PComponentTris) : Integer;
@@ -264,7 +264,7 @@ begin
   end;
 end;
 
-procedure QModelRoot.SetCurrentComponent(nComponent: QComponent);
+procedure QModelRoot.SetCurrentComponent(const nComponent: QComponent);
 begin
   FCurrentComponentObj.AddRef(-1);
   FCurrentComponentObj:=nComponent;
