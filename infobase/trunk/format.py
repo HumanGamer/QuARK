@@ -7,7 +7,7 @@ EXTENSION = ".txt"
 #
 # Location for non-local version
 #
-REMOTELOC = "http://quark.sourceforge.net/infobase/" #Was: ftp://ftp.fileplanet.com/
+REMOTELOC = "https://quark.sourceforge.io/infobase/" #Was: ftp://ftp.fileplanet.com/
 
 # Path for zip etc. archives
 ZIPLOC = "zips/"
@@ -30,7 +30,7 @@ HEADER_BEGIN = """<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 <table class="tight" width="100%%" border=0 cellspacing=0>
   <tr>
     <td width=213>
-      <a target="_blank" href="http://quark.sourceforge.net/"><img src="quarkicon.png" width=213 height=90 border=0 alt="Go to QuArK Web Site"></a>
+      <a target="_blank" href="https://quark.sourceforge.io/"><img src="quarkicon.png" width=213 height=90 border=0 alt="Go to QuArK Web Site"></a>
     </td>
     <td width="70%%" align=center>
       <div class="topheadline">%(title)s</div>
@@ -70,7 +70,7 @@ FOOTER = """
   <tr class="headline">
     <td width="99%%" align=center>
       <p class="sm">
-        Copyright (c) %(copyrightyear)s, GNU General Public License by The QuArK (Quake Army Knife) Community - <a target="_blank" href="http://quark.sourceforge.net/">http://quark.sourceforge.net/</a>
+        Copyright (c) %(copyrightyear)s, GNU General Public License by The QuArK (Quake Army Knife) Community - <a target="_blank" href="https://quark.sourceforge.io/">https://quark.sourceforge.io/</a>
       </p>
     </td>
     <td width="1%%" align=right nowrap>

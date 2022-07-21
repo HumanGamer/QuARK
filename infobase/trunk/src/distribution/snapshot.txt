@@ -21,14 +21,14 @@ You should also e-mail a release announcement to the development mailing list (<
 <code>Subject: Snapshots 20070831
 
 New QuArK snapshots are now available from
-http://quark.sourceforge.net/
+https://quark.sourceforge.io/
 
 - Compiled Infobase:
-http://quark.sourceforge.net/download/quark-help-20070831.zip
+https://quark.sourceforge.io/download/quark-help-20070831.zip
 - Full source code with Python 2.2.3:
-http://quark.sourceforge.net/download/quark-src-20070831.zip
+https://quark.sourceforge.io/download/quark-src-20070831.zip
 - Win32 binaries with Python 2.2.3:
-http://quark.sourceforge.net/download/quark-win32-20070831.zip
+https://quark.sourceforge.io/download/quark-win32-20070831.zip
 </code>
 
 Read through and summarize the NEWS.txt file to compile a changelog.

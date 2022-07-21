@@ -26,6 +26,6 @@ build.py -local` in order to have the examples files locally
 available.
 
 Should you not wish to have to compile the Infobase yourself, you can
-view it online at http://quark.sourceforge.net/infobase/ or
+view it online at https://quark.sourceforge.io/infobase/ or
 you can download a compiled version as an archive from
-http://quark.sourceforge.net/download.php#help.
+https://quark.sourceforge.io/download.php#help.

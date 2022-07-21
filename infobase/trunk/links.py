@@ -2,7 +2,7 @@
 # This doc contains a list of all the links that can be used in the <link>-tag
 #
 
-mainwebsite = "http://quark.sourceforge.net/"
+mainwebsite = "https://quark.sourceforge.io/"
 
 linksdict = {}
 linksdict["website"] = mainwebsite
