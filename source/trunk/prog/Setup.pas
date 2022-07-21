@@ -166,9 +166,9 @@ function ModelColors(L: TModelColors) : TColor;
 
 implementation
 
-uses QkMapObjects, Travail, Game, Console, QkGroup, QkForm, Qk1, qmath,
+uses QkMapObjects, Travail, Game, Console, QkGroup, QkForm, Qk1,
      ToolBox1, Toolbar1, QkQuakeCtx, Quarkx, QkExceptions, Python, PyMapView,
-     PyObjects, PyForms, Qk3D, EdSceneObject, QkObjectClassList, ApplPaths,
+     Qk3D, EdSceneObject, QkObjectClassList, ApplPaths,
      QConsts, ExtraFunctionality, Logging;
 
 const
