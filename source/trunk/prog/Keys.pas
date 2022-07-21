@@ -23,7 +23,7 @@ unit Keys;
 interface
 
 uses
-  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+  Classes, Graphics, Controls, Forms, Dialogs,
   KeySel, StdCtrls, Buttons, ComCtrls, ImgList;
 
 type
