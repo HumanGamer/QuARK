@@ -4778,7 +4778,7 @@ QQRKSRC1
     }
     info_camp:form =
     {
-      Help = "This atttracts bots which have a camping preference in their AI characteristics. It should be placed at least 32 units away from any brush surface. Examples of bots which have a high camping preference are: Razor, Tank Jr., Grunt, Patriot and Doom. Examples of bots which have a low camping preference are: Klesk, Mynx, Sarge, Keel and Xaero."
+      Help = "This attracts bots which have a camping preference in their AI characteristics. It should be placed at least 32 units away from any brush surface. Examples of bots which have a high camping preference are: Razor, Tank Jr., Grunt, Patriot and Doom. Examples of bots which have a low camping preference are: Klesk, Mynx, Sarge, Keel and Xaero."
       t_player_size = !
       range: =
       {
@@ -4882,6 +4882,11 @@ QQRKSRC1
       :l_legs = "Frame 170"
       :h_cigar = "Frame 1"
       :h_head = "Frame 1"
+      angle: =
+      {
+        Txt = "&"
+        Hint = "direction in which player will look when spawning in the game."
+      }
       target: =
       {
         Txt = "&"
@@ -6560,7 +6565,13 @@ QQRKSRC1
     {
       Help = "Initial Blue team spawning position for CTF games."
       t_player_size = !
-      mdl = "models/players/major/lower.md3"
+      mdl = "models/players/major/upper.md3"
+      md3_autolink = "1"
+      :u_torso = "Frame 125"
+      :u_rshoulder = "Frame 125"
+      :l_legs = "Frame 170"
+      :h_cigar = "Frame 1"
+      :h_head = "Frame 1"
       target: =
       {
         Txt = "&"
@@ -6571,7 +6582,13 @@ QQRKSRC1
     {
       Help = "Blue team respawning position for CTF games."
       t_player_size = !
-      mdl = "models/players/major/lower.md3"
+      mdl = "models/players/major/upper.md3"
+      md3_autolink = "1"
+      :u_torso = "Frame 125"
+      :u_rshoulder = "Frame 125"
+      :l_legs = "Frame 170"
+      :h_cigar = "Frame 1"
+      :h_head = "Frame 1"
       target: =
       {
         Txt = "&"
@@ -6588,7 +6605,13 @@ QQRKSRC1
     {
       Help = "Initial Red team spawning position for CTF games."
       t_player_size = !
-      mdl = "models/players/doom/lower.md3"
+      mdl = "models/players/doom/upper.md3"
+      md3_autolink = "1"
+      :u_torso = "Frame 125"
+      :u_rshoulder = "Frame 125"
+      :l_legs = "Frame 170"
+      :h_cigar = "Frame 1"
+      :h_head = "Frame 1"
       target: =
       {
         Txt = "&"
@@ -6599,7 +6622,13 @@ QQRKSRC1
     {
       Help = "Red team respawning position for CTF games."
       t_player_size = !
-      mdl = "models/players/doom/lower.md3"
+      mdl = "models/players/doom/upper.md3"
+      md3_autolink = "1"
+      :u_torso = "Frame 125"
+      :u_rshoulder = "Frame 125"
+      :l_legs = "Frame 170"
+      :h_cigar = "Frame 1"
+      :h_head = "Frame 1"
       target: =
       {
         Txt = "&"
