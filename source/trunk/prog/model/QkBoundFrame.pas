@@ -40,7 +40,6 @@ type
     function PyGetAttr(attr: PChar) : PyObject; override;
     function PySetAttr(attr: PChar; value: PyObject) : Boolean; override;
     Function GetLength:Double;
-    Function CalcDistBetween(v1,v2: vec3_t): Double;
     property ParentComponent: QObject read Component write Component;
     procedure SetBoneRadius(rad: Single);
     Function GetBoneRadius: Single;
@@ -224,14 +223,9 @@ begin
   if Result=0 then begin
     r:=GetStartEnd(s, e);
     if not r then exit;
-    result:=CalcDistBetween(s^,e^);
+    result:=Vec3Distance(s^,e^);
     SetFloatSpec('length', result);
   end;
-end;
-
-Function QBoundFrame.CalcDistBetween(v1,v2: vec3_t): Double;
-begin
-  Result:=Sqrt(Sqr(v1[0]-v2[0])+Sqr(v1[1]-v2[1])+Sqr(v1[2]-v2[2])); // A bit of old pythag here.
 end;
 
 Function QBoundFrame.GetStartEnd(var startpoint, endpoint: vec3_p): Boolean;

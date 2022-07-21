@@ -92,6 +92,7 @@ function VecSum(const V, W : TVect) : TVect;
 function VecScale(const R: Double; const V: TVect) : TVect;
 function Vec3Add(const V, W: vec3_t) : vec3_t;
 function Vec3Diff(const V, W : vec3_t) : vec3_t;
+function Vec3Distance(const V, W : vec3_t) : Double;
 function ProjectPointToPlane(const Point, Along, PlanePoint, PlaneNorm : TVect) : TVect;
 function SolveForThreePoints(const V1, V2, V3: TVect5; var P1, P2, P3:TVect) : Boolean;
 
@@ -623,6 +624,11 @@ begin
  Result[0]:=V[0]-W[0];
  Result[1]:=V[1]-W[1];
  Result[2]:=V[2]-W[2];
+end;
+
+function Vec3Distance(const V, W : vec3_t) : Double;
+begin
+ Result:=Sqrt(Sqr(V[0]-W[0])+Sqr(V[1]-W[1])+Sqr(V[2]-W[2])); // A bit of old pythag here.
 end;
 
 function ProjectPointToPlane(const Point, Along, PlanePoint, PlaneNorm : TVect) : TVect;
