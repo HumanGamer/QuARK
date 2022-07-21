@@ -24,7 +24,7 @@ interface
 
 uses SysUtils, Windows, Classes, Graphics,
      QkObjects, Qk3D, QkMapObjects, qmath, qmatrices,
-     QkExplorer, Setup, QkTextures, Python, PyMath;
+     QkExplorer, Setup, QkTextures, Python;
 
 const
  MaxFVertices = 64;   { vertices per face, maximum }
@@ -248,7 +248,7 @@ implementation
 
 uses QkFileObjects, Undo, PyMapView, QkMap, QkPixelSet, Dialogs, EdSceneObject,
      Quarkx, QkExceptions, PyObjects, QkSin, QkQuakeCtx, QkObjectClassList,
-     qdraw, Logging, Math;
+     Coordinates, qdraw, Logging, Math, PyMath;
 
 const
  TmpFaceSpec = '!~tmp~!this is a bug';

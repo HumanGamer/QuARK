@@ -22,7 +22,7 @@ unit QkMesh;
 
 interface
 
-uses Windows, SysUtils, Classes, Python, qmath, qmatrices, PyMath, QkObjects,
+uses Windows, SysUtils, Classes, Python, qmath, qmatrices, Coordinates, QkObjects,
      QkMapObjects, QkMapPoly, Qk3D;
 
 type
@@ -88,7 +88,8 @@ type
 
 implementation
 
-uses qdraw, QuarkX, QkExceptions, Setup, PyMapView, PyObjects, QkObjectClassList, EdSceneObject;
+uses qdraw, QuarkX, QkExceptions, Setup,
+     PyMath, PyMapView, PyObjects, QkObjectClassList, EdSceneObject;
 
 //@
 //https://github.com/id-Software/Quake-III-Arena/blob/dbe4ddb10315479fc00086f08e25d968b4b43c49/code/qcommon/cm_patch.c

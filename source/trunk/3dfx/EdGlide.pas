@@ -23,7 +23,7 @@ unit EdGlide;
 interface
 
 uses Windows, Classes, Setup, SysUtils,
-     PyMath, qmath, Bezier,
+     Coordinates, qmath, Bezier,
      QkObjects,
      Glide,
      EdSceneObject;
@@ -91,7 +91,7 @@ var
 implementation
 
 uses Game, Quarkx, QkExceptions, Travail,
-     PyMath3D, QkPixelSet, QkTextures, QkMapPoly, ApplPaths;
+     QkPixelSet, QkTextures, QkMapPoly, ApplPaths;
 
 const
  //See the "Floating Point Vertex Snapping and Area Calculations"-section

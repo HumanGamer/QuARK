@@ -215,7 +215,7 @@ implementation
 uses qdraw, Setup, QkMapPoly, Undo, FormCfg, Game, Quarkx, QkExceptions,
      PyMath, PyMapView, PyObjects, QkImages, Bezier, EdSceneObject, Logging,
      QkModel, QkFrame, QkMdlObject, QkComponent, QkMD3, QkModelFile, QkModelRoot,
-     StrUtils, QkObjectClassList, ExtraFunctionality;
+     Coordinates, StrUtils, QkObjectClassList, ExtraFunctionality;
 
  {------------------------}
 

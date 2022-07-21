@@ -168,7 +168,7 @@ function CheckH2Hulls(Hulls: PHullH2; Size, FaceCount: Integer) : Boolean;
 
 implementation
 
-uses qhelper, QkExceptions, QkMapPoly, Setup, qmatrices, QkWad, Quarkx, PyMath, Qk3D,
+uses qhelper, QkExceptions, QkMapPoly, Setup, qmatrices, QkWad, Quarkx, Coordinates, Qk3D,
      QkObjectClassList, Dialogs, Travail, Logging;
 
  {------------------------}

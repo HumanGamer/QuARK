@@ -23,7 +23,7 @@ unit EdSceneObject;
 interface
 
 uses Windows, Classes,
-     Game, PyMath, qmath, Bezier, QkMesh,
+     Game, Coordinates, qmath, Bezier, QkMesh,
      QkObjects, QkPixelSet, QkComponent, QkMapPoly,
      Glide, GL1, Direct3D9, Sprite;
 

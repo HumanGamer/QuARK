@@ -6,11 +6,11 @@ inherited FQMdl: TFQMdl
   TextHeight = 13
   inherited leftdock: TDock97
     Top = 51
-    Height = 208
+    Height = 201
   end
   inherited rightdock: TDock97
     Top = 51
-    Height = 208
+    Height = 201
   end
   object Panel1: TPanel
     Left = 0
@@ -19,8 +19,8 @@ inherited FQMdl: TFQMdl
     Height = 38
     Align = alTop
     BevelOuter = bvNone
-    ParentBackground = False
     Color = clInactiveCaption
+    ParentBackground = False
     TabOrder = 4
     object Label1: TLabel
       Left = 10
@@ -69,11 +69,11 @@ inherited FQMdl: TFQMdl
     Left = 9
     Top = 51
     Width = 409
-    Height = 208
+    Height = 201
     Align = alClient
     BevelOuter = bvNone
-    ParentBackground = False
     BorderWidth = 1
+    ParentBackground = False
     TabOrder = 5
   end
 end

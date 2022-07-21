@@ -23,7 +23,7 @@ unit QkComponent;
 interface
 
 uses Windows, SysUtils, Classes, QkObjects, Qk3D, QkForm, Graphics,
-     QkImages, qmath, QkTextures, PyMath, Python, dialogs, QkMdlObject,
+     QkImages, qmath, QkTextures, Python, dialogs, QkMdlObject,
      QkFrame, QkFrameGroup, QkSkinGroup, QkSkinDrawObject, qmatrices;
 
 const
@@ -91,6 +91,7 @@ type
 implementation
 
 uses PyMapView, QuarkX, QkExceptions, Travail, PyObjects, QkModelRoot,
+     Coordinates, PyMath,
      EdSceneObject, QkObjectClassList, Logging, QkMiscGroup;
 
 

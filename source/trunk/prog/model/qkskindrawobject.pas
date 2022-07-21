@@ -23,7 +23,7 @@ unit qkskindrawobject;
 interface
 
 uses SysUtils, QkObjects, Qk3D, Graphics,
-     QkImages, qmath, QkTextures, PyMath, Python, QkMdlObject;
+     QkImages, qmath, QkTextures, Python, QkMdlObject;
 
 type
   QSkinDrawObject = class(QMdlObject)
@@ -36,7 +36,7 @@ type
 
 implementation
 
-uses QkModelRoot, QkComponent, QkObjectClassList, QkExceptions;
+uses Coordinates, QkModelRoot, QkComponent, QkObjectClassList, QkExceptions;
 
 function QSkinDrawObject.IsAllowedParent(Parent: QObject) : Boolean;
 begin

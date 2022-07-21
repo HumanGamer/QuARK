@@ -94,7 +94,7 @@ uses Classes, Dialogs, Graphics, CommCtrl, ExtCtrls, Controls,
      PakFiles, Registry2, SearchHoles, QkMapPoly, HelpPopup1, QkFullScreenWindow,
      PyForms, QkPixelSet, Bezier, Logging, QkObjectClassList, TextBoxForm,
      ApplPaths, MapError, StrUtils, QkImages, QkExceptions,
-     SystemDetails, ExtraFunctionality, Platform;
+     Coordinates, SystemDetails, ExtraFunctionality, Platform;
 
 const
  ToolBoxClosed = 0;

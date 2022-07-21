@@ -53,7 +53,7 @@ type
 
 implementation
 
-uses QuarkX, Setup, PyForms, Undo, QkModel, QkMapObjects, Qk3D, qmath, PyMath,
+uses QuarkX, Setup, PyForms, Undo, QkModel, QkMapObjects, Coordinates, Qk3D, qmath,
   qmatrices, PyControls;
 
 {$R *.dfm}

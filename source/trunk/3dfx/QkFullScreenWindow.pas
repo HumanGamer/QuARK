@@ -22,13 +22,13 @@ unit QkFullScreenWindow;
 
 interface
 
-uses Windows, SysUtils, PyMath3D, QkObjects;
+uses Windows, SysUtils, QkObjects;
 
 procedure OpenFullscreenWindow(const Caption: String; Root: QObject);
 
 implementation
 
-uses Messages, QkExceptions, EdSceneObject, qmath, Setup, Qk3D;
+uses Messages, QkExceptions, Coordinates, EdSceneObject, qmath, Setup, Qk3D;
 
 type
   QFullScreenWindow = class

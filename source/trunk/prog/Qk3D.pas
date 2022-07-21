@@ -23,7 +23,7 @@ unit Qk3D;
 interface
 
 uses Windows, SysUtils, Classes, QkObjects, qmath, qmatrices,
-     CommCtrl, Python, PyMath;
+     CommCtrl, Python, PyMath, Coordinates;
 
 type
  Q3DObject = class;

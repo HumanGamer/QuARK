@@ -22,7 +22,7 @@ unit Bezier;
 
 interface
 
-uses Windows, SysUtils, Classes, Python, qmath, qmatrices, QkMesh, PyMath,
+uses Windows, SysUtils, Classes, Python, qmath, qmatrices, QkMesh,
      QkObjects, QkMapObjects, QkMapPoly, Qk3D;
 
 type
@@ -70,7 +70,8 @@ function TriangleSTCoordinates(const cp: TMeshBuf5; I, J: Integer) : vec_st_t;
 
 implementation
 
-uses qdraw, QuarkX, QkExceptions, Setup, PyMapView, PyObjects, QkObjectClassList, EdSceneObject;
+uses qdraw, Coordinates, QuarkX, QkExceptions, Setup,
+     PyMath, PyMapView, PyObjects, QkObjectClassList, EdSceneObject;
 
  (*    QUADRATIC BEZIER PATCHES
   *

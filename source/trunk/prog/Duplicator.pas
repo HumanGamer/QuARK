@@ -57,8 +57,8 @@ type
 
 implementation
 
-uses Quarkx, QkExceptions, Setup, QkFileObjects, PyMapView, PyMath, PyObjects,
-     Qk3D, QkMapPoly, QkObjectClassList, Undo, EdSceneObject;
+uses Quarkx, QkExceptions, Setup, QkFileObjects, PyMapView, PyObjects,
+     Coordinates, Qk3D, QkMapPoly, QkObjectClassList, Undo, EdSceneObject;
 
  {------------------------}
 

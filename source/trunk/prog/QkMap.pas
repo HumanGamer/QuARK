@@ -119,7 +119,7 @@ procedure FreeTextureSizes;
 implementation
 
 uses
-  Undo, Quarkx, qmatrices, Qk3D, PyMath, QkQuakeMap, ApplPaths, QkTextures,
+  Undo, Quarkx, qmatrices, Qk3D, Coordinates, QkQuakeMap, ApplPaths, QkTextures,
   Graphics, StrUtils, Game, QkExceptions, Travail, QConsts, Logging, PyControls,
   PyForms, Bezier, QkMesh, Duplicator, QkPixelSet, Qk6DX, QkVMF, QkSylphis, QkQ2,
   QkSin, MapError, PixelSetSizeCache, QkObjectClassList;

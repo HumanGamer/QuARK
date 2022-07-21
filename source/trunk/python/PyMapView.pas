@@ -25,7 +25,7 @@ interface
 uses Windows, Messages, SysUtils, Classes, Forms, Controls, Graphics,
      Dialogs, Quarkx, QkExplorer, Python, QkObjects, PyObjects,
      PyControls, QkForm, CursorScrollBox, Qk3D, QkMapObjects,
-     qmath, PyMath, PyMath3D, Setup, Travail, ExtCtrls,
+     qmath, PyMath, Coordinates, Setup, Travail, ExtCtrls,
      EdSceneObject, QkPixelSet;
 
 type

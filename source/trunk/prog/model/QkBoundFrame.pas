@@ -52,7 +52,7 @@ type
 
 implementation
 
-uses qk3d, pymath, quarkx, QkExceptions, QkObjectClassList, QkMiscGroup;
+uses Qk3D, Coordinates, PyMath, Quarkx, QkExceptions, QkObjectClassList, QkMiscGroup;
 
 function QBoundFrame.IsAllowedParent(Parent: QObject) : Boolean;
 begin

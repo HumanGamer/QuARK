@@ -23,7 +23,7 @@ unit EdSoftware;
 interface
 
 uses Windows, Classes, Setup, SysUtils,
-     PyMath, qmath, Bezier,
+     Coordinates, qmath, Bezier,
      QkObjects,
      Glide,
      EdSceneObject;
@@ -96,7 +96,7 @@ procedure Set3DFXGammaCorrection(Value: TDouble);
 implementation
 
 uses Game, Quarkx, QkExceptions, Travail,
-     PyMath3D, QkPixelSet, QkTextures, QkMapPoly, ApplPaths;
+     QkPixelSet, QkTextures, QkMapPoly, ApplPaths;
 
 const
  //Older versions of the software renderer had different bounds

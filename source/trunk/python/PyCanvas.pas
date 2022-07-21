@@ -50,7 +50,7 @@ var
 implementation
 
 uses qdraw, PyObjects, PyImages, QkObjects, QkTextures, Game, Setup,
-     PyMath, Qk3D, QkImages, QkPixelSet, QkExceptions;
+     Coordinates, PyMath, Qk3D, QkImages, QkPixelSet, QkExceptions;
 
  {------------------------}
 
