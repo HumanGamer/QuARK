@@ -118,16 +118,53 @@ type
     { Public declarations }
   end;
 
-Function MyFloatSpec(s:QSprFile; ident:String):Single;
-Function MyStrSpec(s:QSprFile; ident:String):String;
-Function MyIntSpec(s:QSprFile; ident:String):INteger;
-
 implementation
 
 uses CommCtrl, Math, Quarkx, QkExceptions, QkPcx, QkTextures, QkObjectClassList;
 
 {$R *.DFM}
 
+ {------------------------}
+
+Procedure MySetIntSpec(s:QSprFile; ident:String; value:Integer);
+begin
+  s.Specifics.Values[ident]:=inttostr(value);
+end;
+
+Function MyIntSpec(s:QSprFile; const ident:String):Integer;
+begin
+  if s.Specifics.IndexOfName(ident)=-1 then
+    result:=0
+  else
+    try
+      result:=strtoint(s.Specifics.Values[ident]);
+    except
+      on EConvertError do result:=0;
+    end;
+end;
+
+Function MyStrSpec(s:QSprFile; const ident:String):String;
+begin
+  if s.Specifics.IndexOfName(ident)=-1 then
+    result:=''
+  else
+    result:=s.Specifics.Values[ident];
+end;
+
+Function MyFloatSpec(s:QSprFile; const ident:String):Single;
+begin
+  if s.Specifics.IndexOfName(ident)=-1 then
+    result:=0.0
+  else
+    try
+      result:=strtofloat(s.Specifics.Values[ident]);
+    except
+      on EConvertError do result:=0.0;
+    end;
+end;
+
+ {------------------------}
+ 
 function QSprFile.IsExplorerItem(Q: QObject) : TIsExplorerItem;
 begin
 // if (Q is QSprite) then
@@ -578,9 +615,9 @@ end;
 
 function QSprFile.Loaded_FrameFile(Root: QObject; const Name: String) : QImage;
 var
- Path: String;
- J: Integer;
- nImage: QObject;
+  Path: String;
+  J: Integer;
+  nImage: QFileObject;
 begin
   GameBuffer(ObjectGameCode);
   Path:=Name;
@@ -641,8 +678,8 @@ end;
 
 procedure TQSprForm.wmInternalMessage(var Msg: TMessage);
 var
-s:QSprFile;
-fg:char;
+  s:QSprFile;
+  fg:char;
 begin
   case Msg.wParam of
     wp_AfficherObjet:
@@ -679,43 +716,6 @@ begin
       end;
     end;
   inherited;
-end;
-
-Procedure MySetIntSpec(s:QSprFile; ident:String; value:Integer);
-begin
-  s.Specifics.Values[ident]:=inttostr(value);
-end;
-
-Function MyIntSpec(s:QSprFile; ident:String):INteger;
-begin
-  if s.Specifics.IndexOfName(ident)=-1 then
-    result:=0
-  else
-    try
-      result:=strtoint(s.Specifics.Values[ident]);
-    except
-      on EConvertError do result:=0;
-    end;
-end;
-
-Function MyStrSpec(s:QSprFile; ident:String):String;
-begin
-  if s.Specifics.IndexOfName(ident)=-1 then
-    result:=''
-  else
-    result:=s.Specifics.Values[ident];
-end;
-
-Function MyFloatSpec(s:QSprFile; ident:String):Single;
-begin
-  if s.Specifics.IndexOfName(ident)=-1 then
-    result:=0.0
-  else
-    try
-      result:=strtofloat(s.Specifics.Values[ident]);
-    except
-      on EConvertError do result:=0.0;
-    end;
 end;
 
 procedure TQSprForm.UpdateListView;
