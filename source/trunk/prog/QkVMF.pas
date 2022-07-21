@@ -42,7 +42,7 @@ implementation
 
 uses Qk1, QkQme, QkMapPoly, qmath, Travail, Setup,
   Qk3D, QkBsp, Undo, Game, Quarkx, QkExceptions,
-  QkObjectClassList, MapError, Logging, DispFace, QkConsts;
+  QkObjectClassList, MapError, Logging, DispFace, QConsts;
 
  {------------------------}
 
@@ -906,7 +906,7 @@ begin
 
        { .MAP comment header, which explains that this .MAP has been written
          by QuArK, for this game, and then QuArK's webpage. }
-       Dest.Add(CommentMapLine(FmtLoadStr1(176, [QuarkVersion])));
+       Dest.Add(CommentMapLine(FmtLoadStr1(176, [QuArKVersion])));
        Dest.Add(CommentMapLine(FmtLoadStr1(177, [SetupGameSet.Name])));
        Dest.Add(CommentMapLine(FmtLoadStr1(178, [])));
        Dest.Add('');

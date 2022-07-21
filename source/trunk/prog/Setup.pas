@@ -169,7 +169,7 @@ implementation
 uses QkMapObjects, Travail, Game, Console, QkGroup, QkForm, Qk1, qmath,
      ToolBox1, Toolbar1, QkQuakeCtx, Quarkx, QkExceptions, Python, PyMapView,
      PyObjects, PyForms, Qk3D, EdSceneObject, QkObjectClassList, ApplPaths,
-     QkConsts, ExtraFunctionality, Logging;
+     QConsts, ExtraFunctionality, Logging;
 
 const
  SetupFileName    = 'Setup.qrk';

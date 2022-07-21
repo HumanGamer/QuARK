@@ -641,7 +641,7 @@ implementation
 
 uses
  {$IFDEF Debug} QkObjects, {$ENDIF}
- {$IFDEF DebugPythonLeak} {$IFNDEF PyProfiling}Classes,{$ENDIF} QkConsts, PyObjects, Quarkx, {$ENDIF}
+ {$IFDEF DebugPythonLeak} {$IFNDEF PyProfiling}Classes,{$ENDIF} QConsts, PyObjects, Quarkx, {$ENDIF}
   Windows, Forms, SysUtils, StrUtils, QkExceptions, ApplPaths, SystemDetails, Logging;
 
 {$IFDEF DebugPythonLeak}

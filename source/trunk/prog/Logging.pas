@@ -62,7 +62,7 @@ const
 implementation
 
 //Keep the number of uses to a bare minimal, due to Delphi's init-order!
-uses QkConsts;//, ApplPaths; //FIXME: ApplPaths is including TOO MUCH!
+uses QConsts;//, ApplPaths; //FIXME: ApplPaths is including TOO MUCH!
 
 var
   LogFile: TextFile;
@@ -122,9 +122,9 @@ begin
   LogOpened:=true;
   Log(LOG_PASCAL, 'QuArK started at %s',[DateTimeToStr(now)]);
   if Length(PatchVersion) <> 0 then
-    Log(LOG_PASCAL, 'QuArK version is %s %s %s',[QuarkVersion, QuArKMinorVersion, PatchVersion])
+    Log(LOG_PASCAL, 'QuArK version is %s %s %s',[QuArKVersion, QuArKMinorVersion, PatchVersion])
   else
-    Log(LOG_PASCAL, 'QuArK version is %s %s',[QuarkVersion, QuArKMinorVersion]);
+    Log(LOG_PASCAL, 'QuArK version is %s %s',[QuArKVersion, QuArKMinorVersion]);
   Log(LOG_PASCAL, 'Loglevel is %d',[LogLevel]);
 {$IFDEF PyProfiling}
   {$I-}

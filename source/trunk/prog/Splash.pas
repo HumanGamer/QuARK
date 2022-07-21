@@ -59,7 +59,7 @@ function OpenSplashScreen : TSplashScreen;
 implementation
 
 {$IFNDEF Debug}
-uses QkConsts;
+uses QConsts;
 {$ENDIF}
 
 const

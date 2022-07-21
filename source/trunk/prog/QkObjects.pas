@@ -429,7 +429,7 @@ procedure DataDump;
 implementation
 
 uses
-  {$IFDEF Debug} MemTester, QkConsts, {$ENDIF}
+  {$IFDEF Debug} MemTester, QConsts, {$ENDIF}
   QkObjectClassList, QkFileObjects, QkExplorer, Travail, Game, qhelper,
   PyObjects, PyImages, Quarkx, QkExceptions, Qk1, Logging{, ExtraFunctionality};
 

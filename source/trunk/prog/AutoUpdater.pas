@@ -124,7 +124,7 @@ procedure DoUpdate(AllowOnline: Boolean; AutomaticCheck: Boolean);
 
 implementation
 
-uses StrUtils, SysUtils, DateUtils, QkObjects, QkConsts, Setup, Logging, Travail,
+uses StrUtils, SysUtils, DateUtils, QkObjects, QConsts, Setup, Logging, Travail,
   QkExceptions, AutoUpdateInstaller, TextBoxForm;
 
 var

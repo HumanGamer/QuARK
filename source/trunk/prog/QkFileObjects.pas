@@ -209,7 +209,7 @@ implementation
 
 uses qhelper, Qk1, Undo, QkExplorer, Setup, qmath, QkGroup, Travail, QkOwnExplorer,
   QkFileExplorer, QkUnknown, Toolbar1, Quarkx, QkExceptions, QkInclude,
-  PyObjects, QkConsts, Logging, SystemDetails,
+  PyObjects, QConsts, Logging, SystemDetails,
   PyForms, QkTreeView, Game, QkObjectClassList, ApplPaths, ExtraFunctionality;
 
 {$R *.DFM}
@@ -1445,7 +1445,7 @@ begin
  L.Add(S);
  if Comment then
   begin
-   L.Add(FmtLoadStr1(5200, [QuarkVersion, Self.Name+Self.TypeInfo]));
+   L.Add(FmtLoadStr1(5200, [QuArKVersion, Self.Name+Self.TypeInfo]));
    L.Text:=L.Text;   { #13 --> #13#10 }
   end;
  L.Add('{');
@@ -1529,7 +1529,7 @@ begin
      PInteger(@S[1])^:=c_FileSignatureQQRK;
      PInteger(@S[1+SizeOf(LongInt)])^:=c_FileVersionText;
      L.Add(S);
-     L.Add(FmtLoadStr1(5200, [QuarkVersion, Name+TypeInfo]));
+     L.Add(FmtLoadStr1(5200, [QuArKVersion, Name+TypeInfo]));
      L.Text:=L.Text;   { #13 --> #13#10 }
      L.Add('{');
      ConvertObjsToTextWithComment(Self, L, '  ');
@@ -1567,7 +1567,7 @@ begin
      PInteger(@S[1])^:=c_FileSignatureQQRK;
      PInteger(@S[1+SizeOf(LongInt)])^:=c_FileVersionText;
      L.Add(S);
-     L.Add(FmtLoadStr1(5200, [QuarkVersion, Name+TypeInfo]));
+     L.Add(FmtLoadStr1(5200, [QuArKVersion, Name+TypeInfo]));
      L.Text:=L.Text;   { #13 --> #13#10 }
      L.Add('{');
      ConvertObjsToTextWithComment(Self, L, '  ');

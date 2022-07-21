@@ -120,7 +120,7 @@ implementation
 
 uses
   Undo, Quarkx, qmatrices, Qk3D, PyMath, QkQuakeMap, ApplPaths, QkTextures,
-  Graphics, StrUtils, Game, QkExceptions, Travail, QkConsts, Logging, PyControls,
+  Graphics, StrUtils, Game, QkExceptions, Travail, QConsts, Logging, PyControls,
   PyForms, Bezier, QkMesh, Duplicator, QkPixelSet, Qk6DX, QkVMF, QkSylphis, QkQ2,
   QkSin, MapError, PixelSetSizeCache, QkObjectClassList;
 
@@ -2625,7 +2625,7 @@ begin
 
        { .MAP comment header, which explains that this .MAP has been written
          by QuArK, for this game, and then QuArK's webpage. }
-       Dest.Add(CommentMapLine(FmtLoadStr1(176, [QuarkVersion])));
+       Dest.Add(CommentMapLine(FmtLoadStr1(176, [QuArKVersion])));
        Dest.Add(CommentMapLine(FmtLoadStr1(177, [SetupGameSet.Name])));
        Dest.Add(CommentMapLine(FmtLoadStr1(178, [])));
        Dest.Add('');

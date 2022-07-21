@@ -41,7 +41,7 @@ function DoInstall: Boolean;
 
 implementation
 
-uses SysUtils, QuarkX, AutoUpdater, HTTP, QkConsts;
+uses SysUtils, QuarkX, AutoUpdater, HTTP, QConsts;
 
 function InstallPackages : DWORD; stdcall; forward;
 

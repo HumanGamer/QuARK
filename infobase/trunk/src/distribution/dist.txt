@@ -20,7 +20,7 @@ changes.</li>
 in the QuArK executable. Go to the Project > Options > Version Info
 and update the numbers. Don't forget the copyright year, and the
 pre-release-flag!<br>
-Also, some const's in <tt>QkConsts.pas</tt> need to be updated. Check
+Also, some const's in <tt>QConsts.pas</tt> need to be updated. Check
 them out and update them where needed:
 <code>
   QuArKVersion

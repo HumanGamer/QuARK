@@ -5,7 +5,7 @@ QuArK's version number is stored in several places within the code:
 
 <ol>
 <li>Delphi project: Project > Options > Version Info.</li>
-<li><tt>QkConsts.pas</tt>: <code>QuArKVersion</code> and <code>QuArKMinorVersion</code>.</li>
+<li><tt>QConsts.pas</tt>: <code>QuArKVersion</code> and <code>QuArKMinorVersion</code>.</li>
 <li><tt>Defaults.qrk</tt>: <code>Version</code> and <code>InternalVersion</code>.</li>
 <li><tt>qdictionnary.py</tt>: <code>Strings</code> entry 0.</li>
 <li><tt>NEWS.txt</tt>: Add a new header.</li>

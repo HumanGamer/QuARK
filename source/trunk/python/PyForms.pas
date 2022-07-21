@@ -105,7 +105,7 @@ procedure PyFormsClickItem(Options: Integer; nForm: TPyForm);
 
 implementation
 
-uses qhelper, PyMenus, PyToolbars, PyObjects, Setup, Qk1, QkConsts,
+uses qhelper, PyMenus, PyToolbars, PyObjects, Setup, Qk1, QConsts,
      PyFloating, PyFullscreen, PyExplorer, ComCtrls, QkTreeView,
      EnterEditCtrl, TbPalette, HelpPopup1, Travail, Platform;
 

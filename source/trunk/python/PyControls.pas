@@ -64,7 +64,7 @@ procedure DumpControls;
 
 implementation
 
-uses {$IFDEF Debug} QkConsts, Logging, {$ENDIF}
+uses {$IFDEF Debug} QConsts, Logging, {$ENDIF}
      QkExceptions, QkForm, Quarkx, PyForms, PyFloating, PyFullscreen,
      QkObjects, QkExplorer, PyObjects, PyToolbars;
 

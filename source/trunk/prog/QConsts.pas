@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 https://quark.sourceforge.io/ - Contact information in AUTHORS.TXT
 **************************************************************************)
-unit QkConsts;
+unit QConsts;
 
 interface
 

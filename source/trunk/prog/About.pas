@@ -63,7 +63,7 @@ procedure ProcessRegistration;
 
 implementation
 
-uses Messages, Registry2, Qk1, Quarkx, QkConsts;
+uses Messages, Registry2, Qk1, Quarkx, QConsts;
 
 const
   RegistrationKey = '\Software\Armin Rigo\QuakeMap';
@@ -173,7 +173,7 @@ begin
   end;
 
   ProgramIcon.Picture.Icon.Handle := LoadImage(HInstance, 'MAINICON', image_Icon, 0, 0, 0);
-  Version.Caption := QuarkVersion + ' ' + QuArKMinorVersion;
+  Version.Caption := QuArKVersion + ' ' + QuArKMinorVersion;
   {$IFDEF Debug}
   Version.Caption := Version.Caption + '  DEBUG VERSION';
   {$ENDIF}

@@ -232,7 +232,7 @@ uses {$IFDEF Debug}MemTester, {$ENDIF}ShellApi, Undo, QkQuakeC, Setup, Config,
   ToolBox1, Game, QkOwnExplorer, ObjProp, qdraw, qmath, QkInclude,
   Running, Output1, QkTreeView, PyProcess, Console, Python, Quarkx, About,
   PyMapView, PyForms, Qk3D, EdSceneObject, QkObjectClassList, ApplPaths,
-  QkExceptions, QkQuakeCtx, AutoUpdater, QkConsts, Toolbar1,
+  QkExceptions, QkQuakeCtx, AutoUpdater, QConsts, Toolbar1,
   Splash, Logging, SystemDetails, Platform;
 
 type
@@ -616,7 +616,7 @@ begin
  bottomdock.Color:=C;
 
 {Image1.Picture.Bitmap.LoadFromResourceName(HInstance, 'QUARKLOGO');
- StatusBar1.SimpleText:=FmtLoadStr1(1, [QuarkVersion]);}
+ StatusBar1.SimpleText:=FmtLoadStr1(1, [QuArKVersion]);}
 
  LoadingComplete:=True;
 end;
@@ -2156,7 +2156,7 @@ begin
    Msg:=Hint;
   end;
  L:=TStringList.Create; try
- L.Add(FmtLoadStr1(4616, [QuarkVersion, QuArKMinorVersion, ExceptAddr, @TForm1.AppException]));
+ L.Add(FmtLoadStr1(4616, [QuArKVersion, QuArKMinorVersion, ExceptAddr, @TForm1.AppException]));
  P:=Pos('//', Msg);
  if P=0 then
   L.Add(Msg+'.')
