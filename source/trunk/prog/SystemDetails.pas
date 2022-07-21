@@ -55,8 +55,8 @@ type
     FLevel,
     FStepping,
     FFamily,
-    FTyp,
-    FFreq :cardinal;
+    FTyp(*,
+    FFreq*) :cardinal;
     FVendorNo :integer;
     FHasCPUID :boolean;
     function CPUIDExists :boolean;
@@ -65,7 +65,7 @@ type
     function GetCPUType :integer;
     function GetCPUVendor :string;
     function GetCPUVendorID :string;
-    function GetCPUFreqEx :extended;
+    //function GetCPUFreqEx :extended;
     function GetSubModel :string;
   public
     constructor Create;
@@ -79,7 +79,7 @@ type
     property Count :cardinal read FCount write FCount stored false;
     property Vendor :string read FVendor write FVendor stored false;
     property VendorID :string read FVendorID write FVendorID stored false;
-    property Freq :cardinal read FFreq write FFreq stored false;
+    //property Freq :cardinal read FFreq write FFreq stored false;
     property Family :cardinal read FFamily write FFamily stored false;
     property Stepping :cardinal read FStepping write FStepping stored false;
     property Model :cardinal read FModel write FModel stored false;
@@ -797,13 +797,13 @@ begin
   Result:=(Elapsed.QuadPart/Iterations);
 end;
 
-function TCPU.GetCPUFreqEx: extended;
+(*function TCPU.GetCPUFreqEx: extended;
 var
   c :comp;
 begin
   c:=GetTicksPerSecond(1);
   Result:=c/1E6;
-end;
+end;*)
 
 function TCPU.GetSubModel :string;
 begin
@@ -835,7 +835,7 @@ begin
   if HasCPUID then
   begin
     Level:=GetCPUIDLevel;
-    Freq:=Round(GetCPUFreqEx);
+    //Freq:=Round(GetCPUFreqEx);
     Typ:=GetCPUType;
     CPUID:=GetCPUID;
     Stepping:=(CPUID.EAX and $f);
@@ -867,7 +867,8 @@ procedure TCPU.Report(var sl: TStringList);
 begin
   with sl do
   begin
-    add(format('%d x %s %s - %d MHz',[self.Count,Vendor,VendorID,Freq]));
+    //add(format('%d x %s %s - %d MHz',[self.Count,Vendor,VendorID,Freq]));
+    add(format('%d x %s %s',[self.Count,Vendor,VendorID]));
     add(format('Submodel: %s',[Submodel]));
     add(format('Model ID: Family %d  Model %d  Stepping %d  Level %d',[Family,Model,Stepping,Level]));
   end;
