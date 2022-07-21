@@ -124,7 +124,7 @@ Function MyIntSpec(s:QSprFile; ident:String):INteger;
 
 implementation
 
-uses Math, Quarkx, QkExceptions, QkPcx, QkTextures, QkObjectClassList;
+uses CommCtrl, Math, Quarkx, QkExceptions, QkPcx, QkTextures, QkObjectClassList;
 
 {$R *.DFM}
 
@@ -740,16 +740,12 @@ begin
 end;
 
 Function SetRowSelect(h: THandle):Boolean;
-const
-  LV_GETFLAGS       = $1000 + 55;
-  LV_SETFLAGS       = $1000 + 54;
-  LV_FLAG_ROWSELECT = $00000020;
 var
   lvflags: DWord;
 begin
-  lvflags:=SendMessage(h, LV_GETFLAGS, 0, 0);            // Send Message to Get ListViews Flags
-  lvflags:=lvflags or LV_FLAG_ROWSELECT;                 // Add in Row Select Flag
-  result:=bool(SendMessage(h, LV_SETFLAGS, 0, lvflags)); // Send Message to Set ListViews Flags
+  lvflags:=SendMessage(h, LVM_GETEXTENDEDLISTVIEWSTYLE, 0, 0);              // Send Message to Get ListViews Flags
+  lvflags:=lvflags or LVS_EX_FULLROWSELECT;                                 // Add in Row Select Flag
+  result:=bool(SendMessage(h, LVM_SETEXTENDEDLISTVIEWSTYLE, 0, lvflags));   // Send Message to Set ListViews Flags
 end;
 
 procedure TQSprForm.FormCreate(Sender: TObject);
