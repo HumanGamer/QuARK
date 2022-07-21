@@ -22,7 +22,7 @@ unit EdOpenGL;
 
 interface
 
-uses Windows, Classes, qmath, PyMath, Coordinates, GL1, EdSceneObject;
+uses Windows, Classes, qmath, Coordinates, GL1, EdSceneObject;
 
 type
  PLightList = ^TLightList;

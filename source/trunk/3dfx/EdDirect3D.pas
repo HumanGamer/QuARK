@@ -22,7 +22,7 @@ unit EdDirect3D;
 
 interface
 
-uses Windows, Classes, qmath, PyMath, Coordinates, DX9, Direct3D9, EdSceneObject;
+uses Windows, Classes, qmath, Coordinates, DX9, Direct3D9, EdSceneObject;
 
 type
   TTextureFiltering = (tfNone, tfBilinear, tfTrilinear, tfAnisotropic);

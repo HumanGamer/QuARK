@@ -919,7 +919,7 @@ begin
  if not GlideLoaded then
   raise EError(6007);
 
- CCoord:=Coord;  { PyMath.CCoord }
+ CCoord:=Coord;
  if CCoord = Nil then
   raise EError(6007);
  if CCoord.FlatDisplay then
