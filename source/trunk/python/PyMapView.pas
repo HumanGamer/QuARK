@@ -2496,7 +2496,7 @@ begin
      begin
       P:=MapViewProj.Proj(V);
       MapViewProj.CheckVisible(P);
-      Result:=MapViewProj.MakePyVectPtf(P);
+      Result:=MakePyVectPtf(P, MapViewProj);
      end
     else
      Result:=PyNoResult

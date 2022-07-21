@@ -298,7 +298,7 @@ begin
  if couple=Nil then Exit;
  try
   CCoord.CheckVisible(P);
-  PyTuple_SetItem(couple, 0, CCoord.MakePyVectPtf(P));
+  PyTuple_SetItem(couple, 0, MakePyVectPtf(P, CCoord));
   Py_INCREF(@PythonObj);
   PyTuple_SetItem(couple, 1, @PythonObj);
 

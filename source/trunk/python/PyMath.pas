@@ -106,7 +106,6 @@ type
     procedure Polyline95(var Pts; NbPts: Integer);
     procedure Polyline95f(const Pts; NbPts: Integer);
     procedure Rectangle3D(const V1, V2, V3: TVect; Fill: Boolean);
-    function MakePyVectPtf(const P: TPointProj) : PyVect;
      { screen dimension changing }
     procedure Resize(nWidth, nHeight: Integer); virtual;
   end;
@@ -220,6 +219,7 @@ function MakePyVect5(const nX, nY, nZ, nS, nT: Double) : PyVectST;
 function MakePyVect(const nV: TVect) : PyVect;
 function MakePyVectv(const v3: vec3_t) : PyVect;
 {function MakePyVectvArray(Source: vec3_p; Count: Integer) : PyVect;}
+function MakePyVectPtf(const P: TPointProj; Coord: TCoordinates) : PyVect;
 function PyVect_AsPP(V: PyVect) : TPointProj;
 
 function GetVectAttr(self: PyObject; attr: PChar) : PyObject; cdecl;
@@ -1915,20 +1915,6 @@ begin
   end;
 end;*)
 
-function TCoordinates.MakePyVectPtf(const P: TPointProj) : PyVect;
-begin
- Result:=PyVect(PyObject_New(@TyVect_Type));
- with PyVect(Result)^ do
-  begin
-   V.X:=P.x;
-   V.Y:=P.y;
-   V.Z:=P.oow;
-   Source3D:=Self;
-   OffScreen:=P.OffScreen;
-   ST:=False;
-  end;
-end;
-
 function MakePyVect(const nV: TVect) : PyVect;
 begin
  Result:=PyVect(PyObject_New(@TyVect_Type));
@@ -1936,6 +1922,20 @@ begin
   begin
    V:=nV;
    Source3D:=Nil;
+   ST:=False;
+  end;
+end;
+
+function MakePyVectPtf(const P: TPointProj; Coord: TCoordinates) : PyVect;
+begin
+ Result:=PyVect(PyObject_New(@TyVect_Type));
+ with PyVect(Result)^ do
+  begin
+   V.X:=P.x;
+   V.Y:=P.y;
+   V.Z:=P.oow;
+   Source3D:=Coord;
+   OffScreen:=P.OffScreen;
    ST:=False;
   end;
 end;

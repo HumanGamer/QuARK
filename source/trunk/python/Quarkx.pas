@@ -1979,8 +1979,8 @@ begin
   Result:=PyTuple_New(2);
   if Ok then
    begin
-    PyTuple_SetItem(Result, 0, v1^.Source3D.MakePyVectPtf(PP1));
-    PyTuple_SetItem(Result, 1, v1^.Source3D.MakePyVectPtf(PP2));
+    PyTuple_SetItem(Result, 0, MakePyVectPtf(PP1, v1^.Source3D));
+    PyTuple_SetItem(Result, 1, MakePyVectPtf(PP2, v1^.Source3D));
    end
   else
    begin
