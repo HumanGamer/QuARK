@@ -250,6 +250,7 @@ function QMd3File.Loaded_ShaderFile(Comp: QComponent; tex_name: string): QImage;
 var
   shader_filename: string;
   shader_texturename: string;
+  ShaderExt: String;
   I: Integer;
   shader_file: QObject;
   shader_texture: QPixelSet;
@@ -270,7 +271,11 @@ begin
     exit;
   end;
 
-  shader_filename:=GameShadersPath+shader_filename+'.shader';
+  ShaderExt:=SetupGameSet.Specifics.Values['ShaderExt'];
+  if ShaderExt<>'' then
+    shader_filename:=GameShadersPath+shader_filename+ShaderExt
+  else
+    shader_filename:=GameShadersPath+shader_filename+'.shader';
   shader_texturename:=copy(tex_name, 1, pos('.', tex_name)-1);
 
   try

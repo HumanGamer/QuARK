@@ -553,7 +553,12 @@ procedure ParsePakShaderFiles(Pak: QPakFolder; const Base, FolderName: String; v
 var
  I: Integer;
  Q: QObject;
+ ShaderExt: String;
 begin
+  ShaderExt:=SetupGameSet.Specifics.Values['ShaderExt'];
+  if ShaderExt='' then
+   Exit;
+
   Pak.Acces;
   for I:=0 to Pak.SubElements.Count-1 do
   begin
@@ -562,7 +567,7 @@ begin
       continue;
     if FoundShaders.IndexOf(Q.Name)<0 then
     begin
-      LinkShaderFolder(DestFolder, Q.Name+'.shader', FolderName, Base, Q);
+      LinkShaderFolder(DestFolder, Q.Name+ShaderExt, FolderName, Base, Q);
       FoundShaders.Add(Q.Name);
     end
   end;
@@ -682,9 +687,13 @@ var
  F: TSearchRec;
  FindError: Integer;
  Loaded: QObject;
- ShortName : String;
+ ShortName, ShaderExt: String;
 begin
-  FindError:=FindFirst(ConcatPaths([Path, '*.shader']), faAnyFile, F);
+  ShaderExt:=SetupGameSet.Specifics.Values['ShaderExt'];
+  if ShaderExt='' then
+   Exit;
+
+  FindError:=FindFirst(ConcatPaths([Path, '*'+ShaderExt]), faAnyFile, F);
   try
     while FindError=0 do
     begin
@@ -694,7 +703,7 @@ begin
       begin
         Loaded:=Nil;
         try
-          if SameText(ExtractFileExt(F.Name), '.shader') then
+          if SameText(ExtractFileExt(F.Name), ShaderExt) then
             FoundShaders.Add(ShortName);
           while LinkShaderFolder(DestFolder, F.Name, FolderName, Base, Loaded) do
           begin
@@ -967,12 +976,12 @@ begin
   if Filter<>'' then
   begin
     PakExt:=SetupGameSet.Specifics.Values['PakExt'];
-    ShaderExt:='.shader'; //FIXME: Hardcoded for now
+    ShaderExt:=SetupGameSet.Specifics.Values['ShaderExt'];
     if Copy(Filter,Length(Filter)-Length(PakExt)+1,Length(PakExt))=PakExt then
     { it's a pak }
       PakFilter:=true
     else
-    if Copy(Filter,Length(Filter)-Length(ShaderExt)+1,Length(ShaderExt))=ShaderExt then
+    if (ShaderExt<>'') and (Copy(Filter,Length(Filter)-Length(ShaderExt)+1,Length(ShaderExt))=ShaderExt) then
       ShaderFilter:=true
     else
       FolderFilter:=true;

@@ -122,9 +122,7 @@ end;
 
 class function QCoD2Material.TypeInfo;
 begin
- //DanielPharos: The person that "forgot" to add a file extension
- //should be fired! QuArK currently cannot handle this properly,
- //so directly opening a CoD2 material file will not work.
+ //FIXME: Cannot handle empty file extension properly, so directly opening a CoD2 material file will not work.
  Result:='';
 end;
 

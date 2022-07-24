@@ -516,6 +516,7 @@ QQRKSRC1
         AddOns = "Bezier_Library.qrk"$0D"Q3ArchLib.qrk"$0D"DataAlice.qrk"$0D"AliceEntities.qrk"$0D"AliceWeapon-ModelEntities.qrk"$0D"AliceTextures.qrk"$0D"AliceScripts.qrk"
         AlwaysPak = ""
         PakExt = ".pk3"
+        ShaderExt = ".shader"
         LightEntityScale = '0.9'
         3DLight = '512'
         DecimalPlaces = '5'
@@ -589,6 +590,7 @@ QQRKSRC1
         AddOns = "Bezier_Library.qrk"$0D"Q3ArchLib.qrk"$0D"DataCoD1.qrk"$0D"CoD1Entities.qrk"$0D"CoD1Textures.qrk"
         AlwaysPak = ""
         PakExt = ".pk3"
+        ShaderExt = ".shader"
         PakOfficialFormat = "PAK*.PK3"
         //PakOfficialFormat = "PAKUO*.PK3" #For United Offensive
         PakFormatHex = "1"
@@ -666,6 +668,7 @@ QQRKSRC1
         AddOns = "Bezier_Library.qrk"$0D"Q3ArchLib.qrk"$0D"DataCoD2.qrk"$0D"CoD2Entities.qrk"$0D"CoD2Textures.qrk"
         AlwaysPak = ""
         PakExt = ".iwd"
+        ShaderExt = "."  // The person that "forgot" to add a file extension should be fired!
         Console = "1"
         LightFactor = '0.9'
         3DLight = '512'
@@ -897,6 +900,7 @@ QQRKSRC1
         AddOns = "Bezier_Library.qrk"$0D"Q3ArchLib.qrk"$0D"DataD3.qrk"$0D"Doom3Entities.qrk"$0D"Doom3Materials.qrk"
         AlwaysPak = ""
         PakExt = ".pk4"
+        ShaderExt = ".mtr"
         LightEntityScale = '0.9'
         PakExtra1 = ".aas"  // PAK extra files into pak file (ie maps/mapname.aas)
 
@@ -986,6 +990,7 @@ QQRKSRC1
         AddOns = "Bezier_Library.qrk"$0D"Q3ArchLib.qrk"$0D"DataEF2.qrk"$0D"EF2Entities.qrk"$0D"EF2Weapon-ModelEntities.qrk"$0D"EF2Textures.qrk"$0D"EF2Shaders.qrk"
         AlwaysPak = ""
         PakExt = ".pk3"
+        ShaderExt = ".shader"
         LightEntityScale = '0.9'
         3DLight = '512'
         PakExtra1 = ".aas"  // PAK extra files into pak file (ie maps/mapname.aas)
@@ -1066,6 +1071,7 @@ QQRKSRC1
         AddOns = "Bezier_Library.qrk"$0D"Q3ArchLib.qrk"$0D"DataFAKK2.qrk"$0D"FAKK2Entities.qrk"$0D"FAKK2Weapon-ModelEntities.qrk"$0D"FAKK2textures.qrk"$0D"FAKK2Scripts.qrk"
         AlwaysPak = ""
         PakExt = ".pk3"
+        ShaderExt = ".shader"
         LightEntityScale = '0.9'
         3DLight = '512'
         DecimalPlaces = '5'
@@ -1433,6 +1439,7 @@ QQRKSRC1
         AddOns = "Bezier_Library.qrk"$0D"Q3ArchLib.qrk"$0D"DataJA.qrk"$0D"JAEntities.qrk"$0D"JATextures.qrk"
         AlwaysPak = ""
         PakExt = ".pk3"
+        ShaderExt = ".shader"
         Console = "1"
         Form = "GameJA"
         LightEntityScale = '0.9'
@@ -1506,6 +1513,7 @@ QQRKSRC1
         AddOns = "Bezier_Library.qrk"$0D"Q3ArchLib.qrk"$0D"DataJK2.qrk"$0D"JK2Entities.qrk"$0D"JK2Textures.qrk"
         AlwaysPak = ""
         PakExt = ".pk3"
+        ShaderExt = ".shader"
         Console = "1"
         Form = "GameJK2"
         LightEntityScale = '0.9'
@@ -1640,6 +1648,7 @@ QQRKSRC1
         AddOns = "Bezier_Library.qrk"$0D"Q3ArchLib.qrk"$0D"DataMOHAA.qrk"$0D"MOHAAEntities.qrk"$0D"MOHAAWeapon-ModelEntities.qrk"$0D"MOHAATextures.qrk"
         AlwaysPak = ""
         PakExt = ".pk3"
+        ShaderExt = ".shader"
         Console = "1"
         Form = "GameMOHAA"
         LightEntityScale = '0.9'
@@ -1712,6 +1721,7 @@ QQRKSRC1
         AddOns = "Bezier_Library.qrk"$0D"Q3ArchLib.qrk"$0D"DataNEXUIZ.qrk"$0D"NEXUIZEntities.qrk"$0D"NEXUIZ_jpgTextures.qrk"$0D"NEXUIZ_tgaTextures.qrk"$0D"NEXUIZScripts.qrk"
         AlwaysPak = ""
         PakExt = ".pk3"
+        ShaderExt = ".shader"
         LightEntityScale = '0.9'
         3DLight = '512'
         DecimalPlaces = '5'
@@ -1764,6 +1774,7 @@ QQRKSRC1
         AddOns = "Bezier_Library.qrk"$0D"Q3ArchLib.qrk"$0D"DataPrey.qrk"$0D"PreyEntities.qrk"$0D"PreyMaterials.qrk"
         AlwaysPak = ""
         PakExt = ".pk4"
+        ShaderExt = ".mtr"
         LightEntityScale = '0.9'
         PakExtra1 = ".aas"  // PAK extra files into pak file (ie maps/mapname.aas)
 
@@ -1970,6 +1981,7 @@ QQRKSRC1
         AddOns = "Bezier_Library.qrk"$0D"Q3ArchLib.qrk"$0D"DataQ3.qrk"$0D"Q3Entities.qrk"$0D"Q3Textures.qrk"$0D"Q3models.qrk"
         AlwaysPak = ""
         PakExt = ".pk3"
+        ShaderExt = ".shader"
         PakOfficialFormat = "PAK*.PK3"
         Console = "1"
         Form = "GameQuake3"
@@ -2038,6 +2050,7 @@ QQRKSRC1
         AddOns = "Bezier_Library.qrk"$0D"Q3ArchLib.qrk"$0D"DataQ4.qrk"$0D"Q4Entities.qrk"$0D"Q4Materials.qrk"
         AlwaysPak = ""
         PakExt = ".pk4"
+        ShaderExt = ".mtr"
         LightEntityScale = '0.9'
         PakExtra1 = ".aas"  // PAK extra files into pak file (ie maps/mapname.aas)
 
@@ -2124,6 +2137,7 @@ QQRKSRC1
         AddOns = "Bezier_Library.qrk"$0D"Q3ArchLib.qrk"$0D"DataRTCW.qrk"$0D"RTCWEntities.qrk"$0D"RTCWTextures.qrk"
         AlwaysPak = ""
         PakExt = ".pk3"
+        ShaderExt = ".shader"
         LightEntityScale = '0.9'
         3DLight = '512'
         PakExtra1 = ".aas"  // PAK extra files into pak file (ie maps/mapname.aas)
@@ -2183,6 +2197,7 @@ QQRKSRC1
         AddOns = "Bezier_Library.qrk"$0D"Q3ArchLib.qrk"$0D"DataET.qrk"$0D"RTCW-ETEntities.qrk"$0D"RTCW-ETTextures.qrk"
         AlwaysPak = ""
         PakExt = ".pk3"
+        ShaderExt = ".shader"
         LightEntityScale = '0.9'
     //    PakExtra1 = ".aas"  // PAK extra files into pak file (ie maps/mapname.aas),  does not use aas files.
 
@@ -2383,6 +2398,7 @@ QQRKSRC1
         AddOns = "Bezier_Library.qrk"$0D"Q3ArchLib.qrk"$0D"DataSoF2.qrk"$0D"SoF2Entities.qrk"$0D"SoF2Textures.qrk"
         AlwaysPak = ""
         PakExt = ".pk3"
+        ShaderExt = ".shader"
         Console = "1"
         Form = "GameSoF2"
         LightEntityScale = '0.9'
@@ -2478,6 +2494,7 @@ QQRKSRC1
         AddOns = "Bezier_Library.qrk"$0D"Q3ArchLib.qrk"$0D"DataSTVEF.qrk"$0D"STVEFEntities.qrk"$0D"DataSTVEF_HM.qrk"$0D"STVEFTextures.qrk"
         AlwaysPak = ""
         PakExt = ".pk3"
+        ShaderExt = ".shader"
         LightEntityScale = '0.9'
         3DLight = '512'
         PakExtra1 = ".aas"  // PAK extra files into pak file (ie maps/mapname.aas)
@@ -2590,6 +2607,7 @@ QQRKSRC1
         Palette = ""
         MapExt = ".cmap"
         PakExt = ".col"
+        ShaderExt = "" //FIXME: fp, vp, afp?
         ExtraCmdLine = "-gamedir %gamedir%"
         RunMapCmdLine = "-map %fullfilename%"
         AddOns = "DataSylphis.qrk"$0D"SylphisEntities.qrk"$0D"SylphisTextures.qrk"
@@ -2741,6 +2759,7 @@ QQRKSRC1
         AddOns = "Bezier_Library.qrk"$0D"Q3ArchLib.qrk"$0D"DataWarfork.qrk"$0D"WarforkEntities.qrk"$0D"WarforkTextures.qrk"
         AlwaysPak = ""
         PakExt = ".pk3"
+        ShaderExt = ".shader"
         Console = "1"
         LightEntityScale = '0.9'
         3DLight = '512'
@@ -2809,6 +2828,7 @@ QQRKSRC1
         AddOns = "Bezier_Library.qrk"$0D"Q3ArchLib.qrk"$0D"DataWarsow.qrk"$0D"WarsowEntities.qrk"$0D"WarsowTextures.qrk"$0D"WarsowScripts.qrk"
         AlwaysPak = ""
         PakExt = ".pk3"
+        ShaderExt = ".shader"
         Console = "1"
         LightEntityScale = '0.9'
         3DLight = '512'
@@ -2888,6 +2908,7 @@ QQRKSRC1
         AddOns = "Bezier_Library.qrk"$0D"Q3ArchLib.qrk"$0D"DataWildWest.qrk"$0D"WildWestEntities.qrk"$0D"WildWestTextures.qrk"
         AlwaysPak = ""
         PakExt = ".pk3"
+        ShaderExt = ".shader"
         Console = "1"
         LightEntityScale = '0.9'
         3DLight = '512'
