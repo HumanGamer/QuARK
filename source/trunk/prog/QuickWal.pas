@@ -478,8 +478,6 @@ begin
        TexName:=Copy(Tex.Name,10,MaxInt);
        AnalyseFileName(TexName,Path,ShortName);
        try
-         if TexName='animationTest' then
-           texName:=texName;
          Folder:=LocateTxListFromPath(DestFolder, Path);
          Index:=0;
          Q:=Folder.LocateSubElement(TexName,Index);
