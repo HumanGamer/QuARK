@@ -78,9 +78,11 @@ type
   end;
 
 procedure TWaiter.Execute;
+const
+ WaitTimeout = 2000;
 begin
  try
-  while (WaitForSingleObject(WaitForHandle, 2000) = WAIT_TIMEOUT)
+  while (WaitForSingleObject(WaitForHandle, WaitTimeout) = WAIT_TIMEOUT)
   and (TriggerForm<>Nil) do
    ;
  finally

@@ -169,6 +169,8 @@ begin
 end;
 
 function TWavDataInfo.DisplayProc(nPos: Integer) : Boolean;
+const
+ WaitTimeout = 2000;
 var
  outHdr: TBuffers;
  R: TRect;
@@ -189,7 +191,7 @@ begin
    DisplayImage(nPos);
    Progress:=False;
   end;
- if not Continous and (WaitForSingleObject(SoundEvent, 3000) = WAIT_TIMEOUT) then
+ if not Continous and (WaitForSingleObject(SoundEvent, WaitTimeout) = WAIT_TIMEOUT) then
   begin
    GetClientRect(DestWnd, R);
    S:=LoadStr1(5606);

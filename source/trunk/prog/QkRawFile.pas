@@ -134,12 +134,14 @@ end;
  {------------------------}
 
 procedure TRFThread.Execute;
+const
+ WaitTimeout = 2000;
 begin
  try
   while not Terminated and (Position<Info.Length) do
    if Reading then
     begin
-     if WaitForSingleObject(Semaphore, 2222) = WAIT_TIMEOUT then
+     if WaitForSingleObject(Semaphore, WaitTimeout) = WAIT_TIMEOUT then
       begin
        ErrorMsg:=LoadStr1(5609);   { time out }
        Break;
