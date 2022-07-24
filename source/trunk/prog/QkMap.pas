@@ -3039,7 +3039,7 @@ begin
      if (S<>'') and (S[1]<>';') and not IsFloatSpec(S) then //FIXME: IsIntSpec?
      begin
        P:=Pos('=', S);
-       Msg:=Copy(S, P+1, 255);
+       Msg:=Copy(S, P+1, MaxInt);
        // special processing for hxstrings
        if (S[1]='#') and (HxStrings<>Nil) then
        begin
@@ -3080,7 +3080,7 @@ begin
    begin
      S:=Specifics[J];
      P:=Pos('=', S);
-     Msg:=Copy(S, P+1, 255);
+     Msg:=Copy(S, P+1, MaxInt);
 
 // not needed in map file
 //     hashpos:=Pos('input#',S);
