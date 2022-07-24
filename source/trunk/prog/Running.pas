@@ -335,7 +335,7 @@ begin
    if Verb then
     begin
      S[I]:=#0;
-     Ok:=ShellExecute(Handle, PChar(S)+1, PChar(S)+I+1, Nil, StartDir, sw_Show)>=32;
+     Ok:=ShellExecute(Handle, PChar(S)+1, PChar(S)+I+1, Nil, StartDir, sw_Show)>32;
     end
    else
     begin
