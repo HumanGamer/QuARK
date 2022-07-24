@@ -92,7 +92,7 @@ const
  IncrementMax   = 128;
 
 var
- DernierMessage: LongInt;
+ DernierMessage: DWORD;
 
 procedure Register;
 begin
@@ -291,7 +291,10 @@ end;}
 procedure TCursorScrollBox.Defilement(var Msg: TWMScroll; HorzScrollBar: TControlScrollBar);
 var
  I: Integer;
- Temps, Delta: LongInt;
+ Temps, Delta: DWORD;
+const
+ DeltaMin = 144;
+ DeltaMax = 196;
 begin
 {if not (csDesigning in ComponentState) and Assigned(FOnScrolling) then
   FOnScrolling(Self);}
@@ -303,12 +306,12 @@ begin
      begin
       Temps:=GetTickCount;
       Delta:=Temps-DernierMessage;
-      if Delta>196 then
-       Delta:=196
+      if Delta>DeltaMax then
+       Delta:=DeltaMax
       else
-       if Delta<144 then
-        Delta:=144;
-      I:=((I-4) * Delta) shr 7 + 4;
+       if Delta<DeltaMin then
+        Delta:=DeltaMin;
+      I:=((I-4) * Integer(Delta)) shr 7 + 4;
       if I > IncrementMax then
        I:=IncrementMax;
       HorzScrollBar.Increment:=I;
@@ -318,7 +321,7 @@ begin
   sb_EndScroll:
    HorzScrollBar.Increment:=IncrementMin;
  end;
- if (HorzScrollBar.Range>32767)
+ if (HorzScrollBar.Range>High(TScrollBarInc))
  and (Msg.ScrollCode in [sb_ThumbPosition, sb_ThumbTrack]) then
   begin
    if HorzScrollBar.Kind = sbHorizontal then
