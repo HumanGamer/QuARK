@@ -193,7 +193,7 @@ begin
  //        default was 5, so we drop back to that if we read something we don't
  //        understand.  The range is set from 1 to 40 - less than 1 (i.e. 0 (i.e.
  //        integers)) should still be controlled by the existing option to write
- //        only integers to .map files (see the Configutation window), anything
+ //        only integers to .map files (see the Configuration window), anything
  //        more than 40 decimal places is ludicrously insanely stupendously
  //        silly :-P  So there.  Does this make the longest single comment in the
  //        QuArK source???
