@@ -23,8 +23,7 @@ unit CursorScrollBox;
 interface
 
 uses
-  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
-  Buttons;
+  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Buttons;
 
 type
   TSetCursorEvent = procedure(Sender: TObject; var nCursor: TCursor) of object;
@@ -71,7 +70,10 @@ type
   private
     FDragModeInt: TDragMode;
   protected
+    FDragX, FDragY: Integer;
     procedure MouseMove(Shift: TShiftState; X, Y: Integer); override;
+  public
+    constructor Create(AOwner: TComponent); override;
   published
     property DragCursor;
     property DragMode: TDragMode read FDragModeInt write FDragModeInt default dmManual;
@@ -97,11 +99,20 @@ begin
   RegisterComponents('Exemples', [TCursorScrollBox, TDragSpeedButton]);
 end;
 
+ {------------------------}
+
+constructor TDragSpeedButton.Create(AOwner: TComponent);
+begin
+ inherited;
+ FDragX := GetSystemMetrics(SM_CXDRAG);
+ FDragY := GetSystemMetrics(SM_CYDRAG);
+end;
+
 procedure TDragSpeedButton.MouseMove;
 begin
  inherited;
  if (FDragModeInt=dmAutomatic)
- and ((X<-2) or (Y<-2) or (X>Width+2) or (Y>Height+2)) then
+ and ((X<-FDragX) or (Y<-FDragY) or (X>Width+FDragX) or (Y>Height+FDragY)) then
   BeginDrag(True);
 end;
 
