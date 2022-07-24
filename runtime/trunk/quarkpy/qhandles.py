@@ -2016,24 +2016,21 @@ class LinHandlesManager:
         Y = max(cy)
         cx = (X+mX)*0.5
         cy = (Y+mY)*0.5
-        mX = int(mX)
-        mY = int(mY)
-        X = int(X)
-        Y = int(Y)
-        cx = int(cx)
-        cy = int(cy)
         dx = X-cx
         dy = Y-cy
         radius = math.sqrt(dx*dx+dy*dy)
+
+        cx = int(cx)
+        cy = int(cy)
         radius = int(radius)
         cv = view.canvas()
         cv.pencolor = self.color
         cv.brushstyle = BS_CLEAR
         cv.ellipse(cx-radius, cy-radius, cx+radius+1, cy+radius+1)
-        cv.line(mX, cy, cx-radius, cy)
-        cv.line(cx, mY, cx, cy-radius)
-        cv.line(cx+radius, cy, X, cy)
-        cv.line(cx, cy+radius, cx, Y)
+        cv.line(int(mX), cy, cx-radius, cy)
+        cv.line(cx, int(mY), cx, cy-radius)
+        cv.line(cx+radius, cy, int(X), cy)
+        cv.line(cx, cy+radius, cx, int(Y))
 
       #
       # The commented out version below draws a box instead of a circle
