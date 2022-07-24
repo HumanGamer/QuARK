@@ -1383,10 +1383,10 @@ QQRKSRC1
         CheckAddonInstalled = "1"
         Game = "JA"
         Code = "l" // Hardcoded value in Setup.PAS
-        Program = "JASP.EXE +set sv_pure 0"
 
         BaseMenu = "Star Wars: Jedi Knight"
 
+        Program = "JASP.EXE +set sv_pure 0"
         Directory = "\LucasArts\Star Wars Jedi Knight Jedi Academy\GameData"
         CheckDirectory = "JASP.EXE"
 
@@ -1453,12 +1453,12 @@ QQRKSRC1
         CheckAddonInstalled = "1"
         Game = "JK2"
         Code = "f" // Hardcoded value in Setup.PAS
-        Program = "JK2MP.EXE +set sv_pure 0"
-
-        Directory = "\Star Wars JK II Jedi Outcast\GameData"
-        CheckDirectory = "JK2MP.EXE"
 
         BaseMenu = "Star Wars: Jedi Knight"
+
+        Program = "JK2MP.EXE +set sv_pure 0"
+        Directory = "\Star Wars JK II Jedi Outcast\GameData"
+        CheckDirectory = "JK2MP.EXE"
 
         CD = ""
         CDDir = ""
@@ -1801,6 +1801,7 @@ QQRKSRC1
         CheckAddonInstalled = "1"
         Game = "Quake 1"
         Code = "1" // Hardcoded value in Setup.PAS
+
         BaseMenu = "Quake"
 
         Program = "Quake.EXE"
