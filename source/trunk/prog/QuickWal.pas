@@ -477,19 +477,22 @@ begin
          continue;
        TexName:=Copy(Tex.Name,10,MaxInt);
        AnalyseFileName(TexName,Path,ShortName);
-       if TexName='animationTest' then
-         texName:=texName;
-       Folder:=LocateTxListFromPath(DestFolder, Path);
-       Index:=0;
-       Q:=Folder.LocateSubElement(TexName,Index);
-       if Q=Nil then
-       begin
-         Q:=Link1(Folder, FileNameOnly(Name)+'/', Tex.Name, 'a', Base, Index); { use 'filename.SHADER/' to indicate what this folder contains }
-         Q.Name:=Copy(Tex.Name, Pos('/', Tex.Name)+1, MaxInt);
-         Q.Specifics.Values['b']:=Name;
-         Q.Specifics.Values['shader']:='1';
+       try
+         if TexName='animationTest' then
+           texName:=texName;
+         Folder:=LocateTxListFromPath(DestFolder, Path);
+         Index:=0;
+         Q:=Folder.LocateSubElement(TexName,Index);
+         if Q=Nil then
+         begin
+           Q:=Link1(Folder, FileNameOnly(Name)+'/', Tex.Name, 'a', Base, Index); { use 'filename.SHADER/' to indicate what this folder contains }
+           Q.Name:=Copy(Tex.Name, Pos('/', Tex.Name)+1, MaxInt);
+           Q.Specifics.Values['b']:=Name;
+           Q.Specifics.Values['shader']:='1';
+         end;
+       finally
+         Path.Free;
        end;
-       Path.Free;
      end;
     end;
   end;
