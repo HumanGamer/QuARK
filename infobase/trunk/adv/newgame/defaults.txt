@@ -13,3 +13,23 @@ You should pick a recognizable abbreviation and use it consistently,
 e.g. SoF2 for Soldier of Fortune 2.
 
 Also, the game needs to be added to the "<tt>QuakeCtx:form</tt>-group <tt>Game</tt>-sub-group <tt>Items</tt>-variable" list (in Defaults.qrk).
+
+<table border=1 cellspacing=0 cellpadding=4>
+
+<tr><td>
+<tt>LightingInnerConeKeyword</tt>
+</td><td>
+Double-quoted string
+</td><td>
+ex: "" if game does not use or ex: "_cone" is the specifics name that gives the spotlight inner size.
+</td></tr>
+
+<tr><td>
+<tt>LightingOuterConeKeyword</tt>
+</td><td>
+Double-quoted string
+</td><td>
+ex: "" if game does not use or ex: "_cone2" is the specifics name that gives the spotlight outer size.
+</td></tr>
+
+</table>

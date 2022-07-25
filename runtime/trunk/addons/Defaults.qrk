@@ -416,8 +416,8 @@ QQRKSRC1
         DefaultTextureClip = "special/clip" //FIXME
         DefaultTextureTrigger = "special/trigger" //FIXME
 
-        LightingInnerConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone" is the specifics name that gives the spotlight inter size.
-        LightingOuterConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone2" is the specifics name that gives the spotlight outer size.
+        LightingInnerConeKeyword = ""
+        LightingOuterConeKeyword = ""
         LightEntityScale = '0.9'
         3DLight = '512'
 
@@ -463,8 +463,8 @@ QQRKSRC1
         DefaultTextureTrigger = "common/trigger"
         DefaultTextureScale = "0.5"
 
-        LightingInnerConeKeyword = "radius"    // <-- ex: "" if game does not use or ex: "_cone" is the specifics name that gives the spotlight inter size.
-        LightingOuterConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone2" is the specifics name that gives the spotlight outer size.
+        LightingInnerConeKeyword = "radius"
+        LightingOuterConeKeyword = ""
         LightEntityScale = '0.9'
         3DLight = '512'
 
@@ -577,8 +577,8 @@ QQRKSRC1
         DefaultTextureTrigger = "common/nodraw"
         DefaultTextureScale = "0.5"
 
-        LightingInnerConeKeyword = "radius"    // <-- ex: "" if game does not use or ex: "_cone" is the specifics name that gives the spotlight inter size.
-        LightingOuterConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone2" is the specifics name that gives the spotlight outer size.
+        LightingInnerConeKeyword = "radius"
+        LightingOuterConeKeyword = ""
         LightEntityScale = '0.9'
         3DLight = '512'
 
@@ -657,8 +657,8 @@ QQRKSRC1
         DefaultTextureTrigger = "common/nodraw"
         DefaultTextureScale = "0.5"
 
-        LightingInnerConeKeyword = "radius"    // <-- ex: "" if game does not use or ex: "_cone" is the specifics name that gives the spotlight inter size.
-        LightingOuterConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone2" is the specifics name that gives the spotlight outer size.
+        LightingInnerConeKeyword = "radius"
+        LightingOuterConeKeyword = ""
         LightEntityScale = '0.9'
         3DLight = '512'
 
@@ -714,8 +714,8 @@ QQRKSRC1
         DefaultTextureOrigin = "ORIGIN"
         DefaultTextureTrigger = "AAATRIGGER"
 
-        LightingInnerConeKeyword = "_cone"    // <-- ex: "" if game does not use or ex: "_cone" is the specifics name that gives the spotlight inter size.
-        LightingOuterConeKeyword = "_cone2"    // <-- ex: "" if game does not use or ex: "_cone2" is the specifics name that gives the spotlight outer size.
+        LightingInnerConeKeyword = "_cone"
+        LightingOuterConeKeyword = "_cone2"
         LightEntityScale = '0.9'
         3DLight = '512'
 
@@ -779,8 +779,8 @@ QQRKSRC1
 
         DefaultTexture = "intro/wl_outbrick1a"
 
-        LightingInnerConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone" is the specifics name that gives the spotlight inter size.
-        LightingOuterConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone2" is the specifics name that gives the spotlight outer size.
+        LightingInnerConeKeyword = ""
+        LightingOuterConeKeyword = ""
         LightEntityScale = '0.9'
         3DLight = '512'
 
@@ -839,8 +839,8 @@ QQRKSRC1
         DefaultTextureOrigin = "e1m1/origin"
         DefaultTextureTrigger = "e1m1/trigger"
 
-        LightingInnerConeKeyword = "_cone"    // <-- ex: "" if game does not use or ex: "_cone" is the specifics name that gives the spotlight inter size.
-        LightingOuterConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone2" is the specifics name that gives the spotlight outer size.
+        LightingInnerConeKeyword = "_cone"
+        LightingOuterConeKeyword = ""
         LightEntityScale = '0.9'
         3DLight = '512'
 
@@ -886,8 +886,8 @@ QQRKSRC1
         DefaultTextureTrigger = "common/trigger"
         DefaultTextureScale = "0.5"
 
-        LightingInnerConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone" is the specifics name that gives the spotlight inter size.
-        LightingOuterConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone2" is the specifics name that gives the spotlight outer size.
+        LightingInnerConeKeyword = ""
+        LightingOuterConeKeyword = ""
         LightEntityScale = '0.9'
         3DLight = '512'
 
@@ -957,8 +957,8 @@ QQRKSRC1
         DefaultTextureTrigger = "common/trigger"
         DefaultTextureScale = "0.5"
 
-        LightingInnerConeKeyword = "radius"    // <-- ex: "" if game does not use or ex: "_cone" is the specifics name that gives the spotlight inter size.
-        LightingOuterConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone2" is the specifics name that gives the spotlight outer size.
+        LightingInnerConeKeyword = "radius"
+        LightingOuterConeKeyword = ""
         LightEntityScale = '0.9'
         3DLight = '512'
 
@@ -1033,8 +1033,8 @@ QQRKSRC1
         DefaultTextureTrigger = "common/trigger"
         DefaultTextureScale = "0.5"
 
-        LightingInnerConeKeyword = "radius"    // <-- ex: "" if game does not use or ex: "_cone" is the specifics name that gives the spotlight inter size.
-        LightingOuterConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone2" is the specifics name that gives the spotlight outer size.
+        LightingInnerConeKeyword = "radius"
+        LightingOuterConeKeyword = ""
         LightEntityScale = '0.9'
         3DLight = '512'
 
@@ -1119,8 +1119,8 @@ QQRKSRC1
 
         DefaultTexture = "Wall1"
 
-        LightingInnerConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone" is the specifics name that gives the spotlight inter size.
-        LightingOuterConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone2" is the specifics name that gives the spotlight outer size.
+        LightingInnerConeKeyword = ""
+        LightingOuterConeKeyword = ""
         LightEntityScale = '0.9'
         3DLight = '512'
 
@@ -1178,8 +1178,8 @@ QQRKSRC1
         DefaultTextureOrigin = "ORIGIN"
         DefaultTextureTrigger = "AAATRIGGER"
 
-        LightingInnerConeKeyword = "_cone"    // <-- ex: "" if game does not use or ex: "_cone" is the specifics name that gives the spotlight inter size.
-        LightingOuterConeKeyword = "_cone2"    // <-- ex: "" if game does not use or ex: "_cone2" is the specifics name that gives the spotlight outer size.
+        LightingInnerConeKeyword = "_cone"
+        LightingOuterConeKeyword = "_cone2"
         LightEntityScale = '0.9'
         3DLight = '512'
 
@@ -1266,8 +1266,8 @@ QQRKSRC1
         DefaultTextureTrigger = "Tools/toolstrigger"
         DefaultTextureScale = "0.25"
 
-        LightingInnerConeKeyword = "_inner_cone"    // <-- ex: "" if game does not use or ex: "_cone" is the specifics name that gives the spotlight inter size.
-        LightingOuterConeKeyword = "_cone"    // <-- ex: "" if game does not use or ex: "_cone2" is the specifics name that gives the spotlight outer size.
+        LightingInnerConeKeyword = "_inner_cone"
+        LightingOuterConeKeyword = "_cone"
         LightEntityScale = '0.9'
         3DLight = '512'
 
@@ -1318,8 +1318,8 @@ QQRKSRC1
         DefaultTextureClip = "andoria/clip" //FIXME
         DefaultTextureTrigger = "andoria/sstone" //FIXME
 
-        LightingInnerConeKeyword = "_cone"    // <-- ex: "" if game does not use or ex: "_cone" is the specifics name that gives the spotlight inter size.
-        LightingOuterConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone2" is the specifics name that gives the spotlight outer size.
+        LightingInnerConeKeyword = "_cone"
+        LightingOuterConeKeyword = ""
         LightEntityScale = '0.9'
         3DLight = '512'
 
@@ -1371,8 +1371,8 @@ QQRKSRC1
         DefaultTextureClip = "clip" //FIXME
         DefaultTextureTrigger = "rtex215" //FIXME
 
-        LightingInnerConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone" is the specifics name that gives the spotlight inter size.
-        LightingOuterConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone2" is the specifics name that gives the spotlight outer size.
+        LightingInnerConeKeyword = ""
+        LightingOuterConeKeyword = ""
         LightEntityScale = '0.72'
         3DLight = '640'
 
@@ -1450,8 +1450,8 @@ QQRKSRC1
         DefaultTextureTrigger = "system/trigger"
         DefaultTextureScale = "0.5"
 
-        LightingInnerConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone" is the specifics name that gives the spotlight inter size.
-        LightingOuterConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone2" is the specifics name that gives the spotlight outer size.
+        LightingInnerConeKeyword = ""
+        LightingOuterConeKeyword = ""
         LightEntityScale = '0.9'
         3DLight = '512'
 
@@ -1525,8 +1525,8 @@ QQRKSRC1
         DefaultTextureTrigger = "system/trigger"
         DefaultTextureScale = "0.5"
 
-        LightingInnerConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone" is the specifics name that gives the spotlight inter size.
-        LightingOuterConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone2" is the specifics name that gives the spotlight outer size.
+        LightingInnerConeKeyword = ""
+        LightingOuterConeKeyword = ""
         LightEntityScale = '0.9'
         3DLight = '512'
 
@@ -1587,8 +1587,8 @@ QQRKSRC1
         DefaultTextureOrigin = "common/0_origin"
         DefaultTextureTrigger = "common/0_trigger"
 
-        LightingInnerConeKeyword = "_cone"    // <-- ex: "" if game does not use or ex: "_cone" is the specifics name that gives the spotlight inter size.
-        LightingOuterConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone2" is the specifics name that gives the spotlight outer size.
+        LightingInnerConeKeyword = "_cone"
+        LightingOuterConeKeyword = ""
         LightEntityScale = '0.9'
         3DLight = '512'
 
@@ -1664,8 +1664,8 @@ QQRKSRC1
         DefaultTextureTrigger = "common/trigger"
         DefaultTextureScale = "0.5"
 
-        LightingInnerConeKeyword = "radius"    // <-- ex: "" if game does not use or ex: "_cone" is the specifics name that gives the spotlight inter size.
-        LightingOuterConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone2" is the specifics name that gives the spotlight outer size.
+        LightingInnerConeKeyword = "radius"
+        LightingOuterConeKeyword = ""
         LightEntityScale = '0.9'
         3DLight = '512'
 
@@ -1712,8 +1712,8 @@ QQRKSRC1
         DefaultTextureTrigger = "common/trigger"
         DefaultTextureScale = "0.5"
 
-        LightingInnerConeKeyword = "radius"    // <-- ex: "" if game does not use or ex: "_cone" is the specifics name that gives the spotlight inter size.
-        LightingOuterConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone2" is the specifics name that gives the spotlight outer size.
+        LightingInnerConeKeyword = "radius"
+        LightingOuterConeKeyword = ""
         LightEntityScale = '0.9'
         3DLight = '512'
 
@@ -1783,8 +1783,8 @@ QQRKSRC1
         DefaultTextureTrigger = "editor/trigger"
         DefaultTextureScale = "0.5"
 
-        LightingInnerConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone" is the specifics name that gives the spotlight inter size.
-        LightingOuterConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone2" is the specifics name that gives the spotlight outer size.
+        LightingInnerConeKeyword = ""
+        LightingOuterConeKeyword = ""
         LightEntityScale = '0.9'
         3DLight = '512'
 
@@ -1860,8 +1860,8 @@ QQRKSRC1
         DefaultTextureClip = "clip"
         DefaultTextureTrigger = "trigger"
 
-        LightingInnerConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone" is the specifics name that gives the spotlight inter size.
-        LightingOuterConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone2" is the specifics name that gives the spotlight outer size.
+        LightingInnerConeKeyword = ""
+        LightingOuterConeKeyword = ""
         LightEntityScale = '0.9'
         3DLight = '512'
 
@@ -1926,8 +1926,8 @@ QQRKSRC1
         DefaultTextureOrigin = "e1u1/origin"
         DefaultTextureTrigger = "e1u1/trigger"
 
-        LightingInnerConeKeyword = "_cone"    // <-- ex: "" if game does not use or ex: "_cone" is the specifics name that gives the spotlight inter size.
-        LightingOuterConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone2" is the specifics name that gives the spotlight outer size.
+        LightingInnerConeKeyword = "_cone"
+        LightingOuterConeKeyword = ""
         LightEntityScale = '0.9'
         3DLight = '512'
 
@@ -2005,8 +2005,8 @@ QQRKSRC1
         DefaultTextureTrigger = "common/trigger"
         DefaultTextureScale = "0.5"
 
-        LightingInnerConeKeyword = "radius"    // <-- ex: "" if game does not use or ex: "_cone" is the specifics name that gives the spotlight inter size.
-        LightingOuterConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone2" is the specifics name that gives the spotlight outer size.
+        LightingInnerConeKeyword = "radius"
+        LightingOuterConeKeyword = ""
         LightEntityScale = '0.9'
         LightIntensityScale = '150.0'
         3DLight = '512'
@@ -2056,8 +2056,8 @@ QQRKSRC1
         DefaultTextureTrigger = "common/trigmulti"
         DefaultTextureScale = "0.5"
 
-        LightingInnerConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone" is the specifics name that gives the spotlight inter size.
-        LightingOuterConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone2" is the specifics name that gives the spotlight outer size.
+        LightingInnerConeKeyword = ""
+        LightingOuterConeKeyword = ""
         LightEntityScale = '0.9'
         3DLight = '512'
 
@@ -2135,8 +2135,8 @@ QQRKSRC1
         DefaultTextureTrigger = "common/trigger"
         DefaultTextureScale = "0.5"
 
-        LightingInnerConeKeyword = "radius"    // <-- ex: "" if game does not use or ex: "_cone" is the specifics name that gives the spotlight inter size.
-        LightingOuterConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone2" is the specifics name that gives the spotlight outer size.
+        LightingInnerConeKeyword = "radius"
+        LightingOuterConeKeyword = ""
         LightEntityScale = '0.9'
         3DLight = '512'
 
@@ -2209,8 +2209,8 @@ QQRKSRC1
         DefaultTextureTrigger = "common/trigger"
         DefaultTextureScale = "0.5"
 
-        LightingInnerConeKeyword = "radius"    // <-- ex: "" if game does not use or ex: "_cone" is the specifics name that gives the spotlight inter size.
-        LightingOuterConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone2" is the specifics name that gives the spotlight outer size.
+        LightingInnerConeKeyword = "radius"
+        LightingOuterConeKeyword = ""
         LightEntityScale = '0.9'
         3DLight = '512'
 
@@ -2296,8 +2296,8 @@ QQRKSRC1
         DefaultTextureClip = "intro/clip" //FIXME
         DefaultTextureTrigger = "intro/wl_outbrick1a" //FIXME
 
-        LightingInnerConeKeyword = "_cone"    // <-- ex: "" if game does not use or ex: "_cone" is the specifics name that gives the spotlight inter size.
-        LightingOuterConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone2" is the specifics name that gives the spotlight outer size.
+        LightingInnerConeKeyword = "_cone"
+        LightingOuterConeKeyword = ""
         LightEntityScale = '0.9'
         3DLight = '512'
 
@@ -2357,8 +2357,8 @@ QQRKSRC1
         DefaultTextureOrigin = "armory/origin"
         DefaultTextureTrigger = "armory/trigger"
 
-        LightingInnerConeKeyword = "_cone"    // <-- ex: "" if game does not use or ex: "_cone" is the specifics name that gives the spotlight inter size.
-        LightingOuterConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone2" is the specifics name that gives the spotlight outer size.
+        LightingInnerConeKeyword = "_cone"
+        LightingOuterConeKeyword = ""
         LightEntityScale = '0.9'
         3DLight = '512'
 
@@ -2429,8 +2429,8 @@ QQRKSRC1
         DefaultTextureTrigger = "tools/_trigger"
         DefaultTextureScale = "0.5"
 
-        LightingInnerConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone" is the specifics name that gives the spotlight inter size.
-        LightingOuterConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone2" is the specifics name that gives the spotlight outer size.
+        LightingInnerConeKeyword = ""
+        LightingOuterConeKeyword = ""
         LightEntityScale = '0.9'
         3DLight = '512'
 
@@ -2501,8 +2501,8 @@ QQRKSRC1
         DefaultTextureTrigger = "common/trigger"
         DefaultTextureScale = "0.5"
 
-        LightingInnerConeKeyword = "radius"    // <-- ex: "" if game does not use or ex: "_cone" is the specifics name that gives the spotlight inter size.
-        LightingOuterConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone2" is the specifics name that gives the spotlight outer size.
+        LightingInnerConeKeyword = "radius"
+        LightingOuterConeKeyword = ""
         LightEntityScale = '0.9'
         3DLight = '512'
 
@@ -2586,8 +2586,8 @@ QQRKSRC1
         DefaultTextureOrigin = "ORIGIN"
         DefaultTextureTrigger = "AAATRIGGER"
 
-        LightingInnerConeKeyword = "_cone"    // <-- ex: "" if game does not use or ex: "_cone" is the specifics name that gives the spotlight inter size.
-        LightingOuterConeKeyword = "_cone2"    // <-- ex: "" if game does not use or ex: "_cone2" is the specifics name that gives the spotlight outer size.
+        LightingInnerConeKeyword = "_cone"
+        LightingOuterConeKeyword = "_cone2"
         LightEntityScale = '0.9'
         3DLight = '512'
 
@@ -2638,8 +2638,8 @@ QQRKSRC1
         DefaultTextureTrigger = "common/trigger"
         DefaultTextureScale = "0.25"
 
-        LightingInnerConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone" is the specifics name that gives the spotlight inter size.
-        LightingOuterConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone2" is the specifics name that gives the spotlight outer size.
+        LightingInnerConeKeyword = ""
+        LightingOuterConeKeyword = ""
         LightEntityScale = '1.0'
         3DLight = '512'
 
@@ -2692,8 +2692,8 @@ QQRKSRC1
         //   DefaultTextureTrigger = "trigger"
         //   DefaultTextureScale = "0.5"
 
-        LightingInnerConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone" is the specifics name that gives the spotlight inter size.
-        LightingOuterConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone2" is the specifics name that gives the spotlight outer size.
+        LightingInnerConeKeyword = ""
+        LightingOuterConeKeyword = ""
         LightEntityScale = '0.9'
         3DLight = '512'
 
@@ -2799,8 +2799,8 @@ QQRKSRC1
         DefaultTextureTrigger = "common/trigger"
         DefaultTextureScale = "0.50"
 
-        LightingInnerConeKeyword = "radius"    // <-- ex: "" if game does not use or ex: "_cone" is the specifics name that gives the spotlight inter size.
-        LightingOuterConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone2" is the specifics name that gives the spotlight outer size.
+        LightingInnerConeKeyword = "radius"
+        LightingOuterConeKeyword = ""
         LightEntityScale = '0.9'
         3DLight = '512'
 
@@ -2870,8 +2870,8 @@ QQRKSRC1
         DefaultTextureTrigger = "common/trigger"
         DefaultTextureScale = "0.50"
 
-        LightingInnerConeKeyword = "radius"    // <-- ex: "" if game does not use or ex: "_cone" is the specifics name that gives the spotlight inter size.
-        LightingOuterConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone2" is the specifics name that gives the spotlight outer size.
+        LightingInnerConeKeyword = "radius"
+        LightingOuterConeKeyword = ""
         LightEntityScale = '0.9'
         3DLight = '512'
 
@@ -2953,8 +2953,8 @@ QQRKSRC1
         DefaultTextureTrigger = "common/trigger"
         DefaultTextureScale = "0.5"
 
-        LightingInnerConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone" is the specifics name that gives the spotlight inter size.
-        LightingOuterConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone2" is the specifics name that gives the spotlight outer size.
+        LightingInnerConeKeyword = ""
+        LightingOuterConeKeyword = ""
         LightEntityScale = '0.9'
         3DLight = '512'
 
