@@ -272,7 +272,6 @@ QQRKSRC1
       }
       External editors:config =
       {
-        Form = "GeneralExternalEditors"
         .qrk = "Notepad.exe"
         .qkm = ""
         .map = "Notepad.exe"
@@ -331,6 +330,7 @@ QQRKSRC1
         .xml = "Notepad.exe"
         .txt = "Notepad.exe"
         .zip = "<open>"
+        Form = "GeneralExternalEditors"
       }
       HotKeys:config =
       {
@@ -413,10 +413,13 @@ QQRKSRC1
         NoMapChecks = "1"
 
         DefaultTexture = "walls/brown"
-        DefaultTextureTrigger = "special/trigger" //FIXME
         DefaultTextureClip = "special/clip" //FIXME
+        DefaultTextureTrigger = "special/trigger" //FIXME
+
         LightingInnerConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone" is the specifics name that gives the spotlight inter size.
         LightingOuterConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone2" is the specifics name that gives the spotlight outer size.
+        LightEntityScale = '0.9'
+        3DLight = '512'
 
         walTrick = "1"
         TextureFormat = ".m8"
@@ -435,10 +438,9 @@ QQRKSRC1
         PakFormat = "HTIC2-#.PAK"
         MapExt = ".hmf"
         Console = "1"
-        Form = "Game6DX"
-        LightEntityScale = '0.9'
-        3DLight = '512'
         DecimalPlaces = '5'
+
+        Form = "Game6DX"
       }
 
       Alice:config =
@@ -455,13 +457,16 @@ QQRKSRC1
         CDDir = "Install\Data"   // hidden setting
 
         DefaultTexture = "wall/b_wall1_1"
-        DefaultTextureTrigger = "common/trigger"
+        DefaultTextureCaulk = "common/caulk"
         DefaultTextureClip = "common/clip"
         DefaultTextureOrigin = "common/origin"
-        DefaultTextureCaulk = "common/caulk"
+        DefaultTextureTrigger = "common/trigger"
         DefaultTextureScale = "0.5"
+
         LightingInnerConeKeyword = "radius"    // <-- ex: "" if game does not use or ex: "_cone" is the specifics name that gives the spotlight inter size.
         LightingOuterConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone2" is the specifics name that gives the spotlight outer size.
+        LightEntityScale = '0.9'
+        3DLight = '512'
 
         Console = "1"
         BuildPgmsDir = "C:\Program Files\EA GAMES\American McGee's Alice\fakktools\bin"
@@ -517,8 +522,6 @@ QQRKSRC1
         AlwaysPak = ""
         PakExt = ".pk3"
         ShaderExt = ".shader"
-        LightEntityScale = '0.9'
-        3DLight = '512'
         DecimalPlaces = '5'
 
         Form = "GameAlice"
@@ -568,13 +571,16 @@ QQRKSRC1
         BezierPatchPluginPrefixes = "MB2" // Prefix of the MB2*.PY files. You can also specify the value: "MB2"$0D"MB3"$0D"MB4"
 
         DefaultTexture = "austria/unique/dirt_clampy@roadrev1"
-        DefaultTextureTrigger = "common/nodraw"
-        DefaultTextureOrigin = "common/origin"
-        DefaultTextureClip = "common/clip"
         DefaultTextureCaulk = "common/caulk"
+        DefaultTextureClip = "common/clip"
+        DefaultTextureOrigin = "common/origin"
+        DefaultTextureTrigger = "common/nodraw"
         DefaultTextureScale = "0.5"
+
         LightingInnerConeKeyword = "radius"    // <-- ex: "" if game does not use or ex: "_cone" is the specifics name that gives the spotlight inter size.
         LightingOuterConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone2" is the specifics name that gives the spotlight outer size.
+        LightEntityScale = '0.9'
+        3DLight = '512'
 
         TextureFormat = ".dds"                  // primary texture fileextension
         TextureFileExtensions = ".dds,.tga,.jpg,.png"     // possible texture fileextensions
@@ -595,10 +601,9 @@ QQRKSRC1
         //PakOfficialFormat = "PAKUO*.PK3" #For United Offensive
         PakFormatHex = "1"
         Console = "1"
-        LightEntityScale = '0.9'
-        3DLight = '512'
         PakExtra1 = ".aas"  // PAK extra files into pak file (ie maps/mapname.aas)
         DecimalPlaces = '5'
+
         Form = "GameCoD1"
       }
 
@@ -646,13 +651,16 @@ QQRKSRC1
         BezierPatchPluginPrefixes = "MB2" // Prefix of the MB2*.PY files. You can also specify the value: "MB2"$0D"MB3"$0D"MB4"
 
         DefaultTexture = "austria/unique/dirt_clampy@roadrev1"
-        DefaultTextureTrigger = "common/nodraw"
-        DefaultTextureOrigin = "common/origin"
-        DefaultTextureClip = "common/clip"
         DefaultTextureCaulk = "common/caulk"
+        DefaultTextureClip = "common/clip"
+        DefaultTextureOrigin = "common/origin"
+        DefaultTextureTrigger = "common/nodraw"
         DefaultTextureScale = "0.5"
+
         LightingInnerConeKeyword = "radius"    // <-- ex: "" if game does not use or ex: "_cone" is the specifics name that gives the spotlight inter size.
         LightingOuterConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone2" is the specifics name that gives the spotlight outer size.
+        LightEntityScale = '0.9'
+        3DLight = '512'
 
         TextureFormat = ".iwi"                  // primary texture fileextension
         TextureFileExtensions = ".iwi"     // possible texture fileextensions
@@ -670,10 +678,9 @@ QQRKSRC1
         PakExt = ".iwd"
         ShaderExt = "."  // The person that "forgot" to add a file extension should be fired!
         Console = "1"
-        LightFactor = '0.9'
-        3DLight = '512'
         PakExtra1 = ".aas"  // PAK extra files into pak file (ie maps/mapname.aas)
         DecimalPlaces = '5'
+
         Form = "GameCoD2"
       }
 
@@ -703,11 +710,15 @@ QQRKSRC1
         BuildArgs4 = "-texdata 16000"
 
         DefaultTexture = "c2_wall5"
-        DefaultTextureTrigger = "AAATRIGGER"
-        DefaultTextureOrigin = "ORIGIN"
         DefaultTextureClip = "CLIP"
+        DefaultTextureOrigin = "ORIGIN"
+        DefaultTextureTrigger = "AAATRIGGER"
+
         LightingInnerConeKeyword = "_cone"    // <-- ex: "" if game does not use or ex: "_cone" is the specifics name that gives the spotlight inter size.
         LightingOuterConeKeyword = "_cone2"    // <-- ex: "" if game does not use or ex: "_cone2" is the specifics name that gives the spotlight outer size.
+        LightEntityScale = '0.9'
+        3DLight = '512'
+
         TextureWad = "?"     // variable (the map name is used)
         GameNeedWad = "1"
         WateryTex = "!"
@@ -731,13 +742,12 @@ QQRKSRC1
         AlwaysPak = ""
         PakExt = ".pak"
         PakFormat = "PAK#.PAK"
-        LightEntityScale = '0.9'
-        3DLight = '512'
         Console = "1"
-        Form = "GameCryOfFear"
         PlayerClass = "X"
         DecimalPlaces = '5'
         UsesMipTex = "1"
+
+        Form = "GameCryOfFear"
       }
 
       Crystal Space:config =
@@ -768,8 +778,11 @@ QQRKSRC1
         BezierPatchPluginPrefixes = "MB2" // Prefix of the MB2*.PY files. You can also specify the value: "MB2"$0D"MB3"$0D"MB4"
 
         DefaultTexture = "intro/wl_outbrick1a"
+
         LightingInnerConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone" is the specifics name that gives the spotlight inter size.
         LightingOuterConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone2" is the specifics name that gives the spotlight outer size.
+        LightEntityScale = '0.9'
+        3DLight = '512'
 
         TextureWad = "?"  // variable (the map name is used)
         TextureWriteFormat = ".wad3_C"
@@ -784,12 +797,11 @@ QQRKSRC1
         AlwaysPak = ""
         PakExt = ".zip"
         PakFormat = "PAK#.ZIP"
-        LightEntityScale = '0.9'
-        3DLight = '512'
         Console = "1"
-        Form = "GameCrystalSpace"
         PlayerClass = "X"
         DecimalPlaces = '5'
+
+        Form = "GameCrystalSpace"
       }
 
       Daikatana:config =
@@ -823,11 +835,14 @@ QQRKSRC1
         Q2TexFlags = "1"
 
         DefaultTexture = "e1m1/wall06"
-        DefaultTextureTrigger = "e1m1/trigger"
-        DefaultTextureOrigin = "e1m1/origin"
         DefaultTextureClip = "e1m1/clip"
+        DefaultTextureOrigin = "e1m1/origin"
+        DefaultTextureTrigger = "e1m1/trigger"
+
         LightingInnerConeKeyword = "_cone"    // <-- ex: "" if game does not use or ex: "_cone" is the specifics name that gives the spotlight inter size.
         LightingOuterConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone2" is the specifics name that gives the spotlight outer size.
+        LightEntityScale = '0.9'
+        3DLight = '512'
 
     //    TextureFormat = ".wal"
         TextureFormat = ".tga"                  // primary texture fileextension, to save model textures properly.
@@ -848,8 +863,6 @@ QQRKSRC1
         PakExt = ".pak"
         PakFormat = "PAK#.PAK"
         Console = "1"
-        LightEntityScale = '0.9'
-        3DLight = '512'
         DecimalPlaces = '5'
 
         Form = "GameDaikatana"
@@ -867,15 +880,16 @@ QQRKSRC1
         CDDir = "\Doom3\base"          // hidden setting
 
         DefaultTexture = "base_wall/a_sopanel1_d01b"
+        DefaultTextureCaulk = "common/caulk"
+        DefaultTextureClip = "common/clip"
         DefaultTextureTerrain = "rock/rock02"
         DefaultTextureTrigger = "common/trigger"
-        DefaultTextureClip = "common/clip"
-        DefaultTextureOrigin = "Does not use an origin texture"
-        DefaultTextureCaulk = "common/caulk"
+        DefaultTextureScale = "0.5"
+
         LightingInnerConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone" is the specifics name that gives the spotlight inter size.
         LightingOuterConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone2" is the specifics name that gives the spotlight outer size.
+        LightEntityScale = '0.9'
         3DLight = '512'
-        DecimalPlaces = '5'
 
         Console = "1"                  // "Run these build-programs..." setting
         BuildPgmsDir = ""
@@ -884,6 +898,7 @@ QQRKSRC1
         ForceFaceFlags = ""
         SupportsBrushPrim = "1"        // hidden setting
         AlwaysWriteThreeFields = "1"   // hidden setting
+        DecimalPlaces = '5'
 
         BuildPgm1  = ""
         BuildCheck1= ""
@@ -901,7 +916,6 @@ QQRKSRC1
         AlwaysPak = ""
         PakExt = ".pk4"
         ShaderExt = ".mtr"
-        LightEntityScale = '0.9'
         PakExtra1 = ".aas"  // PAK extra files into pak file (ie maps/mapname.aas)
 
         BezierPatchSupport = "1" // this game supports bezier-patches
@@ -917,7 +931,6 @@ QQRKSRC1
         TextureFileExtensions = ".tga,.jpg"     // possible texture file extensions
         TextureWriteFormat = ".tga"
         TextureShaders = "materials/quark.mtr"  // TextureMaterials?
-        DefaultTextureScale = "0.5"
 
         Form = "GameDoom3"
       }
@@ -938,13 +951,16 @@ QQRKSRC1
         CDDir = "Setup\base"   // hidden setting
 
         DefaultTexture = "attrexian-colony/acwall5"
-        DefaultTextureTrigger = "common/trigger"
+        DefaultTextureCaulk = "common/caulk"
         DefaultTextureClip = "common/clip"
         DefaultTextureOrigin = "common/origin"
-        DefaultTextureCaulk = "common/caulk"
+        DefaultTextureTrigger = "common/trigger"
         DefaultTextureScale = "0.5"
+
         LightingInnerConeKeyword = "radius"    // <-- ex: "" if game does not use or ex: "_cone" is the specifics name that gives the spotlight inter size.
         LightingOuterConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone2" is the specifics name that gives the spotlight outer size.
+        LightEntityScale = '0.9'
+        3DLight = '512'
 
         Console = "1"
         BuildPgmsDir = "C:\Program Files\Activision\EF2\QuArK files\bspc"
@@ -991,8 +1007,6 @@ QQRKSRC1
         AlwaysPak = ""
         PakExt = ".pk3"
         ShaderExt = ".shader"
-        LightEntityScale = '0.9'
-        3DLight = '512'
         PakExtra1 = ".aas"  // PAK extra files into pak file (ie maps/mapname.aas)
         DecimalPlaces = '5'
 
@@ -1013,13 +1027,16 @@ QQRKSRC1
         CDDir = "\Install\fakk"   // hidden setting
 
         DefaultTexture = "eden/basicwall"
-        DefaultTextureTrigger = "common/trigger"
+        DefaultTextureCaulk = "common/caulk"
         DefaultTextureClip = "common/clip"
         DefaultTextureOrigin = "common/origin"
-        DefaultTextureCaulk = "common/caulk"
+        DefaultTextureTrigger = "common/trigger"
         DefaultTextureScale = "0.5"
+
         LightingInnerConeKeyword = "radius"    // <-- ex: "" if game does not use or ex: "_cone" is the specifics name that gives the spotlight inter size.
         LightingOuterConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone2" is the specifics name that gives the spotlight outer size.
+        LightEntityScale = '0.9'
+        3DLight = '512'
 
         Console = "1"
         BuildPgmsDir = "C:\Program Files\Ritual Entertainment\Heavy Metal - FAKK2\fakktools\bin"
@@ -1072,8 +1089,6 @@ QQRKSRC1
         AlwaysPak = ""
         PakExt = ".pk3"
         ShaderExt = ".shader"
-        LightEntityScale = '0.9'
-        3DLight = '512'
         DecimalPlaces = '5'
 
         Form = "GameFAKK2"
@@ -1103,8 +1118,11 @@ QQRKSRC1
         BuildArgs3 = ""
 
         DefaultTexture = "Wall1"
+
         LightingInnerConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone" is the specifics name that gives the spotlight inter size.
         LightingOuterConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone2" is the specifics name that gives the spotlight outer size.
+        LightEntityScale = '0.9'
+        3DLight = '512'
 
         WateryTex = "*"
         TextureFormat = ".bmp"
@@ -1121,12 +1139,11 @@ QQRKSRC1
         AlwaysPak = ""
         PakExt = ".pak"
         PakFormat = "PAK#.PAK"
-        LightEntityScale = '0.9'
-        3DLight = '512'
         Console = "1"
-        Form = "GameGenesis3D"
         PlayerClass = "X"
         DecimalPlaces = '5'
+
+        Form = "GameGenesis3D"
       }
 
       Half-Life:config =
@@ -1157,11 +1174,15 @@ QQRKSRC1
         BuildArgs4 = ""
 
         DefaultTexture = "FIFTIES_WALL14Y"
-        DefaultTextureTrigger = "AAATRIGGER"
-        DefaultTextureOrigin = "ORIGIN"
         DefaultTextureClip = "CLIP"
+        DefaultTextureOrigin = "ORIGIN"
+        DefaultTextureTrigger = "AAATRIGGER"
+
         LightingInnerConeKeyword = "_cone"    // <-- ex: "" if game does not use or ex: "_cone" is the specifics name that gives the spotlight inter size.
         LightingOuterConeKeyword = "_cone2"    // <-- ex: "" if game does not use or ex: "_cone2" is the specifics name that gives the spotlight outer size.
+        LightEntityScale = '0.9'
+        3DLight = '512'
+
         TextureWad = "?"     // variable (the map name is used)
         GameNeedWad = "1"
         WateryTex = "!"
@@ -1184,13 +1205,12 @@ QQRKSRC1
         AlwaysPak = ""
         PakExt = ".pak"
         PakFormat = "PAK#.PAK"
-        LightEntityScale = '0.9'
-        3DLight = '512'
         Console = "1"
-        Form = "GameHalfLife"
         PlayerClass = "X"
         DecimalPlaces = '5'
         UsesMipTex = "1"
+
+        Form = "GameHalfLife"
       }
 
       Half-Life2:config =
@@ -1241,12 +1261,16 @@ QQRKSRC1
         BuildCheck5= ""
 
         DefaultTexture = "Dev/dev_measuregeneric01b"
-        DefaultTextureTrigger = "Tools/toolstrigger"
-        DefaultTextureOrigin = "Tools/toolsorigin"
         DefaultTextureClip = "Tools/toolsclip"
+        DefaultTextureOrigin = "Tools/toolsorigin"
+        DefaultTextureTrigger = "Tools/toolstrigger"
         DefaultTextureScale = "0.25"
+
         LightingInnerConeKeyword = "_inner_cone"    // <-- ex: "" if game does not use or ex: "_cone" is the specifics name that gives the spotlight inter size.
         LightingOuterConeKeyword = "_cone"    // <-- ex: "" if game does not use or ex: "_cone2" is the specifics name that gives the spotlight outer size.
+        LightEntityScale = '0.9'
+        3DLight = '512'
+
         WateryTex = "!"
         TextureFormat = ".vmt"                  // primary texture fileextension
      //   TextureFormat = ".vtf"
@@ -1259,12 +1283,11 @@ QQRKSRC1
 
         MapExt = ".vmf"
         PakExt = ".vpk"
-        LightEntityScale = '0.9'
-        3DLight = '512'
         Console = "1"
-        Form = "GameHalfLife2"
         PlayerClass = "X"
         DecimalPlaces = '5'
+
+        Form = "GameHalfLife2"
       }
 
       Heretic II:config =
@@ -1292,10 +1315,13 @@ QQRKSRC1
         Q2TexFlags = "1"
 
         DefaultTexture = "andoria/sstone"
-        DefaultTextureTrigger = "andoria/sstone" //FIXME
         DefaultTextureClip = "andoria/clip" //FIXME
+        DefaultTextureTrigger = "andoria/sstone" //FIXME
+
         LightingInnerConeKeyword = "_cone"    // <-- ex: "" if game does not use or ex: "_cone" is the specifics name that gives the spotlight inter size.
         LightingOuterConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone2" is the specifics name that gives the spotlight outer size.
+        LightEntityScale = '0.9'
+        3DLight = '512'
 
         walTrick = "1"
         TextureFormat = ".m8"
@@ -1313,10 +1339,9 @@ QQRKSRC1
         PakExt = ".pak"
         PakFormat = "HTIC2-#.PAK"
         Console = "1"
-        Form = "GameHeretic2"
-        LightEntityScale = '0.9'
-        3DLight = '512'
         DecimalPlaces = '5'
+
+        Form = "GameHeretic2"
       }
 
       Hexen II:config =
@@ -1343,10 +1368,13 @@ QQRKSRC1
         BuildArgs3 = ""
 
         DefaultTexture = "rtex215"
-        DefaultTextureTrigger = "rtex215" //FIXME
         DefaultTextureClip = "clip" //FIXME
+        DefaultTextureTrigger = "rtex215" //FIXME
+
         LightingInnerConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone" is the specifics name that gives the spotlight inter size.
         LightingOuterConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone2" is the specifics name that gives the spotlight outer size.
+        LightEntityScale = '0.72'
+        3DLight = '640'
 
         WateryTex = "*"
         TextureFormat = ".wad_D"
@@ -1367,15 +1395,14 @@ QQRKSRC1
         PakExt = ".pak"
         PakFormat = "PAK#.PAK"
         Console = "1"
-        Form = "GameHexenII"
         QuakeC = "HexenC"
         MdlPath = "models/"
-        LightEntityScale = '0.72'
-        3DLight = '640'
         HxStrings = "strings.txt"
         PlayerClass = "1"
         DecimalPlaces = '5'
         UsesMipTex = "1"
+
+        Form = "GameHexenII"
       }
 
       JA:config =
@@ -1417,13 +1444,16 @@ QQRKSRC1
         BezierPatchPluginPrefixes = "MB2" // Prefix of the MB2*.PY files. You can also specify the value: "MB2"$0D"MB3"$0D"MB4"
 
         DefaultTexture = "imperial/wall_3"
-        DefaultTextureTrigger = "system/trigger"
-        DefaultTextureOrigin = "system/origin"
-        DefaultTextureClip = "system/clip"
         DefaultTextureCaulk = "system/caulk"
+        DefaultTextureClip = "system/clip"
+        DefaultTextureOrigin = "system/origin"
+        DefaultTextureTrigger = "system/trigger"
         DefaultTextureScale = "0.5"
+
         LightingInnerConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone" is the specifics name that gives the spotlight inter size.
         LightingOuterConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone2" is the specifics name that gives the spotlight outer size.
+        LightEntityScale = '0.9'
+        3DLight = '512'
 
         TextureFormat = ".tga"                  // primary texture fileextension
         TextureFileExtensions = ".tga,.jpg,.png"     // possible texture fileextensions
@@ -1441,11 +1471,10 @@ QQRKSRC1
         PakExt = ".pk3"
         ShaderExt = ".shader"
         Console = "1"
-        Form = "GameJA"
-        LightEntityScale = '0.9'
-        3DLight = '512'
         PakExtra1 = ".nav"  // PAK extra files into pak file (ie maps/mapname.nav)
         DecimalPlaces = '5'
+
+        Form = "GameJA"
       }
 
       JK2:config =
@@ -1490,13 +1519,16 @@ QQRKSRC1
         BezierPatchPluginPrefixes = "MB2" // Prefix of the MB2*.PY files. You can also specify the value: "MB2"$0D"MB3"$0D"MB4"
 
         DefaultTexture = "yavin/woodwall_moss"
-        DefaultTextureTrigger = "system/trigger"
-        DefaultTextureOrigin = "system/origin"
-        DefaultTextureClip = "system/clip"
         DefaultTextureCaulk = "system/caulk"
+        DefaultTextureClip = "system/clip"
+        DefaultTextureOrigin = "system/origin"
+        DefaultTextureTrigger = "system/trigger"
         DefaultTextureScale = "0.5"
+
         LightingInnerConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone" is the specifics name that gives the spotlight inter size.
         LightingOuterConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone2" is the specifics name that gives the spotlight outer size.
+        LightEntityScale = '0.9'
+        3DLight = '512'
 
         TextureFormat = ".tga"                  // primary texture fileextension
         TextureFileExtensions = ".tga,.jpg"     // possible texture fileextensions
@@ -1515,11 +1547,10 @@ QQRKSRC1
         PakExt = ".pk3"
         ShaderExt = ".shader"
         Console = "1"
-        Form = "GameJK2"
-        LightEntityScale = '0.9'
-        3DLight = '512'
         PakExtra1 = ".nav"  // PAK extra files into pak file (ie maps/mapname.nav)
         DecimalPlaces = '5'
+
+        Form = "GameJK2"
       }
 
       KingPin:config =
@@ -1552,11 +1583,14 @@ QQRKSRC1
         Q2TexFlags = "1"
 
         DefaultTexture = "bricks/b_cp_v10x"
-        DefaultTextureTrigger = "common/0_trigger"
-        DefaultTextureOrigin = "common/0_origin"
         DefaultTextureClip = "common/0_clip"
+        DefaultTextureOrigin = "common/0_origin"
+        DefaultTextureTrigger = "common/0_trigger"
+
         LightingInnerConeKeyword = "_cone"    // <-- ex: "" if game does not use or ex: "_cone" is the specifics name that gives the spotlight inter size.
         LightingOuterConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone2" is the specifics name that gives the spotlight outer size.
+        LightEntityScale = '0.9'
+        3DLight = '512'
 
         walTrick = "1"
         TextureFormat = ".tga"
@@ -1576,10 +1610,9 @@ QQRKSRC1
         PakExt = ".pak"
         PakFormat = "PAK#.PAK"
         Console = "1"
-        Form = "GameKingPin"
-        LightEntityScale = '0.9'
-        3DLight = '512'
         DecimalPlaces = '5'
+
+        Form = "GameKingPin"
       }
 
       MOHAA:config =
@@ -1625,13 +1658,16 @@ QQRKSRC1
         BezierPatchPluginPrefixes = "MB2" // Prefix of the MB2*.PY files. You can also specify the value: "MB2"$0D"MB3"$0D"MB4"
 
         DefaultTexture = "general_structure/archstone2lt"
-        DefaultTextureTrigger = "common/trigger"
-        DefaultTextureOrigin = "common/origin"
-        DefaultTextureClip = "common/clip"
         DefaultTextureCaulk = "common/caulk"
+        DefaultTextureClip = "common/clip"
+        DefaultTextureOrigin = "common/origin"
+        DefaultTextureTrigger = "common/trigger"
         DefaultTextureScale = "0.5"
+
         LightingInnerConeKeyword = "radius"    // <-- ex: "" if game does not use or ex: "_cone" is the specifics name that gives the spotlight inter size.
         LightingOuterConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone2" is the specifics name that gives the spotlight outer size.
+        LightEntityScale = '0.9'
+        3DLight = '512'
 
         TextureFormat = ".tga"                  // primary texture fileextension
         TextureFileExtensions = ".tga,.jpg,.dds"// possible texture fileextensions
@@ -1650,11 +1686,10 @@ QQRKSRC1
         PakExt = ".pk3"
         ShaderExt = ".shader"
         Console = "1"
-        Form = "GameMOHAA"
-        LightEntityScale = '0.9'
-        3DLight = '512'
       //PakExtra1 = ".aas"  // PAK extra files into pak file (ie maps/mapname.aas)
         DecimalPlaces = '5'
+
+        Form = "GameMOHAA"
       }
 
       NEXUIZ:config =
@@ -1671,13 +1706,16 @@ QQRKSRC1
         CDDir = "\Install\data"   // hidden setting
 
         DefaultTexture = "evil1_floors/metalflr1c"
-        DefaultTextureTrigger = "common/trigger"
+        DefaultTextureCaulk = "common/caulk"
         DefaultTextureClip = "common/clip"
         DefaultTextureOrigin = "common/origin"
-        DefaultTextureCaulk = "common/caulk"
+        DefaultTextureTrigger = "common/trigger"
         DefaultTextureScale = "0.5"
+
         LightingInnerConeKeyword = "radius"    // <-- ex: "" if game does not use or ex: "_cone" is the specifics name that gives the spotlight inter size.
         LightingOuterConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone2" is the specifics name that gives the spotlight outer size.
+        LightEntityScale = '0.9'
+        3DLight = '512'
 
         Console = "1"
         BuildPgmsDir = "C:\Program Files\Nexuiz\NexuizTools\NexuizTools"
@@ -1722,8 +1760,6 @@ QQRKSRC1
         AlwaysPak = ""
         PakExt = ".pk3"
         ShaderExt = ".shader"
-        LightEntityScale = '0.9'
-        3DLight = '512'
         DecimalPlaces = '5'
 
         Form = "GameNEXUIZ"
@@ -1741,15 +1777,16 @@ QQRKSRC1
         CDDir = "\prey\base"          // hidden setting
 
         DefaultTexture = "tech_wall/kf_wall001"
+        DefaultTextureCaulk = "editor/caulk"
+        DefaultTextureClip = "editor/clip"
         DefaultTextureTerrain = "dreamworld/dirt"
         DefaultTextureTrigger = "editor/trigger"
-        DefaultTextureClip = "editor/clip"
-        DefaultTextureOrigin = "Does not use an origin texture"
-        DefaultTextureCaulk = "editor/caulk"
+        DefaultTextureScale = "0.5"
+
         LightingInnerConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone" is the specifics name that gives the spotlight inter size.
         LightingOuterConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone2" is the specifics name that gives the spotlight outer size.
+        LightEntityScale = '0.9'
         3DLight = '512'
-        DecimalPlaces = '5'
 
         Console = "1"                  // "Run these build-programs..." setting
         BuildPgmsDir = ""
@@ -1758,6 +1795,7 @@ QQRKSRC1
         ForceFaceFlags = ""
         SupportsBrushPrim = "1"        // hidden setting
         AlwaysWriteThreeFields = "1"   // hidden setting
+        DecimalPlaces = '5'
 
         BuildPgm1  = ""
         BuildCheck1= ""
@@ -1775,7 +1813,6 @@ QQRKSRC1
         AlwaysPak = ""
         PakExt = ".pk4"
         ShaderExt = ".mtr"
-        LightEntityScale = '0.9'
         PakExtra1 = ".aas"  // PAK extra files into pak file (ie maps/mapname.aas)
 
         BezierPatchSupport = "1" // this game supports bezier-patches
@@ -1791,7 +1828,6 @@ QQRKSRC1
         TextureFileExtensions = ".tga,.dds"     // possible texture file extensions
         TextureWriteFormat = ".tga"
         TextureShaders = "materials/quark.mtr"  // TextureMaterials?
-        DefaultTextureScale = "0.5"
 
         Form = "GamePrey"
       }
@@ -1821,10 +1857,13 @@ QQRKSRC1
         BuildArgs3 = ""
 
         DefaultTexture = "bricka2_2"
-        DefaultTextureTrigger = "trigger"
         DefaultTextureClip = "clip"
+        DefaultTextureTrigger = "trigger"
+
         LightingInnerConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone" is the specifics name that gives the spotlight inter size.
         LightingOuterConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone2" is the specifics name that gives the spotlight outer size.
+        LightEntityScale = '0.9'
+        3DLight = '512'
 
         WateryTex = "*"
         TextureFormat = ".wad_D"
@@ -1844,13 +1883,12 @@ QQRKSRC1
         AlwaysPak = ""
         PakExt = ".pak"
         PakFormat = "PAK#.PAK"
-        LightEntityScale = '0.9'
-        3DLight = '512'
         Console = "1"
-        Form = "GameQuake1"
         PlayerClass = "X"
         DecimalPlaces = '5'
         UsesMipTex = "1"
+
+        Form = "GameQuake1"
       }
 
       Quake 2:config =
@@ -1884,11 +1922,14 @@ QQRKSRC1
         Q2TexFlags = "1"
 
         DefaultTexture = "e1u1/damage1_1"
-        DefaultTextureTrigger = "e1u1/trigger"
-        DefaultTextureOrigin = "e1u1/origin"
         DefaultTextureClip = "e1u1/clip"
+        DefaultTextureOrigin = "e1u1/origin"
+        DefaultTextureTrigger = "e1u1/trigger"
+
         LightingInnerConeKeyword = "_cone"    // <-- ex: "" if game does not use or ex: "_cone" is the specifics name that gives the spotlight inter size.
         LightingOuterConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone2" is the specifics name that gives the spotlight outer size.
+        LightEntityScale = '0.9'
+        3DLight = '512'
 
     //    TextureFormat = ".wal"
         TextureFormat = ".pcx"                  // primary texture fileextension, to save model textures properly.
@@ -1909,10 +1950,9 @@ QQRKSRC1
         PakExt = ".pak"
         PakFormat = "PAK#.PAK"
         Console = "1"
-        Form = "GameQuake2"
-        LightEntityScale = '0.9'
-        3DLight = '512'
         DecimalPlaces = '5'
+
+        Form = "GameQuake2"
       }
 
       Quake 3:config =
@@ -1959,13 +1999,17 @@ QQRKSRC1
         BezierPatchPluginPrefixes = "MB2" // Prefix of the MB2*.PY files. You can also specify the value: "MB2"$0D"MB3"$0D"MB4"
 
         DefaultTexture = "base_wall/basewall03"
-        DefaultTextureTrigger = "common/trigger"
-        DefaultTextureOrigin = "common/origin"
-        DefaultTextureClip = "common/clip"
         DefaultTextureCaulk = "common/caulk"
+        DefaultTextureClip = "common/clip"
+        DefaultTextureOrigin = "common/origin"
+        DefaultTextureTrigger = "common/trigger"
         DefaultTextureScale = "0.5"
+
         LightingInnerConeKeyword = "radius"    // <-- ex: "" if game does not use or ex: "_cone" is the specifics name that gives the spotlight inter size.
         LightingOuterConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone2" is the specifics name that gives the spotlight outer size.
+        LightEntityScale = '0.9'
+        LightIntensityScale = '150.0'
+        3DLight = '512'
 
         TextureFormat = ".jpg"                  // primary texture fileextension
         TextureFileExtensions = ".tga,.jpg,.png"     // possible texture fileextensions
@@ -1985,12 +2029,10 @@ QQRKSRC1
         ShaderExt = ".shader"
         PakOfficialFormat = "PAK*.PK3"
         Console = "1"
-        Form = "GameQuake3"
-        LightEntityScale = '0.9'
-        3DLight = '512'
-        LightIntensityScale = '150.0'
         PakExtra1 = ".aas"  // PAK extra files into pak file (ie maps/mapname.aas)
         DecimalPlaces = '5'
+
+        Form = "GameQuake3"
       }
 
       Quake 4:config =
@@ -2008,15 +2050,16 @@ QQRKSRC1
         CDDir = "\Quake 4\q4base"       // hidden setting
 
         DefaultTexture = "common_walls/outdoor_wall1_1a"
+        DefaultTextureCaulk = "common/caulk"
+        DefaultTextureClip = "common/clip"
         DefaultTextureTerrain = "rock/rock05a_to_rock05i"
         DefaultTextureTrigger = "common/trigmulti"
-        DefaultTextureClip = "common/clip"
-        DefaultTextureOrigin = "Does not use an origin texture"
-        DefaultTextureCaulk = "common/caulk"
+        DefaultTextureScale = "0.5"
+
         LightingInnerConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone" is the specifics name that gives the spotlight inter size.
         LightingOuterConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone2" is the specifics name that gives the spotlight outer size.
+        LightEntityScale = '0.9'
         3DLight = '512'
-        DecimalPlaces = '5'
 
         Console = "1"                  // "Run these build-programs..." setting
         BuildPgmsDir = ""
@@ -2025,6 +2068,7 @@ QQRKSRC1
         ForceFaceFlags = ""
         SupportsBrushPrim = "1"        // hidden setting
         AlwaysWriteThreeFields = "1"   // hidden setting
+        DecimalPlaces = '5'
 
         BuildPgm1  = ""
         //BuildArgs1 = "-moddir .."
@@ -2052,7 +2096,6 @@ QQRKSRC1
         AlwaysPak = ""
         PakExt = ".pk4"
         ShaderExt = ".mtr"
-        LightEntityScale = '0.9'
         PakExtra1 = ".aas"  // PAK extra files into pak file (ie maps/mapname.aas)
 
         BezierPatchSupport = "1" // this game supports bezier-patches
@@ -2069,7 +2112,6 @@ QQRKSRC1
         TextureWriteFormat = ".tga"
         TextureWriteFormatA = ".dds"
         TextureShaders = "materials/quark.mtr"  // TextureMaterials?
-        DefaultTextureScale = "0.5"
 
         Form = "GameQuake4"
       }
@@ -2087,13 +2129,16 @@ QQRKSRC1
         CDDir = "\Return to Castle Wolfenstein\main"       // hidden setting
 
         DefaultTexture = "xlab_wall/xconcrete_c53b"
-        DefaultTextureTrigger = "common/trigger"
-        DefaultTextureOrigin = "common/origin"
-        DefaultTextureClip = "common/clip"
         DefaultTextureCaulk = "common/caulk"
+        DefaultTextureClip = "common/clip"
+        DefaultTextureOrigin = "common/origin"
+        DefaultTextureTrigger = "common/trigger"
         DefaultTextureScale = "0.5"
+
         LightingInnerConeKeyword = "radius"    // <-- ex: "" if game does not use or ex: "_cone" is the specifics name that gives the spotlight inter size.
         LightingOuterConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone2" is the specifics name that gives the spotlight outer size.
+        LightEntityScale = '0.9'
+        3DLight = '512'
 
         Console = "1"
         BuildPgmsDir = "C:\Program Files\Return to Castle Wolfenstein\QuArK files\bspc"
@@ -2139,8 +2184,6 @@ QQRKSRC1
         AlwaysPak = ""
         PakExt = ".pk3"
         ShaderExt = ".shader"
-        LightEntityScale = '0.9'
-        3DLight = '512'
         PakExtra1 = ".aas"  // PAK extra files into pak file (ie maps/mapname.aas)
         DecimalPlaces = '5'
 
@@ -2160,15 +2203,16 @@ QQRKSRC1
         CDDir = "\Wolfenstein - Enemy Territory\etmain"       // hidden setting
 
         DefaultTexture = "castle_wall/castle_c17"
-        DefaultTextureTerrain = ""
-        DefaultTextureTrigger = "common/trigger"
+        DefaultTextureCaulk = "common/caulk"
         DefaultTextureClip = "common/clip"
         DefaultTextureOrigin = "common/origin"
-        DefaultTextureCaulk = "common/caulk"
+        DefaultTextureTrigger = "common/trigger"
+        DefaultTextureScale = "0.5"
+
         LightingInnerConeKeyword = "radius"    // <-- ex: "" if game does not use or ex: "_cone" is the specifics name that gives the spotlight inter size.
         LightingOuterConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone2" is the specifics name that gives the spotlight outer size.
+        LightEntityScale = '0.9'
         3DLight = '512'
-        DecimalPlaces = '5'
 
         Console = "1"                  // "Run these build-programs..." setting
         BuildPgmsDir = ""
@@ -2176,6 +2220,7 @@ QQRKSRC1
         OutputMapFormat = "Brush Primitives"
         ForceFaceFlags = ""
         AlwaysWriteThreeFields = "1"   // hidden setting
+        DecimalPlaces = '5'
 
         BuildPgm1  = "C:\Program Files\Wolfenstein - Enemy Territory\QuArK files\q3map_2.5.16_win32_x86\q3map2.exe"
         BuildArgs1 = "-game "$22"et"$22" -fs_basepath "$22"%basepath%"$22" "$22"%file%"$22
@@ -2199,7 +2244,6 @@ QQRKSRC1
         AlwaysPak = ""
         PakExt = ".pk3"
         ShaderExt = ".shader"
-        LightEntityScale = '0.9'
     //    PakExtra1 = ".aas"  // PAK extra files into pak file (ie maps/mapname.aas),  does not use aas files.
 
         BezierPatchSupport = "1" // this game supports bezier-patches
@@ -2215,7 +2259,6 @@ QQRKSRC1
         TextureWriteFormat = ".jpg"
         TextureWriteFormatA = ".tga"
         TextureShaders = "scripts/quark.shader"
-        DefaultTextureScale = "0.5"
 
         Form = "GameRTCW-ET"
       }
@@ -2250,10 +2293,13 @@ QQRKSRC1
         Q2TexFlags = "1"
 
         DefaultTexture = "intro/wl_outbrick1a"
-        DefaultTextureTrigger = "intro/wl_outbrick1a" //FIXME
         DefaultTextureClip = "intro/clip" //FIXME
+        DefaultTextureTrigger = "intro/wl_outbrick1a" //FIXME
+
         LightingInnerConeKeyword = "_cone"    // <-- ex: "" if game does not use or ex: "_cone" is the specifics name that gives the spotlight inter size.
         LightingOuterConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone2" is the specifics name that gives the spotlight outer size.
+        LightEntityScale = '0.9'
+        3DLight = '512'
 
         TextureFormat = ".swl"
         TextureWriteFormat = ".swl"
@@ -2270,10 +2316,9 @@ QQRKSRC1
         PakExt = ".sin"
         PakFormat = "PAK#.SIN"
         Console = "1"
-        Form = "GameSin"
-        LightEntityScale = '0.9'
-        3DLight = '512'
         DecimalPlaces = '5'
+
+        Form = "GameSin"
       }
 
       SOF:config =
@@ -2308,11 +2353,14 @@ QQRKSRC1
         Q2TexFlags = "1"
 
         DefaultTexture = "armory/1_2_subfloor1"
-        DefaultTextureTrigger = "armory/trigger"
-        DefaultTextureOrigin = "armory/origin"
         DefaultTextureClip = "armory/clip"
+        DefaultTextureOrigin = "armory/origin"
+        DefaultTextureTrigger = "armory/trigger"
+
         LightingInnerConeKeyword = "_cone"    // <-- ex: "" if game does not use or ex: "_cone" is the specifics name that gives the spotlight inter size.
         LightingOuterConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone2" is the specifics name that gives the spotlight outer size.
+        LightEntityScale = '0.9'
+        3DLight = '512'
 
         walTrick = "1"     // FIXME is that needed ?
         TextureFormat = ".m32"
@@ -2328,10 +2376,9 @@ QQRKSRC1
         PakExt = ".pak"
         PakFormat = "PAK#.PAK"
         Console = "1"
-        Form = "GameSOF"
-        LightEntityScale = '0.9'
-        3DLight = '512'
         DecimalPlaces = '5'
+
+        Form = "GameSOF"
       }
 
       SoF2:config =
@@ -2376,13 +2423,16 @@ QQRKSRC1
         BezierPatchPluginPrefixes = "MB2" // Prefix of the MB2*.PY files. You can also specify the value: "MB2"$0D"MB3"$0D"MB4"
 
         DefaultTexture = "jordan/wall_stucco02"
-        DefaultTextureTrigger = "tools/_trigger"
-        DefaultTextureOrigin = "tools/_origin"
-        DefaultTextureClip = "tools/_clip"
         DefaultTextureCaulk = "tools/_caulk"
+        DefaultTextureClip = "tools/_clip"
+        DefaultTextureOrigin = "tools/_origin"
+        DefaultTextureTrigger = "tools/_trigger"
         DefaultTextureScale = "0.5"
+
         LightingInnerConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone" is the specifics name that gives the spotlight inter size.
         LightingOuterConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone2" is the specifics name that gives the spotlight outer size.
+        LightEntityScale = '0.9'
+        3DLight = '512'
 
         TextureFormat = ".png"                  // primary texture fileextension
         TextureFileExtensions = ".png,.jpg"     // possible texture fileextensions
@@ -2401,11 +2451,10 @@ QQRKSRC1
         PakExt = ".pk3"
         ShaderExt = ".shader"
         Console = "1"
-        Form = "GameSoF2"
-        LightEntityScale = '0.9'
-        3DLight = '512'
         PakExtra1 = ".nav"  // PAK extra files into pak file (ie maps/mapname.nav)
         DecimalPlaces = '5'
+
+        Form = "GameSoF2"
       }
 
       Steam:config =
@@ -2426,6 +2475,7 @@ QQRKSRC1
         QuArKSASEXENameSource2007 = "QuArKSAS_source2007.exe"
         QuArKSASEXENameSource2009 = "QuArKSAS_source2009.exe"
         QuArKSASEXENameOrangebox = "QuArKSAS_orangebox.exe"
+
         Form = "GameSteam"
       }
 
@@ -2445,13 +2495,16 @@ QQRKSRC1
         CDDir = "Setup\BaseEF"   // hidden setting
 
         DefaultTexture = "cargo/walllow"
-        DefaultTextureTrigger = "common/trigger"
+        DefaultTextureCaulk = "common/caulk"
         DefaultTextureClip = "common/clip"
         DefaultTextureOrigin = "common/origin"
-        DefaultTextureCaulk = "common/caulk"
+        DefaultTextureTrigger = "common/trigger"
         DefaultTextureScale = "0.5"
+
         LightingInnerConeKeyword = "radius"    // <-- ex: "" if game does not use or ex: "_cone" is the specifics name that gives the spotlight inter size.
         LightingOuterConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone2" is the specifics name that gives the spotlight outer size.
+        LightEntityScale = '0.9'
+        3DLight = '512'
 
         Console = "1"
         BuildPgmsDir = "C:\Program Files\Raven\Star Trek Voyager Elite Force\QuArK files\bspc"
@@ -2496,8 +2549,6 @@ QQRKSRC1
         AlwaysPak = ""
         PakExt = ".pk3"
         ShaderExt = ".shader"
-        LightEntityScale = '0.9'
-        3DLight = '512'
         PakExtra1 = ".aas"  // PAK extra files into pak file (ie maps/mapname.aas)
         DecimalPlaces = '5'
 
@@ -2531,11 +2582,15 @@ QQRKSRC1
         BuildArgs4 = ""
 
         DefaultTexture = "FIFTIES_WALL14Y"
-        DefaultTextureTrigger = "AAATRIGGER"
-        DefaultTextureOrigin = "ORIGIN"
         DefaultTextureClip = "CLIP"
+        DefaultTextureOrigin = "ORIGIN"
+        DefaultTextureTrigger = "AAATRIGGER"
+
         LightingInnerConeKeyword = "_cone"    // <-- ex: "" if game does not use or ex: "_cone" is the specifics name that gives the spotlight inter size.
         LightingOuterConeKeyword = "_cone2"    // <-- ex: "" if game does not use or ex: "_cone2" is the specifics name that gives the spotlight outer size.
+        LightEntityScale = '0.9'
+        3DLight = '512'
+
         TextureWad = "?"     // variable (the map name is used)
         GameNeedWad = "1"
         WateryTex = "!"
@@ -2558,13 +2613,12 @@ QQRKSRC1
         AlwaysPak = ""
         PakExt = ".pak"
         PakFormat = "SVENCOOP#.PAK"
-        LightEntityScale = '0.9'
-        3DLight = '512'
         Console = "1"
-        Form = "GameSvenCoop"
         PlayerClass = "X"
         DecimalPlaces = '5'
         UsesMipTex = "1"
+
+        Form = "GameSvenCoop"
       }
 
       Sylphis:config =
@@ -2578,19 +2632,21 @@ QQRKSRC1
         CheckDirectory = "sylphis.exe"
 
         DefaultTexture = "none"
-        DefaultTextureTrigger = "common/trigger"
-        DefaultTextureOrigin = "common/origin"
-        DefaultTextureClip = "common/clip"
         DefaultTextureCaulk = "common/caulk"
+        DefaultTextureClip = "common/clip"
+        DefaultTextureOrigin = "common/origin"
+        DefaultTextureTrigger = "common/trigger"
         DefaultTextureScale = "0.25"
+
         LightingInnerConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone" is the specifics name that gives the spotlight inter size.
         LightingOuterConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone2" is the specifics name that gives the spotlight outer size.
+        LightEntityScale = '1.0'
+        3DLight = '512'
 
         BuildPgmsDir = "c:\sylphis\tools"
         BuildPgm1 = "mc.exe"
         BuildArgs1 = "-read %mapfile% -write"
-        LightEntityScale = '1.0'
-        3DLight = '512'
+
         TextureFormat = ".jpg"
         TextureFileExtensions = ".png,.tga,.jpg"
         TextureWriteFormat = ".jpg"
@@ -2614,6 +2670,7 @@ QQRKSRC1
         AddOns = "DataSylphis.qrk"$0D"SylphisEntities.qrk"$0D"SylphisTextures.qrk"
         Console = "1"
         DecimalPlaces = '5'
+
         Form = "GameSylphis"
       }
 
@@ -2628,15 +2685,17 @@ QQRKSRC1
         //CheckDirectory = "map2dif_DEBUG.exe"   // hidden setting
 
         DefaultTexture = ""
-        //   DefaultTextureTerrain = ""
-        //   DefaultTextureTrigger = "trigger"
+        //   DefaultTextureCaulk = "caulk"
         //   DefaultTextureClip = "clip"
         //   DefaultTextureOrigin = "origin"
-        //   DefaultTextureCaulk = "caulk"
+        //   DefaultTextureTerrain = ""
+        //   DefaultTextureTrigger = "trigger"
+        //   DefaultTextureScale = "0.5"
+
         LightingInnerConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone" is the specifics name that gives the spotlight inter size.
         LightingOuterConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone2" is the specifics name that gives the spotlight outer size.
+        LightEntityScale = '0.9'
         3DLight = '512'
-        DecimalPlaces = '16'
 
         Console = "1"                  // "Run these build-programs..." setting
 
@@ -2644,6 +2703,7 @@ QQRKSRC1
         OutputMapFormat = "Valve 220"
         ForceFaceFlags = ""
         UseQrkGroupFolder = ""
+        DecimalPlaces = '16'
 
         // 220 MAPVERSION
         // -v verbose -h Process for final build (exhaustive BSP search)(220 mapversion)
@@ -2687,14 +2747,11 @@ QQRKSRC1
         //   PakExt = ".pk3"
         //   PakFormat = "*.PK3"
         //   PakMaxNumber = "99"
-        LightEntityScale = '0.9'
         //   PlayerClass = "X"
 
         TexturesPath = "textures"
         TextureFormat = ".jpg"             // primary texture file extension
         TextureWriteFormat = ".jpg"        // possible texture file extensions
-
-        //   DefaultTextureScale = "0.5"
 
         Form = "GameTorque"
       }
@@ -2736,13 +2793,16 @@ QQRKSRC1
         BezierPatchPluginPrefixes = "MB2"
 
         DefaultTexture = "factory/brick_wall"
-        DefaultTextureTrigger = "common/trigger"
-        DefaultTextureOrigin = "common/origin"
-        DefaultTextureClip = "common/fullclip"
         DefaultTextureCaulk = "common/caulk"
+        DefaultTextureClip = "common/fullclip"
+        DefaultTextureOrigin = "common/origin"
+        DefaultTextureTrigger = "common/trigger"
         DefaultTextureScale = "0.50"
+
         LightingInnerConeKeyword = "radius"    // <-- ex: "" if game does not use or ex: "_cone" is the specifics name that gives the spotlight inter size.
         LightingOuterConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone2" is the specifics name that gives the spotlight outer size.
+        LightEntityScale = '0.9'
+        3DLight = '512'
 
         TextureFormat = ".tga"
         TextureFileExtensions = ".tga,.jpg,.pcx"
@@ -2762,9 +2822,8 @@ QQRKSRC1
         PakExt = ".pk3"
         ShaderExt = ".shader"
         Console = "1"
-        LightEntityScale = '0.9'
-        3DLight = '512'
         BrushDecimalPlaces = '5'
+
         Form = "GameWarfork"
       }
 
@@ -2805,13 +2864,16 @@ QQRKSRC1
         BezierPatchPluginPrefixes = "MB2"
 
         DefaultTexture = "vf/wall002"
-        DefaultTextureTrigger = "common/trigger"
-        DefaultTextureOrigin = "common/origin"
-        DefaultTextureClip = "common/clip"
         DefaultTextureCaulk = "common/caulk"
+        DefaultTextureClip = "common/clip"
+        DefaultTextureOrigin = "common/origin"
+        DefaultTextureTrigger = "common/trigger"
         DefaultTextureScale = "0.50"
+
         LightingInnerConeKeyword = "radius"    // <-- ex: "" if game does not use or ex: "_cone" is the specifics name that gives the spotlight inter size.
         LightingOuterConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone2" is the specifics name that gives the spotlight outer size.
+        LightEntityScale = '0.9'
+        3DLight = '512'
 
         TextureFormat = ".tga"
         TextureFileExtensions = ".tga,.jpg,.pcx"
@@ -2831,9 +2893,8 @@ QQRKSRC1
         PakExt = ".pk3"
         ShaderExt = ".shader"
         Console = "1"
-        LightEntityScale = '0.9'
-        3DLight = '512'
         BrushDecimalPlaces = '5'
+
         Form = "GameWarsow"
       }
 
@@ -2886,13 +2947,16 @@ QQRKSRC1
         BezierPatchPluginPrefixes = "MB2" // Prefix of the MB2*.PY files. You can also specify the value: "MB2"$0D"MB3"$0D"MB4"
 
         DefaultTexture = "cowboys/kb_wood03"
-        DefaultTextureTrigger = "common/trigger"
-        DefaultTextureOrigin = "common/origin"
-        DefaultTextureClip = "common/clip"
         DefaultTextureCaulk = "common/caulk"
+        DefaultTextureClip = "common/clip"
+        DefaultTextureOrigin = "common/origin"
+        DefaultTextureTrigger = "common/trigger"
         DefaultTextureScale = "0.5"
+
         LightingInnerConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone" is the specifics name that gives the spotlight inter size.
         LightingOuterConeKeyword = ""    // <-- ex: "" if game does not use or ex: "_cone2" is the specifics name that gives the spotlight outer size.
+        LightEntityScale = '0.9'
+        3DLight = '512'
 
         TextureFormat = ".tga"                  // primary texture fileextension
         TextureFileExtensions = ".tga,.jpg"     // possible texture fileextensions
@@ -2911,10 +2975,9 @@ QQRKSRC1
         PakExt = ".pk3"
         ShaderExt = ".shader"
         Console = "1"
-        LightEntityScale = '0.9'
-        3DLight = '512'
         PakExtra1 = ".aas"  // PAK extra files into pak file (ie maps/mapname.aas)
         DecimalPlaces = '5'
+
         Form = "GameWildWest"
       }
     }
