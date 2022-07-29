@@ -2303,14 +2303,14 @@ var
   SI: TStartupInfo;
   PI: TProcessInformation;
 begin
-  if LeftStr(URL, 1) = '*' then
+  if StartsStr(URL, '*') then
   begin
     //This is a full link
-    S:=RightStr(URL, Length(URL)-1); //Remove the '*'
+    S:=Copy(URL, 2, MaxInt); //Remove the '*'
 
     //FIXME: DanielPharos: We need a better, more general way of checking
     //for known protocols...
-    if (LeftStr(S, 7)='file://') or (LeftStr(S, 7)='http://') or (LeftStr(S, 8)='https://') then
+    if StartsStr(S, 'file://') or StartsStr(S, 'http://') or StartsStr(S, 'https://') then
       FullFile:=S
     else
       FullFile:='file:///'+S;

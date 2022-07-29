@@ -47,7 +47,7 @@ type
 implementation
 
 uses StrUtils, qhelper, QuarkX, QkExceptions, Setup, QkObjectClassList, Game, QkQ3,
-     QkPixelset, QkPcx, ApplPaths, qmath, qmatrices, Logging, Travail;
+     QkPixelset, QkPcx, ApplPaths, qmath, qmatrices, Logging, Travail, ExtraFunctionality;
 
 const
  MAX_QPATH = 64;
@@ -112,7 +112,7 @@ type
 
      After the tags come the 'boundframes'.
      The number of meshframes is usually identical to this number or simply 1.
-     The header variable BoundFrame_num holds the ammount of BoundFrame..
+     The header variable BoundFrame_num holds the amount of BoundFrame..
   }
 
   TMD3Mesh = packed record
@@ -195,7 +195,7 @@ type
      Because:
      1. these texture coordinates need to be interpolated when the model changes shape,
      2. these texture coordinates are different from the normal texture coordinates but still both need to be used (with shaders you can
-     have multi-layered surfaces, one could be an enviromental map, an other could be a transparent texture)
+     have multi-layered surfaces, one could be an environmental map, an other could be a transparent texture)
      DanielPharos: envtex are probably not interpreted correctly... Or not at al!
   }
 
@@ -255,7 +255,7 @@ var
   shader_file: QObject;
   shader_texture: QPixelSet;
 begin
-  if pos('/', tex_name) <> 0 then
+  if ContainsText(tex_name, '/') then
     shader_filename:=copy(tex_name, 1, pos('/', tex_name)-1)
   else
     shader_filename:=copy(tex_name, 1, pos('\', tex_name)-1);
@@ -581,8 +581,8 @@ begin
           fname:=copy(fname, pos(PathDelim, fname)+1, length(fname)-pos(PathDelim,fname)+1)
         else
           //Probably a full path... cut off the basedir
-          if LeftStr(fname, length(AbsolutePath)) = AbsolutePath then
-            fname:=RightStr(fname, length(fname) - length(AbsolutePath) - 1);
+          if StartsStr(fname, AbsolutePath) then
+            fname:=Copy(fname, length(AbsolutePath), MaxInt);
         fname:=fname+TagFilename;
         z_result:=z_result and AttachModelToTagFromFilename(tag.name, fname);
       end;

@@ -103,6 +103,13 @@ var
 
 function CopyCursor(pcur: HCursor): HCursor; // This is a macro that wasn't converted
 
+//FIXME: Not sure when these were added to Delphi, but it's at least after Delphi 7.
+function ContainsText(const AText, ASubText: string): Boolean;
+function StartsText(const ASubText, AText: string): Boolean;
+function EndsText(const ASubText, AText: string): Boolean;
+function StartsStr(const ASubText, AText: string): Boolean;
+function EndsStr(const ASubText, AText: string): Boolean;
+
 {$ifndef Delphi7orNewerCompiler} // Pre-dates Delphi 7
 const
   SM_CXVIRTUALSCREEN = 78;
@@ -214,6 +221,31 @@ implementation
 function CopyCursor(pcur: HCursor): HCursor;
 begin
   Result:=HCURSOR(CopyIcon(HICON(pcur)));
+end;
+
+function ContainsText(const AText, ASubText: string): Boolean;
+begin
+  Result := AnsiContainsText(AText, ASubText);
+end;
+
+function StartsText(const ASubText, AText: string): Boolean;
+begin
+  Result := AnsiStartsText(ASubText, AText);
+end;
+
+function EndsText(const ASubText, AText: string): Boolean;
+begin
+  Result := AnsiEndsText(ASubText, AText);
+end;
+
+function StartsStr(const ASubText, AText: String): Boolean;
+begin
+  Result := AnsiStartsStr(ASubText, AText);
+end;
+
+function EndsStr(const ASubText, AText: String): Boolean;
+begin
+ Result := AnsiEndsStr(ASubText, AText);
 end;
 
 {$ifndef Delphi5orNewerCompiler}

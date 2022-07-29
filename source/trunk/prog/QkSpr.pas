@@ -49,7 +49,7 @@ type
     height          :  Longint;
     numframes       :  Longint;
     beamlength      :  Single;
-    synctype        :  Single;
+    synctype        :  Single; //FIXME: Single? --> https://github.com/id-Software/Quake/blob/bf4ac424ce754894ac8f1dae6a3981954bc9852d/QW/client/spritegn.h
   end;
   TQ2SprHeader = packed record  // Quake 2 Sprite
     ident: Longint;
@@ -214,7 +214,7 @@ var
   p: PChar;
   DeltaW:Integer;
   pout:String;
-  times: array[1..1024] of Single;
+  times: array[1..1024] of Single; //FIXME: Hardcoded limit...? THERE IS NO LIMIT IN Q1!!! REWRITE!!! Make an ARRAY!!! SetLength!!!
 begin
   aPalette:=PPPalette^.PaletteLmp;
   fs.ReadBuffer(dst,sizeof(dst));
@@ -229,6 +229,7 @@ begin
   Self.Specifics.Add(format('SPR_RADIUS=%f',[dst.boundingradius]));
   Self.Specifics.Add(format('SPR_WIDTH=%d',[dst.width]));
   Self.Specifics.Add(format('SPR_HEIGHT=%d',[dst.height]));
+  //FIXME: If dst.numframes < 1 THEN ERROR! Invalid number of frames!
   for i:=1 to dst.numframes do begin
     fs.ReadBuffer(group,4);
     if group=0 then begin

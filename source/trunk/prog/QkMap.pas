@@ -122,7 +122,7 @@ uses
   Undo, Quarkx, qmatrices, Qk3D, Coordinates, QkQuakeMap, ApplPaths, QkTextures,
   Graphics, StrUtils, Game, QkExceptions, Travail, QConsts, Logging, PyControls,
   PyForms, Bezier, QkMesh, Duplicator, QkPixelSet, Qk6DX, QkVMF, QkSylphis, QkQ2,
-  QkSin, MapError, PixelSetSizeCache, QkObjectClassList;
+  QkSin, MapError, PixelSetSizeCache, QkObjectClassList, ExtraFunctionality;
 
 const
   MAX_PRECISION = 18; //Delphi 7 caps the precision at 18
@@ -711,7 +711,7 @@ expected one.
      if (C=#13) or ((C=#10) and not Juste13) then
        Inc(LineNoBeingParsed);
      Juste13:=C=#13;
-     if (LeftStr(S,1)='"') and (RightStr(S,1)='"') then
+     if StartsStr(S,'"') and EndsStr(S,'"') then
      begin
        S:=MidStr(S,2,Length(S)-2);
        SymbolType:=sStringQuotedToken;
@@ -1238,13 +1238,13 @@ expected one.
    if MapVersion>1 then
    begin
      TexPath:=IncludeTrailingPathDelimiter(GameTexturesPath);
-     if LowerCase(LeftStr(ConvertPath(S),Length(TexPath)))=TexPath then
-       S:=RightStr(S,Length(S)-Length(TexPath));
+     if StartsText(ConvertPath(S), TexPath) then
+       S:=Copy(S, Length(TexPath), MaxInt);
    end;
 
    if SetupGameSet.Specifics.Values['TextureNameUppercase']<>'' then
      S:=LowerCase(S);
-   Q2Tex:=Q2Tex or (Pos('/',S)<>0);
+   Q2Tex:=Q2Tex or ContainsText(S, '/');
 
    B:=TBezier.Create(LoadStr1(261), EntiteBezier); // 261 = "bezier"
    EntiteBezier.SubElements.Add(B); //&&&
@@ -1341,13 +1341,13 @@ expected one.
    if MapVersion>1 then
    begin
      TexPath:=IncludeTrailingPathDelimiter(GameTexturesPath);
-     if LowerCase(LeftStr(ConvertPath(S),Length(TexPath)))=TexPath then
-       S:=RightStr(S,Length(S)-Length(TexPath));
+     if StartsText(ConvertPath(S), TexPath) then
+       S:=Copy(S, Length(TexPath), MaxInt);
    end;
 
    if SetupGameSet.Specifics.Values['TextureNameUppercase']<>'' then
      S:=LowerCase(S);
-   Q2Tex:=Q2Tex or (Pos('/',S)<>0);
+   Q2Tex:=Q2Tex or ContainsText(S, '/');
 
    B:=TBezier.Create(LoadStr1(261), EntiteBezier); // 261 = "bezier"
    EntiteBezier.SubElements.Add(B); //&&&
@@ -1428,13 +1428,13 @@ expected one.
    if MapVersion>1 then
    begin
      TexPath:=IncludeTrailingPathDelimiter(GameTexturesPath);
-     if LowerCase(LeftStr(ConvertPath(S),Length(TexPath)))=TexPath then
-       S:=RightStr(S,Length(S)-Length(TexPath));
+     if StartsText(ConvertPath(S), TexPath) then
+       S:=Copy(S, Length(TexPath), MaxInt);
    end;
 
    if SetupGameSet.Specifics.Values['TextureNameUppercase']<>'' then
      S:=LowerCase(S);
-   Q2Tex:=Q2Tex or (Pos('/',S)<>0);
+   Q2Tex:=Q2Tex or ContainsText(S, '/');
 
    B:=TBezier.Create(LoadStr1(261), EntiteBezier); // 261 = "bezier"
    EntiteBezier.SubElements.Add(B); //&&&
@@ -1522,13 +1522,13 @@ expected one.
    if MapVersion>1 then
    begin
      TexPath:=IncludeTrailingPathDelimiter(GameTexturesPath);
-     if LowerCase(LeftStr(ConvertPath(S),Length(TexPath)))=TexPath then
-       S:=RightStr(S,Length(S)-Length(TexPath));
+     if StartsText(ConvertPath(S), TexPath) then
+       S:=Copy(S, Length(TexPath), MaxInt);
    end;
 
    if SetupGameSet.Specifics.Values['TextureNameUppercase']<>'' then
      S:=LowerCase(S);
-   Q2Tex:=Q2Tex or (Pos('/',S)<>0);
+   Q2Tex:=Q2Tex or ContainsText(S, '/');
 
    M:=TMesh.Create(LoadStr1(5746), EntiteMesh); // 5746 = "mesh"
    EntiteMesh.SubElements.Add(M); //&&&
@@ -1613,7 +1613,7 @@ expected one.
 
     if SetupGameSet.Specifics.Values['TextureNameUppercase']<>'' then
       S:=LowerCase(S);
-    Q2Tex:=Q2Tex or (Pos('/',S)<>0);
+    Q2Tex:=Q2Tex or ContainsText(S, '/');
 
     Surface.NomTex:=S;   { here we get the texture-name }
     ReadSymbol(sTokenForcedToString);
@@ -1850,13 +1850,13 @@ expected one.
     if MapVersion>1 then
     begin
       TexPath:=IncludeTrailingPathDelimiter(GameTexturesPath);
-      if LowerCase(LeftStr(ConvertPath(S),Length(TexPath)))=TexPath then
-        S:=RightStr(S,Length(S)-Length(TexPath));
+      if StartsText(ConvertPath(S), TexPath) then
+        S:=Copy(S, Length(TexPath), MaxInt);
     end;
 
     if SetupGameSet.Specifics.Values['TextureNameUppercase']<>'' then
       S:=LowerCase(S);
-    Q2Tex:=Q2Tex or (Pos('/',S)<>0);
+    Q2Tex:=Q2Tex or ContainsText(S, '/');
 
     Surface.NomTex:=S;   { here we get the texture-name }
     Size:=TextureSizes.GetSize(Surface.NomTex);
@@ -1989,13 +1989,13 @@ expected one.
     if MapVersion>1 then
     begin
       TexPath:=IncludeTrailingPathDelimiter(GameTexturesPath);
-      if LowerCase(LeftStr(ConvertPath(S),Length(TexPath)))=TexPath then
-        S:=RightStr(S,Length(S)-Length(TexPath));
+      if StartsText(ConvertPath(S), TexPath) then
+        S:=Copy(S, Length(TexPath), MaxInt);
     end;
 
     if SetupGameSet.Specifics.Values['TextureNameUppercase']<>'' then
       S:=LowerCase(S);
-    Q2Tex:=Q2Tex or (Pos('/',S)<>0);
+    Q2Tex:=Q2Tex or ContainsText(S, '/');
 
     Surface.NomTex:=S;   { here we get the texture-name }
     Size:=TextureSizes.GetSize(Surface.NomTex);

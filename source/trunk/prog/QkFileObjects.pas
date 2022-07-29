@@ -1883,8 +1883,8 @@ begin
       end
      else
       S:=FFileObject.Name + FFileObject.TypeInfo;
-     while Pos('/',S)>0 do
-      S:=Copy(S, Pos('/',S)+1, MaxInt);
+     I:=LastPos('/', S);
+     if I>0 then S:=Copy(S, I+1, MaxInt);
      if S<>'' then
       BuildCorrectFileName(S);
      { tigari: .map extension fix }
