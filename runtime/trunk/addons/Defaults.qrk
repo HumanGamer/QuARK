@@ -8827,7 +8827,7 @@ QQRKSRC1
             $0D
             $0D"For Half-Life and Half-Life 2:"
             $0D"When checked brush-entities that have their"
-            $0D"'rendermode'and 'renderamt' set to transparency"
+            $0D"'rendermode' and 'renderamt' set to transparency"
             $0D"will be drawn transparent in the OpenGL window all"
             $0D"though NOT exactly drawn as they will be in the game."
       }
@@ -10972,7 +10972,7 @@ QQRKSRC1
           }
         }
         ArgReplacer:d = {
-      ;desc = "Arg Replacer : Search and Replaces %keyword% in spec/args"
+          ;desc = "Arg Replacer : Search and Replaces %keyword% in spec/args"
           macro = "arg replacer"
         }
       }
