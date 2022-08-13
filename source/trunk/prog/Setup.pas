@@ -167,6 +167,7 @@ function ModelColors(L: TModelColors) : TColor;
 implementation
 
 uses QkMapObjects, Travail, Game, Console, QkGroup, QkForm, Qk1,
+     {$IFDEF CompiledWithDelphi2} ShellObj, {$ELSE} ShlObj, {$ENDIF}
      ToolBox1, Toolbar1, QkQuakeCtx, Quarkx, QkExceptions, Python, PyMapView,
      Qk3D, EdSceneObject, QkObjectClassList, ApplPaths,
      QConsts, ExtraFunctionality, Logging;
@@ -1167,7 +1168,8 @@ begin
       GlobalWarning(FmtLoadStr1(5616, [Ext]));
     end;
   end;
-{finally Reg.Free; end;}
+{finally Reg.Free; end;
+ SHChangeNotify(SHCNE_ASSOCCHANGED, SHCNF_IDLIST, nil, nil);}
  RefreshAssociations(True);
 end;
 
@@ -1240,6 +1242,7 @@ begin
      Reg.Free;
    end;
   end;
+  SHChangeNotify(SHCNE_ASSOCCHANGED, SHCNF_IDLIST, nil, nil);
 end;
 
 procedure RemoveAssociations;
@@ -1276,6 +1279,7 @@ begin
     end;
    finally Reg.Free; end;
   end;
+  SHChangeNotify(SHCNE_ASSOCCHANGED, SHCNF_IDLIST, nil, nil);
 end;
 
 function AssociationWithQuArK(const FileExt: String) : Boolean;
