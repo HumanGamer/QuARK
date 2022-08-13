@@ -143,7 +143,6 @@ function GetSetupPath(Path: String; var Spec: String; var Q: QObject) : Boolean;
 procedure MakeAssociations(Config: QObject);
 procedure RefreshAssociations(Forced: Boolean);
 procedure RemoveAssociations;
-function AssociationWithQuArK(const FileExt: String) : Boolean;
 procedure StoreTexExtensions; {--CONVEX--}
 procedure StorePakExtensions; {--CONVEX--}
 
@@ -1280,11 +1279,6 @@ begin
    finally Reg.Free; end;
   end;
   SHChangeNotify(SHCNE_ASSOCCHANGED, SHCNF_IDLIST, nil, nil);
-end;
-
-function AssociationWithQuArK(const FileExt: String) : Boolean;
-begin
- Result:=SetupSubSet(ssGeneral, 'File Associations').Specifics.Values[FileExt]<>'';
 end;
 
  {------------------------}
