@@ -152,7 +152,6 @@ type
                   function TestConversionType(I: Integer) : QFileObjectClass; dynamic;
                   function ConversionFrom(Source: QFileObject) : Boolean; dynamic;
                   procedure CopyToClipboard;
-                 {function FindSubObject(const nName: String; WantClass: QObjectClass) : QObject;}
                   function CreateOwnExplorer(nOwner: TComponent) : TWinControl; dynamic;
                   procedure OperationInScene(Aj: TAjScene; PosRel: Integer); override;
                   function LoadSibling(const nName: String) : QFileObject;
