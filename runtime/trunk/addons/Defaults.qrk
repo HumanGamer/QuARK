@@ -3478,7 +3478,7 @@ QQRKSRC1
   {
     MapDisplay:form =          // ":form" objects are forms for editing object Specific/Args
     {                          // these ones are used in the Configuration dialog box
-      style = "7"
+      Style = "7"
       NormalVector: =
       {
         Txt = "Length of the normal vector"
@@ -3527,10 +3527,10 @@ QQRKSRC1
     }
     MdlDisplay:form =
     {
-      style = "7"
+      Style = "7"
       Sep: =
       {
-        Typ = "S"    // Separator
+        Typ = "S"
         Txt = "Editor views:"
       }
       GridStep: =
@@ -3561,7 +3561,7 @@ QQRKSRC1
       }
       Sep: =
       {
-        Typ = "S"    // Separator
+        Typ = "S"
         Txt = "Animation:"
       }
       AnimationFPS: =
@@ -3578,7 +3578,7 @@ QQRKSRC1
       }
       Sep: =
       {
-        Typ = "S"    // Separator
+        Typ = "S"
         Txt = "Skin-view:"
       }
       SkinGridStep: =
@@ -3609,7 +3609,7 @@ QQRKSRC1
       }
       Sep: =
       {
-        Typ = "S"    // Separator
+        Typ = "S"
         Txt = ""
       }
       FreeZoom: =
@@ -3874,10 +3874,10 @@ QQRKSRC1
         Min = '1'
         Max = '40'
       }
-    //sep:        = {Typ="S" Txt = ""}
-    //sep:        = {Typ="S" Txt="---- Build Programs Execution Sequence ----"}
+    //sep: = {Typ="S" Txt = ""}
+    //sep: = {Typ="S" Txt="---- Build Programs Execution Sequence ----"}
     //t_GameBuildPgms=!
-      sep:        = {Typ="S" Txt = ""}
+      sep: = {Typ="S" Txt = ""}
       MapCommentsPrefix: = {
         Typ="E"
         Txt=".MAP comments prefix"
@@ -3987,8 +3987,8 @@ QQRKSRC1
         Min = '1'
         Max = '40'
       }
-      sep:        = {Typ="S" Txt = ""}
-      sep:        = {Typ="S" Txt="---- Build Programs Execution Sequence ----"}
+      sep: = {Typ="S" Txt = ""}
+      sep: = {Typ="S" Txt="---- Build Programs Execution Sequence ----"}
       t_GameBuildPgms=!
     }
 
@@ -4095,8 +4095,8 @@ QQRKSRC1
         Min = '1'
         Max = '40'
       }
-      sep:        = {Typ="S" Txt = ""}
-      sep:        = {Typ="S" Txt="---- Build Programs Execution Sequence ----"}
+      sep: = {Typ="S" Txt = ""}
+      sep: = {Typ="S" Txt="---- Build Programs Execution Sequence ----"}
       t_GameBuildPgms=!
     }
 
@@ -4173,8 +4173,8 @@ QQRKSRC1
         Min = '1'
         Max = '40'
       }
-      sep:        = {Typ="S" Txt = ""}
-      sep:        = {Typ="S" Txt="---- Build Programs Execution Sequence ----"}
+      sep: = {Typ="S" Txt = ""}
+      sep: = {Typ="S" Txt="---- Build Programs Execution Sequence ----"}
       t_GameBuildPgms=!
     }
 
@@ -4279,8 +4279,8 @@ QQRKSRC1
         Min = '1'
         Max = '40'
       }
-      sep:        = {Typ="S" Txt = ""}
-      sep:        = {Typ="S" Txt="---- Build Programs Execution Sequence ----"}
+      sep: = {Typ="S" Txt = ""}
+      sep: = {Typ="S" Txt="---- Build Programs Execution Sequence ----"}
       t_GameBuildPgms=!
     }
 
@@ -4372,8 +4372,8 @@ QQRKSRC1
         Min = '1'
         Max = '40'
       }
-      sep:        = {Typ="S" Txt = ""}
-      sep:        = {Typ="S" Txt="---- Build Programs Execution Sequence ----"}
+      sep: = {Typ="S" Txt = ""}
+      sep: = {Typ="S" Txt="---- Build Programs Execution Sequence ----"}
       t_GameBuildPgms=!
     }
 
@@ -4471,8 +4471,8 @@ QQRKSRC1
         Min = '1'
         Max = '40'
       }
-      sep:        = {Typ="S" Txt = ""}
-      sep:        = {Typ="S" Txt="---- Build Programs Execution Sequence ----"}
+      sep: = {Typ="S" Txt = ""}
+      sep: = {Typ="S" Txt="---- Build Programs Execution Sequence ----"}
       t_GameBuildPgms=!
     }
 
@@ -4575,8 +4575,8 @@ QQRKSRC1
         Min = '1'
         Max = '40'
       }
-      sep:        = {Typ="S" Txt = ""}
-      sep:        = {Typ="S" Txt="---- Build Programs Execution Sequence ----"}
+      sep: = {Typ="S" Txt = ""}
+      sep: = {Typ="S" Txt="---- Build Programs Execution Sequence ----"}
       t_GameBuildPgms=!
     }
 
@@ -4680,8 +4680,8 @@ QQRKSRC1
         Min = '1'
         Max = '40'
       }
-      sep:        = {Typ="S" Txt = ""}
-      sep:        = {Typ="S" Txt="---- Build Programs Execution Sequence ----"}
+      sep: = {Typ="S" Txt = ""}
+      sep: = {Typ="S" Txt="---- Build Programs Execution Sequence ----"}
       t_GameBuildPgms=!
     }
 
@@ -4787,8 +4787,8 @@ QQRKSRC1
         Min = '1'
         Max = '40'
       }
-      sep:        = {Typ="S" Txt = ""}
-      sep:        = {Typ="S" Txt="---- Build Programs Execution Sequence ----"}
+      sep: = {Typ="S" Txt = ""}
+      sep: = {Typ="S" Txt="---- Build Programs Execution Sequence ----"}
       t_GameBuildPgms=!
     }
 
@@ -4874,8 +4874,8 @@ QQRKSRC1
         Min = '1'
         Max = '40'
       }
-      sep:        = {Typ="S" Txt = ""}
-      sep:        = {Typ="S" Txt="---- Build Programs Execution Sequence ----"}
+      sep: = {Typ="S" Txt = ""}
+      sep: = {Typ="S" Txt="---- Build Programs Execution Sequence ----"}
       t_GameBuildPgms=!
     }
 
@@ -4967,8 +4967,8 @@ QQRKSRC1
         Min = '1'
         Max = '40'
       }
-      sep:        = {Typ="S" Txt = ""}
-      sep:        = {Typ="S" Txt="---- Build Programs Execution Sequence ----"}
+      sep: = {Typ="S" Txt = ""}
+      sep: = {Typ="S" Txt="---- Build Programs Execution Sequence ----"}
       t_GameBuildPgms=!
     }
 
@@ -5224,8 +5224,8 @@ QQRKSRC1
         Min = '1'
         Max = '40'
       }
-      sep:        = {Typ="S" Txt = ""}
-      sep:        = {Typ="S" Txt="---- Build Programs Execution Sequence ----"}
+      sep: = {Typ="S" Txt = ""}
+      sep: = {Typ="S" Txt="---- Build Programs Execution Sequence ----"}
   //    t_GameBuildPgms=!
       Console:    = {Typ="X" Txt="Run these build-programs..." Cap="in QuArK's console"}
       BuildPgmsDir:={Typ="ED" Txt="Default directory of build-programs" Hint="This directory is searched to find a build-program,"$0D"if the build-program does not have an absolute path specified."}
@@ -5376,8 +5376,8 @@ QQRKSRC1
         Min = '1'
         Max = '40'
       }
-      sep:        = {Typ="S" Txt = ""}
-      sep:        = {Typ="S" Txt="---- Build Programs Execution Sequence ----"}
+      sep: = {Typ="S" Txt = ""}
+      sep: = {Typ="S" Txt="---- Build Programs Execution Sequence ----"}
       t_GameBuildPgms=!
     }
 
@@ -5475,8 +5475,8 @@ QQRKSRC1
         Min = '1'
         Max = '40'
       }
-      sep:        = {Typ="S" Txt = ""}
-      sep:        = {Typ="S" Txt="---- Build Programs Execution Sequence ----"}
+      sep: = {Typ="S" Txt = ""}
+      sep: = {Typ="S" Txt="---- Build Programs Execution Sequence ----"}
       t_GameBuildPgms=!
     }
 
@@ -5572,8 +5572,8 @@ QQRKSRC1
         Min = '1'
         Max = '40'
       }
-      sep:        = {Typ="S" Txt = ""}
-      sep:        = {Typ="S" Txt="---- Build Programs Execution Sequence ----"}
+      sep: = {Typ="S" Txt = ""}
+      sep: = {Typ="S" Txt="---- Build Programs Execution Sequence ----"}
       t_GameBuildPgms=!
     }
 
@@ -5669,8 +5669,8 @@ QQRKSRC1
         Min = '1'
         Max = '40'
       }
-      sep:        = {Typ="S" Txt = ""}
-      sep:        = {Typ="S" Txt="---- Build Programs Execution Sequence ----"}
+      sep: = {Typ="S" Txt = ""}
+      sep: = {Typ="S" Txt="---- Build Programs Execution Sequence ----"}
       t_GameBuildPgms=!
     }
 
@@ -5763,8 +5763,8 @@ QQRKSRC1
         Min = '1'
         Max = '40'
       }
-      sep:        = {Typ="S" Txt = ""}
-      sep:        = {Typ="S" Txt="---- Build Programs Execution Sequence ----"}
+      sep: = {Typ="S" Txt = ""}
+      sep: = {Typ="S" Txt="---- Build Programs Execution Sequence ----"}
       walTrick: = {
         Typ = "X"
         Txt = "This version of qbsp3 wants"
@@ -5866,8 +5866,8 @@ QQRKSRC1
         Min = '1'
         Max = '40'
       }
-      sep:        = {Typ="S" Txt = ""}
-      sep:        = {Typ="S" Txt="---- Build Programs Execution Sequence ----"}
+      sep: = {Typ="S" Txt = ""}
+      sep: = {Typ="S" Txt="---- Build Programs Execution Sequence ----"}
       t_GameBuildPgms=!
     }
 
@@ -5973,8 +5973,8 @@ QQRKSRC1
         Min = '1'
         Max = '40'
       }
-      sep:        = {Typ="S" Txt = ""}
-      sep:        = {Typ="S" Txt="---- Build Programs Execution Sequence ----"}
+      sep: = {Typ="S" Txt = ""}
+      sep: = {Typ="S" Txt="---- Build Programs Execution Sequence ----"}
       t_GameBuildPgms=!
     }
 
@@ -6077,8 +6077,8 @@ QQRKSRC1
         Min = '1'
         Max = '40'
       }
-      sep:        = {Typ="S" Txt = ""}
-      sep:        = {Typ="S" Txt="---- Build Programs Execution Sequence ----"}
+      sep: = {Typ="S" Txt = ""}
+      sep: = {Typ="S" Txt="---- Build Programs Execution Sequence ----"}
       t_GameBuildPgms=!
     }
 
@@ -6170,8 +6170,8 @@ QQRKSRC1
         Min = '1'
         Max = '40'
       }
-      sep:        = {Typ="S" Txt = ""}
-      sep:        = {Typ="S" Txt="---- Build Programs Execution Sequence ----"}
+      sep: = {Typ="S" Txt = ""}
+      sep: = {Typ="S" Txt="---- Build Programs Execution Sequence ----"}
       t_GameBuildPgms=!
     }
 
@@ -6269,8 +6269,8 @@ QQRKSRC1
         Min = '1'
         Max = '40'
       }
-      sep:        = {Typ="S" Txt = ""}
-      sep:        = {Typ="S" Txt="---- Build Programs Execution Sequence ----"}
+      sep: = {Typ="S" Txt = ""}
+      sep: = {Typ="S" Txt="---- Build Programs Execution Sequence ----"}
       t_GameBuildPgms=!
     }
 
@@ -6375,8 +6375,8 @@ QQRKSRC1
         Min = '1'
         Max = '40'
       }
-      sep:        = {Typ="S" Txt = ""}
-      sep:        = {Typ="S" Txt="---- Build Programs Execution Sequence ----"}
+      sep: = {Typ="S" Txt = ""}
+      sep: = {Typ="S" Txt="---- Build Programs Execution Sequence ----"}
       t_GameBuildPgms=!
     }
 
@@ -6479,8 +6479,8 @@ QQRKSRC1
         Min = '1'
         Max = '40'
       }
-      sep:        = {Typ="S" Txt = ""}
-      sep:        = {Typ="S" Txt="---- Build Programs Execution Sequence ----"}
+      sep: = {Typ="S" Txt = ""}
+      sep: = {Typ="S" Txt="---- Build Programs Execution Sequence ----"}
       t_GameBuildPgms=!
     }
 
@@ -6585,8 +6585,8 @@ QQRKSRC1
         Min = '1'
         Max = '40'
       }
-      sep:        = {Typ="S" Txt = ""}
-      sep:        = {Typ="S" Txt="---- Build Programs Execution Sequence ----"}
+      sep: = {Typ="S" Txt = ""}
+      sep: = {Typ="S" Txt="---- Build Programs Execution Sequence ----"}
       t_GameBuildPgms=!
     }
 
@@ -6690,8 +6690,8 @@ QQRKSRC1
         Min = '1'
         Max = '40'
       }
-      sep:        = {Typ="S" Txt = ""}
-      sep:        = {Typ="S" Txt="---- Build Programs Execution Sequence ----"}
+      sep: = {Typ="S" Txt = ""}
+      sep: = {Typ="S" Txt="---- Build Programs Execution Sequence ----"}
       t_GameBuildPgms=!
     }
 
@@ -6784,8 +6784,8 @@ QQRKSRC1
         Min = '1'
         Max = '40'
       }
-      sep:        = {Typ="S" Txt = ""}
-      sep:        = {Typ="S" Txt="---- Build Programs Execution Sequence ----"}
+      sep: = {Typ="S" Txt = ""}
+      sep: = {Typ="S" Txt="---- Build Programs Execution Sequence ----"}
       t_GameBuildPgms=!
     }
 
@@ -6878,8 +6878,8 @@ QQRKSRC1
         Min = '1'
         Max = '40'
       }
-      sep:        = {Typ="S" Txt = ""}
-      sep:        = {Typ="S" Txt="---- Build Programs Execution Sequence ----"}
+      sep: = {Typ="S" Txt = ""}
+      sep: = {Typ="S" Txt="---- Build Programs Execution Sequence ----"}
       walTrick: = { //FIXME ! is this needed ?
         Typ = "X"
         Txt = "This version of qbsp wants"
@@ -6981,8 +6981,8 @@ QQRKSRC1
         Min = '1'
         Max = '40'
       }
-      sep:        = {Typ="S" Txt = ""}
-      sep:        = {Typ="S" Txt="---- Build Programs Execution Sequence ----"}
+      sep: = {Typ="S" Txt = ""}
+      sep: = {Typ="S" Txt="---- Build Programs Execution Sequence ----"}
       t_GameBuildPgms=!
     }
 
@@ -7122,8 +7122,8 @@ QQRKSRC1
         Min = '1'
         Max = '40'
       }
-      sep:        = {Typ="S" Txt = ""}
-      sep:        = {Typ="S" Txt="---- Build Programs Execution Sequence ----"}
+      sep: = {Typ="S" Txt = ""}
+      sep: = {Typ="S" Txt="---- Build Programs Execution Sequence ----"}
       t_GameBuildPgms=!
     }
 
@@ -7215,8 +7215,8 @@ QQRKSRC1
         Min = '1'
         Max = '40'
       }
-      sep:        = {Typ="S" Txt = ""}
-      sep:        = {Typ="S" Txt="---- Build Programs Execution Sequence ----"}
+      sep: = {Typ="S" Txt = ""}
+      sep: = {Typ="S" Txt="---- Build Programs Execution Sequence ----"}
       t_GameBuildPgms=!
     }
 
@@ -7413,8 +7413,8 @@ QQRKSRC1
         Min = '1'
         Max = '40'
       }
-      sep:        = {Typ="S" Txt = ""}
-      sep:        = {Typ="S" Txt="---- Build Programs Execution Sequence ----"}
+      sep: = {Typ="S" Txt = ""}
+      sep: = {Typ="S" Txt="---- Build Programs Execution Sequence ----"}
       UseQrkGroupFolder: = {
         Txt = "Put build file(s) in Group folders"
         Typ="X"
@@ -7520,8 +7520,8 @@ QQRKSRC1
         Min = '1'
         Max = '40'
       }
-      sep:        = {Typ="S" Txt = ""}
-      sep:        = {Typ="S" Txt="---- Build Programs Execution Sequence ----"}
+      sep: = {Typ="S" Txt = ""}
+      sep: = {Typ="S" Txt="---- Build Programs Execution Sequence ----"}
       t_GameBuildPgms=!
     }
 
@@ -7615,8 +7615,8 @@ QQRKSRC1
         Min = '1'
         Max = '40'
       }
-      sep:        = {Typ="S" Txt = ""}
-      sep:        = {Typ="S" Txt="---- Build Programs Execution Sequence ----"}
+      sep: = {Typ="S" Txt = ""}
+      sep: = {Typ="S" Txt="---- Build Programs Execution Sequence ----"}
       t_GameBuildPgms=!
     }
 
@@ -7712,8 +7712,8 @@ QQRKSRC1
         Min = '1'
         Max = '40'
       }
-      sep:        = {Typ="S" Txt = ""}
-      sep:        = {Typ="S" Txt="---- Build Programs Execution Sequence ----"}
+      sep: = {Typ="S" Txt = ""}
+      sep: = {Typ="S" Txt="---- Build Programs Execution Sequence ----"}
       t_GameBuildPgms=!
     }
 
@@ -8333,7 +8333,7 @@ QQRKSRC1
       }
       Sep1: =
       {
-        Typ = "S"    // Separator
+        Typ = "S"
         Txt = ""
       }
       InvertedColors: =
@@ -8415,7 +8415,7 @@ QQRKSRC1
       }
       Sep1: =
       {
-        Typ = "S"    // Separator
+        Typ = "S"
         Txt = ""
       }
       InvertedColors: =
@@ -8426,12 +8426,12 @@ QQRKSRC1
       }
       Sep2: =
       {
-        Typ = "S"    // Separator
+        Typ = "S"
         Txt = ""
       }
       Sep3: =
       {
-        Typ = "S"    // Separator
+        Typ = "S"
         Txt = "Editor Views:"
       }
       ViewXZ:                  = { Txt = "Side map view (XZ)" Typ = "LI" }
@@ -8460,12 +8460,12 @@ QQRKSRC1
       BoneLines:               = { Txt = "Bone Lines" Typ = "LI" }
       Sep4: =
       {
-        Typ = "S"    // Separator
+        Typ = "S"
         Txt = ""
       }
       Sep5: =
       {
-        Typ = "S"    // Separator
+        Typ = "S"
         Txt = "Skin-view:"
       }
       SkinGridDots:            = { Txt = "Grid dots" Typ = "LI" }
@@ -8676,7 +8676,7 @@ QQRKSRC1
     }
     General3DView:form =
     {
-      style = "3"
+      Style = "3"
       Lib: = {
         Txt="Select 3D viewer"
         Typ="CL"
@@ -8907,7 +8907,7 @@ QQRKSRC1
             $0D
             $0D"For Half-Life and Half-Life 2:"
             $0D"When checked brush-entities that have their"
-            $0D"'rendermode'and 'renderamt' set to transparency"
+            $0D"'rendermode' and 'renderamt' set to transparency"
             $0D"will be drawn transparent in the OpenGL window all"
             $0D"though NOT exactly drawn as they will be in the game."
       }
@@ -9194,12 +9194,12 @@ QQRKSRC1
     }
     MdlOptions:form =
     {
-      sep: = 
+      Style = "1"
+      Sep: =
       {
         Typ="S"
         Txt = "Editor:"
       }
-      Style = "1"
       MAIV:                     = {Typ="X" Txt="Model Axis in views"            Cap="Draw axis"                            }
       DrawMapLimit:             = {Typ="X" Txt="   ``"                          Cap="Draw model limits"                    }
       SolidGrid:                = {Typ="X" Txt="Grid"                           Cap="Grid as lines"                        }
@@ -9221,24 +9221,24 @@ QQRKSRC1
       Recenter:                 = {Typ="X" Txt="Position of new objects"        Cap="Screen center"                        }
       Sep: =
       {
-        Typ = "S"    // Separator
+        Typ = "S"
         Txt = ""
       }
-      sep: = 
+      Sep: =
       {
         Typ="S"
         Txt = "Skin-view:"
       }
-      SkinFrom3Dview:           = {Typ="X" Txt="Coordinates"                     Cap="Coordinates from 3D view"                   }
+      SkinFrom3Dview:           = {Typ="X" Txt="Coordinates"                     Cap="Coordinates from 3D view"             }
       UseSkinViewScale:         = {Typ="X" Txt="Apply scale"                     Cap="Apply Skin-view scale"                }
       SkinGridVisible:          = {Typ="X" Txt="Grid"                            Cap="Grid visible"                         }
       SkinGridActive:           = {Typ="X" Txt="   ``"                           Cap="Grid active"                          }
       Sep: =
       {
-        Typ = "S"    // Separator
+        Typ = "S"
         Txt = ""
       }
-      sep: = 
+      Sep: =
       {
         Typ="S"
         Txt = "Importers \ Exporters:"
@@ -9503,19 +9503,15 @@ QQRKSRC1
         }
       }
       usercenterform = !
-      sep1:  = {Typ="S" Txt = ""}
+      sep:  = {Typ="S" Txt = ""}
       neg:   = {Txt="Neg. polys" Cap="Negative" Typ="X" Hint="polyhedrons in negative groups dig the map"}
-      sep1:  = {Typ="S" Txt = ""}
+      sep:  = {Typ="S" Txt = ""}
       ;view: = {Txt="&" Typ="X01"  Cap="Grayed out"         Hint="the whole group is displayed grayed out"}
       ;view: = {Txt="&" Typ="X02"  Cap="Hidden"             Hint="the group is hidden from map views"}
       ;view: = {Txt="&" Typ="X08"  Cap="Hidden on textured" Hint="the group is hidden from textured views"}
       ;view: = {Txt="&" Typ="X016" Cap="Can't select"       Hint="can't select objects in this group with mouse clicks"}
       ;view: = {Txt="&" Typ="X04"  Cap="Ignore to build"    Hint="ignored while building the map"}
-      sep1: =
-      {
-        Typ = "S"
-        Txt = ""
-      }
+      sep:  = {Typ="S" Txt = ""}
       Description: =
       {
         Txt = "Description"
@@ -9702,7 +9698,7 @@ QQRKSRC1
       thick:      = {Txt="&" Typ="EF1"   Hint="if a nonzero value is given, an enclosed curve with thickness is produced"}
       subdivideform = !
       circle:     = {Txt="&" Typ="X" }
-      stretchtex: = {Txt="&" Typ="X"     Hint="if checked, texture on back is stretched to cover entire column." $0D "Otherwise complex things are done so that if" $0D "the the texture on the back face is wrapped around the brush," $0D "this wrapping will also appear aroudn the column"}
+      stretchtex: = {Txt="&" Typ="X"     Hint="if checked, texture on back is stretched to cover entire column." $0D "Otherwise complex things are done so that if" $0D "the the texture on the back face is wrapped around the brush," $0D "this wrapping will also appear around the column"}
       open:       = {Txt="&" Typ="X"     Hint="if checked, top and bottom are open"}
       funnel:     = {Txt="&" Typ="EF002" Hint="if specified, first number is expand factor for top, second for bottom."$0D"e.g. 0 1 for upward pointing cone"}
       bulge:      = {Txt="&" Typ="EF002" Hint="height, width of bulge, proportional, .5 1=straight"}
@@ -9750,7 +9746,7 @@ QQRKSRC1
     dup path:form =
     {
       target: = {Txt="&" Typ="E"     Hint="should be managed automatically"}
-      squarend: = {Txt="&" Typ="X"     Hint="if checked, path segments have squared, disconnnected ends, rather than joining at `elbows'"}
+      squarend: = {Txt="&" Typ="X"     Hint="if checked, path segments have squared, disconnected ends, rather than joining at `elbows'"}
       setback:  = {Txt="&" Typ="EF001" Hint="if squarend is checked, this specifies how far back the segment ends are pulled" $0D "back from elbow-joins"}
       level: = {Txt="&" Typ="X"     Hint="if checked, rotation on two axes won't twist a segment, but also they won't join smoothly."}
       elbows: =
@@ -9803,7 +9799,7 @@ QQRKSRC1
     {
       Help = "Type your word(s) into the 'text'-specific,"$0D"check that the texture-names exist."
       text:        = {Txt="&"           Hint="The text to be converted into infodecals" }
-      wildchar:    = {Txt="&"           Hint="A single character in the texture-names, thats replaced by a character from the text-string" }
+      wildchar:    = {Txt="&"           Hint="A single character in the texture-names, that's replaced by a character from the text-string" }
       tex_upper:   = {Txt="&" Typ="ET"  Hint="Texture-name of uppercase characters."$0D"Put the 'wildchar'-character in position where it should be replaced by a character from the text-string" }
       tex_lower:   = {Txt="&" Typ="ET"  Hint="Texture-name of lowercase characters."$0D"Put the 'wildchar'-character in position where it should be replaced by a character from the text-string" }
       tex_numeric: = {Txt="&" Typ="ET"  Hint="Texture-name of numeric characters."$0D"Put the 'wildchar'-character in position where it should be replaced by a character from the text-string" }
@@ -9943,10 +9939,43 @@ QQRKSRC1
       Game: = {
         Txt = "Based on game"
         Typ = "CL"
-        Items = "6DX"$0D"Alice"$0D"CoD1"$0D"Crystal Space"$0D"Doom 3"$0D"EF2"$0D"FAKK2"$0D"Genesis3D"$0D"Half-Life"$0D"Half-Life2"
-             $0D"Heretic II"$0D"Hexen II"$0D"JA"$0D"JK2"$0D"KingPin"$0D"ModelEditor"$0D"MOHAA"$0D"NEXUIZ"$0D"Prey"
-             $0D"Quake 1"$0D"Quake 2"$0D"Quake 3"$0D"Quake 4"$0D"RTCW"$0D"RTCW-ET"$0D"Sin"$0D"SOF"$0D"SoF2"
-             $0D"STVEF"$0D"Sylphis"$0D"Torque"$0D"Warsow"$0D"WildWest"
+        Items = "6DX"
+             $0D"Alice"
+             $0D"CoD1"
+             $0D"CoD2"
+             $0D"Cry of Fear"
+             $0D"Crystal Space"
+             $0D"Daikatana"
+             $0D"Doom 3"
+             $0D"EF2"
+             $0D"FAKK2"
+             $0D"Genesis3D"
+             $0D"Half-Life"
+             $0D"Half-Life2"
+             $0D"Heretic II"
+             $0D"Hexen II"
+             $0D"JA"
+             $0D"JK2"
+             $0D"KingPin"
+             $0D"MOHAA"
+             $0D"NEXUIZ"
+             $0D"Prey"
+             $0D"Quake 1"
+             $0D"Quake 2"
+             $0D"Quake 3"
+             $0D"Quake 4"
+             $0D"RTCW"
+             $0D"RTCW-ET"
+             $0D"Sin"
+             $0D"SOF"
+             $0D"SoF2"
+             $0D"STVEF"
+             $0D"SvenCoop"
+             $0D"Sylphis"
+             $0D"Torque"
+             $0D"Warfork"
+             $0D"Warsow"
+             $0D"WildWest"
         Hint = "the game this TC is based on"
       }
       SourceDir: = {
@@ -11119,7 +11148,7 @@ QQRKSRC1
       ;incl = "NewModel"     // NewModel:incl is read from below
     }
   }
-  NewModel:incl = 
+  NewModel:incl =
   {
     Root = "Model Root:mr"
     Model Root:mr =
@@ -11830,7 +11859,7 @@ QQRKSRC1
                $5C7F777CCC4077705C77777CCC40800405555555554887466664888888880466
         Create = "NewModel1"   // the button creates a copy of NewModel1:incl
       }
-      sep1:tbbtn = {Typ="S" Txt = ""}    // separator line
+      sep1:tbbtn = {Typ="S" Txt = ""}
       group:tbbtn = {
         Typ  = "C"     // object creation
         Hint = "new group"
@@ -12045,7 +12074,7 @@ QQRKSRC1
                $98772772278888099877722FFFF8880987777FF8777FF809877FF0887777FF09
                $8FF8808777FF889988FF8077FF8899999988F8FF889999999999888899999999
       }
-      sep1:tbbtn = {Typ="S" Txt = ""}    // separator line
+      sep1:tbbtn = {Typ="S" Txt = ""}
       undo:tbbtn = {
         Typ  = "M"
         Msg  = "MURD"
@@ -12074,7 +12103,7 @@ QQRKSRC1
                 $999100000000A0F9900999009990A0000000AA0F99099909990AA0000000AAA0F909990990AAA0000000AAA00909990900AAA0000000AAAA0F
                 $9999990AAAA0000000AAAAA0F99990AAAAA0000000AAAAAA0F990AAAAAA0000000AAAAAAA0F0AAAAAAA0000000AAAAAAAA0AAAAAAAA0000000
       }
-      sep2:tbbtn = {Typ="S" Txt = ""}    // separator line
+      sep2:tbbtn = {Typ="S" Txt = ""}
       lock:tbbtn = {
         Typ  = "X"   // configuration checkbox
         Path = "Map:Options:PagesLocked"
