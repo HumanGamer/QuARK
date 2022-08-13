@@ -551,10 +551,10 @@ begin
       begin
      (*if GetFloatsSpec('FullScreenSize', Size)
        and (Size[1]>0) and (Size[2]>0) then
-        SetScreenSize(Round(Size[1]), Round(Size[2]))
+        Scene.SetViewSize(Round(Size[1]), Round(Size[2]))
        else
-        SetScreenSize(ScreenSizeX, ScreenSizeY);*)
-       Set3DFXGammaCorrection(GetFloatSpec('FullScreenGamma', 1)); //@
+        Scene.SetViewSize(ScreenSizeX, ScreenSizeY);*)
+       Set3DFXGammaCorrection(GetFloatSpec('FullScreenGamma', 1)); //FIXME: Does this work correctly?
        Perform(wm_InternalMessage, wp_PyInvalidate, 0);
       end;
 
