@@ -10168,14 +10168,6 @@ QQRKSRC1
       root: = {Typ="!"}  // prevents "root" from being displayed at all
       target: = {Typ="!"}
     }
-    QrkGroup:form =
-    {
-      Style = "3"
-      caption: = {Typ="E" Txt="Group caption"}
-      btn:py = {
-          macro = "hello"
-      }
-    }
 
     CustomBuildPgm:incl = {
       Typ="X"
