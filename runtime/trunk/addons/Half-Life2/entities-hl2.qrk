@@ -11124,7 +11124,7 @@ QQRKSRC1
       input#FireEvent: =
       {
         txt = "&"
-        hint = "Tells the achievement system the specifed event has occured."
+        hint = "Tells the achievement system the specified event has occurred."
       }
       output#OnFired: =
       {

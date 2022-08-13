@@ -10177,38 +10177,38 @@ QQRKSRC1
       }
     }
 
-        CustomBuildPgm:incl = {
-                Typ="X"
-                Txt="...execute build-program"
-                Cap="Yes"
-                Hint="Make this build-program execute, after the above ones,"
-                  $0D"only if no error have occured in previous build-program."
-                  $0D
-                  $0D"In the game's configuration section (QuArK Explorer->Games->"
-                  $0D"Options), you specify what this build-program is."
-        }
-        CustomBuildArgs:incl = {
-                Typ="C"
-                Txt="...additional arguments"
-                Hint="Put any additional command-line arguments for the"
-                  $0D"build-program here. They will be _additional_ to the"
-                  $0D"fixed arguments, which are specified in the game's"
-                  $0D"configuration section (QuArK Explorer->Games->Options)."
-                  $0D
-                  $0D"Use the following user-variables, which will be automatically"
-                  $0D"replaced at run-time. If at least one of these are used, QuArK"
-                  $0D"will _not_ append a '<path>/<mapfile>' to the command-line arg.,"
-                  $0D"so you better remember to do this yourself."
-                  $0D
-                  $0D"%file%    - Gives the map's path and filename without extension"
-                  $0D"%mappath% - Gives the map's path with ending backslash"
-                  $0D"%mapfile% - Gives the map's path and filename with .MAP extension"
-                  $0D
-                  $0D"Examples:"
-                  $0D"  BSPC.EXE -bps2aas %file%.BSP -output %mappath%"
-                  $0D"  VIS.EXE -fast %file%"
-                  $0D"  QRAD3.EXE -threads 4 %file%"
-        }
+    CustomBuildPgm:incl = {
+      Typ="X"
+      Txt="...execute build-program"
+      Cap="Yes"
+      Hint="Make this build-program execute, after the above ones,"
+        $0D"only if no error have occurred in previous build-program."
+        $0D
+        $0D"In the game's configuration section (QuArK Explorer->Games->"
+        $0D"Options), you specify what this build-program is."
+    }
+    CustomBuildArgs:incl = {
+      Typ="C"
+      Txt="...additional arguments"
+      Hint="Put any additional command-line arguments for the"
+        $0D"build-program here. They will be _additional_ to the"
+        $0D"fixed arguments, which are specified in the game's"
+        $0D"configuration section (QuArK Explorer->Games->Options)."
+        $0D
+        $0D"Use the following user-variables, which will be automatically"
+        $0D"replaced at run-time. If at least one of these are used, QuArK"
+        $0D"will _not_ append a '<path>/<mapfile>' to the command-line arg.,"
+        $0D"so you better remember to do this yourself."
+        $0D
+        $0D"%file%    - Gives the map's path and filename without extension"
+        $0D"%mappath% - Gives the map's path with ending backslash"
+        $0D"%mapfile% - Gives the map's path and filename with .MAP extension"
+        $0D
+        $0D"Examples:"
+        $0D"  BSPC.EXE -bps2aas %file%.BSP -output %mappath%"
+        $0D"  VIS.EXE -fast %file%"
+        $0D"  QRAD3.EXE -threads 4 %file%"
+    }
 
     CustomQuakeMenu:form =    // "customize Quake menu" box
     {
