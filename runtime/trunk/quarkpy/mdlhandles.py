@@ -3671,12 +3671,9 @@ class RectSelDragObject(qhandles.RectangleDragObject):
                     else:
                         for h in v.handles:
                             h.draw(v, cv, h)
-                        try:
-                            for vtx in editor.ModelVertexSelList:
-                                h = v.handles[vtx]
-                                h.draw(v, cv, h)
-                        except:
-                            pass
+                        for vtx in editor.ModelVertexSelList:
+                            h = v.handles[vtx]
+                            h.draw(v, cv, h)
                 if (quarkx.setupsubset(SS_MODEL, "Options")["PVSTSV"] == "1" or quarkx.setupsubset(SS_MODEL, "Options")['SYNC_SVwED'] == "1") and SkinView1 is not None:
                     if quarkx.setupsubset(SS_MODEL, "Options")['SYNC_SVwED'] == "1":
                         editor.SkinVertexSelList = []
@@ -4421,11 +4418,7 @@ class LinearHandle(qhandles.GenericHandle):
                     if obj.name.endswith(":g"):
                         newobj = obj.copy()
                         dragcolor = vertexsellistcolor
-                        # To avoid division by zero errors.
-                        try:
-                            view.drawmap(newobj, DM_OTHERCOLOR, dragcolor)
-                        except:
-                            pass
+                        view.drawmap(newobj, DM_OTHERCOLOR, dragcolor)
         return 1
 
 

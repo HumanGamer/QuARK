@@ -1304,22 +1304,15 @@ def refreshtimer(obj):
                 import mdleditor
                 mdleditor.setsingleframefillcolor(editor, obj.view)
                 obj.view.repaint()
-                try:
-                    if editor.ModelFaceSelList != []:
-                        import mdlhandles
-                        mdlhandles.ModelFaceHandle(GenericHandle).draw(editor, obj.view, editor.EditorObjectList)
-                except:
-                    pass
+                if editor.ModelFaceSelList != []:
+                    import mdlhandles
+                    mdlhandles.ModelFaceHandle(GenericHandle).draw(editor, obj.view, editor.EditorObjectList)
             cv = obj.view.canvas()
             for h in obj.view.handles:
                 h.draw(obj.view, cv, obj)
-            try:
-                if editor.ModelVertexSelList != []:
-                    for vtx in editor.ModelVertexSelList:
-                        h = obj.view.handles[vtx]
-                        h.draw(obj.view, cv, h)
-            except:
-                pass
+            for vtx in editor.ModelVertexSelList:
+                h = obj.view.handles[vtx]
+                h.draw(obj.view, cv, h)
             if flagsmouse == 1072:
                 mode = DM_OTHERCOLOR|DM_BBOX
                 reccolor = MapColor("Drag3DLines", SS_MODEL)
@@ -1720,13 +1713,9 @@ class RectangleDragObject(RedImageDragObject):
                                     cv = self.view.canvas()
                                     for h in self.view.handles:
                                         h.draw(self.view, cv, self)
-                                    try:
-                                        if editor.ModelVertexSelList != []:
-                                            for vtx in editor.ModelVertexSelList:
-                                                h = self.view.handles[vtx]
-                                                h.draw(self.view, cv, h)
-                                    except:
-                                        pass
+                                    for vtx in editor.ModelVertexSelList:
+                                        h = self.view.handles[vtx]
+                                        h.draw(self.view, cv, h)
                     else:
                         if len(self.view.handles) == 0:
                             import mdlhandles
@@ -1734,10 +1723,9 @@ class RectangleDragObject(RedImageDragObject):
                         cv = self.view.canvas()
                         for h in self.view.handles:
                             h.draw(self.view, cv, self)
-                        if editor.ModelVertexSelList != []:
-                            for vtx in editor.ModelVertexSelList:
-                                h = self.view.handles[vtx]
-                                h.draw(self.view, cv, h)
+                        for vtx in editor.ModelVertexSelList:
+                            h = self.view.handles[vtx]
+                            h.draw(self.view, cv, h)
                         return
         else:
             if self.redimages is not None:
