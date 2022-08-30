@@ -90,6 +90,9 @@ begin
 end;
 
 procedure TQSplitter.MouseMove(Shift: TShiftState; X, Y: Integer);
+const
+ BlackLineWidth = 4;
+ MinSize = 32;
 
  procedure LigneV;
  var
@@ -97,11 +100,14 @@ procedure TQSplitter.MouseMove(Shift: TShiftState; X, Y: Integer);
  begin
   if FBlackLine<0 then Exit;
   DC:=GetDCEx(Parent.Handle, 0, DCX_PARENTCLIP);
-  if FOrientation=soVertical then
-   PatBlt(DC, FBlackLine-1, Top, 4, Height, dstInvert)
-  else
-   PatBlt(DC, Left, FBlackLine-1, Width, 4, dstInvert);
-  ReleaseDC(Parent.Handle, DC);
+  try
+   if FOrientation=soVertical then
+    PatBlt(DC, FBlackLine-1, Top, BlackLineWidth, Height, dstInvert)
+   else
+    PatBlt(DC, Left, FBlackLine-1, Width, BlackLineWidth, dstInvert);
+  finally
+   ReleaseDC(Parent.Handle, DC);
+  end;
  end;
 
 var
@@ -117,14 +123,14 @@ begin
       if FOrientation=soVertical then
        begin
         Position:=X;
-        Max:=Parent.ClientWidth-32;
+        Max:=Parent.ClientWidth-MinSize;
        end
       else
        begin
         Position:=Y;
-        Max:=Parent.ClientHeight-32;
+        Max:=Parent.ClientHeight-MinSize;
        end;
-     Min:=32;
+     Min:=MinSize;
      if Assigned(FOnMesureMargins) then
       FOnMesureMargins(Self, Position, Min, Max);
      if Position>Max then Position:=Max;
