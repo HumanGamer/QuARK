@@ -785,7 +785,6 @@ var
 begin
  asm
   fstcw [FPControl]
-  fwait
   push eax
   mov ax, [FPControl]
   mov [TMPFPControl], ax

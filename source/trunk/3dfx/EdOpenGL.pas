@@ -1378,7 +1378,6 @@ begin
   if WorkaroundFPExceptions then
   asm
     FSTCW [OldFPControl]
-    FWAIT
     PUSH eax
     MOV ax, [OldFPControl]
     MOV [FPControl], ax
