@@ -367,14 +367,14 @@ type
   protected
     RefCount1: Integer;
   public
+    Temporary: Boolean;
+    DisableDelayLoading: Boolean;
+   {Root: QObject;  { actually a QFileObject }
     {$IFDEF StreamRefDEBUG}
     constructor Create(const FileName: string; Mode: Word); overload;
     constructor Create(const FileName: string; Mode: Word; Rights: Cardinal); overload;
     destructor Destroy; override;
     {$ENDIF}
-    Temporary: Boolean;
-    DisableDelayLoading: Boolean;
-   {Root: QObject;  { actually a QFileObject }
    {destructor Destroy; override;}
     procedure AddRef;
     procedure Release;
