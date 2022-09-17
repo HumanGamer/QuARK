@@ -620,9 +620,9 @@ begin
     begin
       // clever program that can run anywhere
       if FileToResolve.FileType = ftGame then
-        Result.Workdir := RemoveTrailingSlash(QuickResolveFilename(setupdirectory))
+        Result.Workdir := QuickResolveFilename(setupdirectory)
       else
-        Result.Workdir := RemoveTrailingSlash(QuickResolveFilename(argument_outputfile));
+        Result.Workdir := QuickResolveFilename(argument_outputfile);
       argument_mappath := GameMapPath;
     end;
 
@@ -633,7 +633,7 @@ begin
         begin
           //Newer compilers want to run one directory upwards
           argument_mappath:=ConcatPaths([Result.Workdir, argument_mappath]);
-          I:=LastPos(PathDelim, RemoveTrailingSlash(Result.Workdir));
+          I:=LastPos(PathDelim, ExcludeTrailingPathDelimiter(Result.Workdir));
           if I <> 0 then
             Result.Workdir:=LeftStr(Result.Workdir, I-1);
         end;

@@ -249,7 +249,7 @@ begin
       LogAndRaiseError('Unable to extract file from Steam. Cannot create cache directory.');
 
   //No trailing slashes in paths allowed for QuArKSAS!
-  QSASParameters:='-g '+SteamAppID+' -gamedir "'+RemoveTrailingSlash(GetSteamBaseDir)+'" -o "'+TmpDirectory+'" -overwrite';
+  QSASParameters:='-g '+SteamAppID+' -gamedir "'+ExcludeTrailingPathDelimiter(GetSteamBaseDir)+'" -o "'+TmpDirectory+'" -overwrite';
   if Length(QSASAdditionalParameters)<>0 then
     QSASParameters:=QSASParameters+' '+QSASAdditionalParameters;
 

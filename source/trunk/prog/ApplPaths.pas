@@ -55,7 +55,6 @@ type
 
 function ConvertPath(const S: string): string;
 function ReverseSlashes(const S: string): string;
-function RemoveTrailingSlash(const Path: String): String;
 function ConcatPaths(const Paths: array of String) : String;
 function GetQPath(const PathToGet : TQPathType) : String; overload;
 function GetQPath(const PathToGet : TQPathType; const GameName: String) : String; overload;
@@ -96,31 +95,22 @@ begin
   {$ENDIF}
 end;
 
-function RemoveTrailingSlash(const Path: String): String;
-begin
-  if (RightStr(Path, 1) = '\') or (RightStr(Path, 1) = '/') then
-    Result:=LeftStr(Path, Length(Path) - 1)
-  else
-    Result:=Path;
-end;
-
 //You can also send a filename as the last element.
 function ConcatPaths(const Paths: array of String) : String;
 var
   I: Integer;
-  S: String;
 begin
   Result:='';
   if High(Paths)=Low(Paths) then
     Exit;
   for I:=Low(Paths) to High(Paths) do
   begin
-    S:=Paths[I];
-    if Length(S)<>0 then
-      if I=High(Paths) then
-        Result:=Result+ConvertPath(S)
-      else
-        Result:=Result+IncludeTrailingPathDelimiter(ConvertPath(S));
+    if Length(Paths[I])=0 then
+      Continue;
+    if I=High(Paths) then
+      Result:=Result+ConvertPath(Paths[I])
+    else
+      Result:=Result+IncludeTrailingPathDelimiter(ConvertPath(Paths[I]));
   end;
 end;
 

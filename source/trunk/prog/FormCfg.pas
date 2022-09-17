@@ -1322,6 +1322,7 @@ begin
   begin
    Path:='';
    GetSingleSpec(Name, Path);
+   Path:=ConvertPath(Path);
    Path0:=Path;
    Title:=Specifics.Values['Typ'];
    case Title[2] of
@@ -1338,7 +1339,7 @@ begin
            if Path<>'' then
            begin
             //Extract the _Last_ folder-name in path, without prefixing backslash
-            I:=LastPos(PathDelim, RemoveTrailingSlash(Path));
+            I:=LastPos(PathDelim, ExcludeTrailingPathDelimiter(Path));
             if I <> 0 then
              Path:=Copy(Path, I+1, MaxInt);
            end;
