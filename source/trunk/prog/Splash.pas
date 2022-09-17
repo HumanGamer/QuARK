@@ -58,7 +58,7 @@ function OpenSplashScreen : TSplashScreen;
 
 implementation
 
-{$IFNDEF Debug}
+{$IFDEF Debug}
 uses QConsts;
 {$ENDIF}
 
