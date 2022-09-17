@@ -2220,7 +2220,7 @@ begin
    Exit;
   if i=-1 then
    begin
-    if not Windows.DeleteFile(PChar(QuickResolveFilename(s))) then
+    if not DeleteFile(QuickResolveFilename(s)) then
      Raise EError(4455);
    end
   else
