@@ -496,10 +496,12 @@ begin
           begin
            if QkControl<>Nil then
             begin
-             with QkControl as TPythonExplorer do
-              L:=ListSel(MaxInt);
-             Result:=QListToPyList(L);
-             L.Free;
+             L:=(QkControl as TPythonExplorer).ListSel(MaxInt);
+             try
+              Result:=QListToPyList(L);
+             finally
+              L.Free;
+             end;
             end
            else
             Result:=PyNoResult;
