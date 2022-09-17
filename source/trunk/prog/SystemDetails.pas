@@ -524,9 +524,6 @@ asm
 end;
 
 function TCPU.GetCPUVendor :string;
-var
-  i :integer;
-  s :TStrBuf;
 
   function _GetCPUVendor :TStrBuf; assembler; register;
   asm
@@ -558,15 +555,15 @@ var
 	POP     ebx
   end;
 
+var
+  i :integer;
+  s :TStrBuf;
 begin
   Log(LOG_VERBOSE, 'Getting CPU vendor information...');
-  i:=0;
   result:='';
   s:=_GetCPUVendor;
-  repeat
+  for i:=Low(s) to High(s) do
     result:=result+s[i];
-    inc(i);
-  until i>11;
   FVendorNo:=-1;
   for i:=low(CPUVendorIDs) to high(CPUVendorIDs) do
   begin
@@ -1884,7 +1881,7 @@ begin
     Exit;
 
   Log(LOG_VERBOSE, 'Enumerating of display driver information...');
-  sl:=tstringlist.create;
+  sl:=TStringList.create;
   try
     reg:=TRegistry2.Create(KEY_READ);
     with reg do
@@ -2170,7 +2167,7 @@ begin
       strdispose(bdata);
     end;
     FDirect3D.Clear;
-    sl:=tstringlist.create;
+    sl:=TStringList.create;
     try
       if OpenKey(rkDirect3D,false) then
       begin
