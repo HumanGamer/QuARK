@@ -269,7 +269,7 @@ begin
          TexBits:=PByte(PSD.StartPointer);
 (*Decker 2002.02.25
          {Decker - Removed this single statement, as data has already been
-          allocated in the assigment from PSDToDIB() further up. Nor Could I
+          allocated in the assignment from PSDToDIB() further up. Nor could I
           see where LightPatch used its newly allocated data, in the following
           statements of this function.}
          LightPatch.AllocData;
