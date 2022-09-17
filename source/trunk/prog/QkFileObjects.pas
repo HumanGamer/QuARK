@@ -283,8 +283,8 @@ begin
     if (Q<>Nil) and (Q.Filename<>'') then
     begin
       CurDir:=ExtractFilePath(Q.Filename);
-      if FileExists(CurDir+theFilename) then
-        pathAndFileName:=CurDir+theFilename;
+      if FileExists(ConcatPaths([CurDir, theFilename])) then
+        pathAndFileName:=ConcatPaths([CurDir, theFilename]);
     end;
   end;
 
@@ -301,7 +301,7 @@ begin
           Raise EQObjectFileNotFound.Create(FmtLoadStr1(5203, [theFilename, CurDir]));
         end;
 
-        pathAndFileName := somePath + theFilename;
+        pathAndFileName := ConcatPaths([somePath, theFilename]);
       until FileExists(pathAndFileName);
     finally
       searchPaths.Free;
@@ -965,7 +965,7 @@ var
   begin
     List.Clear;
     { Find all files with the *.TMP extension }
-    if (FindFirst(TempPath+Tag+'*.TMP', faAnyFile, F) = 0) then
+    if (FindFirst(ConcatPaths([TempPath, Tag+'*.TMP']), faAnyFile, F) = 0) then
     begin
       try
         repeat
@@ -982,7 +982,7 @@ var
    I: Integer;
   begin
    for I:=List.Count-1 downto 0 do
-    DeleteFile(TempPath+List[I]);
+    DeleteFile(ConcatPaths([TempPath, List[I]]));
   end;
 
 begin
@@ -2179,8 +2179,7 @@ begin
  else
   begin
    if Filename='' then Exit;
-   S:=ExtractFilePath(Filename)+nName;
-   S:=ConvertPath(S);
+   S:=ConcatPaths([ExtractFilePath(Filename), ConvertPath(nName)]);
    if FileExists(S) then
     Result:=ExactFileLink(S, Nil, False);
   end;
