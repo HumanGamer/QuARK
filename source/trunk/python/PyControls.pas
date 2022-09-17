@@ -70,6 +70,10 @@ uses {$IFDEF Debug} QConsts, Logging, {$ENDIF}
 
 {$IFDEF Debug}
 var g_Controls: TStringList;
+
+const
+ DebugCheckSentinelCreated = 12345;
+ DebugCheckSentinelDestroyed = 67890;
 {$ENDIF}
 
  {-------------------}
@@ -84,7 +88,7 @@ begin
  with Result^ do
   begin
    {$IFDEF Debug}
-   DebugCheck:=12345;
+   DebugCheck:=DebugCheckSentinelCreated;
    Parent:=TLayoutMgr($CCCCCCCC);
    {$ENDIF}
    QkControl:=nControl;
@@ -181,7 +185,7 @@ begin
    begin
     Parent:=Nil;
     {$IFDEF Debug}
-    DebugCheck:=67890;
+    DebugCheck:=DebugCheckSentinelDestroyed;
     {$ENDIF}
     QkControl.Free;
     Py_XDECREF(FOnDrop);
@@ -204,12 +208,12 @@ procedure TyControlF.Close;
 begin
  {$IFDEF Debug}
  if ob_refcnt<0 then Raise InternalE('Control refcount error');
- if DebugCheck=67890 then
+ if DebugCheck=DebugCheckSentinelDestroyed then
   begin
    if ob_refcnt<>0 then Raise InternalE('Control ref''ed after destruction');
   end
  else
-  if DebugCheck=12345 then
+  if DebugCheck=DebugCheckSentinelCreated then
    begin
     if ob_refcnt=0 then Raise InternalE('Control unexpectedly deleted');
    end
