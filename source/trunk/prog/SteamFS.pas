@@ -152,8 +152,7 @@ var
   FullFilename: String;
   TmpDirectory: String;
   QuArKSASEXE: String;
-  QSASFile, QSASPath, QSASParameters: String;
-  QSASAdditionalParameters: String;
+  QSASFile, QSASPath, QSASCommandline, QSASAdditionalParameters: String;
   QSASStartupInfo: StartUpInfo;
   QSASProcessInformation: Process_Information;
   I: Integer;
@@ -167,8 +166,6 @@ begin
     //Don't use QuArKSAS
     Exit;
   end;
-
-  QSASAdditionalParameters:=Setup.Specifics.Values['ExtractorParameters'];
 
   SteamCompiler:=GetSteamCompiler;
   if (SteamCompiler = 'old') or (SteamCompiler = 'source2006') then
@@ -248,18 +245,20 @@ begin
     if CreateDir(TmpDirectory) = false then
       LogAndRaiseError('Unable to extract file from Steam. Cannot create cache directory.');
 
-  //No trailing slashes in paths allowed for QuArKSAS!
-  QSASParameters:='-g '+SteamAppID+' -gamedir "'+ExcludeTrailingPathDelimiter(GetSteamBaseDir)+'" -o "'+TmpDirectory+'" -overwrite';
+  //Note: No trailing slashes in paths allowed for QuArKSAS!
+  QSASCommandLine:=Format('%s -g %s -gamedir "%s" -o "%s" -overwrite', [QSASFile, SteamAppID, ExcludeTrailingPathDelimiter(GetSteamBaseDir), TmpDirectory]);
+  QSASAdditionalParameters:=Setup.Specifics.Values['ExtractorParameters'];
   if Length(QSASAdditionalParameters)<>0 then
-    QSASParameters:=QSASParameters+' '+QSASAdditionalParameters;
+    QSASCommandLine:=QSASCommandLine+' '+QSASAdditionalParameters;
+  QSASCommandLine:=QSASCommandLine+' '+FullFilename; //FIXME: Need to quote/escape FullFilename?
 
-  Log(LOG_VERBOSE, 'Now calling: %s %s %s', [QSASFile, QSASParameters, FullFilename]);
+  Log(LOG_VERBOSE, 'Now calling: %s', [QSASCommandLine]);
   FillChar(QSASStartupInfo, SizeOf(QSASStartupInfo), 0);
   FillChar(QSASProcessInformation, SizeOf(QSASProcessInformation), 0);
   QSASStartupInfo.cb:=SizeOf(QSASStartupInfo);
   QSASStartupInfo.dwFlags:=STARTF_USESHOWWINDOW;
   QSASStartupInfo.wShowWindow:=SW_SHOWMINNOACTIVE;
-  if Windows.CreateProcess(nil, PChar(QSASFile + ' ' + QSASParameters + ' ' + FullFilename), nil, nil, false, 0, nil, PChar(QSASPath), QSASStartupInfo, QSASProcessInformation)=false then
+  if CreateProcess(nil, PChar(QSASCommandLine), nil, nil, false, 0, nil, PChar(QSASPath), QSASStartupInfo, QSASProcessInformation)=false then
     LogAndRaiseError('Unable to extract file from Steam. Call to CreateProcess failed.');
   try
     CloseHandle(QSASProcessInformation.hThread);
