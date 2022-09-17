@@ -179,7 +179,7 @@ begin
       finally
        SelectObject(DC, OldBmp);
       end;
-     finally      
+     finally
       DeleteDC(DC);
      end;
      ImageList_AddMasked(Handle, Bitmap.Handle, BkgndColor);
@@ -436,50 +436,53 @@ begin
   FTransparentColor:=Source^.ImageList^.BkgndColor;
 
   MonoBmp:=TBitmap.Create;
-  TmpImage:=TBitmap.Create;
-  TmpImage.Width:=IWidth;
-  TmpImage.Height:=IHeight;
+  try
+   TmpImage:=TBitmap.Create;
+   TmpImage.Width:=IWidth;
+   TmpImage.Height:=IHeight;
 
-  { The new Office 97 / MFC look }
-  MonoBmp.Monochrome := True;
-  MonoBmp.Width := IWidth;
-  MonoBmp.Height := IHeight;
+   { The new Office 97 / MFC look }
+   MonoBmp.Monochrome := True;
+   MonoBmp.Width := IWidth;
+   MonoBmp.Height := IHeight;
 
-  with TmpImage.Canvas do begin
-    Brush.Color := FTransparentColor;
-    FillRect (IRect);
-    {CopyRect (Rect(0, 0, IWidth-Add, IHeight-Add), DDB.Canvas, ORect);}
-    Source^.DisabledBmp:=Nil; try
-    Source^.Draw(Handle, 0,0, FTransparentColor);
-    finally Source^.DisabledBmp:=TmpImage; end;
+   with TmpImage.Canvas do begin
+     Brush.Color := FTransparentColor;
+     FillRect (IRect);
+     {CopyRect (Rect(0, 0, IWidth-Add, IHeight-Add), DDB.Canvas, ORect);}
+     Source^.DisabledBmp:=Nil; try
+     Source^.Draw(Handle, 0,0, FTransparentColor);
+     finally Source^.DisabledBmp:=TmpImage; end;
 
-    { Generate the mask in MonoBmp. Mask FTransparentColor }
-    SetBkColor (Handle, {ColorToRGB(}FTransparentColor{)});
-    BitBlt (MonoBmp.Canvas.Handle, 0, 0, IWidth, IHeight, Handle,
-      {ORect.Left, ORect.Top,} 0,0, SRCCOPY);
-    { and clWhite }
-    SetBkColor (Handle, clWhite);
-    BitBlt (MonoBmp.Canvas.Handle, 0, 0, IWidth, IHeight, Handle,
-      {ORect.Left, ORect.Top,} 0,0, SRCPAINT);
-    { and clSilver }
-    SetBkColor (Handle, clSilver);
-    BitBlt (MonoBmp.Canvas.Handle, 0, 0, IWidth, IHeight, Handle,
-      {ORect.Left, ORect.Top,} 0,0, SRCPAINT);
+     { Generate the mask in MonoBmp. Mask FTransparentColor }
+     SetBkColor (Handle, {ColorToRGB(}FTransparentColor{)});
+     BitBlt (MonoBmp.Canvas.Handle, 0, 0, IWidth, IHeight, Handle,
+       {ORect.Left, ORect.Top,} 0,0, SRCCOPY);
+     { and clWhite }
+     SetBkColor (Handle, clWhite);
+     BitBlt (MonoBmp.Canvas.Handle, 0, 0, IWidth, IHeight, Handle,
+       {ORect.Left, ORect.Top,} 0,0, SRCPAINT);
+     { and clSilver }
+     SetBkColor (Handle, clSilver);
+     BitBlt (MonoBmp.Canvas.Handle, 0, 0, IWidth, IHeight, Handle,
+       {ORect.Left, ORect.Top,} 0,0, SRCPAINT);
 
-    Brush.Color := clBtnFace;
-    FillRect (IRect);
-    Brush.Color := clBtnHighlight;
-    SetTextColor (Handle, clBlack);
-    SetBkColor (Handle, clWhite);
-    BitBlt (Handle, 1, 1, IWidth-1, IHeight-1,
-      MonoBmp.Canvas.Handle, 0, 0, ROP_PSDPxax);
-    Brush.Color := clBtnShadow;
-    SetTextColor (Handle, clBlack);
-    SetBkColor (Handle, clWhite);
-    BitBlt (Handle, 0, 0, IWidth, IHeight,
-      MonoBmp.Canvas.Handle, 0, 0, ROP_PSDPxax);
+     Brush.Color := clBtnFace;
+     FillRect (IRect);
+     Brush.Color := clBtnHighlight;
+     SetTextColor (Handle, clBlack);
+     SetBkColor (Handle, clWhite);
+     BitBlt (Handle, 1, 1, IWidth-1, IHeight-1,
+       MonoBmp.Canvas.Handle, 0, 0, ROP_PSDPxax);
+     Brush.Color := clBtnShadow;
+     SetTextColor (Handle, clBlack);
+     SetBkColor (Handle, clWhite);
+     BitBlt (Handle, 0, 0, IWidth, IHeight,
+       MonoBmp.Canvas.Handle, 0, 0, ROP_PSDPxax);
+   end;
+  finally
+   MonoBmp.Free;
   end;
-  MonoBmp.Free;
 end;
 
 function TyImageList.NeedImage(nDisabled: Boolean; i: Integer) : PyImage1;
