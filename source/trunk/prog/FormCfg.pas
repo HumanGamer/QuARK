@@ -39,7 +39,9 @@ type
  TNeedGameInfoEvent = function(Sender: TObject): PGameBuffer of object;
  TFormCfg = class(TCustomPanel)
             private
+              {$IF CompilerVersion < 20}
               FParentDoubleBuffered: Boolean; //DBhack
+              {$IFEND}
               HC: THeaderControl;
               SB: TScrollBox;
               NeedInitControls: Boolean;
@@ -58,7 +60,9 @@ type
               function GetQPaletteIdx(I: Integer) : TColorRef;
               procedure ClosePopupWindows;
               procedure ClosePopupForm;
+              {$IF CompilerVersion < 20}
               procedure SetParentDoubleBuffered(nParentDoubleBuffered: Boolean); //DBhack
+              {$IFEND}
             protected
               Links: TQList;
               Form, FOriginalForm: QFormCfg;
@@ -103,7 +107,9 @@ type
               procedure Resize; override;
               procedure SectionResize(Sender: THeaderControl; Section: THeaderSection);
               procedure SectionClick(Sender: THeaderControl; Section: THeaderSection);
+              {$IF CompilerVersion < 20}
               procedure SetParent(AParent: TWinControl); override; //DBhack
+              {$IFEND}
               procedure PopupMenuPopupFirst(Sender: TObject);
               procedure PopupMenuPopup(Sender: TObject);
               procedure PopupMenuClick(Sender: TObject);
@@ -139,8 +145,10 @@ type
               function GetSingleName(var nName: String) : TCommonSpec;
               procedure InternalMenuCommand(Cmd: Integer);  { cmd_xxx }
               property OriginalForm: QFormCfg read FOriginalForm;
+            {$IF CompilerVersion < 20}
             published
               property ParentDoubleBuffered : Boolean read FParentDoubleBuffered write SetParentDoubleBuffered default True; //DBhack
+            {$IFEND}
             end;
 
  {------------------------}
@@ -1506,7 +1514,9 @@ begin
 
    SB:=TScrollBox.Create(Self);
    SB.Visible:=False;
+   {$IF CompilerVersion < 20}
    SB.DoubleBuffered:=DoubleBuffered; //DBhack
+   {$IFEND}
    SB.ParentBackground:=False;
    SB.Parent:=Self;
    SB.Align:=alClient;
@@ -1585,6 +1595,7 @@ procedure TFormCfg.SectionClick;
 begin
 end;
 
+{$IF CompilerVersion < 20}
 procedure TFormCfg.SetParent(AParent: TWinControl); //DBhack
 begin
   inherited;
@@ -1596,6 +1607,7 @@ begin
   FParentDoubleBuffered:=nParentDoubleBuffered;
   if FParentDoubleBuffered and (Parent<>nil) then DoubleBuffered:=Parent.DoubleBuffered;
 end;
+{$IFEND}
 
 function TFormCfg.Format1str(const Text, SourceSpec: String) : String;
 var
@@ -1624,7 +1636,9 @@ begin
   BorderStyle:=bsSingle;
   Caption:='';
   ParentBackground:=False;
+  {$IF CompilerVersion < 20}
   ParentDoubleBuffered:=True; //DBhack
+  {$IFEND}
   ShowHint:=True;
   OnMouseWheelDown:=MouseWheelDown;
   OnMouseWheelUp:=MouseWheelUp;

@@ -86,7 +86,9 @@ const
 procedure TQForm2.FormCreate(Sender: TObject);
 begin
  inherited;
+ {$IF CompilerVersion < 20}
  ListView1.DoubleBuffered:=DoubleBuffered; //DBhack
+ {$IFEND}
 end;
 
 procedure TQForm2.wmInternalMessage(var Msg: TMessage);

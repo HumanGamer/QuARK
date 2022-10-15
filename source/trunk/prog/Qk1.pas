@@ -512,7 +512,9 @@ begin
 
  ProcessRegistration;
 
+ {$IF CompilerVersion < 20}
  Panel2.DoubleBuffered:=FDoubleBuffered; //DBhack
+ {$IFEND}
 
  FExplorer:=TQrkExplorer.Create(Self);
 {FExplorer.Visible:=False;}
