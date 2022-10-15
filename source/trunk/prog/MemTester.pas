@@ -26,26 +26,17 @@ interface
 
 uses Windows;
 
-(*** THIS FILE IS ONLY USED IN THE DEBUG VERSION OF THE PROJECT ***)
-(*
-{$DEFINE MemTesterDiff}
-{$DEFINE MemTesterX}
-{$DEFINE MemResourceViewer}
-{$DEFINE MemHeavyListings}
-{$DEFINE MemTrackAddress}
-*)
-const
- DifferenceAttendue = 105;
- TrackMemoryAddress1 = $019e0000;
- TrackMemoryAddress2 = $02020000;
- TrackMemorySize     = 644;
+{$IFDEF Debug} //Only use this in Debug
+{.$DEFINE MemTesterDiff}
+{.$DEFINE MemResourceViewer}
+{.$DEFINE MemHeavyListings} //Do not activate if MemTesterPassthrough is defined!
+{.$DEFINE MemTrackAddress}
+{$ELSE}
+{$DEFINE MemTesterPassthrough}
+{$ENDIF}
 
 var
-  g_GetMemCount: Integer;
-  g_FreeMemCount: Integer;
-  g_AllocatedMemSize: Integer;
-  g_OldMemMgr: TMemoryManager;
-  g_DataDumpProc: procedure;
+ g_DataDumpProc: procedure;
 
 procedure MemTesting(H: HWnd);
 function HeavyMemDump: String;
@@ -54,13 +45,28 @@ implementation
 
 uses SysUtils;
 
+const
+ DifferenceAttendue = 105;
+ TrackMemoryAddress1 = $019e0000;
+ TrackMemoryAddress2 = $02020000;
+ TrackMemorySize     = 644;
+
+var
+ OldMemMgr: TMemoryManager;
+ GetMemCount: Integer;
+ FreeMemCount: Integer;
+ {$IFNDEF MemTesterPassthrough}
+ AllocatedMemSize: {$IFDEF DelphiXE2orNewerCompiler}NativeInt{$ELSE}Integer{$ENDIF};
+ {$ENDIF}
+
 {$OPTIMIZATION OFF}
 
-{$IFDEF MemTesterX}
+{$IFNDEF MemTesterPassthrough}
 const
  Signature1 = Integer($89D128BA);
  Signature2 = Integer($3C66336C);
  Signature3 = Integer($FFFFFFFF);
+{$ENDIF}
 
 {$IFDEF MemHeavyListings}
 type
@@ -70,10 +76,11 @@ var
  FullListSize: Integer = 0;
 {$ENDIF}
 
-function NewGetMem(Size: Integer): Pointer;
+function NewGetMem(Size: {$IFDEF DelphiXE2orNewerCompiler}NativeInt{$ELSE}Integer{$ENDIF}): Pointer;
 begin
-  Inc(g_GetMemCount);
-  Result := g_OldMemMgr.GetMem(Size+{$IFDEF MemHeavyListings} 20 {$ELSE} 16 {$ENDIF});
+  Inc(GetMemCount);
+  Result := OldMemMgr.GetMem(Size+{$IFDEF MemHeavyListings} 20 {$ELSE} 16 {$ENDIF});
+  {$IFNDEF MemTesterPassthrough}
   PInteger(Result)^:=Size;
   PInteger(PChar(Result)+4)^:=Signature1;
   Inc(PChar(Result), 8);
@@ -84,17 +91,22 @@ begin
   FullLinkedList:=Result;
   Inc(FullListSize);
   {$ENDIF}
-  Inc(g_AllocatedMemSize, Size);
+  Inc(AllocatedMemSize, Size);
   {$IFDEF MemTrackAddress}
   if (Size=TrackMemorySize) and (Integer(Result)>=TrackMemoryAddress1) and (Integer(Result)<TrackMemoryAddress2) then
    Result:=Nil;    { BREAKPOINT }
   {$ENDIF}
+  {$ENDIF}
 end;
+
 function NewFreeMem(P: Pointer): Integer;
+{$IFNDEF MemTesterPassthrough}
 var
   OldSize: Integer;
+{$ENDIF}
 begin
-  Inc(g_FreeMemCount);
+  Inc(FreeMemCount);
+  {$IFNDEF MemTesterPassthrough}
   Dec(PChar(P), 8);
   OldSize:=PInteger(P)^;
   if (OldSize<=0) or (OldSize>=$2000000)
@@ -104,20 +116,27 @@ begin
    Raise Exception.CreateFmt('Very bad internal error [FreeMem %x]', [OldSize]);
   PInteger(PChar(P))^:=$12345678;
   PInteger(PChar(P)+12)^:=$BADF00D;
-  Dec(g_AllocatedMemSize, OldSize);
-{$IFDEF MemHeavyListings}
+  Dec(AllocatedMemSize, OldSize);
+  {$IFDEF MemHeavyListings}
   PInteger(PChar(P)+4)^:=PInteger(PChar(P)+OldSize+16)^;
   Dec(FullListSize);
   Result := 0;
-{$ELSE}
-  Result := g_OldMemMgr.FreeMem(P);
-{$ENDIF}
+  {$ELSE}
+  Result := OldMemMgr.FreeMem(P);
+  {$ENDIF}
+  {$ELSE}
+  Result := OldMemMgr.FreeMem(P);
+  {$ENDIF}
 end;
-function NewReallocMem(P: Pointer; Size: Integer): Pointer;
+
+function NewReallocMem(P: Pointer; Size: {$IFDEF DelphiXE2orNewerCompiler}NativeInt{$ELSE}Integer{$ENDIF}): Pointer;
+{$IFNDEF MemTesterPassthrough}
 var
  OldSize: Integer;
 {$IFDEF MemHeavyListings} I: Integer; {$ENDIF}
+{$ENDIF}
 begin
+  {$IFNDEF MemTesterPassthrough}
   Dec(PChar(P), 8);
   OldSize:=PInteger(P)^;
   if (OldSize<=0) or (OldSize>=$2000000)
@@ -125,7 +144,7 @@ begin
   or (PInteger(PChar(P)+OldSize+8)^<>Signature2)
   or (PInteger(PChar(P)+OldSize+12)^<>Signature3) then
    Raise Exception.CreateFmt('Very bad internal error [ReallocMem %d]', [OldSize]);
-{$IFDEF MemHeavyListings}
+  {$IFDEF MemHeavyListings}
   Inc(PChar(P), 8);
   if Size<=OldSize then
    begin
@@ -140,33 +159,19 @@ begin
     Inc(I);
    end;
   NewFreeMem(P);
-{$ELSE}
-  Inc(g_AllocatedMemSize, Size-OldSize);
-  Result := g_OldMemMgr.ReallocMem(P, Size+16);
+  {$ELSE}
+  Inc(AllocatedMemSize, Size-OldSize);
+  Result := OldMemMgr.ReallocMem(P, Size+16);
   PInteger(Result)^:=Size;
   PInteger(PChar(Result)+4)^:=Signature1;
   Inc(PChar(Result), 8);
   PInteger(PChar(Result)+Size)^:=Signature2;
   PInteger(PChar(Result)+Size+4)^:=Signature3;
-{$ENDIF}
+  {$ENDIF}
+  {$ELSE}
+  Result := OldMemMgr.ReallocMem(P, Size);
+  {$ENDIF}
 end;
-{$ELSE}
-function NewGetMem(Size: Integer): Pointer;
-begin
-  Inc(g_GetMemCount);
-  Result := g_OldMemMgr.GetMem(Size);
-end;
-function NewFreeMem(P: Pointer): Integer;
-begin
-  Inc(g_FreeMemCount);
-  Result := g_OldMemMgr.FreeMem(P);
-end;
-function NewReallocMem(P: Pointer; Size: Integer): Pointer;
-begin
-  Result := g_OldMemMgr.ReallocMem(P, Size);
-end;
-{$ENDIF}
-
 
 {$IFDEF MemHeavyListings}
 function HeavyMemDump: String;
@@ -216,12 +221,15 @@ var
  R: TRect;
 begin
  GetWindowRect(H, R);
- S:=Format('<%d blocks, %.2f Kb>', [g_GetMemCount-g_FreeMemCount, g_AllocatedMemSize/1024]);
+ S:=Format('<%d blocks, %.2f Kb>', [GetMemCount-FreeMemCount, AllocatedMemSize/1024]);
  DC:=GetWindowDC(H);
- OldMode:=SetTextAlign(DC, TA_TOP or TA_RIGHT);
- TextOut(DC, R.Right-R.Left-60,5, PChar(S), Length(S));
- SetTextAlign(DC, OldMode);
- ReleaseDC(H, DC);
+ try
+  OldMode:=SetTextAlign(DC, TA_TOP or TA_RIGHT);
+  TextOut(DC, R.Right-R.Left-60,5, PChar(S), Length(S));
+  SetTextAlign(DC, OldMode);
+ finally
+  ReleaseDC(H, DC);
+ end;
 end;
 (*procedure MemTesting(H: HWnd);
 var
@@ -231,7 +239,7 @@ var
  Diff: Boolean;
  Src: PChar;
 begin
- S:=Format(' <%d blocks, %.2f Kb>', [g_GetMemCount-g_FreeMemCount, g_AllocatedMemSize/1024]);
+ S:=Format(' <%d blocks, %.2f Kb>', [GetMemCount-FreeMemCount, AllocatedMemSize/1024]);
  I:=GetWindowText(H, Buffer, SizeOf(Buffer));
  if (I>0) and (Buffer[I-1]='>') then
   begin
@@ -272,7 +280,7 @@ var
  Z: Array[0..127] of Char;
 {I: Integer;}
 begin
- StrPCopy(Z, Format('This is a bug ! Please report : %d # %d.', [g_GetMemCount-g_FreeMemCount, DifferenceAttendue]));
+ StrPCopy(Z, Format('This is a bug ! Please report : %d # %d.', [GetMemCount-FreeMemCount, DifferenceAttendue]));
  MessageBox(0, Z, 'MemTester', mb_Ok);
 {if Assigned(g_DataDumpProc) then
   begin
@@ -286,16 +294,16 @@ begin
 end;
 
 initialization
-  GetMemoryManager(g_OldMemMgr);
+  GetMemoryManager(OldMemMgr);
   SetMemoryManager(NewMemMgr);
 finalization
   if Assigned(g_DataDumpProc) then
    g_DataDumpProc;
 {$IFDEF MemTesterDiff}
-  if g_GetMemCount-g_FreeMemCount <> DifferenceAttendue then
+  if GetMemCount-FreeMemCount <> DifferenceAttendue then
    Resultat;
 {$ENDIF}
 {$IFNDEF CompiledWithDelphi2}
-  SetMemoryManager(g_OldMemMgr);
+  SetMemoryManager(OldMemMgr);
 {$ENDIF}
 end.
