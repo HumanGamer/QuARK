@@ -65,6 +65,7 @@ type
     property HelpContext;
     property Hint;
     property Left;
+    property ParentBackground;
     property ParentColor;
     property ParentCtl3D;
     property ParentShowHint;
