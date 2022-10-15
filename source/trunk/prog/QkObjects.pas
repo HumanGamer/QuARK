@@ -747,7 +747,7 @@ begin
     begin
       if Temporary then
       begin
-        if FHandle>=0 then
+        if FHandle{$IFDEF DelphiXE2orNewerCompiler}<>INVALID_HANDLE_VALUE{$ELSE}>=0{$ENDIF} then
           TemporaryClose;
         DeleteFile(PChar(QFileList[I]));
       end;
@@ -765,7 +765,7 @@ end;
 procedure TQStream.TemporaryClose;
 begin
   FileClose(FHandle);
-  FHandle:=-1;
+  FHandle:={$IFDEF DelphiXE2orNewerCompiler}INVALID_HANDLE_VALUE{$ELSE}-1{$ENDIF};
 end;
 
 function TQStream.ReopenAs(const FileName: String) : Boolean;
@@ -788,7 +788,7 @@ begin
   { rename stream }
   QFileList.AddObject(FileName, Self);
   FHandle:=FileOpen(FileName, fmOpenReadOnly_ShareDenyWrite);
-  Result:=FHandle>=0;
+  Result:=FHandle{$IFDEF DelphiXE2orNewerCompiler}<>INVALID_HANDLE_VALUE{$ELSE}>=0{$ENDIF};
 end;
 
 function QStreamAddRef(Ref: PQStreamRef; var S: TStream) : TStreamPos;
