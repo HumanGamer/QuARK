@@ -387,7 +387,7 @@ begin
    else
    begin
      //Shouldn't happen!
-     Log(LOG_WARNING, 'QuakeDir: Unknown GameFileLayout value!');
+     Log(LOG_WARNING, LoadStr1(5863), ['QuakeDir', 'GameFileLayout']);
      Result := '';
    end;
  end;
@@ -1671,7 +1671,7 @@ begin
     else
     begin
       //Shouldn't happen!
-      Log(LOG_WARNING, 'SteamAppID: Unknown SteamGame value!');
+      Log(LOG_WARNING, LoadStr1(5863), ['SteamAppID', 'SteamGame']);
       Result := '';
     end;
   end;
@@ -1713,7 +1713,7 @@ begin
     else
     begin
       //Shouldn't happen!
-      Log(LOG_WARNING, 'GetSteamGameDir: Unknown SteamGame value!');
+      Log(LOG_WARNING, LoadStr1(5863), ['GetSteamGameDir', 'SteamGame']);
       Result := '';
     end;
   end;
@@ -1750,7 +1750,7 @@ begin
     else
     begin
       //Shouldn't happen!
-      Log(LOG_WARNING, 'GetSteamBaseDir: Unknown SteamGame value!');
+      Log(LOG_WARNING, LoadStr1(5863), ['GetSteamBaseDir', 'SteamGame']);
       Result := '';
     end;
   end;
@@ -1786,7 +1786,7 @@ begin
       else
       begin
         //Shouldn't happen!
-        Log(LOG_WARNING, 'SourceSDKDir: Unknown SteamGame value!');
+        Log(LOG_WARNING, LoadStr1(5863), ['SourceSDKDir', 'SteamGame']);
         Result := '';
       end;
     end;
@@ -1828,7 +1828,7 @@ begin
     else
     begin
       //Shouldn't happen!
-      Log(LOG_WARNING, 'GetSteamCompiler: Unknown SteamGame value!');
+      Log(LOG_WARNING, LoadStr1(5863), ['GetSteamCompiler', 'SteamGame']);
       Result := '';
     end;
   end;
