@@ -912,7 +912,7 @@ end;
 function GetSpecialFolder(Handle: Hwnd; nFolder: Integer): string;
 var
   PIDL: PItemIDList;
-  Path: LPSTR;
+  Path: LPTSTR;
   err: HResult;
   AMalloc: IMalloc;
 begin
@@ -2451,7 +2451,7 @@ end;
 
 function RetrieveModuleFilename(ModuleHandle: HMODULE) : String;
 var
-  Path: LPSTR;
+  Path: LPTSTR;
 begin
   Path:=StrAlloc(MAX_PATH);
   try

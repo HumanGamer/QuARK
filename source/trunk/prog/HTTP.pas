@@ -87,6 +87,9 @@ type
   INTERNET_PORT = Word; 
   {$EXTERNALSYM INTERNET_PORT}
 
+  //Missing in Delphi 7
+  PLPCTSTR = ^LPCTSTR;
+
 var
   HWinInet: HMODULE;
 
@@ -96,7 +99,7 @@ var
   {$EXTERNALSYM InternetCloseHandle}
   InternetConnect: function (hInet: HINTERNET; lpszServerName: PChar; nServerPort: INTERNET_PORT; lpszUsername: PChar; lpszPassword: PChar; dwService: DWORD; dwFlags: DWORD; dwContext: DWORD): HINTERNET; stdcall;
   {$EXTERNALSYM InternetConnect}
-  HttpOpenRequest: function(hConnect: HINTERNET; lpszVerb: PChar; lpszObjectName: PChar; lpszVersion: PChar; lpszReferrer: PChar; lplpszAcceptTypes: PLPSTR; dwFlags: DWORD; dwContext: DWORD): HINTERNET; stdcall;
+  HttpOpenRequest: function(hConnect: HINTERNET; lpszVerb: PChar; lpszObjectName: PChar; lpszVersion: PChar; lpszReferrer: PChar; lplpszAcceptTypes: PLPCTSTR; dwFlags: DWORD; dwContext: DWORD): HINTERNET; stdcall;
   {$EXTERNALSYM HttpOpenRequest}
   HttpSendRequest: function(hRequest: HINTERNET; lpszHeaders: PChar; dwHeadersLength: DWORD; lpOptional: Pointer;  dwOptionalLength: DWORD): BOOL; stdcall;
   {$EXTERNALSYM HttpSendRequest}
