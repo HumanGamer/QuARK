@@ -573,7 +573,7 @@ begin
         end;
        mdl.ofs_st:=F.Position-Position0;
        mdl.num_st:=L.Count;
-       F.WriteBuffer(L.List^, mdl.num_st*SizeOf(dstvert_t));
+       F.WriteBuffer(Pointer(L.List)^, mdl.num_st*SizeOf(dstvert_t));
 
          { save triangles }
        GetMem(TrisData, mdl.num_tris*SizeOf(dtriangle_t)); try
@@ -711,7 +711,7 @@ begin
 
        mdl.ofs_glcmds:=F.Position-Position0;
        mdl.num_glcmds:=Skins.Count;
-       F.WriteBuffer(Skins.List^, mdl.num_glcmds*4);
+       F.WriteBuffer(Pointer(Skins.List)^, mdl.num_glcmds*4);
        finally
          Components.Free;
          Skins.Free;
