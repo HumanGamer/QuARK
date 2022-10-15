@@ -711,7 +711,7 @@ type
   TGLExtensionList = array of
     record
       Name: String;
-      FuncName: PChar;
+      FuncName: PAnsiChar;
       FuncPtr: Pointer;
       Loaded: Boolean;
       Address: Pointer;
@@ -822,7 +822,7 @@ const
   ExtGL32DLL_FuncList : array[0..0] of
     record
       ExtName: String;
-      FuncName: PChar;
+      FuncName: PAnsiChar;
       FuncPtr: Pointer;
     end =
   ( (ExtName: 'GL_WIN_swap_hint'; FuncName: 'glAddSwapHintRectWIN'; FuncPtr: @@glAddSwapHintRectWIN; )
