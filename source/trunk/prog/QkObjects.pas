@@ -524,7 +524,7 @@ begin
   if (I<0) or (I>=Count) then
     Raise InternalE('GetItem1');
 
-  Result:=QObject(List^[I]);
+  Result:=QObject(List{$ifndef DelphiXE2orNewerCompiler}^{$ENDIF}[I]);
 end;
 
 procedure TQList.SetItem1(I: Integer; Q: QObject);
@@ -532,8 +532,8 @@ begin
   if (I<0) or (I>=Count) then
     Raise InternalE('SetItem1');
 
-  QObject(List^[I]).AddRef(-1);
-  QObject(List^[I]):=Q;
+  QObject(List{$ifndef DelphiXE2orNewerCompiler}^{$ENDIF}[I]).AddRef(-1);
+  QObject(List{$ifndef DelphiXE2orNewerCompiler}^{$ENDIF}[I]):=Q;
   Q.AddRef(+1);
 end;
 
@@ -551,7 +551,7 @@ begin
   // SilverPaladin - 12/01/03 - Clearing is done from end down now with a assigned check
   for I:=Count-1 downto 0
   do begin
-    QO := QObject(List^[I]);
+    QO := QObject(List{$ifndef DelphiXE2orNewerCompiler}^{$ENDIF}[I]);
     if Assigned(QO) then QO.AddRef(-1);
   end;
   inherited Clear;
@@ -563,7 +563,7 @@ var
   I: Integer;
 begin
   for I:=Count-1 downto 0 do
-    QObject(List^[I]).AddRef(-1);
+    QObject(List{$ifndef DelphiXE2orNewerCompiler}^{$ENDIF}[I]).AddRef(-1);
   inherited Destroy;
 end;
 {$ENDIF}
@@ -596,7 +596,7 @@ var
 begin
   for I:=0 to Count-1 do
   begin
-    Result:=QObject(List^[I]);
+    Result:=QObject(List{$ifndef DelphiXE2orNewerCompiler}^{$ENDIF}[I]);
     // SilverPaladin - 12/01/03 - Added an assigned check to bullet proof against
     // access violations.
     if not(Assigned(Result)) then
@@ -613,7 +613,7 @@ var
 begin
   for I:=0 to Count-1 do
   begin
-    Result:=QObject(List^[I]);
+    Result:=QObject(List{$ifndef DelphiXE2orNewerCompiler}^{$ENDIF}[I]);
     if SameText(Result.Name, nName) then
       Exit;
   end;
@@ -626,7 +626,7 @@ var
 begin
   for I:=Count-1 downto 0 do
   begin
-    Result:=QObject(List^[I]);
+    Result:=QObject(List{$ifndef DelphiXE2orNewerCompiler}^{$ENDIF}[I]);
     if SameText(Result.Name, nName) then
       Exit;
   end;

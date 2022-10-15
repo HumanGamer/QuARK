@@ -22,6 +22,8 @@ unit Qk1;
 
 interface
 
+{$I DelphiVer.inc}
+
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   QkGroup, StdCtrls, ExtCtrls, CommCtrl, QkExplorer, QkObjects,
@@ -400,7 +402,11 @@ begin
 
  // Set-up global settings
  Application.UpdateFormatSettings:=False;
+ {$IFDEF DelphiXEorNewerCompiler}
+ FormatSettings.DecimalSeparator:='.';
+ {$ELSE}
  DecimalSeparator:='.';
+ {$ENDIF}
 
  // Process the commandline and prepare it for further use
  LaunchOptions.DoInstance := true; //These are the defaults

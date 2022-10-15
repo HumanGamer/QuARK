@@ -22,6 +22,8 @@ unit qdraw;
 
 interface
 
+{$I DelphiVer.inc}
+
 uses Windows, SysUtils, Graphics;
 
 var
@@ -29,7 +31,7 @@ var
  Line95: function(DC: HDC; P1,P2: TPoint) : Bool;
  Rectangle95: function(DC: HDC; X1,Y1,X2,Y2: Integer) : Bool; stdcall;
  Ellipse95: function(DC: HDC; X1, Y1, X2, Y2: Integer) : Bool; stdcall;
- Polygon95: function(DC: HDC; var Pts; NbPts: Integer) : Bool; stdcall;
+ Polygon95: function(DC: HDC; {$IFDEF Delphi11orNewerCompiler}const{$ELSE}var{$ENDIF} Pts; NbPts: Integer) : Bool; stdcall; //DanielPharos: I have no idea in what version of Delphi this got changed.
  PolyPolyline95: function(DC: HDC; const Pts, Cnt; NbPolylines: DWORD) : Bool; stdcall;
 
 //Returns False out of bounds, True if visible
@@ -137,7 +139,7 @@ begin
  Result:=(P.X>=-Max95) and (P.Y>=-Max95) and (P.X<Max95) and (P.Y<Max95);
 end;
 
-function Polygon16(DC: HDC; var Pts; NbPts: Integer) : Bool; stdcall;
+function Polygon16(DC: HDC; {$IFDEF Delphi11orNewerCompiler}const{$ELSE}var{$ENDIF} Pts; NbPts: Integer) : Bool; stdcall;
 var
  I, J: Integer;
  Pt, Tampon, Dest: ^TPoint;
