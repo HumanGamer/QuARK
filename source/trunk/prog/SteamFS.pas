@@ -131,7 +131,7 @@ begin
     FillChar(SteamStartupInfo, SizeOf(SteamStartupInfo), 0);
     FillChar(SteamProcessInformation, SizeOf(SteamProcessInformation), 0);
     SteamStartupInfo.cb:=SizeOf(SteamStartupInfo);
-    if Windows.CreateProcess(nil, PChar(SteamEXEFullPath), nil, nil, false, 0, nil, nil, SteamStartupInfo, SteamProcessInformation)=false then
+    if CreateProcess(nil, PChar(SteamEXEFullPath), nil, nil, false, 0, nil, nil, SteamStartupInfo, SteamProcessInformation)=false then
     begin
       LogWindowsError(GetLastError(), 'CreateProcess(Steam)');
       Exit;

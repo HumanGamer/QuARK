@@ -868,7 +868,7 @@ var
  BrushHandle: HBrush;
  R: TRect;
  BkColor: TColorRef;
- BmpInfo: record
+ BmpInfo: packed record
            bmiHeader: TBitmapInfoHeader;
            bmiColors: array[0..1] of LongInt;
            Bits: TPattern;
@@ -1194,7 +1194,7 @@ begin
   if PyObject_HasAttrString(BtnObject, 'onenddrag') then
    begin
     FSelected:=True;
-    Windows.SetCursor(Screen.Cursors[crDrag]);
+    SetCursor(Screen.Cursors[crDrag]);
     FFlags:=FFlags or tbbDragging2;
    end;
 end;
