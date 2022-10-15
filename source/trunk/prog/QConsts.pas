@@ -49,7 +49,87 @@ const
 {$IFDEF CompiledWithDelphi7}
   QuArKUsedCompiler       = 'Delphi 7.0';
 {$ELSE}
+{$IFDEF CompiledWithDelphi8}
+  QuArKUsedCompiler       = 'Delphi 8.0';
+{$ELSE}
+{$IFDEF CompiledWithDelphi2005}
+  QuArKUsedCompiler       = 'Delphi 2005';
+{$ELSE}
+{$IFDEF CompiledWithDelphi2006}
+  QuArKUsedCompiler       = 'Delphi 2006';
+{$ELSE}
+{$IFDEF CompiledWithDelphi2007}
+  QuArKUsedCompiler       = 'Delphi 2007';
+{$ELSE}
+{$IFDEF CompiledWithDelphi2009}
+  QuArKUsedCompiler       = 'Delphi 2009';
+{$ELSE}
+{$IFDEF CompiledWithDelphi2010}
+  QuArKUsedCompiler       = 'Delphi 2010';
+{$ELSE}
+{$IFDEF CompiledWithDelphiXE}
+  QuArKUsedCompiler       = 'Delphi XE1';
+{$ELSE}
+{$IFDEF CompiledWithDelphiXE2}
+  QuArKUsedCompiler       = 'Delphi XE2';
+{$ELSE}
+{$IFDEF CompiledWithDelphiXE2}
+  QuArKUsedCompiler       = 'Delphi XE3';
+{$ELSE}
+{$IFDEF CompiledWithDelphiXE4}
+  QuArKUsedCompiler       = 'Delphi XE4';
+{$ELSE}
+{$IFDEF CompiledWithDelphiXE5}
+  QuArKUsedCompiler       = 'Delphi XE5';
+{$ELSE}
+{$IFDEF CompiledWithDelphiXE6}
+  QuArKUsedCompiler       = 'Delphi XE6';
+{$ELSE}
+{$IFDEF CompiledWithDelphiXE7}
+  QuArKUsedCompiler       = 'Delphi XE7';
+{$ELSE}
+{$IFDEF CompiledWithDelphiXE8}
+  QuArKUsedCompiler       = 'Delphi XE8';
+{$ELSE}
+{$IFDEF CompiledWithDelphi10_0}
+  QuArKUsedCompiler       = 'Delphi 10.0';
+{$ELSE}
+{$IFDEF CompiledWithDelphi10_1}
+  QuArKUsedCompiler       = 'Delphi 10.1';
+{$ELSE}
+{$IFDEF CompiledWithDelphi10_2}
+  QuArKUsedCompiler       = 'Delphi 10.2';
+{$ELSE}
+{$IFDEF CompiledWithDelphi10_3}
+  QuArKUsedCompiler       = 'Delphi 10.3';
+{$ELSE}
+{$IFDEF CompiledWithDelphi10_4}
+  QuArKUsedCompiler       = 'Delphi 10.4';
+{$ELSE}
+{$IFDEF CompiledWithDelphi111}
+  QuArKUsedCompiler       = 'Delphi 11';
+{$ELSE}
   QuArKUsedCompiler       = 'Delphi';
+{$ENDIF}
+{$ENDIF}
+{$ENDIF}
+{$ENDIF}
+{$ENDIF}
+{$ENDIF}
+{$ENDIF}
+{$ENDIF}
+{$ENDIF}
+{$ENDIF}
+{$ENDIF}
+{$ENDIF}
+{$ENDIF}
+{$ENDIF}
+{$ENDIF}
+{$ENDIF}
+{$ENDIF}
+{$ENDIF}
+{$ENDIF}
+{$ENDIF}
 {$ENDIF}
 {$ENDIF}
 {$ENDIF}

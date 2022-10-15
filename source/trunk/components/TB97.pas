@@ -4671,7 +4671,7 @@ type
       const Caption: string; TextBounds: TRect;
       WordWrap: Boolean; State: TButtonState97);
     procedure CalcButtonLayout (Canvas: TCanvas; const Client: TRect;
-      const Offset: TPoint; DrawGlyph, DrawCaption: Boolean;
+      const OffsetX: TPoint; DrawGlyph, DrawCaption: Boolean; //DanielPharos: Fix to make it compile on newer Delphi's
       const Caption: string; WordWrap: Boolean;
       Layout: TButtonLayout; Margin, Spacing: Integer; DropArrow: Boolean;
       var GlyphPos, ArrowPos: TPoint; var TextBounds: TRect);
@@ -5225,7 +5225,7 @@ begin
 end;
 
 procedure TButtonGlyph.CalcButtonLayout(Canvas: TCanvas; const Client: TRect;
-  const Offset: TPoint; DrawGlyph, DrawCaption: Boolean;
+  const OffsetX: TPoint; DrawGlyph, DrawCaption: Boolean;
   const Caption: string; WordWrap: Boolean;
   Layout: TButtonLayout; Margin, Spacing: Integer; DropArrow: Boolean;
   var GlyphPos, ArrowPos: TPoint; var TextBounds: TRect);
@@ -5366,15 +5366,15 @@ begin
 
   { fixup the result variables }
   with GlyphPos do begin
-    Inc (X, Client.Left + Offset.X);
-    Inc (Y, Client.Top + Offset.Y);
+    Inc (X, Client.Left + OffsetX.X);
+    Inc (Y, Client.Top + OffsetX.Y);
   end;
   with ArrowPos do begin
-    Inc (X, Client.Left + Offset.X);
-    Inc (Y, Client.Top + Offset.Y);
+    Inc (X, Client.Left + OffsetX.X);
+    Inc (Y, Client.Top + OffsetX.Y);
   end;
-  OffsetRect (TextBounds, TextPos.X + Client.Left + Offset.X,
-    TextPos.Y + Client.Top + Offset.X);
+  OffsetRect (TextBounds, TextPos.X + Client.Left + OffsetX.X,
+    TextPos.Y + Client.Top + OffsetX.Y); //DanielPharos: This was using OffsetX.X, which seems like an obvious bug?
 end;
 
 function TButtonGlyph.Draw (Canvas: TCanvas; const Client: TRect;

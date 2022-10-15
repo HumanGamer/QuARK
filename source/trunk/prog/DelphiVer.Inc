@@ -27,48 +27,17 @@ https://quark.sourceforge.io/ - Contact information in AUTHORS.TXT
 {$IFDEF VER80}
   {$DEFINE CompiledWithDelphi1}
   {$DEFINE Delphi1orNewerCompiler}
-  {$DEFINE Delphi1-2}
-  {$DEFINE Delphi1-3}
-  {$DEFINE Delphi1-4}
-  {$DEFINE Delphi1-5}
-  {$DEFINE Delphi1-6}
-  {$DEFINE Delphi1-7}
 {$ENDIF}
 {$IFDEF VER90}
   {$DEFINE CompiledWithDelphi2}
   {$DEFINE Delphi1orNewerCompiler}
   {$DEFINE Delphi2orNewerCompiler}
-  {$DEFINE Delphi1-2}
-  {$DEFINE Delphi1-3}
-  {$DEFINE Delphi1-4}
-  {$DEFINE Delphi1-5}
-  {$DEFINE Delphi1-6}
-  {$DEFINE Delphi1-7}
-  {$DEFINE Delphi2-3}
-  {$DEFINE Delphi2-4}
-  {$DEFINE Delphi2-5}
-  {$DEFINE Delphi2-6}
-  {$DEFINE Delphi2-7}
 {$ENDIF}
 {$IFDEF VER100}
   {$DEFINE CompiledWithDelphi3}
   {$DEFINE Delphi1orNewerCompiler}
   {$DEFINE Delphi2orNewerCompiler}
   {$DEFINE Delphi3orNewerCompiler}
-  {$DEFINE Delphi1-3}
-  {$DEFINE Delphi1-4}
-  {$DEFINE Delphi1-5}
-  {$DEFINE Delphi1-6}
-  {$DEFINE Delphi1-7}
-  {$DEFINE Delphi2-3}
-  {$DEFINE Delphi2-4}
-  {$DEFINE Delphi2-5}
-  {$DEFINE Delphi2-6}
-  {$DEFINE Delphi2-7}
-  {$DEFINE Delphi3-4}
-  {$DEFINE Delphi3-5}
-  {$DEFINE Delphi3-6}
-  {$DEFINE Delphi3-7}
 {$ENDIF}
 {$IFDEF VER120}
   {$DEFINE CompiledWithDelphi4}
@@ -76,21 +45,6 @@ https://quark.sourceforge.io/ - Contact information in AUTHORS.TXT
   {$DEFINE Delphi2orNewerCompiler}
   {$DEFINE Delphi3orNewerCompiler}
   {$DEFINE Delphi4orNewerCompiler}
-  {$DEFINE Delphi1-4}
-  {$DEFINE Delphi1-5}
-  {$DEFINE Delphi1-6}
-  {$DEFINE Delphi1-7}
-  {$DEFINE Delphi2-4}
-  {$DEFINE Delphi2-5}
-  {$DEFINE Delphi2-6}
-  {$DEFINE Delphi2-7}
-  {$DEFINE Delphi3-4}
-  {$DEFINE Delphi3-5}
-  {$DEFINE Delphi3-6}
-  {$DEFINE Delphi3-7}
-  {$DEFINE Delphi4-5}
-  {$DEFINE Delphi4-6}
-  {$DEFINE Delphi4-7}
 {$ENDIF}
 {$IFDEF VER130}
   {$DEFINE CompiledWithDelphi5}
@@ -99,20 +53,6 @@ https://quark.sourceforge.io/ - Contact information in AUTHORS.TXT
   {$DEFINE Delphi3orNewerCompiler}
   {$DEFINE Delphi4orNewerCompiler}
   {$DEFINE Delphi5orNewerCompiler}
-  {$DEFINE Delphi1-5}
-  {$DEFINE Delphi1-6}
-  {$DEFINE Delphi1-7}
-  {$DEFINE Delphi2-5}
-  {$DEFINE Delphi2-6}
-  {$DEFINE Delphi2-7}
-  {$DEFINE Delphi3-5}
-  {$DEFINE Delphi3-6}
-  {$DEFINE Delphi3-7}
-  {$DEFINE Delphi4-5}
-  {$DEFINE Delphi4-6}
-  {$DEFINE Delphi4-7}
-  {$DEFINE Delphi5-6}
-  {$DEFINE Delphi5-7}
 {$ENDIF}
 {$IFDEF VER140}
   {$DEFINE CompiledWithDelphi6}
@@ -122,17 +62,6 @@ https://quark.sourceforge.io/ - Contact information in AUTHORS.TXT
   {$DEFINE Delphi4orNewerCompiler}
   {$DEFINE Delphi5orNewerCompiler}
   {$DEFINE Delphi6orNewerCompiler}
-  {$DEFINE Delphi1-6}
-  {$DEFINE Delphi1-7}
-  {$DEFINE Delphi2-6}
-  {$DEFINE Delphi2-7}
-  {$DEFINE Delphi3-6}
-  {$DEFINE Delphi3-7}
-  {$DEFINE Delphi4-6}
-  {$DEFINE Delphi4-7}
-  {$DEFINE Delphi5-6}
-  {$DEFINE Delphi5-7}
-  {$DEFINE Delphi6-7}
 {$ENDIF}
 {$IFDEF VER150}
   {$DEFINE CompiledWithDelphi7}
@@ -143,10 +72,428 @@ https://quark.sourceforge.io/ - Contact information in AUTHORS.TXT
   {$DEFINE Delphi5orNewerCompiler}
   {$DEFINE Delphi6orNewerCompiler}
   {$DEFINE Delphi7orNewerCompiler}
-  {$DEFINE Delphi1-7}
-  {$DEFINE Delphi2-7}
-  {$DEFINE Delphi3-7}
-  {$DEFINE Delphi4-7}
-  {$DEFINE Delphi5-7}
-  {$DEFINE Delphi6-7}
+{$ENDIF}
+{$IFDEF VER160}
+  {$DEFINE CompiledWithDelphi8}
+  {$DEFINE Delphi1orNewerCompiler}
+  {$DEFINE Delphi2orNewerCompiler}
+  {$DEFINE Delphi3orNewerCompiler}
+  {$DEFINE Delphi4orNewerCompiler}
+  {$DEFINE Delphi5orNewerCompiler}
+  {$DEFINE Delphi6orNewerCompiler}
+  {$DEFINE Delphi7orNewerCompiler}
+  {$DEFINE Delphi8orNewerCompiler}
+{$ENDIF}
+{$IFDEF VER170}
+  {$DEFINE CompiledWithDelphi2005}
+  {$DEFINE Delphi1orNewerCompiler}
+  {$DEFINE Delphi2orNewerCompiler}
+  {$DEFINE Delphi3orNewerCompiler}
+  {$DEFINE Delphi4orNewerCompiler}
+  {$DEFINE Delphi5orNewerCompiler}
+  {$DEFINE Delphi6orNewerCompiler}
+  {$DEFINE Delphi7orNewerCompiler}
+  {$DEFINE Delphi8orNewerCompiler}
+  {$DEFINE Delphi2005orNewerCompiler}
+{$ENDIF}
+{$IFDEF VER185}
+  {$DEFINE CompiledWithDelphi2006}
+  {$DEFINE Delphi1orNewerCompiler}
+  {$DEFINE Delphi2orNewerCompiler}
+  {$DEFINE Delphi3orNewerCompiler}
+  {$DEFINE Delphi4orNewerCompiler}
+  {$DEFINE Delphi5orNewerCompiler}
+  {$DEFINE Delphi6orNewerCompiler}
+  {$DEFINE Delphi7orNewerCompiler}
+  {$DEFINE Delphi8orNewerCompiler}
+  {$DEFINE Delphi2005orNewerCompiler}
+  {$DEFINE Delphi2006orNewerCompiler}
+{$ENDIF}
+{$IFDEF VER185}
+  {$DEFINE CompiledWithDelphi2007}
+  {$DEFINE Delphi1orNewerCompiler}
+  {$DEFINE Delphi2orNewerCompiler}
+  {$DEFINE Delphi3orNewerCompiler}
+  {$DEFINE Delphi4orNewerCompiler}
+  {$DEFINE Delphi5orNewerCompiler}
+  {$DEFINE Delphi6orNewerCompiler}
+  {$DEFINE Delphi7orNewerCompiler}
+  {$DEFINE Delphi8orNewerCompiler}
+  {$DEFINE Delphi2005orNewerCompiler}
+  {$DEFINE Delphi2006orNewerCompiler}
+  {$DEFINE Delphi2007orNewerCompiler}
+{$ENDIF}
+{$IFDEF VER190}
+  {$DEFINE CompiledWithDelphi2007}
+  {$DEFINE Delphi1orNewerCompiler}
+  {$DEFINE Delphi2orNewerCompiler}
+  {$DEFINE Delphi3orNewerCompiler}
+  {$DEFINE Delphi4orNewerCompiler}
+  {$DEFINE Delphi5orNewerCompiler}
+  {$DEFINE Delphi6orNewerCompiler}
+  {$DEFINE Delphi7orNewerCompiler}
+  {$DEFINE Delphi8orNewerCompiler}
+  {$DEFINE Delphi2005orNewerCompiler}
+  {$DEFINE Delphi2006orNewerCompiler}
+  {$DEFINE Delphi2007orNewerCompiler}
+{$ENDIF}
+{$IFDEF VER200}
+  {$DEFINE CompiledWithDelphi2009}
+  {$DEFINE Delphi1orNewerCompiler}
+  {$DEFINE Delphi2orNewerCompiler}
+  {$DEFINE Delphi3orNewerCompiler}
+  {$DEFINE Delphi4orNewerCompiler}
+  {$DEFINE Delphi5orNewerCompiler}
+  {$DEFINE Delphi6orNewerCompiler}
+  {$DEFINE Delphi7orNewerCompiler}
+  {$DEFINE Delphi8orNewerCompiler}
+  {$DEFINE Delphi2005orNewerCompiler}
+  {$DEFINE Delphi2006orNewerCompiler}
+  {$DEFINE Delphi2007orNewerCompiler}
+  {$DEFINE Delphi2009orNewerCompiler}
+{$ENDIF}
+{$IFDEF VER210}
+  {$DEFINE CompiledWithDelphi2010}
+  {$DEFINE Delphi1orNewerCompiler}
+  {$DEFINE Delphi2orNewerCompiler}
+  {$DEFINE Delphi3orNewerCompiler}
+  {$DEFINE Delphi4orNewerCompiler}
+  {$DEFINE Delphi5orNewerCompiler}
+  {$DEFINE Delphi6orNewerCompiler}
+  {$DEFINE Delphi7orNewerCompiler}
+  {$DEFINE Delphi8orNewerCompiler}
+  {$DEFINE Delphi2005orNewerCompiler}
+  {$DEFINE Delphi2006orNewerCompiler}
+  {$DEFINE Delphi2007orNewerCompiler}
+  {$DEFINE Delphi2009orNewerCompiler}
+  {$DEFINE Delphi2010orNewerCompiler}
+{$ENDIF}
+{$IFDEF VER220}
+  {$DEFINE CompiledWithDelphiXE}
+  {$DEFINE Delphi1orNewerCompiler}
+  {$DEFINE Delphi2orNewerCompiler}
+  {$DEFINE Delphi3orNewerCompiler}
+  {$DEFINE Delphi4orNewerCompiler}
+  {$DEFINE Delphi5orNewerCompiler}
+  {$DEFINE Delphi6orNewerCompiler}
+  {$DEFINE Delphi7orNewerCompiler}
+  {$DEFINE Delphi8orNewerCompiler}
+  {$DEFINE Delphi2005orNewerCompiler}
+  {$DEFINE Delphi2006orNewerCompiler}
+  {$DEFINE Delphi2007orNewerCompiler}
+  {$DEFINE Delphi2009orNewerCompiler}
+  {$DEFINE Delphi2010orNewerCompiler}
+  {$DEFINE DelphiXEorNewerCompiler}
+{$ENDIF}
+{$IFDEF VER230}
+  {$DEFINE CompiledWithDelphiXE2}
+  {$DEFINE Delphi1orNewerCompiler}
+  {$DEFINE Delphi2orNewerCompiler}
+  {$DEFINE Delphi3orNewerCompiler}
+  {$DEFINE Delphi4orNewerCompiler}
+  {$DEFINE Delphi5orNewerCompiler}
+  {$DEFINE Delphi6orNewerCompiler}
+  {$DEFINE Delphi7orNewerCompiler}
+  {$DEFINE Delphi8orNewerCompiler}
+  {$DEFINE Delphi2005orNewerCompiler}
+  {$DEFINE Delphi2006orNewerCompiler}
+  {$DEFINE Delphi2007orNewerCompiler}
+  {$DEFINE Delphi2009orNewerCompiler}
+  {$DEFINE Delphi2010orNewerCompiler}
+  {$DEFINE DelphiXEorNewerCompiler}
+  {$DEFINE DelphiXE2orNewerCompiler}
+{$ENDIF}
+{$IFDEF VER240}
+  {$DEFINE CompiledWithDelphiXE3}
+  {$DEFINE Delphi1orNewerCompiler}
+  {$DEFINE Delphi2orNewerCompiler}
+  {$DEFINE Delphi3orNewerCompiler}
+  {$DEFINE Delphi4orNewerCompiler}
+  {$DEFINE Delphi5orNewerCompiler}
+  {$DEFINE Delphi6orNewerCompiler}
+  {$DEFINE Delphi7orNewerCompiler}
+  {$DEFINE Delphi8orNewerCompiler}
+  {$DEFINE Delphi2005orNewerCompiler}
+  {$DEFINE Delphi2006orNewerCompiler}
+  {$DEFINE Delphi2007orNewerCompiler}
+  {$DEFINE Delphi2009orNewerCompiler}
+  {$DEFINE Delphi2010orNewerCompiler}
+  {$DEFINE DelphiXEorNewerCompiler}
+  {$DEFINE DelphiXE2orNewerCompiler}
+  {$DEFINE DelphiXE3orNewerCompiler}
+{$ENDIF}
+{$IFDEF VER250}
+  {$DEFINE CompiledWithDelphiXE4}
+  {$DEFINE Delphi1orNewerCompiler}
+  {$DEFINE Delphi2orNewerCompiler}
+  {$DEFINE Delphi3orNewerCompiler}
+  {$DEFINE Delphi4orNewerCompiler}
+  {$DEFINE Delphi5orNewerCompiler}
+  {$DEFINE Delphi6orNewerCompiler}
+  {$DEFINE Delphi7orNewerCompiler}
+  {$DEFINE Delphi8orNewerCompiler}
+  {$DEFINE Delphi2005orNewerCompiler}
+  {$DEFINE Delphi2006orNewerCompiler}
+  {$DEFINE Delphi2007orNewerCompiler}
+  {$DEFINE Delphi2009orNewerCompiler}
+  {$DEFINE Delphi2010orNewerCompiler}
+  {$DEFINE DelphiXEorNewerCompiler}
+  {$DEFINE DelphiXE2orNewerCompiler}
+  {$DEFINE DelphiXE3orNewerCompiler}
+  {$DEFINE DelphiXE4orNewerCompiler}
+{$ENDIF}
+{$IFDEF VER260}
+  {$DEFINE CompiledWithDelphiXE5}
+  {$DEFINE Delphi1orNewerCompiler}
+  {$DEFINE Delphi2orNewerCompiler}
+  {$DEFINE Delphi3orNewerCompiler}
+  {$DEFINE Delphi4orNewerCompiler}
+  {$DEFINE Delphi5orNewerCompiler}
+  {$DEFINE Delphi6orNewerCompiler}
+  {$DEFINE Delphi7orNewerCompiler}
+  {$DEFINE Delphi8orNewerCompiler}
+  {$DEFINE Delphi2005orNewerCompiler}
+  {$DEFINE Delphi2006orNewerCompiler}
+  {$DEFINE Delphi2007orNewerCompiler}
+  {$DEFINE Delphi2009orNewerCompiler}
+  {$DEFINE Delphi2010orNewerCompiler}
+  {$DEFINE DelphiXEorNewerCompiler}
+  {$DEFINE DelphiXE2orNewerCompiler}
+  {$DEFINE DelphiXE3orNewerCompiler}
+  {$DEFINE DelphiXE4orNewerCompiler}
+  {$DEFINE DelphiXE5orNewerCompiler}
+{$ENDIF}
+{$IFDEF VER270}
+  {$DEFINE CompiledWithDelphiXE6}
+  {$DEFINE Delphi1orNewerCompiler}
+  {$DEFINE Delphi2orNewerCompiler}
+  {$DEFINE Delphi3orNewerCompiler}
+  {$DEFINE Delphi4orNewerCompiler}
+  {$DEFINE Delphi5orNewerCompiler}
+  {$DEFINE Delphi6orNewerCompiler}
+  {$DEFINE Delphi7orNewerCompiler}
+  {$DEFINE Delphi8orNewerCompiler}
+  {$DEFINE Delphi2005orNewerCompiler}
+  {$DEFINE Delphi2006orNewerCompiler}
+  {$DEFINE Delphi2007orNewerCompiler}
+  {$DEFINE Delphi2009orNewerCompiler}
+  {$DEFINE Delphi2010orNewerCompiler}
+  {$DEFINE DelphiXEorNewerCompiler}
+  {$DEFINE DelphiXE2orNewerCompiler}
+  {$DEFINE DelphiXE3orNewerCompiler}
+  {$DEFINE DelphiXE4orNewerCompiler}
+  {$DEFINE DelphiXE5orNewerCompiler}
+  {$DEFINE DelphiXE6orNewerCompiler}
+{$ENDIF}
+{$IFDEF VER280}
+  {$DEFINE CompiledWithDelphiXE7}
+  {$DEFINE Delphi1orNewerCompiler}
+  {$DEFINE Delphi2orNewerCompiler}
+  {$DEFINE Delphi3orNewerCompiler}
+  {$DEFINE Delphi4orNewerCompiler}
+  {$DEFINE Delphi5orNewerCompiler}
+  {$DEFINE Delphi6orNewerCompiler}
+  {$DEFINE Delphi7orNewerCompiler}
+  {$DEFINE Delphi8orNewerCompiler}
+  {$DEFINE Delphi2005orNewerCompiler}
+  {$DEFINE Delphi2006orNewerCompiler}
+  {$DEFINE Delphi2007orNewerCompiler}
+  {$DEFINE Delphi2009orNewerCompiler}
+  {$DEFINE Delphi2010orNewerCompiler}
+  {$DEFINE DelphiXEorNewerCompiler}
+  {$DEFINE DelphiXE2orNewerCompiler}
+  {$DEFINE DelphiXE3orNewerCompiler}
+  {$DEFINE DelphiXE4orNewerCompiler}
+  {$DEFINE DelphiXE5orNewerCompiler}
+  {$DEFINE DelphiXE6orNewerCompiler}
+  {$DEFINE DelphiXE7orNewerCompiler}
+{$ENDIF}
+{$IFDEF VER290}
+  {$DEFINE CompiledWithDelphiXE8}
+  {$DEFINE Delphi1orNewerCompiler}
+  {$DEFINE Delphi2orNewerCompiler}
+  {$DEFINE Delphi3orNewerCompiler}
+  {$DEFINE Delphi4orNewerCompiler}
+  {$DEFINE Delphi5orNewerCompiler}
+  {$DEFINE Delphi6orNewerCompiler}
+  {$DEFINE Delphi7orNewerCompiler}
+  {$DEFINE Delphi8orNewerCompiler}
+  {$DEFINE Delphi2005orNewerCompiler}
+  {$DEFINE Delphi2006orNewerCompiler}
+  {$DEFINE Delphi2007orNewerCompiler}
+  {$DEFINE Delphi2009orNewerCompiler}
+  {$DEFINE Delphi2010orNewerCompiler}
+  {$DEFINE DelphiXEorNewerCompiler}
+  {$DEFINE DelphiXE2orNewerCompiler}
+  {$DEFINE DelphiXE3orNewerCompiler}
+  {$DEFINE DelphiXE4orNewerCompiler}
+  {$DEFINE DelphiXE5orNewerCompiler}
+  {$DEFINE DelphiXE6orNewerCompiler}
+  {$DEFINE DelphiXE7orNewerCompiler}
+  {$DEFINE DelphiXE8orNewerCompiler}
+{$ENDIF}
+{$IFDEF VER300}
+  {$DEFINE CompiledWithDelphi10_0}
+  {$DEFINE Delphi1orNewerCompiler}
+  {$DEFINE Delphi2orNewerCompiler}
+  {$DEFINE Delphi3orNewerCompiler}
+  {$DEFINE Delphi4orNewerCompiler}
+  {$DEFINE Delphi5orNewerCompiler}
+  {$DEFINE Delphi6orNewerCompiler}
+  {$DEFINE Delphi7orNewerCompiler}
+  {$DEFINE Delphi8orNewerCompiler}
+  {$DEFINE Delphi2005orNewerCompiler}
+  {$DEFINE Delphi2006orNewerCompiler}
+  {$DEFINE Delphi2007orNewerCompiler}
+  {$DEFINE Delphi2009orNewerCompiler}
+  {$DEFINE Delphi2010orNewerCompiler}
+  {$DEFINE DelphiXEorNewerCompiler}
+  {$DEFINE DelphiXE2orNewerCompiler}
+  {$DEFINE DelphiXE3orNewerCompiler}
+  {$DEFINE DelphiXE4orNewerCompiler}
+  {$DEFINE DelphiXE5orNewerCompiler}
+  {$DEFINE DelphiXE6orNewerCompiler}
+  {$DEFINE DelphiXE7orNewerCompiler}
+  {$DEFINE DelphiXE8orNewerCompiler}
+  {$DEFINE Delphi10_0orNewerCompiler}
+{$ENDIF}
+{$IFDEF VER310}
+  {$DEFINE CompiledWithDelphi10_1}
+  {$DEFINE Delphi1orNewerCompiler}
+  {$DEFINE Delphi2orNewerCompiler}
+  {$DEFINE Delphi3orNewerCompiler}
+  {$DEFINE Delphi4orNewerCompiler}
+  {$DEFINE Delphi5orNewerCompiler}
+  {$DEFINE Delphi6orNewerCompiler}
+  {$DEFINE Delphi7orNewerCompiler}
+  {$DEFINE Delphi8orNewerCompiler}
+  {$DEFINE Delphi2005orNewerCompiler}
+  {$DEFINE Delphi2006orNewerCompiler}
+  {$DEFINE Delphi2007orNewerCompiler}
+  {$DEFINE Delphi2009orNewerCompiler}
+  {$DEFINE Delphi2010orNewerCompiler}
+  {$DEFINE DelphiXEorNewerCompiler}
+  {$DEFINE DelphiXE2orNewerCompiler}
+  {$DEFINE DelphiXE3orNewerCompiler}
+  {$DEFINE DelphiXE4orNewerCompiler}
+  {$DEFINE DelphiXE5orNewerCompiler}
+  {$DEFINE DelphiXE6orNewerCompiler}
+  {$DEFINE DelphiXE7orNewerCompiler}
+  {$DEFINE DelphiXE8orNewerCompiler}
+  {$DEFINE Delphi10_0orNewerCompiler}
+  {$DEFINE Delphi10_1orNewerCompiler}
+{$ENDIF}
+{$IFDEF VER320}
+  {$DEFINE CompiledWithDelphi10_2}
+  {$DEFINE Delphi1orNewerCompiler}
+  {$DEFINE Delphi2orNewerCompiler}
+  {$DEFINE Delphi3orNewerCompiler}
+  {$DEFINE Delphi4orNewerCompiler}
+  {$DEFINE Delphi5orNewerCompiler}
+  {$DEFINE Delphi6orNewerCompiler}
+  {$DEFINE Delphi7orNewerCompiler}
+  {$DEFINE Delphi8orNewerCompiler}
+  {$DEFINE Delphi2005orNewerCompiler}
+  {$DEFINE Delphi2006orNewerCompiler}
+  {$DEFINE Delphi2007orNewerCompiler}
+  {$DEFINE Delphi2009orNewerCompiler}
+  {$DEFINE Delphi2010orNewerCompiler}
+  {$DEFINE DelphiXEorNewerCompiler}
+  {$DEFINE DelphiXE2orNewerCompiler}
+  {$DEFINE DelphiXE3orNewerCompiler}
+  {$DEFINE DelphiXE4orNewerCompiler}
+  {$DEFINE DelphiXE5orNewerCompiler}
+  {$DEFINE DelphiXE6orNewerCompiler}
+  {$DEFINE DelphiXE7orNewerCompiler}
+  {$DEFINE DelphiXE8orNewerCompiler}
+  {$DEFINE Delphi10_0orNewerCompiler}
+  {$DEFINE Delphi10_1orNewerCompiler}
+  {$DEFINE Delphi10_2orNewerCompiler}
+{$ENDIF}
+{$IFDEF VER330}
+  {$DEFINE CompiledWithDelphi10_3}
+  {$DEFINE Delphi1orNewerCompiler}
+  {$DEFINE Delphi2orNewerCompiler}
+  {$DEFINE Delphi3orNewerCompiler}
+  {$DEFINE Delphi4orNewerCompiler}
+  {$DEFINE Delphi5orNewerCompiler}
+  {$DEFINE Delphi6orNewerCompiler}
+  {$DEFINE Delphi7orNewerCompiler}
+  {$DEFINE Delphi8orNewerCompiler}
+  {$DEFINE Delphi2005orNewerCompiler}
+  {$DEFINE Delphi2006orNewerCompiler}
+  {$DEFINE Delphi2007orNewerCompiler}
+  {$DEFINE Delphi2009orNewerCompiler}
+  {$DEFINE Delphi2010orNewerCompiler}
+  {$DEFINE DelphiXEorNewerCompiler}
+  {$DEFINE DelphiXE2orNewerCompiler}
+  {$DEFINE DelphiXE3orNewerCompiler}
+  {$DEFINE DelphiXE4orNewerCompiler}
+  {$DEFINE DelphiXE5orNewerCompiler}
+  {$DEFINE DelphiXE6orNewerCompiler}
+  {$DEFINE DelphiXE7orNewerCompiler}
+  {$DEFINE DelphiXE8orNewerCompiler}
+  {$DEFINE Delphi10_0orNewerCompiler}
+  {$DEFINE Delphi10_1orNewerCompiler}
+  {$DEFINE Delphi10_2orNewerCompiler}
+  {$DEFINE Delphi10_3orNewerCompiler}
+{$ENDIF}
+{$IFDEF VER340}
+  {$DEFINE CompiledWithDelphi10_4}
+  {$DEFINE Delphi1orNewerCompiler}
+  {$DEFINE Delphi2orNewerCompiler}
+  {$DEFINE Delphi3orNewerCompiler}
+  {$DEFINE Delphi4orNewerCompiler}
+  {$DEFINE Delphi5orNewerCompiler}
+  {$DEFINE Delphi6orNewerCompiler}
+  {$DEFINE Delphi7orNewerCompiler}
+  {$DEFINE Delphi8orNewerCompiler}
+  {$DEFINE Delphi2005orNewerCompiler}
+  {$DEFINE Delphi2006orNewerCompiler}
+  {$DEFINE Delphi2007orNewerCompiler}
+  {$DEFINE Delphi2009orNewerCompiler}
+  {$DEFINE Delphi2010orNewerCompiler}
+  {$DEFINE DelphiXEorNewerCompiler}
+  {$DEFINE DelphiXE2orNewerCompiler}
+  {$DEFINE DelphiXE3orNewerCompiler}
+  {$DEFINE DelphiXE4orNewerCompiler}
+  {$DEFINE DelphiXE5orNewerCompiler}
+  {$DEFINE DelphiXE6orNewerCompiler}
+  {$DEFINE DelphiXE7orNewerCompiler}
+  {$DEFINE DelphiXE8orNewerCompiler}
+  {$DEFINE Delphi10_0orNewerCompiler}
+  {$DEFINE Delphi10_1orNewerCompiler}
+  {$DEFINE Delphi10_2orNewerCompiler}
+  {$DEFINE Delphi10_3orNewerCompiler}
+  {$DEFINE Delphi10_4orNewerCompiler}
+{$ENDIF}
+{$IFDEF VER350}
+  {$DEFINE CompiledWithDelphi11} //11.0 or 11.1 or 11.2
+  {$DEFINE Delphi1orNewerCompiler}
+  {$DEFINE Delphi2orNewerCompiler}
+  {$DEFINE Delphi3orNewerCompiler}
+  {$DEFINE Delphi4orNewerCompiler}
+  {$DEFINE Delphi5orNewerCompiler}
+  {$DEFINE Delphi6orNewerCompiler}
+  {$DEFINE Delphi7orNewerCompiler}
+  {$DEFINE Delphi8orNewerCompiler}
+  {$DEFINE Delphi2005orNewerCompiler}
+  {$DEFINE Delphi2006orNewerCompiler}
+  {$DEFINE Delphi2007orNewerCompiler}
+  {$DEFINE Delphi2009orNewerCompiler}
+  {$DEFINE Delphi2010orNewerCompiler}
+  {$DEFINE DelphiXEorNewerCompiler}
+  {$DEFINE DelphiXE2orNewerCompiler}
+  {$DEFINE DelphiXE3orNewerCompiler}
+  {$DEFINE DelphiXE4orNewerCompiler}
+  {$DEFINE DelphiXE5orNewerCompiler}
+  {$DEFINE DelphiXE6orNewerCompiler}
+  {$DEFINE DelphiXE7orNewerCompiler}
+  {$DEFINE DelphiXE8orNewerCompiler}
+  {$DEFINE Delphi10_0orNewerCompiler}
+  {$DEFINE Delphi10_1orNewerCompiler}
+  {$DEFINE Delphi10_2orNewerCompiler}
+  {$DEFINE Delphi10_3orNewerCompiler}
+  {$DEFINE Delphi10_4orNewerCompiler}
+  {$DEFINE Delphi11orNewerCompiler}
 {$ENDIF}
