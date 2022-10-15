@@ -419,7 +419,7 @@ const
   ROP_DSPDxax = $00E20746;
   ROP_PSDPxax = $00B8074A;
 const
-  Add = 1;
+  AddX = 1;
 var
   MonoBmp, TmpImage: TBitmap;
   IWidth, IHeight: Integer;
@@ -428,10 +428,10 @@ var
 begin
   with Source^.GetSize do
    begin
-    IWidth:=X+Add;
-    IHeight:=Y+Add;
+    IWidth:=X+AddX;
+    IHeight:=Y+AddX;
    end;
-  {ORect:=Rect(0,0,IWidth-Add,IHeight-Add);}
+  {ORect:=Rect(0,0,IWidth-Add,IHeight-AddX);}
   IRect:=Rect(0,0,IWidth,IHeight);
   FTransparentColor:=Source^.ImageList^.BkgndColor;
 
@@ -449,7 +449,7 @@ begin
    with TmpImage.Canvas do begin
      Brush.Color := FTransparentColor;
      FillRect (IRect);
-     {CopyRect (Rect(0, 0, IWidth-Add, IHeight-Add), DDB.Canvas, ORect);}
+     {CopyRect (Rect(0, 0, IWidth-AddX, IHeight-AddX), DDB.Canvas, ORect);}
      Source^.DisabledBmp:=Nil; try
      Source^.Draw(Handle, 0,0, FTransparentColor);
      finally Source^.DisabledBmp:=TmpImage; end;
