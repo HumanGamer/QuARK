@@ -38,7 +38,7 @@ type
     property Capacity;
   end;
 
-  TOSVersionInfoEx = record
+  _OSVERSIONINFOEXA = record
     dwOSVersionInfoSize: DWORD;
     dwMajorVersion: DWORD;
     dwMinorVersion: DWORD;
@@ -51,6 +51,28 @@ type
     wProductType: Byte;
     wReserved: Byte;
   end;
+  {$EXTERNALSYM _OSVERSIONINFOEXA}
+  _OSVERSIONINFOEXW = record
+    dwOSVersionInfoSize: DWORD;
+    dwMajorVersion: DWORD;
+    dwMinorVersion: DWORD;
+    dwBuildNumber: DWORD;
+    dwPlatformId: DWORD;
+    szCSDVersion: array[0..127] of WideChar; { Maintenance string for PSS usage }
+    wServicePackMajor: WORD;
+    wServicePackMinor: WORD;
+    wSuiteMask: WORD;
+    wProductType: Byte;
+    wReserved: Byte;
+  end;
+  {$EXTERNALSYM _OSVERSIONINFOEXW}
+  TOSVersionInfoExA = _OSVERSIONINFOEXA;
+  TOSVersionInfoExW = _OSVERSIONINFOEXW;
+  {$IFDEF UNICODE}
+  TOSVersionInfoEx = TOSVersionInfoExW;
+  {$ELSE}
+  TOSVersionInfoEx = TOSVersionInfoExA;
+  {$ENDIF}
 
 // These consts don't exist at all! (In Delphi 7)
 const
