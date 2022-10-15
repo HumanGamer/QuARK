@@ -37,7 +37,6 @@ implementation
 
 uses
  SysUtils,
- {$IFDEF Debug} MemTester, {$ENDIF}
  QkFileObjects, Quarkx, QkExceptions, Logging;
 
 var
