@@ -362,8 +362,11 @@ begin
   //FIXME: This is a workaround. See the Infobase section
   //about destroy-event bugs for more information!
   g_Form1.AbortIdleJob(ListView1);
- ListView1.Hide;
- ListView1.Items.Clear;
+ if ListView1 <> nil then
+  begin
+   ListView1.Hide;
+   ListView1.Items.Clear;
+  end;
 end;
 
 function TQForm2.EditMenuCommandLv(Cmd: Integer) : Integer;

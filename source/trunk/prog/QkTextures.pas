@@ -2081,8 +2081,10 @@ procedure TFQTexture.FormClose(Sender: TObject; var Action: TCloseAction);
 var
   F: TCustomForm;
 begin
-  Panel3.Hide;
-  Panel2.Hide;
+  if Panel3 <> nil then
+    Panel3.Hide;
+  if Panel2 <> nil then
+    Panel2.Hide;
 
   F:=GetParentForm(Self);
   if F<>Nil then
