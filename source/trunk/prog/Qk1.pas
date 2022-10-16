@@ -23,6 +23,7 @@ unit Qk1;
 interface
 
 {$I DelphiVer.inc}
+{$INCLUDE MemManager.inc}
 
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
@@ -230,7 +231,7 @@ var
 
 implementation
 
-uses {$IFDEF Debug}MemTester, {$ENDIF}ShellApi, Undo, QkQuakeC, Setup, Config,
+uses {$IFDEF MemTester}MemTester, {$ENDIF}ShellApi, Undo, QkQuakeC, Setup, Config,
   ToolBox1, Game, QkOwnExplorer, ObjProp, qdraw, qmath, QkInclude,
   Running, Output1, QkTreeView, PyProcess, Console, Python, Quarkx, About,
   PyMapView, PyForms, Qk3D, EdSceneObject, QkObjectClassList, ApplPaths,
@@ -717,7 +718,7 @@ begin
    SizeDownGameFiles;
   {SaveSetupNow;}
   end;
-{$IFDEF Debug}
+{$IFDEF MemTester}
  if Screen.ActiveForm<>Nil then
   MemTesting(Screen.ActiveForm.Handle);
 {$ENDIF}

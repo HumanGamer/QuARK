@@ -29,6 +29,7 @@ unit QkObjects;
 interface
 
 {$I DelphiVer.inc}
+{$INCLUDE MemManager.inc}
 
 uses SysUtils, Messages, Classes, Windows, Controls, Graphics, Forms, qmath,
   Menus, CommCtrl, Python;
@@ -429,7 +430,7 @@ procedure DataDump;
 implementation
 
 uses
-  {$IFDEF Debug} MemTester, QConsts, {$ENDIF}
+  {$IFDEF MemTester}MemTester, {$ENDIF}{$IFDEF Debug}QConsts, {$ENDIF}
   QkObjectClassList, QkFileObjects, QkExplorer, Travail, Game, qhelper,
   PyObjects, PyImages, Quarkx, QkExceptions, Qk1, Logging{, ExtraFunctionality};
 
@@ -2961,7 +2962,9 @@ begin
   Text:=TStringList.Create;
   try
     Text.Add(QuArKVersion + ' ' + QuArKMinorVersion);
+    {$IFDEF MemTester}
     Text.Add(HeavyMemDump);
+    {$ENDIF}
 
     Text.Add('-----');
 
@@ -3004,8 +3007,10 @@ initialization
   QFileList:=TStringList.Create;
   QFileList.Sorted:=True;
   g_CF_QObjects:=RegisterClipboardFormat('QuArK Object');
-  {$IFDEF Debug}
+  {$IFDEF MemTester}
   g_DataDumpProc:=@TestDataDump;
+  {$ENDIF}
+  {$IFDEF Debug}
   g_MemQObject:=TQList.Create;
   {$ENDIF}
 
