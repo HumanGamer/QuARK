@@ -31,19 +31,38 @@ function RequiredBytesToContainValue(T: Integer) : Integer;
 
 implementation
 
+uses Math;
+
 function CharToPas(const C: array of Byte) : String;
 var
-  I: Integer;
+  N{$IFDEF UNICODE}, I{$ENDIF}: Integer;
 begin
-  I:=0;
-  while (I<=High(C)) and (C[I]<>0) do
-    Inc(I);
-  SetLength(Result, I);
-  Move(C, PChar(Result)^, I);
+  N:=0;
+  while (N<=High(C)) and (C[N]<>0) do
+    Inc(N);
+  SetLength(Result, N);
+  {$IFDEF UNICODE}
+  for I:=0 to N-1 do
+  begin
+    Result[I+1]:=Chr(C[I]);
+  end;
+  {$ELSE}
+  Move(C, PChar(Result)^, N);
+  {$ENDIF}
 end;
 
 procedure PasToChar(var C: array of Byte; const S: String);
+{$IFDEF UNICODE}
+var
+  I: Integer;
+{$ENDIF}
 begin
+  {$IFDEF UNICODE}
+  for I:=0 to Min(High(C), Length(S))-1 do
+  begin
+    C[I]:=Ord(S[I+1]);
+  end;
+  {$ELSE}
   if Length(S) <= High(C) then
   begin
     Move(PChar(S)^, C, Length(S));
@@ -51,6 +70,7 @@ begin
   end
   else
     Move(PChar(S)^, C, High(C)+1);
+  {$ENDIF}
 end;
 
 function PackedStrToInt(const S: String) : Integer;
