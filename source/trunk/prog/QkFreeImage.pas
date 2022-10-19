@@ -162,14 +162,14 @@ type
   FIMEMORY = PByte; //These are defined as pointers to the FreeImage's versions
   FIBITMAP = PByte;
   //FIMULTIBITMAP = PByte;
-  FreeImage_OutputMessageFunction = procedure(fif : FREE_IMAGE_FORMAT; xmessage : PChar);
+  FreeImage_OutputMessageFunction = procedure(fif : FREE_IMAGE_FORMAT; xmessage : PAnsiChar);
 
 var
   //DanielPharos: First two not needed, are done automatically in the Windows version of FreeImage DLL.
   //FreeImage_Initialise: procedure (load_local_plugins_only : BOOL); stdcall;
   //FreeImage_DeInitialise: procedure; stdcall;
-  FreeImage_GetVersion: function : PChar; stdcall;
-  //FreeImage_GetCopyrightMessage: function : PChar; stdcall;
+  FreeImage_GetVersion: function : PAnsiChar; stdcall;
+  //FreeImage_GetCopyrightMessage: function : PAnsiChar; stdcall;
   FreeImage_SetOutputMessage: procedure (omf : FreeImage_OutputMessageFunction); stdcall;
   FreeImage_Unload: procedure (dib : FIBITMAP); stdcall;
   FreeImage_OpenMemory: function (data : PByte; size_in_bytes : DWORD) : FIMEMORY; stdcall;
@@ -221,7 +221,7 @@ begin
   end;
 end;
 
-procedure FreeImageErrorHandler(fif : FREE_IMAGE_FORMAT; xmessage : PChar);
+procedure FreeImageErrorHandler(fif : FREE_IMAGE_FORMAT; xmessage : PAnsiChar);
 begin
   LogAndRaiseError(xmessage);
 end;

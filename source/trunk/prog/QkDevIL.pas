@@ -262,9 +262,9 @@ type
   ILchar     = WideChar;
   ILstring   = PWideChar;
   ILconst_string = {const} PWideChar;*)
-  ILchar     = Char;
-  ILstring   = PChar;
-	ILconst_string = {const} PChar;
+  ILchar     = AnsiChar;
+  ILstring   = PAnsiChar;
+  ILconst_string = {const} PAnsiChar;
 
   PILboolean  = ^ILboolean;
   PILint      = ^ILint;
