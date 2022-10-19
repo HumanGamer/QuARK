@@ -31,7 +31,7 @@ type
   TCustomForm = TForm;
 {$ENDIF}
 
-// These seem to be missing alltogether!
+// These seem to be missing altogether!
 type
   TMemoryStreamWithCapacity = class(TMemoryStream)
   public
@@ -125,12 +125,13 @@ var
 
 function CopyCursor(pcur: HCursor): HCursor; // This is a macro that wasn't converted
 
-//FIXME: Not sure when these were added to Delphi, but it's at least after Delphi 7.
+{$ifndef Delphi2010orNewerCompiler} //FIXME: Not sure when these were added to Delphi, but it's at least after Delphi 7, and they exist in Delphi 2010
 function ContainsText(const AText, ASubText: string): Boolean;
 function StartsText(const ASubText, AText: string): Boolean;
 function EndsText(const ASubText, AText: string): Boolean;
 function StartsStr(const ASubText, AText: string): Boolean;
 function EndsStr(const ASubText, AText: string): Boolean;
+{$endif}
 
 {$ifndef Delphi7orNewerCompiler} // Pre-dates Delphi 7
 const
@@ -153,7 +154,7 @@ type
 {$ENDIF}
 
 type
-  QWORD = Int64; //Should be unsigned, but even Delphi 7 doesn't have that. Borland also uses Int64 instead in ActiveX.pas
+  QWORD = {$ifdef Delphi2007orNewerCompiler}UInt64{$else}Int64{$endif}; //UInt64 is known to be broken before Delphi 2007, even if present. Borland also uses Int64 instead in ActiveX.pas
   PQWORD = ^QWORD;
   LPQWORD = PQWORD;
 
@@ -233,7 +234,7 @@ const
   PROCESSOR_ARCHITECTURE_AMD64: WORD = 9; //x64 (AMD or Intel)
   PROCESSOR_ARCHITECTURE_UNKNOWN: WORD = $FFFF; //Unknown architecture.
 
-//This type does't exist at all in Delphi 7:
+//This type doesn't exist at all in Delphi 7:
 type
   size_t = Cardinal;  //This appears to be true in (32-bit) Delphi
   ssize_t = Integer;  //This appears to be true in (32-bit) Delphi
@@ -245,6 +246,7 @@ begin
   Result:=HCURSOR(CopyIcon(HICON(pcur)));
 end;
 
+{$ifndef Delphi2010orNewerCompiler}
 function ContainsText(const AText, ASubText: string): Boolean;
 begin
   Result := AnsiContainsText(AText, ASubText);
@@ -269,6 +271,7 @@ function EndsStr(const ASubText, AText: String): Boolean;
 begin
  Result := AnsiEndsStr(ASubText, AText);
 end;
+{$endif}
 
 {$ifndef Delphi5orNewerCompiler}
 function CompareMem(P1, P2: Pointer; Length: Integer): Boolean; assembler;
