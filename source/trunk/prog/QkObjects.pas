@@ -450,6 +450,11 @@ const
   StreamRefDumpFile = 'DebugStreamRef.log';
 {$ENDIF}
 
+{$IFDEF Debug}
+const
+  DataDumpFile = 'DataDump.txt';
+{$ENDIF}
+
  {------------------------}
 
 function EndOfClipboardChain(PasteNow: QObject) : Boolean;
@@ -2955,8 +2960,6 @@ begin
 end;}
 
 procedure DataDump;
-const
-  DataDumpFile = 'DataDump.txt';
 var
   Text: TStringList;
   I: Integer;
@@ -2998,15 +3001,6 @@ begin
 end;
 {$ENDIF}
 
-{$IFDEF MemQObjectDEBUG}
-procedure TestDataDump;
-begin
-  if (QFileList.Count>0) or (g_MemQObject.Count>0) then
-    if Windows.MessageBox(0, 'Some objects were not correctly freed. This is a bug. Do you want to write a data report (DATADUMP.TXT) ?', 'DEBUGGING - BETA VERSION', MB_YESNO) = IDYES then
-      DataDump;
-end;
-{$ENDIF}
-
  {------------------------}
 
 initialization
@@ -3020,7 +3014,9 @@ initialization
 finalization
   QFileList.Free;
   {$IFDEF MemQObjectDEBUG}
-  TestDataDump;
+  if (QFileList.Count>0) or (g_MemQObject.Count>0) then
+    if Windows.MessageBox(0, 'Some objects were not correctly freed. This is a bug. Do you want to write a data report ('+DataDumpFile+') ?', 'DEBUGGING - BETA VERSION', MB_YESNO) = IDYES then
+      DataDump;
   g_MemQObject.Free;
   {$ENDIF}
 
