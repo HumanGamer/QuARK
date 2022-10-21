@@ -653,7 +653,10 @@ var
 begin
   inherited Create(FileName, Mode, Rights);
   AssignFile(StreamRefFile, StreamRefDumpFile);
-  Append(StreamRefFile);
+  if FileExists(StreamRefDumpFile) then
+    Append(StreamRefFile)
+  else
+    Rewrite(StreamRefFile);
   WriteLn(StreamRefFile, Format('Open %d: %s', [Self.FHandle, FileName]));
   CloseFile(StreamRefFile);
 end;
