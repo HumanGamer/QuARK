@@ -2027,7 +2027,7 @@ begin
     end
    else
     Flags:=0;
-   GetCurrentDirectory(SizeOf(Z), Z);
+   GetCurrentDirectory(High(Z)+1, Z);
    try
     SetCurrentDirectory(PChar(PyStrPas(curdir)));
     if SI.dwFlags and STARTF_USESTDHANDLES <> 0 then
@@ -3786,7 +3786,7 @@ begin
   else
    begin
     PyErr_Print;
-    GetConsoleTitle(Z, SizeOf(Z));
+    GetConsoleTitle(Z, High(Z)+1);
    {P:=StrEnd(Z);
     StrCopy(P, nTitle);
     SetConsoleTitle(Z);}

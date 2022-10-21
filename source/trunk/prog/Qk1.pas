@@ -1980,7 +1980,7 @@ var
 begin
  try
   for I:=0 to DragQueryFile(Msg.wParam, DWORD(-1), Nil, 0) - 1 do
-   if DragQueryFile(Msg.wParam, I, Z, SizeOf(Z))>0 then
+   if DragQueryFile(Msg.wParam, I, Z, High(Z)+1)>0 then
     OpenAFile(StrPas(Z), False);
  finally
   DragFinish(Msg.wParam);

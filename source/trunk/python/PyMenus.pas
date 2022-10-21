@@ -233,7 +233,7 @@ begin
        Info.cbSize:=SizeOf(Info);
        Info.fMask:=MIIM_TYPE or MIIM_STATE or MIIM_ID or MIIM_SUBMENU or MIIM_CHECKMARKS;
        Info.dwTypeData:=Z;
-       Info.cch:=SizeOf(Z);
+       Info.cch:=High(Z)+1;
        GetMenuItemInfo(Menu, I, True, PMenuItemInfo(@Info)^);
        if (nInfo.fType = Info.fType) and (nInfo.fState = Info.fState) and (nInfo.wID = Info.wID)
        and (StrComp(Z, nInfo.dwTypeData) = 0) and (IsPopup = (Info.hSubMenu<>0))

@@ -1112,7 +1112,7 @@ begin
      Info.cbSize:=SizeOf(Info);
      Info.fMask:=MIIM_TYPE or MIIM_STATE or MIIM_ID or MIIM_DATA;
      Info.dwTypeData:=Z;
-     Info.cch:=SizeOf(Z);
+     Info.cch:=High(Z)+1;
      GetMenuItemInfo(H, I, True, PMenuItemInfo(@Info)^);
      Info.wID:=IdBase+I;
      InsertMenuItem(Msg.wParam, I, True, PMenuItemInfo(@Info)^);

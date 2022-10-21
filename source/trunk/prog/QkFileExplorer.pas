@@ -438,7 +438,7 @@ begin
   Gr:=QExplorerGroup.Create('', Nil);
   Gr.AddRef(+1); try
   for I:=0 to DragQueryFile(Msg.wParam, DWORD(-1), Nil, 0) - 1 do
-   if DragQueryFile(Msg.wParam, I, Z, SizeOf(Z))>0 then
+   if DragQueryFile(Msg.wParam, I, Z, High(Z)+1)>0 then
     begin
      Q:=ExactFileLink(StrPas(Z), Nil, True);
      Q1:=Q;

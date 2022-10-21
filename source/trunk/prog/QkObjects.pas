@@ -476,7 +476,7 @@ begin
   SetLength(S, StrLen(PChar(S)));
   FullName:=S + ExtractFileName(FullName);*)
 
-  if GetShortPathName(PChar(FullName), Z, SizeOf(Z)) = 0 then
+  if GetShortPathName(PChar(FullName), Z, High(Z)+1) = 0 then
   begin
     if maNoOpen in Mode then
     begin
