@@ -60,13 +60,13 @@ var
 
 {$IFNDEF MemTesterPassthrough}
 const
- Signature1 = LongWord($89D128BA);
- Signature2 = LongWord($3C66336C);
- Signature3 = LongWord($FFFFFFFF);
+ Signature1 = LongWord($89D128BA); //Prepend
+ Signature2 = LongWord($3C66336C); //Append1
+ Signature3 = LongWord($FFFFFFFF); //Append2
  {$IFDEF MemHeavyListings}
- FreedSizeTag = Integer($12345678);
+ FreedSizeTag = Integer($12345678); //Overwrites Size
  {$ENDIF}
- FreedMemoryTag = LongWord($BADF00D);
+ FreedMemoryTag = LongWord($BADF00D); //Corrupt the freed data with an obvious value (assumes >=8Bytes allocation!)
 {$ENDIF}
 
 {$IFDEF MemHeavyListings}
@@ -157,12 +157,8 @@ begin
     Exit;
    end;
   Result:=NewGetMem(Size);
-  I:=0;
-  while I<OldSize do
-   begin
-    PChar(Result)[I]:=PChar(P)[I];
-    Inc(I);
-   end;
+  for I:=0 to OldSize-1 do
+   PChar(Result)[I]:=PChar(P)[I];
   NewFreeMem(P);
   {$ELSE}
   Inc(AllocatedMemSize, Size-OldSize);
@@ -215,7 +211,6 @@ begin
  Result:='';
 end;
 {$ENDIF}
-
 
 {$IFDEF MemResourceViewer}
 procedure MemTesting(H: HWnd);
@@ -280,23 +275,39 @@ const
   FreeMem: NewFreeMem;
   ReallocMem: NewReallocMem);
 
-procedure Resultat;
+{$IFDEF MemTesterDiff}
+procedure ReportDiff;
 var
  Z: Array[0..127] of Char;
 begin
  StrPCopy(Z, Format('This is a bug ! Please report : %d # %d.', [GetMemCount-FreeMemCount, DifferenceAttendue]));
  MessageBox(0, Z, 'MemTester', mb_Ok);
 end;
+{$ENDIF}
+
+{$IFDEF MemHeavyListings}
+procedure ReportHeavyListings;
+var
+ S: String;
+begin
+ S:=HeavyMemDump();
+ if S<>'' then
+  MessageBox(0, PChar(S), 'MemTester', mb_Ok);
+end;
+{$ENDIF}
 
 initialization
   GetMemoryManager(OldMemMgr);
   SetMemoryManager(NewMemMgr);
 finalization
-{$IFDEF MemTesterDiff}
+ {$IFDEF MemTesterDiff}
   if GetMemCount-FreeMemCount <> DifferenceAttendue then
-   Resultat;
-{$ENDIF}
-{$IFNDEF CompiledWithDelphi2}
+   ReportDiff();
+ {$ENDIF}
+ {$IFDEF MemHeavyListings}
+ ReportHeavyListings();
+ {$ENDIF}
+ {$IFNDEF CompiledWithDelphi2}
   SetMemoryManager(OldMemMgr);
-{$ENDIF}
+ {$ENDIF}
 end.
