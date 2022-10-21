@@ -37,8 +37,8 @@ type
     Function GetEndPoint(var endpoint: vec3_p): boolean;
     Function GetStartPoint(var startpoint: vec3_p): boolean;
     Function GetStartEnd(var startpoint, endpoint: vec3_p): Boolean;
-    function PyGetAttr(attr: PChar) : PyObject; override;
-    function PySetAttr(attr: PChar; value: PyObject) : Boolean; override;
+    function PyGetAttr(attr: PyChar) : PyObject; override;
+    function PySetAttr(attr: PyChar; value: PyObject) : Boolean; override;
     Function GetLength:Double;
     property ParentComponent: QObject read Component write Component;
     procedure SetBoneRadius(rad: Single);
@@ -267,7 +267,7 @@ begin
   inherited;
 end;
 
-function QBoundFrame.PyGetAttr(attr: PChar) : PyObject;
+function QBoundFrame.PyGetAttr(attr: PyChar) : PyObject;
 var
   P: vec3_p;
   R: Boolean;
@@ -305,7 +305,7 @@ begin
   end;
 end;
 
-function QBoundFrame.PySetAttr(attr: PChar; value: PyObject) : Boolean;
+function QBoundFrame.PySetAttr(attr: PyChar; value: PyObject) : Boolean;
 var
   P: PyVect;
   S, S0: String;

@@ -91,7 +91,7 @@ type
                function LoadPixelSet : QPixelSet; virtual;
                procedure OperationInScene(Aj: TAjScene; PosRel: Integer); override;
                procedure Paint(DC: HDC; X, Y: Integer);
-               function PyGetAttr(attr: PChar) : PyObject; override;
+               function PyGetAttr(attr: PyChar) : PyObject; override;
                procedure ListDependencies(L: TStringList); virtual;
               end;
 
@@ -647,7 +647,7 @@ procedure QPixelSet.ListDependencies(L: TStringList);
 begin  { no dependency by default -- see QkTextures.pas }
 end;
 
-function QPixelSet.PyGetAttr(attr: PChar) : PyObject;
+function QPixelSet.PyGetAttr(attr: PyChar) : PyObject;
 begin
  Result:=inherited PyGetAttr(attr);
  if Result<>Nil then Exit;

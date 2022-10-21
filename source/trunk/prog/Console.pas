@@ -595,7 +595,7 @@ procedure TConsoleForm.EnterEdit1Accept(Sender: TObject);
 var
  S: String;
  obj, strobj: PyObject;
- P: PChar;
+ P: PyChar;
  Count: Integer;
 begin
  S:=EnterComboBox1.Text;
@@ -609,13 +609,13 @@ begin
  EnterComboBox1.ItemIndex:=Count+1;
  EnterComboBox1.Text:='';
  try
-  strobj:=PyString_FromString(PChar(S));
+  strobj:=PyString_FromString(ToPyChar(S));
   obj:=PyObject_Repr(strobj);
   try
    Py_DECREF(strobj);
    P:=PyString_AsString(obj);
    S:='exec compile('+P+', "<console>", "single")';
-   PyRun_SimpleString(PChar(S));
+   PyRun_SimpleString(ToPyChar(S));
   finally
    Py_DECREF(obj);
   end;

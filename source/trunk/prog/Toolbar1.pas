@@ -480,7 +480,7 @@ begin
       Spec:=Specifics.Values['Code'];
       if Spec<>'' then
       begin
-        if PyRun_SimpleString(PChar(Spec)) <> 0 then ShowConsole(True);
+        if PyRun_SimpleString(ToPyChar(Spec)) <> 0 then ShowConsole(True);
         Exit;
       end
     end;

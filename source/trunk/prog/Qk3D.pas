@@ -49,7 +49,7 @@ type
               {function VisuallySelected : Boolean; virtual;}
               {function AjouterRef(Liste: TList; Niveau: Integer) : Integer; virtual;}
               {procedure RefreshColor(Plan: Pointer); virtual;}
-               function PyGetAttr(attr: PChar) : PyObject; override;
+               function PyGetAttr(attr: PyChar) : PyObject; override;
              end;
 
 const   { for g_DrawInfo.DessinerBBox }
@@ -489,7 +489,7 @@ const
    (ml_name: 'linear';       ml_meth: qLinear;       ml_flags: METH_VARARGS),
    (ml_name: 'inflate';      ml_meth: qInflate;      ml_flags: METH_VARARGS));
 
-function Q3DObject.PyGetAttr(attr: PChar) : PyObject;
+function Q3DObject.PyGetAttr(attr: PyChar) : PyObject;
 var
  I: Integer;
  Pt: TVect;

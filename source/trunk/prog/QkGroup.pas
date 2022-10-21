@@ -161,7 +161,7 @@ procedure InitGamesMenu(L: TStrings);
 var
  list, obj: PyObject;
  I, Count: Integer;
- P: PChar;
+ P: PyChar;
 begin
  try
   list:=GetQuarkxAttr('buildmodes');
@@ -175,7 +175,7 @@ begin
       if obj=Nil then Exit;
       P:=PyString_AsString(obj);
       if P=Nil then Exit;
-      L.Add(P);
+      L.Add(PyStrPas(P));
      end;
    end;
  finally
@@ -393,9 +393,9 @@ begin
   CompilerPatches(QCList, CfgFile);
   finally QCList.Free; end;
   if (FirstMap='') or (FirstMap='*') then
-   args:=Py_BuildValueX('OiOs', [maplist, Method, extracted, PChar(CfgFile)])
+   args:=Py_BuildValueX('OiOs', [maplist, Method, extracted, ToPyChar(CfgFile)])
   else
-   args:=Py_BuildValueX('OiOss', [maplist, Method, extracted, PChar(CfgFile), PChar(FirstMap)]);
+   args:=Py_BuildValueX('OiOss', [maplist, Method, extracted, ToPyChar(CfgFile), PChar(FirstMap)]);
   Py_XDECREF(CallMacroEx(args, 'buildmaps'));
  finally
   Py_DECREF(maplist);

@@ -48,8 +48,8 @@ type
 
  {------------------------}
 
-function GetFormCfgAttr(self: PyObject; attr: PChar) : PyObject; cdecl;
-function SetFormCfgAttr(self: PyObject; attr: PChar; value: PyObject) : Integer; cdecl;
+function GetFormCfgAttr(self: PyObject; attr: PyChar) : PyObject; cdecl;
+function SetFormCfgAttr(self: PyObject; attr: PyChar; value: PyObject) : Integer; cdecl;
 
 var
  TyFormCfg_Type: TyTypeObject =
@@ -148,7 +148,7 @@ var
      Q2:=QkObjFromPyObj(P2);
      if Q1=Nil then
       begin
-       PyErr_SetString(QuarkxError, PChar(LoadStr1(4439)));
+       PyErr_SetString(QuarkxError, ToPyChar(LoadStr1(4439)));
        Abort;
       end;
     end;
@@ -165,7 +165,7 @@ begin
   nFormQ:=QkObjFromPyObj(nForm);
   if (nFormQ<>Nil) and not (nFormQ is QFormCfg) then
    begin
-    PyErr_SetString(QuarkxError, PChar(FmtLoadStr1(4438, [QFormCfg.TypeInfo])));
+    PyErr_SetString(QuarkxError, ToPyChar(FmtLoadStr1(4438, [QFormCfg.TypeInfo])));
     Exit;
    end;
   nLinks:=TQList.Create; try
@@ -196,17 +196,17 @@ end;
 
 function fBitSpec(self, args: PyObject) : PyObject; cdecl;
 var
- nspec: PChar;
- ntag: Integer;
+ nSpec: PyChar;
+ nTag: Integer;
  State: TCheckBoxState;
 begin
  Result:=Nil;
  try
-  if not PyArg_ParseTupleX(args, 'si', [@nspec, @ntag]) then
+  if not PyArg_ParseTupleX(args, 'si', [@nSpec, @nTag]) then
    Exit;
   with PyControlF(self)^ do
    if QkControl<>Nil then
-    State:=(QkControl as TPyFormCfg).GetBitSpec(nspec, ntag)
+    State:=(QkControl as TPyFormCfg).GetBitSpec(PyStrPas(nSpec), nTag)
    else
     State:=cbGrayed;
   case State of
@@ -223,18 +223,18 @@ end;
 
 function fToggleBitSpec(self, args: PyObject) : PyObject; cdecl;
 var
- nspec: PChar;
- ntag: Integer;
- ncz: PyObject;
+ nSpec: PyChar;
+ nTag: Integer;
+ nCz: PyObject;
 begin
  Result:=Nil;
  try
   ncz:=Nil;
-  if not PyArg_ParseTupleX(args, 'si|O', [@nspec, @ntag, @ncz]) then
+  if not PyArg_ParseTupleX(args, 'si|O', [@nSpec, @nTag, @nCz]) then
    Exit;
   with PyControlF(self)^ do
    if QkControl<>Nil then
-    (QkControl as TPyFormCfg).ToggleBitSpec(nspec, ntag, (ncz=Nil) or PyObject_IsTrue(ncz));
+    (QkControl as TPyFormCfg).ToggleBitSpec(PyStrPas(nSpec), nTag, (nCz=Nil) or PyObject_IsTrue(nCz));
   Result:=PyNoResult;
  except
   Py_XDECREF(Result);
@@ -271,7 +271,7 @@ const
    (ml_name: 'togglebitspec'; ml_meth: fToggleBitSpec;   ml_flags: METH_VARARGS),
    (ml_name: 'useraction';    ml_meth: fUserAction;      ml_flags: METH_VARARGS));
 
-function GetFormCfgObject(self: PyObject; attr: PChar) : PyObjectPtr;
+function GetFormCfgObject(self: PyObject; attr: PyChar) : PyObjectPtr;
 begin
  Result:=Nil;
  with PyControlF(self)^ do
@@ -285,7 +285,7 @@ begin
   end;
 end;
 
-function GetFormCfgAttr(self: PyObject; attr: PChar) : PyObject; cdecl;
+function GetFormCfgAttr(self: PyObject; attr: PyChar) : PyObject; cdecl;
 var
  Attr1: PyObjectPtr;
  I, Count: Integer;
@@ -359,7 +359,7 @@ begin
     'e': if StrComp(attr, 'editnames')=0 then
           begin
            if QkControl<>Nil then
-            Result:=PyString_FromString(PChar((QkControl as TPyFormCfg).EditNames))
+            Result:=PyString_FromString(ToPyChar((QkControl as TPyFormCfg).EditNames))
            else
             Result:=PyNoResult;
            Exit;
@@ -432,7 +432,7 @@ begin
  end;
 end;
 
-function SetFormCfgAttr(self: PyObject; attr: PChar; value: PyObject) : Integer; cdecl;
+function SetFormCfgAttr(self: PyObject; attr: PyChar; value: PyObject) : Integer; cdecl;
 var
  Attr1: PyObjectPtr;
 begin

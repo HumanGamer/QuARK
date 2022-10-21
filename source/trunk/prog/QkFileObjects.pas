@@ -162,8 +162,8 @@ type
                   function NeedObjectGameCode: Char;
                   procedure SaveInFile(Format: Integer; AlternateFile: String);
                   procedure LoadFromStream(F: TStream);
-                  function PyGetAttr(attr: PChar) : PyObject; override;
-                  function PySetAttr(attr: PChar; value: PyObject) : Boolean; override;
+                  function PyGetAttr(attr: PyChar) : PyObject; override;
+                  function PySetAttr(attr: PyChar; value: PyObject) : Boolean; override;
                   procedure Go1(maplist, extracted: PyObject; var FirstMap: String; var QCList: TQList); dynamic;
                 end;
  {QQuArKFileObject = class(QFileObject)
@@ -2212,7 +2212,7 @@ end;
 
 function qSaveFile(self, args: PyObject) : PyObject; cdecl;
 var
- alt: PChar;
+ alt: PyChar;
  astext: PyObject;
  Format: Integer;
 begin
@@ -2231,7 +2231,7 @@ begin
       Format:=rf_AsText
      else
       Format:=rf_Default;
-    SaveInFile(Format, alt);
+    SaveInFile(Format, PyStrPas(alt));
    end;
   Result:=PyNoResult;
  except
@@ -2243,7 +2243,7 @@ end;
 
 function qConversion(self, args: PyObject) : PyObject; cdecl;
 var
- convert: PChar;
+ convert: PyChar;
  obj: PyObject;
  I: Integer;
  ConvertClass: QFileObjectClass;
@@ -2263,7 +2263,7 @@ begin
     repeat
      ConvertClass:=Source.TestConversionType(I);
      if ConvertClass=Nil then Break;
-     obj:=PyString_FromString(PChar(ConvertClass.TypeInfo));
+     obj:=PyString_FromString(ToPyChar(ConvertClass.TypeInfo));
      if obj=Nil then
       begin
        Py_DECREF(Result);
@@ -2278,7 +2278,7 @@ begin
     until False;
    end
   else
-   with BuildFileRoot(Source.Name + convert, Nil) do
+   with BuildFileRoot(Source.Name + PyStrPas(convert), Nil) do
     begin
      Result:=@PythonObj;
      Py_INCREF(Result);
@@ -2312,7 +2312,7 @@ const
    (ml_name: 'conversion';  ml_meth: qConversion;  ml_flags: METH_VARARGS),
    (ml_name: 'openinnewwindow'; ml_meth: qOpeninWindow; ml_flags: METH_VARARGS));
 
-function QFileObject.PyGetAttr(attr: PChar) : PyObject;
+function QFileObject.PyGetAttr(attr: PyChar) : PyObject;
 var
  I: Integer;
  S: String;
@@ -2328,7 +2328,7 @@ begin
  case attr[0] of
   'f': if StrComp(attr, 'filename') = 0 then
         begin
-         Result:=PyString_FromString(PChar(Filename));
+         Result:=PyString_FromString(ToPyChar(Filename));
          Exit;
         end;
   't': if StrComp(attr, 'tempfilename') = 0 then
@@ -2338,15 +2338,15 @@ begin
          GetTempPath(MAX_PATH, PChar(S));
          SetLength(S, StrLen(PChar(S)));
          S:=ConcatPaths([S, Format('auto-save-%x-%x%s', [GetCurrentProcessId, LongInt(Self), TypeInfo])]);
-         Result:=PyString_FromString(PChar(S));
+         Result:=PyString_FromString(ToPyChar(S));
          Exit;
         end;
  end;
 end;
 
-function QFileObject.PySetAttr(attr: PChar; value: PyObject) : Boolean;
+function QFileObject.PySetAttr(attr: PyChar; value: PyObject) : Boolean;
 var
- P: PChar;
+ P: PyChar;
 begin
  Result:=inherited PySetAttr(attr, value);
  if not Result then
@@ -2355,7 +2355,7 @@ begin
          begin
           P:=PyString_AsString(value);
           if P=Nil then Exit;
-          Filename:=P;
+          Filename:=PyStrPas(P);
           Result:=True;
           Exit;
          end;

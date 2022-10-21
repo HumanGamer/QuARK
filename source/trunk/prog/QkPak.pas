@@ -49,7 +49,7 @@ type
                 function ExtractTo(PathBase: String) : Integer;
                 function ExtractEntitiesTo(PathBase: String) : Integer;
                 procedure Go1(maplist, extracted: PyObject; var FirstMap: String; var QCList: TQList); override;
-                function PyGetAttr(attr: PChar) : PyObject; override;
+                function PyGetAttr(attr: PyChar) : PyObject; override;
                 function TestConversionType(I: Integer) : QFileObjectClass; override;
                 function ConversionFrom(Source: QFileObject) : Boolean;     override;
               end;
@@ -717,7 +717,7 @@ begin
     if Q is QFileObject then
      begin
       S:=SubPath+Q.Name+Q.TypeInfo;
-      v:=PyString_FromString(PChar(S));
+      v:=PyString_FromString(ToPyChar(S));
       PyList_Append(extracted, v);
       Py_DECREF(v);
       S:=OutputFile(S);
@@ -735,14 +735,14 @@ end;
 
 function pExtract(self, args: PyObject) : PyObject; cdecl;
 var
- pathbase: PChar;
+ pathbase: PyChar;
 begin
  Result:=Nil;
  try
   if not PyArg_ParseTupleX(args, 's', [@pathbase]) then
    Exit;
   ProgressIndicatorStart(0,0); try
-  Result:=PyInt_FromLong((QkObjFromPyObj(self) as QPakFolder).ExtractTo(pathbase));
+  Result:=PyInt_FromLong((QkObjFromPyObj(self) as QPakFolder).ExtractTo(PyStrPas(pathbase)));
   finally ProgressIndicatorStop; end;
  except
   Py_XDECREF(Result);
@@ -753,13 +753,13 @@ end;
 
 function pGetFolder(self, args: PyObject) : PyObject; cdecl;
 var
- path: PChar;
+ path: PyChar;
 begin
  Result:=Nil;
  try
   if not PyArg_ParseTupleX(args, 's', [@path]) then
    Exit;
-  Result:=GetPyObj((QkObjFromPyObj(self) as QPakFolder).GetFolder(path));
+  Result:=GetPyObj((QkObjFromPyObj(self) as QPakFolder).GetFolder(PyStrPas(path)));
  except
   Py_XDECREF(Result);
   EBackToPython;
@@ -772,7 +772,7 @@ const
   ((ml_name: 'extract';        ml_meth: pExtract;        ml_flags: METH_VARARGS),
    (ml_name: 'getfolder';      ml_meth: pGetFolder;      ml_flags: METH_VARARGS));
 
-function QPakFolder.PyGetAttr(attr: PChar) : PyObject;
+function QPakFolder.PyGetAttr(attr: PyChar) : PyObject;
 var
  I: Integer;
 begin

@@ -118,7 +118,7 @@ type
                procedure SetSelFocus; override;
                procedure AddFace(FJ: TFace; Copy: Boolean);
                function EnumAretes(Sommet: PVertex; var nVertices: TFVertexTable) : Integer;
-               function PyGetAttr(attr: PChar) : PyObject; override;
+               function PyGetAttr(attr: PyChar) : PyObject; override;
                procedure Deplacement(const PasGrille: TDouble); override;
              end;
 
@@ -138,8 +138,8 @@ type
                       procedure FindTextures(SortedList: TStringList); override;
                       function ReplaceTexture(const Source, Dest: String; U: Boolean) : Integer; override;
                       property TextureMirror: Boolean read GetTextureMirror write SetTextureMirror;
-                      function PyGetAttr(attr: PChar) : PyObject; override;
-                      function PySetAttr(attr: PChar; value: PyObject) : Boolean; override;
+                      function PyGetAttr(attr: PyChar) : PyObject; override;
+                      function PySetAttr(attr: PyChar; value: PyObject) : Boolean; override;
                       function GetFaceOpacity(Default: Integer) : TTexOpacityInfo;
                     end;
 
@@ -212,7 +212,7 @@ type
                function Retourner(LeaveTex: Boolean) : Boolean;
                procedure AddTo3DScene(Scene: TObject); override;
                procedure AnalyseClic(Liste: PyObject); override;
-               function PyGetAttr(attr: PChar) : PyObject; override;
+               function PyGetAttr(attr: PyChar) : PyObject; override;
             end;
 
 const
@@ -2532,7 +2532,7 @@ const
    (ml_name: 'intersects';     ml_meth: pIntersects;     ml_flags: METH_VARARGS),
    (ml_name: 'changedfaces';   ml_meth: pChangedFaces;   ml_flags: METH_VARARGS));
 
-function TPolyhedron.PyGetAttr(attr: PChar) : PyObject;
+function TPolyhedron.PyGetAttr(attr: PyChar) : PyObject;
 var
  I: Integer;
 begin
@@ -2552,7 +2552,7 @@ begin
         end;
   'e': if StrComp(attr, 'error') = 0 then
         begin
-         Result:=PyString_FromString(PChar(GetPolyhedronError));
+         Result:=PyString_FromString(ToPyChar(GetPolyhedronError));
          Exit;
         end;
   'f': if StrComp(attr, 'faces') = 0 then
@@ -4546,7 +4546,7 @@ const
    (ml_name: 'enhrevert';     ml_meth: fRevertToEnhTex;ml_flags: METH_VARARGS),
    (ml_name: 'extrudeprism';  ml_meth: fExtrudePrism;  ml_flags: METH_VARARGS));
 
-function TFace.PyGetAttr(attr: PChar) : PyObject;
+function TFace.PyGetAttr(attr: PyChar) : PyObject;
 var
  I, J: Integer;
  S: PSurface;
@@ -4619,7 +4619,7 @@ begin
  end;
 end;
 
-function TTexturedTreeMap.PyGetAttr(attr: PChar) : PyObject;
+function TTexturedTreeMap.PyGetAttr(attr: PyChar) : PyObject;
 begin
  Result:=inherited PyGetAttr(attr);
  if Result<>Nil then Exit;
@@ -4627,15 +4627,15 @@ begin
   't': if StrComp(attr, 'texturename') = 0 then
         begin
          Acces;
-         Result:=PyString_FromString(PChar(NomTex));
+         Result:=PyString_FromString(ToPyChar(NomTex));
          Exit;
         end;
  end;
 end;
 
-function TTexturedTreeMap.PySetAttr(attr: PChar; value: PyObject) : Boolean;
+function TTexturedTreeMap.PySetAttr(attr: PyChar; value: PyObject) : Boolean;
 var
- P: PChar;
+ P: PyChar;
 begin
  Result:=inherited PySetAttr(attr, value);
  if not Result then

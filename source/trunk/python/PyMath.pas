@@ -57,8 +57,8 @@ function MakePyVectv(const v3: vec3_t) : PyVect;
 function MakePyVectPtf(const P: TPointProj; Coord: TCoordinates) : PyVect;
 function PyVect_AsPP(V: PyVect) : TPointProj;
 
-function GetVectAttr(self: PyObject; attr: PChar) : PyObject; cdecl;
-function SetVectAttr(self: PyObject; attr: PChar; value: PyObject) : Integer; cdecl;
+function GetVectAttr(self: PyObject; attr: PyChar) : PyObject; cdecl;
+function SetVectAttr(self: PyObject; attr: PyChar; value: PyObject) : Integer; cdecl;
 function CompareVect(v1, v2: PyObject) : Integer; cdecl;
 function PrintVect(self: PyObject) : PyObject; cdecl;
 function VectToStr(self: PyObject) : PyObject; cdecl;
@@ -106,7 +106,7 @@ var
 function MakePyQuaternion(const nQ: TQuaternion) : PyQuaternion; overload;
 function MakePyQuaternion(nX, nY, nZ, nW: TDouble) : PyQuaternion; overload;
 
-function GetQuaternionAttr(self: PyObject; attr: PChar) : PyObject; cdecl;
+function GetQuaternionAttr(self: PyObject; attr: PyChar) : PyObject; cdecl;
 function PrintQuaternion(self: PyObject) : PyObject; cdecl;
 function QuaternionToStr(self: PyObject) : PyObject; cdecl;
 
@@ -148,7 +148,7 @@ var
 
  {------------------------}
 
-function GetMatrixAttr(self: PyObject; attr: PChar) : PyObject; cdecl;
+function GetMatrixAttr(self: PyObject; attr: PyChar) : PyObject; cdecl;
 function PrintMatrix(self: PyObject) : PyObject; cdecl;
 function MatrixToStr(self: PyObject) : PyObject; cdecl;
 function MakePyMatrix(const nMatrix: TMatrixTransformation; transposed : boolean = false) : PyMatrix;
@@ -220,7 +220,7 @@ const
    (ml_name: 'insertitem';    ml_meth: qInsertItem;    ml_flags: METH_VARARGS),
    (ml_name: 'removeitem';    ml_meth: qRemoveItem;    ml_flags: METH_VARARGS));}
 
-function GetVectAttr(self: PyObject; attr: PChar) : PyObject;
+function GetVectAttr(self: PyObject; attr: PyChar) : PyObject;
 {var
  I, N: Integer;}
 var
@@ -347,7 +347,7 @@ begin
           Exit;
          end;
   end;
-  PyErr_SetString(QuarkxError, PChar(LoadStr1(4429)));
+  PyErr_SetString(QuarkxError, ToPyChar(LoadStr1(4429)));
   Result:=Nil;
  except
   Py_XDECREF(Result);
@@ -356,7 +356,7 @@ begin
  end;
 end;
 
-function SetVectAttr(self: PyObject; attr: PChar; value: PyObject) : Integer;
+function SetVectAttr(self: PyObject; attr: PyChar; value: PyObject) : Integer;
 var
  o: PyObject;
 begin
@@ -383,7 +383,7 @@ begin
           Exit;
          end;*)
   end;
-  PyErr_SetString(QuarkxError, PChar(LoadStr1(4429)));
+  PyErr_SetString(QuarkxError, ToPyChar(LoadStr1(4429)));
   Result:=-1;
  except
   EBackToPython;
@@ -438,7 +438,7 @@ begin
   if PyVect(self)^.ST then
    S:=Copy(S, 1, Length(S)-1) + ' ' + ftos(PyVectST(self)^.TexS)
                               + ' ' + ftos(PyVectST(self)^.TexT) + '>';
-  Result:=PyString_FromString(PChar(S));
+  Result:=PyString_FromString(ToPyChar(S));
  except
   Py_XDECREF(Result);
   EBackToPython;
@@ -453,7 +453,7 @@ begin
  Result:=Nil;
  try
   S:=vtos(PyVect(self)^.V);
-  Result:=PyString_FromString(PChar(S));
+  Result:=PyString_FromString(ToPyChar(S));
  except
   Py_XDECREF(Result);
   EBackToPython;
@@ -825,7 +825,7 @@ end;
 
  {------------------------}
 
-function GetQuaternionAttr(self: PyObject; attr: PChar) : PyObject;
+function GetQuaternionAttr(self: PyObject; attr: PyChar) : PyObject;
 var
  Q1: TQuaternion;
 begin
@@ -877,7 +877,7 @@ begin
           Exit;
          end;
   end;
-  PyErr_SetString(QuarkxError, PChar(LoadStr1(4429)));
+  PyErr_SetString(QuarkxError, ToPyChar(LoadStr1(4429)));
   Result:=Nil;
  except
   Py_XDECREF(Result);
@@ -893,7 +893,7 @@ begin
  Result:=Nil;
  try
   S:='<quaternion '+qtos(PyQuaternion(self)^.Q)+'>';
-  Result:=PyString_FromString(PChar(S));
+  Result:=PyString_FromString(ToPyChar(S));
  except
   Py_XDECREF(Result);
   EBackToPython;
@@ -908,7 +908,7 @@ begin
  Result:=Nil;
  try
   S:=qtos(PyQuaternion(self)^.Q);
-  Result:=PyString_FromString(PChar(S));
+  Result:=PyString_FromString(ToPyChar(S));
  except
   Py_XDECREF(Result);
   EBackToPython;
@@ -1147,7 +1147,7 @@ end;
 
  {------------------------}
 
-function GetMatrixAttr(self: PyObject; attr: PChar) : PyObject;
+function GetMatrixAttr(self: PyObject; attr: PyChar) : PyObject;
 var
  I: Integer;
  obj: array[1..3] of PyObject;
@@ -1198,7 +1198,7 @@ begin
           Exit;
          end;
   end;
-  PyErr_SetString(QuarkxError, PChar(LoadStr1(4429)));
+  PyErr_SetString(QuarkxError, ToPyChar(LoadStr1(4429)));
   Result:=Nil;
  except
   Py_XDECREF(Result);
@@ -1214,7 +1214,7 @@ begin
  Result:=Nil;
  try
   S:='<matrix '+mxtos(PyMatrix(self)^.M)+'>';
-  Result:=PyString_FromString(PChar(S));
+  Result:=PyString_FromString(ToPyChar(S));
  except
   Py_XDECREF(Result);
   EBackToPython;
@@ -1229,7 +1229,7 @@ begin
  Result:=Nil;
  try
   S:=mxtos(PyMatrix(self)^.M);
-  Result:=PyString_FromString(PChar(S));
+  Result:=PyString_FromString(ToPyChar(S));
  except
   Py_XDECREF(Result);
   EBackToPython;

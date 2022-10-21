@@ -67,8 +67,8 @@ type
     Function GetPosition: vec3_p;
     procedure SetRotMatrix(P: TMatrixTransformation);
     procedure GetRotMatrix(var P: PMatrixTransformation);
-    function PyGetAttr(attr: PChar) : PyObject; override;
-    function PySetAttr(attr: PChar; value: PyObject) : Boolean; override;
+    function PyGetAttr(attr: PyChar) : PyObject; override;
+    function PySetAttr(attr: PyChar; value: PyObject) : Boolean; override;
     function TreeViewColorBoxes : TColorBoxList; override;
   end;
 
@@ -209,7 +209,7 @@ begin
   Result.Add(SpecColor2, 'LI');
 end;
 
-function QModelBone.PyGetAttr(attr: PChar) : PyObject;
+function QModelBone.PyGetAttr(attr: PyChar) : PyObject;
 var
   P: vec3_p;
   M: PMatrixTransformation;
@@ -269,7 +269,7 @@ begin
             o2:=PyInt_FromLong(I3);
             PyList_SetItem(o, I2, o2);
           end;
-          PyDict_SetItemString(Result, PChar(S2), o);
+          PyDict_SetItemString(Result, ToPyChar(S2), o);
         finally
           Py_DECREF(o);
         end;
@@ -300,7 +300,7 @@ begin
             o2:=PyInt_FromLong(I3);
             PyList_SetItem(o, I2, o2);
           end;
-          PyDict_SetItemString(Result, PChar(S2), o);
+          PyDict_SetItemString(Result, ToPyChar(S2), o);
         finally
           Py_DECREF(o);
         end;
@@ -310,7 +310,7 @@ begin
   end;
 end;
 
-function QModelBone.PySetAttr(attr: PChar; value: PyObject) : Boolean;
+function QModelBone.PySetAttr(attr: PyChar; value: PyObject) : Boolean;
 var
   P: PyVect;
   M: PyMatrix;

@@ -72,8 +72,8 @@ type
     procedure ChercheExtremites(var Min, Max: TVect); override;
     function MergeVertices(const Frames: TQList) : Boolean;
     procedure Dessiner; override;
-    function PyGetAttr(attr: PChar) : PyObject; override;
-    function PySetAttr(attr: PChar; value: PyObject) : Boolean; override;
+    function PyGetAttr(attr: PyChar) : PyObject; override;
+    function PySetAttr(attr: PyChar; value: PyObject) : Boolean; override;
     procedure AnalyseClic(Liste: PyObject); override;
     Function FrameGroup: QFrameGroup;
     Function SkinGroup: QSkinGroup;
@@ -1052,7 +1052,7 @@ begin
   end;
 end;
 
-function QComponent.PyGetAttr(attr: PChar) : PyObject;
+function QComponent.PyGetAttr(attr: PyChar) : PyObject;
 var
   I, L, Count: Integer;
   CTris: PComponentTris;
@@ -1122,7 +1122,7 @@ begin
   end;
 end;
 
-function QComponent.PySetAttr(attr: PChar; value: PyObject) : Boolean;
+function QComponent.PySetAttr(attr: PyChar; value: PyObject) : Boolean;
 const
   Spec1 = 'Tris';
   BaseSize = Length('Tris=');

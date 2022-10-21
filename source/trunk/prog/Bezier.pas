@@ -58,8 +58,8 @@ type
              function OrthogonalVector(u,v: scalar_t) : vec3_t;
 
              procedure AnalyseClic(Liste: PyObject); override;
-             function PyGetAttr(attr: PChar) : PyObject; override;
-             function PySetAttr(attr: PChar; value: PyObject) : Boolean; override;
+             function PyGetAttr(attr: PyChar) : PyObject; override;
+             function PySetAttr(attr: PyChar; value: PyObject) : Boolean; override;
              procedure DrawTexVertices; override;
            end;
 
@@ -1054,7 +1054,7 @@ end;
 
  { Python attribute reading }
 
-function TBezier.PyGetAttr(attr: PChar) : PyObject;
+function TBezier.PyGetAttr(attr: PyChar) : PyObject;
 var
  cp: TMeshBuf5;
  I, J: Integer;
@@ -1099,7 +1099,7 @@ begin
 end;
 
  { Python attribute writing }
-function TBezier.PySetAttr(attr: PChar; value: PyObject) : Boolean;
+function TBezier.PySetAttr(attr: PyChar; value: PyObject) : Boolean;
 var
  cp, oldcp: TMeshBuf5;
  I, J: Integer;

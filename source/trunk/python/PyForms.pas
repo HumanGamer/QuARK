@@ -56,7 +56,7 @@ type
     procedure wmHelp(var Msg: TMessage); message wm_Help;
     procedure FreeCallbacks;
    {function CreateQkPanel(nParent: TWinControl; nAlign: TAlign; nSize: Integer) : PyControl;}
-    procedure WndCallback(FntName: PChar);
+    procedure WndCallback(FntName: PyChar);
     procedure FillMenu(Mnu: HMenu; List: PyObject; Recursive: Boolean);
   protected
     Info, MenuBar, ShortCuts, NumShortCuts: PyObject;
@@ -76,8 +76,8 @@ type
 
  {-------------------}
 
-function GetWindowAttr(self: PyObject; attr: PChar) : PyObject; cdecl;
-function SetWindowAttr(self: PyObject; attr: PChar; value: PyObject) : Integer; cdecl;
+function GetWindowAttr(self: PyObject; attr: PyChar) : PyObject; cdecl;
+function SetWindowAttr(self: PyObject; attr: PyChar; value: PyObject) : Integer; cdecl;
 
 var
  TyWindow_Type: TyTypeObject =
@@ -243,7 +243,7 @@ end;*)
 
 function wNewToolbar(self, args: PyObject) : PyObject; cdecl;
 var
- nCaption: PChar;
+ nCaption: PyChar;
  nButtons, Closeable: PyObject;
  Tb: TQkToolbar;
  R: TRect;
@@ -264,7 +264,7 @@ begin
      end;
     R:=GetDesktopArea;
     Tb:=TQkToolbar.CustomCreate(Form, Bounds((R.Left+R.Right) div 2-16, (R.Left+R.Right) div 2-16, 32, 32));
-    Tb.Caption:=StrPas(nCaption);
+    Tb.Caption:=PyStrPas(nCaption);
     Tb.DockedTo:=Form.topdock;
     Tb.CloseButton:=(Closeable<>Nil) and PyObject_IsTrue(Closeable);
     if nButtons<>Nil then
@@ -373,7 +373,7 @@ end;
 function wNewFloating(self, args: PyObject) : PyObject; cdecl;
 var
  Fw: TPyFloatingWnd;
- nCaption: PChar;
+ nCaption: PyChar;
  nFlags: Integer;
 begin
  Result:=Nil;
@@ -389,7 +389,7 @@ begin
       Result:=PyNoResult;
       Exit;
      end;
-    Fw:=TPyFloatingWnd.CreateCustom(Form, nFlags, nCaption);
+    Fw:=TPyFloatingWnd.CreateCustom(Form, nFlags, PyStrPas(nCaption));
     Fw.WindowObject^.Hidden:=True;
     Result:=Fw.WindowObject;
     LayoutMgrFromPanelObj(Form.MainPanelC).InsertControl(Result);
@@ -431,7 +431,7 @@ end;
 function wNewFullscreen(self, args: PyObject) : PyObject; cdecl;
 var
  Fw: TPyFullscreenWnd;
- nCaption: PChar;
+ nCaption: PyChar;
  nFlags: Integer;
 begin
  Result:=Nil;
@@ -447,7 +447,7 @@ begin
       Result:=PyNoResult;
       Exit;
      end;
-    Fw:=TPyFullscreenWnd.CreateCustom(Form, nFlags, nCaption);
+    Fw:=TPyFullscreenWnd.CreateCustom(Form, nFlags, PyStrPas(nCaption));
     Fw.WindowObject^.Hidden:=True;
     Result:=Fw.WindowObject;
     LayoutMgrFromPanelObj(Form.MainPanelC).InsertControl(Result);
@@ -461,7 +461,7 @@ end;
 
 function wMacro(self, args: PyObject) : PyObject; cdecl;
 var
- nMacro: PChar;
+ nMacro: PyChar;
 begin
  Result:=Nil;
  try
@@ -582,7 +582,7 @@ const
 
  {-------------------}
 
-function GetWindowObject(self: PyObject; attr: PChar) : PyObjectPtr;
+function GetWindowObject(self: PyObject; attr: PyChar) : PyObjectPtr;
 {var
  S: String;}
 begin
@@ -618,11 +618,11 @@ begin
           end;}
    end;
 {S:=Format('windows have no attribute "%s"', [attr]);
- PyErr_SetString(QuarkxError, PChar(S));}
+ PyErr_SetString(QuarkxError, ToPyChar(S));}
  Result:=Nil;
 end;
 
-function GetWindowAttr(self: PyObject; attr: PChar) : PyObject; cdecl;
+function GetWindowAttr(self: PyObject; attr: PyChar) : PyObject; cdecl;
 var
  Attr1: PyObjectPtr;
  I: Integer;
@@ -709,7 +709,7 @@ begin
   Attr1:=GetWindowObject(self, attr);
   if Attr1=Nil then
    begin
-    PyErr_SetString(QuarkxError, PChar(LoadStr1(4429)));
+    PyErr_SetString(QuarkxError, ToPyChar(LoadStr1(4429)));
     Result:=Nil;
    end
   else
@@ -724,7 +724,7 @@ begin
  end;
 end;
 
-function SetWindowAttr(self: PyObject; attr: PChar; value: PyObject) : Integer; cdecl;
+function SetWindowAttr(self: PyObject; attr: PyChar; value: PyObject) : Integer; cdecl;
 var
  Attr1: PyObjectPtr;
  nRect: TRect;
@@ -762,7 +762,7 @@ begin
             begin
              if not (QkObjFromPyObj(value) is QFileObject) then
               begin
-               PyErr_SetString(QuarkxError, PChar(LoadStr1(4417)));
+               PyErr_SetString(QuarkxError, ToPyChar(LoadStr1(4417)));
                Exit;
               end;
              ChangeFileObject(QkObjFromPyObj(value) as QFileObject);
@@ -794,7 +794,7 @@ begin
   Attr1:=GetWindowObject(self, attr);
   if Attr1=Nil then
    begin
-    PyErr_SetString(QuarkxError, PChar(LoadStr1(4429)));
+    PyErr_SetString(QuarkxError, ToPyChar(LoadStr1(4429)));
     Result:=-1;
    end
   else
@@ -924,7 +924,7 @@ begin
  inherited;
 end;
 
-procedure TPyForm.WndCallback(FntName: PChar);
+procedure TPyForm.WndCallback(FntName: PyChar);
 var
  fnt: PyObject;
 begin
@@ -1000,7 +1000,7 @@ end;
 
 procedure TPyForm.wmHelp;
 var
-  P: PChar;
+  P: PyChar;
   obj: PyObject;
   S, S2: String;
   UrlPos : Integer;
@@ -1015,7 +1015,7 @@ begin
         P:=PyString_AsString(obj);
         if P<>Nil then
         begin
-          S:=P;
+          S:=PyStrPas(P);
           if (Length(S)<=1) or (S[1]<>'|') then Exit;
           S2:=Copy(S,2,Maxint);
           UrlPos:=AnsiPos('|',S2);
@@ -1039,7 +1039,7 @@ procedure TPyForm.wmMenuSelect;
 var
  Info: TOldMenuItemInfo;
  obj, s: PyObject;
- nHint: PChar;
+ nHint: PyChar;
 begin
  nHint:=Nil;
  if Msg.lParam <> 0 then
@@ -1071,7 +1071,7 @@ begin
   end;
  if nHint=Nil then
   nHint:='';
- Application.Hint:=nHint;
+ Application.Hint:=PyStrPas(nHint);
 end;
 
 procedure TPyForm.wmInitMenuPopup;
@@ -1323,7 +1323,7 @@ begin
     if S<>'' then
      begin
       esc:=GetQuarkxAttr('editshortcuts');
-      obj:=PyString_FromString(PChar(S)); try
+      obj:=PyString_FromString(ToPyChar(S)); try
       if (esc<>Nil) and (obj<>Nil) and (PySequence_In(esc, obj)>0) then
        Exit;
       finally Py_XDECREF(obj); end;
@@ -1356,10 +1356,10 @@ begin
     finally Py_XDECREF(esc); end;
    end;
 
- if (S<>'') and PyMapping_HasKeyString(ShortCuts, PChar(S)) then
+ if (S<>'') and PyMapping_HasKeyString(ShortCuts, ToPyChar(S)) then
   begin
    Result:=True;
-   obj:=PyDict_GetItemString(ShortCuts, PChar(S));
+   obj:=PyDict_GetItemString(ShortCuts, ToPyChar(S));
    if obj=Nil then
     PythonCodeEnd
    else

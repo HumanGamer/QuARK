@@ -37,11 +37,11 @@ procedure PyListToQList(list: PyObject; L: TQList; Cls: QObjectClass);
 function GetPySpecArg(var Spec: String; value: PyObject) : String;
 
 procedure PythonObjDestructor(o: PyObject); cdecl;
-function GetObjAttr(self: PyObject; attr: PChar) : PyObject; cdecl;
-function SetObjAttr(self: PyObject; attr: PChar; value: PyObject) : Integer; cdecl;
+function GetObjAttr(self: PyObject; attr: PyChar) : PyObject; cdecl;
+function SetObjAttr(self: PyObject; attr: PyChar; value: PyObject) : Integer; cdecl;
 function ObjRepr(self: PyObject) : PyObject; cdecl;
-{function GetFileObjAttr(self: PyObject; attr: PChar) : PyObject; cdecl;
-function SetFileObjAttr(self: PyObject; attr: PChar; value: PyObject) : Integer; cdecl;}
+{function GetFileObjAttr(self: PyObject; attr: PyChar) : PyObject; cdecl;
+function SetFileObjAttr(self: PyObject; attr: PyChar; value: PyObject) : Integer; cdecl;}
 function GetObjSpec(self, o: PyObject) : PyObject; cdecl;
 function SetObjSpec(self, o, value: PyObject) : Integer; cdecl;
 
@@ -169,13 +169,13 @@ begin
  end;
 end;
 
-function GetObjAttr(self: PyObject; attr: PChar) : PyObject; cdecl;
+function GetObjAttr(self: PyObject; attr: PyChar) : PyObject; cdecl;
 begin
  Result:=Nil;
  try
   Result:=QkObjFromPyObj(self).PyGetAttr(attr);
   if Result=Nil then
-   PyErr_SetString(QuarkxError, PChar(LoadStr1(4429)));
+   PyErr_SetString(QuarkxError, ToPyChar(LoadStr1(4429)));
  except
   Py_XDECREF(Result);
   EBackToPython;
@@ -183,13 +183,13 @@ begin
  end;
 end;
 
-function SetObjAttr(self: PyObject; attr: PChar; value: PyObject) : Integer; cdecl;
+function SetObjAttr(self: PyObject; attr: PyChar; value: PyObject) : Integer; cdecl;
 begin
  Result:=-1;
  try
   if not QkObjFromPyObj(self).PySetAttr(attr, value) then
    begin
-    PyErr_SetString(QuarkxError, PChar(LoadStr1(4429)));
+    PyErr_SetString(QuarkxError, ToPyChar(LoadStr1(4429)));
     Exit;
    end;
   Result:=0;
@@ -216,7 +216,7 @@ begin
 {$ELSE}
   s:=Format('<%s object, name: "%s">', [self.ob_type.tp_name, Q.Name+Q.TypeInfo]);
 {$ENDIF}
-  Result:=PyString_FromString(PChar(s));
+  Result:=PyString_FromString(ToPyChar(s));
  except
   Py_XDECREF(Result);
   EBackToPython;
@@ -237,7 +237,7 @@ begin
     Acces;
     if (Index<0) or (Index>=SubElements.Count) then
      begin
-      PyErr_SetString(QuarkxError, PChar(LoadStr1(4420)));
+      PyErr_SetString(QuarkxError, ToPyChar(LoadStr1(4420)));
       Exit;
      end;
     Result:=GetPyObj(SubElements[Index]);
@@ -284,14 +284,14 @@ begin
   nChild:=QkObjFromPyObj(Obj1);
   if nChild.FParent<>Nil then
    begin
-    PyErr_SetString(QuarkxError, PChar(LoadStr1(4422)));
+    PyErr_SetString(QuarkxError, ToPyChar(LoadStr1(4422)));
     Exit;
    end;
   nParent:=QkObjFromPyObj(self);
   nParent.Acces;
   if (Index<0) or (Index>nParent.SubElements.Count) then
    begin
-    PyErr_SetString(QuarkxError, PChar(LoadStr1(4423)));
+    PyErr_SetString(QuarkxError, ToPyChar(LoadStr1(4423)));
     Exit;
    end;
   nChild.PySetParent(nParent);
@@ -321,7 +321,7 @@ begin
     Index:=PyInt_AsLong(Obj1);
     if (Index<0) or (Index>=nParent.SubElements.Count) then
      begin
-      PyErr_SetString(QuarkxError, PChar(LoadStr1(4424)));
+      PyErr_SetString(QuarkxError, ToPyChar(LoadStr1(4424)));
       Exit;
      end;
     nChild:=nParent.SubElements[Index];
@@ -332,7 +332,7 @@ begin
     Index:=nParent.SubElements.IndexOf(nChild);
     if Index<0 then
      begin
-      PyErr_SetString(QuarkxError, PChar(LoadStr1(4425)));
+      PyErr_SetString(QuarkxError, ToPyChar(LoadStr1(4425)));
       Exit;
      end;
    end;
@@ -348,7 +348,7 @@ end;
 
 function qFindName(self, args: PyObject) : PyObject; cdecl;
 var
- nName: PChar;
+ nName: PyChar;
  nParent: QObject;
 begin
  Result:=Nil;
@@ -357,7 +357,7 @@ begin
    Exit;
   nParent:=QkObjFromPyObj(self);
   nParent.Acces;
-  Result:=GetPyObj(nParent.SubElements.FindName(nName));
+  Result:=GetPyObj(nParent.SubElements.FindName(PyStrPas(nName)));
  except
   Py_XDECREF(Result);
   EBackToPython;
@@ -367,7 +367,7 @@ end;
 
 function qFindShortName(self, args: PyObject) : PyObject; cdecl;
 var
- nName: PChar;
+ nName: PyChar;
  nParent: QObject;
 begin
  Result:=Nil;
@@ -376,7 +376,7 @@ begin
    Exit;
   nParent:=QkObjFromPyObj(self);
   nParent.Acces;
-  Result:=GetPyObj(nParent.SubElements.FindShortName(nName));
+  Result:=GetPyObj(nParent.SubElements.FindShortName(PyStrPas(nName)));
  except
   Py_XDECREF(Result);
   EBackToPython;
@@ -386,7 +386,7 @@ end;
 
 function qGetInt(self, args: PyObject) : PyObject; cdecl;
 var
- Spec: PChar;
+ Spec: PyChar;
  Q: QObject;
 begin
  Result:=Nil;
@@ -395,7 +395,7 @@ begin
    Exit;
   Q:=QkObjFromPyObj(self);
   Q.Acces;
-  Result:=PyInt_FromLong(Q.IntSpec[Spec]);
+  Result:=PyInt_FromLong(Q.IntSpec[PyStrPas(Spec)]);
  except
   Py_XDECREF(Result);
   EBackToPython;
@@ -405,7 +405,7 @@ end;
 
 function qSetInt(self, args: PyObject) : PyObject; cdecl;
 var
- Spec: PChar;
+ Spec: PyChar;
  Q: QObject;
  value: Integer;
 begin
@@ -415,7 +415,7 @@ begin
    Exit;
   Q:=QkObjFromPyObj(self);
   Q.Acces;
-  Q.IntSpec[Spec]:=value;
+  Q.IntSpec[PyStrPas(Spec)]:=value;
   Result:=PyNoResult;
  except
   Py_XDECREF(Result);
@@ -495,7 +495,7 @@ end;
 
 function qFindAllSubItems(self, args: PyObject) : PyObject; cdecl;
 var
- name, wc, bc: PChar;
+ name, wc, bc: PyChar;
  nName: String;
  L: TQList;
  WantClass, Browse: QObjectClass;
@@ -506,12 +506,12 @@ begin
   bc:=Nil;
   if not PyArg_ParseTupleX(args, 'ss|s', [@name, @wc, @bc]) then
    Exit;
-  nName:=name;
-  WantClass:=NeedClassOfType(wc);
+  nName:=PyStrPas(name);
+  WantClass:=NeedClassOfType(PyStrPas(wc));
   if bc=Nil then
    Browse:=Nil
   else
-   Browse:=NeedClassOfType(bc);
+   Browse:=NeedClassOfType(PyStrPas(bc));
   L:=TQList.Create; try
   Q:=QkObjFromPyObj(self);
   if (Q is WantClass) and ((nName='') or SameText(Q.Name, nName)) then
@@ -545,7 +545,7 @@ end;
 
 function qLoadText(self, args: PyObject) : PyObject; cdecl;
 var
- src: PChar;
+ src: PyChar;
  count: Integer;
  Q: QObject;
 begin
@@ -555,7 +555,7 @@ begin
    Exit;
   Q:=QkObjFromPyObj(self);
   Q.Acces;
-  ConstructObjsFromText(Q, src, count);
+  ConstructObjsFromText(Q, PChar(PyStrPas(src)), count);
   Result:=PyNoResult;
  except
   Py_XDECREF(Result);
@@ -629,7 +629,7 @@ begin
            for I:=N-1 downto 0 do
             begin
              o:=@SubElements[I].PythonObj;
-             PyDict_SetItemString(Result, PChar(SubElements[I].GetFullName), o);
+             PyDict_SetItemString(Result, ToPyChar(SubElements[I].GetFullName), o);
             end;
            Exit;
           end;
@@ -643,7 +643,7 @@ begin
    'n': if StrComp(attr, 'name') = 0 then
          with QkObjFromPyObj(self) do
           begin
-           Result:=PyString_FromString(PChar(GetFullName));
+           Result:=PyString_FromString(ToPyChar(GetFullName));
            Exit;
           end;
    'p': if StrComp(attr, 'parent') = 0 then
@@ -664,7 +664,7 @@ begin
         else if StrComp(attr, 'shortname') = 0 then
          with QkObjFromPyObj(self) do
           begin
-           Result:=PyString_FromString(PChar(Name));
+           Result:=PyString_FromString(ToPyChar(Name));
            Exit;
           end
         else if StrComp(attr, 'subitems') = 0 then
@@ -683,11 +683,11 @@ begin
    't': if StrComp(attr, 'type') = 0 then
          with QkObjFromPyObj(self) do
           begin
-           Result:=PyString_FromString(PChar(TypeInfo));
+           Result:=PyString_FromString(ToPyChar(TypeInfo));
            Exit;
           end;
   end;
-  PyErr_SetString(QuarkxError, PChar(LoadStr1(4429)));
+  PyErr_SetString(QuarkxError, ToPyChar(LoadStr1(4429)));
   Result:=Nil;
  except
   Py_XDECREF(Result);
@@ -696,9 +696,9 @@ begin
  end;
 end;
 
-function SetObjAttr(self: PyObject; attr: PChar; value: PyObject) : Integer; cdecl;
+function SetObjAttr(self: PyObject; attr: PyChar; value: PyObject) : Integer; cdecl;
 var
- P: PChar;
+ P: PyChar;
 begin
  Result:=-1;
  try
@@ -708,7 +708,7 @@ begin
           P:=PyString_AsString(value);
           if P=Nil then Exit;
           with QkObjFromPyObj(self) do
-           Name:=P;
+           Name:=PyStrPas(P);
           Result:=0;
           Exit;
          end;
@@ -724,7 +724,7 @@ begin
           Exit;
          end
   end;
-  PyErr_SetString(QuarkxError, PChar(LoadStr1(4429)));
+  PyErr_SetString(QuarkxError, ToPyChar(LoadStr1(4429)));
   Result:=-1;
  except
   EBackToPython;
@@ -732,7 +732,7 @@ begin
  end;
 end;
 
-function GetFileObjAttr(self: PyObject; attr: PChar) : PyObject; cdecl;
+function GetFileObjAttr(self: PyObject; attr: PyChar) : PyObject; cdecl;
 begin
  Result:=Nil;
  try
@@ -740,7 +740,7 @@ begin
    'f': if StrComp(attr, 'filename') = 0 then
          with QkObjFromPyObj(self) as QFileObject do
           begin
-           Result:=PyString_FromString(PChar(Filename));
+           Result:=PyString_FromString(ToPyChar(Filename));
            Exit;
           end;
   end;
@@ -752,9 +752,9 @@ begin
  end;
 end;
 
-function SetFileObjAttr(self: PyObject; attr: PChar; value: PyObject) : Integer; cdecl;
+function SetFileObjAttr(self: PyObject; attr: PyChar; value: PyObject) : Integer; cdecl;
 var
- P: PChar;
+ P: PyChar;
 begin
  Result:=-1;
  try
@@ -764,7 +764,7 @@ begin
           P:=PyString_AsString(value);
           if P=Nil then Exit;
           with QkObjFromPyObj(self) as QFileObject do
-           Filename:=P;
+           Filename:=PyStrPas(P);
           Result:=0;
           Exit;
          end;
@@ -781,7 +781,7 @@ end;*)
 
 function GetObjSpec(self, o: PyObject) : PyObject; cdecl;
 var
- P: PChar;
+ P: PyChar;
  I, J, N: Integer;
  S, Spec: String;
  PF: ^Single;
@@ -791,7 +791,7 @@ begin
  try
   P:=PyString_AsString(o);
   if P=Nil then Exit;
-  Spec:=P;
+  Spec:=PyStrPas(P);
   with QkObjFromPyObj(self) do
    begin
     Acces;
@@ -833,7 +833,7 @@ begin
      end;
     S:=Specifics[I];
     I:=Length(Spec)+1;
-    Result:=PyString_FromStringAndSize(PChar(S)+I, Length(S)-I);
+    Result:=PyString_FromStringAndSize(ToPyChar(S)+I, Length(S)-I);
    end;
  except
   Py_XDECREF(Result);
@@ -844,7 +844,7 @@ end;
 
 function GetPySpecArg(var Spec: String; value: PyObject) : String;
 var
- nValue: PChar;
+ nValue: PyChar;
  I, N: Integer;
  obj: PyObject;
  PF: ^Single;
@@ -855,7 +855,7 @@ begin
   begin
    nValue:=PyString_AsString(value);
    if nValue=Nil then Abort;
-   SetString(Result, nValue, PyString_Size(value));
+   SetString(Result, PChar(PyStrPas(nValue)), PyString_Size(value));
    Exit;
   end;
  if value^.ob_type = PyInt_Type then
@@ -920,14 +920,14 @@ end;
 
 function SetObjSpec(self, o, value: PyObject) : Integer; cdecl;
 var
- P: PChar;
+ P: PyChar;
  nSpec, S: String;
 begin
  try
   Result:=-1;
   P:=PyString_AsString(o);
   if P=Nil then Exit;
-  nSpec:=P;
+  nSpec:=PyStrPas(P);
   if value<>Py_None then
    S:=GetPySpecArg(nSpec, value);
   with QkObjFromPyObj(self) do
@@ -936,20 +936,27 @@ begin
     if value<>Py_None then
      if value^.ob_type = PyFloat_Type then
       begin
-       Specifics.Values[P]:='';
-       Specifics.Values[FloatSpecNameOf(P)]:='';
+       Specifics.Values[nSpec]:='';
+(*       Specifics.Values[IntSpecNameOf(nSpec)]:='';*)
        Specifics.Values[FloatSpecNameOf(nSpec)]:=S;
       end
+(*     else if value^.ob_type = PyInt_Type then
+      begin
+       Specifics.Values[nSpec]:='';
+       Specifics.Values[FloatSpecNameOf(nSpec)]:='';
+       Specifics.Values[IntSpecNameOf(nSpec)]:=S;
+      end*)
      else
       begin
-       Specifics.Values[P]:='';
-       Specifics.Values[FloatSpecNameOf(P)]:='';
+       Specifics.Values[FloatSpecNameOf(nSpec)]:='';
+(*       Specifics.Values[IntSpecNameOf(nSpec)]:='';*)
        Specifics.Values[nSpec]:=S;
       end
     else
      begin
-      Specifics.Values[P]:='';
-      Specifics.Values[FloatSpecNameOf(P)]:='';
+      Specifics.Values[nSpec]:='';
+      Specifics.Values[FloatSpecNameOf(nSpec)]:='';
+(*       Specifics.Values[IntSpecNameOf(nSpec)]:='';*)
      end;
    end;
   Result:=0;
@@ -983,7 +990,7 @@ end;
 function qSpecAdd(self, args: PyObject) : PyObject; cdecl;
 var
  Q: QObject;
- nSpec: PChar;
+ nSpec: PyChar;
 begin
  Result:=Nil;
  try
@@ -992,7 +999,7 @@ begin
   Q:=QkObjFromPyObj(self);
   if Q=nil then
     exit;
-  Q.Specifics.Add(nSpec);
+  Q.Specifics.Add(PyStrPas(nSpec));
   Result:=PyNoResult;
  except
   Py_XDECREF(Result);

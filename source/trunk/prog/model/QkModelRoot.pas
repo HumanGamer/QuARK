@@ -33,8 +33,8 @@ type
   public
     class function TypeInfo: String; override;
     function Triangles(var P: PComponentTris) : Integer;
-    function PyGetAttr(attr: PChar) : PyObject; override;
-    function PySetAttr(attr: PChar; value: PyObject) : Boolean; override;
+    function PyGetAttr(attr: PyChar) : PyObject; override;
+    function PySetAttr(attr: PyChar; value: PyObject) : Boolean; override;
     property CurrentComponent : QComponent read FCurrentComponentObj write SetCurrentComponent;
     function GetComponentFromIndex(N: Integer) : QComponent;
     Function GetMisc: QMiscGroup;
@@ -219,7 +219,7 @@ begin
   end;
 end;
 
-function QModelRoot.PyGetAttr(attr: PChar) : PyObject;
+function QModelRoot.PyGetAttr(attr: PyChar) : PyObject;
 var
   I: Integer;
 begin
@@ -246,7 +246,7 @@ begin
   end;
 end;
 
-function QModelRoot.PySetAttr(attr: PChar; value: PyObject) : Boolean;
+function QModelRoot.PySetAttr(attr: PyChar; value: PyObject) : Boolean;
 var
   Q: QObject;
 begin

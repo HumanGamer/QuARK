@@ -64,7 +64,7 @@ function GetPythonValue(value, args: PyObject; Hourglass: Boolean) : PyObject;
 function CallMacro(self: PyObject; const fntname: String) : PyObject;
 function CallMacroEx(args: PyObject; const fntname: String) : PyObject;
 function CallMacroEx2(args: PyObject; const fntname: String; Hourglass: Boolean) : PyObject;
-function GetQuarkxAttr(const attr: PChar) : PyObject;
+function GetQuarkxAttr(const attr: PyChar) : PyObject;
 procedure PythonCodeEnd;
 function PoolObj(const nName: String) : PyObject;
 procedure SetPoolObj(const nName: String; nObj: PyObject);
@@ -451,7 +451,7 @@ var
  WindowMethodTable: array[0..0] of TyMethodDef =
   ((ml_name: 'setmenu';    ml_meth: wSetMenu;    ml_flags: METH_VARARGS));
 
-function GetWindowAttr(self: PyObject; attr: PChar) : PyObject; cdecl;
+function GetWindowAttr(self: PyObject; attr: PyChar) : PyObject; cdecl;
 var
  I: Integer;
 begin
@@ -535,7 +535,7 @@ end;
 function xNewForm(self, args: PyObject) : PyObject; cdecl;
 var
  Temp: TPyForm;
- s: PChar;
+ s: PyChar;
 begin
  Result:=Nil;
  try
@@ -547,7 +547,7 @@ begin
   if s=Nil then
    g_Form1.Enabled:=False   { special trick for the installer of QuArK }
   else
-   Temp.Caption:=s;
+   Temp.Caption:=PyStrPas(s);
      //DefWindowProc(g_Form1.Handle, WM_SYSCOMMAND, SC_MINIMIZE, 0);
   Result:=Temp.WindowObject;
  except
@@ -560,7 +560,7 @@ end;
 function xOpenFullscreen(self, args: PyObject) : PyObject; cdecl;
 var
  rootobj: PyObject;
- s: PChar;
+ s: PyChar;
  Root: QObject;
 begin
  Result:=Nil;
@@ -569,7 +569,7 @@ begin
   if not PyArg_ParseTupleX(args, 'O|s', [@rootobj, @s]) then
    Exit;
   Root:=QkObjFromPyObj(rootobj);
-  OpenFullscreenWindow(s, Root);
+  OpenFullscreenWindow(PyStrPas(s), Root);
   Result:=PyNoResult;
  except
   Py_XDECREF(Result);
@@ -599,7 +599,7 @@ end;
 function xLoadImages(self, args: PyObject) : PyObject; cdecl;
 var
  S: String;
- FileName: PChar;
+ FileName: PyChar;
  cx: Integer;
  MaskX, MaskY: Integer;
  Bitmap: TBitmap;
@@ -631,7 +631,7 @@ begin
     end;
   Bitmap:=TBitmap.Create;
   try
-   S:=GetQPath(pQuArK)+StrPas(FileName);
+   S:=ConcatPaths([GetQPath(pQuArK), PyStrPas(FileName)]);
    Ok:=FileExists(S);
    if Ok then
     try
@@ -641,7 +641,7 @@ begin
     end;
    if not Ok then
     begin
-     S:=StrPas(FileName);
+     S:=PyStrPas(FileName);
      Ok:=FileExists(S);
      if Ok then
       try
@@ -651,11 +651,11 @@ begin
       end;
      if not Ok then
       begin
-       PyErr_SetString(QuarkxError, PChar(FmtLoadStr1(4418, [S])));
+       PyErr_SetString(QuarkxError, ToPyChar(FmtLoadStr1(4418, [S])));
        Exit;
       end;
     end;
-   Log(LOG_PYTHON, LOG_VERBOSE, 'Loading image: '+Filename);
+   Log(LOG_PYTHON, LOG_VERBOSE, 'Loading image: '+PyStrPas(Filename));
    Result:=NewImageList(Bitmap, cx, MaskX, MaskY, cratio);
   finally
    Bitmap.Free;
@@ -695,13 +695,13 @@ end;
 
 function xNewObj(self, args: PyObject) : PyObject; cdecl;
 var
- nName: PChar;
+ nName: PyChar;
 begin
  Result:=Nil;
  try
   if not PyArg_ParseTupleX(args, 's', [@nName]) then
    Exit;
-  with ConstructQObject(nName, Nil) do
+  with ConstructQObject(PyStrPas(nName), Nil) do
    begin
     Result:=@PythonObj;
     Py_INCREF(Result);
@@ -715,7 +715,7 @@ end;
 
 function xNewFileObj(self, args: PyObject) : PyObject; cdecl;
 var
- FileName: PChar;
+ FileName: PyChar;
  nParent: PPythonObj;
 begin
  Result:=Nil;
@@ -723,7 +723,7 @@ begin
   nParent:=Nil;
   if not PyArg_ParseTupleX(args, 's|O!', [@FileName, @TyObject_Type, @nParent]) then
    Exit;
-  with BuildFileRoot(FileName, QkObjFromPyObj(nParent)) do
+  with BuildFileRoot(PyStrPas(FileName), QkObjFromPyObj(nParent)) do
    begin
     Result:=@PythonObj;
     Py_INCREF(Result);
@@ -737,7 +737,7 @@ end;
 
 function xOpenFileObj(self, args: PyObject) : PyObject; cdecl;
 var
- FileName: PChar;
+ FileName: PyChar;
  nParent: PPythonObj;
 begin
  Result:=Nil;
@@ -745,7 +745,7 @@ begin
   nParent:=Nil;
   if not PyArg_ParseTupleX(args, 's|O!', [@FileName, @TyObject_Type, @nParent]) then
    Exit;
-  with BindFileQObject(FileName, QkObjFromPyObj(nParent), False) do
+  with BindFileQObject(PyStrPas(FileName), QkObjFromPyObj(nParent), False) do
    begin
     Result:=@PythonObj;
     Py_INCREF(Result);
@@ -822,7 +822,7 @@ function xFileDialogBox(self, args: PyObject) : PyObject; cdecl;
 const
  fdb_SaveDialog = 1;
 var
- nTitle, nFileName, nDefExt, P1: PChar;
+ nTitle, nFileName, nDefExt, P1: PyChar;
  nFilters, obj: PyObject;
  Flags, I, Count: Integer;
  OpenDialog: TOpenDialog;
@@ -840,7 +840,7 @@ var
     begin
      Result:=PyList_New(L.Count);
      for I:=0 to L.Count-1 do
-      PyList_SetItem(Result, I, PyString_FromString(PChar(L[I])));
+      PyList_SetItem(Result, I, PyString_FromString(ToPyChar(L[I])));
     end;
   end;
 
@@ -861,22 +861,22 @@ begin
     P1:=PyString_AsString(obj);
     if P1=Nil then Exit;
     if I>0 then FiltersStr:=FiltersStr+'|';
-    FiltersStr:=FiltersStr+P1;
+    FiltersStr:=FiltersStr+PyStrPas(P1);
    end;
   if Flags and fdb_SaveDialog <> 0 then
    begin
     Dec(Flags, fdb_SaveDialog);
     SaveDialog:=TSaveDialog.Create(Application);
     try
-     SaveDialog.Title:=nTitle;
+     SaveDialog.Title:=PyStrPas(nTitle);
      if CheckWindows98And2000 then
        SaveDialog.Options:=TOpenOptions(Flags)
         + [ofCreatePrompt, ofPathMustExist, ofHideReadOnly, ofEnableSizing]
      else
        SaveDialog.Options:=TOpenOptions(Flags)
         + [ofCreatePrompt, ofPathMustExist, ofHideReadOnly];
-     SaveDialog.DefaultExt:=nDefExt;
-     SaveDialog.FileName:=nFileName;
+     SaveDialog.DefaultExt:=PyStrPas(nDefExt);
+     SaveDialog.FileName:=PyStrPas(nFileName);
      SaveDialog.Filter:=FiltersStr;
      Ok:=SaveDialog.Execute;
      ProcessResult(SaveDialog.Files);
@@ -888,15 +888,15 @@ begin
    begin
     OpenDialog:=TOpenDialog.Create(Application);
     try
-     OpenDialog.Title:=nTitle;
+     OpenDialog.Title:=PyStrPas(nTitle);
      if CheckWindows98And2000 then
        OpenDialog.Options:=TOpenOptions(Flags)
         + [ofFileMustExist, ofHideReadOnly, ofEnableSizing]
      else
        OpenDialog.Options:=TOpenOptions(Flags)
         + [ofFileMustExist, ofHideReadOnly];
-     OpenDialog.DefaultExt:=nDefExt;
-     OpenDialog.FileName:=nFileName;
+     OpenDialog.DefaultExt:=PyStrPas(nDefExt);
+     OpenDialog.FileName:=PyStrPas(nFileName);
      OpenDialog.Filter:=FiltersStr;
      Ok:=OpenDialog.Execute;
      ProcessResult(OpenDialog.Files);
@@ -914,7 +914,7 @@ end;
 function xSetupSubSet(self, args: PyObject) : PyObject; cdecl;
 var
  SetIndex: Integer;
- SubSet: PChar;
+ SubSet: PyChar;
 begin
  Result:=Nil;
  try
@@ -923,7 +923,7 @@ begin
   if not PyArg_ParseTupleX(args, '|is', [@SetIndex, @SubSet]) then
    Exit;
   if SubSet<>Nil then
-   Result:=GetPyObj(SetupSubSet(TSetupSet(SetIndex), SubSet))
+   Result:=GetPyObj(SetupSubSet(TSetupSet(SetIndex), PyStrPas(SubSet)))
   else
    if SetIndex>=0 then
     Result:=GetPyObj(g_SetupSet[TSetupSet(SetIndex)])
@@ -940,7 +940,7 @@ function xGetQuakeDir(self, args: PyObject) : PyObject; cdecl;
 begin
  Result:=Nil;
  try
-  Result:=PyString_FromString(PChar(QuakeDir));
+  Result:=PyString_FromString(ToPyChar(QuakeDir));
  except
   Py_XDECREF(Result);
   EBackToPython;
@@ -952,7 +952,7 @@ function xGetGameDir(self, args: PyObject) : PyObject; cdecl;
 begin
  Result:=Nil;
  try
-  Result:=PyString_FromString(PChar(GetGameDir));
+  Result:=PyString_FromString(ToPyChar(GetGameDir));
  except
   Py_XDECREF(Result);
   EBackToPython;
@@ -964,7 +964,7 @@ function xGettmpQuArK(self, args: PyObject) : PyObject; cdecl;
 begin
  Result:=Nil;
  try
-  Result:=PyString_FromString(PChar(GettmpQuArK));
+  Result:=PyString_FromString(ToPyChar(GettmpQuArK));
  except
   Py_XDECREF(Result);
   EBackToPython;
@@ -976,7 +976,7 @@ function xGetBaseDir(self, args: PyObject) : PyObject; cdecl;
 begin
  Result:=Nil;
  try
-  Result:=PyString_FromString(PChar(GetBaseDir));
+  Result:=PyString_FromString(ToPyChar(GetBaseDir));
  except
   Py_XDECREF(Result);
   EBackToPython;
@@ -988,7 +988,7 @@ function xGetMapDir(self, args: PyObject) : PyObject; cdecl;
 begin
  Result:=Nil;
  try
-  Result:=PyString_FromString(PChar(GameMapPath));
+  Result:=PyString_FromString(ToPyChar(GameMapPath));
  except
   Py_XDECREF(Result);
   EBackToPython;
@@ -999,7 +999,7 @@ end;
 function xLines2List(self, args: PyObject) : PyObject; cdecl;
 var
  obj: PyObject;
- Lines: PChar;
+ Lines: PyChar;
  L: TStringList;
  I: Integer;
 begin
@@ -1015,10 +1015,10 @@ begin
     if Lines=Nil then Exit;
     L:=TStringList.Create;
     try
-     L.Text:=Lines;
+     L.Text:=PyStrPas(Lines);
      Result:=PyList_New(L.Count);
      for I:=0 to L.Count-1 do
-      PyList_SetItem(Result, I, PyString_FromString(PChar(L[I])));
+      PyList_SetItem(Result, I, PyString_FromString(ToPyChar(L[I])));
     finally
      L.Free;
     end;
@@ -1036,7 +1036,7 @@ var
  L: TStringList;
  I, Count: Integer;
  obj: PyObject;
- Text: PChar;
+ Text: PyChar;
 begin
  Result:=Nil;
  try
@@ -1056,9 +1056,9 @@ begin
        if obj=Nil then Exit;
        Text:=PyString_AsString(obj);
        if Text=Nil then Exit;
-       L.Add(Text);
+       L.Add(PyStrPas(Text));
       end;
-     Result:=PyString_FromString(PChar(StringListConcatWithSeparator(L, $0A)));
+     Result:=PyString_FromString(ToPyChar(StringListConcatWithSeparator(L, $0A)));
     finally
      L.Free;
     end;
@@ -1072,7 +1072,7 @@ end;
 
 function xTruncStr(self, args: PyObject) : PyObject; cdecl;
 var
- P: PChar;
+ P: PyChar;
  Size: Integer;
 begin
  Result:=Nil;
@@ -1102,7 +1102,7 @@ begin
    if Result=Nil then Exit;
    for I:=0 to L.Count div 2 - 1 do
     begin
-     obj:=Py_BuildValueX('(ss)', [PChar(L[I*2]), PChar(L[I*2+1])]);
+     obj:=Py_BuildValueX('(ss)', [ToPyChar(L[I*2]), ToPyChar(L[I*2+1])]);
      if obj=Nil then
       begin
        Py_DECREF(Result);
@@ -1122,7 +1122,7 @@ end;
 
 function xGetQCtxList(self, args: PyObject) : PyObject; cdecl;
 var
- PType, PName: PChar;
+ PType, PName: PyChar;
  nName: String;
  L: TQList;
 begin
@@ -1139,8 +1139,8 @@ begin
     if PName=Nil then
      nName:=''
     else
-     nName:=PName;
-    L:=BuildQuakeCtxObjects(NeedClassOfType(PType), nName);
+     nName:=PyStrPas(PName);
+    L:=BuildQuakeCtxObjects(NeedClassOfType(PyStrPas(PType)), nName);
     try
      Result:=QListToPyList(L);
     finally
@@ -1304,13 +1304,13 @@ end;
 
 function xPoolObj(self, args: PyObject) : PyObject; cdecl;
 var
- nName: PChar;
+ nName: PyChar;
 begin
  Result:=Nil;
  try
   if not PyArg_ParseTupleX(args, 's', [@nName]) then
    Exit;
-  Result:=PoolObj(nName);
+  Result:=PoolObj(PyStrPas(nName));
   if Result=Nil then
    Result:=Py_None;
   Py_INCREF(Result);
@@ -1323,14 +1323,14 @@ end;
 
 function xSetPoolObj(self, args: PyObject) : PyObject; cdecl;
 var
- nName: PChar;
+ nName: PyChar;
  nObj: PyObject;
 begin
  Result:=Nil;
  try
   if not PyArg_ParseTupleX(args, 'sO', [@nName, @nObj]) then
    Exit;
-  SetPoolObj(nName, nObj);
+  SetPoolObj(PyStrPas(nName), nObj);
   Result:=nObj;
   Py_INCREF(Result);
  except
@@ -1361,9 +1361,9 @@ begin
    if R<>Nil then
     begin
      if R^.Undone < R^.UndoList.Count then
-      undo:=PyString_FromString(PChar(TUndoObject(R^.UndoList[R^.UndoList.Count-1-R^.Undone]).Text));
+      undo:=PyString_FromString(ToPyChar(TUndoObject(R^.UndoList[R^.UndoList.Count-1-R^.Undone]).Text));
      if R^.Undone > 0 then
-      redo:=PyString_FromString(PChar(TUndoObject(R^.UndoList[R^.UndoList.Count-R^.Undone]).Text));
+      redo:=PyString_FromString(ToPyChar(TUndoObject(R^.UndoList[R^.UndoList.Count-R^.Undone]).Text));
     end;
    Result:=Py_BuildValueX('OO', [undo, redo]);
   finally
@@ -1464,7 +1464,7 @@ end;
 
 function xMsgBox(self, args: PyObject) : PyObject; cdecl;
 var
- msg: PChar;
+ msg: PyChar;
  typ, btn: Integer;
  Buttons: TMsgDlgButtons absolute btn;
 begin
@@ -1472,7 +1472,7 @@ begin
  try
   if not PyArg_ParseTupleX(args, 'sii', [@msg, @typ, @btn]) then
    Exit;
-  Result:=PyInt_FromLong(MessageDlg(msg, TMsgDlgType(typ), Buttons, 0));
+  Result:=PyInt_FromLong(MessageDlg(PyStrPas(msg), TMsgDlgType(typ), Buttons, 0));
  except
   Py_XDECREF(Result);
   EBackToPython;
@@ -1482,14 +1482,14 @@ end;
 
 function xTextBox(self, args: PyObject) : PyObject; cdecl;
 var
- msg, text: PChar;
+ msg, text: PyChar;
  typ: Integer;
 begin
  Result:=Nil;
  try
   if not PyArg_ParseTupleX(args, 'ssi', [@msg, @text, @typ]) then
    Exit;
-  ShowTextBox('QuArK', msg, text, TMsgDlgType(typ));
+  ShowTextBox('QuArK', PyStrPas(msg), PyStrPas(text), TMsgDlgType(typ));
   Result:=PyNoResult;
  except
   Py_XDECREF(Result);
@@ -1560,7 +1560,7 @@ begin
  try
   if not PyArg_ParseTupleX(args, 'd', [@r]) then
    Exit;
-  Result:=PyString_FromString(PChar(ftos(r)));
+  Result:=PyString_FromString(ToPyChar(ftos(r)));
  except
   Py_XDECREF(Result);
   EBackToPython;
@@ -1596,7 +1596,7 @@ begin
     end;
    Result:=PyList_New(L.Count);
    for I:=0 to L.Count-1 do
-    PyList_SetItem(Result, I, PyString_FromString(PChar(L[I])));
+    PyList_SetItem(Result, I, PyString_FromString(ToPyChar(L[I])));
   finally
    L.Free;
   end;
@@ -1686,7 +1686,7 @@ end;
 
 function xLoadTexture(self, args: PyObject) : PyObject; cdecl;
 var
- texname: PChar;
+ texname: PyChar;
  Q: QPixelSet;
  AltTexSrc: PyObject;
 begin
@@ -1695,7 +1695,7 @@ begin
   AltTexSrc:=Nil;
   if not PyArg_ParseTupleX(args, 's|O', [@texname, @AltTexSrc]) then
    Exit;
-  Q:=GlobalFindTexture(texname, QkObjFromPyObj(AltTexSrc));
+  Q:=GlobalFindTexture(PyStrPas(texname), QkObjFromPyObj(AltTexSrc));
  {if Q<>Nil then
    Q:=Q.Loadtexture;}
   Result:=GetPyObj(Q);
@@ -1712,7 +1712,7 @@ var
  AltTexSrc: PyObject;
  I, Count, op: Integer;
  L: TStringList;
- P: PChar;
+ P: PyChar;
  QL: TQList;
 begin
  Result:=Nil;
@@ -1730,7 +1730,7 @@ begin
      if obj=Nil then Exit;
      P:=PyString_AsString(obj);
      if P=Nil then Exit;
-     L.Add(P);
+     L.Add(PyStrPas(P));
     end;
    QL:=WriteAllTextures(L, op, QkObjFromPyObj(AltTexSrc));
    try
@@ -1751,13 +1751,13 @@ end;
 function xKeyDown(self, args: PyObject) : PyObject; cdecl;
 var
  State: SmallInt;
- P: PChar;
+ P: PyChar;
 begin
  Result:=Nil;
  try
   if not PyArg_ParseTupleX(args, 's', [@P]) then
    Exit;
-  State:=GetAsyncKeyState(Ord(P^));
+  State:=GetAsyncKeyState(Ord(PyStrPas(P)[1]));
   if State<0 then
    State:=1
   else
@@ -1870,7 +1870,7 @@ end;
 
 function xToolBoxSelect(self, args: PyObject) : PyObject; cdecl;
 var
- tb: PChar;
+ tb: PyChar;
  sel: PyObject;
  ToolBox: TToolBoxForm;
 begin
@@ -1879,7 +1879,7 @@ begin
   if not PyArg_ParseTupleX(args, 'sO', [@tb, @sel]) then
    Exit;
   if tb^<>#0 then
-   ToolBox:=OpenToolBox(tb)
+   ToolBox:=OpenToolBox(PyStrPas(tb))
   else
    ToolBox:=OpenTextureBrowser;
   ToolBox.SelectTbObject(QkObjFromPyObj(sel));
@@ -1893,7 +1893,7 @@ end;
 
 function xOpenToolBox(self, args: PyObject) : PyObject; cdecl;
 var
- tb: PChar;
+ tb: PyChar;
  sel: PyObject;
  ToolBox: TToolBoxForm;
 begin
@@ -1903,7 +1903,7 @@ begin
   if not PyArg_ParseTupleX(args, 's|O', [@tb, @sel]) then
    Exit;
   if tb^<>#0 then
-   ToolBox:=OpenToolBox(tb)
+   ToolBox:=OpenToolBox(PyStrPas(tb))
   else
    ToolBox:=OpenTextureBrowser;
   if sel<>Nil then
@@ -1919,7 +1919,7 @@ end;
 
 function xOpenConfigDlg(self, args: PyObject) : PyObject; cdecl;
 var
- path: PChar;
+ path: PyChar;
  obj, oblist: PyObject;
  QList: TQList;
 begin
@@ -1932,7 +1932,7 @@ begin
    Exit;
   if obj=Nil then
    begin
-    ShowConfigDlg(path);
+    ShowConfigDlg(PyStrPas(path));
     Result:=PyNoResult;
    end
   else
@@ -1944,7 +1944,7 @@ begin
        QList:=TQList.Create;
        PyListToQList(oblist, QList, QObject);
       end;
-     Result:=PyInt_FromLong(Ord(ShowAltConfigDlg(QkObjFromPyObj(obj), path, QList)));
+     Result:=PyInt_FromLong(Ord(ShowAltConfigDlg(QkObjFromPyObj(obj), PyStrPas(path), QList)));
     finally
      QList.Free;
     end;
@@ -1996,7 +1996,7 @@ end;
 
 function xRunProgram(self, args: PyObject) : PyObject; cdecl;
 var
- cmdline, curdir, P, Q: PChar;
+ cmdline, curdir, P, Q: PyChar;
  SI: TStartupInfo;
  PI: TProcessInformation;
  nstdout, nstderr: PyObject;
@@ -2029,7 +2029,7 @@ begin
     Flags:=0;
    GetCurrentDirectory(SizeOf(Z), Z);
    try
-    SetCurrentDirectory(curdir);
+    SetCurrentDirectory(PChar(PyStrPas(curdir)));
     if SI.dwFlags and STARTF_USESTDHANDLES <> 0 then
      begin
       if cmdline^='"' then
@@ -2057,7 +2057,7 @@ begin
          end;
        end;
      end;
-    if not CreateProcess(Nil, cmdline, Nil, Nil, True, Flags, Nil, curdir, SI, PI) then
+    if not CreateProcess(Nil, PChar(PyStrPas(cmdline)), Nil, Nil, True, Flags, Nil, PChar(PyStrPas(curdir)), SI, PI) then
      Raise EError(4453);
    finally
     SetCurrentDirectory(Z);
@@ -2076,7 +2076,7 @@ end;
 
 function xWriteConsole(self, args: PyObject) : PyObject; cdecl;
 var
- text: PChar;
+ text: PyChar;
  textlength: Integer;
  obj: PyObject;
  S: String;
@@ -2085,7 +2085,7 @@ begin
  try
   if not PyArg_ParseTupleX(args, 'Os#', [@obj, @text, @textlength]) then
    Exit;
-  SetString(S, text, textlength);
+  SetString(S, PChar(PyStrPas(text)), textlength);
   WriteConsole(obj, S);
   Result:=PyNoResult;
  except
@@ -2115,14 +2115,14 @@ end;
 
 function xOutputFile(self, args: PyObject) : PyObject; cdecl;
 var
- s: PChar;
+ s: PyChar;
 begin
  Result:=Nil;
  try
   if not PyArg_ParseTupleX(args, 's', [@s]) then
    Exit;
   CheckQuakeDir;
-  Result:=PyString_FromString(PChar(OutputFile(s)));
+  Result:=PyString_FromString(ToPyChar(OutputFile(PyStrPas(s))));
  except
   Py_XDECREF(Result);
   EBackToPython;
@@ -2143,7 +2143,7 @@ begin
   if S='' then
    Result:=PyNoResult
   else
-   Result:=PyString_FromString(PChar(S));
+   Result:=PyString_FromString(ToPyChar(S));
  except
   Py_XDECREF(Result);
   EBackToPython;
@@ -2154,7 +2154,7 @@ end;
 function xResolveFilename(self, args: PyObject) : PyObject; cdecl;
 var
  i: Integer;
- s, Filename: PChar;
+ s, Filename: PyChar;
  nFileobject: PyObject;
  OldFilename: TFileToResolve;
  NewFilename: TResolvedFilename;
@@ -2166,8 +2166,8 @@ begin
   if not PyArg_ParseTupleX(args, 'si|sO', [@s, @i, @Filename, @nFileobject]) then
    Exit;
 
-  OldFilename.Commandline:=s;
-  OldFilename.AFilename:=Filename;
+  OldFilename.Commandline:=PyStrPas(s);
+  OldFilename.AFilename:=PyStrPas(Filename);
   case i of
   0: OldFilename.FileType:=ftAny;
   1: OldFilename.FileType:=ftGame;
@@ -2184,8 +2184,8 @@ begin
   NewFilename:=ResolveFilename(OldFilename);
 
   Result:=PyTuple_New(2);
-  PyTuple_SetItem(Result, 0, PyString_FromString(PChar(NewFilename.Filename)));
-  PyTuple_SetItem(Result, 1, PyString_FromString(PChar(NewFilename.WorkDir)));
+  PyTuple_SetItem(Result, 0, PyString_FromString(ToPyChar(NewFilename.Filename)));
+  PyTuple_SetItem(Result, 1, PyString_FromString(ToPyChar(NewFilename.WorkDir)));
  except
   Py_XDECREF(Result);
   EBackToPython;
@@ -2195,13 +2195,13 @@ end;
 
 function xGetFileAttr(self, args: PyObject) : PyObject; cdecl;
 var
- s: PChar;
+ s: PyChar;
 begin
  Result:=Nil;
  try
   if not PyArg_ParseTupleX(args, 's', [@s]) then
    Exit;
-  Result:=PyInt_FromLong(GetFileAttributes(PChar(QuickResolveFilename(s))));
+  Result:=PyInt_FromLong(GetFileAttributes(PChar(QuickResolveFilename(PyStrPas(s)))));
  except
   Py_XDECREF(Result);
   EBackToPython;
@@ -2211,7 +2211,7 @@ end;
 
 function xSetFileAttr(self, args: PyObject) : PyObject; cdecl;
 var
- s: PChar;
+ s: PyChar;
  i: Integer;
 begin
  Result:=Nil;
@@ -2220,11 +2220,11 @@ begin
    Exit;
   if i=-1 then
    begin
-    if not DeleteFile(QuickResolveFilename(s)) then
+    if not DeleteFile(QuickResolveFilename(PyStrPas(s))) then
      Raise EError(4455);
    end
   else
-   if not SetFileAttributes(PChar(QuickResolveFilename(s)),i) then
+   if not SetFileAttributes(PChar(QuickResolveFilename(PyStrPas(s))),i) then
     Raise EError(4455);
   Result:=PyNoResult;
  except
@@ -2371,13 +2371,13 @@ end;
 
 function xHTMLDoc(self, args: PyObject) : PyObject; cdecl;
 var
- s: PChar;
+ s: PyChar;
 begin
  Result:=Nil;
  try
   if not PyArg_ParseTupleX(args, 's', [@s]) then
    Exit;
-  HTMLDoc(s);
+  HTMLDoc(PyStrPas(s));
   Result:=PyNoResult;
  except
   Py_XDECREF(Result);
@@ -2388,7 +2388,7 @@ end;
 
 function xHelpPopup(self, args: PyObject) : PyObject; cdecl;
 var
-  helptext, infobaselink: PChar;
+  helptext, infobaselink: PyChar;
 begin
   Result:=Nil;
   try
@@ -2397,9 +2397,9 @@ begin
       Exit;
 
     if (infobaselink = nil) then
-      HelpPopup(helptext, '')
+      HelpPopup(PyStrPas(helptext), '')
     else
-      HelpPopup(helptext, infobaselink);
+      HelpPopup(PyStrPas(helptext), PyStrPas(infobaselink));
 
     Result:=PyNoResult;
   except
@@ -2411,7 +2411,7 @@ end;
 
 function xHelpMenuItem(self, args: PyObject) : PyObject; cdecl;
 var
- s: PChar;
+ s: PyChar;
  Item: TMenuItem;
 begin
  Result:=Nil;
@@ -2425,7 +2425,7 @@ begin
     g_Form1.HelpMenu.Items.Insert(0, Item);
    end;
   Item:=TMenuItem.Create(g_Form1);
-  Item.Caption:=s;
+  Item.Caption:=PyStrPas(s);
   Item.OnClick:=g_Form1.HelpMenuItemClick;
   g_Form1.HelpMenu.Items.Insert(g_Form1.HelpMenu.Tag, Item);
   g_Form1.HelpMenu.Tag:=g_Form1.HelpMenu.Tag+1;
@@ -2439,7 +2439,7 @@ end;
 
 function xMdlImpMenuItem(self, args: PyObject) : PyObject; cdecl;
 var
- s: PChar;
+ s: PyChar;
  Item: TMenuItem;
 begin
   Result:=Nil;
@@ -2447,7 +2447,7 @@ begin
     if not PyArg_ParseTupleX(args, 's', [@s]) then
       Exit;
     Item:=TMenuItem.Create(g_Form1);
-    Item.Caption:=s;
+    Item.Caption:=PyStrPas(s);
     Item.OnClick:=g_Form1.MdlImportFrom1Item1Click;
     g_Form1.MdlImportFrom1.Add(Item);
     g_Form1.mdlimpempty1.visible:=false;
@@ -2476,7 +2476,7 @@ end;
 
 function xEntityMenuItem(self, args: PyObject) : PyObject; cdecl;
 var
- s: PChar;
+ s: PyChar;
  Item: TMenuItem;
 begin
   Result:=Nil;
@@ -2484,7 +2484,7 @@ begin
     if not PyArg_ParseTupleX(args, 's', [@s]) then
       Exit;
     Item:=TMenuItem.Create(g_Form1);
-    Item.Caption:=s;
+    Item.Caption:=PyStrPas(s);
     Item.OnClick:=g_Form1.ConvertFrom1Item1Click;
     g_Form1.ConvertFrom1.Add(Item);
     g_Form1.empty1.visible:=false;
@@ -2500,7 +2500,7 @@ function xGetMapError(self, args: PyObject) : PyObject; cdecl;
 begin
  Result:=nil;
  try
-  Result:=PyString_FromString(PChar(g_MapError.Text));
+  Result:=PyString_FromString(ToPyChar(g_MapError.Text));
   g_MapError.Clear;
  except
   Py_XDECREF(Result);
@@ -2509,16 +2509,15 @@ begin
  end;
 end;
 
-
 function xGetShortHint(self, args: PyObject) : PyObject; cdecl;
 var
- s: PChar;
+ s: PyChar;
 begin
  Result:=Nil;
  try
   if not PyArg_ParseTupleX(args, 's', [@s]) then
    Exit;
-  Result:=PyString_FromString(PChar(GetShortHint(s)));
+  Result:=PyString_FromString(ToPyChar(GetShortHint(s)));
  except
   Py_XDECREF(Result);
   EBackToUser;
@@ -2528,13 +2527,13 @@ end;
 
 function xGetLongHint(self, args: PyObject) : PyObject; cdecl;
 var
- s: PChar;
+ s: PyChar;
 begin
  Result:=Nil;
  try
   if not PyArg_ParseTupleX(args, 's', [@s]) then
    Exit;
-  Result:=PyString_FromString(PChar(GetLongHint(s)));
+  Result:=PyString_FromString(ToPyChar(GetLongHint(s)));
  except
   Py_XDECREF(Result);
   EBackToUser;
@@ -2544,13 +2543,13 @@ end;
 
 function xSetHint(self, args: PyObject) : PyObject; cdecl;
 var
- s: PChar;
+ P: PyChar;
 begin
  Result:=Nil;
  try
-  if not PyArg_ParseTupleX(args, 's', [@s]) then
+  if not PyArg_ParseTupleX(args, 's', [@P]) then
    Exit;
-  Application.Hint:=s;
+  Application.Hint:=PyStrPas(P);
   Result:=PyNoResult;
  except
   Py_XDECREF(Result);
@@ -2580,29 +2579,15 @@ end;
 
 function xMenuName(self, args: PyObject) : PyObject; cdecl;
 var
- s, dest: PChar;
- S1: String;
- N: Integer;
+ P: PyChar;
+ S: String;
 begin
  Result:=Nil;
  try
-  if not PyArg_ParseTupleX(args, 's', [@s]) then
+  if not PyArg_ParseTupleX(args, 's', [@P]) then
    Exit;
-  N:=StrLen(s);
-  SetLength(S1, N*2);
-  dest:=PChar(S1);
-  while s^<>#0 do
-   begin
-    if s^='&' then
-     begin
-      dest^:='&';
-      Inc(dest);
-     end;
-    dest^:=s^;
-    Inc(dest);
-    Inc(s);
-   end;
-  Result:=PyString_FromStringAndSize(PChar(S1), dest-PChar(S1));
+  S:=StringReplace(PyStrPas(P), '&', '&&', [rfReplaceAll]);
+  Result:=PyString_FromString(ToPyChar(S));
  except
   Py_XDECREF(Result);
   EBackToPython;
@@ -2681,7 +2666,7 @@ var
  SetupQrk, Q, T: QObject;
  I, J: Integer;
  S: String;
- P: PChar;
+ P: PyChar;
  obj: PyObject;
  ToolBox1: TForm;
  AlreadyOpen: Integer;
@@ -2697,7 +2682,7 @@ begin
    SetupQrk:=MakeAddOnsList;
    try
     { looks for toolbox data in all add-ons }
-    BrowseToolBoxes(SetupQrk, P, L);
+    BrowseToolBoxes(SetupQrk, PyStrPas(P), L);
    finally
     SetupQrk.AddRef(-1);
    end;
@@ -2729,7 +2714,7 @@ begin
          break;
        end;
      end;
-     obj:=Py_BuildValueX('sOi', [PChar(S), @T.PythonObj, AlreadyOpen]);
+     obj:=Py_BuildValueX('sOi', [ToPyChar(S), @T.PythonObj, AlreadyOpen]);
      if obj=Nil then Exit;
      try
       PyList_Append(Result, obj);
@@ -2749,7 +2734,7 @@ end;
 
 function xNeedGameFile(self, args: PyObject) : PyObject; cdecl;
 var
- f, b: PChar;
+ f, b: PyChar;
  Q: QFileObject;
 begin
  Result:=Nil;
@@ -2758,9 +2743,9 @@ begin
   if not PyArg_ParseTupleX(args, 's|s', [@f, @b]) then
    Exit;
   if b=Nil then
-   Q:=NeedGameFile(f, '')
+   Q:=NeedGameFile(PyStrPas(f), '')
   else
-   Q:=NeedGameFileBase(b, f, '');
+   Q:=NeedGameFileBase(PyStrPas(b), PyStrPas(f), '');
   Result:=GetPyObj(Q);
  except
   Py_XDECREF(Result);
@@ -2791,7 +2776,7 @@ end;
 
 function xLog(self, args: PyObject) : PyObject; cdecl;
 var
-  P: PChar;
+  P: PyChar;
   i: Integer;
 begin
   Result:=Nil;
@@ -2802,9 +2787,9 @@ begin
     if P=Nil then
       Exit;
     if i=-1 then
-      Log(LOG_PYTHON, P)
+      Log(LOG_PYTHON, PyStrPas(P))
     else
-      Log(LOG_PYTHON, i, P);
+      Log(LOG_PYTHON, i, PyStrPas(P));
     Result:=PyNoResult;
   except
     Py_XDECREF(Result);
@@ -2902,7 +2887,7 @@ end;
 
 function xGetPixel(self, args: PyObject) : PyObject; cdecl;
 var
-  texname: PChar;
+  texname: PyChar;
   AltTexSrc: PyObject;
   U, V, Color: Integer;
   Q: QPixelSet;
@@ -2919,7 +2904,7 @@ begin
     V:=0;
     if not PyArg_ParseTupleX(args, 's|Oii', [@texname, @AltTexSrc, @U, @V]) then
      Exit;
-    Q:=GlobalFindTexture(texname, QkObjFromPyObj(AltTexSrc));
+    Q:=GlobalFindTexture(PyStrPas(texname), QkObjFromPyObj(AltTexSrc));
     if not (Q is QImage) then
      raise EError(2600);
     Image:=QImage(Q);
@@ -2960,7 +2945,7 @@ end;
 
 function xSetPixel(self, args: PyObject) : PyObject; cdecl;
 var
-  texname: PChar;
+  texname: PyChar;
   AltTexSrc: PyObject;
   U, V: Integer;
   Color: TColorRef;
@@ -2978,7 +2963,7 @@ begin
     Color:=CLR_NONE;
     if not PyArg_ParseTupleX(args, 's|Oiii', [@texname, @AltTexSrc, @U, @V, @Color]) then
      Exit;
-    Q:=GlobalFindTexture(texname, QkObjFromPyObj(AltTexSrc));
+    Q:=GlobalFindTexture(PyStrPas(texname), QkObjFromPyObj(AltTexSrc));
     if not (Q is QImage) then
      raise EError(2600);
     Image:=QImage(Q);
@@ -3022,7 +3007,7 @@ end;
 
 function xGetPixelPal(self, args: PyObject) : PyObject; cdecl;
 var
-  texname: PChar;
+  texname: PyChar;
   AltTexSrc: PyObject;
   Index, Color: Integer;
   Q: QPixelSet;
@@ -3038,7 +3023,7 @@ begin
      Exit;
     if (Index<0) or (Index>255) then
      raise EError(2606);
-    Q:=GlobalFindTexture(texname, QkObjFromPyObj(AltTexSrc));
+    Q:=GlobalFindTexture(PyStrPas(texname), QkObjFromPyObj(AltTexSrc));
     if not (Q is QImage) then
      raise EError(2600);
     Image:=QImage(Q);
@@ -3064,7 +3049,7 @@ end;
 
 function xSetPixelPal(self, args: PyObject) : PyObject; cdecl;
 var
-  texname: PChar;
+  texname: PyChar;
   AltTexSrc: PyObject;
   Index: Integer;
   Color: TColorRef;
@@ -3083,7 +3068,7 @@ begin
      raise EError(2606);
     if (Color > $FFFFFF) then
      raise EError(2605);
-    Q:=GlobalFindTexture(texname, QkObjFromPyObj(AltTexSrc));
+    Q:=GlobalFindTexture(PyStrPas(texname), QkObjFromPyObj(AltTexSrc));
     if not (Q is QImage) then
      raise EError(2600);
     Image:=QImage(Q);
@@ -3108,7 +3093,7 @@ end;
 
 function xGetPixelAlpha(self, args: PyObject) : PyObject; cdecl;
 var
-  texname: PChar;
+  texname: PyChar;
   AltTexSrc: PyObject;
   U, V, Color: Integer;
   Q: QPixelSet;
@@ -3123,7 +3108,7 @@ begin
     V:=0;
     if not PyArg_ParseTupleX(args, 's|Oii', [@texname, @AltTexSrc, @U, @V]) then
      Exit;
-    Q:=GlobalFindTexture(texname, QkObjFromPyObj(AltTexSrc));
+    Q:=GlobalFindTexture(PyStrPas(texname), QkObjFromPyObj(AltTexSrc));
     if not (Q is QImage) then
      raise EError(2600);
     Image:=QImage(Q);
@@ -3145,7 +3130,7 @@ end;
 
 function xSetPixelAlpha(self, args: PyObject) : PyObject; cdecl;
 var
-  texname: PChar;
+  texname: PyChar;
   AltTexSrc: PyObject;
   U, V: Integer;
   Color: TColorRef;
@@ -3164,7 +3149,7 @@ begin
      Exit;
     if (Color > 255) then
      raise EError(2605);
-    Q:=GlobalFindTexture(texname, QkObjFromPyObj(AltTexSrc));
+    Q:=GlobalFindTexture(PyStrPas(texname), QkObjFromPyObj(AltTexSrc));
     if not (Q is QImage) then
      raise EError(2600);
     Image:=QImage(Q);
@@ -3201,8 +3186,8 @@ begin
       for I:=0 to N-1 do
       begin
         TMP:=PyList_New(2);
-        PyList_SetItem(TMP, 0, PyString_FromString(PChar(QuarkXWorkaroundNameChangeListOld[I])));
-        PyList_SetItem(TMP, 1, PyString_FromString(PChar(QuarkXWorkaroundNameChangeListNew[I])));
+        PyList_SetItem(TMP, 0, PyString_FromString(ToPyChar(QuarkXWorkaroundNameChangeListOld[I])));
+        PyList_SetItem(TMP, 1, PyString_FromString(ToPyChar(QuarkXWorkaroundNameChangeListNew[I])));
         PyList_SetItem(Result, I, TMP);
       end;
     end;
@@ -3315,13 +3300,14 @@ const
 
  {-------------------}
 
-procedure RegType(var PyType: TyTypeObject; VarName: PChar);
-begin
- PyType.ob_type:=PyType_Type;
- PyDict_SetItemString(QuarkxDict, VarName, @PyType);
-end;
-
 function InitializeQuarkx : Boolean;
+
+ procedure RegType(var PyType: TyTypeObject; VarName: PyChar);
+ begin
+  PyType.ob_type:=PyType_Type;
+  PyDict_SetItemString(QuarkxDict, VarName, @PyType);
+ end;
+
 var
  m: PyObject;
 begin
@@ -3378,13 +3364,13 @@ begin
  PyDict_SetItemString(QuarkxDict, 'version', m);
  Py_DECREF(m);
 
- m:=PyString_FromString(PChar(GetQPath(pQuArK)));
+ m:=PyString_FromString(ToPyChar(GetQPath(pQuArK)));
  if m=Nil then
   Exit;
  PyDict_SetItemString(QuarkxDict, 'exepath', m);
  Py_DECREF(m);
 
- m:=PyString_FromString(PChar(GetQPath(pQuArKLog)));
+ m:=PyString_FromString(ToPyChar(GetQPath(pQuArKLog)));
  if m=Nil then
   Exit;
  PyDict_SetItemString(QuarkxDict, 'logpath', m);
@@ -3425,7 +3411,7 @@ function LoadStr1(I: Integer) : String;
 var
  key: TyIntObject;
  obj: PyObject;
- P: PChar;
+ P: PyChar;
 begin
  if not IsPythonLoaded then
  begin
@@ -3447,7 +3433,7 @@ begin
   end;
   P:=PyString_AsString(obj);
   if P<>Nil then
-   Result:=StrPas(P);
+   Result:=PyStrPas(P);
  finally
   PythonCodeEnd;
  end;
@@ -3546,7 +3532,7 @@ begin
  if args=Nil then Exit;
  try
   if fntname='' then Exit;
-  fnt:=PyDict_GetItemString(MacrosDict, PChar('MACRO_'+fntname));
+  fnt:=PyDict_GetItemString(MacrosDict, ToPyChar('MACRO_'+fntname));
   if fnt=Nil then
   begin
     Log(LOG_WARNING, FmtLoadStr1(5806, [fntname]));
@@ -3566,7 +3552,7 @@ begin
  end;
 end;
 
-function GetQuarkxAttr(const attr: PChar) : PyObject;
+function GetQuarkxAttr(const attr: PyChar) : PyObject;
 begin
  Result:=PyDict_GetItemString(QuarkxDict, attr);
 end;
@@ -3579,14 +3565,14 @@ var
 begin
  PythonCodeEnd;
  if not (ExceptObject is Exception) then
-  PyErr_SetString(QuarkxError, PChar(LoadStr1(4433)))
+  PyErr_SetString(QuarkxError, ToPyChar(LoadStr1(4433)))
  else
   if ExceptObject is EAbort then
-   PyErr_SetString(QuarkxAborted, PChar(LoadStr1(4452)))
+   PyErr_SetString(QuarkxAborted, ToPyChar(LoadStr1(4452)))
   else
    begin
     S:=Format('%s [%p]', [GetExceptionMessage(Exception(ExceptObject)), @TForm1.AppException]);
-    PyErr_SetString(QuarkxError, PChar(S));
+    PyErr_SetString(QuarkxError, ToPyChar(S));
    end;
 end;
 
@@ -3596,15 +3582,15 @@ var
 begin
  PythonCodeEnd;
  if not (ExceptObject is Exception) then
-  PyErr_SetString(QuarkxError, PChar(LoadStr1(4433)))
+  PyErr_SetString(QuarkxError, ToPyChar(LoadStr1(4433)))
  else
   if ExceptObject is EAbort then
-   PyErr_SetString(QuarkxAborted, PChar(LoadStr1(4452)))
+   PyErr_SetString(QuarkxAborted, ToPyChar(LoadStr1(4452)))
   else
    begin
     S:=GetExceptionMessage(Exception(ExceptObject));
     g_Form1.AppException(Nil, Exception(ExceptObject));
-    PyErr_SetString(QuarkxAborted, PChar(S));
+    PyErr_SetString(QuarkxAborted, ToPyChar(S));
    end;
 end;
 
@@ -3673,7 +3659,7 @@ begin
     sys.path=["<the path to the quark exe>"]
     import quarkpy
  }
- if PyRun_SimpleString(PChar(S))<>0 then FatalError(-8);
+ if PyRun_SimpleString(ToPyChar(S))<>0 then FatalError(-8);
  InitSetup;
  { runs quarkpy.RunQuArK(), defined in quarkpy.__init__.py;
    mostly sets up icons and stuff like that.}
@@ -3773,7 +3759,7 @@ begin
         ptraceback:=nil;
         Exit;
        end;
-      ExceptionMethod(PyString_AsString(str));
+      ExceptionMethod(PyStrPas(PyString_AsString(str)));
      finally
       Py_XDECREF(str);
       Py_XDECREF(ptraceback);
@@ -3860,7 +3846,7 @@ begin
     if (S<>'') and not L.Find(S,J) then
      begin
       li:=PyCFunction_New(MenuDef[3], Py_None);
-      args:=Py_BuildValueX('(sO)', [PChar(S)]);
+      args:=Py_BuildValueX('(sO)', [ToPyChar(S)]);
       if args=Nil then Exit;
       try
        li:=PyEval_CallObject(MenuItemCls, args);

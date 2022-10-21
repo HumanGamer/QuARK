@@ -37,7 +37,7 @@ type
                Procedure MakeAddonFromQctx;
                Procedure MakeTexturesFromQctx;
                Function GetAllBSPsFiles: TQList;
-               function PyGetAttr(attr: PChar) : PyObject; override;
+               function PyGetAttr(attr: PyChar) : PyObject; override;
              end;
 
  {------------------------}
@@ -337,7 +337,7 @@ const
    ((ml_name: 'makeentitiesfromqctx';      ml_meth: qMakeAddonFromQctx;         ml_flags: METH_VARARGS),
     (ml_name: 'maketexturesfromqctx';      ml_meth: qMakeTexturesFromQctx;      ml_flags: METH_VARARGS));
 
-function QQuakeCtx.PyGetAttr(attr: PChar) : PyObject;
+function QQuakeCtx.PyGetAttr(attr: PyChar) : PyObject;
 var
   I: Integer;
 begin

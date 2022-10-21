@@ -115,8 +115,8 @@ type
  {-------------------}
 
 procedure PanelDestructor(o: PyObject); cdecl;
-function GetPanelAttr(self: PyObject; attr: PChar) : PyObject; cdecl;
-function SetPanelAttr(self: PyObject; attr: PChar; value: PyObject) : Integer; cdecl;
+function GetPanelAttr(self: PyObject; attr: PyChar) : PyObject; cdecl;
+function SetPanelAttr(self: PyObject; attr: PyChar; value: PyObject) : Integer; cdecl;
 
 var
  TyPanel_Type: TyTypeObject =
@@ -1327,7 +1327,7 @@ end;
 function pNewMapView(self, args: PyObject) : PyObject; cdecl;
 var
  Mgr: TLayoutMgr;
- Renderer: PChar;
+ Renderer: PyChar;
 begin
  Result:=Nil;
  try
@@ -1340,7 +1340,7 @@ begin
    begin
     ParentDoubleBuffered:=False;
     if Renderer<>Nil then
-     SetRenderer(Renderer);
+     SetRenderer(PyStrPas(Renderer));
     Left:=-2048;
     Parent:=Mgr.Owner;
     Result:=MapViewObject;
@@ -1421,7 +1421,7 @@ const
    (ml_name: 'newpanel';       ml_meth: wNewFullPanel;   ml_flags: METH_VARARGS),
    (ml_name: 'controls';       ml_meth: pControls;       ml_flags: METH_VARARGS));
 
-function GetPanelAttr(self: PyObject; attr: PChar) : PyObject; cdecl;
+function GetPanelAttr(self: PyObject; attr: PyChar) : PyObject; cdecl;
 var
  I: Integer;
 begin
@@ -1479,13 +1479,13 @@ begin
  end;
 end;
 
-function SetPanelAttr(self: PyObject; attr: PChar; value: PyObject) : Integer; cdecl;
+function SetPanelAttr(self: PyObject; attr: PyChar; value: PyObject) : Integer; cdecl;
 var
  nS: TPanelSections;
  Orien: TSplitOrientation;
  Spl: TQSplitter;
  I: Integer;
- P: PChar;
+ P: PyChar;
  SwitchTo: TLayoutPos;
 begin
  Result:=-1;
@@ -1497,7 +1497,7 @@ begin
            P:=PyString_AsString(value);
            if P=Nil then Exit;
            SwitchTo:=lpClient;
-           case P^ of
+           case PyStrPas(P)[1] of
             'l': if Align=lpRight  then SwitchTo:=lpLeft;
             'r': if Align=lpLeft   then SwitchTo:=lpRight;
             't': if Align=lpBottom then SwitchTo:=lpTop;

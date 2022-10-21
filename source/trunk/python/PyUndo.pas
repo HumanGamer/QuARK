@@ -35,7 +35,7 @@ uses Quarkx, QkExceptions, PyObjects, WorkaroundStringCompare;
 function uOk(self, args: PyObject) : PyObject; cdecl;
 var
  obj1: PyObject;
- txt: PChar;
+ txt: PyChar;
 begin
  Result:=Nil;
  try
@@ -43,7 +43,7 @@ begin
    Exit;
   if g_ListeActions=Nil then
    Raise EError(4442);
-  FinAction(QkObjFromPyObj(obj1), txt);
+  FinAction(QkObjFromPyObj(obj1), PyStrPas(txt));
   Result:=PyNoResult;
  except
   Py_XDECREF(Result);
@@ -127,7 +127,7 @@ function uSetSpec(self, args: PyObject) : PyObject; cdecl;
 var
  nSpec, nArg: String;
  obj1, obj2: PyObject;
- P: PChar;
+ P: PyChar;
  nPosition: Integer;
  Q: QObject;
 begin
@@ -138,7 +138,7 @@ begin
    Exit;
   if g_ListeActions=Nil then
    Raise EError(4442);
-  nSpec:=P;
+  nSpec:=PyStrPas(P);
   Q:=QkObjFromPyObj(obj1);
   if obj2=Py_None then
    begin
@@ -166,7 +166,7 @@ end;
 function uRename(self, args: PyObject) : PyObject; cdecl;
 var
  obj1: PyObject;
- P: PChar;
+ P: PyChar;
 begin
  Result:=Nil;
  try
@@ -174,7 +174,7 @@ begin
    Exit;
   if g_ListeActions=Nil then
    Raise EError(4442);
-  g_ListeActions.Add(TNameUndo.Create('', P, QkObjFromPyObj(obj1)));
+  g_ListeActions.Add(TNameUndo.Create('', PyStrPas(P), QkObjFromPyObj(obj1)));
   Result:=PyNoResult;
  except
   Py_XDECREF(Result);

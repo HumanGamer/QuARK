@@ -1469,7 +1469,7 @@ begin
    finally
     L.Free;
    end;
-   if PyRun_SimpleString(PChar(S)) <> 0 then ShowConsole(True);
+   if PyRun_SimpleString(ToPyChar(S)) <> 0 then ShowConsole(True);
    Exit;
   end;
 
@@ -2295,7 +2295,7 @@ begin
  else
   obj:=Py_None;
  S:=Application.Hint;
- Py_XDECREF(CallMacroEx2(Py_BuildValueX('(Os)', [obj, PChar(S)]), 'hint', False));
+ Py_XDECREF(CallMacroEx2(Py_BuildValueX('(Os)', [obj, ToPyChar(S)]), 'hint', False));
 end;
 
 (*function TForm1AppHelp(Command: Word; Data: LongInt; var CallHelp: Boolean) : Boolean;
@@ -2447,7 +2447,7 @@ begin
  s:=Nil;
  try
   with Sender as TMenuItem do
-   s:=PyString_FromString(PChar(Caption));
+   s:=PyString_FromString(ToPyChar(Caption));
   if s=Nil then Exit;
   CallMacro(s, 'helpmenu');
  finally
@@ -2468,7 +2468,7 @@ begin
  s:=Nil;
  try
   with Sender as TMenuItem do
-   s:=PyString_FromString(PChar(Caption));
+   s:=PyString_FromString(ToPyChar(Caption));
   if s=Nil then Exit;
   CallMacro(s, 'mdl_pythonimporter');
  finally
@@ -2485,7 +2485,7 @@ begin
  s:=Nil;
  try
   with Sender as TMenuItem do
-   s:=PyString_FromString(PChar(Caption));
+   s:=PyString_FromString(ToPyChar(Caption));
   if s=Nil then Exit;
   News1Click(Sender);
   Q:=QQuakeCtx.Create('Game Directories', NeedExplorerRoot);

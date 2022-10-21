@@ -50,8 +50,8 @@ type
 
  {------------------------}
 
-function GetFullscreenAttr(self: PyObject; attr: PChar) : PyObject; cdecl;
-function SetFullscreenAttr(self: PyObject; attr: PChar; value: PyObject) : Integer; cdecl;
+function GetFullscreenAttr(self: PyObject; attr: PyChar) : PyObject; cdecl;
+function SetFullscreenAttr(self: PyObject; attr: PyChar; value: PyObject) : Integer; cdecl;
 
 var
  TyFullscreen_Type: TyTypeObject =
@@ -199,7 +199,7 @@ const
  MethodTable: array[0..0] of TyMethodDef =
   ((ml_name: 'close';        ml_meth: fClose;        ml_flags: METH_VARARGS));
 
-function GetFullscreenObject(self: PyObject; attr: PChar) : PyObjectPtr;
+function GetFullscreenObject(self: PyObject; attr: PyChar) : PyObjectPtr;
 begin
  Result:=Nil;
  with PyControlF(self)^ do
@@ -213,7 +213,7 @@ begin
   end;
 end;
 
-function GetFullscreenAttr(self: PyObject; attr: PChar) : PyObject; cdecl;
+function GetFullscreenAttr(self: PyObject; attr: PyChar) : PyObject; cdecl;
 var
  Attr1: PyObjectPtr;
  I: Integer;
@@ -238,7 +238,7 @@ begin
     'c': if StrComp(attr, 'caption')=0 then
           begin
            if QkControl<>Nil then
-            Result:=PyString_FromString(PChar((QkControl as TPyFullscreenWnd).Caption))
+            Result:=PyString_FromString(ToPyChar((QkControl as TPyFullscreenWnd).Caption))
            else
             Result:=PyNoResult;
            Exit;
@@ -299,10 +299,10 @@ begin
  end;
 end;
 
-function SetFullscreenAttr(self: PyObject; attr: PChar; value: PyObject) : Integer; cdecl;
+function SetFullscreenAttr(self: PyObject; attr: PyChar; value: PyObject) : Integer; cdecl;
 var
  Attr1: PyObjectPtr;
- P: PChar;
+ P: PyChar;
 begin
  Result:=-1;
  try
@@ -324,7 +324,7 @@ begin
            P:=PyString_AsString(value);
            if P=Nil then Exit;
            if QkControl<>Nil then
-            (QkControl as TPyFullscreenWnd).Caption:=P;
+            (QkControl as TPyFullscreenWnd).Caption:=PyStrPas(P);
            Result:=0;
            Exit;
           end;

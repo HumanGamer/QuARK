@@ -116,7 +116,7 @@ begin
   BuildCorrectFileName(S);
   S:=ConcatPaths([GameModelPath, S+TypeInfo]);
   SaveInFile(rf_Default, OutputFile(S));
-  filename:=PyString_FromString(PChar(S));
+  filename:=PyString_FromString(ToPyChar(S));
   try
     PyList_Append(extracted, filename);
   finally

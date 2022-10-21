@@ -1181,7 +1181,7 @@ begin
       S:=Specifics.Values['Code'];
       if S<>'' then
       begin
-        if PyRun_SimpleString(PChar(S)) <> 0 then ShowConsole(True);
+        if PyRun_SimpleString(ToPyChar(S)) <> 0 then ShowConsole(True);
       end
     end;
   end;

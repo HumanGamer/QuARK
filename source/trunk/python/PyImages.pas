@@ -73,7 +73,7 @@ type
 function ImageList_length(self: PyObject) : {$IFDEF PYTHON25} Py_ssize_t {$ELSE} Integer {$ENDIF}; cdecl;
 function ImageList_item(self: PyObject; i: {$IFDEF PYTHON25} Py_ssize_t {$ELSE} Integer {$ENDIF}) : PyObject; cdecl;
 procedure ImageListDestructor(o: PyObject); cdecl;
-function GetImage1Attr(self: PyObject; attr: PChar) : PyObject; cdecl;
+function GetImage1Attr(self: PyObject; attr: PyChar) : PyObject; cdecl;
 procedure Image1Destructor(o: PyObject); cdecl;
 
 
@@ -100,8 +100,8 @@ var
 
  {-------------------}
 
-function GetImageCtrlAttr(self: PyObject; attr: PChar) : PyObject; cdecl;
-function SetImageCtrlAttr(self: PyObject; attr: PChar; value: PyObject) : Integer; cdecl;
+function GetImageCtrlAttr(self: PyObject; attr: PyChar) : PyObject; cdecl;
+function SetImageCtrlAttr(self: PyObject; attr: PyChar; value: PyObject) : Integer; cdecl;
 
 var
  TyImageCtrl_Type: TyTypeObject =
@@ -309,7 +309,7 @@ end;
 
  {-------------------}
 
-function GetImage1Attr(self: PyObject; attr: PChar) : PyObject; cdecl;
+function GetImage1Attr(self: PyObject; attr: PyChar) : PyObject; cdecl;
 begin
  Result:=nil;
  try
@@ -326,7 +326,7 @@ begin
           Exit;
          end;
   end;
-  PyErr_SetString(QuarkxError, PChar(LoadStr1(4429)));
+  PyErr_SetString(QuarkxError, ToPyChar(LoadStr1(4429)));
   Result:=Nil;
  except
   Py_XDECREF(Result);
@@ -811,7 +811,7 @@ const
  MethodTable: array[0..0] of TyMethodDef =
   ((ml_name: 'canvas';          ml_meth:    iCanvas;          ml_flags: METH_VARARGS));
 
-function GetImageCtrlObject(self: PyObject; attr: PChar) : PyObjectPtr;
+function GetImageCtrlObject(self: PyObject; attr: PyChar) : PyObjectPtr;
 begin
  Result:=Nil;
  with PyControlF(self)^ do
@@ -831,7 +831,7 @@ begin
   end;
 end;
 
-function GetImageCtrlAttr(self: PyObject; attr: PChar) : PyObject; cdecl;
+function GetImageCtrlAttr(self: PyObject; attr: PyChar) : PyObject; cdecl;
 var
  Attr1: PyObjectPtr;
  I: Integer;
@@ -879,7 +879,7 @@ begin
  end;
 end;
 
-function SetImageCtrlAttr(self: PyObject; attr: PChar; value: PyObject) : Integer; cdecl;
+function SetImageCtrlAttr(self: PyObject; attr: PyChar; value: PyObject) : Integer; cdecl;
 var
  Attr1: PyObjectPtr;
 begin

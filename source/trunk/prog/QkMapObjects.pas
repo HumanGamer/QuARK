@@ -96,7 +96,7 @@ type
               procedure SetSelFocus; dynamic;
               procedure AddTo3DScene(Scene: TObject); override;
               property Negative: String read GetNegative write SetNegative;
-              function PyGetAttr(attr: PChar) : PyObject; override;
+              function PyGetAttr(attr: PyChar) : PyObject; override;
             end;
  TTreeMapSpec = class(TTreeMap)
                 protected
@@ -139,7 +139,7 @@ type
                     function GetFormName : String; override;
                    {function AjouterRef(Liste: TList; Niveau: Integer) : Integer; override;}
                     procedure AddTo3DScene(Scene: TObject); override;
-                    function PyGetAttr(attr: PChar) : PyObject; override;
+                    function PyGetAttr(attr: PyChar) : PyObject; override;
                   end;
  TTreeMapGroup = class(TTreeMapSpec)
                  private
@@ -175,7 +175,7 @@ type
                    procedure ListeEntites(Entites: TQList; Cat: TEntityChoice); override;
                    function GetFormName : String; override;
                    function IsExplorerItem(Q: QObject) : TIsExplorerItem; override;
-                   function PyGetAttr(attr: PChar) : PyObject; override;
+                   function PyGetAttr(attr: PyChar) : PyObject; override;
                   {procedure AddTo3DScene(Scene: TObject); override;}
                  end;
 
@@ -649,7 +649,7 @@ end;*)
 
 function qReplaceTex(self, args: PyObject) : PyObject; cdecl;
 var
- tOld, tNew: PChar;
+ tOld, tNew: PyChar;
  u: PyObject;
 begin
  Result:=Nil;
@@ -660,7 +660,7 @@ begin
   with QkObjFromPyObj(self) as TTreeMap do
    begin
     LoadAll;
-    Result:=PyInt_FromLong(ReplaceTexture(tOld, tNew, (u<>Nil) and PyObject_IsTrue(u)));
+    Result:=PyInt_FromLong(ReplaceTexture(PyStrPas(tOld), PyStrPas(tNew), (u<>Nil) and PyObject_IsTrue(u)));
    end;
  except
   Py_XDECREF(Result);
@@ -692,7 +692,7 @@ const
    (ml_name: 'replacetex';   ml_meth: qReplaceTex;   ml_flags: METH_VARARGS),
    (ml_name: 'rebuildall';   ml_meth: qRebuildAll;   ml_flags: METH_VARARGS));
 
-function TTreeMap.PyGetAttr(attr: PChar) : PyObject;
+function TTreeMap.PyGetAttr(attr: PyChar) : PyObject;
 var
  I: Integer;
 begin
@@ -2018,7 +2018,7 @@ begin
  end;
 end;*)
 
-function TTreeMapEntity.PyGetAttr(attr: PChar) : PyObject;
+function TTreeMapEntity.PyGetAttr(attr: PyChar) : PyObject;
 var
   BBox: TBBoxInfo;
   v1, v2: PyVect;
@@ -2360,7 +2360,7 @@ begin
  Result:=inherited IsExplorerItem(Q) + [ieNoAutoDrop];
 end;
 
-function TTreeMapBrush.PyGetAttr(attr: PChar) : PyObject;
+function TTreeMapBrush.PyGetAttr(attr: PyChar) : PyObject;
 var
  Polyedres, Negatifs, Entites: TQList;
 begin

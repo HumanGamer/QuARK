@@ -57,8 +57,8 @@ type
 
  {------------------------}
 
-function GetExplorerAttr(self: PyObject; attr: PChar) : PyObject; cdecl;
-function SetExplorerAttr(self: PyObject; attr: PChar; value: PyObject) : Integer; cdecl;
+function GetExplorerAttr(self: PyObject; attr: PyChar) : PyObject; cdecl;
+function SetExplorerAttr(self: PyObject; attr: PyChar; value: PyObject) : Integer; cdecl;
 
 var
  TyExplorer_Type: TyTypeObject =
@@ -241,7 +241,7 @@ var
  callresult, obj: PyObject;
 begin
  obj:=QListToPyList(Gr.SubElements); try
- callresult:=GetPythonValue(ExplorerObject^.FOnDrop, Py_BuildValueX('OOs', [ExplorerObject, obj, PChar(Texte)]), True);
+ callresult:=GetPythonValue(ExplorerObject^.FOnDrop, Py_BuildValueX('OOs', [ExplorerObject, obj, ToPyChar(Texte)]), True);
  finally Py_DECREF(obj); end;
  Result:=(callresult<>Nil) and PyObject_IsTrue(callresult);
  Py_XDECREF(callresult);
@@ -408,7 +408,7 @@ const
    (ml_name: 'addroot';        ml_meth: eAddRoot;        ml_flags: METH_VARARGS),
    (ml_name: 'clear';          ml_meth: eClear;          ml_flags: METH_VARARGS));
 
-function GetExplorerObject(self: PyObject; attr: PChar) : PyObjectPtr;
+function GetExplorerObject(self: PyObject; attr: PyChar) : PyObjectPtr;
 begin
  Result:=Nil;
  with PyControlF(self)^ do
@@ -452,7 +452,7 @@ begin
   end;
 end;
 
-function GetExplorerAttr(self: PyObject; attr: PChar) : PyObject; cdecl;
+function GetExplorerAttr(self: PyObject; attr: PyChar) : PyObject; cdecl;
 var
  Attr1: PyObjectPtr;
  I: Integer;
@@ -531,7 +531,7 @@ begin
  end;
 end;
 
-function SetExplorerAttr(self: PyObject; attr: PChar; value: PyObject) : Integer; cdecl;
+function SetExplorerAttr(self: PyObject; attr: PyChar; value: PyObject) : Integer; cdecl;
 var
  Attr1: PyObjectPtr;
  I, Count: Integer;

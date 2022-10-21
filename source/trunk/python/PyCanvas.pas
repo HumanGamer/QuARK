@@ -32,8 +32,8 @@ type
 
  {------------------------}
 
-function GetCanvasAttr(self: PyObject; attr: PChar) : PyObject; cdecl;
-function SetCanvasAttr(self: PyObject; attr: PChar; value: PyObject) : Integer; cdecl;
+function GetCanvasAttr(self: PyObject; attr: PyChar) : PyObject; cdecl;
+function SetCanvasAttr(self: PyObject; attr: PyChar; value: PyObject) : Integer; cdecl;
 
 var
  TyCanvas_Type: TyTypeObject =
@@ -407,14 +407,14 @@ end;
 function cTextOut(self, args: PyObject) : PyObject; cdecl;
 var
  X, Y: Integer;
- Text: PChar;
+ Text: PyChar;
 begin
  Result:=Nil;
  try
   if not PyArg_ParseTupleX(args, 'iis', [@X, @Y, @Text]) then
    Exit;
   if Assigned(PyCanvasObj(self)^.Canvas) then
-   PyCanvasObj(self)^.Canvas.TextOut(X, Y, Text);
+   PyCanvasObj(self)^.Canvas.TextOut(X, Y, PyStrPas(Text));
   Result:=PyNoResult;
  except
   Py_XDECREF(Result);
@@ -425,7 +425,7 @@ end;
 
 function cTextSize(self, args: PyObject) : PyObject; cdecl;
 var
- Text: PChar;
+ Text: PyChar;
  w,h: Integer;
 begin
  Result:=Nil;
@@ -435,8 +435,8 @@ begin
   if Assigned(PyCanvasObj(self)^.Canvas) then
    with PyCanvasObj(self)^.Canvas do
     begin
-     w:=TextWidth(Text);
-     h:=TextHeight(Text);
+     w:=TextWidth(PyStrPas(Text));
+     h:=TextHeight(PyStrPas(Text));
     end
   else
    begin
@@ -496,7 +496,7 @@ const
    (ml_name: 'painttexture'; ml_meth: cPaintTexture; ml_flags: METH_VARARGS),
    (ml_name: 'reset';        ml_meth: cReset;        ml_flags: METH_VARARGS));
 
-function GetCanvasAttr(self: PyObject; attr: PChar) : PyObject; cdecl;
+function GetCanvasAttr(self: PyObject; attr: PyChar) : PyObject; cdecl;
 var
  I: Integer;
  S: String;
@@ -544,7 +544,7 @@ begin
             S:=Canvas.Font.Name
            else
             S:='';
-           Result:=PyString_FromString(PChar(S));
+           Result:=PyString_FromString(ToPyChar(S));
            Exit;
           end
          else if StrComp(attr, 'fontsize')=0 then
@@ -620,7 +620,7 @@ begin
            Exit;
           end;
    end;
-  PyErr_SetString(QuarkxError, PChar(LoadStr1(4429)));
+  PyErr_SetString(QuarkxError, ToPyChar(LoadStr1(4429)));
   Result:=Nil;
  except
   Py_XDECREF(Result);
@@ -629,7 +629,7 @@ begin
  end;
 end;
 
-function SetCanvasAttr(self: PyObject; attr: PChar; value: PyObject) : Integer; cdecl;
+function SetCanvasAttr(self: PyObject; attr: PyChar; value: PyObject) : Integer; cdecl;
 var
  Mode1: Integer;
 begin
@@ -729,7 +729,7 @@ begin
      Result:=0;
      Exit;
     end;
-  PyErr_SetString(QuarkxError, PChar(LoadStr1(4429)));
+  PyErr_SetString(QuarkxError, ToPyChar(LoadStr1(4429)));
  except
   EBackToPython;
   Result:=-1;

@@ -61,8 +61,8 @@ type
 
  {------------------------}
 
-function GetFloatingAttr(self: PyObject; attr: PChar) : PyObject; cdecl;
-function SetFloatingAttr(self: PyObject; attr: PChar; value: PyObject) : Integer; cdecl;
+function GetFloatingAttr(self: PyObject; attr: PyChar) : PyObject; cdecl;
+function SetFloatingAttr(self: PyObject; attr: PyChar; value: PyObject) : Integer; cdecl;
 
 var
  TyFloating_Type: TyTypeObject =
@@ -307,7 +307,7 @@ const
   ((ml_name: 'close';        ml_meth: fClose;        ml_flags: METH_VARARGS));
   {(ml_name: 'globalaccept'; ml_meth: fGlobalAccept; ml_flags: METH_VARARGS));}
 
-function GetFloatingObject(self: PyObject; attr: PChar) : PyObjectPtr;
+function GetFloatingObject(self: PyObject; attr: PyChar) : PyObjectPtr;
 begin
  Result:=Nil;
  with PyControlF(self)^ do
@@ -327,7 +327,7 @@ begin
   end;
 end;
 
-function GetFloatingAttr(self: PyObject; attr: PChar) : PyObject; cdecl;
+function GetFloatingAttr(self: PyObject; attr: PyChar) : PyObject; cdecl;
 var
  Attr1: PyObjectPtr;
  I: Integer;
@@ -353,7 +353,7 @@ begin
     'c': if StrComp(attr, 'caption')=0 then
           begin
            if QkControl<>Nil then
-            Result:=PyString_FromString(PChar((QkControl as TPyFloatingWnd).Caption))
+            Result:=PyString_FromString(ToPyChar((QkControl as TPyFloatingWnd).Caption))
            else
             Result:=PyNoResult;
            Exit;
@@ -414,10 +414,10 @@ begin
  end;
 end;
 
-function SetFloatingAttr(self: PyObject; attr: PChar; value: PyObject) : Integer; cdecl;
+function SetFloatingAttr(self: PyObject; attr: PyChar; value: PyObject) : Integer; cdecl;
 var
  Attr1: PyObjectPtr;
- P: PChar;
+ P: PyChar;
  nRect: TRect;
 begin
  Result:=-1;
@@ -440,7 +440,7 @@ begin
            P:=PyString_AsString(value);
            if P=Nil then Exit;
            if QkControl<>Nil then
-            (QkControl as TPyFloatingWnd).Caption:=P;
+            (QkControl as TPyFloatingWnd).Caption:=PyStrPas(P);
            Result:=0;
            Exit;
           end;

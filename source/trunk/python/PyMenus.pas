@@ -65,7 +65,7 @@ var
  ListItem, obj, textobj: PyObject;
  IsPopup, FillRec: Boolean;
  PopupHandle: HMenu;
- P: PChar;
+ P: PyChar;
  Hourglass: Boolean;
 begin
  Result:=False;
@@ -160,7 +160,7 @@ begin
          begin
           textobj:=PyObject_GetAttrString(ListItem, 'text');
           if textobj=Nil then Exit;
-          nInfo.dwTypeData:=PyString_AsString(textobj);
+          nInfo.dwTypeData:=PChar(PyStrPas(PyString_AsString(textobj)));
           if nInfo.dwTypeData=Nil then Exit;
           if PySequence_In(sci, ListItem)>0 then
            begin
@@ -171,7 +171,7 @@ begin
              if P=Nil then Exit;
              nInfo.dwTypeData:=StrECopy(nZ, nInfo.dwTypeData);
              nInfo.dwTypeData^:=Chr(vk_Tab);
-             StrCopy(nInfo.dwTypeData+1, P);
+             StrCopy(nInfo.dwTypeData+1, PChar(PyStrPas(P)));
              nInfo.dwTypeData:=nZ;
             finally
              Py_DECREF(obj);

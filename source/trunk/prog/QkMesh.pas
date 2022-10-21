@@ -79,8 +79,8 @@ type
            function GetOrigin(var Pt: TVect) : Boolean; override;
            procedure AnalyseClic(Liste: PyObject); override;
            procedure SwapSides;
-           function PyGetAttr(attr: PChar) : PyObject; override;
-           function PySetAttr(attr: PChar; value: PyObject) : Boolean; override;
+           function PyGetAttr(attr: PyChar) : PyObject; override;
+           function PySetAttr(attr: PyChar; value: PyObject) : Boolean; override;
            procedure DrawTexVertices; virtual;
          end;
 
@@ -937,7 +937,7 @@ const
 
  { Python attribute reading }
 
-function TMesh.PyGetAttr(attr: PChar) : PyObject;
+function TMesh.PyGetAttr(attr: PyChar) : PyObject;
 var
  cp: TMeshBuf5;
  I, J: Integer;
@@ -988,7 +988,7 @@ begin
 end;
 
  { Python attribute writing }
-function TMesh.PySetAttr(attr: PChar; value: PyObject) : Boolean;
+function TMesh.PySetAttr(attr: PyChar; value: PyObject) : Boolean;
 var
  cp, oldcp: TMeshBuf5;
  I, J: Integer;

@@ -49,8 +49,8 @@ type
  {-------------------}
 
 procedure ControlDestructor(o: PyObject); cdecl;
-function GetControlAttr(self: PyObject; attr, CtrlType: PChar) : PyObject; cdecl;
-function SetControlAttr(self: PyObject; attr: PChar; value: PyObject) : Integer; cdecl;
+function GetControlAttr(self: PyObject; attr, CtrlType: PyChar) : PyObject; cdecl;
+function SetControlAttr(self: PyObject; attr: PyChar; value: PyObject) : Integer; cdecl;
 function DefControlMessage(var Msg: TMessage) : Boolean;
 function NewControl(var nType: TyTypeObject; nControl: TControl) : PyControlF;
 procedure PythonDrop1(self: PyObject; wParam: Integer; Source: TObject; Target: TControl; X, Y: Integer);
@@ -368,7 +368,7 @@ const
    (ml_name: 'update';         ml_meth: cUpdate;         ml_flags: METH_VARARGS),
    (ml_name: 'popupmenu';      ml_meth: cPopupMenu;      ml_flags: METH_VARARGS));
 
-function GetControlAttr(self: PyObject; attr, CtrlType: PChar) : PyObject; cdecl;
+function GetControlAttr(self: PyObject; attr, CtrlType: PyChar) : PyObject; cdecl;
 var
  I: Integer;
  C: TControl;
@@ -399,7 +399,7 @@ begin
           begin
            C:=GetQkControl;
            if C<>Nil then
-            Result:=PyString_FromString(PChar(C.Hint))
+            Result:=PyString_FromString(ToPyChar(C.Hint))
            else
             Result:=PyNoResult;
            Exit;
@@ -467,7 +467,7 @@ begin
            Exit;
           end;
    end;
-  PyErr_SetString(QuarkxError, PChar(LoadStr1(4429)));
+  PyErr_SetString(QuarkxError, ToPyChar(LoadStr1(4429)));
   Result:=Nil;
  except
   Py_XDECREF(Result);
@@ -476,9 +476,9 @@ begin
  end;
 end;
 
-function SetControlAttr(self: PyObject; attr: PChar; value: PyObject) : Integer; cdecl;
+function SetControlAttr(self: PyObject; attr: PyChar; value: PyObject) : Integer; cdecl;
 var
- P: PChar;
+ P: PyChar;
  X, Y: Integer;
  Upd: Boolean;
  C: TControl;
@@ -498,7 +498,7 @@ begin
            P:=PyString_AsString(value);
            if P=Nil then Exit;
            C:=GetQkControl;
-           if C<>Nil then C.Hint:=P;
+           if C<>Nil then C.Hint:=PyStrPas(P);
            Result:=0;
            Exit;
           end;
@@ -563,7 +563,7 @@ begin
            Exit;
           end;
    end;
-  PyErr_SetString(QuarkxError, PChar(LoadStr1(4429)));
+  PyErr_SetString(QuarkxError, ToPyChar(LoadStr1(4429)));
  except
   EBackToPython;
   Result:=-1;

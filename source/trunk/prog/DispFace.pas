@@ -41,14 +41,14 @@ type
      procedure setpower(pwr: integer);
      procedure addnormals(const normalpoints : array of double);
      procedure adddists(row : integer; const distances : array of double);
-     function PyGetAttr(attr: PChar) : PyObject; override;
+     function PyGetAttr(attr: PyChar) : PyObject; override;
  end;
 
 
 implementation
 uses math;
 
-function TDispFace.PyGetAttr(attr: PChar) : PyObject;
+function TDispFace.PyGetAttr(attr: PyChar) : PyObject;
 var
  I, J: Integer;
  list: PyObject;

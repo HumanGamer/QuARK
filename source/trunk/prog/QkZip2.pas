@@ -110,7 +110,7 @@ type
     class procedure FileObjectClassInfo(var Info: TFileObjectClassInfo); override;
     function FindFile(const PakPath: String) : QFileObject; override;
     function GetFolder(Path: String) : QZipFolder;
-//    function PyGetAttr(attr: PChar) : PyObject; override;
+//    function PyGetAttr(attr: PyChar) : PyObject; override;
 //    procedure ObjectState(var E: TEtatObjet); override;
 //    function CreateOwnExplorer(nOwner: TComponent) : TWinControl; override;
 //    function IsExplorerItem(Q: QObject) : TIsExplorerItem; override;
@@ -727,7 +727,7 @@ begin
 end;
 }
 {
-function QZipFolder.PyGetAttr(attr: PChar) : PyObject;
+function QZipFolder.PyGetAttr(attr: PyChar) : PyObject;
 var
   I: Integer;
 begin
@@ -775,7 +775,7 @@ end;
 {
 function pExtract(self, args: PyObject) : PyObject; cdecl;
 var
-  pathbase: PChar;
+  pathbase: PyChar;
 begin
   Result:=Nil;
   try
@@ -783,7 +783,7 @@ begin
       Exit;
     ProgressIndicatorStart(0,0);
     try
-      Result:=PyInt_FromLong((QkObjFromPyObj(self) as QZipFolder).ExtractTo(pathbase));
+      Result:=PyInt_FromLong((QkObjFromPyObj(self) as QZipFolder).ExtractTo(PyStrPas(pathbase)));
     finally
       ProgressIndicatorStop;
     end;
@@ -797,13 +797,13 @@ end;
 {
 function pGetFolder(self, args: PyObject) : PyObject; cdecl;
 var
-  path: PChar;
+  path: PyChar;
 begin
   Result:=Nil;
   try
     if not PyArg_ParseTupleX(args, 's', [@path]) then
       Exit;
-    Result:=GetPyObj((QkObjFromPyObj(self) as QZipFolder).GetFolder(path));
+    Result:=GetPyObj((QkObjFromPyObj(self) as QZipFolder).GetFolder(PyStrPas(path)));
   except
     Py_XDECREF(Result);
     EBackToPython;

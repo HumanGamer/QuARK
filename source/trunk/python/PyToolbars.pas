@@ -124,8 +124,8 @@ var
  CurrentMenuButton: TQkToolbarButton = Nil;
 
 procedure ToolbarDestructor(o: PyObject); cdecl;
-function GetToolbarAttr(self: PyObject; attr: PChar) : PyObject; cdecl;
-function SetToolbarAttr(self: PyObject; attr: PChar; value: PyObject) : Integer; cdecl;
+function GetToolbarAttr(self: PyObject; attr: PyChar) : PyObject; cdecl;
+function SetToolbarAttr(self: PyObject; attr: PyChar; value: PyObject) : Integer; cdecl;
 
 var
  TyToolbar_Type: TyTypeObject =
@@ -139,8 +139,8 @@ var
 
  {-------------------}
 
-function GetBtnPanelAttr(self: PyObject; attr: PChar) : PyObject; cdecl;
-function SetBtnPanelAttr(self: PyObject; attr: PChar; value: PyObject) : Integer; cdecl;
+function GetBtnPanelAttr(self: PyObject; attr: PyChar) : PyObject; cdecl;
+function SetBtnPanelAttr(self: PyObject; attr: PyChar; value: PyObject) : Integer; cdecl;
 
 var
  TyBtnPanel_Type: TyTypeObject =
@@ -182,7 +182,7 @@ var
  obj: PyObject;
  Btn: TQkToolbarButton;
  nCaption: String;
- P: PChar;
+ P: PyChar;
  Icons: TQkBtnGlyph;
  Pt: TPoint;
 begin
@@ -196,7 +196,7 @@ begin
    begin
     P:=PyString_AsString(obj);
     if P=Nil then Exit;
-    nCaption:=P;
+    nCaption:=PyStrPas(P);
    end;
  finally Py_DECREF(obj); end;
 
@@ -407,10 +407,11 @@ const
    (ml_name: 'show';   ml_meth: tShow;   ml_flags: METH_VARARGS),
    (ml_name: 'hide';   ml_meth: tHide;   ml_flags: METH_VARARGS));
 
-(*function GetToolbarObject(self: PyObject; attr: PChar) : PyObjectPtr;
+(*function GetToolbarObject(self: PyObject; attr: PyChar) : PyObjectPtr;
 var
  S: String;
 begin
+ Result:=Nil;
  with PyToolbar(self)^ do
   case attr[0] of
   {'c': if StrComp(attr, 'caption')=0 then
@@ -425,11 +426,10 @@ begin
          end;
   end;
  S:=Format('toolbars have no attribute "%s"', [attr]);
- PyErr_SetString(QuarkxError, PChar(S));
- Result:=Nil;
+ PyErr_SetString(QuarkxError, ToPyChar(S));
 end;*)
 
-function GetToolbarAttr(self: PyObject; attr: PChar) : PyObject; cdecl;
+function GetToolbarAttr(self: PyObject; attr: PyChar) : PyObject; cdecl;
 var
  I: Integer;
 {S: String;}
@@ -454,7 +454,7 @@ begin
     'c': if StrComp(attr, 'caption')=0 then
           begin
            if QkToolbar<>Nil then
-            Result:=PyString_FromString(PChar(QkToolbar.Caption))
+            Result:=PyString_FromString(ToPyChar(QkToolbar.Caption))
            else
             Result:=PyNoResult;
            Exit;
@@ -467,7 +467,7 @@ begin
              if Dock=Nil then
               Result:=PyNoResult
              else
-              Result:=PyString_FromString(PChar(Dock.Name));
+              Result:=PyString_FromString(ToPyChar(Dock.Name));
             end
            else
             Result:=PyNoResult;
@@ -513,7 +513,7 @@ begin
            Exit;
           end;
    end;
-  PyErr_SetString(QuarkxError, PChar(LoadStr1(4429)));
+  PyErr_SetString(QuarkxError, ToPyChar(LoadStr1(4429)));
   Result:=Nil;
  except
   Py_XDECREF(Result);
@@ -522,9 +522,9 @@ begin
  end;
 end;
 
-function SetToolbarAttr(self: PyObject; attr: PChar; value: PyObject) : Integer; cdecl;
+function SetToolbarAttr(self: PyObject; attr: PyChar; value: PyObject) : Integer; cdecl;
 var
- P: PChar;
+ P: PyChar;
  Dock: TComponent;
  nRect: TRect;
 begin
@@ -543,7 +543,7 @@ begin
            P:=PyString_AsString(value);
            if P=Nil then Exit;
            if QkToolbar<>Nil then
-            QkToolbar.Caption:=StrPas(P);
+            QkToolbar.Caption:=PyStrPas(P);
            Result:=0;
            Exit;
           end;
@@ -563,7 +563,7 @@ begin
                Dock:=QkToolbar.Owner.FindComponent(StrPas(P));
                if (Dock=Nil) or not (Dock is TDock97) then
                 begin
-                 PyErr_SetString(QuarkxError, PChar(LoadStr1(4419)));
+                 PyErr_SetString(QuarkxError, ToPyChar(LoadStr1(4419)));
                  Exit;
                 end;
               end;
@@ -623,7 +623,7 @@ begin
            Exit;
           end;
    end;
-  PyErr_SetString(QuarkxError, PChar(LoadStr1(4429))); 
+  PyErr_SetString(QuarkxError, ToPyChar(LoadStr1(4429)));
   Result:=-1;
  except
   EBackToPython;
@@ -1327,7 +1327,7 @@ procedure TQkToolbarButton.UpdateBtn;
 var
  J: Integer;
  obj: PyObject;
- P: PChar;
+ P: PyChar;
  S: String;
 begin
  obj:=PyObject_GetAttrString(BtnObject, 'caption');
@@ -1339,7 +1339,7 @@ begin
    begin
     P:=PyString_AsString(obj);
     if P=Nil then Exit;
-    S:=P;
+    S:=PyStrPas(P);
    end;
  finally Py_DECREF(obj); end;
  if Caption<>S then
@@ -1349,16 +1349,22 @@ begin
   end;
  obj:=PyObject_GetAttrString(BtnObject, 'state');
  if obj=Nil then Exit;
- J:=PyInt_AsLong(obj);
- Py_DECREF(obj);
+ try
+  J:=PyInt_AsLong(obj);
+ finally
+  Py_DECREF(obj);
+ end;
  Selected:=J and state_Selected <> 0;
  Enabled:=J and state_Disabled = 0;
  obj:=PyObject_GetAttrString(BtnObject, 'hint');
  if obj=Nil then Exit;
- P:=PyString_AsString(obj);
- Py_DECREF(obj);
+ try
+  P:=PyString_AsString(obj);
+ finally
+  Py_DECREF(obj);
+ end;
  if P=Nil then Exit;
- Hint:=P;
+ Hint:=PyStrPas(P);
 end;
 
  {-------------------}
@@ -1531,13 +1537,16 @@ begin
  if FPageTabs=1 then
   begin
    Pen:=SelectObject(DC, CreatePen(ps_Solid, 0, ColorToRGB(clBtnHighlight)));
-   MoveToEx(DC, 0,Height-3, Nil);
-   LineTo(DC, Width, Height-3);
-   DeleteObject(SelectObject(DC, CreatePen(ps_Solid, 0,
-     MiddleColor(ColorToRGB(clBtnHighlight), ColorToRGB(clBtnFace), 0.5))));
-   MoveToEx(DC, 0,Height-2, Nil);
-   LineTo(DC, Width, Height-2);
-   DeleteObject(SelectObject(DC, Pen));
+   try
+    MoveToEx(DC, 0,Height-3, Nil);
+    LineTo(DC, Width, Height-3);
+    DeleteObject(SelectObject(DC, CreatePen(ps_Solid, 0,
+      MiddleColor(ColorToRGB(clBtnHighlight), ColorToRGB(clBtnFace), 0.5))));
+    MoveToEx(DC, 0,Height-2, Nil);
+    LineTo(DC, Width, Height-2);
+   finally
+    DeleteObject(SelectObject(DC, Pen));
+   end;
   end;
 end;
 
@@ -1575,7 +1584,9 @@ const
  MethodTable2: array[0..0] of TyMethodDef =
   ((ml_name: 'update';    ml_meth: bpUpdate;    ml_flags: METH_VARARGS));
 
-{function GetBtnPanelObject(self: PyObject; attr: PChar) : PyObjectPtr;
+{function GetBtnPanelObject(self: PyObject; attr: PyChar) : PyObjectPtr;
+var
+ S: String;
 begin
  Result:=Nil;
  with PyControlF(self)^ do
@@ -1587,9 +1598,11 @@ begin
           Exit;
          end;
   end;
+ S:=Format('button panels have no attribute "%s"', [attr]);
+ PyErr_SetString(QuarkxError, ToPyChar(S));
 end;}
 
-function GetBtnPanelAttr(self: PyObject; attr: PChar) : PyObject; cdecl;
+function GetBtnPanelAttr(self: PyObject; attr: PyChar) : PyObject; cdecl;
 var
  I: Integer;
 {Attr1: PyObjectPtr;}
@@ -1638,7 +1651,7 @@ begin
  end;
 end;
 
-function SetBtnPanelAttr(self: PyObject; attr: PChar; value: PyObject) : Integer; cdecl;
+function SetBtnPanelAttr(self: PyObject; attr: PyChar; value: PyObject) : Integer; cdecl;
 var
  P: TPoint;
 {Attr1: PyObjectPtr;}

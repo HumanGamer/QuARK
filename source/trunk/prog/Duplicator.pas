@@ -48,9 +48,9 @@ type
                  procedure ListeEntites(Entites: TQList; Cat: TEntityChoice); override;
                  procedure ListeBeziers(Entites: TQList; Flags: Integer); override;
                  procedure AddTo3DScene(Scene: TObject); override;
-                 function PyGetAttr(attr: PChar) : PyObject; override;
+                 function PyGetAttr(attr: PyChar) : PyObject; override;
                  function ReplaceTexture(const Source, Dest: String; U: Boolean) : Integer; override;
-                {function PySetAttr(attr: PChar; value: PyObject) : Boolean; override;}
+                {function PySetAttr(attr: PyChar; value: PyObject) : Boolean; override;}
                end;
 
  {------------------------}
@@ -352,7 +352,7 @@ end;
 
  {------------------------}
 
-function TDuplicator.PyGetAttr(attr: PChar) : PyObject;
+function TDuplicator.PyGetAttr(attr: PyChar) : PyObject;
 begin
  Result:=inherited PyGetAttr(attr);
  if Result<>Nil then Exit;
@@ -387,7 +387,7 @@ begin
   end;
 end;
 
-(*function TDuplicator.PySetAttr(attr: PChar; value: PyObject) : Boolean;
+(*function TDuplicator.PySetAttr(attr: PyChar; value: PyObject) : Boolean;
 begin
  Result:=inherited PySetAttr(attr, value);
  if not Result then

@@ -27,8 +27,8 @@ uses Windows, SysUtils, Classes, QkObjects, Undo, Quarkx, Python;
  {-------------------}
 
 procedure ProcessObjDestructor(o: PyObject); cdecl;
-function GetProcessAttr(self: PyObject; attr: PChar) : PyObject; cdecl;
-function SetProcessAttr(self: PyObject; attr: PChar; value: PyObject) : Integer; cdecl;
+function GetProcessAttr(self: PyObject; attr: PyChar) : PyObject; cdecl;
+function SetProcessAttr(self: PyObject; attr: PyChar; value: PyObject) : Integer; cdecl;
 
 type
  PyProcessObject = ^TyProcessObject;
@@ -187,13 +187,13 @@ begin
        try
         Pending:=False;
         if OutQueue < InQueue then
-         s:=PyString_FromStringAndSize(PChar(@Data[OutQueue]), InQueue-OutQueue)
+         s:=PyString_FromStringAndSize(ToPyChar(String(@Data[OutQueue])), InQueue-OutQueue)
         else
          begin
           SetLength(S1, InQueue+PipeBufSize-OutQueue);
           Move(Data[OutQueue], S1[1], PipeBufSize-OutQueue);
           Move(Data, S1[1+PipeBufSize-OutQueue], InQueue);
-          s:=PyString_FromStringAndSize(PChar(S1), Length(S1));
+          s:=PyString_FromStringAndSize(ToPyChar(S1), Length(S1));
          end;
         OutQueue:=InQueue;
        finally
@@ -416,7 +416,7 @@ const
  MethodTable: array[0..0] of TyMethodDef =
   ((ml_name: 'onexit';      ml_meth: pOnExit;      ml_flags: METH_VARARGS));
 
-function GetProcessAttr(self: PyObject; attr: PChar) : PyObject; cdecl;
+function GetProcessAttr(self: PyObject; attr: PyChar) : PyObject; cdecl;
 var
  I: Integer;
  ExitCode: DWORD;
@@ -441,7 +441,7 @@ begin
           Exit;
          end;
   end;
-  PyErr_SetString(QuarkxError, PChar(LoadStr1(4429)));
+  PyErr_SetString(QuarkxError, ToPyChar(LoadStr1(4429)));
   Result:=Nil;
  except
   Py_XDECREF(Result);
@@ -450,10 +450,10 @@ begin
  end;
 end;
 
-function SetProcessAttr(self: PyObject; attr: PChar; value: PyObject) : Integer; cdecl;
+function SetProcessAttr(self: PyObject; attr: PyChar; value: PyObject) : Integer; cdecl;
 begin
  try
-  PyErr_SetString(QuarkxError, PChar(LoadStr1(4429)));
+  PyErr_SetString(QuarkxError, ToPyChar(LoadStr1(4429)));
   Result:=-1;
  except
   EBackToPython;

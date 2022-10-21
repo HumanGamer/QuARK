@@ -36,6 +36,9 @@ uses ExtraFunctionality {$IFDEF PyProfiling}, Classes {$ENDIF};
 type
  CFILE = Pointer;
 
+ PyCharacterType = AnsiChar;
+ PyChar = PAnsiChar;
+
  {$IFDEF PYTHON25}
  Py_ssize_t = ssize_t;
  Py_ssize_tPtr = ^Py_ssize_t;
@@ -73,21 +76,21 @@ type
  TyCFunctionKey = function(self, args, keys: PyObject) : PyObject; cdecl;
  PTymethodDef = ^TyMethodDef;
  TyMethodDef = packed record
-                ml_name: (*const*) PChar;
+                ml_name: (*const*) PyChar;
                 case Integer of
                  0: (ml_meth: TyCFunction;
                      ml_flags: Integer;
-                     ml_doc: (*const*) PChar);
+                     ml_doc: (*const*) PyChar);
                  1: (ml_keymeth: TyCFunctionKey);
                end;
 
  PPyMemberDef = ^PyMemberDef;
  PyMemberDef = packed record
-   name : PChar;
+   name : PyChar;
    _type : integer;
    offset : {$IFDEF PYTHON25}Py_ssize_t{$ELSE}Integer{$ENDIF};
    flags : integer;
-   doc : PChar;
+   doc : PyChar;
  end;
 
  getter = function(ob : PyObject; ptr : Pointer) : PyObject; cdecl;
@@ -95,10 +98,10 @@ type
 
  PPyGetSetDef = ^PyGetSetDef;
  PyGetSetDef = packed record
-   name : PChar;
+   name : PyChar;
    get : getter;
    _set : setter;
-   doc : PChar;
+   doc : PyChar;
    closure : Pointer;
  end;
 
@@ -122,7 +125,7 @@ type
  FnReadBufferProc    = function(o: PyObject; i: {$IFDEF PYTHON25}Py_ssize_t{$ELSE}Integer{$ENDIF}; p: Pointer): {$IFDEF PYTHON25}Py_ssize_t{$ELSE}Integer{$ENDIF}; cdecl;
  FnWriteBufferProc   = function(o: PyObject; i: {$IFDEF PYTHON25}Py_ssize_t{$ELSE}Integer{$ENDIF}; p: Pointer): {$IFDEF PYTHON25}Py_ssize_t{$ELSE}Integer{$ENDIF}; cdecl;
  FnSegCountProc      = function(o: PyObject; i: {$IFDEF PYTHON25}Py_ssize_t{$ELSE}Integer{$ENDIF}): {$IFDEF PYTHON25}Py_ssize_t{$ELSE}Integer{$ENDIF}; cdecl;
- FnCharBufferProc    = function(o: PyObject; i: {$IFDEF PYTHON25}Py_ssize_t{$ELSE}Integer{$ENDIF}; p: PChar): {$IFDEF PYTHON25}Py_ssize_t{$ELSE}Integer{$ENDIF}; cdecl;
+ FnCharBufferProc    = function(o: PyObject; i: {$IFDEF PYTHON25}Py_ssize_t{$ELSE}Integer{$ENDIF}; p: PyChar): {$IFDEF PYTHON25}Py_ssize_t{$ELSE}Integer{$ENDIF}; cdecl;
  {$IFDEF PYTHON26}
  FnGetBufferProc     = function(o: PyObject; p: Pointer; i: Integer): Integer; cdecl;
  FnReleaseBufferProc = procedure(o: PyObject; p: Pointer); cdecl;
@@ -135,9 +138,9 @@ type
  FnFreeFunc      = procedure(ptr: Pointer); cdecl;
  FnDestructor    = procedure(o: PyObject); cdecl;
  FnPrintFunc     = function(o: PyObject; f: CFILE; i: Integer) : Integer; cdecl;
- FnGetAttrFunc   = function(o: PyObject; attr: PChar) : PyObject; cdecl;
+ FnGetAttrFunc   = function(o: PyObject; attr: PyChar) : PyObject; cdecl;
  FnGetAttrOFunc  = function(o: PyObject; attr: PyObject) : PyObject; cdecl;
- FnSetAttrFunc   = function(o: PyObject; attr: PChar; v: PyObject) : Integer; cdecl;
+ FnSetAttrFunc   = function(o: PyObject; attr: PyChar; v: PyObject) : Integer; cdecl;
  FnSetAttrOFunc  = function(o: PyObject; attr: PyObject; v: PyObject) : Integer; cdecl;
  FnCmpFunc       = function(o1, o2: PyObject) : Integer; cdecl;
  FnReprfunc      = function(o: PyObject) : PyObject; cdecl;
@@ -215,7 +218,7 @@ type
                  end;
 
  TyTypeObject = object(TyVarObject)
-                 tp_name: (*const*) PChar;
+                 tp_name: (*const*) PyChar;
                  tp_basicsize, tp_itemsize: {$IFDEF PYTHON25}Py_ssize_t{$ELSE}Integer{$ENDIF};
 
                  tp_dealloc: FnDestructor;
@@ -239,7 +242,7 @@ type
 
                  tp_flags: LongInt;
 
-                 tp_doc: PChar;
+                 tp_doc: PyChar;
 
 {$IFDEF PYTHON20}
                  tp_traverse:    FnTraverseProc;   // call function for all accessible objects
@@ -358,24 +361,24 @@ var
 
 Py_Initialize: procedure; cdecl;
 Py_Finalize: procedure; cdecl;
-Py_SetProgramName: procedure (name : PChar); cdecl;
-Py_GetVersion: function : (*const*) PChar; cdecl;
-//Py_GetBuildNumber: function : (*const*) PChar; cdecl; //New in Python 2.5
-//Py_GetPlatform: function : (*const*) PChar; cdecl;
-//Py_GetCopyright: function : (*const*) PChar; cdecl;
-//Py_GetCompiler: function : (*const*) PChar; cdecl;
-//Py_GetBuildInfo: function : (*const*) PChar; cdecl;
+Py_SetProgramName: procedure (name : PyChar); cdecl;
+Py_GetVersion: function : (*const*) PyChar; cdecl;
+//Py_GetBuildNumber: function : (*const*) PyChar; cdecl; //New in Python 2.5
+//Py_GetPlatform: function : (*const*) PyChar; cdecl;
+//Py_GetCopyright: function : (*const*) PyChar; cdecl;
+//Py_GetCompiler: function : (*const*) PyChar; cdecl;
+//Py_GetBuildInfo: function : (*const*) PyChar; cdecl;
 
-PyRun_SimpleString: function (const P: PChar) : Integer; cdecl;
-//PyRun_String: function (const str: PChar; start: Integer; Globals, Locals: PyObject) : PyObject; cdecl;
-//Py_CompileString: function (const str, filename: PChar; start: Integer) : PyObject; cdecl;
+PyRun_SimpleString: function (const P: PyChar) : Integer; cdecl;
+//PyRun_String: function (const str: PyChar; start: Integer; Globals, Locals: PyObject) : PyObject; cdecl;
+//Py_CompileString: function (const str, filename: PyChar; start: Integer) : PyObject; cdecl;
 
-//Py_InitModule: function (name: PChar; const MethodDef) : PyObject; cdecl;
-//Py_InitModule3: function (name: PChar; const MethodDef; doc: PChar) : PyObject; cdecl;
-Py_InitModule4: function (name: PChar; const MethodDef; doc: PChar; self: PyObject; Version: Integer) : PyObject; cdecl;
+//Py_InitModule: function (name: PyChar; const MethodDef) : PyObject; cdecl;
+//Py_InitModule3: function (name: PyChar; const MethodDef; doc: PyChar) : PyObject; cdecl;
+Py_InitModule4: function (name: PyChar; const MethodDef; doc: PyChar; self: PyObject; Version: Integer) : PyObject; cdecl;
 PyModule_GetDict: function (module: PyObject) : PyObject; cdecl;
-PyModule_New: function (const name: PChar) : PyObject; cdecl;
-//PyImport_ImportModule: function (const name: PChar) : PyObject; cdecl;
+PyModule_New: function (const name: PyChar) : PyObject; cdecl;
+//PyImport_ImportModule: function (const name: PyChar) : PyObject; cdecl;
 
 //PyEval_GetGlobals: function : PyObject; cdecl;
 //PyEval_GetLocals: function : PyObject; cdecl;
@@ -392,16 +395,16 @@ PyErr_Clear: procedure; cdecl;
 PyErr_Occurred: function : PyObject; cdecl;
 PyErr_Fetch: procedure (var o1, o2, o3: PyObject); cdecl;
 PyErr_Restore: procedure (o1, o2, o3: PyObject); cdecl;
-PyErr_NewException: function (name: PChar; base, dict: PyObject) : PyObject; cdecl;
-PyErr_SetString: procedure (o: PyObject; const c: PChar); cdecl;
+PyErr_NewException: function (name: PyChar; base, dict: PyObject) : PyObject; cdecl;
+PyErr_SetString: procedure (o: PyObject; const c: PyChar); cdecl;
 //function PyErr_BadArgument : Integer; cdecl;
 PyErr_ExceptionMatches: function (exc: PyObject) : LongBool; cdecl;
 
 //function PyObject_Hash(o: PyObject) : LongInt; cdecl;
 PyObject_Length: function (o: PyObject) : {$IFDEF PYTHON25} Py_ssize_t {$ELSE} Integer {$ENDIF}; cdecl;
 //PyObject_GetItem: function (o, key: PyObject) : PyObject; cdecl;
-PyObject_HasAttrString: function (o: PyObject; const attr_name: PChar) : LongBool; cdecl;
-PyObject_GetAttrString: function (o: PyObject; const attr_name: PChar) : PyObject; cdecl;
+PyObject_HasAttrString: function (o: PyObject; const attr_name: PyChar) : LongBool; cdecl;
+PyObject_GetAttrString: function (o: PyObject; const attr_name: PyChar) : PyObject; cdecl;
 PyObject_IsTrue: function (o: PyObject) : LongBool; cdecl;
 PyObject_Str: function (o: PyObject) : PyObject; cdecl;
 PyObject_Repr: function (o: PyObject) : PyObject; cdecl;
@@ -410,12 +413,12 @@ PySequence_In: function (o, value: PyObject) : Integer; cdecl;
 PySequence_Index: function (o, value: PyObject) : {$IFDEF PYTHON25} Py_ssize_t {$ELSE} Integer {$ENDIF}; cdecl;
 PySequence_DelItem: function (o: PyObject; index: {$IFDEF PYTHON25} Py_ssize_t {$ELSE} Integer {$ENDIF}) : Integer; cdecl;
 PyMapping_HasKey: function (o, key: PyObject) : LongBool; cdecl;
-PyMapping_HasKeyString: function (o: PyObject; key: PChar) : LongBool; cdecl;
+PyMapping_HasKeyString: function (o: PyObject; key: PyChar) : LongBool; cdecl;
 PyNumber_Float: function (o: PyObject) : PyObject; cdecl;
 
-Py_BuildValue: function (const fmt: PChar{...}) : PyObject; cdecl;
-PyArg_ParseTuple: function (src: PyObject; const fmt: PChar{...}) : LongBool; cdecl;
-//PyArg_ParseTupleAndKeywords: function (arg, kwdict: PyObject; const fmt: PChar; var kwlist: PChar{...}) : LongBool; cdecl;
+Py_BuildValue: function (const fmt: PyChar{...}) : PyObject; cdecl;
+PyArg_ParseTuple: function (src: PyObject; const fmt: PyChar{...}) : LongBool; cdecl;
+//PyArg_ParseTupleAndKeywords: function (arg, kwdict: PyObject; const fmt: PyChar; var kwlist: PyChar{...}) : LongBool; cdecl;
 PyTuple_New: function (size: {$IFDEF PYTHON25} Py_ssize_t {$ELSE} Integer {$ENDIF}) : PyObject; cdecl;
 PyTuple_GetItem: function (tuple: PyObject; index: {$IFDEF PYTHON25} Py_ssize_t {$ELSE} Integer {$ENDIF}) : PyObject; cdecl;
 PyTuple_SetItem: function (tuple: PyObject; index: {$IFDEF PYTHON25} Py_ssize_t {$ELSE} Integer {$ENDIF}; item: PyObject) : Integer; cdecl;
@@ -427,18 +430,18 @@ PyList_Insert: function (list: PyObject; index: {$IFDEF PYTHON25} Py_ssize_t {$E
 PyList_Append: function (list: PyObject; item: PyObject) : Integer; cdecl;
 
 PyDict_New: function : PyObject; cdecl;
-PyDict_SetItemString: function (dict: PyObject; const key: PChar; item: PyObject) : Integer; cdecl;
-PyDict_GetItemString: function (dict: PyObject; const key: PChar) : PyObject; cdecl;
+PyDict_SetItemString: function (dict: PyObject; const key: PyChar; item: PyObject) : Integer; cdecl;
+PyDict_GetItemString: function (dict: PyObject; const key: PyChar) : PyObject; cdecl;
 PyDict_GetItem: function (dict, key: PyObject) : PyObject; cdecl;
 PyDict_Keys: function (dict: PyObject) : PyObject; cdecl;
 PyDict_Values: function (dict: PyObject) : PyObject; cdecl;
 //function PyDict_Items(dict: PyObject) : PyObject; cdecl;
-//function PyDict_DelItemString(dict: PyObject; key: PChar) : Integer; cdecl;
+//function PyDict_DelItemString(dict: PyObject; key: PyChar) : Integer; cdecl;
 PyDict_Next: function (dict: PyObject; pos : {$IFDEF PYTHON25} Py_ssize_tPtr {$ELSE} PInteger {$ENDIF}; key : PyObjectPtr; value : PyObjectPtr) : Integer; cdecl;
 
-PyString_FromString: function (const str: PChar) : PyObject; cdecl;
-PyString_AsString: function (o: PyObject) : PChar; cdecl;
-PyString_FromStringAndSize: function (const str: PChar; size: {$IFDEF PYTHON25} Py_ssize_t {$ELSE} Integer {$ENDIF}) : PyObject; cdecl;
+PyString_FromString: function (const str: PyChar) : PyObject; cdecl;
+PyString_AsString: function (o: PyObject) : PyChar; cdecl;
+PyString_FromStringAndSize: function (const str: PyChar; size: {$IFDEF PYTHON25} Py_ssize_t {$ELSE} Integer {$ENDIF}) : PyObject; cdecl;
 PyString_Size: function (o: PyObject) : {$IFDEF PYTHON25} Py_ssize_t {$ELSE} Integer {$ENDIF}; cdecl;
 
 PyInt_FromLong: function (Value: LongInt) : PyObject; cdecl;
@@ -602,14 +605,14 @@ var
 function PyObject_NEW(t: PyTypeObject) : PyObject;
 {function PyObject_NEWVAR(t: PyTypeObject; i: Integer) : PyObject;}
 procedure PyObject_DEL(o: PyObject);
-function Py_BuildValueX(const fmt: PChar; Args: array of const) : PyObject;
+function Py_BuildValueX(const fmt: PyChar; Args: array of const) : PyObject;
 function Py_BuildValueDD(v1, v2: Double) : PyObject;
 function Py_BuildValueDDD(v1, v2, v3: Double) : PyObject;
 function Py_BuildValueD4(v1, v2, v3, v4: Double) : PyObject;
 function Py_BuildValueD5(v1, v2, v3, v4, v5: Double) : PyObject;
 function Py_BuildValueODD(v1: PyObject; v2, v3: Double) : PyObject;
-function PyArg_ParseTupleX(src: PyObject; const fmt: PChar; AllArgs: array of const) : LongBool;
-//function PyArg_ParseTupleAndKeywordsX(arg, kwdict: PyObject; const fmt: PChar; var kwlist: PChar; AllArgs: array of const) : LongBool;  pascal;
+function PyArg_ParseTupleX(src: PyObject; const fmt: PyChar; AllArgs: array of const) : LongBool;
+//function PyArg_ParseTupleAndKeywordsX(arg, kwdict: PyObject; const fmt: PyChar; var kwlist: PyChar; AllArgs: array of const) : LongBool;  pascal;
 procedure Py_INCREF(o: PyObject);
 procedure Py_DECREF(o: PyObject);
 procedure Py_REF_Delta(o: PyObject; Delta: Integer);
@@ -630,6 +633,15 @@ function IsPythonLoaded : Boolean;
 function InitializePython : Integer;
 procedure UnInitializePython;
 procedure SizeDownPython;
+
+//These functions convert the Delphi String (AnsiString or WideString) to Python's PChar (PAnsiChar or PWideChar) and back.
+{$IFDEF UNICODE}
+function PyStrPas(const P: PyChar) : WideString;
+function ToPyChar(const S: WideString) : PyChar;
+{$ELSE}
+function PyStrPas(const P: PyChar) : AnsiString;
+function ToPyChar(const S: AnsiString) : PyChar;
+{$ENDIF}
 
 {$IFDEF PyProfiling}
 function PythonGetStackTrace() : TStringList;
@@ -935,9 +947,9 @@ begin
   {$IFDEF PYTHON27}
   PyEval_CallObject := PyEval_CallObjectX;
   {$ENDIF}
-  Py_SetProgramName(PChar(Application.Exename));
+  Py_SetProgramName(ToPyChar(Application.Exename));
   Py_Initialize;
-  s:=Py_GetVersion;
+  s:=PyStrPas(Py_GetVersion());
   Log(LOG_PYTHON,'PYTHON:');
   Log(LOG_PYTHON,'Version: '+s);
   Log(LOG_PYTHON,'DLL: '+RetrieveModuleFilename(PythonLib));
@@ -1118,7 +1130,7 @@ begin
 end;
 
 //Note: This function can only handle Args-elements that are 4 bytes in size (DWORD's), so it will NOT work with Double's!
-function Py_BuildValueX(const fmt: PChar; Args: array of const) : PyObject;
+function Py_BuildValueX(const fmt: PyChar; Args: array of const) : PyObject;
 asm                     { Comments added by Decker, but I'm not sure they are correct!! }
  push edi               { save the value of edi for later retrieval }
  add ecx, ecx           { multiply ecx with 2 (ecx = the number of elements in the Args array, minus 1) }
@@ -1137,7 +1149,7 @@ asm                     { Comments added by Decker, but I'm not sure they are co
  pop edi                { restore the saved value of edi }
 end;
 
-function PyArg_ParseTupleX(src: PyObject; const fmt: PChar; AllArgs: array of const) : LongBool;
+function PyArg_ParseTupleX(src: PyObject; const fmt: PyChar; AllArgs: array of const) : LongBool;
 asm
  push edi               { save the value of edi for later retrieval }
  push esi               { save the value of esi for later retrieval }
@@ -1164,40 +1176,40 @@ end;
 
 function Py_BuildValueDD(v1, v2: Double) : PyObject;
 type
- F = function(const fmt: PChar; v1, v2: Double) : PyObject; cdecl;
+ F = function(const fmt: PyChar; v1, v2: Double) : PyObject; cdecl;
 begin
  Result:=F(Py_BuildValue)('dd', v1, v2);
 end;
 
 function Py_BuildValueDDD(v1, v2, v3: Double) : PyObject;
 type
- F = function(const fmt: PChar; v1, v2, v3: Double) : PyObject; cdecl;
+ F = function(const fmt: PyChar; v1, v2, v3: Double) : PyObject; cdecl;
 begin
  Result:=F(Py_BuildValue)('ddd', v1, v2, v3);
 end;
 
 function Py_BuildValueD4(v1, v2, v3, v4: Double) : PyObject;
 type
- F = function(const fmt: PChar; v1, v2, v3, v4: Double) : PyObject; cdecl;
+ F = function(const fmt: PyChar; v1, v2, v3, v4: Double) : PyObject; cdecl;
 begin
  Result:=F(Py_BuildValue)('dddd', v1, v2, v3, v4);
 end;
 
 function Py_BuildValueD5(v1, v2, v3, v4, v5: Double) : PyObject;
 type
- F = function(const fmt: PChar; v1, v2, v3, v4, v5: Double) : PyObject; cdecl;
+ F = function(const fmt: PyChar; v1, v2, v3, v4, v5: Double) : PyObject; cdecl;
 begin
  Result:=F(Py_BuildValue)('ddddd', v1, v2, v3, v4, v5);
 end;
 
 function Py_BuildValueODD(v1: PyObject; v2, v3: Double) : PyObject;
 type
- F = function(const fmt: PChar; v1: PyObject; v2, v3: Double) : PyObject; cdecl;
+ F = function(const fmt: PyChar; v1: PyObject; v2, v3: Double) : PyObject; cdecl;
 begin
  Result:=F(Py_BuildValue)('Odd', v1, v2, v3);
 end;
 
-{function PyArg_ParseTupleAndKeywordsX(arg, kwdict: PyObject; const fmt: PChar; var kwlist: PChar; AllArgs: array of const) : LongBool;
+{function PyArg_ParseTupleAndKeywordsX(arg, kwdict: PyObject; const fmt: PyChar; var kwlist: PyChar; AllArgs: array of const) : LongBool;
 pascal; assembler; asm
  mov ecx, [AllArgs-4]
  mov edx, [AllArgs]
@@ -1380,6 +1392,28 @@ begin
    Result:=tp_as_sequence^.sq_item(o, index);
 end;*)
 
+{$IFDEF UNICODE}
+function PyStrPas(const P: PyChar) : WideString;
+begin
+ Result:=WideString(P);
+end;
+
+function ToPyChar(const S: WideString) : PyChar;
+begin
+ Result:=PAnsiChar(AnsiString(S));
+end;
+{$ELSE}
+function PyStrPas(const P: PyChar) : AnsiString;
+begin
+ Result:=P;
+end;
+
+function ToPyChar(const S: AnsiString) : PyChar;
+begin
+ Result:=PAnsiChar(S);
+end;
+{$ENDIF}
+
 {$IFDEF PyProfiling}
 //Based on: https://stackoverflow.com/questions/1796510/accessing-a-python-traceback-from-the-c-api
 function PythonGetStackTrace() : TStringList;
@@ -1387,7 +1421,7 @@ var
  tstate: PyThreadState;
  frame: PyFrameObject;
  LineNumber: Integer;
- Filename, Funcname: PChar;
+ Filename, Funcname: PyChar;
 begin
  Result := TStringList.Create;
  tstate := PyThreadState_GET();

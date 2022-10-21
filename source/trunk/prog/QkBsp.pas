@@ -194,7 +194,7 @@ type
 
    class function TypeInfo: String; override;
    function GetNearPlanes(Close: TDouble; Bsp: QBsp): PyObject;
-   function PyGetAttr(attr: PChar) : PyObject; override;
+   function PyGetAttr(attr: PyChar) : PyObject; override;
  end;
 
  TTreeBspNode = class(TTreeMapGroup)
@@ -208,7 +208,7 @@ type
 
    class function TypeInfo: String; override;
    procedure GetFaces(var L: PyObject);
-   function PyGetAttr(attr: PChar) : PyObject; override;
+   function PyGetAttr(attr: PyChar) : PyObject; override;
  end;
 
  QBspFileHandler = class
@@ -274,7 +274,7 @@ type
           procedure VerticesAddRef(Delta: Integer);
           function GetAltTextureSrc : QObject;
           procedure Go1(maplist, extracted: PyObject; var FirstMap: String; var QCList: TQList); override;
-          function PyGetAttr(attr: PChar) : PyObject; override;
+          function PyGetAttr(attr: PyChar) : PyObject; override;
           Function GetTextureFolder: QObject;
           (*Function CreateStringListFromEntities(ExistingAddons: QFileObject; var Found: TStringList): Integer;*)
           function GetEntityLump : String;
@@ -1088,7 +1088,7 @@ begin
   FirstMap:=S;
  S:=ConcatPaths([GameMapPath, S+TypeInfo]);
  SaveInFile(rf_Default, OutputFile(S));
- mapname:=PyString_FromString(PChar(S));
+ mapname:=PyString_FromString(ToPyChar(S));
  try
    PyList_Append(extracted, mapname);
  finally
@@ -1152,7 +1152,7 @@ const
    (ml_name: 'closestructure';   ml_meth: qCloseStructure;   ml_flags: METH_VARARGS),
    (ml_name: 'closeplanes';      ml_meth: qGetClosePlanes;   ml_flags: METH_VARARGS));
 
-function QBsp.PyGetAttr(attr: PChar) : PyObject;
+function QBsp.PyGetAttr(attr: PyChar) : PyObject;
 var
  I: Integer;
  L: TQlist;
@@ -1753,7 +1753,7 @@ const
  PlaneMethodTable: array[0..0] of TyMethodDef =
   ((ml_name: 'nearplanes';   ml_meth: qGetNearPlanes;   ml_flags: METH_VARARGS));
 
-function TTreeBspPlane.PyGetAttr(attr: PChar) : PyObject;
+function TTreeBspPlane.PyGetAttr(attr: PyChar) : PyObject;
 var
   I: Integer;
 begin
@@ -1947,7 +1947,7 @@ begin
    end;
 end;
 
-function TTreeBspNode.PyGetAttr(attr: PChar) : PyObject;
+function TTreeBspNode.PyGetAttr(attr: PyChar) : PyObject;
 (*  No node methods yet, so we don' need this
 var
   I: Integer;

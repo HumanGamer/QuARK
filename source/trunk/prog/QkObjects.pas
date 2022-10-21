@@ -323,8 +323,8 @@ type
     { returns `extension' of object, see QkObjects.txt:TypeInfo }
     function GetFullName: String;
     procedure ClearAllSelection;
-    function PyGetAttr(attr: PChar) : PyObject; virtual;
-    function PySetAttr(attr: PChar; value: PyObject) : Boolean; virtual;
+    function PyGetAttr(attr: PyChar) : PyObject; virtual;
+    function PySetAttr(attr: PyChar; value: PyObject) : Boolean; virtual;
     procedure PySetParent(nParent: QObject);
     function IsClosed: Boolean;
     property PyNoParent: Boolean write FPyNoParent;
@@ -2667,7 +2667,7 @@ begin
  finally DestroyMenu(Menu); end;
 end;*)
 
-function QObject.PyGetAttr(attr: PChar) : PyObject;
+function QObject.PyGetAttr(attr: PyChar) : PyObject;
 var
   I, J, N: Integer;
   o: PyObject;
@@ -2694,7 +2694,7 @@ begin
         Result:=PyTuple_New(L.Count);
         for I:=0 to L.Count-1 do
         begin
-          PyTuple_SetItem(Result, I, PyString_FromString(PChar(L[I])));
+          PyTuple_SetItem(Result, I, PyString_FromString(ToPyChar(L[I])));
         end;
       finally
         L.Free;
@@ -2711,7 +2711,7 @@ begin
       for I:=N-1 downto 0 do
       begin
         o:=@SubElements[I].PythonObj;
-        PyDict_SetItemString(Result, PChar(SubElements[I].GetFullName), o);
+        PyDict_SetItemString(Result, ToPyChar(SubElements[I].GetFullName), o);
       end;
       Exit;
     end
@@ -2752,9 +2752,9 @@ begin
           end
           else
           begin
-            o:=PyString_FromStringAndSize(PChar(S2), Length(S2));
+            o:=PyString_FromStringAndSize(ToPyChar(S2), Length(S2));
           end;
-          PyDict_SetItemString(Result, PChar(S), o);
+          PyDict_SetItemString(Result, ToPyChar(S), o);
           Py_DECREF(o);
         end;
       end;
@@ -2780,7 +2780,7 @@ begin
   'n':
     if StrComp(attr, 'name') = 0 then
     begin
-      Result:=PyString_FromString(PChar(GetFullName));
+      Result:=PyString_FromString(ToPyChar(GetFullName));
       Exit;
     end;
 
@@ -2800,7 +2800,7 @@ begin
     else
     if StrComp(attr, 'shortname') = 0 then
     begin
-      Result:=PyString_FromString(PChar(Name));
+      Result:=PyString_FromString(ToPyChar(Name));
       Exit;
     end
     else
@@ -2821,7 +2821,7 @@ begin
   't':
     if StrComp(attr, 'type') = 0 then
     begin
-      Result:=PyString_FromString(PChar(TypeInfo));
+      Result:=PyString_FromString(ToPyChar(TypeInfo));
       Exit;
     end
     else
@@ -2835,9 +2835,9 @@ begin
   Result:=Nil;
 end;
 
-function QObject.PySetAttr(attr: PChar; value: PyObject) : Boolean;
+function QObject.PySetAttr(attr: PyChar; value: PyObject) : Boolean;
 var
-  P: PChar;
+  P: PyChar;
 begin
   Result:=False;
   case attr[0] of
@@ -2868,7 +2868,7 @@ begin
       P:=PyString_AsString(value);
       if P=Nil then
         Exit;
-      Name:=P;
+      Name:=PyStrPas(P);
       Result:=True;
       Exit;
     end;

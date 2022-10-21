@@ -43,8 +43,8 @@ type
     function GetVertices(var P: vec3_p) : Integer;
     Procedure RemoveVertex(index: Integer);
     procedure ChercheExtremites(var Min, Max: TVect); override;
-    function PyGetAttr(attr: PChar) : PyObject; override;
-    function PySetAttr(attr: PChar; value: PyObject) : Boolean; override;
+    function PyGetAttr(attr: PyChar) : PyObject; override;
+    function PySetAttr(attr: PyChar; value: PyObject) : Boolean; override;
     property ParentComponent: QObject read Component write Component;
     function GetBoneMovement(var P: PBoneRec): Integer;
     procedure TranslateFrame(vec: vec3_t);
@@ -283,7 +283,7 @@ begin
   end;
 end;
 
-function QFrame.PyGetAttr(attr: PChar) : PyObject;
+function QFrame.PyGetAttr(attr: PyChar) : PyObject;
 var
   I, Count: Integer;
   P: vec3_p;
@@ -297,7 +297,7 @@ begin
       Result:=PyList_New(Count);
       for I:=0 to Count-1 do begin
         v:=MakePyVectv(Pb^.new_offset);
-        PyList_SetItem(Result, I, Py_BuildValueX('(sO)',[PChar(Pb^.Name), v]));
+        PyList_SetItem(Result, I, Py_BuildValueX('(sO)',[ToPyChar(Pb^.Name), v]));
         PyDECREF(v);
         Inc(Pb);
       end;
@@ -332,7 +332,7 @@ begin
   end;
 end;
 
-function QFrame.PySetAttr(attr: PChar; value: PyObject) : Boolean;
+function QFrame.PySetAttr(attr: PyChar; value: PyObject) : Boolean;
 const
   BaseSize = Length('Vertices=');
 var

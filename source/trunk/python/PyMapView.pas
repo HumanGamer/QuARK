@@ -34,9 +34,9 @@ type
   TMapViewDrawMode = (dmFull, dmRenderingOnly);
 
 const
-  MapViewStr : array[TMapViewMode] of PChar =
+  MapViewStr : array[TMapViewMode] of PyChar =
    ('wire', 'solid', 'tex');
-  MapTypeStr : array[TMapViewType] of PChar =
+  MapTypeStr : array[TMapViewType] of PyChar =
    ('editor', 'panel', 'window', 'fullscreen');
 
   vfHScrollBar   = $01;
@@ -203,8 +203,8 @@ type
 var
  CurrentMapView : TPyMapView = TPyMapView(-1);
 
-function GetMapViewAttr(self: PyObject; attr: PChar) : PyObject; cdecl;
-function SetMapViewAttr(self: PyObject; attr: PChar; value: PyObject) : Integer; cdecl;
+function GetMapViewAttr(self: PyObject; attr: PyChar) : PyObject; cdecl;
+function SetMapViewAttr(self: PyObject; attr: PyChar; value: PyObject) : Integer; cdecl;
 
 var
  TyMapView_Type: TyTypeObject =
@@ -1702,13 +1702,13 @@ procedure TPyMapView.KeyDown(var Key: Word; Shift: TShiftState);
 var
  Flags: Integer;
  FlagsS: TShiftState absolute Flags;
- Z: array[0..1] of Char;
+ Z: array[0..1] of PyCharacterType;
 begin
  if not DoKey3D(Key) then
   begin
    Flags:=0;
    FlagsS:=Shift;
-   Z[0]:=Chr(Key);
+   Z[0]:=ToPyChar(Chr(Key))^;
    Z[1]:=#0;
    Py_XDECREF(GetPythonValue(FOnKey, Py_BuildValueX('Osi', [MapViewObject, @Z, Flags or mbKeyDown]), True));
   end;
@@ -1719,11 +1719,11 @@ procedure TPyMapView.KeyUp(var Key: Word; Shift: TShiftState);
 var
  Flags: Integer;
  FlagsS: TShiftState absolute Flags;
- Z: array[0..1] of Char;
+ Z: array[0..1] of PyCharacterType;
 begin
  Flags:=0;
  FlagsS:=Shift;
- Z[0]:=Chr(Key);
+ Z[0]:=ToPyChar(Chr(Key))^;
  Z[1]:=#0;
  Py_XDECREF(GetPythonValue(FOnKey, Py_BuildValueX('Osi', [MapViewObject, @Z, Flags or mbKeyUp]), True));
  Key:=0;
@@ -2057,7 +2057,7 @@ end;
 procedure TPyMapView.MapShowHint(var HintStr: string; var CanShow: Boolean; var HintInfo: THintInfo);
 var
  H, hint: PyObject;
- P: PChar;
+ P: PyChar;
  Area: TRect;
 begin
  if MouseTimer<>Nil then
@@ -2075,7 +2075,7 @@ begin
      try
       P:=PyString_AsString(hint);
       if P=Nil then Exit;
-      HintStr:=GetShortHint(P);
+      HintStr:=GetShortHint(PyStrPas(P));
      finally
       Py_DECREF(hint);
      end;
@@ -2142,7 +2142,8 @@ const
 {kwlist: array[0..6] of PChar = ('type', 'angle', 'scale', 'vangle', 'mindist', 'maxdist', Nil);}
  FullRange = 12345.6;
 var
- P: PChar;
+ P: PyChar;
+ S: String;
 {Angle, Scale, VAngle, MinDist, MaxDist: Double;}
 {Up: TVect;}
  Range: Integer;
@@ -2183,8 +2184,9 @@ begin
        MapViewProj.Free;
        MapViewProj:=Nil;
       end;
-   (*case Upcase(P[0]) of
-      'X': case Upcase(P[1]) of
+   S:=UpperCase(PyStrPas(P));
+   (*case S[1] of
+      'X': case S[2] of
             'Y': begin   { XY: angle, scale }
                   MapViewProj:=GetTopDownAngle(Angle, Scale, P[2]='-');
                  end;
@@ -2200,7 +2202,7 @@ begin
                   MapViewProj:=GetCoordinates(Up, Scale);
                  end;
            end;
-      'Y': case Upcase(P[1]) of
+      'Y': case S[2] of
             'Z': begin   { YZ: angle, scale }
                   Up.X:=Cos(Angle);
                   Up.Y:=-Sin(Angle);
@@ -2213,12 +2215,12 @@ begin
                   MapViewProj:=GetCoordinates(Up, Scale);
                  end;
            end;
-      '2': case Upcase(P[1]) of
+      '2': case S[2] of
             'D': begin   { 2D: angle, vangle, scale }
                   MapViewProj:=GetAngleCoord(Angle, VAngle, Scale);
                  end;
            end;
-      '3': case Upcase(P[1]) of
+      '3': case S[2] of
             'D': begin   { 3D: }
                   MapViewProj:=Get3DCoord;
                   V.X:=-700;
@@ -2231,7 +2233,7 @@ begin
                  end;
            end;
      end;*)
-     if StrComp(P, '3D')=0 then
+     if StrComp(PChar(S), '3D')=0 then
       begin   { 3D: }
        MapViewProj:=Get3DCoord;
        with TCameraCoordinates(MapViewProj) do
@@ -2249,16 +2251,16 @@ begin
       end
      else
       begin
-     (*Neg:=P[2]='-';
-       case Upcase(P[0]) of
-        'X': case Upcase(P[1]) of
+     (*Neg:=S[3]='-';
+       case S[1] of
+        'X': case S[2] of
               'Y': begin
                     Neg:=Neg xor (Sin(VAngle)>0);
                     VAngle:=VAngle + pi/2;       { XY: angle, scale }
                    end;
               'Z': ;   { XZ: angle, scale }
              end;
-        'Y': case Upcase(P[1]) of
+        'Y': case S[2] of
               'Z': Angle:=Angle + pi/2;   { YZ: angle, scale }
              end;
        end;
@@ -2683,7 +2685,7 @@ end;
 function mVector(self, args: PyObject) : PyObject; cdecl;
 var
  obj: PyObject;
- P: PChar;
+ P: PyChar;
  V: TVect;
 begin
  Result:=Nil;
@@ -2701,7 +2703,7 @@ begin
        begin
         P:=PyString_AsString(obj);
         if P=Nil then Exit;
-        case Upcase(P^) of
+        case Upcase(PyStrPas(P)[1]) of
          'X': V:=MapViewProj.VectorX;
          'Y': V:=MapViewProj.VectorY;
          'Z': V:=MapViewProj.VectorZ;
@@ -2886,7 +2888,7 @@ const
    (ml_name: 'setprojmode';     ml_meth: mSetProjMode;     ml_flags: METH_VARARGS),
    (ml_name: 'invalidaterect';  ml_meth: mInvalidateRect;  ml_flags: METH_VARARGS));
 
-function GetMapViewObject(self: PyObject; attr: PChar) : PyObjectPtr;
+function GetMapViewObject(self: PyObject; attr: PyChar) : PyObjectPtr;
 begin
  Result:=Nil;
  with PyControlF(self)^ do
@@ -2930,7 +2932,7 @@ begin
   end;
 end;
 
-function GetMapViewAttr(self: PyObject; attr: PChar) : PyObject; cdecl;
+function GetMapViewAttr(self: PyObject; attr: PyChar) : PyObject; cdecl;
 var
  Attr1: PyObjectPtr;
  I: Integer;
@@ -3115,14 +3117,14 @@ begin
  end;
 end;
 
-function SetMapViewAttr(self: PyObject; attr: PChar; value: PyObject) : Integer; cdecl;
+function SetMapViewAttr(self: PyObject; attr: PyChar; value: PyObject) : Integer; cdecl;
 var
  Attr1: PyObjectPtr;
  Vm: TMapViewMode;
  Vt: TMapViewType;
  Q: QObject;
  nFlags: Integer;
- P: PChar;
+ P: PyChar;
  f1, f2: Double;
  fl1, fl2: Single;
 { v1: PyVect; }
@@ -3192,7 +3194,7 @@ begin
               begin
                P:=PyString_AsString(objX);
                if P=Nil then Exit;
-               S:=StrPas(P);
+               S:=PyStrPas(P);
                F:=ExactFileLink(S, nil, True);
                if not (F is QPixelSet) then
                 raise EError(4621);
