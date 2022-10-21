@@ -21,6 +21,7 @@ https://quark.sourceforge.io/ - Contact information in AUTHORS.TXT
 program QuArK;
 {%File '..\Runtime\addons\Defaults.qrk'}
 
+{$I DelphiVer.inc}
 {$INCLUDE MemManager.inc}
 
 uses
@@ -35,7 +36,7 @@ uses
 {$ENDIF}
   FastMove in 'prog\FastMove.pas',
   FastCode in 'prog\FastCode\FastCode.pas',
-  Forms,
+  Forms, SysUtils,
 
   //Init the logging module FIRST, otherwise we'll miss log-calls from other init's!
   Logging in 'prog\Logging.pas',
@@ -244,8 +245,17 @@ begin
   MemChk;
 {$ENDIF}
   Application.Initialize;
-  InitDefaultFonts;
   Application.Title:='Quake Army Knife';
+
+  Application.UpdateFormatSettings:=False;
+  {$IFDEF DelphiXEorNewerCompiler}
+  FormatSettings.DecimalSeparator:='.';
+  {$ELSE}
+  DecimalSeparator:='.';
+  {$ENDIF}
+
+  InitDefaultFonts;
+
   Application.CreateForm(TForm1, g_Form1);
   Application.Run;
 

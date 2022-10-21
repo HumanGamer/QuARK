@@ -22,7 +22,6 @@ unit Qk1;
 
 interface
 
-{$I DelphiVer.inc}
 {$INCLUDE MemManager.inc}
 
 uses
@@ -400,14 +399,6 @@ begin
  // Set-up exception handling
  OldException:=Application.OnException;
  Application.OnException:=AppException;
-
- // Set-up global settings
- Application.UpdateFormatSettings:=False;
- {$IFDEF DelphiXEorNewerCompiler}
- FormatSettings.DecimalSeparator:='.';
- {$ELSE}
- DecimalSeparator:='.';
- {$ENDIF}
 
  // Process the commandline and prepare it for further use
  LaunchOptions.DoInstance := true; //These are the defaults
