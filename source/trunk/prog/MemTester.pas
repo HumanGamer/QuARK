@@ -26,12 +26,12 @@ interface
 
 uses Windows;
 
-{$IFDEF Debug} //Only use this in Debug
-{.$DEFINE MemTesterDiff}
+{$IFDEF Debug}
 {.$DEFINE MemResourceViewer}
 {.$DEFINE MemHeavyListings} //Do not activate if MemTesterPassthrough is defined!
 {.$DEFINE MemTrackAddress}
 {$ELSE}
+//By default, only use this in Debug
 {$DEFINE MemTesterPassthrough}
 {$ENDIF}
 
@@ -42,11 +42,12 @@ implementation
 
 uses SysUtils;
 
+{$IFDEF MemTrackAddress}
 const
- DifferenceAttendue = 105;
  TrackMemoryAddress1 = $019e0000;
  TrackMemoryAddress2 = $02020000;
  TrackMemorySize     = 644;
+{$ENDIF}
 
 var
  OldMemMgr: TMemoryManager;
@@ -275,15 +276,13 @@ const
   FreeMem: NewFreeMem;
   ReallocMem: NewReallocMem);
 
-{$IFDEF MemTesterDiff}
 procedure ReportDiff;
 var
  Z: Array[0..127] of Char;
 begin
- StrPCopy(Z, Format('This is a bug ! Please report : %d # %d.', [GetMemCount-FreeMemCount, DifferenceAttendue]));
+ StrPCopy(Z, Format('Memory leaked! Please report: %d %d.', [GetMemCount, FreeMemCount]));
  MessageBox(0, Z, 'MemTester', mb_Ok);
 end;
-{$ENDIF}
 
 {$IFDEF MemHeavyListings}
 procedure ReportHeavyListings;
@@ -300,10 +299,8 @@ initialization
   GetMemoryManager(OldMemMgr);
   SetMemoryManager(NewMemMgr);
 finalization
- {$IFDEF MemTesterDiff}
-  if GetMemCount-FreeMemCount <> DifferenceAttendue then
+  if GetMemCount-FreeMemCount <> 0 then
    ReportDiff();
- {$ENDIF}
  {$IFDEF MemHeavyListings}
  ReportHeavyListings();
  {$ENDIF}
