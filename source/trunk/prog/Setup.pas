@@ -1293,7 +1293,6 @@ begin
     g_SetupSet[T].AddRef(-1);
     g_SetupSet[T]:=Nil;
    end;
-// PyDict_SetItemString(QuarkxDict, 'setupset', Py_None);
 end;
 
 initialization

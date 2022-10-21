@@ -3682,7 +3682,7 @@ begin
   finally
     Py_DECREF(obj);
   end;
-  CloseSetupSet;
+// PyDict_SetItemString(QuarkxDict, 'setupset', Py_None);
 
   ClickForm(nil);
 
