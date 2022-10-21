@@ -1264,8 +1264,11 @@ begin
                      try
                       Caption:=FileObject.Name;
                       FileObject.ChangeToObjectGameMode;
-                      Py_XDECREF(CallMacro(WndObject, PythonMacro));
-                      PythonCodeEnd;
+                      try
+                       Py_XDECREF(CallMacro(WndObject, PythonMacro));
+                      finally
+                       PythonCodeEnd;
+                      end;
                      except
                       CloseNow;
                       Raise;

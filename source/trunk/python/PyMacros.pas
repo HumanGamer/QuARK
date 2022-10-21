@@ -57,12 +57,18 @@ function QPyMacro.RunMacro(const Macro: String) : Boolean;
 var
  o: PyObject;
 begin
- ProgressIndicatorStart(0,0); try
- o:=RunMacro1(Macro);
- Result:=o<>Nil;
- Py_XDECREF(o);
- finally ProgressIndicatorStop; end;
- PythonCodeEnd;
+ ProgressIndicatorStart(0,0);
+ try
+  try
+   o:=RunMacro1(Macro);
+   Result:=o<>Nil;
+   Py_XDECREF(o);
+  finally
+   PythonCodeEnd;
+  end;
+ finally
+  ProgressIndicatorStop; 
+ end;
 end;
 
 function QPyMacro.RunMacro1(const Macro: String) : PyObject;
