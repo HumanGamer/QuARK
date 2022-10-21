@@ -54,6 +54,7 @@ type
     procedure wmCommand(var Msg: TMessage); message wm_Command;
     procedure wmInternalMessage(var Msg: TMessage); message wm_InternalMessage;
     procedure wmHelp(var Msg: TMessage); message wm_Help;
+    procedure CMRecreateWnd(var Message: TMessage); message CM_RECREATEWND;
     procedure FreeCallbacks;
    {function CreateQkPanel(nParent: TWinControl; nAlign: TAlign; nSize: Integer) : PyControl;}
     procedure WndCallback(FntName: PyChar);
@@ -896,8 +897,7 @@ begin
   begin
    Parent:=Self;
    Align:=alClient;
-   MainPanelC:=
-   GetPanelObject;
+   MainPanelC:=GetPanelObject;
   end;
 end;
 
@@ -1210,6 +1210,13 @@ begin
     end;
   end;
  inherited;
+end;
+
+procedure TPyForm.CMRecreateWnd(var Message: TMessage);
+begin
+ inherited;
+ MenuBarHandle:=CreateMenu;
+ SetMenu(Handle, MenuBarHandle);
 end;
 
 {function TPyForm.CreateQkPanel(nParent: TWinControl; nAlign: TAlign; nSize: Integer) : PyControl;
