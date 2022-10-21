@@ -156,7 +156,7 @@ var
   //RawBuffer: String;
   S: String;
   Dest: PByte;
-  SourceImg, SourceAlpha, SourcePal, pSourceImg, pSourceAlpha, pSourcePal: PChar;
+  SourceImg, SourceAlpha, SourcePal, pSourceImg, pSourceAlpha, pSourcePal: PByte;
   RawPal: PByte;
 
   DevILImage: Cardinal;
@@ -287,7 +287,7 @@ begin
 
           Dest:=PByte(ilGetPalette);
           CheckDevILError(ilGetError);
-          SourcePal:=PChar(PSD.ColorPalette);
+          SourcePal:=PByte(PSD.ColorPalette);
           pSourcePal:=SourcePal;
           for I:=0 to 255 do
           begin
@@ -301,7 +301,7 @@ begin
           //FIXME: Change this code! Use QkPng (or whatever) instead!!! Look at AutoSave temps file code!
           Dest:=PByte(ilGetData);
           CheckDevILError(ilGetError);
-          SourceImg:=PChar(PSD.Data);
+          SourceImg:=PByte(PSD.Data);
           pSourceImg:=SourceImg;
           for J:=0 to Height-1 do
           begin
@@ -325,8 +325,8 @@ begin
           begin
             Dest:=PByte(ilGetData);
             CheckDevILError(ilGetError);
-            SourceImg:=PChar(PSD.Data);
-            SourceAlpha:=PChar(PSD.AlphaData);
+            SourceImg:=PByte(PSD.Data);
+            SourceAlpha:=PByte(PSD.AlphaData);
             pSourceImg:=SourceImg;
             pSourceAlpha:=SourceAlpha;
             for J:=0 to Height-1 do
@@ -353,7 +353,7 @@ begin
           begin
             Dest:=PByte(ilGetData);
             CheckDevILError(ilGetError);
-            SourceImg:=PChar(PSD.Data);
+            SourceImg:=PByte(PSD.Data);
             pSourceImg:=SourceImg;
             for J:=0 to Height-1 do
             begin
@@ -396,7 +396,7 @@ begin
       NVDXTFileNamePNG:=ConcatPaths([TMPPath, 'QuArK_NVDXT0.PNG']);
       while FileExists(NVDXTFileNamePNG) do
         NVDXTFileNamePNG:=ConcatPaths([TMPPath, 'QuArK_NVDXT'+IntToStr(Random(999999))+'.png']);
-      if ilSave(IL_PNG, PChar(NVDXTFileNamePNG))=IL_FALSE then
+      if ilSave(IL_PNG, ToILstring(NVDXTFileNamePNG))=IL_FALSE then
       begin
         ilDeleteImages(1, @DevILImage);
         LogAndRaiseError(FmtLoadStr1(5721, [FormatName, 'ilSave']));

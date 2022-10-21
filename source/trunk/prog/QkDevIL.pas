@@ -322,6 +322,7 @@ procedure UnloadDevIL(ForceUnload: boolean = false);
 function ilHasAlpha: Boolean;
 function ilHasPalette: Boolean;
 procedure CheckDevILError(DevILError: DevILError);
+function ToILstring(const S: String) : ILstring;
 
 {-------------------}
 
@@ -556,6 +557,15 @@ begin
   end;
   if S <> '' then
     Raise EErrorFmt(5731, ['DevIL library', S]);
+end;
+
+function ToILstring(const S: String) : ILstring;
+begin
+  {$IFDEF UNICODE}
+  Result:=ILstring(AnsiString(S));
+  {$ELSE}
+  Result:=ILstring(S);
+  {$ENDIF}
 end;
 
 {-------------------}
