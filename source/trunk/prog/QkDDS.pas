@@ -174,7 +174,7 @@ var
   NVDXTStartupInfo: StartUpInfo;
   NVDXTProcessInformation: Process_Information;
   NVDXTReturnCode: DWORD;
-  TMPPath: array[0..MAX_PATH] of Char;
+  TMPPath: array[0..MAX_PATH+1] of Char;
 begin
  Log(LOG_VERBOSE, 'Saving DDS file: %s', [self.name]);
  with Info do
@@ -362,7 +362,7 @@ begin
                 PRGB(Dest)^[2]:=PRGB(pSourceImg)^[0];
                 PRGB(Dest)^[1]:=PRGB(pSourceImg)^[1];
                 PRGB(Dest)^[0]:=PRGB(pSourceImg)^[2];
-//				@@@What about alpha?
+                //FIXME: What about alpha?
                 Inc(pSourceImg, 3);
                 Inc(Dest, 3);
               end;
@@ -389,10 +389,8 @@ begin
       else
         Quality:=2;
 
-      TMPPath[0]:=#0;
-      GetTempPath(SizeOf(TMPPath), TMPPath);
-
       //NVDXT uses the file extension to identify the format, so we can't use MakeTempFileName here.
+      GetTempPath(High(TMPPath)-1, TMPPath);
       NVDXTFileNamePNG:=ConcatPaths([TMPPath, 'QuArK_NVDXT0.PNG']);
       while FileExists(NVDXTFileNamePNG) do
         NVDXTFileNamePNG:=ConcatPaths([TMPPath, 'QuArK_NVDXT'+IntToStr(Random(999999))+'.png']);

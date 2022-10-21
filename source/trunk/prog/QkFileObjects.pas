@@ -942,11 +942,9 @@ end;
 
 function MakeTempFileName(const Tag: String) : String;
 var
- Z, R: array[0..MAX_PATH] of Char;
+ Z, R: array[0..MAX_PATH+1] of Char;
 begin
- R[0]:=#0;
- Z[0]:=#0;
- GetTempPath(SizeOf(Z), Z);
+ GetTempPath(High(Z)-1, Z);
  GetTempFileName(Z, PChar(Tag), 0, R);
  if R[0]=#0 then
   Raise EError(5659);
@@ -955,7 +953,7 @@ end;
 
 procedure DeleteTempFiles;
 var
- Z: array[0..MAX_PATH] of Char;
+ Z: array[0..MAX_PATH+1] of Char;
  TempPath: String;
  List: TStringList;
 
@@ -986,7 +984,7 @@ var
   end;
 
 begin
- GetTempPath(SizeOf(Z), Z);
+ GetTempPath(High(Z)-1, Z);
  TempPath:=StrPas(Z);
  if TempPath='' then
   Exit;  { error }
@@ -2043,9 +2041,8 @@ var
 begin
  if AutoRestoreEvent<>0 then
   Exit;
- SetLength(S, MAX_PATH);
- S[1]:=#0;
- GetTempPath(MAX_PATH, PChar(S));
+ SetLength(S, MAX_PATH+2);
+ GetTempPath(MAX_PATH+1, PChar(S));
  SetLength(S, StrLen(PChar(S)));
  DosError:=FindFirst(ConcatPaths([S, Format('auto-save-*%s', [Ext])]), faAnyFile, Rec);
  try
@@ -2333,9 +2330,8 @@ begin
         end;
   't': if StrComp(attr, 'tempfilename') = 0 then
         begin
-         SetLength(S, MAX_PATH);
-         S[1]:=#0;
-         GetTempPath(MAX_PATH, PChar(S));
+         SetLength(S, MAX_PATH+2);
+         GetTempPath(MAX_PATH+1, PChar(S));
          SetLength(S, StrLen(PChar(S)));
          S:=ConcatPaths([S, Format('auto-save-%x-%x%s', [GetCurrentProcessId, LongInt(Self), TypeInfo])]);
          Result:=PyString_FromString(ToPyChar(S));

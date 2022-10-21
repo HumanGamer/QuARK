@@ -155,12 +155,12 @@ end;
 
 function MakeEditorFileName(Q: QObject; var TempPath: String) : String;
 var
- Z: array[0..MAX_PATH] of Char;
+ Z: array[0..MAX_PATH+1] of Char;
  S: String;
  I, J: Integer;
  P: PChar;
 begin
- GetTempPath(SizeOf(Z), Z);
+ GetTempPath(High(Z)-1, Z);
  P:=StrEnd(Z);
  if (P<>Z) and (P[-1]=PathDelim) then
   begin
