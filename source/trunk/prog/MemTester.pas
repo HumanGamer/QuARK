@@ -44,9 +44,9 @@ uses SysUtils;
 
 {$IFDEF MemTrackAddress}
 const
- TrackMemoryAddress1 = $019e0000;
- TrackMemoryAddress2 = $02020000;
- TrackMemorySize     = 644;
+ TrackMemoryAddress1 = {$IFDEF DelphiXE2orNewerCompiler}NativeInt{$ELSE}Integer{$ENDIF}($019e0000);
+ TrackMemoryAddress2 = {$IFDEF DelphiXE2orNewerCompiler}NativeInt{$ELSE}Integer{$ENDIF}($02020000);
+ TrackMemorySize     = {$IFDEF DelphiXE2orNewerCompiler}NativeInt{$ELSE}Integer{$ENDIF}(644);
 {$ENDIF}
 
 var
@@ -65,7 +65,7 @@ const
  Signature2 = LongWord($3C66336C); //Append1
  Signature3 = LongWord($FFFFFFFF); //Append2
  {$IFDEF MemHeavyListings}
- FreedSizeTag = Integer($12345678); //Overwrites Size
+ FreedSizeTag = {$IFDEF DelphiXE2orNewerCompiler}NativeInt{$ELSE}Integer{$ENDIF}($12345678); //Overwrites Size
  {$ENDIF}
  FreedMemoryTag = LongWord($BADF00D); //Corrupt the freed data with an obvious value (assumes >=8Bytes allocation!)
 {$ENDIF}
@@ -83,21 +83,22 @@ begin
   if (Size<=0) or (Size>=$2000000) then
    Raise Exception.CreateFmt('Very bad internal error [GetMem %x]', [Size]);
   Inc(GetMemCount);
-  Result := OldMemMgr.GetMem(Size+{$IFDEF MemHeavyListings} 20 {$ELSE} 16 {$ENDIF});
+  Result := OldMemMgr.GetMem(Size + SizeOf({$IFDEF DelphiXE2orNewerCompiler}NativeInt{$ELSE}Integer{$ENDIF}) + 3*SizeOf(LongWord){$IFDEF MemHeavyListings} + SizeOf(Pointer){$ENDIF});
   {$IFNDEF MemTesterPassthrough}
-  PInteger(Result)^:=Size;
-  PLongWord(PChar(Result)+4)^:=Signature1;
-  Inc(PChar(Result), 8);
-  PLongWord(PChar(Result)+Size)^:=Signature2;
-  PLongWord(PChar(Result)+Size+4)^:=Signature3;
+  {$IFDEF DelphiXE2orNewerCompiler}PNativeInt{$ELSE}PInteger{$ENDIF}(Result)^:=Size;
+  Inc({$IFDEF DelphiXE2orNewerCompiler}PNativeInt{$ELSE}PInteger{$ENDIF}(Result));
+  PLongWord(PByte(Result))^:=Signature1;
+  Inc(PLongWord(Result));
+  PLongWord(PAnsiChar(Result)+Size)^:=Signature2;
+  PLongWord(PAnsiChar(Result)+Size+SizeOf(LongWord))^:=Signature3;
   {$IFDEF MemHeavyListings}
-  PPointer(PChar(Result)+Size+8)^:=FullLinkedList;
+  PPointer(PAnsiChar(Result)+Size+2*SizeOf(LongWord))^:=FullLinkedList;
   FullLinkedList:=Result;
   Inc(FullListSize);
   {$ENDIF}
   Inc(AllocatedMemSize, Size);
   {$IFDEF MemTrackAddress}
-  if (Size=TrackMemorySize) and (Integer(Result)>=TrackMemoryAddress1) and (Integer(Result)<TrackMemoryAddress2) then
+  if (Size=TrackMemorySize) and ({$IFDEF DelphiXE2orNewerCompiler}NativeInt{$ELSE}Integer{$ENDIF}(Result)>=TrackMemoryAddress1) and ({$IFDEF DelphiXE2orNewerCompiler}NativeInt{$ELSE}Integer{$ENDIF}(Result)<TrackMemoryAddress2) then
    Result:=Nil;    { BREAKPOINT }
   {$ENDIF}
   {$ENDIF}
@@ -106,25 +107,25 @@ end;
 function NewFreeMem(P: Pointer): Integer;
 {$IFNDEF MemTesterPassthrough}
 var
-  OldSize: Integer;
+  OldSize: {$IFDEF DelphiXE2orNewerCompiler}NativeInt{$ELSE}Integer{$ENDIF};
 {$ENDIF}
 begin
   Inc(FreeMemCount);
   {$IFNDEF MemTesterPassthrough}
-  Dec(PChar(P), 8);
-  OldSize:=PInteger(P)^;
+  Dec(PByte(P), SizeOf({$IFDEF DelphiXE2orNewerCompiler}NativeInt{$ELSE}Integer{$ENDIF}) + SizeOf(LongWord));
+  OldSize:={$IFDEF DelphiXE2orNewerCompiler}PNativeInt{$ELSE}PInteger{$ENDIF}(P)^;
   if (OldSize<=0) or (OldSize>=$2000000)
-  or (PLongWord(PChar(P)+4)^<>Signature1)
-  or (PLongWord(PChar(P)+OldSize+8)^<>Signature2)
-  or (PLongWord(PChar(P)+OldSize+12)^<>Signature3) then
+  or (PLongWord(PAnsiChar(P)+SizeOf({$IFDEF DelphiXE2orNewerCompiler}NativeInt{$ELSE}Integer{$ENDIF}))^<>Signature1)
+  or (PLongWord(PAnsiChar(P)+SizeOf({$IFDEF DelphiXE2orNewerCompiler}NativeInt{$ELSE}Integer{$ENDIF})+SizeOf(LongWord)+OldSize)^<>Signature2)
+  or (PLongWord(PAnsiChar(P)+SizeOf({$IFDEF DelphiXE2orNewerCompiler}NativeInt{$ELSE}Integer{$ENDIF})+SizeOf(LongWord)+OldSize+SizeOf(LongWord))^<>Signature3) then
    Raise Exception.CreateFmt('Very bad internal error [FreeMem %x]', [OldSize]);
   {$IFDEF MemHeavyListings}
-  PInteger(PChar(P))^:=FreedSizeTag;
+  {$IFDEF DelphiXE2orNewerCompiler}PNativeInt{$ELSE}PInteger{$ENDIF}(P)^:=FreedSizeTag;
   {$ENDIF}
-  PLongWord(PChar(P)+12)^:=FreedMemoryTag;
+  PLongWord(PAnsiChar(P)+SizeOf({$IFDEF DelphiXE2orNewerCompiler}NativeInt{$ELSE}Integer{$ENDIF})+SizeOf(LongWord)+4)^:=FreedMemoryTag;
   Dec(AllocatedMemSize, OldSize);
   {$IFDEF MemHeavyListings}
-  PInteger(PChar(P)+4)^:=PInteger(PChar(P)+OldSize+16)^;
+  PInteger(PAnsiChar(P)+SizeOf({$IFDEF DelphiXE2orNewerCompiler}NativeInt{$ELSE}Integer{$ENDIF}))^:=PInteger(PAnsiChar(P)+SizeOf({$IFDEF DelphiXE2orNewerCompiler}NativeInt{$ELSE}Integer{$ENDIF})+SizeOf(LongWord)+OldSize+2*SizeOf(LongWord))^;
   Dec(FullListSize);
   Result := 0;
   {$ELSE}
@@ -143,15 +144,15 @@ var
 {$ENDIF}
 begin
   {$IFNDEF MemTesterPassthrough}
-  Dec(PChar(P), 8);
-  OldSize:=PInteger(P)^;
+  Dec(PByte(P), SizeOf({$IFDEF DelphiXE2orNewerCompiler}NativeInt{$ELSE}Integer{$ENDIF}) + SizeOf(LongWord));
+  OldSize:={$IFDEF DelphiXE2orNewerCompiler}PNativeInt{$ELSE}PInteger{$ENDIF}(P)^;
   if (OldSize<=0) or (OldSize>=$2000000)
-  or (PLongWord(PChar(P)+4)^<>Signature1)
-  or (PLongWord(PChar(P)+OldSize+8)^<>Signature2)
-  or (PLongWord(PChar(P)+OldSize+12)^<>Signature3) then
+  or (PLongWord(PAnsiChar(P)+SizeOf({$IFDEF DelphiXE2orNewerCompiler}NativeInt{$ELSE}Integer{$ENDIF}))^<>Signature1)
+  or (PLongWord(PAnsiChar(P)+SizeOf({$IFDEF DelphiXE2orNewerCompiler}NativeInt{$ELSE}Integer{$ENDIF})+SizeOf(LongWord)+OldSize)^<>Signature2)
+  or (PLongWord(PAnsiChar(P)+SizeOf({$IFDEF DelphiXE2orNewerCompiler}NativeInt{$ELSE}Integer{$ENDIF})+SizeOf(LongWord)+OldSize+SizeOf(LongWord))^<>Signature3) then
    Raise Exception.CreateFmt('Very bad internal error [ReallocMem %d]', [OldSize]);
   {$IFDEF MemHeavyListings}
-  Inc(PChar(P), 8);
+  Inc(PByte(P), SizeOf({$IFDEF DelphiXE2orNewerCompiler}NativeInt{$ELSE}Integer{$ENDIF}) + SizeOf(LongWord));
   if Size<=OldSize then
    begin
     Result:=P;
@@ -159,16 +160,16 @@ begin
    end;
   Result:=NewGetMem(Size);
   for I:=0 to OldSize-1 do
-   PChar(Result)[I]:=PChar(P)[I];
+   PByte(PAnsiChar(Result)+I)^:=PByte(PAnsiChar(P)+I)^;
   NewFreeMem(P);
   {$ELSE}
   Inc(AllocatedMemSize, Size-OldSize);
-  Result := OldMemMgr.ReallocMem(P, Size+16);
-  PInteger(Result)^:=Size;
-  PLongWord(PChar(Result)+4)^:=Signature1;
-  Inc(PChar(Result), 8);
-  PLongWord(PChar(Result)+Size)^:=Signature2;
-  PLongWord(PChar(Result)+Size+4)^:=Signature3;
+  Result := OldMemMgr.ReallocMem(P, SizeOf({$IFDEF DelphiXE2orNewerCompiler}NativeInt{$ELSE}Integer{$ENDIF})+SizeOf(LongWord)+Size+2*SizeOf(LongWord));
+  {$IFDEF DelphiXE2orNewerCompiler}PNativeInt{$ELSE}PInteger{$ENDIF}(Result)^:=Size;
+  PLongWord(PAnsiChar(Result)+SizeOf({$IFDEF DelphiXE2orNewerCompiler}NativeInt{$ELSE}Integer{$ENDIF}))^:=Signature1;
+  Inc(PByte(Result), SizeOf({$IFDEF DelphiXE2orNewerCompiler}NativeInt{$ELSE}Integer{$ENDIF})+SizeOf(LongWord));
+  PLongWord(PAnsiChar(Result)+Size)^:=Signature2;
+  PLongWord(PAnsiChar(Result)+Size+SizeOf(LongWord))^:=Signature3;
   {$ENDIF}
   {$ELSE}
   Result := OldMemMgr.ReallocMem(P, Size);
@@ -181,7 +182,7 @@ var
  P: Pointer;
  OldSize, Count: Integer;
  Q: PChar;
- Args: array[1..2] of Integer;
+ Args: array[0..SizeOf(Pointer)+SizeOf({$IFDEF DelphiXE2orNewerCompiler}NativeInt{$ELSE}Integer{$ENDIF})-1] of Byte;
 begin
  P:=FullLinkedList;
  Count:=FullListSize;
@@ -189,20 +190,20 @@ begin
  Q:=Pointer(Result);
  while Assigned(P) do
   begin
-   Dec(PChar(P), 8);
-   OldSize:=PInteger(P)^;
+   Dec(PByte(P), SizeOf({$IFDEF DelphiXE2orNewerCompiler}NativeInt{$ELSE}Integer{$ENDIF})+SizeOf(LongWord));
+   OldSize:={$IFDEF DelphiXE2orNewerCompiler}PNativeInt{$ELSE}PInteger{$ENDIF}(P)^;
    if OldSize<>FreedSizeTag then
     begin
      if Count=0 then Raise Exception.Create('HeavyMemDump: Count<0');
      Dec(Count);
-     Args[1]:=Integer(P);
-     Args[2]:=OldSize;
-     wvsprintf(Q, '%08x %8d'#13#10, PChar(@Args));
+     PPointer(Args[0])^ := P;
+     {$IFDEF DelphiXE2orNewerCompiler}PNativeInt{$ELSE}PInteger{$ENDIF}(Args[SizeOf(Pointer)])^ := OldSize;
+     wvsprintf(Q, '%08x %8d'#13#10, @Args);
      Inc(Q, 19);
-     P:=PPointer(PChar(P)+OldSize+16)^;
+     P:=PPointer(PAnsiChar(P)+SizeOf({$IFDEF DelphiXE2orNewerCompiler}NativeInt{$ELSE}Integer{$ENDIF})+SizeOf(LongWord)+OldSize+2*SizeOf(LongWord))^;
     end
    else
-    P:=PPointer(PChar(P)+4)^;
+    P:=PPointer(PAnsiChar(P)+SizeOf({$IFDEF DelphiXE2orNewerCompiler}NativeInt{$ELSE}Integer{$ENDIF}))^;
   end;
  if Count>0 then Raise Exception.Create('HeavyMemDump: Count>0');
 end;
@@ -269,6 +270,7 @@ begin
 end;
 {$ENDIF}
 
+ {------------------------}
 
 const
   NewMemMgr: TMemoryManager = (
@@ -278,20 +280,20 @@ const
 
 procedure ReportDiff;
 var
- Z: Array[0..127] of Char;
+  Z: Array[0..127] of Char;
 begin
- StrPCopy(Z, Format('Memory leaked! Please report: %d %d.', [GetMemCount, FreeMemCount]));
- MessageBox(0, Z, 'MemTester', mb_Ok);
+  StrPCopy(Z, Format('Memory leaked! Please report: %d %d.', [GetMemCount, FreeMemCount]));
+  MessageBox(0, Z, 'MemTester', mb_Ok);
 end;
 
 {$IFDEF MemHeavyListings}
 procedure ReportHeavyListings;
 var
- S: String;
+  S: String;
 begin
- S:=HeavyMemDump();
- if S<>'' then
-  MessageBox(0, PChar(S), 'MemTester', mb_Ok);
+  S:=HeavyMemDump();
+  if S<>'' then
+    MessageBox(0, PChar(S), 'MemTester', mb_Ok);
 end;
 {$ENDIF}
 
@@ -300,11 +302,11 @@ initialization
   SetMemoryManager(NewMemMgr);
 finalization
   if GetMemCount-FreeMemCount <> 0 then
-   ReportDiff();
- {$IFDEF MemHeavyListings}
- ReportHeavyListings();
- {$ENDIF}
- {$IFNDEF CompiledWithDelphi2}
+    ReportDiff();
+  {$IFDEF MemHeavyListings}
+  ReportHeavyListings();
+  {$ENDIF}
+  {$IFNDEF CompiledWithDelphi2}
   SetMemoryManager(OldMemMgr);
- {$ENDIF}
+  {$ENDIF}
 end.
