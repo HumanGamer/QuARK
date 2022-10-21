@@ -1133,8 +1133,7 @@ end;
 function Py_BuildValueX(const fmt: PyChar; Args: array of const) : PyObject;
 asm                     { Comments added by Decker, but I'm not sure they are correct!! }
  push edi               { save the value of edi for later retrieval }
- add ecx, ecx           { multiply ecx with 2 (ecx = the number of elements in the Args array, minus 1) }
- add ecx, ecx           { multiply ecx with 2 again - so in reality its "ecx = ecx * 4" }
+ shl ecx, 2             { multiply ecx with 4 (ecx = the number of elements in the Args array, minus 1) }
  lea edi, [ecx+8]       { load edi register with the result of "ecx + 8"; this is the number of bytes we're going to push onto the stack }
  add ecx, ecx           { multiply ecx with 2 - now it would have been "ecx = ecx * 8"; "array of const" stores its elements per 8 bytes }
  add ecx, edx           { this will now point to the last argument we need to send through }
@@ -1156,8 +1155,7 @@ asm
  mov esi, edx
  mov edx, ecx
  mov ecx, [esp+16]
- add ecx, ecx
- add ecx, ecx
+ shl ecx, 2
  lea edi, [ecx+12]
  add ecx, ecx
  add ecx, edx
