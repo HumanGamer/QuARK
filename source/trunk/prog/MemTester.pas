@@ -60,9 +60,13 @@ var
 
 {$IFNDEF MemTesterPassthrough}
 const
- Signature1 = Integer($89D128BA);
- Signature2 = Integer($3C66336C);
- Signature3 = Integer($FFFFFFFF);
+ Signature1 = LongWord($89D128BA);
+ Signature2 = LongWord($3C66336C);
+ Signature3 = LongWord($FFFFFFFF);
+ {$IFDEF MemHeavyListings}
+ FreedSizeTag = Integer($12345678);
+ {$ENDIF}
+ FreedMemoryTag = LongWord($BADF00D);
 {$ENDIF}
 
 {$IFDEF MemHeavyListings}
@@ -81,10 +85,10 @@ begin
   Result := OldMemMgr.GetMem(Size+{$IFDEF MemHeavyListings} 20 {$ELSE} 16 {$ENDIF});
   {$IFNDEF MemTesterPassthrough}
   PInteger(Result)^:=Size;
-  PInteger(PChar(Result)+4)^:=Signature1;
+  PLongWord(PChar(Result)+4)^:=Signature1;
   Inc(PChar(Result), 8);
-  PInteger(PChar(Result)+Size)^:=Signature2;
-  PInteger(PChar(Result)+Size+4)^:=Signature3;
+  PLongWord(PChar(Result)+Size)^:=Signature2;
+  PLongWord(PChar(Result)+Size+4)^:=Signature3;
   {$IFDEF MemHeavyListings}
   PPointer(PChar(Result)+Size+8)^:=FullLinkedList;
   FullLinkedList:=Result;
@@ -109,12 +113,14 @@ begin
   Dec(PChar(P), 8);
   OldSize:=PInteger(P)^;
   if (OldSize<=0) or (OldSize>=$2000000)
-  or (PInteger(PChar(P)+4)^<>Signature1)
-  or (PInteger(PChar(P)+OldSize+8)^<>Signature2)
-  or (PInteger(PChar(P)+OldSize+12)^<>Signature3) then
+  or (PLongWord(PChar(P)+4)^<>Signature1)
+  or (PLongWord(PChar(P)+OldSize+8)^<>Signature2)
+  or (PLongWord(PChar(P)+OldSize+12)^<>Signature3) then
    Raise Exception.CreateFmt('Very bad internal error [FreeMem %x]', [OldSize]);
-  PInteger(PChar(P))^:=$12345678;
-  PInteger(PChar(P)+12)^:=$BADF00D;
+  {$IFDEF MemHeavyListings}
+  PInteger(PChar(P))^:=FreedSizeTag;
+  {$ENDIF}
+  PLongWord(PChar(P)+12)^:=FreedMemoryTag;
   Dec(AllocatedMemSize, OldSize);
   {$IFDEF MemHeavyListings}
   PInteger(PChar(P)+4)^:=PInteger(PChar(P)+OldSize+16)^;
@@ -139,9 +145,9 @@ begin
   Dec(PChar(P), 8);
   OldSize:=PInteger(P)^;
   if (OldSize<=0) or (OldSize>=$2000000)
-  or (PInteger(PChar(P)+4)^<>Signature1)
-  or (PInteger(PChar(P)+OldSize+8)^<>Signature2)
-  or (PInteger(PChar(P)+OldSize+12)^<>Signature3) then
+  or (PLongWord(PChar(P)+4)^<>Signature1)
+  or (PLongWord(PChar(P)+OldSize+8)^<>Signature2)
+  or (PLongWord(PChar(P)+OldSize+12)^<>Signature3) then
    Raise Exception.CreateFmt('Very bad internal error [ReallocMem %d]', [OldSize]);
   {$IFDEF MemHeavyListings}
   Inc(PChar(P), 8);
@@ -162,10 +168,10 @@ begin
   Inc(AllocatedMemSize, Size-OldSize);
   Result := OldMemMgr.ReallocMem(P, Size+16);
   PInteger(Result)^:=Size;
-  PInteger(PChar(Result)+4)^:=Signature1;
+  PLongWord(PChar(Result)+4)^:=Signature1;
   Inc(PChar(Result), 8);
-  PInteger(PChar(Result)+Size)^:=Signature2;
-  PInteger(PChar(Result)+Size+4)^:=Signature3;
+  PLongWord(PChar(Result)+Size)^:=Signature2;
+  PLongWord(PChar(Result)+Size+4)^:=Signature3;
   {$ENDIF}
   {$ELSE}
   Result := OldMemMgr.ReallocMem(P, Size);
@@ -188,7 +194,7 @@ begin
   begin
    Dec(PChar(P), 8);
    OldSize:=PInteger(P)^;
-   if OldSize<>$12345678 then
+   if OldSize<>FreedSizeTag then
     begin
      if Count=0 then Raise Exception.Create('HeavyMemDump: Count<0');
      Dec(Count);
