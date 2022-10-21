@@ -35,9 +35,6 @@ uses Windows;
 {$DEFINE MemTesterPassthrough}
 {$ENDIF}
 
-var
- g_DataDumpProc: procedure;
-
 procedure MemTesting(H: HWnd);
 function HeavyMemDump: String;
 
@@ -78,6 +75,8 @@ var
 
 function NewGetMem(Size: {$IFDEF DelphiXE2orNewerCompiler}NativeInt{$ELSE}Integer{$ENDIF}): Pointer;
 begin
+  if (Size<=0) or (Size>=$2000000) then
+   Raise Exception.CreateFmt('Very bad internal error [GetMem %x]', [Size]);
   Inc(GetMemCount);
   Result := OldMemMgr.GetMem(Size+{$IFDEF MemHeavyListings} 20 {$ELSE} 16 {$ENDIF});
   {$IFNDEF MemTesterPassthrough}
@@ -278,27 +277,15 @@ const
 procedure Resultat;
 var
  Z: Array[0..127] of Char;
-{I: Integer;}
 begin
  StrPCopy(Z, Format('This is a bug ! Please report : %d # %d.', [GetMemCount-FreeMemCount, DifferenceAttendue]));
  MessageBox(0, Z, 'MemTester', mb_Ok);
-{if Assigned(g_DataDumpProc) then
-  begin
-   StrCat(Z, #13#13'Write a data report (DATADUMP.TXT) ?');
-   I:=mb_YesNo;
-  end
- else
-  I:=mb_Ok;
- if MessageBox(0, Z, 'MemTester', I) = idYes then
-  g_DataDumpProc;}
 end;
 
 initialization
   GetMemoryManager(OldMemMgr);
   SetMemoryManager(NewMemMgr);
 finalization
-  if Assigned(g_DataDumpProc) then
-   g_DataDumpProc;
 {$IFDEF MemTesterDiff}
   if GetMemCount-FreeMemCount <> DifferenceAttendue then
    Resultat;

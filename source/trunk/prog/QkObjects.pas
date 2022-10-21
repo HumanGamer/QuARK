@@ -22,6 +22,7 @@ unit QkObjects;
 
 {$IFDEF DEBUG}
 {$DEFINE StreamRefDEBUG}
+{$DEFINE MemQObjectDEBUG}
 {$ENDIF}
 
  {-------------------}
@@ -440,7 +441,7 @@ var
 const
   chrFloatSpec = 128;
 
-{$IFDEF Debug}
+{$IFDEF MemQObjectDEBUG}
 var g_MemQObject: TList; //Cannot be TQList, as that uses QObject.AddRef
 {$ENDIF}
 
@@ -894,7 +895,7 @@ end;
 
 constructor QObject.Create(const nName: String; nParent: QObject);
 begin
-  {$IFDEF Debug}
+  {$IFDEF MemQObjectDEBUG}
 (*if QObjectClassList.IndexOfObject(TObject(ClassType))<0 then
     Raise InternalE('Unregistered QObjectClass');*)
   g_MemQObject.Add(Self);
@@ -920,7 +921,7 @@ destructor QObject.Destroy;
 var
   I: Integer;
 begin
-  {$IFDEF Debug}
+  {$IFDEF MemQObjectDEBUG}
   I:=g_MemQObject.IndexOf(Self);
   if I<0 then
     Raise InternalE('QObject.Destroy');
@@ -2992,7 +2993,9 @@ begin
     Text.Free;
   end;
 end;
+{$ENDIF}
 
+{$IFDEF MemQObjectDEBUG}
 procedure TestDataDump;
 begin
   if (QFileList.Count>0) or (g_MemQObject.Count>0) then
@@ -3007,17 +3010,14 @@ initialization
   QFileList:=TStringList.Create;
   QFileList.Sorted:=True;
   g_CF_QObjects:=RegisterClipboardFormat('QuArK Object');
-  {$IFDEF MemTester}
-  g_DataDumpProc:=@TestDataDump;
-  {$ENDIF}
-  {$IFDEF Debug}
+  {$IFDEF MemQObjectDEBUG}
   g_MemQObject:=TQList.Create;
   {$ENDIF}
 
 finalization
-  //FIXME: We *have* to leak if MemTester is active, because it uses these in its finalization!
   QFileList.Free;
-  {$IFDEF Debug}
+  {$IFDEF MemQObjectDEBUG}
+  TestDataDump;
   g_MemQObject.Free;
   {$ENDIF}
 
