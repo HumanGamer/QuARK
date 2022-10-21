@@ -1592,6 +1592,9 @@ var
  I: Integer;
  F: TForm;
 begin
+ //Make sure we don't get called again, through TQkForm.Destroy.
+ OnClose:=nil;
+
  //Discard all idle jobs.
  P:=IdleJobs;
  while P<>nil do
