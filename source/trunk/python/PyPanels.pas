@@ -59,8 +59,8 @@ type
   protected
     FLayoutMgr: TLayoutMgr;
     procedure Resize; override;
-    {$IF CompilerVersion < 20}
-    procedure SetParent(AParent: TWinControl); override; //DBhack
+    {$IF RTLVersion < 20}
+    procedure SetParent(AParent: TWinControl); override;
     {$IFEND}
     procedure wmInternalMessage(var Msg: TMessage); message wm_InternalMessage;
   public
@@ -153,8 +153,8 @@ end;
 
 constructor TQkMainPanel.Create;
 begin
- {$IF CompilerVersion < 20}
- FDoubleBuffered:=True; //DBhack
+ {$IF RTLVersion < 20}
+ FDoubleBuffered:=True;
  {$IFEND}
  inherited;
  FLayoutMgr:=TLayoutMgr.Create(Self, Nil);
@@ -177,8 +177,8 @@ begin
  FLayoutMgr.InvalidateAlignment;
 end;
 
-{$IF CompilerVersion < 20}
-procedure TQkMainPanel.SetParent(AParent: TWinControl); //DBhack
+{$IF RTLVersion < 20}
+procedure TQkMainPanel.SetParent(AParent: TWinControl);
 begin
  inherited;
  if AParent<>nil then

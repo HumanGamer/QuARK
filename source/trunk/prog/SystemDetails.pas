@@ -337,6 +337,8 @@ begin
   begin
     DefFontData.Name:=PChar(@Metrics.lfMessageFont.lfFaceName);
     DefFontData.Height:=Metrics.lfMessageFont.lfHeight;
+    //DefFontData.Name:='Comic Sans MS';
+    //DefFontData.Height:=-20;
   end;
 end;
 
@@ -1926,7 +1928,7 @@ begin
         MaxDev:=0;
         if OpenKey(rkVideoHardware,false) then
         begin
-          TryReadDWORD('MaxObjectNumber', MaxDev);
+          TryReadDWORD('MaxObjectNumber', MaxDev); //FIXME: Make a const? Also, do we need to read "ObjectNumberList"? --> https://github.com/mdaniel/virtualbox-org-svn-vbox-trunk/blob/master/src/VBox/Additions/common/VBoxControl/VBoxControl.cpp
           CloseKey;
         end;
 

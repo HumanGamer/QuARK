@@ -101,8 +101,8 @@ procedure TSplashScreen.FormCreate(Sender: TObject);
 var
   TextRect: TRect;
 begin
-  {$IF CompilerVersion < 20}
-  FDoubleBuffered:=True; //DBhack
+  {$IF RTLVersion < 20}
+  FDoubleBuffered:=True;
   {$IFEND}
   Image1.Picture.Bitmap.LoadFromResourceName(HInstance, 'QUARKLOGO');
   ClientWidth:=Image1.Width;

@@ -364,8 +364,8 @@ end;
 
 constructor TQkForm.Create(AOwner: TComponent);
 begin
- {$IF CompilerVersion < 20}
- FDoubleBuffered:=True; //DBhack
+ {$IF RTLVersion < 20}
+ FDoubleBuffered:=True;
  {$IFEND}
  inherited;
  Log(LOG_VERBOSE, 'Now creating form... (%s)', [Self.Caption]);

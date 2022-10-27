@@ -43,8 +43,8 @@ type
                end;
   TMyTreeView = class(TScrollingWinControl)
   private
-    {$IF CompilerVersion < 20}
-    FParentDoubleBuffered: Boolean; //DBhack
+    {$IF RTLVersion < 20}
+    FParentDoubleBuffered: Boolean;
     {$IFEND}
     FRoots: TQList;   { top-items (roots) displayed in the tree view }
     FFocusList: TList;  { pairs of position/item, from top-level down to focused item }
@@ -72,8 +72,8 @@ type
     procedure WMGetDlgCode(var Message: TMessage); message WM_GETDLGCODE;
   (*procedure CMCtl3DChanged(var Message: TMessage); message CM_CTL3DCHANGED;*)
     procedure wmInternalMessage(var Msg: TMessage); message wm_InternalMessage;
-    {$IF CompilerVersion < 20}
-    procedure SetParentDoubleBuffered(nParentDoubleBuffered: Boolean); //DBhack
+    {$IF RTLVersion < 20}
+    procedure SetParentDoubleBuffered(nParentDoubleBuffered: Boolean);
     {$IFEND}
   protected
     EditInfo: PTVEditing;
@@ -81,8 +81,8 @@ type
     RightButtonDrag: Boolean;
     procedure WMPaint(var Message: TWMPaint); message WM_PAINT;
     procedure DoPaint(DC: HDC; const PaintInfo: TPaintStruct); virtual;
-    {$IF CompilerVersion < 20}
-    procedure SetParent(AParent: TWinControl); override; //DBhack
+    {$IF RTLVersion < 20}
+    procedure SetParent(AParent: TWinControl); override;
     {$IFEND}
     procedure Expanding(Q: QObject); dynamic;
     procedure Accessing(Q: QObject); dynamic;
@@ -129,9 +129,9 @@ type
     procedure InvalidatePaintBoxes(ModifSel: Integer); virtual; abstract;
     procedure SelectOneChild(Q: QObject);
     {$IFDEF Debug} procedure CheckInternalState; {$ENDIF}
-  {$IF CompilerVersion < 20}
+  {$IF RTLVersion < 20}
   published
-    property ParentDoubleBuffered : Boolean read FParentDoubleBuffered write SetParentDoubleBuffered default True; //DBhack
+    property ParentDoubleBuffered : Boolean read FParentDoubleBuffered write SetParentDoubleBuffered default True;
   {$IFEND}
 (*    property Align;
     property DragCursor;
@@ -189,8 +189,8 @@ var
 
 constructor TMyTreeView.Create(AOwner: TComponent);
 begin
-  {$IF CompilerVersion < 20}
-  ParentDoubleBuffered:=True; //DBhack
+  {$IF RTLVersion < 20}
+  ParentDoubleBuffered:=True;
   {$IFEND}
   inherited Create(AOwner);
   OnMouseWheelDown:=MouseWheelDown;
@@ -220,14 +220,14 @@ begin
   end;
 end;
 
-{$IF CompilerVersion < 20}
-procedure TMyTreeView.SetParent(AParent: TWinControl); //DBhack
+{$IF RTLVersion < 20}
+procedure TMyTreeView.SetParent(AParent: TWinControl);
 begin
   inherited;
   if ParentDoubleBuffered and (Parent<>nil) then DoubleBuffered:=Parent.DoubleBuffered;
 end;
 
-procedure TMyTreeView.SetParentDoubleBuffered(nParentDoubleBuffered: Boolean); //DBhack
+procedure TMyTreeView.SetParentDoubleBuffered(nParentDoubleBuffered: Boolean);
 begin
   FParentDoubleBuffered:=nParentDoubleBuffered;
   if FParentDoubleBuffered and (Parent<>nil) then DoubleBuffered:=Parent.DoubleBuffered;
