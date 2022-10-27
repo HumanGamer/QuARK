@@ -22,6 +22,8 @@ unit ApplPaths;
 
 interface
 
+{$I DelphiVer.inc}
+
 type
   TVersionNumber = array of Integer;
 
@@ -53,8 +55,8 @@ type
                     function GetNextPath(var a_ReturnPath:String) : Boolean;
                 end;
 
-function ConvertPath(const S: string): string;
-function ReverseSlashes(const S: string): string;
+function ConvertPath(const S: string): string;{$IFDEF Delphi2005orNewerCompiler} inline;{$ENDIF}
+function ReverseSlashes(const S: string): string;{$IFDEF Delphi2005orNewerCompiler} inline;{$ENDIF}
 function ConcatPaths(const Paths: array of String) : String;
 function GetQPath(const PathToGet : TQPathType) : String; overload;
 function GetQPath(const PathToGet : TQPathType; const GameName: String) : String; overload;

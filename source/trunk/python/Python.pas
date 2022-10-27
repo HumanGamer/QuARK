@@ -32,6 +32,7 @@ interface
 uses ExtraFunctionality {$IFDEF PyProfiling}, Classes {$ENDIF};
 
 {$INCLUDE PyVersions.inc}
+{$I DelphiVer.inc}
 
 type
  CFILE = Pointer;
@@ -636,11 +637,11 @@ procedure SizeDownPython;
 
 //These functions convert the Delphi String (AnsiString or WideString) to Python's PChar (PAnsiChar or PWideChar) and back.
 {$IFDEF UNICODE}
-function PyStrPas(const P: PyChar) : WideString;
-function ToPyChar(const S: WideString) : PyChar;
+function PyStrPas(const P: PyChar) : WideString;{$IFDEF Delphi2005orNewerCompiler} inline;{$ENDIF}
+function ToPyChar(const S: WideString) : PyChar;{$IFDEF Delphi2005orNewerCompiler} inline;{$ENDIF}
 {$ELSE}
-function PyStrPas(const P: PyChar) : AnsiString;
-function ToPyChar(const S: AnsiString) : PyChar;
+function PyStrPas(const P: PyChar) : AnsiString;{$IFDEF Delphi2005orNewerCompiler} inline;{$ENDIF}
+function ToPyChar(const S: AnsiString) : PyChar;{$IFDEF Delphi2005orNewerCompiler} inline;{$ENDIF}
 {$ENDIF}
 
 {$IFDEF PyProfiling}

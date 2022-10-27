@@ -54,8 +54,8 @@ procedure InitPython;
 procedure ShutdownPython;
 function LoadStr1(I: Integer) : String;
 function FmtLoadStr1(I: Integer; const Args: array of const) : String;
-function PyNoResult : PyObject;
-function GetEmptyTuple : PyObject;
+function PyNoResult : PyObject;{$IFDEF Delphi2005orNewerCompiler} {inline;}{$ENDIF}
+function GetEmptyTuple : PyObject;{$IFDEF Delphi2005orNewerCompiler} inline;{$ENDIF}
 procedure SimpleDestructor(o: PyObject); cdecl;
 procedure EBackToPython;
 procedure EBackToUser;

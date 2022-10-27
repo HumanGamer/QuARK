@@ -39,9 +39,11 @@ unit WorkaroundStringCompare;
 
 interface
 
+{$I DelphiVer.inc}
+
 uses Classes, SysUtils;
 
-function Strict_IndexOfName(const Specifics: TStrings; const Spec: String) : Integer;
+function Strict_IndexOfName(const Specifics: TStrings; const Spec: String) : Integer;{$IFDEF Delphi2005orNewerCompiler} inline;{$ENDIF}
 
 implementation
 
