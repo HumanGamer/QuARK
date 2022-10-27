@@ -22,6 +22,8 @@ unit qmath;
 
 interface
 
+{$I DelphiVer.inc}
+
 uses Windows, SysUtils, Graphics;
 
 type
@@ -57,7 +59,7 @@ type
            X1, X2, X3, X4, X5, X6, X7, X8, X9, X10: TDouble;
           end;
 
-function VecLength(const V1: TVect): TDouble;
+function VecLength(const V1: TVect): TDouble;{$IFDEF Delphi2005orNewerCompiler} inline;{$ENDIF}
 function Cross(const V1, V2: TVect) : TVect;
 function Dot(const V1, V2: TVect) : TDouble;
 procedure Normalise(var V: TVect); overload;
@@ -83,16 +85,16 @@ function vtocol255(const R,G,B: TDouble) : TColor;
 procedure NormaliseCol1(var V: TVect);
 {function sReadIntegers(const S1: String; Int: PLongInt; MaxCount: Integer) : Integer;
 function sWriteIntegers(Int: PLongInt; Count: Integer) : String;}
-function MakeVect(const X, Y, Z : Double) : TVect; overload;
-function MakeVect(const V: vec3_t) : TVect; overload;
-function MakeVect5(const V: vec5_t) : TVect5;
-function VecEqual(const V1, V2 : TVect) : Boolean;
-function VecDiff(const V, W : TVect) : TVect;
-function VecSum(const V, W : TVect) : TVect;
-function VecScale(const R: Double; const V: TVect) : TVect;
-function Vec3Add(const V, W: vec3_t) : vec3_t;
-function Vec3Diff(const V, W : vec3_t) : vec3_t;
-function Vec3Distance(const V, W : vec3_t) : Double;
+function MakeVect(const X, Y, Z : Double) : TVect; overload;{$IFDEF Delphi2005orNewerCompiler} inline;{$ENDIF}
+function MakeVect(const V: vec3_t) : TVect; overload;{$IFDEF Delphi2005orNewerCompiler} inline;{$ENDIF}
+function MakeVect5(const V: vec5_t) : TVect5;{$IFDEF Delphi2005orNewerCompiler} inline;{$ENDIF}
+function VecEqual(const V1, V2 : TVect) : Boolean;{$IFDEF Delphi2005orNewerCompiler} inline;{$ENDIF}
+function VecDiff(const V, W : TVect) : TVect;{$IFDEF Delphi2005orNewerCompiler} inline;{$ENDIF}
+function VecSum(const V, W : TVect) : TVect;{$IFDEF Delphi2005orNewerCompiler} inline;{$ENDIF}
+function VecScale(const R: Double; const V: TVect) : TVect;{$IFDEF Delphi2005orNewerCompiler} inline;{$ENDIF}
+function Vec3Add(const V, W: vec3_t) : vec3_t;{$IFDEF Delphi2005orNewerCompiler} inline;{$ENDIF}
+function Vec3Diff(const V, W : vec3_t) : vec3_t;{$IFDEF Delphi2005orNewerCompiler} inline;{$ENDIF}
+function Vec3Distance(const V, W : vec3_t) : Double;{$IFDEF Delphi2005orNewerCompiler} inline;{$ENDIF}
 function ProjectPointToPlane(const Point, Along, PlanePoint, PlaneNorm : TVect) : TVect;
 function SolveForThreePoints(const V1, V2, V3: TVect5; var P1, P2, P3:TVect) : Boolean;
 
@@ -133,7 +135,7 @@ var
  pProjX, pProjY: TDouble;
  CalculeProj3D: TProjEventEx;
  CalculeProfondeur3D: TProfondeurEventEx;
-var
+
  Facteur: TDouble;
 
 function VecLength(const V1: TVect) : TDouble;
