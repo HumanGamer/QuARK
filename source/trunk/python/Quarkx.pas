@@ -2892,7 +2892,7 @@ var
   U, V, Color: Integer;
   Q: QPixelSet;
   Image: QImage;
-  P: PChar;
+  P: PByte;
   ImageSize: TPoint;
   ScanlineWidth: Integer;
   Red, Green, Blue: Byte;
@@ -2920,12 +2920,12 @@ begin
       ScanlineWidth:=(((ImageSize.X * 24) + 31) div 32) * 4;
 
       Inc(P, (3 * U) + ScanlineWidth * ((ImageSize.Y - 1) - V));
-      Blue:=PByte(P)^;
+      Blue:=P^;
       Inc(P);
-      Green:=PByte(P)^;
+      Green:=P^;
       Inc(P);
-      Red:=PByte(P)^;
-      Color:=Blue * 65536 + Green * 256 + Red;
+      Red:=P^;
+      Color:=(Integer(Blue) shl 16) + (Integer(Green) shl 8) + Integer(Red);
     end
     else
     begin
@@ -2933,7 +2933,7 @@ begin
       ScanlineWidth:=(((ImageSize.X * 8) + 31) div 32) * 4;
 
       Inc(P, (1 * U) + ScanlineWidth * ((ImageSize.Y - 1) - V));
-      Color:=PByte(P)^;
+      Color:=P^;
     end;
     Result:=PyInt_FromLong(Color);
   except
@@ -2951,7 +2951,7 @@ var
   Color: TColorRef;
   Q: QPixelSet;
   Image: QImage;
-  P: PChar;
+  P: PByte;
   ImageSize: TPoint;
   ScanlineWidth: Integer;
 begin
@@ -2981,11 +2981,11 @@ begin
       Inc(P, (3 * U) + ScanlineWidth * ((ImageSize.Y - 1) - V));
       if Color > $FFFFFF then
        raise EError(2605);
-      PByte(P)^:=Byte((Color and $FF0000) shr 16);
+      P^:=Byte((Color and $FF0000) shr 16);
       Inc(P);
-      PByte(P)^:=Byte((Color and $00FF00) shr 8);
+      P^:=Byte((Color and $00FF00) shr 8);
       Inc(P);
-      PByte(P)^:=Byte(Color and $0000FF);
+      P^:=Byte(Color and $0000FF);
     end
     else
     begin
@@ -3012,7 +3012,7 @@ var
   Index, Color: Integer;
   Q: QPixelSet;
   Image: QImage;
-  P: PChar;
+  P: PPaletteLmp;
   Red, Green, Blue: Byte;
 begin
   Result:=Nil;
@@ -3027,18 +3027,16 @@ begin
     if not (Q is QImage) then
      raise EError(2600);
     Image:=QImage(Q);
-    P:=PChar(Image.GetPalettePtr1);
+    P:=Image.GetPalettePtr1;
     if P = nil then
      raise EError(2602);
     if Image.IsTrueColor then
      raise EError(2609);
-    Inc(P, Index * 3);
-    Blue:=PByte(P)^;
-    Inc(P);
-    Green:=PByte(P)^;
-    Inc(P);
-    Red:=PByte(P)^;
-    Color:=Blue * 65536 + Green * 256 + Red;
+    Inc(P, Index);
+    Blue:=PPaletteLmp1(P)^[0];
+    Green:=PPaletteLmp1(P)^[1];
+    Red:=PPaletteLmp1(P)^[2];
+    Color:=(Integer(Blue) shl 16) + (Integer(Green) shl 8) + Integer(Red);
     Result:=PyInt_FromLong(Color);
   except
     Py_XDECREF(Result);
@@ -3055,7 +3053,7 @@ var
   Color: TColorRef;
   Q: QPixelSet;
   Image: QImage;
-  P: PChar;
+  P: PPaletteLmp;
 begin
   Result:=Nil;
   try
@@ -3072,17 +3070,15 @@ begin
     if not (Q is QImage) then
      raise EError(2600);
     Image:=QImage(Q);
-    P:=PChar(Image.GetPalettePtr1);
+    P:=Image.GetPalettePtr1;
     if P = nil then
      raise EError(2602);
     if Image.IsTrueColor then
      raise EError(2609);
-    Inc(P, Index * 3);
-    PByte(P)^:=Byte((Color and $FF0000) shr 16);
-    Inc(P);
-    PByte(P)^:=Byte((Color and $00FF00) shr 8);
-    Inc(P);
-    PByte(P)^:=Byte(Color and $0000FF);
+    Inc(P, Index);
+    PPaletteLmp1(P)^[0]:=Byte((Color and $FF0000) shr 16);
+    PPaletteLmp1(P)^[1]:=Byte((Color and $00FF00) shr 8);
+    PPaletteLmp1(P)^[2]:=Byte(Color and $0000FF);
     Result:=PyNoResult;
   except
     Py_XDECREF(Result);
@@ -3098,7 +3094,7 @@ var
   U, V, Color: Integer;
   Q: QPixelSet;
   Image: QImage;
-  P: PChar;
+  P: PByte;
   ImageSize: TPoint;
 begin
   Result:=Nil;
@@ -3119,7 +3115,7 @@ begin
     if (U < 0) or (U > ImageSize.X - 1) or (V < 0) or (V > ImageSize.Y - 1) then
      raise EError(2604);
     Inc(P, (1 * U) + ImageSize.X * ((ImageSize.Y - 1) - V));
-    Color:=PByte(P)^;
+    Color:=P^;
     Result:=PyInt_FromLong(Color);
   except
     Py_XDECREF(Result);
@@ -3136,7 +3132,7 @@ var
   Color: TColorRef;
   Q: QPixelSet;
   Image: QImage;
-  P: PChar;
+  P: PByte;
   ImageSize: TPoint;
 begin
   Result:=Nil;
@@ -3160,7 +3156,7 @@ begin
     if (U < 0) or (U > ImageSize.X - 1) or (V < 0) or (V > ImageSize.Y - 1) then
      raise EError(2604);
     Inc(P, (1 * U) + ImageSize.X * ((ImageSize.Y - 1) - V));
-    PByte(P)^:=Byte(Color and $0000FF);
+    P^:=Byte(Color and $0000FF);
     Result:=PyNoResult;
   except
     Py_XDECREF(Result);

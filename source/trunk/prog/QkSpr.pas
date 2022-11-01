@@ -319,7 +319,7 @@ var
   ID_SPRHEADER,Ver,cnt,typ,i,j,delta:Longint;
   rad:Single;
   w,h,z:Longint;
-  P:PChar;
+  P:PByte;
   SkinObj : QImage;
   Spr: QSprite;
   pt:TPoint;
@@ -411,7 +411,7 @@ var
   ID_SPRHEADER,Ver,cnt,typ,i,j,delta:Longint;
   rad:Single;
   w,h,z:Longint;
-  P:PChar;
+  P:PByte;
   SkinObj : QImage;
   bt:Byte;
   pt:TPoint;

@@ -1057,7 +1057,7 @@ var
   Position0, I, J, K, K1, Taille1, Delta, InputVertexCount: Integer;
   SkinGroup: skingroup_t;
   FrameGroup: framegroup_t;
-  P: PChar;
+  P: PByte;
   S: string;
   SkinObj: QImage;
   SkinSize: TPoint;

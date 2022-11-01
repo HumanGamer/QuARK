@@ -55,11 +55,11 @@ type
             {function GetSize : TPoint;}
              function GetImage1 : String;
              procedure GetImageData1(var Buf; BufSize: Integer);
-             function GetImagePtr1 : PChar;
+             function GetImagePtr1 : PByte;
             {function GetBitmapImage : TBitmap;}
              procedure GetPalette1(var Data: TPaletteLmp);
              function GetPalettePtr1 : PPaletteLmp;
-             function GetAlphaPtr1 : PChar;
+             function GetAlphaPtr1 : PByte;
              procedure PasteBitmap(Game: PGameBuffer; Bitmap: TBitmap);
             {procedure PasteBitmapH(NeededGame: Char; Handle: HBitmap);}
              procedure CopyImageToDC(DC: HDC; Left, Top: Integer);
@@ -1129,14 +1129,14 @@ begin
   end;
 end;
 
-function QImage.GetImagePtr1 : PChar;
+function QImage.GetImagePtr1 : PByte;
 const
  Spec1 = 'Image1';
 var
  S: String;
 begin
  S:=GetSpecArg(Spec1);
- Result:=PChar(S)+(Length(Spec1)+1);
+ Result:=PByte(PChar(S)+(Length(Spec1)+1));
 end;
 
 procedure QImage.GetPalette1(var Data: TPaletteLmp);
@@ -1163,14 +1163,14 @@ begin
  PChar(Result):=PChar(S)+(Length(Spec2)+1);
 end;
 
-function QImage.GetAlphaPtr1 : PChar;
+function QImage.GetAlphaPtr1 : PByte;
 const
  Spec3 = 'Alpha';
 var
  S: String;
 begin
  S:=GetSpecArg(Spec3);
- Result:=PChar(S)+(Length(Spec3)+1);
+ Result:=PByte(PChar(S)+(Length(Spec3)+1));
 end;
 
 {procedure QImage.GetAsTexture3D(var P: TTexture3D);
